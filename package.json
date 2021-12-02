@@ -1,0 +1,30 @@
+{
+  "name": "open-docs",
+  "main": "./dist/core.umd.js",
+  "module": "./dist/core.es.js",
+  "types": "./dist/types/scripts/index.d.ts",
+  "scripts": {
+    "start": "dumi dev",
+    "build": "dumi build"
+  },
+  "keywords": [
+    "ones"
+  ],
+  "maintainers": [
+    {
+      "name": "ones"
+    }
+  ],
+  "author": {
+    "name": "htmlin",
+    "email": "linhuangdong@ones.ai",
+    "url": "https://www.yuque.com/htmlin"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "dumi": "1.1.33",
+    "lint-staged": "12.1.2",
+    "prettier": "2.5.0",
+    "yorkie": "2.0.0"
+  }
+}

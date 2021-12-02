@@ -1,0 +1,13 @@
+.vscode/
+coverage/
+dist/**
+node_modules/
+build-storybook.log
+npm-debug.log
+
+.DS_Store
+
+# umi
+.umi
+.umi-production
+.env.local
