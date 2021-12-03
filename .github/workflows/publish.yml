@@ -1,8 +1,11 @@
 name: publish
-on: [push]
+on:
+  push:
+    branches:
+      - main
 jobs:
   publish:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -10,11 +13,7 @@ jobs:
           node-version: '16'
       - run: npm ci
       - run: npm run build
-      - run: command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )
-      - run: eval $(ssh-agent -s)
-      - run: echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add -
-      - run: mkdir -p ~/.ssh
-      - run: chmod 700 ~/.ssh
-      - run: echo "${{ secrets.SSH_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
-      - run: chmod 644 ~/.ssh/known_hosts
-      - run: scp -r ./dist/* linhuangdong@120.76.133.46:/data/www
+      - uses: alinz/ssh-scp-action@v0.1
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          scp: -r ./dist/* linhuangdong@120.76.133.46:/data/www
