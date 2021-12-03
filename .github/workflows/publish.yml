@@ -11,9 +11,18 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '16'
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
       - run: npm ci
       - run: npm run build
-      - uses: alinz/ssh-scp-action@v0.1.2
+      - uses: appleboy/scp-action@v0.0.1
         with:
+          host: 120.76.133.46
+          username: linhuangdong
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          scp: -r ./dist/* linhuangdong@120.76.133.46:/data/www
+          source: ./dist/*
+          target: /data/www
