@@ -19,9 +19,9 @@ jobs:
             ${{ runner.os }}-node-
       - run: npm ci
       - run: npm run build
-      - uses: appleboy/scp-action@v0.0.1
+      - uses: appleboy/scp-action@v0.1.2
         with:
-          host: '120.76.133.46'
+          host: 120.76.133.46
           username: linhuangdong
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: ./dist/*
