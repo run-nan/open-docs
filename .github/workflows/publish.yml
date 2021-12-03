@@ -15,8 +15,6 @@ jobs:
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
       - run: npm ci
       - run: npm run build
       - uses: appleboy/scp-action@v0.1.2
@@ -26,3 +24,4 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: ./dist/*
           target: /data/www
+          strip_components: 1
