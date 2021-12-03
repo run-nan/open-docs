@@ -5,7 +5,7 @@ on:
       - main
 jobs:
   publish:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -13,7 +13,7 @@ jobs:
           node-version: '16'
       - run: npm ci
       - run: npm run build
-      - uses: alinz/ssh-scp-action@v0
+      - uses: alinz/ssh-scp-action@v0.1.2
         with:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           scp: -r ./dist/* linhuangdong@120.76.133.46:/data/www
