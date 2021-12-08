@@ -9,5 +9,5 @@ export default defineConfig({
     ['zh-Hans', '中文'],
     ['en-US', 'English'],
   ],
-  // more config: https://d.umijs.org/config
+  hash: true,
 })
