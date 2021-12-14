@@ -211,6 +211,14 @@ https://${host}/plugin/${service.app_id}/${service.version}/modules/${modules[].
 
 声明一个全局弹窗模块，用于在上传文件前展示
 
+#### ones:login
+
+声明一个系统登录页模块，用于替换系统的默认登录页
+
+#### ones:login:connect
+
+声明一个系统登录页的第三方登录模块，用于新增系统登录页的第三方登录入口
+
 #### ones:desk
 
 声明一个系统应用模块，用于替换系统的「工单管理」模块
@@ -234,14 +242,6 @@ https://${host}/plugin/${service.app_id}/${service.version}/modules/${modules[].
 #### ones:deskhome:new
 
 声明一个系统应用顶栏菜单页模块，用于在系统的「工单门户」中追加新模块
-
-#### ones:login
-
-声明一个系统登录页模块，用于替换系统的默认登录页
-
-#### ones:login:connect
-
-声明一个系统登录页的第三方登录模块，用于新增系统登录页的第三方登录入口
 
 #### ones:manhour
 
