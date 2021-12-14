@@ -31,19 +31,19 @@ abilities:
 
 ## 基本信息
 
-### service.app_id
+### service.app_id<Badge>必填</Badge>
 
 - 类型：`string`
 
 插件的唯一标识，一般由脚手架自动生成
 
-### service.version
+### service.version<Badge>必填</Badge>
 
 - 类型：`string`
 
 插件的版本号
 
-### service.name
+### service.name<Badge>必填</Badge>
 
 - 类型：`string`
 
@@ -73,10 +73,6 @@ abilities:
 | required | 是否必填                                                                                                         |  boolean  |  是  |        |
 |     value      | 配置项默认值                                                                                          |  string  |  否 |        |
 |   type    | 配置项表单类型                                                                                                                       |  `101` - Input<br>`102` - Input.TextArea<br>`103` - Input.Password |  否  |     `102`   |
-
-## apis
-
-@todo
 
 ## 模块声明
 
@@ -856,5 +852,9 @@ https://${host}/plugin/${service.app_id}/${service.version}/modules/${modules[].
 声明一个组织管理的设置页模块，用于在系统的「组织管理」中追加新模块
 
 ## abilities
+
+@todo
+
+## apis
 
 @todo
