@@ -851,6 +851,46 @@ https://${host}/plugin/${service.app_id}/${service.version}/modules/${modules[].
 
 声明一个组织管理的设置页模块，用于在系统的「组织管理」中追加新模块
 
+#### ones:account:new
+
+声明一个个人中心的设置页模块，用于在系统的「个人中心」中追加新模块
+
+#### ones:account:personal
+
+声明一个个人中心的设置页模块，用于替换系统的「个人中心 - 个人信息」模块
+
+#### ones:account:personal:profile
+
+声明一个个人中心的设置页模块，用于替换系统的「个人中心 - 个人信息 - 账户信息」模块
+
+#### ones:account:personal:connect
+
+声明一个个人中心的设置页模块，用于替换系统的「个人中心 - 个人信息 - 绑定第三方账号」模块
+
+#### ones:account:personal:new
+
+声明一个个人中心的设置页模块，用于在系统的「个人中心 - 个人信息」中追加新模块
+
+#### ones:account:dashboard
+
+声明一个个人中心的设置页模块，用于替换系统的「个人中心 - 仪表盘」模块
+
+#### ones:account:dashboard:common
+
+声明一个个人中心的设置页模块，用于替换系统的「个人中心 - 仪表盘 - 常用仪表盘」模块
+
+#### ones:account:dashboard:create
+
+声明一个个人中心的设置页模块，用于替换系统的「个人中心 - 仪表盘 - 我创建的」模块
+
+#### ones:account:dashboard:share
+
+声明一个个人中心的设置页模块，用于替换系统的「个人中心 - 仪表盘 - 共享给我的」模块
+
+#### ones:account:dashboard:new
+
+声明一个个人中心的设置页模块，用于在系统的「个人中心 - 仪表盘」中追加新模块
+
 ## abilities
 
 @todo
