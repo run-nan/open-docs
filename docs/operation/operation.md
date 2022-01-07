@@ -16,23 +16,25 @@ nav:
 
 |     指令     | 子命令                       | 参数  | 说明  |
 | :----------: | :---------------- | :-------- | :-------- |
-| init | --mod | example | 根据demo生成事例项目，不需要添加任何参数直接生成 |
-| init | --mod | ability | 自定义项目，可根据自己的需求选择能力生成项目 |
+| init | --mode | again | 重新生成新的项目 |
+| init | --mode | depend | 安装前端能力依赖 |
 | config | --env | local | 环境配置文件的修改，检测本地项目中config文件下是否存在local.yaml文件，不存在用户可登陆环境录入参数生成，若存在用户可根据提示路径手动修改 |
 | config | --env | deploy-sit | 环境配置文件的修改，检测本地项目中config文件下是否存在ci-deploy.yaml文件，不存在用户可登陆环境录入参数生成，若存在用户可根据提示路径手动修改 |
 | runlocal | 无 | 无 | 启动DEV环境，可选择插件的生命周期进行插件的操作，enable、disable、install、uninstall、start、run等，其中执行run将会自动执行install等操作，clear将会自动执行disable、uninstall等操作 |
 | tag | --msg | #123233 | 当Tag消息匹配到ONES需求单序号时，对应的ONES插件工作项将会与该需求单建立关联。 |
 | tag | --name | P11111 | Tag的名称，为空时，将自动使用当前代码仓中最近一次Tag名称的下一个小版本作为tag号 |
-| web | --operate | depend | 下载前端依赖 |
-| web | --operate | install | 安装前端能力 |
+| add | -way | b | 添加后端能力 |
+| add | -way | f | 添加前端能力 |
+
+
 
 # init(初始化项目)
 
 ## go语言
 
-- 用户选择完语言以后选择能力
+- 用户先选择前后端能力
 
-- 能力列表
+- 前后端能力列表展示
 
 |     名称     | 说明                       |
 | :----------: | :------------------------- |
@@ -40,17 +42,7 @@ nav:
 | 拦截时间 | 拦截接口被调用时间 |
 
 - 用户选择能力后可以根据所选的能力自定义关于这个能力的一些属性
-
-|     名称     | 可更改属性                       | 类型  | 说明  |
-| :----------: | :---------------- | :-------- | :-------- |
-| 简单登录认证 | name | string | 能力的名字 |
-| 简单登录认证 | testflag | bool |  |
-| 拦截时间 | setting.timing | string | 设置拦截时间的方式 |
-| setting.timing | prefix | string | 前置拦截 |
-| setting.timing | suffix | string | 后置拦截 |
-| 拦截时间 | operating | string | 设置拦截时间的功能 |
-| operating | addManhour | string | 添加工时功能 |
-| operating | updateManhour | string | 更新工时功能 |
+- 详见配置 https://ones.ai/wiki/#/team/RDjYMhKq/space/DJn91vTZ/page/KQXfnRVR
 
 - 配置完成生成项目
 
