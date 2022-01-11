@@ -27,7 +27,7 @@ cli工具目的分别有
 
 
 
-## 获取工具
+## 工具下载
 
 - Gitlab所建的仓中有mac版本，windows版本的cli工具
 - 将Gitlab的仓拉取到本地，并给予cli工具可执行权限：chmod +x plugin-cli-inter-for-mac-1.0.9
