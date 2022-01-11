@@ -1,6 +1,6 @@
 ---
 nav:
-title: CLI工具操作文档
+  title: CLI工具操作文档
 order: 3
 toc: menu
 ---
