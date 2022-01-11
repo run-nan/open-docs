@@ -60,24 +60,7 @@ contents:
       "configfilename": "Manhours"
 ```
 
-代码块YAML 复制
 
-```YAML
-contents:
-  titles:
-    -
-      "abilityid": "lt1ZZuQQ"
-      "description": "系统提供简单认证的能力，可以让插件开发者自定义登录认证的验证逻辑"
-      "defaultname": "简单登录认证"
-      "configfilename": "SimpleAuth"
-    -
-      "abilityid": "lt1ZZuMM"
-      "description": "拦截接口被调用时间"
-      "defaultname": "拦截时间"
-      "configfilename": "Manhours"
-```
-
-![点击并拖拽以移动](data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==)
 
 ​    每新增一个能力，先在content.yaml文件下设置该能力可以被选择，能力开发者在titles下配置内容如下，
 
@@ -129,44 +112,6 @@ customizes:
     allowUserConfig: true
 ```
 
-代码块YAML 复制
-
-```YAML
-abilityid: lt1ZZuMM
-defaultname: 拦截时间
-templates:
-  abilities:
-    - id: manhour-upsert-limit
-      name: 拦截时间
-      abilityType: ManhourLimit
-      function:
-        impl: CheckManhourOp
-      setting:
-        timing: ${1}
-        operating: ${2}
-customizes:
-  -
-    value: ${1}
-    msg: abilities.setting.timing的配置
-    help: 时间点确认：前置(prefix)或者后置(suffix)
-    type: 104
-    scope: prefix,suffix
-    scopedesc: 前置接口,后置接口
-    defaultvalue: prefix
-    allowUserConfig: true
-  -
-    value: ${2}
-    msg: abilities.setting.operating的配置
-    help: 针对时间点的函数名称
-    type: 105
-    scope: addManhour,updateManhour
-    scopedesc: 添加工时,更新工时
-    defaultvalue: addManhour
-    allowUserConfig: true
-```
-
-![点击并拖拽以移动](data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==)
-
  能力模板主要分为以下四个内容：
 
 ​     "abilitysID":    能力ID，要求与content.yaml设置的一致   
@@ -207,37 +152,6 @@ customizes:
 **（3）能力示例代码设置**
 
    在 codemodel文件下添加configfilename.go文件，例如Manhours.go文件内容如下，
-
-```Go
-package main
-
-import (
-	"encoding/json"
-	"fmt"
-	"github.com/bangwork/ones-plugin-common/golang/common"
-	"net/http"
-)
-
-// 实现计算脚本属性统计能力
-func (p *mockPlugin) GetAllManHours(request *common.HttpRequest) *common.HttpResponse {
-	fmt.Println("进入工时统计方法....")
-	resp := new(common.HttpResponse)
-	type Manhours struct {
-		TaskUUID string `json:"taskUUID"`
-		Manhour  int64  `json:"value"`
-	}
-	type ManhourResp struct {
-		Manhour []Manhours `json:"values"`
-	}
-	var mhr ManhourResp
-	body, _ := json.Marshal(mhr)
-	resp.StatusCode = http.StatusOK
-	resp.Body = body
-	return resp
-}
-```
-
-代码块go 复制
 
 ```Go
 package main
