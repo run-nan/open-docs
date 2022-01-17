@@ -23,21 +23,33 @@ toc: menu
 
 ​    [开放平台-开放能力模板配置地址](https://gitlab.plugins.myones.net/example/abilitycodesnippet.git) 
 
-​    能力开发者将项目拉取到本地后，先对基本项目的结构进行了解。
+   能力开发者将项目拉取到本地后，先对整个项目的结构进行了解。
 
-​    --abilitys: 能力配置模板的yaml文件
+   **template**:
 
-​    --bankend：插件后端生成的代码
+​        **content.yaml** : 能力目录
 
-​    --codeModel：往bankend文件下的main.go增加的能力内容的go文件
+​        **abilitys**: 能力配置模板的yaml文件
 
-​    --config：插件自身配置文件
+​        **codeModel**：往bankend文件下的main.go增加的能力内容的go文件
 
-​    --web：插件前端生成的代码
+​        **sqlModel** :  往workspace中的plugin.sql添加数据库配置
 
-​    --workspace：插件运行环境的配置文件
+​    **bankend**：插件后端生成的代码
 
-   能力开发者着重关注在abilitys下添加 abilityName.yaml（能力配置模板yaml文件）和在codeModel下添加abilityName.go（能力示例代码go文件）
+​    **config**：插件自身配置文件
+
+​    **web**：插件前端生成的代码
+
+​    **workspace**：插件运行环境的配置文件
+
+   能力自定义配置时，主要关注以下几个地方：
+
+​       1、abilitys下添加 abilityName.yaml   （能力配置模板json文件）
+
+​       2、在codeModel下添加abilityName.go（能力示例代码go文件）
+
+​       3、在sqlModel下添加abilityName.sql （能力示例需要的sql文件）
 
 
 
@@ -114,12 +126,12 @@ customizes:
 
  能力模板主要分为以下四个内容：
 
-​     "abilitysID":    能力ID，要求与content.yaml设置的一致   
+​     "abilitysID"      :    能力ID，要求与content.yaml设置的一致   
 ​     "defaultname": 能力名称，要求与content.yaml设置的一致 
 
-​     "templates"  : 往plugin.yaml文件添加的能力模板内容
+​     "templates"     : 往plugin.yaml文件添加的能力模板内容
 
-​     "customizes" : 自定义能力填写规则
+​     "customizes"   : 自定义能力填写规则
 
 
 
@@ -185,6 +197,32 @@ func (p *mockPlugin) GetAllManHours(request *common.HttpRequest) *common.HttpRes
    当“Manhours”能力被选中并且配置后，backend文件下会生成"ability+manhours.go"文件。
 
    编写能力示例代码 **import导入相关包的时候留意导入的包是否完整**，不然会在生成项目的时候失败。
+
+
+
+**（4）能力示例sql配置**
+
+​    在 sqlmodel文件下添加configfilename.sql文件，sql模板内容如下，
+
+```SQL
+CREATE TABLE IF NOT EXISTS `{{filedstable}}`  (
+    `field_uuid` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '属性uuid',
+    `field_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '属性名字',
+    `field_type` int(3) NOT NULL COMMENT '属性类型',
+    `sort` int(2) NOT NULL COMMENT '排序',
+    `create_time` bigint(20) NOT NULL COMMENT '创建时间',
+    PRIMARY KEY (`field_uuid`)
+    ) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE IF NOT EXISTS `{{issuetable}}`  (
+    `issue_uuid` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '工作项uuid',
+    `issue_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '工作项名字',
+    `sort` int(2) NOT NULL COMMENT '排序',
+    `create_time` bigint(20) NOT NULL COMMENT '创建时间',
+    PRIMARY KEY (`issue_uuid`)
+    ) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+```
 
 
 
