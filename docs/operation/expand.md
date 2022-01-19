@@ -224,7 +224,23 @@ CREATE TABLE IF NOT EXISTS `{{issuetable}}`  (
     ) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ```
 
+## 调试本地的插件后端代码说明
 
+1.调试代码依赖具体使用ide，但方式都是一样的，下面以goland为例，把本地goland配置成以下即可，点击调试即运行后端插件：
+
+![test](../image/local1.png)
+
+2.若插件有前端部分，在当前插件目录运行命令: npm ./web start，运行前端插件
+
+## 平台tcp服务端口获取
+
+1.可以通过ssh到dev服务器，到相应分支的platform项目中的配置文件查看：/data/app/ones-platform-api/branch_name/config/config.json tcp_port
+
+2.可在job中搜索：PLATFORM_TCP_PORT
+
+![test](../image/local2.png)
+
+  该接口用于local.yaml文件中的platform:address，用于表示本地host环境对应的platform环境是那个，内部开发统一为 tcp://119.23.130.213:tcp_port
 
 ## 前端能力说明
 
