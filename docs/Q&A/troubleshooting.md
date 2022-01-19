@@ -1,7 +1,7 @@
 ---
 nav:
-  title: CLI工具操作文档
-order: 4
+  title: Q&A
+order: 1
 toc: menu
 ---
 # 排疑解难
@@ -29,3 +29,16 @@ unsafe-perm=true
 
 保存执行 **"./工具名称  init -m=depend"** ,交互界面提示成功即可。
 
+<br >
+
+<br >
+
+（2）**后端依赖安装出现问题**
+
+提示error ：cmake: command not found
+
+1、从CMake [官网下载](https://cmake.org/download/) 下载dmg文件并安装
+
+2、安装好之后执行 ：sudo "/Applications/CMake.app/Contents/bin/cmake-gui" --install
+
+3、cmake --version查看版本
