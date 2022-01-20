@@ -39,6 +39,6 @@ unsafe-perm=true
 
 1、从CMake [官网下载](https://cmake.org/download/) 下载dmg文件并安装
 
-2、安装好之后执行 ：sudo "/Applications/CMake.app/Contents/bin/cmake-gui" --install
+2、mac系统：安装好之后执行 ：sudo "/Applications/CMake.app/Contents/bin/cmake-gui" --install
 
 3、cmake --version查看版本
