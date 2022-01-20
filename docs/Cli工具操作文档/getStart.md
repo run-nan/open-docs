@@ -1,13 +1,10 @@
 ---
+order: 1
+title: 快速入门
 nav:
-  title: CLI工具操作文档
+  title: Cli工具操作文档
   order: 5
-  toc: menu
 ---
-
-# 快速入门
-
-
 
 ## 简介
 

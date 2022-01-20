@@ -1,13 +1,7 @@
 ---
-nav:
-  title: CLI工具操作文档
 order: 2
-toc: menu
+title: 核心功能
 ---
-
-# 核心功能
-
-
 
 ## 登录
 

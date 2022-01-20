@@ -1,13 +1,7 @@
 ---
-nav:
-  title: CLI工具操作文档
 order: 3
-toc: menu
+title: 扩展
 ---
-
-# 扩展
-
-
 
 ## 插件配置
 
@@ -23,9 +17,9 @@ toc: menu
 
 ​    [开放平台-开放能力模板配置地址](https://gitlab.plugins.myones.net/example/abilitycodesnippet.git) 
 
-   能力开发者将项目拉取到本地后，先对整个项目的结构进行了解。
+   能力开发者将项目拉取到本地后，先对整个项目的结构进行了解
 
-   **template**:
+**template**:
 
 ​        **content.yaml** : 能力目录
 
@@ -35,13 +29,13 @@ toc: menu
 
 ​        **sqlModel** :  往workspace中的plugin.sql添加数据库配置
 
-​    **bankend**：插件后端生成的代码
+**bankend**：插件后端生成的代码
 
-​    **config**：插件自身配置文件
+​        **config**：插件自身配置文件
 
-​    **web**：插件前端生成的代码
+​         **web**：插件前端生成的代码
 
-​    **workspace**：插件运行环境的配置文件
+​         **workspace**：插件运行环境的配置文件
 
    能力自定义配置时，主要关注以下几个地方：
 

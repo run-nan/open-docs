@@ -42,3 +42,12 @@ unsafe-perm=true
 2、mac系统：安装好之后执行 ：sudo "/Applications/CMake.app/Contents/bin/cmake-gui" --install
 
 3、cmake --version查看版本
+
+
+
+提示：npm ERR! gyp ERR! stack FetchError: request to https://nodejs.org/download/release/v16.13.0/node-v16.13.0-headers.tar.gz failed, reason: **Hostname/IP does not match certificate's altnames: IP:xxx.xx.xx.xx is not in the cert's list:**
+
+1、关闭代理
+
+2、执行 npm set strict-ssl false
+
