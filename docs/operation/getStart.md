@@ -1,8 +1,8 @@
 ---
 nav:
   title: CLI工具操作文档
-order: 1
-toc: menu
+  order: 5
+  toc: menu
 ---
 
 # 快速入门

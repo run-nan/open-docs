@@ -1,7 +1,7 @@
 ---
 nav:
   title: 配置
-order: 1
+  order: 1
 toc: menu
 ---
 

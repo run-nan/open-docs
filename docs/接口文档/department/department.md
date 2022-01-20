@@ -1,6 +1,7 @@
 ---
+title:  部门相关接口
 group:
-  title: Department部门
+  title: Department
   order: 3
 ---
 # ONES Department API

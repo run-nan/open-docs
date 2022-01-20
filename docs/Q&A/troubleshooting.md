@@ -1,8 +1,8 @@
 ---
 nav:
   title: Q&A
-order: 1
-toc: menu
+  order: 6
+  toc: menu
 ---
 # 排疑解难
 

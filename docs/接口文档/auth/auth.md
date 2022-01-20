@@ -1,7 +1,12 @@
 ---
+title: auth相关接口
 group:
   title: Auth授权
   order: 1
+nav:
+  title: 接口文档
+  order: 3
+  toc: menu
 ---
 # ONES Auth API
 
