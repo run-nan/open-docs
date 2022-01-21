@@ -2,8 +2,143 @@
 nav:
   title: 指南
   order: 1
+
 ---
+
+
 
 # 快速上手
 
-Balabala...
+## 1、建立工单
+
+开发者在【ONES】—【交付物管理】新建【插件】工作项，5分钟后，该工作项的状态将会更新为【已建仓】，并且在GitLab中创建对应的代码仓库
+
+
+
+## 2、 Clone代码
+
+将新建的代码仓库git到本地，此时项目下出现新的README.md，完成项目克隆。
+
+
+
+## 3、工具下载
+
+开发者根据操作系统下载适配的工具，并且将工具添加到开发代码仓库，工具下载链接：https://github.com/BangWork/plugin-cli/releases/latest
+
+
+
+## 4、插件项目初始化
+
+使用命令 “**./pd init**” ，如果用户没有登录，工具交互界面会提示用户是否登录，如需登录可以参考“用户登录”，跳过登录后，工具会生成新的nodejs项目模板，并且安装整个插件项目需要的前端、后端依赖，安装完成后会提示用户是否添加能力或模板，如需添加能力或模板可以参考"添加能力"。
+
+
+
+## 5、用户登录
+
+使用命令 “**./pd login**” ，分别会提醒开发者填写以下内容：
+
+1、开发环境的URL：https://devapi.myones.net/project/master ,开发者可以根据开发需求修改分支，例如可以修改为https://devapi.myones.net/project/P8022
+
+2、用户账号
+
+3、用户密码
+
+4、选择团队或新建团队（新生成的插件会在该团队下）
+
+5、输入平台服务ip和端口号
+
+6、输入推送代码的开发分支，如果在第一步选择了P8022分支，这里会默认为P8022，开发者可以直接确认。
+
+填写完毕后完成登录操作，备注：在项目初始化的时候，都会检测用户是否登录，如果登录过则会取消该提醒。
+
+
+
+## <span id="debug">6、插件调试</span>
+
+使用命令 “.**/pd run**” ，执行完毕会显示内容如下
+
+```json
+----开发环境访问路径：https://dev.myones.net/project/P8022
+{
+  action: 'run',
+  email: '',
+  password: '',
+  reinstall: false,
+  instance_uuid: undefined,
+  hostID: undefined,
+  webIp: '127.0.0.1',
+  webPort: '3000',
+  orgUUID: 'JGpj1YSe',
+  teamUUID: 'TMEQBHyH',
+  user_uuid: 'WhFspqKJ',
+  token: '********************************************',
+  webServiceUrl: '127.0.0.1:3000'
+}
+Chrome Inspector: devtools://devtools/bundled/inspector.html?experiments=true&v8only=true&ws=127.0.0.1:10000
+本地调试返回值: {"instance_uuid":"9cfd627e","token":"********************************************","user_uuid":"WhFspqKJ"}
+```
+
+（1）如果是本地开发调试，用户可以使用postman等工具调试该插件，调用插件现有的内置方法，
+
+​	   url ：'https://devapi.myones.net/project/P8022/test1' 
+
+​	   --header 'Ones-Check-Point: team' \
+​	   --header 'Ones-Plugin-Id: b9f62dab' \
+
+​	    method：GET
+
+​    发起请求响应内容输出“hello world”即可成功。
+
+
+
+（2）如果用户已经登录，在浏览器中输入 https://dev.myones.net/project/master(或其他分支)，页面打开后， 使用ONESHelper指定 API Branch 为：P8022（开发环境的URL），并且打开插件配置。
+
+（3）在run命令执行后的日志中找到**“devtools://devtools/bundled/inspector.html?experiments=true&v8only=true&ws=127.0.0.1:10000”**的链接，复制到**谷歌浏览器**打开，点击source，可以看到nodejs插件代码**，在代码中设置断点，再使用postman发起请求，控制台会实时输出参数信息，并且支持修改代码。**
+
+
+
+## 7、添加能力
+
+​       使用命令 “.**/pd add**” ，交互界面显示可以添加的能力列表，选中需要添加的能力，点击“默认配置”或者“自定义配置”后会将新能力添加到当前的插件中去，能力展示的多样性可以让开发者看到**config/plugin.yaml文件新增配置、backend/src目录下会新增新的ts文件**等内容。
+
+​        新增能力后需要执行“.**/pd runlocal**”，选择“**clear**”，然后再执行 “.**/pd run**” ，继续执行新增新能力的调试，调试步骤可以参考<a href="debug">插件调试</a>
+
+备注：使用clear的作用是为了重装插件内容。
+
+
+
+## 8、本地插件打包
+
+​        使用命令 “.**/pd package**” ，会在当前目录下生成“**{工程名}.opk**”的插件包
+
+
+
+## 9、生成交付物
+
+​        1、使用命令 “.**./pd tag --name=1.0.0 --msg=#273674**”，  其中“name”是需要交付的版本号，msg就是在第一步建立工作项的工单号，输入指令后，交互界面会提示开发者输入“token”，该token需要输入的呢绒就是开发者在gitlab生成的token信息，token生成可以参考网上步骤。
+
+​        2、确认关联工单需求后，交互界面提示
+
+```properties
+Tag将会执行如下步骤
+        1. 修改plugin.yaml中version与Tag号一致
+        2. git add
+        3. git commit
+        4. git push
+        5. 根据分支调用远程仓库Tag接口，并触发CI Yes
+```
+
+​        再次确认之后，触发 gitlab CI ，完成CI工作后，交互界面提示 “Tag:1.0.0 Message:#273674 创建成功”后，开发者打开对应的代码仓库，点击左侧的ci/cd,点击流水线，找到最新的下载产物，点击包含opk的选项，下载该压缩包完成操作。
+
+
+
+
+
+
+
+
+
+
+
+
+
