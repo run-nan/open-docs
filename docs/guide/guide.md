@@ -17,7 +17,7 @@ Plugin Develop （简称 PD）是一个 ones开放平台提供的插件开发增
 
 <b style="color:green;">
 
-- 拥有 Node.js (16.x.x版本)开发环境
+- 拥有 Node.js (16.13.0+版本)开发环境
 - 熟悉 Node.js 开发
 
 </b>
