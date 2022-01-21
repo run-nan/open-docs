@@ -1,3 +1,9 @@
+---
+title: 组织相关接口
+group:
+  title: Organization
+  order: 4
+---
 <!-- TOC depthFrom:1 depthTo:2 orderedList:false -->
 
 # ONES Organization API
