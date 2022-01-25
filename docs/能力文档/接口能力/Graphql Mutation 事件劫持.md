@@ -6,8 +6,8 @@ group:
     order: 2
 ---
 
-| 能力代号            | 能力名称 |
-| ------------------- | -------- |
+|      能力代号       | 能力名称 |
+| :-----------------: | :------: |
 | MutationEventHijack | 事件劫持 |
 
 
@@ -23,17 +23,40 @@ group:
 
 ### 能力声明
 
+在plugin.yaml中添加
+
 ```yaml
-apis:
-	  type: prefix
-    methods:
-      - GET
-    url: /url        //标品url
-    function:Version //名称与代码里的函数名保持一致 并首字母必须大写
+  abilities:
+    - id: manhour-upsert-limit
+      abilityType: item-mutation
+      function:
+        checkManhour: CheckManhourOp
+      setting:
+        prefix: check
+        operating: addManhour,updateManhour
 ```
 
 ### 调用方法
 
+在mutationeventhijack.ts文件中可以调用CheckManhourOp()方法。
+
+```javascript
+import { Logger } from '@ones-op/node-logger'
+
+export async function CheckManhourOp(request: any) {
+   const body = request.body || {}
+   Logger.info('[Plugin] CheckManhourOp =======', body)
+   return {
+      body: {
+         code: 200,
+         ResponseModel : "Plugin.RegistrableDays",
+         Reason:  "Success",
+         Type:    null,
+         Body:    null,
+      }
+   }
+}
+```
 
 
 
