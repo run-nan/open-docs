@@ -24,14 +24,14 @@ local:
   version: 0.2.0
   language: golang
   languageversion: 1.14.0
-  organization_uuid: JGpj1YSe
-  team_uuid: H5Nq6uf6
+  organization_uuid: JG******
+  team_uuid: H5******
   sub_version: 1.14.0
   min_system_version: 3.2.0
   web_service_port: "3000"
   instance_uuid: 3468f045
-  token: GX0UHO9VHwYoOWbfT2Mt2KoMlsgfD3tc24T3g5owznNZNzg9kxWhfxRISeiLeXMl
-  user_uuid: WhFspqKJ
+  token: GX0******************************************************
+  user_uuid: Wh******
   log_in_local: false
   file_in_local: false
   mysql_in_local: false
@@ -239,7 +239,7 @@ default.ones-check-point: team
 default.ones-plugin-id: built_in_apis
 default.organization_uuid: L7i7kYQA
 default.team_uuid: 9AgXycMJ
-default.token: 3cPwrDp5ljXFPRYFkkwnFen9LuopdZUPYGZHwmVPq3Oc08iZitvCBmI9EiqnCWKt
+default.token: 3cPwr******************************************************
 default.user_uuid: 59rkUQXe
 ```
 

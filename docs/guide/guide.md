@@ -83,24 +83,24 @@ PD 工具下载异常的简单，我们根据操作系统下载适配的工具�
   hostID: undefined,
   webIp: '127.0.0.1',
   webPort: '3000',
-  orgUUID: 'JGpj1YSe',
-  teamUUID: 'TMEQBHyH',
-  user_uuid: 'WhFspqKJ',
+  orgUUID: 'JG******',
+  teamUUID: 'TM******',
+  user_uuid: 'Wh******',
   token: '********************************************',
   webServiceUrl: '127.0.0.1:3000'
 }
 Chrome Inspector: devtools://devtools/bundled/inspector.html?experiments=true&v8only=true&ws=127.0.0.1:10000
-本地调试返回值: {"instance_uuid":"9cfd627e","token":"********************************************","user_uuid":"WhFspqKJ"}
+本地调试返回值: {"instance_uuid":"9c******","token":"********************************************","user_uuid":"Wh******"}
 ```
 
 （1）如果是本地开发调试，我们可以使用postman等工具调试该插件，调用插件现有的内置方法，
 
-​	   url ：'https://devapi.myones.net/project/P8022/test1' 
-
-​	   --header 'Ones-Check-Point: team' 
-​	   --header 'Ones-Plugin-Id: b9f62dab' 
-
-​	    method：GET
+```pro
+ url ：'https://devapi.myones.net/project/P8022/test1' 
+ --header 'Ones-Check-Point: team' 
+ --header 'Ones-Plugin-Id: c5********' 
+ method：GET
+```
 
 ​    发起请求响应内容输出“hello world”即可成功。
 
