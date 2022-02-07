@@ -30,7 +30,7 @@ Plugin Develop （简称 PD）是一个 ones开放平台提供的插件开发增
 
 
 
-## 2、 Clone代码
+## 2、Clone代码
 
 将新建的代码仓库git到本地，此时项目下出现新的README.md，完成项目克隆。
 
