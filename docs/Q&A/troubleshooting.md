@@ -43,11 +43,40 @@ unsafe-perm=true
 
 3、cmake --version查看版本
 
+<br >
 
+<br >
+
+（3）**提示代理出错**
 
 提示：npm ERR! gyp ERR! stack FetchError: request to https://nodejs.org/download/release/v16.13.0/node-v16.13.0-headers.tar.gz failed, reason: **Hostname/IP does not match certificate's altnames: IP:xxx.xx.xx.xx is not in the cert's list:**
 
 1、关闭代理
 
 2、执行 npm set strict-ssl false
+
+
+
+**（4）mac系统升级导致Xcode出现不可预期的错误**
+
+提示：
+
+```javascript
+No receipt for 'com.apple.pkg.DeveloperToolsCLILeo' found at '/'.
+No receipt for 'com.apple.pkg.DeveloperToolsCLI' found at '/'.
+No receipt for 'com.apple.pkg.CLTools_Executables' found at '/'.
+```
+
+方法一（推荐）下载包地址：https://developer.apple.com/download/all/?q=Command%20Line%20Tools%20for%20Xcode
+
+</br>
+
+方法二（谨慎使用）
+
+```shell
+sudo rm -rf $(xcode-select -print-path)
+xcode-select --install
+```
+
+
 
