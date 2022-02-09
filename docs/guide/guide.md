@@ -38,25 +38,31 @@ nav:
 
 ## 1、建立工单
 
-&emsp;&emsp;开发者在【ONES】—【交付物管理】新建【插件】工作项，5分钟后，该工作项的状态将会更新为【已建仓】，并且在GitLab中创建对应的代码仓库
+&emsp;&emsp;开发者在【ONES】—【交付物管理】新建【插件】工作项，5分钟后，该工作项的状态将会更新为【已建仓】，并且在GitLab中创建对应的代码仓库。
 
 
 
 ## 2、Clone代码
 
-&emsp;&emsp;将新建的代码仓库git到本地，此时项目下出现新的README.md，完成项目克隆。
+&emsp;&emsp;将新建的代码仓库克隆到本地。
 
 
 
 ## 3、工具下载
 
-&emsp;&emsp;PD 工具下载异常的简单，我们根据操作系统下载适配的工具，并且将工具添加到开发代码仓库，工具下载链接：https://github.com/BangWork/plugin-cli/releases/latest
+&emsp;&emsp;PD 工具下载操作很简单，我们可以根据操作系统下载适配的工具，并且将PD工具添加到开发文件项目下，工具下载链接：https://github.com/BangWork/plugin-cli/releases/latest
 
 
 
 ## 4、插件项目初始化
 
-&emsp;&emsp;使用命令 “**./pd init**” ，如果用户没有登录，工具交互界面会提示用户是否登录，如需登录可以参考<a href="#login">用户登录</a>，跳过登录后，工具会生成新的Node.js 项目模板，并且安装整个插件项目需要的前端、后端依赖，安装失败可以参考[Q&A](../Q&A/troubleshooting.md)，安装完成后会提示用户是否添加能力或模板，如需添加能力或模板可以参考<a href="#add">添加能力</a>。
+&emsp;&emsp;使用"**./pd init**" 命令进行插件项目初始化，
+
+&emsp;&emsp;（1）进入初始化插件项目阶段后，如果用户没有登录，工具交互界面会提示用户是否登录（登录参考<a href="#login">用户登录</a>）；
+
+&emsp;&emsp;（2）可以选择跳过登录后，工具就会生成新的Node.js 项目模板，并且安装插件项目开发会用到的前后端依赖，在安装过程中提示失败可以参考[Q&A](../Q&A/troubleshooting.md)；
+
+&emsp;&emsp;（3）安装完成后会提示用户是否添加能力或模板，如需添加能力或模板可以参考<a href="#add">添加能力</a>。
 
 
 
@@ -122,8 +128,6 @@ Chrome Inspector: devtools://devtools/bundled/inspector.html?experiments=true&v8
 
   &emsp;发起请求后，控制台输出“hello world”即可成功。
 
-
-
 &emsp;&emsp;（2）在浏览器中输入 https://dev.myones.net/project/master (或其他分支)，页面打开后， 使用**ONESHelper**指定 API Branch 为：P8022（开发环境的URL），并且打开插件配置。
 
 &emsp;&emsp;（3）在run命令执行后的日志中找到 "devtools://devtools/bundled/inspector.htmlexperiments=true&v8only=true&ws=
@@ -134,9 +138,13 @@ Chrome Inspector: devtools://devtools/bundled/inspector.html?experiments=true&v8
 
 ## <span id="add">7、添加能力</span>
 
-&emsp;&emsp;使用命令 “.**/pd add**” ，交互界面显示可以添加的能力列表，选中需要添加的能力，点击“默认配置”或者“自定义配置”后会将新能力添加到当前的插件中去，能力展示的多样性可以让我们看到**config/plugin.yaml文件新增配置、backend/src目录下会新增新的ts文件**等内容。
+&emsp;&emsp;使用命令 “.**/pd add**” ，交互界面显示可以添加的能力列表，
 
-&emsp;&emsp;新增能力后需要执行".**/pd runlocal**"命令，选择"**clear**"，然后执行 "**./pd run**" 命令就可以继续执行插件新增能力的调试，调试步骤可以参考<a href="#debug">插件调试</a>
+&emsp;&emsp;（1）选中需要添加的能力；
+
+&emsp;&emsp;（2）点击“默认配置”或者“自定义配置”后，PD工具会将新能力添加到当前的插件中去，能力展示的多样性可以让我们看到**config/plugin.yaml文件新增配置、backend/src目录下会新增新的ts文件**等内容；
+
+&emsp;&emsp;（3）新增能力后需要执行".**/pd runlocal**"命令，选择"**clear**"，然后执行 "**./pd run**" 命令就可以继续执行插件新增能力的调试，调试步骤可以参考<a href="#debug">插件调试</a>。
 
 &emsp;&emsp;备注：使用clear的作用是为了重装插件内容。
 
@@ -152,7 +160,7 @@ Chrome Inspector: devtools://devtools/bundled/inspector.html?experiments=true&v8
 
 &emsp;&emsp;1、使用命令 “.**./pd tag --name=1.0.0 --msg=#273xxx**”，  其中“name”是需要交付的版本号，msg就是在第一步建立工作项的工单号，输入指令后，交互界面会提示开发者输入“token”，该token需要输入的就是我们在gitlab生成的token信息，token生成可以参考网上步骤。
 
-​        2、确认关联工单需求后，交互界面提示
+&emsp;&emsp;2、确认关联工单需求后，交互界面提示，
 
 ```properties
 Tag将会执行如下步骤
