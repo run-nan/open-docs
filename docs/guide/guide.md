@@ -64,7 +64,7 @@ nav:
 
 &emsp;&emsp;使用命令 “**./pd login**” ，分别会提醒我们填写以下内容：
 
-&emsp;&emsp;&emsp;&emsp;1、开发环境的URL：https://devapi.myones.net/project/master ,我们可以根据开发需求修改分支，例如可以修改为https://devapi.myones.net/project/P8022
+&emsp;&emsp;&emsp;&emsp;1、登录开发环境的URL：https://devapi.myones.net/project/master ,我们可以根据开发需求修改分支，例如可以修改为https://devapi.myones.net/project/P8022
 
 &emsp;&emsp;&emsp;&emsp;2、用户账号
 
@@ -72,9 +72,9 @@ nav:
 
 &emsp;&emsp;&emsp;&emsp;4、选择团队或新建团队（新生成的插件会在该团队下）
 
-&emsp;&emsp;&emsp;&emsp;5、输入平台服务ip和端口号，如：tcp://119.23.130.213:20003
+&emsp;&emsp;&emsp;&emsp;5、输入平台服务ip和端口号，如：tcp://119.23.130.213:20001
 
-&emsp;&emsp;&emsp;&emsp;6、输入推送代码的开发分支，如果在第一步选择了P8022分支，这里会默认为P8022，我们可以直接确认。
+&emsp;&emsp;&emsp;&emsp;6、输入推送代码的开发分支，目的是为了将插件部署到分支对应的环境（可以是开发环境，也可以是测试环境）。
 
 &emsp;&emsp;&emsp;&emsp;填写完毕后完成登录操作。
 
