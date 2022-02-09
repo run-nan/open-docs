@@ -4,9 +4,11 @@ nav:
   order: 6
   toc: menu
 ---
-# 排疑解难
+# Q & A
 
-（1）**前端依赖安装出现问题**
+
+
+### **前端依赖安装出现问题**
 
 如果安装node 包报 404 解决方法：在用户目录( ~) 下新建 .npmrc 文件，执行以下命令，
 
@@ -33,7 +35,7 @@ unsafe-perm=true
 
 <br >
 
-（2）**后端依赖安装出现问题**
+### **后端依赖安装提示cmake没有安装**
 
 提示error ：cmake: command not found
 
@@ -47,7 +49,7 @@ unsafe-perm=true
 
 <br >
 
-（3）**提示代理出错**
+### **后端安装依赖提示代理出错**
 
 提示：npm ERR! gyp ERR! stack FetchError: request to https://nodejs.org/download/release/v16.13.0/node-v16.13.0-headers.tar.gz failed, reason: **Hostname/IP does not match certificate's altnames: IP:xxx.xx.xx.xx is not in the cert's list:**
 
@@ -59,7 +61,7 @@ unsafe-perm=true
 
 <br >
 
-**（4）mac系统升级导致Xcode出现不可预期的错误**
+### **mac系统升级导致Xcode出现不可预期的错误**
 
 提示：
 

@@ -126,9 +126,9 @@ Chrome Inspector: devtools://devtools/bundled/inspector.html?experiments=true&v8
 
 &emsp;&emsp;（2）在浏览器中输入 https://dev.myones.net/project/master (或其他分支)，页面打开后， 使用**ONESHelper**指定 API Branch 为：P8022（开发环境的URL），并且打开插件配置。
 
-&emsp;&emsp;（3）在run命令执行后的日志中找到 " devtools://devtools/bundled/inspector.htmlexperiments=true&v8only=true&ws=
+&emsp;&emsp;（3）在run命令执行后的日志中找到 "devtools://devtools/bundled/inspector.htmlexperiments=true&v8only=true&ws=
 
-127.0.0.1:10000 "的链接，复制到**谷歌浏览器**打开，点击source，可以看到nodejs插件代码**，在代码中设置断点，再使用postman发起请求，控制台会实时输出参数信息，并且支持修改代码。**
+127.0.0.1:10000 "的链接，复制到**谷歌浏览器**打开，点击source，可以看到Node.js的插件代码，在代码中设置断点，再使用postman发起请求，控制台会实时输出参数信息，并且支持修改代码。
 
 
 
@@ -136,7 +136,7 @@ Chrome Inspector: devtools://devtools/bundled/inspector.html?experiments=true&v8
 
 &emsp;&emsp;使用命令 “.**/pd add**” ，交互界面显示可以添加的能力列表，选中需要添加的能力，点击“默认配置”或者“自定义配置”后会将新能力添加到当前的插件中去，能力展示的多样性可以让我们看到**config/plugin.yaml文件新增配置、backend/src目录下会新增新的ts文件**等内容。
 
-&emsp;&emsp;新增能力后需要执行“.**/pd runlocal**”，选择“**clear**”，然后再执行 “.**/pd run**” ，继续执行新增新能力的调试，调试步骤可以参考<a href="#debug">插件调试</a>
+&emsp;&emsp;新增能力后需要执行".**/pd runlocal**"命令，选择"**clear**"，然后执行 "**./pd run**" 命令就可以继续执行插件新增能力的调试，调试步骤可以参考<a href="#debug">插件调试</a>
 
 &emsp;&emsp;备注：使用clear的作用是为了重装插件内容。
 
