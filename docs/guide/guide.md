@@ -7,7 +7,7 @@ nav:
 
 #  简介
 
-&emsp;&emsp;Plugin Develop （简称 PD）是一个 ones开放平台提供的插件开发增强工具，在 原有的插件开发基础上简化了配置步骤，为ones插件开发提高效率而生。
+&emsp;&emsp;Plugin Develop （简称 PD）是一个 ones开放平台提供的插件开发增强工具，在原有的插件开发基础上简化了配置步骤，为ones插件开发提高效率而生。
 
 
 
@@ -56,33 +56,39 @@ nav:
 
 ## 4、插件项目初始化
 
-&emsp;&emsp;使用命令 “**./pd init**” ，如果用户没有登录，工具交互界面会提示用户是否登录，如需登录可以参考<a href="#login">用户登录</a>，跳过登录后，工具会生成新的Node.js 项目模板，并且安装整个插件项目需要的前端、后端依赖，安装完成后会提示用户是否添加能力或模板，如需添加能力或模板可以参考<a href="#add">添加能力</a>。
+&emsp;&emsp;使用命令 “**./pd init**” ，如果用户没有登录，工具交互界面会提示用户是否登录，如需登录可以参考<a href="#login">用户登录</a>，跳过登录后，工具会生成新的Node.js 项目模板，并且安装整个插件项目需要的前端、后端依赖，安装失败可以参考[Q&A](../Q&A/troubleshooting.md)，安装完成后会提示用户是否添加能力或模板，如需添加能力或模板可以参考<a href="#add">添加能力</a>。
 
 
 
 ## <span id="login">5、用户登录</span>
 
-使用命令 “**./pd login**” ，分别会提醒我们填写以下内容：
+&emsp;&emsp;使用命令 “**./pd login**” ，分别会提醒我们填写以下内容：
 
-1、开发环境的URL：https://devapi.myones.net/project/master ,我们可以根据开发需求修改分支，例如可以修改为https://devapi.myones.net/project/P8022
+&emsp;&emsp;&emsp;&emsp;1、开发环境的URL：https://devapi.myones.net/project/master ,我们可以根据开发需求修改分支，例如可以修改为https://devapi.myones.net/project/P8022
 
-2、用户账号
+&emsp;&emsp;&emsp;&emsp;2、用户账号
 
-3、用户密码
+&emsp;&emsp;&emsp;&emsp;3、用户密码
 
-4、选择团队或新建团队（新生成的插件会在该团队下）
+&emsp;&emsp;&emsp;&emsp;4、选择团队或新建团队（新生成的插件会在该团队下）
 
-5、输入平台服务ip和端口号
+&emsp;&emsp;&emsp;&emsp;5、输入平台服务ip和端口号，如：tcp://119.23.130.213:20003
 
-6、输入推送代码的开发分支，如果在第一步选择了P8022分支，这里会默认为P8022，我们可以直接确认。
+&emsp;&emsp;&emsp;&emsp;6、输入推送代码的开发分支，如果在第一步选择了P8022分支，这里会默认为P8022，我们可以直接确认。
 
-填写完毕后完成登录操作，备注：在项目初始化的时候，都会检测用户是否登录，如果登录过则会取消该提醒。
+&emsp;&emsp;&emsp;&emsp;填写完毕后完成登录操作。
+
+&emsp;&emsp;备注：
+
+**&emsp;&emsp;&emsp;&emsp;在项目初始化的时候，都会检测用户是否登录，如果登录过则会取消该提醒。**
+
+**&emsp;&emsp;&emsp;&emsp;在第二次登录的时候，交互界面会提示是否要覆盖之前的登录信息，如果不覆盖，会修改当前的项目配置（如果没有项目就不修改）。**
 
 
 
 ## <span id="debug">6、插件调试</span>
 
-使用命令 “.**/pd run**” ，执行完毕会显示内容如下
+&emsp;&emsp;使用命令 “.**/pd run**” ，执行完毕会显示内容如下，
 
 ```json
 ----开发环境访问路径：https://dev.myones.net/project/P8022
@@ -105,7 +111,7 @@ Chrome Inspector: devtools://devtools/bundled/inspector.html?experiments=true&v8
 本地调试返回值: {"instance_uuid":"9c******","token":"********************************************","user_uuid":"Wh******"}
 ```
 
-（1）如果是本地开发调试，我们可以使用postman等工具调试该插件，调用插件现有的内置方法，
+&emsp;&emsp;（1）如果是本地开发调试，我们可以使用postman等工具调试该插件，调用插件现有的内置方法，
 
 ```pro
  url ：'https://devapi.myones.net/project/P8022/test1' 
@@ -114,13 +120,15 @@ Chrome Inspector: devtools://devtools/bundled/inspector.html?experiments=true&v8
  method：GET
 ```
 
-​    发起请求响应内容输出“hello world”即可成功。
+  &emsp;发起请求后，控制台输出“hello world”即可成功。
 
 
 
-（2）如果用户已经登录，在浏览器中输入 https://dev.myones.net/project/master (或其他分支)，页面打开后， 使用ONESHelper指定 API Branch 为：P8022（开发环境的URL），并且打开插件配置。
+&emsp;&emsp;（2）在浏览器中输入 https://dev.myones.net/project/master (或其他分支)，页面打开后， 使用**ONESHelper**指定 API Branch 为：P8022（开发环境的URL），并且打开插件配置。
 
-（3）在run命令执行后的日志中找到“devtools://devtools/bundled/inspector.html?experiments=true&v8only=true&ws=127.0.0.1:10000”的链接，复制到**谷歌浏览器**打开，点击source，可以看到nodejs插件代码**，在代码中设置断点，再使用postman发起请求，控制台会实时输出参数信息，并且支持修改代码。**
+&emsp;&emsp;（3）在run命令执行后的日志中找到 " devtools://devtools/bundled/inspector.htmlexperiments=true&v8only=true&ws=
+
+127.0.0.1:10000 "的链接，复制到**谷歌浏览器**打开，点击source，可以看到nodejs插件代码**，在代码中设置断点，再使用postman发起请求，控制台会实时输出参数信息，并且支持修改代码。**
 
 
 
