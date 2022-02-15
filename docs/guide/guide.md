@@ -44,7 +44,7 @@ nav:
 
 ## 2、Clone代码
 
-&emsp;&emsp;将新建的代码仓库克隆到本地。
+&emsp;&emsp;将新建的代码仓库克隆到本地，仓库地址：https://gitlab.plugins.myones.net/delivery/{仓库名}
 
 
 
