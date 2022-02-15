@@ -19,7 +19,7 @@ nav:
 
 - 拥有 Node.js (16.13.0+版本)开发环境
 - 拥有python3 的开发环境
-- 拥有cmake工具
+- 拥有cmake（3.22.x）工具
 - 熟悉 Node.js 开发
 
 </b>
@@ -30,7 +30,7 @@ nav:
 
 &emsp;&emsp;&emsp;python3:   查看python版本信息
 
-&emsp;&emsp;&emsp;cmake --version ：查看cmake版本(3.xx.x+)
+&emsp;&emsp;&emsp;cmake --version ：查看cmake版本(3.22.x)
 
 
 

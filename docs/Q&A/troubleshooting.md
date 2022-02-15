@@ -10,7 +10,7 @@ nav:
 
 ### **前端依赖安装出现问题**
 
-如果安装node 包报 404 解决方法：在用户目录( ~) 下新建 .npmrc 文件，执行以下命令，
+如果安装node 包报 401、404 解决方法：在用户目录( ~) 下新建 .npmrc 文件，执行以下命令，
 
 **cd ~  && vim .npmrc**
 
@@ -44,6 +44,12 @@ unsafe-perm=true
 2、mac系统：安装好之后执行 ：sudo "/Applications/CMake.app/Contents/bin/cmake-gui" --install
 
 3、cmake --version查看版本
+
+<br >
+
+提示：CMake Error: The source directory "/Users/tony/dev/plugin-test/backend/node_modules/zeromq/build/libzmq" does not appear to contain CMakeLists.txt
+
+解决办法：cmake版本在：3.22.x，当前已知cmake-3.23.0-rc1版本有问题。
 
 <br >
 
