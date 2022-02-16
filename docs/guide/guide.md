@@ -142,13 +142,15 @@ Chrome Inspector: devtools://devtools/bundled/inspector.html?experiments=true&v8
 
 ## <span id="add">7、添加能力</span>
 
-&emsp;&emsp;使用命令 “.**/pd add**” ，交互界面显示可以添加的能力列表，
+&emsp;&emsp;使用命令 “.**/pd add**” ，根据交互界面选项进行操作，
 
-&emsp;&emsp;（1）选中需要添加的能力；
+&emsp;&emsp;（1）选中需要添加的能力或者模板；
 
-&emsp;&emsp;（2）点击“默认配置”或者“自定义配置”后，PD工具会将新能力添加到当前的插件中去，能力展示的多样性可以让我们看到**config/plugin.yaml文件新增配置、backend/src目录下会新增新的ts文件**等内容；
+&emsp;&emsp;（2）选择能力后，会出现配置选项，点击“默认配置”或者“自定义配置”后，PD工具会将新能力添加到当前的插件中去，能力展示的多样性可以让我们看到**config/plugin.yaml文件会新增配置内容、backend/src目录下会新增新的ts文件**等操作；
 
-&emsp;&emsp;（3）新增能力后需要执行".**/pd runlocal**"命令，选择"**clear**"，然后执行 "**./pd run**" 命令就可以继续执行插件新增能力的调试，调试步骤可以参考<a href="#debug">插件调试</a>。
+&emsp;&emsp;（3）选择模板后，会有前端模板选择，选择需要的模板后，按照提示进行操作，如输入模板标题等操作；
+
+&emsp;&emsp;（3）新增能力或模板后需要执行".**/pd runlocal**"命令，选择"**clear**"，然后执行 "**./pd run**" 命令就可以继续执行插件新增能力的调试，调试步骤可以参考<a href="#debug">插件调试</a>。
 
 &emsp;&emsp;备注：使用clear的作用是为了重装插件内容。
 
