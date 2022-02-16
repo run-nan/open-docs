@@ -46,7 +46,7 @@ organization
 | status                      | int    |          | 组织状态 1：正常；2：已过期    |
 | visibility                  | bool   |          | 组织页是否可见                 |
 | server_update_stamp         | int64  |          | 更新时间戳                     |
-| sidebar_menus               | array  |          | 更新时间戳                     |
+| sidebar_menus               | array  |          | 侧边栏菜单                 |
 | &nbsp;key                   | string |          | 侧边栏配置 key                 |
 | &nbsp;default_value         | string |          | 侧边栏配置默认值               |
 | &nbsp;element_show          | bool   |          | 是否在管理界面展示此侧边栏组件 |
