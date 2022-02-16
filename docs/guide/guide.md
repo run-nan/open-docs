@@ -50,7 +50,13 @@ nav:
 
 ## 3、工具下载
 
-&emsp;&emsp;PD 工具下载操作很简单，我们可以根据操作系统下载适配的工具，并且将PD工具添加到开发文件项目下，工具下载链接：https://github.com/BangWork/plugin-cli/releases/latest
+&emsp;&emsp;PD 工具下载操作很简单，我们可以根据操作系统下载适配的工具，并且将PD工具添加到开发文件项目下，工具下载：
+
+
+-   [Linux](https://doc.plugins.myones.net/plugin-cli/1.1.28/plugin-cli-inter-for-linux-1.1.28.tar.gz)
+-   [Windows](https://doc.plugins.myones.net/plugin-cli/1.1.28/plugin-cli-inter-for-windows-1.1.28.tar.gz)
+-   [Mac-AMD64](https://doc.plugins.myones.net/plugin-cli/1.1.28/plugin-cli-inter-for-mac-amd64-1.1.28.tar.gz)
+-   [Mac-ARM64](https://doc.plugins.myones.net/plugin-cli/1.1.28/plugin-cli-inter-for-mac-arm64-1.1.28.tar.gz)
 
 
 
