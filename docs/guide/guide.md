@@ -44,7 +44,9 @@ nav:
 
 ## 2、Clone代码
 
-&emsp;&emsp;将新建的代码仓库克隆到本地，仓库地址：https://gitlab.plugins.myones.net/delivery/{仓库名}
+&emsp;&emsp;（1）注册gitlab账号，申请权限（联系管理员：李重辰）
+
+&emsp;&emsp;（2）将新建的代码仓库克隆到本地，仓库地址：https://gitlab.plugins.myones.net/delivery/{仓库名}
 
 
 
@@ -78,7 +80,7 @@ nav:
 
 &emsp;&emsp;使用命令 “**./pd login**” ，分别会提醒我们填写以下内容：
 
-&emsp;&emsp;&emsp;&emsp;1、登录开发环境的URL：https://devapi.myones.net/project/master ,我们可以根据开发需求修改分支，例如可以修改为https://devapi.myones.net/project/P8022
+&emsp;&emsp;&emsp;&emsp;1、登录开发环境的URL：https://devapi.myones.net/project/master ,我们可以根据开发需求修改分支，例如可以修改为https://devapi.myones.net/project/P80XX
 
 &emsp;&emsp;&emsp;&emsp;2、用户账号
 
@@ -88,7 +90,7 @@ nav:
 
 &emsp;&emsp;&emsp;&emsp;5、安装插件测试是否指向另一个环境（用于push代码触发ci-job，部署插件包到指定的环境中，方便测试）
 
-&emsp;&emsp;&emsp;&emsp;6、输入平台服务ip和端口号，如：tcp://119.23.130.213:20001
+&emsp;&emsp;&emsp;&emsp;6、输入平台服务ip和端口号，如：tcp://119.23.130.213:port
 
 &emsp;&emsp;&emsp;&emsp;7、输入推送代码的开发分支，目的是为了将插件部署到分支对应的环境（可以是开发环境，也可以是测试环境）。
 
@@ -107,7 +109,7 @@ nav:
 &emsp;&emsp;使用命令 “.**/pd run**” ，执行完毕会显示内容如下，
 
 ```json
-----开发环境访问路径：https://dev.myones.net/project/P8022
+----开发环境访问路径：https://dev.myones.net/project/P80XX
 {
   action: 'run',
   email: '',
@@ -130,7 +132,7 @@ Chrome Inspector: devtools://devtools/bundled/inspector.html?experiments=true&v8
 &emsp;&emsp;（1）如果是本地开发调试，我们可以使用postman等工具调试该插件，调用插件现有的内置方法，
 
 ```pro
- url ：'https://devapi.myones.net/project/P8022/test1' 
+ url ：'https://devapi.myones.net/project/P80XX/test1' 
  --header 'Ones-Check-Point: team' 
  --header 'Ones-Plugin-Id: c5********' 
  method：GET
@@ -138,11 +140,11 @@ Chrome Inspector: devtools://devtools/bundled/inspector.html?experiments=true&v8
 
   &emsp;发起请求后，控制台输出“hello world”即可成功。
 
-&emsp;&emsp;（2）在浏览器中输入 https://dev.myones.net/project/master (或其他分支)，页面打开后， 使用**ONESHelper**指定 API Branch 为：P8022（开发环境的URL），并且打开插件配置。
+&emsp;&emsp;（2）在浏览器中输入 https://dev.myones.net/project/master (或其他分支)，页面打开后， 使用**ONESHelper**指定 API Branch 为：P80XX（开发环境的URL），并且打开插件配置。
 
 &emsp;&emsp;（3）在run命令执行后的日志中找到 "devtools://devtools/bundled/inspector.htmlexperiments=true&v8only=true&ws=
 
-127.0.0.1:10000 "的链接，复制到**谷歌浏览器**打开，点击source，可以看到Node.js的插件代码，在代码中设置断点，再使用postman发起请求，控制台会实时输出参数信息，并且支持修改代码。
+127.0.0.1:port "的链接，复制到**谷歌浏览器**打开，点击source，可以看到Node.js的插件代码，在代码中设置断点，再使用postman发起请求，控制台会实时输出参数信息，并且支持修改代码。
 
 
 
@@ -185,7 +187,7 @@ Tag将会执行如下步骤
 
 &emsp;&emsp;再次确认之后，触发 gitlab CI ，完成CI工作后，交互界面提示 “**Tag:1.0.0 Message:#273xxx 创建成功**”后，我们找到对应的代码仓库，做好以下步骤：
 
-（1）点击左侧列表选项的的 “ci/cd”；
+（1）点击左侧列表选项的的 " ci/cd "；
 
 （2）点击流水线；
 
