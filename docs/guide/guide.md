@@ -86,11 +86,11 @@ nav:
 
 &emsp;&emsp;&emsp;&emsp;4、选择团队或新建团队（新生成的插件会在该团队下）
 
- 			5、安装插件测试是否指向另一个环境（用于push代码触发ci-job，部署插件包到指定的环境中，方便测试）
+&emsp;&emsp;&emsp;&emsp;5、安装插件测试是否指向另一个环境（用于push代码触发ci-job，部署插件包到指定的环境中，方便测试）
 
-&emsp;&emsp;&emsp;&emsp;5、输入平台服务ip和端口号，如：tcp://119.23.130.213:20001
+&emsp;&emsp;&emsp;&emsp;6、输入平台服务ip和端口号，如：tcp://119.23.130.213:20001
 
-&emsp;&emsp;&emsp;&emsp;6、输入推送代码的开发分支，目的是为了将插件部署到分支对应的环境（可以是开发环境，也可以是测试环境）。
+&emsp;&emsp;&emsp;&emsp;7、输入推送代码的开发分支，目的是为了将插件部署到分支对应的环境（可以是开发环境，也可以是测试环境）。
 
 &emsp;&emsp;&emsp;&emsp;填写完毕后完成登录操作。
 
@@ -170,7 +170,7 @@ Chrome Inspector: devtools://devtools/bundled/inspector.html?experiments=true&v8
 
 ## 9、生成交付物
 
-&emsp;&emsp;1、使用命令 “.**./pd tag --name=1.0.0 --msg=#273xxx**”，  其中“name”是需要交付的版本号，msg就是在第一步建立工作项的工单号，输入指令后，交互界面会提示开发者输入“token”，该token需要输入的就是我们在gitlab生成的token信息，token生成可以参考网上步骤。
+&emsp;&emsp;1、使用命令 “**./pd tag --name=1.0.0 --msg=#273xxx**”，  其中“name”是需要交付的版本号，msg就是在第一步建立工作项的工单号，输入指令后，交互界面会提示开发者输入“token”，该token需要输入的就是我们在gitlab生成的token信息，token生成可以参考网上步骤。
 
 &emsp;&emsp;2、确认关联工单需求后，交互界面提示，
 
