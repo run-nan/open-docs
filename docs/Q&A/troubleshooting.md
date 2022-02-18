@@ -104,6 +104,30 @@ xcode-select --install
 
 
 
+<br >
+
+<br >
+
+### **更换新电脑出现的依赖安装出错问题**
+
+&emsp;&emsp;运行报错提示如下：
+
+```javascript
+dyld: lazy symbol binding failed: Symbol not found: _zmq_ctx_new
+  Referenced from: /Users/xxx/gitlabworkspace/liuyexing-demo/backend/node_modules/zeromq/build/Release/zeromq.node
+  Expected in: flat namespace
+
+dyld: Symbol not found: _zmq_ctx_new
+  Referenced from: /Users/xxx/gitlabworkspace/liuyexing-demo/backend/node_modules/zeromq/build/Release/zeromq.node
+  Expected in: flat namespace
+
+zsh: abort      node ./backend/node_modules/@ones-op/node-host/dist/index.js  --tags=local
+```
+
+
+
+&emsp;&emsp;解决问题：排查编译Node.js二进制文件的操作系统CPU架构是不是跟当前操作系统的CPU架构一致。执行命令 " **node -p "process.arch"**  "得到当前编译该Node.js版本的CPU架构，如果与当前操作系统的CPU架构不符合，更新Node.js版本即可。
+
 
 
 <br >
