@@ -55,10 +55,10 @@ nav:
 &emsp;&emsp;PD 工具下载操作很简单，我们可以根据操作系统下载适配的工具，并且将PD工具添加到开发文件项目下，工具下载：
 
 
--   [Linux](https://doc.plugins.myones.net/plugin-cli/1.1.29/plugin-cli-inter-for-linux-1.1.29.tar.gz)
--   [Windows](https://doc.plugins.myones.net/plugin-cli/1.1.29/plugin-cli-inter-for-windows-1.1.29.tar.gz)
--   [Mac-AMD64](https://doc.plugins.myones.net/plugin-cli/1.1.29/plugin-cli-inter-for-mac-amd64-1.1.29.tar.gz)
--   [Mac-ARM64](https://doc.plugins.myones.net/plugin-cli/1.1.29/plugin-cli-inter-for-mac-arm64-1.1.29.tar.gz)
+-   [Linux](https://doc.plugins.myones.net/plugin-cli/1.1.31/plugin-cli-inter-for-linux-1.1.31.tar.gz)
+-   [Windows](https://doc.plugins.myones.net/plugin-cli/1.1.31/plugin-cli-inter-for-windows-1.1.31.tar.gz)
+-   [Mac-AMD64](https://doc.plugins.myones.net/plugin-cli/1.1.31/plugin-cli-inter-for-mac-amd64-1.1.31.tar.gz)
+-   [Mac-ARM64](https://doc.plugins.myones.net/plugin-cli/1.1.31/plugin-cli-inter-for-mac-arm64-1.1.31.tar.gz)
 
 ## 4、插件项目初始化
 
@@ -88,7 +88,7 @@ nav:
 
 &emsp;&emsp;&emsp;&emsp;5、安装插件测试是否指向另一个环境（用于push代码触发ci-job，部署插件包到指定的环境中，方便测试）
 
-&emsp;&emsp;&emsp;&emsp;6、输入平台服务ip和端口号，如：tcp://119.23.130.213:port
+&emsp;&emsp;&emsp;&emsp;6、输入平台服务ip和端口号，如：tcp://119.23.131.213:port
 
 &emsp;&emsp;&emsp;&emsp;7、输入推送代码的开发分支，目的是为了将插件部署到分支对应的环境（可以是开发环境，也可以是测试环境）。
 
@@ -116,12 +116,12 @@ nav:
   instance_uuid: undefined,
   hostID: undefined,
   webIp: '127.0.0.1',
-  webPort: '3000',
+  webPort: '3100',
   orgUUID: 'JG******',
   teamUUID: 'TM******',
   user_uuid: 'Wh******',
   token: '********************************************',
-  webServiceUrl: '127.0.0.1:3000'
+  webServiceUrl: '127.0.0.1:3100'
 }
 Chrome Inspector: devtools://devtools/bundled/inspector.html?experiments=true&v8only=true&ws=127.0.0.1:10000
 本地调试返回值: {"instance_uuid":"9c******","token":"********************************************","user_uuid":"Wh******"}
