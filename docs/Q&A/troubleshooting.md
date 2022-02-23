@@ -10,9 +10,9 @@ nav:
 
 ### **前端依赖安装出现问题**
 
-如果安装node 包报 401、404 解决方法：在用户目录( ~) 下新建 .npmrc 文件，执行以下命令，
+如果安装node 包报 401、404 解决方法：在用户目录( ~) 下新建 .npmrc 文件，
 
-**cd ~  && vim .npmrc**
+Mac、linux电脑执行命令：**cd ~  && vim .npmrc**
 
 文件内容如下：
 
@@ -30,6 +30,12 @@ unsafe-perm=true
 ```
 
 保存执行 **"./工具名称  init -m=depend"** ,交互界面提示成功即可。
+
+<br >
+
+windows电脑通常是在 C盘的用户目录下（C:\Users\用户名\） ，也可以在终端输入命令**"npm config list"**查询到，然后修改该文件，添加上述内容。
+
+
 
 <br >
 
@@ -114,11 +120,11 @@ xcode-select --install
 
 ```javascript
 dyld: lazy symbol binding failed: Symbol not found: _zmq_ctx_new
-  Referenced from: /Users/xxx/gitlabworkspace/liuyexing-demo/backend/node_modules/zeromq/build/Release/zeromq.node
+  Referenced from: /Users/xxx/gitlabworkspace/xxxxx-demo/backend/node_modules/zeromq/build/Release/zeromq.node
   Expected in: flat namespace
 
 dyld: Symbol not found: _zmq_ctx_new
-  Referenced from: /Users/xxx/gitlabworkspace/liuyexing-demo/backend/node_modules/zeromq/build/Release/zeromq.node
+  Referenced from: /Users/xxx/gitlabworkspace/xxxx-demo/backend/node_modules/zeromq/build/Release/zeromq.node
   Expected in: flat namespace
 
 zsh: abort      node ./backend/node_modules/@ones-op/node-host/dist/index.js  --tags=local
