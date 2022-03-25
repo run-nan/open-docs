@@ -62,21 +62,21 @@ nav:
 
 ## 4、插件项目初始化
 
-&emsp;&emsp;使用"**./pd init**" 命令进行插件项目初始化，
+&emsp;&emsp;使用`./pd init`命令进行插件项目初始化：
 
-&emsp;&emsp;（1）进入初始化插件项目阶段后，如果用户没有登录，工具交互界面会提示用户是否登录（登录参考<a href="#login">用户登录</a>）；
+&emsp;&emsp;（1）进入初始化插件项目阶段后，如果用户没有登录，工具交互界面会提示用户是否登录（登录参考<a href="#login">用户登录</a>）
 
-&emsp;&emsp;（2）选择跳过登录后，工具就会生成新的Node.js 项目模板，并且安装插件项目开发会用到的前后端依赖，如果在安装过程中提示用户输入密码，那么我们只需要输入超级用户（root）的密码就可以了；
+&emsp;&emsp;（2）选择跳过登录后，工具就会生成新的Node.js 项目模板，并且安装插件项目开发会用到的前后端依赖，如果在安装过程中提示用户输入密码，那么我们只需要输入超级用户（root）的密码就可以了
 
-&emsp;&emsp;（3）安装完成后会提示用户是否添加能力或模板，如需添加能力或模板可以参考<a href="#add">添加能力</a>。
+&emsp;&emsp;（3）安装完成后会提示用户是否添加能力或模板，如需添加能力或模板可以参考<a href="#add">添加能力</a>
 
-&emsp;&emsp;&emsp;备注：安装过程中遇到交互界面提示失败或者有解决不了的问题，我们建议参考[Q&A](../Q&A/troubleshooting.md)。
+&emsp;&emsp;&emsp;备注：安装过程中遇到交互界面提示失败或者有解决不了的问题，我们建议参考[Q&A](../Q&A/troubleshooting.md)
 
 
 
 ## <span id="login">5、用户登录</span>
 
-&emsp;&emsp;使用命令 “**./pd login**” ，分别会提醒我们填写以下内容：
+&emsp;&emsp;使用命令 `./pd login` ，分别会提醒我们填写以下内容：
 
 &emsp;&emsp;&emsp;&emsp;1、登录开发环境的URL：https://devapi.myones.net/project/master ,我们可以根据开发需求修改分支，例如可以修改为https://devapi.myones.net/project/P80XX
 
@@ -90,9 +90,9 @@ nav:
 
 &emsp;&emsp;&emsp;&emsp;6、输入平台服务ip和端口号，如：tcp://119.23.134.213:port
 
-&emsp;&emsp;&emsp;&emsp;7、输入推送代码的开发分支，目的是为了将插件部署到分支对应的环境（可以是开发环境，也可以是测试环境）。
+&emsp;&emsp;&emsp;&emsp;7、输入推送代码的开发分支，目的是为了将插件部署到分支对应的环境（可以是开发环境，也可以是测试环境）
 
-&emsp;&emsp;&emsp;&emsp;填写完毕后完成登录操作。
+&emsp;&emsp;&emsp;&emsp;填写完毕后完成登录操作
 
 &emsp;&emsp;备注：
 
@@ -104,7 +104,7 @@ nav:
 
 ## <span id="debug">6、插件调试</span>
 
-&emsp;&emsp;使用命令 “.**/pd run**” ，执行完毕会显示内容如下，
+&emsp;&emsp;使用命令 `.**/pd run` ，执行完毕会显示内容如下，
 
 ```json
 ----开发环境访问路径：https://dev.myones.net/project/P80XX
@@ -148,7 +148,7 @@ Chrome Inspector: devtools://devtools/bundled/inspector.html?experiments=true&v8
 
 ## <span id="add">7、添加能力</span>
 
-&emsp;&emsp;使用命令 “.**/pd add**” ，根据交互界面选项进行操作，
+&emsp;&emsp;使用命令 `.**/pd add**` ，根据交互界面选项进行操作，
 
 &emsp;&emsp;（1）选中需要添加的能力或者模板；
 
@@ -156,7 +156,7 @@ Chrome Inspector: devtools://devtools/bundled/inspector.html?experiments=true&v8
 
 &emsp;&emsp;（3）选择模板后，会有前端模板选择，选择需要的模板后，按照提示进行操作，如输入模板标题等操作；
 
-&emsp;&emsp;（3）新增能力或模板后需要执行".**/pd runlocal**"命令，选择"**clear**"，然后执行 "**./pd run**" 命令就可以继续执行插件新增能力的调试，调试步骤可以参考<a href="#debug">插件调试</a>。
+&emsp;&emsp;（3）新增能力或模板后需要执行`./pd runlocal`"命令，选择`clear`，然后执行 `./pd run` 命令就可以继续执行插件新增能力的调试，调试步骤可以参考<a href="#debug">插件调试</a>。
 
 &emsp;&emsp;备注：使用clear的作用是为了重装插件内容。
 
@@ -164,15 +164,17 @@ Chrome Inspector: devtools://devtools/bundled/inspector.html?experiments=true&v8
 
 ## 8、本地插件打包
 
-&emsp;&emsp;使用命令 “.**/pd package**” ，会在当前目录下生成“**{工程名}.opk**”的插件包
+&emsp;&emsp;使用命令 `./pd package` ，会在当前目录下生成“**{工程名}.opk**”的插件包
 
 
 
 ## 9、生成交付物
 
-&emsp;&emsp;1、使用命令 “**./pd tag --name=1.0.0 --msg=#273xxx**”，  其中“name”是需要交付的版本号，msg就是在第一步建立工作项的工单号，输入指令后，交互界面会提示开发者输入“token”，该token需要输入的就是我们在gitlab生成的token信息，token生成可以参考网上步骤。
+&emsp;&emsp;1、使用命令 `./pd tag --name=1.0.0 --msg=#273xxx` **详见 `pd tag --help`**，  其中“name”是需要交付的插件仓库的Tag名称（同时也是插件的版本号）非必填，msg为该插件对应的【需求单号】（插件总是基于需求开发的），输入指令后，交互界面会提示开发者输入“token”，该token需要输入的就是我们在gitlab生成的token信息，token生成可以参考网上步骤。
 
-&emsp;&emsp;2、确认关联工单需求后，交互界面提示，
+
+
+&emsp;&emsp;2、确认关联的【需求单号】后，交互界面提示，
 
 ```properties
 Tag将会执行如下步骤
