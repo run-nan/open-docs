@@ -104,7 +104,7 @@ nav:
 
 ## <span id="debug">6、插件调试</span>
 
-&emsp;&emsp;使用命令 `.**/pd run` ，执行完毕会显示内容如下，
+&emsp;&emsp;使用命令 `./pd run` ，执行完毕会显示内容如下，
 
 ```json
 ----开发环境访问路径：https://dev.myones.net/project/P80XX
@@ -148,7 +148,7 @@ Chrome Inspector: devtools://devtools/bundled/inspector.html?experiments=true&v8
 
 ## <span id="add">7、添加能力</span>
 
-&emsp;&emsp;使用命令 `.**/pd add**` ，根据交互界面选项进行操作，
+&emsp;&emsp;使用命令 `./pd add` ，根据交互界面选项进行操作，
 
 &emsp;&emsp;（1）选中需要添加的能力或者模板；
 
