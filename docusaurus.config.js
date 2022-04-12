@@ -113,11 +113,17 @@ const config = {
       },
     }),
 
+  i18n: {
+    defaultLocale: "zh-CN",
+    locales: ["zh-CN"],
+  },
+
   themes: [
     [
       require.resolve("@easyops-cn/docusaurus-search-local"),
       {
         hashed: true,
+        language: ["en", "zh"],
       },
     ],
   ],
