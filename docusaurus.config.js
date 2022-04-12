@@ -6,13 +6,13 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "My Site",
-  tagline: "Dinosaurs are cool",
+  title: "ONES 开放平台",
+  tagline: "ONES 开放平台",
   url: "https://docs.partner.ones.ai/",
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
-  favicon: "img/favicon.ico",
+  favicon: "images/logo.png",
   organizationName: "facebook", // Usually your GitHub org/user name.
   projectName: "docusaurus", // Usually your repo name.
 
@@ -22,16 +22,12 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
+          showLastUpdateAuthor: true,
+          showLastUpdateTime: true,
           sidebarPath: require.resolve("./sidebars.js"),
-          // Please change this to your repo.
-          editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
         },
         blog: {
           showReadingTime: true,
-          // Please change this to your repo.
-          editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -40,26 +36,58 @@ const config = {
     ],
   ],
 
+  plugins: [
+    [
+      "content-docs",
+      /** @type {import('@docusaurus/plugin-content-docs').Options} */
+      ({
+        id: "ones",
+        path: "docs-ones",
+        routeBasePath: "ones",
+        showLastUpdateAuthor: true,
+        showLastUpdateTime: true,
+        sidebarPath: require.resolve("./sidebars.js"),
+        editUrl: "https://github.com/BangWork/open-docs/tree/main/docs-ones",
+      }),
+    ],
+  ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      colorMode: {
+        respectPrefersColorScheme: true,
+      },
       navbar: {
-        title: "My Site",
+        title: "ONES 开放平台",
         logo: {
-          alt: "My Site Logo",
-          src: "img/logo.svg",
+          alt: "ONES 开放平台",
+          src: "images/logo.png",
+          srcDark: "images/logo-dark.png",
         },
         items: [
           {
-            type: "doc",
-            docId: "intro",
+            type: "docSidebar",
             position: "left",
-            label: "Tutorial",
+            label: "指南",
+            sidebarId: "guide",
           },
-          { to: "/blog", label: "Blog", position: "left" },
           {
-            href: "https://github.com/facebook/docusaurus",
-            label: "GitHub",
+            to: "/blog",
+            label: "常见问题",
+            position: "left",
+          },
+          {
+            to: "/blog",
+            label: "更新日志",
+            position: "left",
+          },
+          {
+            type: "docsVersionDropdown",
+            position: "right",
+          },
+          {
+            type: "localeDropdown",
             position: "right",
           },
         ],
@@ -68,52 +96,31 @@ const config = {
         style: "dark",
         links: [
           {
-            title: "Docs",
+            title: "相关资源",
             items: [
               {
-                label: "Tutorial",
-                to: "/docs/intro",
-              },
-            ],
-          },
-          {
-            title: "Community",
-            items: [
-              {
-                label: "Stack Overflow",
-                href: "https://stackoverflow.com/questions/tagged/docusaurus",
-              },
-              {
-                label: "Discord",
-                href: "https://discordapp.com/invite/docusaurus",
-              },
-              {
-                label: "Twitter",
-                href: "https://twitter.com/docusaurus",
-              },
-            ],
-          },
-          {
-            title: "More",
-            items: [
-              {
-                label: "Blog",
-                to: "/blog",
-              },
-              {
-                label: "GitHub",
-                href: "https://github.com/facebook/docusaurus",
+                label: "ONES Design",
+                href: "https://bangwork.github.io/ones-design/",
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} ONES, Inc.`,
       },
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
     }),
+
+  themes: [
+    [
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      {
+        hashed: true,
+      },
+    ],
+  ],
 };
 
 module.exports = config;
