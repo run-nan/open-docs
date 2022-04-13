@@ -8,13 +8,15 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 const config = {
   title: "ONES 开放平台",
   tagline: "ONES 开放平台",
-  url: "https://docs.partner.ones.ai/",
+  url: "https://docs.partner.ones.ai",
   baseUrl: "/",
-  onBrokenLinks: "throw",
-  onBrokenMarkdownLinks: "warn",
   favicon: "images/logo.png",
-  organizationName: "facebook", // Usually your GitHub org/user name.
-  projectName: "docusaurus", // Usually your repo name.
+  organizationName: "BangWork", // Usually your GitHub org/user name.
+  projectName: "open-docs", // Usually your repo name.
+  i18n: {
+    defaultLocale: "zh-CN",
+    locales: ["zh-CN"],
+  },
 
   presets: [
     [
@@ -27,7 +29,11 @@ const config = {
           sidebarPath: require.resolve("./sidebars.js"),
         },
         blog: {
-          showReadingTime: true,
+          blogTitle: "更新日志",
+          blogDescription: "更新日志",
+          blogSidebarCount: "ALL",
+          blogSidebarTitle: "更新日志",
+          path: "changelog",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -73,9 +79,10 @@ const config = {
             sidebarId: "guide",
           },
           {
-            to: "/blog",
-            label: "常见问题",
+            type: "docSidebar",
             position: "left",
+            label: "常见问题",
+            sidebarId: "faq",
           },
           {
             to: "/blog",
@@ -112,11 +119,6 @@ const config = {
         darkTheme: darkCodeTheme,
       },
     }),
-
-  i18n: {
-    defaultLocale: "zh-CN",
-    locales: ["zh-CN"],
-  },
 
   themes: [
     [
