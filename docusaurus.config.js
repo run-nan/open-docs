@@ -75,8 +75,20 @@ const config = {
           {
             type: "docSidebar",
             position: "left",
-            label: "指南",
-            sidebarId: "guide",
+            label: "开发",
+            sidebarId: "dev",
+          },
+          {
+            type: "docSidebar",
+            position: "left",
+            label: "API",
+            sidebarId: "api",
+          },
+          {
+            type: "docSidebar",
+            position: "left",
+            label: "介绍",
+            sidebarId: "intro",
           },
           {
             type: "docSidebar",
