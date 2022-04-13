@@ -1,3 +1,8 @@
+---
+slug: /
+sidebar_position: 1
+---
+
 # 开发环境准备
 
 ## 安装 Node.js

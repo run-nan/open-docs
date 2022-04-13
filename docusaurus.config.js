@@ -27,6 +27,9 @@ const config = {
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
           sidebarPath: require.resolve("./sidebars.js"),
+          remarkPlugins: [
+            [require("@docusaurus/remark-plugin-npm2yarn"), { sync: true }],
+          ],
         },
         blog: {
           blogTitle: "更新日志",
@@ -123,12 +126,26 @@ const config = {
               },
             ],
           },
+          {
+            title: "更多产品",
+            items: [
+              {
+                label: "ONES",
+                href: "https://ones.ai/",
+              },
+              {
+                label: "Tower",
+                href: "https://ones.ai/products/tower.html",
+              },
+            ],
+          },
         ],
         copyright: `Copyright © ${new Date().getFullYear()} ONES, Inc.`,
       },
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+        defaultLanguage: "bash",
       },
     }),
 
