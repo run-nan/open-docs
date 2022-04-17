@@ -6,6 +6,7 @@ _*
 .*
 *.jpg
 *.png
+*.svg
 browserslist
 LICENSE
 package*.json
