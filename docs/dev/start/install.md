@@ -17,7 +17,11 @@ ONES 插件开发需要 [Node.js](https://nodejs.org/zh-cn/) v16.13 或更高版
 npm config set @ones:registry=https://npm.partner.ones.ai/registry/
 ```
 
-> 只配置 @ones 代理，不会影响你本地的其他 npm 代理
+:::note
+
+只配置 @ones 代理，不会影响你本地的其他 npm 代理
+
+:::
 
 ## 开发工具安装
 
