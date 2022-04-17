@@ -90,10 +90,10 @@ const config = {
             sidebarId: 'api',
           },
           {
-            type: 'docSidebar',
-            position: 'left',
-            label: '示例教程',
-            sidebarId: 'examples',
+            type: "docSidebar",
+            position: "left",
+            label: "API",
+            sidebarId: "api",
           },
           {
             type: 'docSidebar',
