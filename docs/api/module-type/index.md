@@ -1,0 +1,273 @@
+# 插槽模块列表
+
+## 全局插槽
+
+### about:blank
+
+空白页模块，可脱离系统独立访问，插件安装后的页面 URL 为：
+
+```
+${location.protocol}://${location.host}/plugin/${组织id}/${团队id}/${service.app_id}/${service.version}/modules/${模块id}/index.html
+```
+
+### ones:global:banner
+
+顶栏公告模块，用于展示全局的公告信息
+
+### ones:global:error:code
+
+全局错误码模块，用于拦截指定错误码以自定义提示信息，模块独有配置参数如下：
+
+| 属性 | 说明 | 类型 | 必填 | 默认值 |
+| :-: | :-- | :-: | :-: | :-: |
+| errorMessage | 错误码与错误信息的配置对象 | `Recode<ErrorCode, string>` | 是 | |
+
+- 示例：
+
+```yaml
+modules:
+  - id: ones-global-error-code-Q2fV
+    title: 错误码
+    moduleType: ones:global:error:code
+    errorMessage:
+      ConstraintViolation.BetaRelatedFieldNotDeletable: 该属性已被「Beta数据相关逻辑」调用，不可被删除
+      ConstraintViolation.BetaRelatedFieldNotEditable: 该属性已被「Beta数据相关逻辑」调用，不可被编辑
+```
+
+该模块适用于新增预设错误提示信息，如果错误提示是动态生成的，也可以由后端通过接口返回以下格式的错误信息进行自定义：
+
+```json
+{
+  "code": 500,
+  "errcode": "AlreadyExists.User.EmailExists",
+  "model": "plugin.sso",
+  "reason": "自定义提示信息",
+  "type": "error"
+}
+```
+
+| 属性 | 说明 | 类型 | 必填 | 默认值 |
+| :-: | :-- | :-: | :-: | :-: |
+| code | HTTP 状态码 | `number` | 是 | |
+| errcode | 系统错误码 | `string` | 是 | |
+| model | 插件标识，必须带有 `plugin.` 前缀 | `string` | 是 | |
+| reason | 自定义提示信息 | `string` | 是 | |
+| type | 提示信息类型，对应 [ONES Design toast 组件](https://bangwork.github.io/ones-design/?path=/docs/core-toast--toast%E5%85%A8%E5%B1%80%E6%8F%90%E7%A4%BA) 的展示形态 | `'info'` `'warning'` `'error'` | 是 | |
+
+### ones:global:modal:upload
+
+全局弹窗模块，用于在上传文件前展示
+
+### ones:global:header:action:new
+
+系统顶栏右侧操作模块，用于在系统顶栏右侧追加新操作内容
+
+![](images/ones-global-header-action-new.png)
+
+## 应用插槽
+
+### ones:project
+
+「项目管理」应用插槽，用于替换「项目管理」整个应用
+
+### ones:testcase
+
+「测试管理」应用插槽，用于替换「测试管理」整个应用
+
+### ones:product
+
+「产品管理」应用插槽，用于替换「产品管理」整个应用
+
+### ones:desk
+
+「工单管理」应用插槽，用于替换「工单管理」整个应用
+
+### ones:deskhome
+
+「工单门户」应用插槽，用于替换「工单门户」整个应用
+
+### ones:manhour
+
+「工时管理」应用插槽，用于替换「工时管理」整个应用
+
+### ones:performance
+
+「效能管理」应用插槽，用于替换「效能管理」整个应用
+
+### ones:plan
+
+「项目集管理」应用插槽，用于替换「项目集管理」整个应用
+
+### ones:pipeline
+
+「流水线管理」应用插槽，用于替换「流水线管理」整个应用
+
+## 模块插槽
+
+### settings
+
+插件设置模块，用于承载插件自身的设置项
+
+### 登录
+
+#### ones:login
+
+登录页模块，用于替换系统登录页
+
+#### ones:login:connect
+
+系统登录页的第三方登录模块，用于新增系统登录页的第三方登录入口
+
+### 项目管理
+
+#### ones:project:index
+
+「项目管理」首页模块，用于替换「项目管理」应用的首页模块
+
+#### ones:project:new
+
+「项目管理」模块插槽，用于在「项目管理」应用顶栏新增模块页面
+
+### 测试管理
+
+#### ones:testcase:index
+
+「测试管理」首页模块，用于替换「测试管理」应用的首页模块
+
+#### ones:testcase:library
+
+「测试管理 - 用例库」模块，用于替换「测试管理」应用的「用例库」模块
+
+#### ones:testcase:library:component:case
+
+「测试管理 - 用例库 - 用例」组件模块，用于替换「测试管理 - 用例库 - 用例」组件
+
+#### ones:testcase:library:settings:info
+
+「测试管理 - 用例库 - 用例库设置 - 用例库信息」设置模块，用于替换「测试管理 - 用例库 - 用例库设置 - 用例库信息」设置页
+
+#### ones:testcase:library:settings:permission
+
+「测试管理 - 用例库 - 用例库设置 - 权限配置」设置模块，用于替换「测试管理 - 用例库 - 用例库设置 - 权限配置」设置页
+
+#### ones:testcase:library:settings:recycle
+
+「测试管理 - 用例库 - 用例库设置 - 回收站」设置模块，用于替换「测试管理 - 用例库 - 用例库设置 - 回收站」设置页
+
+#### ones:testcase:library:settings:more
+
+「测试管理 - 用例库 - 用例库设置 - 删除用例库」设置模块，用于替换「测试管理 - 用例库 - 用例库设置 - 删除用例库」设置页
+
+#### ones:testcase:library:settings:new
+
+「测试管理 - 用例库 - 用例库设置」设置模块插槽，用于在「测试管理 - 用例库 - 用例库设置」新增设置页面
+
+#### ones:testcase:plan
+
+「测试管理 - 测试计划」模块，用于替换「测试管理」应用的「测试计划」模块
+
+#### ones:testcase:report
+
+「测试管理 - 测试报告」模块，用于替换「测试管理」应用的「测试报告」模块
+
+#### ones:testcase:new
+
+「测试管理」模块插槽，用于在「测试管理」应用顶栏新增模块页面
+
+
+
+### 产品管理
+
+#### ones:product:index
+
+「产品管理」首页模块，用于替换「产品管理」应用的首页模块
+
+#### ones:product:new
+
+「产品管理」模块插槽，用于在「产品管理」应用顶栏新增模块页面
+
+### 工单管理
+
+#### ones:desk:index
+
+「工单管理」首页模块，用于替换「工单管理」应用的首页模块
+
+#### ones:desk:new
+
+「工单管理」模块插槽，用于在「工单管理」应用顶栏新增模块页面
+
+### 工单门户
+
+#### ones:deskhome:index
+
+「工单门户」首页模块，用于替换「工单门户」应用的首页模块
+
+### 工时管理
+
+#### ones:manhour:index
+
+「工时管理 - 工时日历」模块，用于替换「工时管理」应用的「工时日历」模块
+
+#### ones:manhour:report
+
+「工时管理 - 工时报表」模块，用于替换「工时管理」应用的「工时报表」模块
+
+#### ones:manhour:log
+
+「工时管理 - 工时日志」模块，用于替换「工时管理」应用的「工时日志」模块
+
+#### ones:manhour:new
+
+「工时管理」新增模块，用于在「工时管理」应用顶栏新增模块页面
+
+### 效能管理
+
+#### ones:performance:index
+
+「效能管理 - 仪表盘」模块，用于替换「效能管理」应用的「仪表盘」模块
+
+#### ones:performance:new
+
+「效能管理」模块插槽，用于在「效能管理」应用顶栏新增模块页面
+
+#### ones:performance:component:dashboard:header:action:new
+
+「效能管理 - 仪表盘」组件的顶部操作模块，用于在「效能管理 - 仪表盘」组件的顶部操作区域左侧追加新内容
+
+![](images/ones-performance-component-dashboard-header-action-new.png)
+
+### 项目集管理
+
+#### ones:plan:index
+
+「项目集管理」首页模块，用于替换「项目集管理」应用的首页模块
+
+#### ones:plan:gantt
+
+「项目集管理 - 甘特图」模块，用于替换「项目集管理」应用的「甘特图」模块
+
+#### ones:plan:new
+
+「项目集管理」模块插槽，用于在「项目集管理」应用顶栏新增模块页面
+
+#### ones:plan:component:project
+
+「项目集管理 - 项目集 - 项目」组件模块，用于替换「项目集管理 - 项目集 - 项目」组件
+
+#### ones:plan:component:member
+
+「项目集管理 - 项目集 - 成员」组件模块，用于替换「项目集管理 - 项目集 - 成员」组件
+
+### 流水线管理
+
+#### ones:pipeline:index
+
+「流水线管理」首页模块，用于替换「流水线管理」应用的首页模块
+
+#### ones:pipeline:new
+
+「流水线管理」模块插槽，用于在「流水线管理」应用顶栏新增模块页面
+
+#### ones:pipeline:component:history
+
+「流水线管理 - 流水线 - 历史」组件模块，用于替换「流水线管理 - 流水线 - 历史」组件
