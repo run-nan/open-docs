@@ -9,7 +9,7 @@ sidebar_position: 2
 1. 创建一个新文件夹作为插件目录，如 `test`
 2. 在 `test` 文件夹中打开命令行
 
-![image](test.jpg)
+![image](images/test.jpg)
 
 3. 运行以下命令来初始化这个插件：
 
@@ -19,15 +19,15 @@ op init
 
 初始化过程会询问我们是否登录，我们暂时选择: No
 
-![image](login.jpg)
+![image](images/login.jpg)
 
 4. 最后会询问是否在初始化时添加能力，我们暂时选择: 退出 exit
 
-![image](exit.jpg)
+![image](images/exit.jpg)
 
 创建好的插件目录结构如下：
 
-![image](dir.jpg)
+![image](images/dir.jpg)
 
 ## 插件打包
 
@@ -39,7 +39,7 @@ op package
 
 完成后可以在当前目录中看到打包好的插件 opk 包
 
-![image](opk.jpg)
+![image](images/opk.jpg)
 
 ## 插件安装
 
@@ -50,6 +50,6 @@ op package
 > 密码：test1234
 > 注意：请使用分配给你的环境以及对应的账号、密码。
 
-![image](install.jpg)
+![image](images/install.jpg)
 
 至此，一个插件的创建与安装便完成了。
