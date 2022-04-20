@@ -92,6 +92,12 @@ const config = {
           {
             type: 'docSidebar',
             position: 'left',
+            label: '示例教程',
+            sidebarId: 'examples',
+          },
+          {
+            type: 'docSidebar',
+            position: 'left',
             label: '介绍',
             sidebarId: 'intro',
           },
@@ -100,12 +106,6 @@ const config = {
             position: 'left',
             label: '常见问题',
             sidebarId: 'faq',
-          },
-          {
-            type: "docSidebar",
-            position: "left",
-            label: "实例",
-            sidebarId: "examples",
           },
           {
             to: 'changelog',
