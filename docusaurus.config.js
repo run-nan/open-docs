@@ -102,6 +102,12 @@ const config = {
             sidebarId: 'faq',
           },
           {
+            type: "docSidebar",
+            position: "left",
+            label: "实例",
+            sidebarId: "examples",
+          },
+          {
             to: 'changelog',
             label: '更新日志',
             position: 'left',
