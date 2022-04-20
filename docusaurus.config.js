@@ -10,7 +10,7 @@ const config = {
   tagline: 'ONES 开放平台',
   url: 'https://docs.partner.ones.ai',
   baseUrl: '/',
-  favicon: 'images/logo.png',
+  favicon: 'images/favicon.ico',
   organizationName: 'BangWork', // Usually your GitHub org/user name.
   projectName: 'open-docs', // Usually your repo name.
   i18n: {

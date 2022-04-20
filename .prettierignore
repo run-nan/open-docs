@@ -4,9 +4,13 @@ docs/
 node_modules/
 _*
 .*
+
+# images
+*.ico
 *.jpg
 *.png
 *.svg
+
 browserslist
 LICENSE
 package*.json
