@@ -528,6 +528,314 @@ modules:
 
 「版本管理」模块插槽，用于在「版本管理」应用顶栏新增模块页面
 
+### 配置中心
+
+#### ones:settings:team
+
+「配置中心 - 团队配置」设置模块，用于替换「配置中心 - 团队配置」设置模块
+
+#### ones:settings:team:new
+
+「配置中心 - 团队配置」设置模块插槽，用于在「配置中心 - 团队配置」新增设置模块
+
+#### ones:settings:account
+
+「配置中心 - 账号与成员」设置模块，用于替换「配置中心 - 账号与成员」设置模块
+
+#### ones:settings:account:new
+
+「配置中心 - 账号与成员」设置模块插槽，用于在「配置中心 - 账号与成员」新增设置模块
+
+#### ones:settings:import
+
+「配置中心 - 导入数据」设置模块，用于替换「配置中心 - 导入数据」设置模块
+
+#### ones:settings:import:new
+
+「配置中心 - 导入数据」设置模块插槽，用于在「配置中心 - 导入数据」新增设置模块
+
+#### ones:settings:appearance
+
+「配置中心 - 系统偏好设置」设置模块，用于替换「配置中心 - 系统偏好设置」设置模块
+
+#### ones:settings:appearance:new
+
+「配置中心 - 系统偏好设置」设置模块插槽，用于在「配置中心 - 系统偏好设置」新增设置模块
+
+#### ones:settings:manhour
+
+「配置中心 - 工时设置」设置模块，用于替换「配置中心 - 工时设置」设置模块
+
+#### ones:settings:manhour:new
+
+「配置中心 - 工时设置」设置模块插槽，用于在「配置中心 - 工时设置」新增设置模块
+
+#### ones:settings:safe
+
+「配置中心 - 系统安全」设置模块，用于替换「配置中心 - 系统安全」设置模块
+
+#### ones:settings:safe:new
+
+「配置中心 - 系统安全」设置模块插槽，用于在「配置中心 - 系统安全」新增设置模块
+
+#### ones:settings:project
+
+「配置中心 - 项目管理配置」设置模块，用于替换「配置中心 - 项目管理配置」设置模块
+
+#### ones:settings:project:self
+
+「配置中心 - 项目管理配置 - 项目」设置模块，用于替换「配置中心 - 项目管理配置 - 项目」设置模块
+
+#### ones:settings:project:self:manage
+
+「配置中心 - 项目管理配置 - 项目 - 项目管理」设置模块，用于替换「配置中心 - 项目管理配置 - 项目 - 项目管理」设置页
+
+#### ones:settings:project:self:field
+
+「配置中心 - 项目管理配置 - 项目 - 项目属性」设置模块，用于替换「配置中心 - 项目管理配置 - 项目 - 项目属性」设置页
+
+#### ones:settings:project:self:status
+
+「配置中心 - 项目管理配置 - 项目 - 项目状态」设置模块，用于替换「配置中心 - 项目管理配置 - 项目 - 项目状态」设置页
+
+#### ones:settings:project:self:role
+
+「配置中心 - 项目管理配置 - 项目 - 项目角色」设置模块，用于替换「配置中心 - 项目管理配置 - 项目 - 项目角色」设置页
+
+#### ones:settings:project:issue
+
+「配置中心 - 项目管理配置 - 工作项」设置模块，用于替换「配置中心 - 项目管理配置 - 工作项」设置模块
+
+#### ones:settings:project:issue:type
+
+「配置中心 - 项目管理配置 - 工作项 - 工作项类型」设置模块，用于替换「配置中心 - 项目管理配置 - 工作项 - 工作项类型」设置页
+
+#### ones:settings:project:issue:field
+
+「配置中心 - 项目管理配置 - 工作项 - 工作项属性」设置模块，用于替换「配置中心 - 项目管理配置 - 工作项 - 工作项属性」设置页
+
+#### ones:settings:project:issue:status
+
+「配置中心 - 项目管理配置 - 工作项 - 工作项状态」设置模块，用于替换「配置中心 - 项目管理配置 - 工作项 - 工作项状态」设置页
+
+#### ones:settings:project:issue:priority
+
+「配置中心 - 项目管理配置 - 工作项 - 优先级」设置模块，用于替换「配置中心 - 项目管理配置 - 工作项 - 优先级」设置页
+
+#### ones:settings:project:issue:relate
+
+「配置中心 - 项目管理配置 - 工作项 - 关联关系类型」设置模块，用于替换「配置中心 - 项目管理配置 - 工作项 - 关联关系类型」设置页
+
+#### ones:settings:project:product
+
+「配置中心 - 项目管理配置 - 产品」设置模块，用于替换「配置中心 - 项目管理配置 - 产品」设置模块
+
+#### ones:settings:project:product:field
+
+「配置中心 - 项目管理配置 - 产品 - 产品属性」设置模块，用于替换「配置中心 - 项目管理配置 - 产品 - 产品属性」设置页
+
+#### ones:settings:project:config
+
+「配置中心 - 项目管理配置 - 全局配置方案」设置模块，用于替换「配置中心 - 项目管理配置 - 全局配置方案」设置模块
+
+#### ones:settings:project:config:view
+
+「配置中心 - 项目管理配置 - 全局配置方案 - 视图配置」设置模块，用于替换「配置中心 - 项目管理配置 - 全局配置方案 - 视图配置」设置页
+
+#### ones:settings:project:permission
+
+「配置中心 - 项目管理配置 - 权限」设置模块，用于替换「配置中心 - 项目管理配置 - 权限」设置模块
+
+#### ones:settings:project:permission:config
+
+「配置中心 - 项目管理配置 - 权限 - 权限配置」设置模块，用于替换「配置中心 - 项目管理配置 - 权限 - 权限配置」设置模块
+
+#### ones:settings:project:new
+
+「配置中心 - 项目管理配置」设置模块插槽，用于在「配置中心 - 项目管理配置」新增设置模块
+
+#### ones:settings:wiki
+
+「配置中心 - 知识库管理配置」设置模块，用于替换「配置中心 - 知识库管理配置」设置模块
+
+#### ones:settings:wiki:new
+
+「配置中心 - 知识库管理配置」设置模块插槽，用于在「配置中心 - 知识库管理配置」新增设置模块
+
+#### ones:settings:testcase
+
+「配置中心 - 测试管理配置」设置模块，用于替换「配置中心 - 测试管理配置」设置模块
+
+#### ones:settings:testcase:base
+
+「配置中心 - 测试管理配置 - 基础配置」设置模块，用于替换「配置中心 - 测试管理配置 - 基础配置」设置模块
+
+#### ones:settings:testcase:base:project
+
+「配置中心 - 测试管理配置 - 基础配置 - 关联项目配置」设置模块，用于替换「配置中心 - 测试管理配置 - 基础配置 - 关联项目配置」设置页
+
+#### ones:settings:testcase:base:permission
+
+「配置中心 - 测试管理配置 - 基础配置 - 权限配置」设置模块，用于替换「配置中心 - 测试管理配置 - 基础配置 - 权限配置」设置页
+
+#### ones:settings:testcase:case
+
+「配置中心 - 测试管理配置 - 测试用例」设置模块，用于替换「配置中心 - 测试管理配置 - 测试用例」设置模块
+
+#### ones:settings:testcase:case:field
+
+「配置中心 - 测试管理配置 - 测试用例 - 用例属性」设置模块，用于替换「配置中心 - 测试管理配置 - 测试用例 - 用例属性」设置页
+
+#### ones:settings:testcase:case:config
+
+「配置中心 - 测试管理配置 - 测试用例 - 用例属性配置」设置模块，用于替换「配置中心 - 测试管理配置 - 测试用例 - 用例属性配置」设置页
+
+#### ones:settings:testcase:plan
+
+「配置中心 - 测试管理配置 - 测试计划」设置模块，用于替换「配置中心 - 测试管理配置 - 测试计划」设置模块
+
+#### ones:settings:testcase:plan:field
+
+「配置中心 - 测试管理配置 - 测试计划 - 测试计划属性」设置模块，用于替换「配置中心 - 测试管理配置 - 测试计划 - 测试计划属性」设置页
+
+#### ones:settings:testcase:report
+
+「配置中心 - 测试管理配置 - 测试报告」设置模块，用于替换「配置中心 - 测试管理配置 - 测试报告」设置模块
+
+#### ones:settings:testcase:report:template
+
+「配置中心 - 测试管理配置 - 测试报告 - 管理报告模板」设置模块，用于替换「配置中心 - 测试管理配置 - 测试报告 - 管理报告模板」设置页
+
+#### ones:settings:testcase:new
+
+「配置中心 - 测试管理配置」设置模块插槽，用于在「配置中心 - 测试管理配置」新增设置模块
+
+#### ones:settings:pipeline
+
+「配置中心 - 流水线管理配置」设置模块，用于替换「配置中心 - 流水线管理配置」设置模块
+
+#### ones:settings:pipeline:new
+
+「配置中心 - 流水线管理配置」设置模块插槽，用于在「配置中心 - 流水线管理配置」新增设置模块
+
+#### ones:settings:plan
+
+「配置中心 - 项目集管理配置」设置模块，用于替换「配置中心 - 项目集管理配置」设置模块
+
+#### ones:settings:plan:new
+
+「配置中心 - 项目集管理配置」设置模块插槽，用于在「配置中心 - 项目集管理配置」新增设置模块
+
+#### ones:settings:performance
+
+「配置中心 - 效能管理配置」设置模块，用于替换「配置中心 - 效能管理配置」设置模块
+
+#### ones:settings:performance:new
+
+「配置中心 - 效能管理配置」设置模块插槽，用于在「配置中心 - 效能管理配置」新增设置模块
+
+#### ones:settings:automation
+
+「配置中心 - 流程自动化」设置模块，用于替换「配置中心 - 流程自动化」设置模块
+
+#### ones:settings:automation:new
+
+「配置中心 - 流程自动化」设置模块插槽，用于在「配置中心 - 流程自动化」新增设置模块
+
+#### ones:settings:new
+
+「配置中心」设置模块插槽，用于在「配置中心」新增设置模块
+
+### 组织管理
+
+#### ones:settings:organization:manage
+
+「组织管理 - 组织管理」设置模块，用于替换「组织管理 - 组织管理」设置模块
+
+#### ones:settings:organization:manage:info
+
+「组织管理 - 组织管理 - 组织信息」设置模块，用于替换「组织管理 - 组织管理 - 组织信息」设置页
+
+#### ones:settings:organization:manage:permission
+
+「组织管理 - 组织管理 - 组织权限」设置模块，用于替换「组织管理 - 组织管理 - 组织权限」设置页
+
+#### ones:settings:organization:manage:team
+
+「组织管理 - 组织管理 - 团队管理」设置模块，用于替换「组织管理 - 组织管理 - 团队管理」设置页
+
+#### ones:settings:organization:manage:payment
+
+「组织管理 - 组织管理 - 产品授权管理」设置模块，用于替换「组织管理 - 组织管理 - 产品授权管理」设置页
+
+#### ones:settings:organization:manage:new
+
+「组织管理 - 组织管理」设置模块插槽，用于在「组织管理 - 组织管理」追加设置页
+
+#### ones:settings:organization:account
+
+「组织管理 - 账号和成员」设置模块，用于替换「组织管理 - 账号和成员」设置模块
+
+#### ones:settings:organization:account:connect
+
+「组织管理 - 账号和成员 - 第三方账号」设置模块，用于替换「组织管理 - 账号和成员 - 第三方账号」设置页
+
+#### ones:settings:organization:account:manage
+
+「组织管理 - 账号和成员 - 组织成员管理」设置模块，用于替换「组织管理 - 账号和成员 - 组织成员管理」设置页
+
+#### ones:settings:organization:account:new
+
+「组织管理 - 账号和成员」设置模块插槽，用于在「组织管理 - 账号和成员」追加设置页
+
+#### ones:settings:organization:appearance
+
+「组织管理 - 系统偏好设置」设置模块，用于替换「组织管理 - 系统偏好设置」设置模块
+
+#### ones:settings:organization:appearance:sidebar
+
+「组织管理 - 系统偏好设置 - 侧边栏颜色」设置模块，用于替换「组织管理 - 系统偏好设置 - 侧边栏颜色」设置页
+
+#### ones:settings:organization:appearance:favicon
+
+「组织管理 - 系统偏好设置 - 浏览器 Favicon」设置模块，用于替换「组织管理 - 系统偏好设置 - 浏览器 Favicon」设置页
+
+#### ones:settings:organization:appearance:email
+
+「组织管理 - 系统偏好设置 - 邮件设置」设置模块，用于替换「组织管理 - 系统偏好设置 - 邮件设置」设置页
+
+#### ones:settings:organization:appearance:message
+
+「组织管理 - 系统偏好设置 - 短信服务设置」设置模块，用于替换「组织管理 - 系统偏好设置 - 短信服务设置」设置页
+
+#### ones:settings:organization:appearance:new
+
+「组织管理 - 系统偏好设置」设置模块插槽，用于在「组织管理 - 系统偏好设置」追加设置页
+
+#### ones:settings:organization:safe
+
+「组织管理 - 系统安全」设置模块，用于替换「组织管理 - 系统安全」设置模块
+
+#### ones:settings:organization:safe:log
+
+「组织管理 - 系统安全 - 操作日志」设置模块，用于替换「组织管理 - 系统安全 - 操作日志」设置页
+
+#### ones:settings:organization:safe:policy
+
+「组织管理 - 系统安全 - 网络访问安全策略」设置模块，用于替换「组织管理 - 系统安全 - 网络访问安全策略」设置页
+
+#### ones:settings:organization:safe:watermark
+
+「组织管理 - 系统安全 - 移动端水印」设置模块，用于替换「组织管理 - 系统安全 - 移动端水印」设置页
+
+#### ones:settings:organization:safe:new
+
+「组织管理 - 系统安全」设置模块插槽，用于在「组织管理 - 系统安全」追加设置页
+
+#### ones:settings:organization:new
+
+「组织管理」设置模块插槽，用于在「组织管理」追加设置模块
+
 ### 个人中心
 
 #### ones:account:personal
