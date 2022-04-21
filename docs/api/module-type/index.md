@@ -18,9 +18,9 @@ ${location.protocol}://${location.host}/plugin/${组织id}/${团队id}/${service
 
 全局错误码模块，用于拦截指定错误码以自定义提示信息，模块独有配置参数如下：
 
-| 属性 | 说明 | 类型 | 必填 | 默认值 |
-| :-: | :-- | :-: | :-: | :-: |
-| errorMessage | 错误码与错误信息的配置对象 | `Recode<ErrorCode, string>` | 是 | |
+|     属性     | 说明                       |            类型             | 必填 | 默认值 |
+| :----------: | :------------------------- | :-------------------------: | :--: | :----: |
+| errorMessage | 错误码与错误信息的配置对象 | `Recode<ErrorCode, string>` |  是  |        |
 
 - 示例：
 
@@ -46,13 +46,13 @@ modules:
 }
 ```
 
-| 属性 | 说明 | 类型 | 必填 | 默认值 |
-| :-: | :-- | :-: | :-: | :-: |
-| code | HTTP 状态码 | `number` | 是 | |
-| errcode | 系统错误码 | `string` | 是 | |
-| model | 插件标识，必须带有 `plugin.` 前缀 | `string` | 是 | |
-| reason | 自定义提示信息 | `string` | 是 | |
-| type | 提示信息类型，对应 [ONES Design toast 组件](https://bangwork.github.io/ones-design/?path=/docs/core-toast--toast%E5%85%A8%E5%B1%80%E6%8F%90%E7%A4%BA) 的展示形态 | `'info'` `'warning'` `'error'` | 是 | |
+|  属性   | 说明                                                                                                                                                             |              类型              | 必填 | 默认值 |
+| :-----: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------: | :--: | :----: |
+|  code   | HTTP 状态码                                                                                                                                                      |            `number`            |  是  |        |
+| errcode | 系统错误码                                                                                                                                                       |            `string`            |  是  |        |
+|  model  | 插件标识，必须带有 `plugin.` 前缀                                                                                                                                |            `string`            |  是  |        |
+| reason  | 自定义提示信息                                                                                                                                                   |            `string`            |  是  |        |
+|  type   | 提示信息类型，对应 [ONES Design toast 组件](https://bangwork.github.io/ones-design/?path=/docs/core-toast--toast%E5%85%A8%E5%B1%80%E6%8F%90%E7%A4%BA) 的展示形态 | `'info'` `'warning'` `'error'` |  是  |        |
 
 ### ones:global:modal:upload
 
@@ -551,3 +551,45 @@ modules:
 #### ones:version:new
 
 「版本管理」模块插槽，用于在「版本管理」应用顶栏新增模块页面
+
+### 个人中心
+
+#### ones:account:personal
+
+「个人中心 - 个人信息」设置模块，用于替换「个人中心 - 个人信息」设置模块
+
+#### ones:account:personal:profile
+
+「个人中心 - 个人信息 - 账户信息」设置模块，用于替换「个人中心 - 个人信息 - 账户信息」设置页
+
+#### ones:account:personal:connect
+
+「个人中心 - 个人信息 - 绑定第三方账号」设置模块，用于替换「个人中心 - 个人信息 - 绑定第三方账号」设置页
+
+#### ones:account:personal:new
+
+「个人中心 - 个人信息」设置模块插槽，用于在「个人中心 - 个人信息」新增设置页面
+
+#### ones:account:dashboard
+
+「个人中心 - 仪表盘」设置模块，用于替换「个人中心 - 仪表盘」设置模块
+
+#### ones:account:dashboard:common
+
+「个人中心 - 仪表盘 - 常用仪表盘」设置模块，用于替换「个人中心 - 仪表盘 - 常用仪表盘」设置页
+
+#### ones:account:dashboard:create
+
+「个人中心 - 仪表盘 - 我创建的」设置模块，用于替换「个人中心 - 仪表盘 - 我创建的」设置页
+
+#### ones:account:dashboard:share
+
+「个人中心 - 仪表盘 - 共享给我的」设置模块，用于替换「个人中心 - 仪表盘 - 共享给我的」设置页
+
+#### ones:account:dashboard:new
+
+「个人中心 - 仪表盘」设置模块插槽，用于在「个人中心 - 仪表盘」新增设置页面
+
+#### ones:account:new
+
+「个人中心」设置模块插槽，用于在「个人中心」新增设置模块
