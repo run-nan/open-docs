@@ -374,8 +374,6 @@ modules:
 
 「测试管理」模块插槽，用于在「测试管理」应用顶栏新增模块页面
 
-
-
 ### 产品管理
 
 #### ones:product:index
@@ -385,6 +383,54 @@ modules:
 #### ones:product:new
 
 「产品管理」模块插槽，用于在「产品管理」应用顶栏新增模块页面
+
+#### ones:product:component:version
+
+「产品管理 - 版本」组件模块，用于替换「产品管理 - 版本」组件
+
+#### ones:product:component:desk
+
+「产品管理 - 工单」组件模块，用于替换「产品管理 - 工单」组件
+
+#### ones:product:component:module
+
+「产品管理 - 模块」组件模块，用于替换「产品管理 - 模块」组件
+
+#### ones:product:component:bug
+
+「产品管理 - 缺陷」组件模块，用于替换「产品管理 - 缺陷」组件
+
+#### ones:product:component:task
+
+「产品管理 - 任务」组件模块，用于替换「产品管理 - 任务」组件
+
+#### ones:product:component:demand
+
+「产品管理 - 需求」组件模块，用于替换「产品管理 - 需求」组件
+
+#### ones:product:component:story
+
+「产品管理 - 用户故事」组件模块，用于替换「产品管理 - 用户故事」组件
+
+#### ones:product:settings:config
+
+「产品管理 - 产品设置 - 产品配置」设置模块，用于替换「产品管理 - 产品设置 - 产品配置」设置页
+
+#### ones:product:settings:info
+
+「产品管理 - 产品设置 - 基础信息」设置模块，用于替换「产品管理 - 产品设置 - 基础信息」设置页
+
+#### ones:product:settings:component
+
+「产品管理 - 产品设置 - 组件设置」设置模块，用于替换「产品管理 - 产品设置 - 组件设置」设置页
+
+#### ones:product:settings:more
+
+「产品管理 - 产品设置 - 更多」设置模块，用于替换「产品管理 - 产品设置 - 更多」设置页
+
+#### ones:product:settings:new
+
+「产品管理 - 产品设置」设置模块插槽，用于在「产品管理 - 产品设置」新增设置页面
 
 ### 工单管理
 
