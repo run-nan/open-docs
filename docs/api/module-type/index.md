@@ -66,9 +66,17 @@ modules:
 
 ## 应用插槽
 
+### ones:workspace
+
+「我的工作台」应用插槽，用于替换「我的工作台」整个应用
+
 ### ones:project
 
 「项目管理」应用插槽，用于替换「项目管理」整个应用
+
+### ones:wiki
+
+「知识库管理」应用插槽，用于替换「知识库管理」整个应用
 
 ### ones:testcase
 
@@ -102,6 +110,10 @@ modules:
 
 「流水线管理」应用插槽，用于替换「流水线管理」整个应用
 
+### ones:version
+
+「版本管理」应用插槽，用于替换「版本管理」整个应用
+
 ## 模块插槽
 
 ### settings
@@ -118,6 +130,32 @@ modules:
 
 系统登录页的第三方登录模块，用于新增系统登录页的第三方登录入口
 
+### 我的工作台
+
+#### ones:workspace:index
+
+「我的工作台 - 概览」模块，用于替换「我的工作台」应用的「概览」模块
+
+#### ones:workspace:dashboard
+
+「我的工作台 - 仪表盘」模块，用于替换「我的工作台」应用的「仪表盘」模块
+
+#### ones:workspace:dashboard:header:action:new
+
+「我的工作台 - 仪表盘」组件的顶部操作模块，用于在「我的工作台 - 仪表盘」组件的顶部操作区域左侧追加新内容
+
+#### ones:workspace:filter
+
+「我的工作台 - 筛选器」模块，用于替换「我的工作台」应用的「筛选器」模块
+
+#### ones:workspace:manhour
+
+「我的工作台 - 工时」模块，用于替换「我的工作台」应用的「工时」模块
+
+#### ones:workspace:new
+
+「我的工作台」模块插槽，用于在「我的工作台」应用顶栏新增模块页面
+
 ### 项目管理
 
 #### ones:project:index
@@ -127,6 +165,136 @@ modules:
 #### ones:project:new
 
 「项目管理」模块插槽，用于在「项目管理」应用顶栏新增模块页面
+
+#### ones:project:component:overview
+
+「项目管理 - 项目概览」组件模块，用于替换「项目管理 - 项目概览」组件
+
+#### ones:project:component:overview:header:action:new
+
+「项目管理 - 项目概览」组件的顶部操作模块，用于在「项目管理 - 项目概览」组件的顶部操作区域左侧追加新内容
+
+#### ones:project:component:report
+
+「项目管理 - 报表」组件模块，用于替换「项目管理 - 报表」组件
+
+#### ones:project:component:member
+
+「项目管理 - 成员」组件模块，用于替换「项目管理 - 成员」组件
+
+#### ones:project:component:todo
+
+「项目管理 - 待办事项」组件模块，用于替换「项目管理 - 待办事项」组件
+
+#### ones:project:component:sprint
+
+「项目管理 - 迭代」组件模块，用于替换「项目管理 - 迭代」组件
+
+#### ones:project:component:sprintPlan
+
+「项目管理 - 迭代计划」组件模块，用于替换「项目管理 - 迭代计划」组件
+
+#### ones:project:component:publish
+
+「项目管理 - 发布」组件模块，用于替换「项目管理 - 发布」组件
+
+#### ones:project:component:desk
+
+「项目管理 - 工单」组件模块，用于替换「项目管理 - 工单」组件
+
+#### ones:project:component:deliverable
+
+「项目管理 - 交付物」组件模块，用于替换「项目管理 - 交付物」组件
+
+#### ones:project:component:milestone
+
+「项目管理 - 里程碑」组件模块，用于替换「项目管理 - 里程碑」组件
+
+#### ones:project:component:pipeline
+
+「项目管理 - 流水线」组件模块，用于替换「项目管理 - 流水线」组件
+
+#### ones:project:component:bug
+
+「项目管理 - 缺陷」组件模块，用于替换「项目管理 - 缺陷」组件
+
+#### ones:project:component:task
+
+「项目管理 - 任务」组件模块，用于替换「项目管理 - 任务」组件
+
+#### ones:project:component:filter
+
+「项目管理 - 筛选器」组件模块，用于替换「项目管理 - 筛选器」组件
+
+#### ones:project:component:gantt
+
+「项目管理 - 时间视图」组件模块，用于替换「项目管理 - 时间视图」组件
+
+#### ones:project:component:doc
+
+「项目管理 - 文档」组件模块，用于替换「项目管理 - 文档」组件
+
+#### ones:project:component:file
+
+「项目管理 - 文件」组件模块，用于替换「项目管理 - 文件」组件
+
+#### ones:project:component:plan
+
+「项目管理 - 项目计划」组件模块，用于替换「项目管理 - 项目计划」组件
+
+#### ones:project:component:demand
+
+「项目管理 - 需求」组件模块，用于替换「项目管理 - 需求」组件
+
+#### ones:project:component:story
+
+「项目管理 - 用户故事」组件模块，用于替换「项目管理 - 用户故事」组件
+
+#### ones:project:component:execute
+
+「项目管理 - 执行」组件模块，用于替换「项目管理 - 执行」组件
+
+#### ones:project:settings:component
+
+「项目管理 - 项目设置 - 项目组件」设置模块，用于替换「项目管理 - 项目设置 - 项目组件」设置页
+
+#### ones:project:settings:issueType
+
+「项目管理 - 项目设置 - 工作项类型」设置模块，用于替换「项目管理 - 项目设置 - 工作项类型」设置页
+
+#### ones:project:settings:permission
+
+「项目管理 - 项目设置 - 权限配置」设置模块，用于替换「项目管理 - 项目设置 - 权限配置」设置页
+
+#### ones:project:settings:sprint
+
+「项目管理 - 项目设置 - 迭代配置」设置模块，用于替换「项目管理 - 项目设置 - 迭代配置」设置页
+
+#### ones:project:settings:config
+
+「项目管理 - 项目设置 - 项目配置」设置模块，用于替换「项目管理 - 项目设置 - 项目配置」设置页
+
+#### ones:project:settings:operation
+
+「项目管理 - 项目设置 - 项目操作」设置模块，用于替换「项目管理 - 项目设置 - 项目操作」设置页
+
+#### ones:project:settings:new
+
+「项目管理 - 项目设置」设置模块插槽，用于在「项目管理 - 项目设置」新增设置页面
+
+### 知识库管理
+
+#### ones:wiki:index
+
+「知识库管理」首页模块，用于替换「知识库管理」应用的首页模块
+
+#### ones:wiki:share
+
+「知识库管理 - 与我共享」模块，用于替换「知识库管理」应用的「与我共享」模块
+
+#### ones:wiki:new
+
+「知识库管理」模块插槽，用于在「知识库管理」应用顶栏新增模块页面
 
 ### 测试管理
 
@@ -165,6 +333,38 @@ modules:
 #### ones:testcase:plan
 
 「测试管理 - 测试计划」模块，用于替换「测试管理」应用的「测试计划」模块
+
+#### ones:testcase:plan:component:case
+
+「测试管理 - 测试计划 - 用例」组件模块，用于替换「测试管理 - 测试计划 - 用例」组件
+
+#### ones:testcase:plan:component:demand
+
+「测试管理 - 测试计划 - 需求跟踪」组件模块，用于替换「测试管理 - 测试计划 - 需求跟踪」组件
+
+#### ones:testcase:plan:component:demand:header:action:new
+
+「测试管理 - 测试计划 - 需求跟踪」组件的顶部操作模块，用于在「测试管理 - 测试计划 - 需求跟踪」组件的顶部操作区域左侧追加新内容
+
+#### ones:testcase:plan:settings:info
+
+「测试管理 - 测试计划 - 测试计划设置 - 测试计划信息」设置模块，用于替换「测试管理 - 测试计划- 测试计划设置 - 测试计划信息」设置页
+
+#### ones:testcase:plan:settings:perform
+
+「测试管理 - 测试计划 - 测试计划设置 - 执行配置」设置模块，用于替换「测试管理 - 测试计划- 测试计划设置 - 执行配置」设置页
+
+#### ones:testcase:plan:settings:permission
+
+「测试管理 - 测试计划 - 测试计划设置 - 权限配置」设置模块，用于替换「测试管理 - 测试计划- 测试计划设置 - 权限配置」设置页
+
+#### ones:testcase:plan:settings:more
+
+「测试管理 - 测试计划 - 测试计划设置 - 更多」设置模块，用于替换「测试管理 - 测试计划- 测试计划设置 - 更多」设置页
+
+#### ones:testcase:plan:settings:new
+
+「测试管理 - 用例库 - 测试计划设置」设置模块插槽，用于在「测试管理 - 用例库 - 测试计划设置」新增设置页面
 
 #### ones:testcase:report
 
@@ -271,3 +471,13 @@ modules:
 #### ones:pipeline:component:history
 
 「流水线管理 - 流水线 - 历史」组件模块，用于替换「流水线管理 - 流水线 - 历史」组件
+
+### 版本管理
+
+#### ones:version:index
+
+「版本管理」首页模块，用于替换「版本管理」应用的首页模块
+
+#### ones:version:new
+
+「版本管理」模块插槽，用于在「版本管理」应用顶栏新增模块页面
