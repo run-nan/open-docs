@@ -2,6 +2,9 @@
 sidebar_position: 2
 ---
 # 1. 系统 banner & security 弹窗
+
+> 插件示例链接：[系统banner&security弹窗](https://gitlab.partner.ones.ai/example/banneruploadtip)
+
 ## 目标
 这是一个几乎纯前端实现的插件。
 

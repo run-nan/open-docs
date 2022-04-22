@@ -2,6 +2,9 @@
 sidebar_position: 4
 ---
 # 3. 分部门统计工时
+
+> 插件示例地址：[分部门统计工时](https://gitlab.partner.ones.ai/example/manhourstatistics)
+
 ## 目标
 通过一个业务实现较为复杂的插件实现，演示如何使用“脚本属性-数字”来满足标准系统的定制需求；
 
@@ -281,4 +284,3 @@ async function getTaskManHour(teamUUID, taskuuids, companyName) {
 
 
 
-插件实例地址：[https://gitlab.partner.ones.ai/example/manhourstatistics](https://gitlab.partner.ones.ai/example/manhourstatistics)
