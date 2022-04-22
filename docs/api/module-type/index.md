@@ -66,27 +66,27 @@ modules:
 
 ### ones:layout:header:action:search
 
-系统顶栏右侧操作模块，用于在系统顶栏右侧搜索按钮的替换与隐藏
+系统顶栏右侧操作模块，用于替换系统顶栏右侧「搜索」操作模块
 
 ### ones:layout:header:action:add
 
-系统顶栏右侧操作模块，用于在系统顶栏右侧新建按钮的替换与隐藏
+系统顶栏右侧操作模块，用于替换系统顶栏右侧「新建」操作模块
 
 ### ones:layout:header:action:help
 
-系统顶栏右侧操作模块，用于在系统顶栏右侧帮助按钮的替换与隐藏
+系统顶栏右侧操作模块，用于替换系统顶栏右侧「帮助」操作模块
 
 ### ones:layout:header:action:settings
 
-系统顶栏右侧操作模块，用于在系统顶栏右侧设置按钮的替换与隐藏
+系统顶栏右侧操作模块，用于替换系统顶栏右侧「设置」操作模块
 
 ### ones:layout:header:action:notification
 
-系统顶栏右侧操作模块，用于在系统顶栏右侧通知按钮的替换与隐藏
+系统顶栏右侧操作模块，用于替换系统顶栏右侧「通知」操作模块
 
 ### ones:layout:header:action:avatar
 
-系统顶栏右侧操作模块，用于在系统顶栏右侧头像按钮的替换与隐藏
+系统顶栏右侧操作模块，用于替换系统顶栏右侧「头像」操作模块
 
 ## 应用插槽
 
@@ -156,6 +156,10 @@ modules:
 
 ### 我的工作台
 
+#### ones:workspace:new
+
+「我的工作台」模块插槽，用于在「我的工作台」应用顶栏新增模块页面
+
 #### ones:workspace:index
 
 「我的工作台 - 概览」模块，用于替换「我的工作台」应用的「概览」模块
@@ -176,19 +180,15 @@ modules:
 
 「我的工作台 - 工时」模块，用于替换「我的工作台」应用的「工时」模块
 
-#### ones:workspace:new
-
-「我的工作台」模块插槽，用于在「我的工作台」应用顶栏新增模块页面
-
 ### 项目管理
-
-#### ones:project:index
-
-「项目管理」首页模块，用于替换「项目管理」应用的首页模块
 
 #### ones:project:new
 
 「项目管理」模块插槽，用于在「项目管理」应用顶栏新增模块页面
+
+#### ones:project:index
+
+「项目管理」首页模块，用于替换「项目管理」应用的首页模块
 
 #### ones:project:component:overview
 
@@ -278,6 +278,10 @@ modules:
 
 「项目管理 - 执行」组件模块，用于替换「项目管理 - 执行」组件
 
+#### ones:project:settings:new
+
+「项目管理 - 项目设置」设置模块插槽，用于在「项目管理 - 项目设置」新增设置页面
+
 #### ones:project:settings:component
 
 「项目管理 - 项目设置 - 项目组件」设置模块，用于替换「项目管理 - 项目设置 - 项目组件」设置页
@@ -302,11 +306,11 @@ modules:
 
 「项目管理 - 项目设置 - 项目操作」设置模块，用于替换「项目管理 - 项目设置 - 项目操作」设置页
 
-#### ones:project:settings:new
-
-「项目管理 - 项目设置」设置模块插槽，用于在「项目管理 - 项目设置」新增设置页面
-
 ### 知识库管理
+
+#### ones:wiki:new
+
+「知识库管理」模块插槽，用于在「知识库管理」应用顶栏新增模块页面
 
 #### ones:wiki:index
 
@@ -316,11 +320,11 @@ modules:
 
 「知识库管理 - 与我共享」模块，用于替换「知识库管理」应用的「与我共享」模块
 
-#### ones:wiki:new
-
-「知识库管理」模块插槽，用于在「知识库管理」应用顶栏新增模块页面
-
 ### 测试管理
+
+#### ones:testcase:new
+
+「测试管理」模块插槽，用于在「测试管理」应用顶栏新增模块页面
 
 #### ones:testcase:index
 
@@ -333,6 +337,10 @@ modules:
 #### ones:testcase:library:component:case
 
 「测试管理 - 用例库 - 用例」组件模块，用于替换「测试管理 - 用例库 - 用例」组件
+
+#### ones:testcase:library:settings:new
+
+「测试管理 - 用例库 - 用例库设置」设置模块插槽，用于在「测试管理 - 用例库 - 用例库设置」新增设置页面
 
 #### ones:testcase:library:settings:info
 
@@ -350,10 +358,6 @@ modules:
 
 「测试管理 - 用例库 - 用例库设置 - 删除用例库」设置模块，用于替换「测试管理 - 用例库 - 用例库设置 - 删除用例库」设置页
 
-#### ones:testcase:library:settings:new
-
-「测试管理 - 用例库 - 用例库设置」设置模块插槽，用于在「测试管理 - 用例库 - 用例库设置」新增设置页面
-
 #### ones:testcase:plan
 
 「测试管理 - 测试计划」模块，用于替换「测试管理」应用的「测试计划」模块
@@ -369,6 +373,10 @@ modules:
 #### ones:testcase:plan:component:demand:header:action:new
 
 「测试管理 - 测试计划 - 需求跟踪」组件的顶部操作模块，用于在「测试管理 - 测试计划 - 需求跟踪」组件的顶部操作区域左侧追加新内容
+
+#### ones:testcase:plan:settings:new
+
+「测试管理 - 用例库 - 测试计划设置」设置模块插槽，用于在「测试管理 - 用例库 - 测试计划设置」新增设置页面
 
 #### ones:testcase:plan:settings:info
 
@@ -386,27 +394,19 @@ modules:
 
 「测试管理 - 测试计划 - 测试计划设置 - 更多」设置模块，用于替换「测试管理 - 测试计划- 测试计划设置 - 更多」设置页
 
-#### ones:testcase:plan:settings:new
-
-「测试管理 - 用例库 - 测试计划设置」设置模块插槽，用于在「测试管理 - 用例库 - 测试计划设置」新增设置页面
-
 #### ones:testcase:report
 
 「测试管理 - 测试报告」模块，用于替换「测试管理」应用的「测试报告」模块
 
-#### ones:testcase:new
-
-「测试管理」模块插槽，用于在「测试管理」应用顶栏新增模块页面
-
 ### 产品管理
-
-#### ones:product:index
-
-「产品管理」首页模块，用于替换「产品管理」应用的首页模块
 
 #### ones:product:new
 
 「产品管理」模块插槽，用于在「产品管理」应用顶栏新增模块页面
+
+#### ones:product:index
+
+「产品管理」首页模块，用于替换「产品管理」应用的首页模块
 
 #### ones:product:component:version
 
@@ -436,6 +436,10 @@ modules:
 
 「产品管理 - 用户故事」组件模块，用于替换「产品管理 - 用户故事」组件
 
+#### ones:product:settings:new
+
+「产品管理 - 产品设置」设置模块插槽，用于在「产品管理 - 产品设置」新增设置页面
+
 #### ones:product:settings:config
 
 「产品管理 - 产品设置 - 产品配置」设置模块，用于替换「产品管理 - 产品设置 - 产品配置」设置页
@@ -452,19 +456,15 @@ modules:
 
 「产品管理 - 产品设置 - 更多」设置模块，用于替换「产品管理 - 产品设置 - 更多」设置页
 
-#### ones:product:settings:new
-
-「产品管理 - 产品设置」设置模块插槽，用于在「产品管理 - 产品设置」新增设置页面
-
 ### 工单管理
-
-#### ones:desk:index
-
-「工单管理」首页模块，用于替换「工单管理」应用的首页模块
 
 #### ones:desk:new
 
 「工单管理」模块插槽，用于在「工单管理」应用顶栏新增模块页面
+
+#### ones:desk:index
+
+「工单管理」首页模块，用于替换「工单管理」应用的首页模块
 
 ### 工单门户
 
@@ -473,6 +473,10 @@ modules:
 「工单门户」首页模块，用于替换「工单门户」应用的首页模块
 
 ### 工时管理
+
+#### ones:manhour:new
+
+「工时管理」新增模块，用于在「工时管理」应用顶栏新增模块页面
 
 #### ones:manhour:index
 
@@ -486,19 +490,15 @@ modules:
 
 「工时管理 - 工时日志」模块，用于替换「工时管理」应用的「工时日志」模块
 
-#### ones:manhour:new
-
-「工时管理」新增模块，用于在「工时管理」应用顶栏新增模块页面
-
 ### 效能管理
-
-#### ones:performance:index
-
-「效能管理 - 仪表盘」模块，用于替换「效能管理」应用的「仪表盘」模块
 
 #### ones:performance:new
 
 「效能管理」模块插槽，用于在「效能管理」应用顶栏新增模块页面
+
+#### ones:performance:index
+
+「效能管理 - 仪表盘」模块，用于替换「效能管理」应用的「仪表盘」模块
 
 #### ones:performance:component:dashboard:header:action:new
 
@@ -508,6 +508,10 @@ modules:
 
 ### 项目集管理
 
+#### ones:plan:new
+
+「项目集管理」模块插槽，用于在「项目集管理」应用顶栏新增模块页面
+
 #### ones:plan:index
 
 「项目集管理」首页模块，用于替换「项目集管理」应用的首页模块
@@ -515,10 +519,6 @@ modules:
 #### ones:plan:gantt
 
 「项目集管理 - 甘特图」模块，用于替换「项目集管理」应用的「甘特图」模块
-
-#### ones:plan:new
-
-「项目集管理」模块插槽，用于在「项目集管理」应用顶栏新增模块页面
 
 #### ones:plan:component:project
 
@@ -530,13 +530,13 @@ modules:
 
 ### 流水线管理
 
-#### ones:pipeline:index
-
-「流水线管理」首页模块，用于替换「流水线管理」应用的首页模块
-
 #### ones:pipeline:new
 
 「流水线管理」模块插槽，用于在「流水线管理」应用顶栏新增模块页面
+
+#### ones:pipeline:index
+
+「流水线管理」首页模块，用于替换「流水线管理」应用的首页模块
 
 #### ones:pipeline:component:history
 
@@ -544,15 +544,19 @@ modules:
 
 ### 版本管理
 
-#### ones:version:index
-
-「版本管理」首页模块，用于替换「版本管理」应用的首页模块
-
 #### ones:version:new
 
 「版本管理」模块插槽，用于在「版本管理」应用顶栏新增模块页面
 
+#### ones:version:index
+
+「版本管理」首页模块，用于替换「版本管理」应用的首页模块
+
 ### 配置中心
+
+#### ones:settings:new
+
+「配置中心」设置模块插槽，用于在「配置中心」新增设置模块
 
 #### ones:settings:team
 
@@ -605,6 +609,10 @@ modules:
 #### ones:settings:project
 
 「配置中心 - 项目管理配置」设置模块，用于替换「配置中心 - 项目管理配置」设置模块
+
+#### ones:settings:project:new
+
+「配置中心 - 项目管理配置」设置模块插槽，用于在「配置中心 - 项目管理配置」新增设置模块
 
 #### ones:settings:project:self
 
@@ -674,10 +682,6 @@ modules:
 
 「配置中心 - 项目管理配置 - 权限 - 权限配置」设置模块，用于替换「配置中心 - 项目管理配置 - 权限 - 权限配置」设置模块
 
-#### ones:settings:project:new
-
-「配置中心 - 项目管理配置」设置模块插槽，用于在「配置中心 - 项目管理配置」新增设置模块
-
 #### ones:settings:wiki
 
 「配置中心 - 知识库管理配置」设置模块，用于替换「配置中心 - 知识库管理配置」设置模块
@@ -689,6 +693,10 @@ modules:
 #### ones:settings:testcase
 
 「配置中心 - 测试管理配置」设置模块，用于替换「配置中心 - 测试管理配置」设置模块
+
+#### ones:settings:testcase:new
+
+「配置中心 - 测试管理配置」设置模块插槽，用于在「配置中心 - 测试管理配置」新增设置模块
 
 #### ones:settings:testcase:base
 
@@ -730,10 +738,6 @@ modules:
 
 「配置中心 - 测试管理配置 - 测试报告 - 管理报告模板」设置模块，用于替换「配置中心 - 测试管理配置 - 测试报告 - 管理报告模板」设置页
 
-#### ones:settings:testcase:new
-
-「配置中心 - 测试管理配置」设置模块插槽，用于在「配置中心 - 测试管理配置」新增设置模块
-
 #### ones:settings:pipeline
 
 「配置中心 - 流水线管理配置」设置模块，用于替换「配置中心 - 流水线管理配置」设置模块
@@ -766,15 +770,19 @@ modules:
 
 「配置中心 - 流程自动化」设置模块插槽，用于在「配置中心 - 流程自动化」新增设置模块
 
-#### ones:settings:new
-
-「配置中心」设置模块插槽，用于在「配置中心」新增设置模块
-
 ### 组织管理
+
+#### ones:settings:organization:new
+
+「组织管理」设置模块插槽，用于在「组织管理」追加设置模块
 
 #### ones:settings:organization:manage
 
 「组织管理 - 组织管理」设置模块，用于替换「组织管理 - 组织管理」设置模块
+
+#### ones:settings:organization:manage:new
+
+「组织管理 - 组织管理」设置模块插槽，用于在「组织管理 - 组织管理」追加设置页
 
 #### ones:settings:organization:manage:info
 
@@ -792,13 +800,13 @@ modules:
 
 「组织管理 - 组织管理 - 产品授权管理」设置模块，用于替换「组织管理 - 组织管理 - 产品授权管理」设置页
 
-#### ones:settings:organization:manage:new
-
-「组织管理 - 组织管理」设置模块插槽，用于在「组织管理 - 组织管理」追加设置页
-
 #### ones:settings:organization:account
 
 「组织管理 - 账号和成员」设置模块，用于替换「组织管理 - 账号和成员」设置模块
+
+#### ones:settings:organization:account:new
+
+「组织管理 - 账号和成员」设置模块插槽，用于在「组织管理 - 账号和成员」追加设置页
 
 #### ones:settings:organization:account:connect
 
@@ -808,13 +816,13 @@ modules:
 
 「组织管理 - 账号和成员 - 组织成员管理」设置模块，用于替换「组织管理 - 账号和成员 - 组织成员管理」设置页
 
-#### ones:settings:organization:account:new
-
-「组织管理 - 账号和成员」设置模块插槽，用于在「组织管理 - 账号和成员」追加设置页
-
 #### ones:settings:organization:appearance
 
 「组织管理 - 系统偏好设置」设置模块，用于替换「组织管理 - 系统偏好设置」设置模块
+
+#### ones:settings:organization:appearance:new
+
+「组织管理 - 系统偏好设置」设置模块插槽，用于在「组织管理 - 系统偏好设置」追加设置页
 
 #### ones:settings:organization:appearance:sidebar
 
@@ -832,13 +840,13 @@ modules:
 
 「组织管理 - 系统偏好设置 - 短信服务设置」设置模块，用于替换「组织管理 - 系统偏好设置 - 短信服务设置」设置页
 
-#### ones:settings:organization:appearance:new
-
-「组织管理 - 系统偏好设置」设置模块插槽，用于在「组织管理 - 系统偏好设置」追加设置页
-
 #### ones:settings:organization:safe
 
 「组织管理 - 系统安全」设置模块，用于替换「组织管理 - 系统安全」设置模块
+
+#### ones:settings:organization:safe:new
+
+「组织管理 - 系统安全」设置模块插槽，用于在「组织管理 - 系统安全」追加设置页
 
 #### ones:settings:organization:safe:log
 
@@ -852,19 +860,19 @@ modules:
 
 「组织管理 - 系统安全 - 移动端水印」设置模块，用于替换「组织管理 - 系统安全 - 移动端水印」设置页
 
-#### ones:settings:organization:safe:new
-
-「组织管理 - 系统安全」设置模块插槽，用于在「组织管理 - 系统安全」追加设置页
-
-#### ones:settings:organization:new
-
-「组织管理」设置模块插槽，用于在「组织管理」追加设置模块
-
 ### 个人中心
+
+#### ones:account:new
+
+「个人中心」设置模块插槽，用于在「个人中心」新增设置模块
 
 #### ones:account:personal
 
 「个人中心 - 个人信息」设置模块，用于替换「个人中心 - 个人信息」设置模块
+
+#### ones:account:personal:new
+
+「个人中心 - 个人信息」设置模块插槽，用于在「个人中心 - 个人信息」新增设置页面
 
 #### ones:account:personal:profile
 
@@ -874,13 +882,13 @@ modules:
 
 「个人中心 - 个人信息 - 绑定第三方账号」设置模块，用于替换「个人中心 - 个人信息 - 绑定第三方账号」设置页
 
-#### ones:account:personal:new
-
-「个人中心 - 个人信息」设置模块插槽，用于在「个人中心 - 个人信息」新增设置页面
-
 #### ones:account:dashboard
 
 「个人中心 - 仪表盘」设置模块，用于替换「个人中心 - 仪表盘」设置模块
+
+#### ones:account:dashboard:new
+
+「个人中心 - 仪表盘」设置模块插槽，用于在「个人中心 - 仪表盘」新增设置页面
 
 #### ones:account:dashboard:common
 
@@ -893,11 +901,3 @@ modules:
 #### ones:account:dashboard:share
 
 「个人中心 - 仪表盘 - 共享给我的」设置模块，用于替换「个人中心 - 仪表盘 - 共享给我的」设置页
-
-#### ones:account:dashboard:new
-
-「个人中心 - 仪表盘」设置模块插槽，用于在「个人中心 - 仪表盘」新增设置页面
-
-#### ones:account:new
-
-「个人中心」设置模块插槽，用于在「个人中心」新增设置模块
