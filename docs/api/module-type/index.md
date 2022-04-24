@@ -62,7 +62,7 @@ modules:
 
 系统顶栏右侧操作模块，用于在系统顶栏右侧追加新操作内容
 
-![](images/ones-global-header-action-new.png)
+![](images/ones-layout-header-action-new.png)
 
 ### ones:layout:header:action:search
 
