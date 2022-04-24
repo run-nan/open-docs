@@ -58,6 +58,12 @@ modules:
 
 全局弹窗模块，用于在上传文件前展示
 
+### ones:layout:sider
+
+系统侧边栏菜单模块，用于隐藏侧边栏菜单功能
+
+![](images/ones-layout-sider.png)
+
 ### ones:layout:header:action:new
 
 系统顶栏右侧操作模块，用于在系统顶栏右侧追加新操作内容
@@ -68,25 +74,38 @@ modules:
 
 系统顶栏右侧操作模块，用于在系统顶栏右侧搜索按钮的替换与隐藏
 
+![](images/ones-layout-header-action-search.png)
+
 ### ones:layout:header:action:add
 
 系统顶栏右侧操作模块，用于在系统顶栏右侧新建按钮的替换与隐藏
+
+![](images/ones-layout-header-action-add.png)
 
 ### ones:layout:header:action:help
 
 系统顶栏右侧操作模块，用于在系统顶栏右侧帮助按钮的替换与隐藏
 
+
+![](images/ones-layout-header-action-help.png)
+
 ### ones:layout:header:action:settings
 
 系统顶栏右侧操作模块，用于在系统顶栏右侧设置按钮的替换与隐藏
+
+![](images/ones-layout-header-action-settings.png)
 
 ### ones:layout:header:action:notification
 
 系统顶栏右侧操作模块，用于在系统顶栏右侧通知按钮的替换与隐藏
 
+![](images/ones-layout-header-action-notification.png)
+
 ### ones:layout:header:action:avatar
 
 系统顶栏右侧操作模块，用于在系统顶栏右侧头像按钮的替换与隐藏
+
+![](images/ones-layout-header-action-avatar.png)
 
 ## 应用插槽
 
