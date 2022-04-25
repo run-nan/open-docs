@@ -2,6 +2,9 @@
 sidebar_position: 3
 ---
 # 2. 通过替换接口，替换重置密码链接
+
+> 插件示例链接：[重置用户密码链接](https://gitlab.partner.ones.ai/example/restpassword)
+
 ## 目标
 这是一个纯前端实现的插件。
 
@@ -79,4 +82,3 @@ export async function getResetPasswordLink(request: PluginRequest): Promise<Plug
 
 ![image](password3.jpg)
 
-插件实例链接：[重置用户密码链接](https://gitlab.partner.ones.ai/example/restpassword)

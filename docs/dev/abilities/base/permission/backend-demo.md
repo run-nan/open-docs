@@ -1,10 +1,10 @@
-# 插件后端permission能力开发
+# 插件后端 permission 能力开发
 
 我们为插件开发者提供了非声明式的权限点定义和和配置方法。开发者可以使用自行实现其前端权限配置页面，并在后端使用我们提供的方法来管理插件权限。
 
 我们提供了六个对应的方法，以下是如何在后端代码中使用他们。
 
-## 1.添加权限点  AddPermissionInfo
+## 1.添加权限点 AddPermissionInfo
 
 ```
 export async function addPermissionInfo(request: PluginRequest): Promise<PluginResponse> {
@@ -52,7 +52,7 @@ JSON.parse(response?.body.toString())["data"]值有：
 <AddPermissionInfo.PermissionFieldAlreadyExist> // permission标识已存在
 ```
 
-## 2.获取权限点  PermissionInfoList
+## 2.获取权限点 PermissionInfoList
 
 ```
 export async function permissioninfolist(request: PluginRequest): Promise<PluginResponse> {
@@ -95,7 +95,7 @@ JSON.parse(response?.body.toString())["data"]值有：
 ]
 ```
 
-## 3.删除权限点  DeletePermissionInfo
+## 3.删除权限点 DeletePermissionInfo
 
 ```
 export async function deletepermissioninfo(request: PluginRequest): Promise<PluginResponse> {
@@ -138,7 +138,7 @@ JSON.parse(response?.body.toString())["data"]值有：
 ]
 ```
 
-## 4.添加权限规则  AddPermissionRule
+## 4.添加权限规则 AddPermissionRule
 
 ```
 export async function addPermissionRule(request: PluginRequest): Promise<PluginResponse> {
@@ -188,7 +188,7 @@ JSON.parse(response?.body.toString())["data"]值有：
 <UserDomainNotExist> UserDomainNotExist // 用户域类型不存在
 ```
 
-## 5.检查是否有某个权限点权限  CheckPermissionRule
+## 5.检查是否有某个权限点权限 CheckPermissionRule
 
 ```
 export async function checkPermissionRule(request: PluginRequest): Promise<PluginResponse> {
@@ -226,7 +226,7 @@ JSON.parse(response?.body.toString())["data"]值有：
  <ServerError> permission not exist
 ```
 
-## 6.删除权限规则  DeletePermissionRule
+## 6.删除权限规则 DeletePermissionRule
 
 ```
 export async function deletePermissionRule(request: PluginRequest): Promise<PluginResponse> {

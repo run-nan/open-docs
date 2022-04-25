@@ -1,5 +1,7 @@
 # 系统数据库
+
 ## 能力描述
+
 提供访问系统 project 数据库数据能力。
 
 :::caution 注意
@@ -15,10 +17,13 @@
 :::
 
 ## 使用
+
 系统数据库能力被封装在了 **@ones-op/node-system-db** 这个包中，使用之前需要安装
 
 ```bash
 npm i @ones-op/node-system-db
 ```
+
 ## API
-提供了 **select, count, exec  **三个方法，使用方式和本地数据库的完全一样，可以参考上一章节 [插件数据库](./plugin-db)
+
+提供了 **select, count, exec **三个方法，使用方式和本地数据库的完全一样，可以参考上一章节 [插件数据库](./plugin-db)
