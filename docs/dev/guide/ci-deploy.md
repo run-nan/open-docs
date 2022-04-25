@@ -1,12 +1,12 @@
 ---
-sidebar_position: 3
+sidebar_position: 4
 ---
 # 插件持续集成测试
 
 > 持续集成教程: [插件持续集成测试](../../examples/videos/ci.mdx)
 
 ### 提交代码，自动安装插件到 CI 环境
-![image](ci1.png)
+![image](images/ci1.png)
 
 如图所示，当插件代码托管在 gitlab 上，且进行了相关的配置时，本地代码一旦提交，即会驱动 gitlab 的流水线，打包插件并安装到配置的持续集成环境中。
 
