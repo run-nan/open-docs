@@ -1,4 +1,8 @@
-# 持续集成: ci-deploy.yaml
+---
+sidebar_position: 4
+---
+
+#  ci-deploy.yaml
 ## 插件持续集成配置
 插件项目下有持续集成配置文件，与持续集成测试有关。
 

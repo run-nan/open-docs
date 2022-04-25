@@ -1,8 +1,10 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 # 添加开放能力
+
+> 插件开发教程: [插件开发入门](../../examples/videos/start.mdx)
 
 在插件根目录运行 op 的 `add` 命令，可以向插件新增开放能力：
 
