@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 ---
 # 在本地调试插件
 
@@ -37,7 +37,7 @@ op login
 ```
 > 关于如何理解这些参数，请参考下面的图文说明。
 
-![image](test1.png)
+![image](images/test1.png)
 
 如图，插件的本地调试，首先需要工具具备远程调试环境的权限，能过获取数据、操作团队等；同时，我们的远程实时调试，实际上是在本地执行一个"远程宿主机"。
 
@@ -57,7 +57,7 @@ op login
 
 生成的 local.yaml配置添加如下：
 
-![image](test2.png)
+![image](images/test2.png)
 
 > 关于这里没有涉及到的配置项如 file. mysql. ，请参考[配置文件说明](https://ones.ai/wiki/#/team/RDjYMhKq/space/H8Z6VeER/page/Ln9zBtxa)。
 
@@ -125,7 +125,7 @@ webpack 5.68.0 compiled successfully in 384 ms
     2. Ones-Plugin-Id:(返回值instance\_uuid) 5a21a6d7,
     3. Ones-Auth-Token:(返回值中的token) lNMOIa9V\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
 
-![image](test3.png)
+![image](images/test3.png)
 
 
 
@@ -139,14 +139,14 @@ webpack 5.68.0 compiled successfully in 384 ms
 2. 如果使用 ONES dev 环境进行开发，你可以在[ones-platform-api](https://cd.myones.net/job/development/job/platform-api/job/ones-platform-api/)构建环境时控制台输出中获取调试环境的”平台服务ip和端口号“中的端口号，平台服务的ip都是固定的tcp://119.23.130.213：
     1. 首先需要现在ones-platform-api-seed构建项目
 
-![image](test4.png)
+![image](images/test4.png)
 
 
 
 2. 构建项目以后即可在ones-platform-api下看到所有分支的项目
 
-![image](test5.png)
+![image](images/test5.png)
 
 3. 进入对应分支的项目构建环境，可以在控制台中输出看到tcp\_port
 
-![image](test6.png)
+![image](images/test6.png)
