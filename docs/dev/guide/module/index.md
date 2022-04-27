@@ -35,15 +35,4 @@ modules:
 
 ![](../images/banner.png)
 
-在 `index.tsx` 入口文件中自动生成的模版代码如下：
-
-```ts title="/web/src/modules/ones-global-banner-3QC4/index.tsx"
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { ConfigProvider } from '@ones-design/core'
-import './index.css'
-
-ReactDOM.render(<ConfigProvider>banner</ConfigProvider>, document.getElementById('ones-mf-root'))
-```
-
-你可以在 `<ConfigProvider>` 组件下，编写自己的插件前端代码。
+细心的你可能发现了，`/web/src/modules/ones-global-banner-3QC4` 目录下并不存在 `entry` 字段中指定的 `index.html` 文件，不过你不必担心，我们将在下一节中为你解答疑惑。
