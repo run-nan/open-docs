@@ -1,8 +1,11 @@
 ---
-sidebar_position: 5
+sidebar_position: 6
 ---
+
 # 插件自定义权限点
+
 ## 能力描述
+
 插件可以自定义权限点。注意，这个权限点仅在插件内生效。
 
 开发者也可以自行实现其插件内部的权限逻辑，使用这个能力，可以大大降低定义、使用权限的复杂度。
@@ -22,7 +25,8 @@ sidebar_position: 5
 3. 这些权限点的声明与其显示效果是一体的；
 
 ### 能力声明
-在plugin.yaml中使用
+
+在 plugin.yaml 中使用
 
 ```Plain Text
   permission:
@@ -35,30 +39,32 @@ sidebar_position: 5
       field: "table_view_permission"
       desc : "管理员可以给予用户页面的查看权限，只可查看不可编辑"
 ```
+
 name：权限配置名称
 
-field：权限识别的key
+field：权限识别的 key
 
 desc：权限内容描述
 
 ### 能力使用
+
 1. 一旦能力被声明，可以在插件的配置页面找到权限点配置；
 2. 插件前端可以调用对应的插件接口，来获取这些权限点的配置；与其它接口调用方法一致；
 
-
-
 ### API
+
 #### list
-url: team/:team\_uuid/plugin/permissioninfo/list
+
+url: team/:team_uuid/plugin/permissioninfo/list
 
 入参
 
-|参数|类型|说明|
-| ----- | ----- | ----- |
-|instance\_id|string|插件实例id|
-|team\_uuid|string|所属团队id|
-|organization\_uuid|string|所属组织id|
-|user\_uuid|string|组织负责人账户用户id|
+| 参数              | 类型   | 说明                  |
+| ----------------- | ------ | --------------------- |
+| instance_id       | string | 插件实例 id           |
+| team_uuid         | string | 所属团队 id           |
+| organization_uuid | string | 所属组织 id           |
+| user_uuid         | string | 组织负责人账户用户 id |
 
 返回
 
@@ -111,32 +117,32 @@ url: team/:team\_uuid/plugin/permissioninfo/list
 
 ```
 
-
 #### check
-url: team/:team\_uuid/plugin/permissionrule/check
+
+url: team/:team_uuid/plugin/permissionrule/check
 
 入参
 
-|参数|类型|说明|
-| ----- | ----- | ----- |
-|instance\_id\*|string|插件实例id|
-|team\_uuid|string|所属团队id|
-|organization\_uuid|string|所属组织id|
-|user\_uuid|string|组织负责人账户用户id|
-|permission\_field|string|自定义权限点|
+| 参数              | 类型   | 说明                  |
+| ----------------- | ------ | --------------------- |
+| instance_id\*     | string | 插件实例 id           |
+| team_uuid         | string | 所属团队 id           |
+| organization_uuid | string | 所属组织 id           |
+| user_uuid         | string | 组织负责人账户用户 id |
+| permission_field  | string | 自定义权限点          |
 
 返回
 
-|参数|类型|说明|
-| ----- | ----- | ----- |
-|is\_permission|bool|是否有权限|
-
+| 参数          | 类型 | 说明       |
+| ------------- | ---- | ---------- |
+| is_permission | bool | 是否有权限 |
 
 ### 实现
+
 安装插件后，点击插件详情，可以在可用成员中添加成员权限。
 
 ![image](index2.jpg)
 
 管理员可以根据用户的权限不同，给予编辑权限或查看权限，编辑权限可以对页面进行更改，查看权限只可查看页面不能编辑。
 
-#### 
+####
