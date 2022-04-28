@@ -6,7 +6,7 @@ sidebar_position: 2
 
 ## 能力描述
 
-插件可以劫持所有 project 对外提供的标准接口，支持前置/后置方式； 插件可以注册新的接口，支持新的插件专用的内部接口或外部接口；
+​ 插件可以劫持所有 project 对外提供的标准接口，支持前置/后置方式； 插件可以注册新的接口，支持新的插件专用的内部接口或外部接口；
 
 - 所谓前置劫持，是指当请求进入标准系统时，未被处理前就被转发到插件，由插件对请求进行修改后，回传给标准系统并继续执行。一般用于修改请求的参数，或检查请求是否满足特定条件；
 - 所谓后置劫持，是指当请求在标准系统完成处理后，将会被传递给插件，由插件对齐进行内容进行修改后再回传给标准系统，并返回给请求方。一般用于对应答内容进行加工；
@@ -18,35 +18,7 @@ sidebar_position: 2
 
 ## 能力使用
 
-### 能力声明
-
-​ 接口注册，可以在 plugin.yaml 中添加以下内容，**addition**和**external**都可以新增接口，其中 addition 是插件级别的接口，而 external 是团队级别的接口，external 类型的接口注册后，对其注册的接口发起请求的时候，会帮助插件开发者在 url 前拼接**/team/:teamUUID/**
-
-```yaml
-apis:
-    - type: addition         //接口类型：addition:新增  external新增(会在url前拼接”/team/:teamUUID/“，团队级别的接口新增)
-    methods:                 //接口请求方式
-      - POST
-    url: /testurl            //自定义url
-    function: AddFunc        //名称与代码里的函数名保持一致 首字母大写
-
-    - type: addition
-    methods:
-      - POST
-    url: /team/:teamUUID/testurl
-    function: AddRouterFunc
-```
-
-​ 接口劫持，可以在 plugin.yaml 中添加以下内容
-
-```yaml
-apis:
-    - type: prefix              //接口类型： replace:替换 prefix:前置 suffix:后置
-    methods:                    //接口请求方式
-      - GET
-    url: /users/me              //标品url
-    function: TestJackFunc      //名称与代码里的函数名保持一致 首字母大写
-```
+### 接口类型说明
 
 #### 1、addition(插件自身实现的接口)
 
@@ -60,10 +32,8 @@ apis:
 
 ⚠️ 在插件代码中，如果插件还需要请求标品被替换的接口，需要在请求头中带上
 
-```Plain Text
-headers: {
-    'Replace': "replace",
-}
+```javascript
+headers: { 'Replace': "replace", }
 ```
 
 #### 3、prefix(插件前置拦截标品接口)
@@ -74,69 +44,188 @@ headers: {
 
 ![image](registration&hijacking4.jpg)
 
-### 5 external(team 级别的新增接口)
+### 5、external(team 级别的新增接口)
 
 external 的新增接口必须以 /team/:teamUUID 开头，当插件在某个团队按照时，可通过请求/team/:teamUUID/xxx 访问路由绑定的插件函数。
 
+### 能力声明
+
+​ **接口注册**，**addition**和**external**都可以新增接口，其中 addition 是插件级别的接口，而 external 是团队级别的接口，external 类型的接口注册后，对其注册的接口发起请求的时候，需要在 url 前拼接**/team/:teamUUID/\*\***，\*\*可以通过参考下述内容进行了解，
+
+在 plugin.yaml 中声明新注册的接口，
+
 ```yaml
-- type: external
-  methods:
-    - POST
-  url: /team/:teamUUID/external
-  function: external
+apis:
+    - type: addition         //接口类型：addition:新增
+    methods:                 //接口请求方式
+      - POST
+    url: /hello              //自定义url
+    function: hello          //名称与代码里的函数名保持一致
+
+    - type: external         //external新增(团队级别的接口)
+    methods:
+      - POST
+    url: /team/:teamUUID/hello1
+    function: hello1
 ```
 
-💡 external 新增的接口可以在请求的时候不需要填写 header 信息
+​ **接口劫持**，
+
+在 plugin.yaml 中添加以下内容
+
+```
+apis:
+    - type: replace             //接口类型： replace:替换 prefix:前置 suffix:后置
+    methods:                    //接口请求方式
+      - GET
+    url: /users/me              //标品url
+    function: jackFunc          //名称与代码里的函数名保持一致
+
+```
 
 ### 调用方法
 
-在生成的 "backend/src/apiHiJack.ts"文件中编写与 plugin.yaml 的 apis 添加的函数
+在 `backend/src/index.ts`文件下编写与 apis 配置的函数方法体，
 
 ```javascript
-import { Logger } from '@ones-op/node-logger'
+import { Logger } from '@ones-op/node-logger' //需要导入的依赖依赖包
+import { fetchHttp, fetchONES } from '@ones-op/node-fetch'
 
-export async function TestJackFunc(request: any) {
-  const url = request.url || {}
-  const headers = request.headers || {}
+//addition 注册的接口对应方法
+export async function hello(request: PluginRequest): Promise<PluginResponse> {
   const body = request.body || {}
-  Logger.info('[Plugin] TestJack ======= 接口劫持的的URL :', url)
-  Logger.info('[Plugin] TestJack ======= 劫持到接口的请求头', headers)
-  Logger.info('[Plugin] TestJack ======= 劫持到接口的请求体', body)
+  Logger.info('[Plugin] hello ======= 请求成功')
   return {
-    headers: {},
-    statusCode: 200,
-    body,
+    body: {
+      res: 'hello world',
+      requestBody: body,
+    },
   }
 }
 
-export async function AddFunc(request: any) {
+// external 注册的接口对应方法
+export async function hello1(request: PluginRequest): Promise<PluginResponse> {
   const body = request.body || {}
-  Logger.info('[Plugin] 本次注册接口URL:', request.url)
+  Logger.info('[Plugin] hello1 ======= 请求成功')
   return {
-    headers: {},
-    statusCode: 200,
-    body,
+    body: {
+      res: 'hello world1',
+      requestBody: body,
+    },
+  }
+}
+
+//replace 劫持的接口对应方法
+export async function jackFunc(
+  request: PluginRequest<Record<string, any>>
+): Promise<PluginResponse> {
+  let userUUID = ''
+  let userToken = ''
+  if (request.headers['Ones-User-Id'] != null) {
+    userUUID = request.headers['Ones-User-Id']
+    userToken = request.headers['Ones-Auth-Token']
+  }
+  const response = await fetchONES({
+    path: `/users/me`,
+    method: 'GET',
+    headers: {
+      'Ones-User-Id': [userUUID],
+      'Ones-Auth-Token': [userToken],
+    },
+    root: false, //默认为true
+  })
+  if (response) {
+    return response
+  }
+  return {
+    body: {},
   }
 }
 ```
 
 ### 实现过程
 
-1、启用插件
+### 请求过程
 
-2、对注册接口进行请求
+##### 请求插件注册的接口
 
-本地调试：
+1. addition 接口
 
-访问 url：[http://127.0.0.1:port](http://127.0.0.1:port/)/testurl
+在 postman 等 api 接口调试工具中填写
 
-开发环境调试：
+```javascript
+url：https://yourhost/hello
+headers: Ones-Check-Point:team; Ones-Plugin-Id:{插件实例ID}
+method: POST
 
-访问 url：当前开发环境 url+端口号/project/api/project/testurl
+```
 
-3、对劫持接口进行请求
+或命令行内容输入以下内容，
 
-访问 url 就是在 plugin.yaml 中配置写好的标品 url。
+```javascript
+curl --location --request POST 'https://yourhost/hello' \
+--header 'User-Agent: Apipost client Runtime/+https://www.apipost.cn/' \
+--header 'Content-Type: application/json;charset=utf-8' \
+--header 'Ones-Check-Point: team' \
+--header 'Ones-Plugin-Id: {插件实例ID}' \
+--data ''
+```
+
+返回结果如下：
+
+![image-20220427151328629](registertion&hijack5.png)
+
+1. external 接口
+
+​ 在 postman 等 api 接口调试工具中填写如下内容，细心的同学可以发下，external 类型接口和 addition 类型接口区别就是 url 多了 team/teamUUID ，
+
+```javascript
+url：https://yourhost/team/{teamUUID}/hello1
+headers: Ones-Check-Point:team; Ones-Plugin-Id:{插件实例ID}
+method: POST
+```
+
+​ 或命令行内容输入以下内容，
+
+```javascript
+curl --location --request POST 'https://yourhost/team/{teamUUID}/hello1' \
+--header 'User-Agent: Apipost client Runtime/+https://www.apipost.cn/' \
+--header 'Content-Type: application/json;charset=utf-8' \
+--header 'Ones-Check-Point: team' \
+--header 'Ones-Plugin-Id: {插件实例ID}' \
+--data ''
+```
+
+​ 返回结果如下：
+
+![image-20220427151740865](registertion&hijack6.png)
+
+##### 请求插件劫持的接口
+
+​ replace 接口，劫持的是标品的 url，所以填写的 url 跟标品保持一致，并且带上这个接口必须有的参数信息，至于这个接口本身是 POST 请求还是 GET 请求，请求头需要设置什么参数，请参考 api 接口文档，
+
+```javascript
+url：https://yourhost/users/me
+headers:
+  Ones-User-Id:{user_uuid}
+  Ones-Auth-Token:{user_token}
+method: GET
+```
+
+或命令行内容输入以下内容，
+
+```javascript
+curl --location --request GET 'https://yourhost/users/me' \
+--header 'User-Agent: Apipost client Runtime/+https://www.apipost.cn/' \
+--header 'Ones-User-Id: {user_uuid}' \
+--header 'Ones-Auth-Token: {user_token}' \
+--header 'Content-Type: application/json' \
+--data ''
+```
+
+返回结果如下：
+
+![img](registertion&hijack7.png)
 
 ### 请求头说明
 
@@ -155,7 +244,7 @@ Ones-Plugin-Id 说明：对于前端来说插件类型分为四种
 
 ### 接口劫持示例插件
 
-https://gitlab.partner.ones.ai/example/restpassword
+https://gitlab.partner.ones.ai/example/api-register-jack
 
 ### F & Q
 

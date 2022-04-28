@@ -39,45 +39,44 @@ async function fetchBaidu() {
 
 入参
 
-| 参数     | 类型                     | 说明       | 默认值 |
-| -------- | ------------------------ | ---------- | ------ | ------ | --- |
-| url\*    | string                   | 请求地址   | \-     |
-| method\* | string                   | 请求类型   | \-     |
-| body     | object                   | Uint8Array | string | 请求体 | \-  |
-| headers  | Record<string, string[]> | 请求头     | \-     |
+| 参数     | 类型                           | 说明     | 默认值 |
+| -------- | ------------------------------ | -------- | ------ |
+| url\*    | string                         | 请求地址 | -      |
+| method\* | string                         | 请求类型 | -      |
+| body     | object \| Uint8Array \| string | 请求体   | -      |
+| headers  | Record<string, string[]>       | 请求头   | -      |
 
 返回
 
-| 参数       | 类型                     | 说明       |
-| ---------- | ------------------------ | ---------- | --------- | ------ |
-| body       | object                   | Uint8Array | string    | 返回体 |
-| headers    | Record<string, string[]> | 返回头     |
-| statusCode | number                   | string     | undefined | 状态码 |
+| 参数       | 类型                           | 说明   | 默认值 |
+| ---------- | ------------------------------ | ------ | ------ |
+| body       | object \| Uint8Array \| string | 返回体 | -      |
+| header     | Record<string, string[]>       | 返回头 | -      |
+| statusCode | number \| string \| undefined  | 状态码 | -      |
 
 ### ONES 标准系统提供的接口
 
 ### fetchONES 说明
 
-​ 每个插件都会生成一个超级用户，每个超级用户在访问 ONES 标准系统提供的接口时，会拥有所有数据的访问权限。
+每个插件都会生成一个超级用户，每个超级用户在访问 ONES 标准系统提供的接口时，会拥有所有数据的访问权限。
 ​ fetchONES 接口请求方法时，入参中带入 `root=true`，就可以使用超级用户访问。如果我们不想以插件管理员身份请求，那么我们首先要在代码中将`root设置为false`，然后在请求头中添加`Ones-User-Id`、`Ones-Auth-Token`两个参数内容即可，这两个参数可以在劫持接口的对应的方法中获得，具体实现参考下面的 Example。
 
 入参
 
-| 参数     | 类型                     | 说明                     | 默认值 |
-| -------- | ------------------------ | ------------------------ | ------ | ------ | --- |
-| path\*   | string                   | 请求路径                 | \-     |
-| method\* | string                   | 请求类型                 | \-     |
-| body     | object                   | Uint8Array               | string | 请求体 | \-  |
-| headers  | Record<string, string[]> | 请求头                   | \-     |
-| root     | boolean                  | 是否以插件管理员身份请求 | true   |
+| 参数     | 类型                           | 说明     | 默认值 |
+| -------- | ------------------------------ | -------- | ------ |
+| url\*    | string                         | 请求地址 | -      |
+| method\* | string                         | 请求类型 | -      |
+| body     | object \| Uint8Array \| string | 请求体   | -      |
+| headers  | Record<string, string[]>       | 请求头   | -      |
 
 返回
 
-| 参数       | 类型                     | 说明       |
-| ---------- | ------------------------ | ---------- | --------- | ------ |
-| body       | object                   | Uint8Array | string    | 返回体 |
-| headers    | Record<string, string[]> | 返回头     |
-| statusCode | number                   | string     | undefined | 状态码 |
+| 参数       | 类型                           | 说明   | 默认值 |
+| ---------- | ------------------------------ | ------ | ------ |
+| body       | object \| Uint8Array \| string | 返回体 | -      |
+| header     | Record<string, string[]>       | 返回头 | -      |
+| statusCode | number \| string \| undefined  | 状态码 | -      |
 
 ### Example
 
@@ -118,7 +117,7 @@ apis:
     function: getUserme
 ```
 
-​ 实现劫持接口的对应方法 getUserme() 如下，我们想要使用当前用户访问接口，那么 request 对象的头部已经包含当前用户的 `Ones-User-Id` 、` Ones-Auth-Token` 这两个参数信息，我们可以参照如下代码就能实现获取，
+实现劫持接口的对应方法 getUserme() 如下，我们想要使用当前用户访问接口，那么 request 对象的头部已经包含当前用户的 `Ones-User-Id` 、` Ones-Auth-Token` 这两个参数信息，我们可以参照如下代码就能实现获取，
 
 ```typescript
 export async function getUserme(
