@@ -58,35 +58,54 @@ modules:
 
 全局弹窗模块，用于在上传文件前展示
 
+### ones:layout:sider
+
+系统侧边栏菜单模块，用于隐藏侧边栏菜单功能
+
+![](images/ones-layout-sider.png)
+
 ### ones:layout:header:action:new
 
 系统顶栏右侧操作模块，用于在系统顶栏右侧追加新操作内容
 
-![](images/ones-global-header-action-new.png)
+![](images/ones-layout-header-action-new.png)
 
 ### ones:layout:header:action:search
 
 系统顶栏右侧操作模块，用于替换系统顶栏右侧「搜索」操作模块
 
+![](images/ones-layout-header-action-search.png)
+
 ### ones:layout:header:action:add
 
 系统顶栏右侧操作模块，用于替换系统顶栏右侧「新建」操作模块
+
+![](images/ones-layout-header-action-add.png)
 
 ### ones:layout:header:action:help
 
 系统顶栏右侧操作模块，用于替换系统顶栏右侧「帮助」操作模块
 
+
+![](images/ones-layout-header-action-help.png)
+
 ### ones:layout:header:action:settings
 
 系统顶栏右侧操作模块，用于替换系统顶栏右侧「设置」操作模块
+
+![](images/ones-layout-header-action-settings.png)
 
 ### ones:layout:header:action:notification
 
 系统顶栏右侧操作模块，用于替换系统顶栏右侧「通知」操作模块
 
+![](images/ones-layout-header-action-notification.png)
+
 ### ones:layout:header:action:avatar
 
 系统顶栏右侧操作模块，用于替换系统顶栏右侧「头像」操作模块
+
+![](images/ones-layout-header-action-avatar.png)
 
 ## 应用插槽
 
