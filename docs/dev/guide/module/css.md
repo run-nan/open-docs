@@ -13,7 +13,7 @@ sidebar_position: 2
 }
 ```
 
-之前我们说到 `<div id="ones-mf-root">` 是插槽模块的根元素，因此你可以将样式写在 `#ones-mf-root` 选择器下，当然这不是必须的，你也可以将其移除，以任何喜欢的方式编写样式代码。
+之前我们说到，`<div id="ones-mf-root">` 是插槽模块的根元素，因此你可以将样式写在 `#ones-mf-root` 选择器下，这并不是必须的，你也可以将其移除，以任何你喜欢的方式编写样式代码。
 
 ## PostCSS
 
@@ -34,11 +34,28 @@ sidebar_position: 2
 
 ### postcss-import
 
-我们通过 [postcss-import](https://github.com/postcss/postcss-import) 预配置支持了 CSS `@import` 内联。
+我们通过 [postcss-import](https://github.com/postcss/postcss-import) 预配置支持了 CSS `@import` 内联，以便你进行 CSS 模块拆分。
+
+比如你可以为 banner 组件创建单独的样式文件 `banner.css`：
+
+```scss title="/web/src/modules/ones-global-banner-3QC4/banner.css"
+.banner {
+  width: 100%;
+}
+```
+
+然后在 `index.css` 中引入它：
+
+```scss title="/web/src/modules/ones-global-banner-3QC4/index.css"
+@import 'banner.css';
+
+#ones-mf-root {
+}
+```
 
 ### postcss-nested
 
-我们使用 [postcss-nested](https://github.com/postcss/postcss-nested) 允许你以嵌套的方式编写 CSS 选择器，就像你所熟悉的 Sass 一样：
+我们使用 [postcss-nested](https://github.com/postcss/postcss-nested) 允许你以嵌套的方式编写 CSS 选择器，就像你所熟悉的 Sass 语法一样：
 
 ```scss
 .mf-bar-banner {
