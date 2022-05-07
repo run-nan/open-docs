@@ -604,9 +604,21 @@ modules:
 
 「配置中心 - 账号与成员 - 成员管理」设置模块，用于替换「配置中心 - 账号与成员 - 成员管理」设置页
 
+#### ones:settings:account:default:group
+
+「配置中心 - 账号与成员 - 用户组」设置模块，用于替换「配置中心 - 账号与成员 - 用户组」设置页
+
 #### ones:settings:account:default:login
 
 「配置中心 - 账号与成员 - 登录登出设置」设置模块，用于替换「配置中心 - 账号与成员 - 登录登出设置」设置页
+
+#### ones:settings:account:default:connect
+
+「配置中心 - 账号与成员 - 第三方集成」设置模块，用于替换「配置中心 - 账号与成员 - 第三方集成」设置页
+
+#### ones:settings:account:default:safe
+
+「配置中心 - 账号与成员 - 信息安全设置」设置模块，用于替换「配置中心 - 账号与成员 - 信息安全设置」设置页
 
 #### ones:settings:import
 
