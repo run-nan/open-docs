@@ -86,7 +86,6 @@ modules:
 
 系统顶栏右侧操作模块，用于替换系统顶栏右侧「帮助」操作模块
 
-
 ![](images/ones-layout-header-action-help.png)
 
 ### ones:layout:header:action:settings
@@ -592,6 +591,22 @@ modules:
 #### ones:settings:account:new
 
 「配置中心 - 账号与成员」设置模块插槽，用于在「配置中心 - 账号与成员」新增设置模块
+
+#### ones:settings:account:default
+
+「配置中心 - 账号与成员」设置模块，用于替换「配置中心 - 账号与成员」设置模块默认分组
+
+#### ones:settings:account:default:new
+
+「配置中心 - 账号与成员」设置模块插槽，用于在「配置中心 - 账号与成员」默认分组新增设置模块
+
+#### ones:settings:account:default:member
+
+「配置中心 - 账号与成员 - 成员管理」设置模块，用于替换「配置中心 - 账号与成员 - 成员管理」设置页
+
+#### ones:settings:account:default:login
+
+「配置中心 - 账号与成员 - 登录登出设置」设置模块，用于替换「配置中心 - 账号与成员 - 登录登出设置」设置页
 
 #### ones:settings:import
 
