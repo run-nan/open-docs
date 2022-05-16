@@ -23,7 +23,7 @@
 
 每个 Schema 由多个 Field 组成，Field 作为元数据具有以下固有属性：
 
-<div style={{overflow:scroll}}>
+<div style={{overflow:"scroll"}}>
 <table>
 <thead>
 <tr>
