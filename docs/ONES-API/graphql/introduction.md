@@ -6,7 +6,7 @@
 <li><a href="#type_system">类型系统</a></li>
 <li><a href="#learn_resource">学习 GraphQL</a></li>
 </ul>
-<li><a href="./schema.md">ONES GraphQL Schema</a></li>
+<li><a href="schema">ONES GraphQL Schema</a></li>
 <li><a href="#call_ones_graphql">调用 GraphQL 接口</a></li>
 <li><a href="#操作符">操作符</a></li>
 <ul>
@@ -28,7 +28,7 @@ GraphQL 是关于图的查询语言。它是对连接现代应用程序到云服
 
 ## <p id="type_system">类型系统</p>
 
-GraphQL 是定义在类型系统（Type System）上的图查询语言。所有的查询都是基于已被定义好的 Schema 模型之上。查看 [ONES GraphQL Schema](./schema.md) 定义。
+GraphQL 是定义在类型系统（Type System）上的图查询语言。所有的查询都是基于已被定义好的 Schema 模型之上。查看 [ONES GraphQL Schema](schema.md) 定义。
 
 ### <p id="learn_resource">学习 GraphQL</p>
 
