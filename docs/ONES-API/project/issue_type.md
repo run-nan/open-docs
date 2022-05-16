@@ -33,8 +33,8 @@ issue_type
 | built_in                                | bool   | T        |          | 是否是系统内置工作项类型，内置工作项类型无法修改或者删除                                                                     |
 | default_selected                        | bool   | T        |          | 是否默认选中                                                                                                                 |
 | default_configs                         | object | F        |          | 工作项类型默认配置                                                                                                           |
-| &nbsp;&nbsp;default_field_configs       | array  | F        |          | 默认属性配置，参考[工作项属性配置](./field.md#属性配置-field_config)模型，其中 project_uuid, issue_type_uuid 不需要提供      |
-| &nbsp;&nbsp;default_permission_rules    | array  | F        |          | 默认权限配置，参考[权限规则](./permission.md#属性配置)模型，其中 project_uuid, issue_type_uuid 不需要提供                    |
+| &nbsp;&nbsp;default_field_configs       | array  | F        |          | 默认属性配置，参考[工作项属性配置](./field#属性配置-field_config)模型，其中 project_uuid, issue_type_uuid 不需要提供         |
+| &nbsp;&nbsp;default_permission_rules    | array  | F        |          | 默认权限配置，参考[权限规则](../permission/permission.md#属性配置)模型，其中 project_uuid, issue_type_uuid 不需要提供        |
 | &nbsp;&nbsp;default_task_status_configs | array  | F        |          | 默认工作项状态配置，参考[工作项状态配置](./task_status.md#工作项状态配置)模型，其中 project_uuid, issue_type_uuid 不需要提供 |
 | &nbsp;&nbsp;default_transitions         | array  | F        |          | 默认工作流配置，参考[transition](./workflow.md#工作流步骤) 模型，但不需要提供 uuid, project_uuid 和 issue_type_uuid          |
 
@@ -128,7 +128,6 @@ curl -X POST \
         "is_important_field": false,
         "important_field_position": 0
       }
-      //
     ],
     "default_task_status_configs": [
       {
@@ -163,7 +162,6 @@ curl -X POST \
           }
         ]
       }
-      //
     ],
     "default_permission": [
       {
@@ -172,7 +170,6 @@ curl -X POST \
         "user_domain_param": "Ko9bjF1N",
         "permission": "create_tasks"
       }
-      //
     ]
   },
   "type": 0,
@@ -253,7 +250,6 @@ curl -X POST \
         "is_important_field": false,
         "important_field_position": 0
       }
-      //
     ],
     "default_task_status_configs": [
       {
@@ -288,7 +284,6 @@ curl -X POST \
           }
         ]
       }
-      //
     ],
     "default_permission": [
       {
@@ -297,7 +292,6 @@ curl -X POST \
         "user_domain_param": "Ko9bjF1N",
         "permission": "create_tasks"
       }
-      //
     ]
   },
   "type": 0,
@@ -424,7 +418,6 @@ curl -X GET \
             "status_uuid": "CaCRT8Tj",
             "default": true
           }
-          //
         ],
         "default_transitions": [
           {
@@ -448,13 +441,10 @@ curl -X GET \
               }
             ]
           }
-          //
         ]
-        //
       },
       "type": 0
     }
-    //
   ],
   "server_update_stamp": 1565860040211744
 }
@@ -620,7 +610,6 @@ curl -X GET \
       "issue_type_uuid": "Babm2Py1",
       "project_uuid": "9uaNjXTJVktEf5U1"
     }
-    //
   ],
   "server_update_stamp": 1565925892914336
 }
