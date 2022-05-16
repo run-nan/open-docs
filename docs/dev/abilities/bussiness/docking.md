@@ -1,5 +1,19 @@
 # 对接三方系统
+
+## 能力描述
+
+插件可集成某个三方系统，实现以下三种功能：
+
+登录：用户可通过登录第三方系统，达到登录 ones 系统的功能。
+
+组织人员同步：把第三方的部门信息，人员信息同步到 ones 系统的功能。
+
+消息推送：实现 ones 可调用第三方消息系统发送消息的功能。（暂时不支持）
+
+## 能力使用
+
 ###  1.code：
+
 ```javascript
 
 
@@ -22,7 +36,7 @@ function respData(code: number, errcode, model, reason, type, body: Object): Plu
    功能点: 返回一个登录的url，根据具体的三方而定
    req:
        request?.body.redirect_url： 调用完第三方登录之后，需要把返回的信息重定向到该地址。
-   
+
    resp:
         url: 登录三方系统时，调用的url
 */
@@ -35,12 +49,12 @@ export async function CreateLoginUrl(request: PluginRequest): Promise<PluginResp
 
 /*
    需要实现功能点：根据回调信息，获取相关用户信息。
-   
-   req: 
+
+   req:
        key:request.body.auth_info:
        meaning:用户登录后的回调信息json字符串,
        examples:例如登录完企业微信后，会有用户信息发送到标配，其中就有code信息，所以request.body.auth_info == "{\"code\": \"xxxxxx\"}"
-   
+
    resp:
        {
          third_party_id: userInfo?.userid,    // 唯一用户id
@@ -50,7 +64,7 @@ export async function CreateLoginUrl(request: PluginRequest): Promise<PluginResp
          email: userInfo?.email,              // email
          phone: userInfo?.mobile              // 手机
        }
-   
+
 */
 export async function DoExchangeUser(request: PluginRequest): Promise<PluginResponse> {
   let userInfo = getUserInfoFromAuthinfo(request.body.auth_info)
@@ -67,7 +81,7 @@ export async function DoExchangeUser(request: PluginRequest): Promise<PluginResp
 /*
    功能点：拉取部门信息，用户信息
    req: null
-   resp：   
+   resp：
        {
           departments: [     // 返回一个部门列表,必须有一个部门id为-1的部门，该部门为根部门
                {
@@ -85,8 +99,8 @@ export async function DoExchangeUser(request: PluginRequest): Promise<PluginResp
                     title: userInfo?.position,    // 职位
                     department_ids: ["-1"]        // 所属部门id
             }
-          ]       
-       }   
+          ]
+       }
 */
 export async function DoPullData(request: PluginRequest): Promise<PluginResponse> {
   return respData(200, "", "", "", "",{
@@ -112,8 +126,8 @@ export async function DoPullData(request: PluginRequest): Promise<PluginResponse
                     title: userInfo?.position,    // 职位
                     department_ids: ["-1"]        // 所属部门id
             }
-          ]       
-       } 
+          ]
+       }
       )
 }
 
@@ -135,14 +149,16 @@ export async function DoPullData(request: PluginRequest): Promise<PluginResponse
           }
        }
    resp: null
-       
+
 */
 export async function SendMessage(request: PluginRequest): Promise<PluginResponse> {
   // 发消息逻辑
   return respData(200, "","","","",{})
 }
 ```
+
 ##### 2.plugin.yaml
+
 ```javascript
 
 abilities:
@@ -151,50 +167,52 @@ abilities:
       version: 1.0.0
       abilityType: account
       function:
-        sendMessage: SendMessage           
+        sendMessage: SendMessage
         createLoginUrl: CreateLoginUrl
         doExchangeUser: DoExchangeUser
         doPullData: DoPullData
       config:
         # 是否实现了登录功能
-        - key: canLogin                            
+        - key: canLogin
           value: true
           show: false
         # 是否实现了同步功能
-        - key: canSync                             
+        - key: canSync
           value: true
           show: false
         # 是否实现了发送消息的功能
-        - key: canMessage                          
+        - key: canMessage
           value: true
           show: false
         # 第三方登录的logo地址，写的是文件名，要求该文件放在前端资源根目录下，web/dist/
-        - key: logo                                
+        - key: logo
           value: "logo.svg"
           show: false
         # 第三方登录名称文案
-        - key: title                               
+        - key: title
           value: "企业微信测试demo"
           show: false
         # 第三方描述文案
-        - key: desc                                
+        - key: desc
           value: "我是企业微信测试demo"
           show: false
         # 第三方详情提醒文案
-        - key: detailTip                           
+        - key: detailTip
           value: "我是企业微信测试demo，detailTip"
           show: false
         # 第三方配置提醒文案
-        - key: configTip                           
+        - key: configTip
           value: "我是企业微信测试demo，configTip"
           show: false
 
-       
+
 
 
 
 ```
-##### 3.plugin.yaml配置在产品界面上的表现
+
+##### 3.plugin.yaml 配置在产品界面上的表现
+
 ![image](docking1.jpg)
 
 ![image](docking2.jpg)

@@ -1,8 +1,34 @@
-# 插件自定义权限点Demo实例
-### Demo代码示例
-@todo 待前端demo完成，后端外部访问开通
+# 插件自定义权限点 Demo 实例
 
-### plugin.yaml配置
+### Demo 代码示例
+
+```json
+const response = await fetchONES({
+    path: `/team`, //接口有url非空校验，只要headers带上AbilityName: ['ConfigList'],path不为空就可以
+    method: 'GET',
+    headers: {
+      'Ones-Plugin-Id': ['built_in_apis'],
+      'Ones-Check-Point': ['team'],
+      'Ones-Check-Id': [`${globalThis.onesEnv.teamUUID}`],
+      AbilityName: ['ConfigList'],
+    },
+    body: {
+      instance_id: `${globalThis.onesEnv.instanceId}`,
+      team_uuid: `${globalThis.onesEnv.teamUUID}`,
+      organization_uuid: `${globalThis.onesEnv.organizationUUID}`,
+    },
+  });
+  var data = JSON.parse(JSON.stringify(response?.body.toString()))
+  var obj = JSON.parse(data)
+  return {
+    body: {
+      content: obj[0].arg_value
+    }
+  };
+```
+
+### plugin.yaml 配置
+
 ```json
 service:
   app_id: ykwHs6lm2342d23432
@@ -26,5 +52,7 @@ service:
       field: "table_view_permission"
       desc : "管理员可以给予用户页面的查看权限，只可查看不可编辑"
 ```
+
 ### 功能描述
-前端可调用team/:team\_uuid/plugin/permissionrule/check接口查看用户是否有权限进行操作
+
+前端可调用 team/:team_uuid/plugin/permissionrule/check 接口查看用户是否有权限进行操作
