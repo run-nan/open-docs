@@ -1,6 +1,7 @@
 ---
 sidebar_position: 1
 ---
+
 # 简单登录校验
 
 ## 能力描述
@@ -28,17 +29,15 @@ abilities:
 
 ```ts
 // 这段代码示例实现了一个免校验的登录方式
-export async function SimpleAuthValidate(
-  request: PluginRequest
-): Promise<PluginResponse> {
-  const { user_uuid } = request?.body as any;
+export async function SimpleAuthValidate(request: PluginRequest): Promise<PluginResponse> {
+  const { user_uuid } = request?.body as any
   if (!user_uuid) {
     return {
       body: {
         code: 400,
-        reason: "缺少参数 user_uuid",
+        reason: '缺少参数 user_uuid',
       },
-    };
+    }
   }
   return {
     body: {
@@ -47,7 +46,7 @@ export async function SimpleAuthValidate(
         uuid: user_uuid,
       },
     },
-  };
+  }
 }
 ```
 
