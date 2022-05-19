@@ -10,6 +10,9 @@ _*
 *.png
 *.svg
 
+# videos
+*.mp4
+
 browserslist
 LICENSE
 package*.json

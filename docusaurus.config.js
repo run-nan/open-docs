@@ -86,20 +86,20 @@ const config = {
           {
             type: 'docSidebar',
             position: 'left',
+            label: '开放能力',
+            sidebarId: 'abilities',
+          },
+          {
+            type: 'docSidebar',
+            position: 'left',
             label: 'API',
             sidebarId: 'api',
           },
           {
             type: 'docSidebar',
             position: 'left',
-            label: '示例教程',
-            sidebarId: 'examples',
-          },
-          {
-            type: 'docSidebar',
-            position: 'left',
-            label: 'ONES接口',
-            sidebarId: 'ONES',
+            label: 'ONES 接口',
+            sidebarId: 'ones',
           },
           {
             type: 'docSidebar',
