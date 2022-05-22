@@ -1,80 +1,111 @@
 ---
 sidebar_position: 3
 ---
+
 # 在本地调试插件
 
-> 本地调试教程: [插件开发与调试](../../examples/videos/test.mdx)
+> 本地调试视频教程: [插件开发与调试](../../examples/videos/test.mdx)
 
-接下来，我们将一起了解如何使用 插件开发工具，在本地调试插件。
+插件开发完成后，你可以直接在本地打包，然后在插件管理中上传安装。
 
-## Step by step
-现在我们尝试在本地开发过程中进行实时调试。
+不过在此之前，我们建议你在本地进行插件的实时调试，这是非常方便的。
 
-#### 1. 登录需要调试的环境
+## 登录调试环境
 
-1. 执行 op login 命令，登录需要调试的环境注册信息配置local.yaml文件
+在进行插件调试前，你需要先登录调试环境。
 
-```bash
-op login 
+执行 `op login` 命令，进行登录操作：
+
 ```
-2. 执行login 时输入：
+op login
+```
 
-```bash
-% op login  
+按照提示依次输入调试环境信息：
+
+```
+% op login
 ? 输入登录开发环境环境url: https://devapi.myones.net/project/P8022
 ? 输入用户邮箱: wangxueying@ones.ai
 ? 输入密码: **********
 2022/02/23 16:22:20 登录成功!!
+
 ? 选择需要指定的team: GSwm2Lix ones
 ? 安装插件测试是否指向另一个环境? No
 2022/02/23 16:22:31 当前已有历史登录注册用户信息..
 ? 是否覆盖当前登录注册用户信息: Yes
 2022/02/23 16:22:33 注册用户信息成功!
+
 2022/02/23 16:22:33 开始生成本地开发环境配置..
 ? 请输入平台服务ip和端口号: tcp://119.23.130.213:20001
 ? 输入推送代码目标分支: master
 2022/02/23 16:22:52 配置ci-deploy.yaml成功!!
 ```
-> 关于如何理解这些参数，请参考下面的图文说明。
+
+### 详细说明
+
+插件的本地调试，首先需要脚手架工具具备远程调试环境的权限，能够获取数据、操作团队等。
 
 ![image](images/test1.png)
 
-如图，插件的本地调试，首先需要工具具备远程调试环境的权限，能过获取数据、操作团队等；同时，我们的远程实时调试，实际上是在本地执行一个"远程宿主机"。
+如上图所示，我们的远程实时调试，实际上是在本地执行一个“远程宿主机”。
 
-因此，login 中填入的主要是就是这两个部分的内容：
+因此，`op login` 流程中填入的主要是就是两个部分的内容：
 
-* 开发环境 url，及登录信息；
-    * 在开发/调试过程中，OP 工具需要能够获取调试环境的授权，以便在调试过程中获取团队等数据；
-    * 因此建议使用此环境的登录用户使用组织管理员，以便可以创建新团队并进行调试；
-* 平台服务 ip 和端口号；
-    * 为了能够本地调试，需要在这里填入远程调试环境的开放平台组件对外的 tcp 服务端口（需要环境配置了对外开放此端口）；
-* 关于 ‘安装插件测试是否指向另一个环境?’
-    * OP 工具支持[持续集成](https://ones.ai/wiki/#/team/RDjYMhKq/space/H8Z6VeER/page/4D1nzb6a)[测试](https://ones.ai/wiki/#/team/RDjYMhKq/space/H8Z6VeER/page/4D1nzb6a)。开发者可以选择是否复用调试环境用于集成测试；
-    * 若选择是，则集成测试时，插件包将会推送到此环境；
-    * 若选择否，则进入持续集成测试的配置过程；
+1. **开发环境 url 及登录信息：** 因为在 开发 / 调试 过程中，OP 工具需要能够获取调试环境的授权，以便在调试过程中获取团队等数据。因此建议使用此环境的登录用户使用组织管理员，以便可以在 CLI 直接创建新团队并进行调试；
+2. **平台服务 ip 和端口号：** 为了能够本地调试，需要在这里填入远程调试环境的开放平台组件对外的 tcp 服务端口（需要环境配置了对外开放此端口）；
 
-至此，需要调试的环境信息已经准备好了。
+#### 关于「安装插件测试是否指向另一个环境?」
 
-生成的 local.yaml配置添加如下：
+OP 工具支持 [持续集成测试](./ci-deploy.md)。开发者可以选择是否复用调试环境用于集成测试：
 
-![image](images/test2.png)
+- 若选择是，则集成测试时，插件包将会推送到此环境；
+- 若选择否，则进入持续集成测试的配置过程；
 
-> 关于这里没有涉及到的配置项如 file. mysql. ，请参考[配置文件说明](https://ones.ai/wiki/#/team/RDjYMhKq/space/H8Z6VeER/page/Ln9zBtxa)。
+完成调试环境的登录之后，我们会在 `/config` 目录中生成 `local.yaml` 文件，内容如下：
 
-#### 2. 启动本地插件项目
+```yaml title="/config/local.yaml"
+platform:
+  address: tcp://120.76.45.123:9006
+local:
+  id: '73412830'
+  language: nodejs
+  debug_mode: true
+  timeout_sec: 30
+  organization_uuid: 8Z6vS8FZ
+  team_uuid: GSwm2Lix
+  web_service_port: '3000'
+  web_service_ip: '192.168.2.11'
+  user_uuid: 01duxk8t
+  token: INMOIa9VUhX72Ym0ZrP0eSo980iXifz8W4CSVG1T0318RFmUuS@EWGMhekzi6Mqz
+  log_in_local: false
+  file_in_local: false
+  mysql_in_local: false
+  mysql_user_name: ''
+  mysql_user_password: ''
+  mysql_database_name: ''
+  mysql_host: ''
+  mysql_port: ''
+```
 
-1. 执行 op run命令，启动插件项目
+> 详细的字段说明，请参考 [local.yaml](../../api/config/local.md) 的配置文档。
+
+## 启动插件
+
+完成登录之后，执行 `op run` 命令即可启动插件：
 
 ```bash
 op run
 ```
+
+输出信息如下：
+
 ```bash
-% op run    
+% op run
 2022/02/25 14:30:49 > node_plugin_demo1@1.0.0 build
 > cd backend && npm run build && cd ../web && npm run build
 2022/02/25 14:30:49 > node-plugin-template@1.0.0 build
 > rm -rf dist && set NODE_ENV=production && rollup -c rollup.config.js
-2022/02/25 14:30:49 
+2022/02/25 14:30:49
 /Users/huangyao/go/src/cli-test0214/backend/src/index.ts → dist/index.js...
 2022/02/25 14:30:50 created dist/index.js in 756ms
 2022/02/25 14:30:50 > cli-test0214@0.0.0 build
@@ -110,43 +141,52 @@ webpack 5.68.0 compiled successfully in 384 ms
 <i> [webpack-dev-server] Content not from webpack is served from '/Users/huangyao/go/src/cli-test0214/web/public' directory
 2022/02/25 14:30:58 本地调试返回值: {"instance_uuid":"5a21a6d7","token":"lNMOIa9VUhX72Ym0ZrP0eSo98OiXifz8W4CSVG1T03i8RFmUuS0EWGMhekzi6Mqz","user_uuid":"Q1duxk8t"}
 ```
-2. 执行run 时会同时启动前端和后端服务，第一次启动后端会返回本地调试返回值。
+
+:::caution 注意
+
+如果修改了插件配置（`/config/plugin.yaml`），需要重新运行 `op run` 命令才能看到效果。例如：新增了能力，修改了配置项，声明了新权限点等
+
+:::
+
+## 本地调试
+
+### 调试前端
+
+`op run` 命令会为前端启动一个开发服务器（基于 [webpack-dev-server](https://github.com/webpack/webpack-dev-server)）并提供开箱即用的模块热重载。
+
+### 调试后端
+
+`op run` 命令也会为后端启动一个开发服务，第一次启动后，控制台会返回一些可供本地调试的内容：
 
 ```bash
 2022/02/25 14:30:58 本地调试返回值: {"instance_uuid":"5a21a6d7","token":"lNMOIa9VUhX72Ym0ZrP0eSo98OiXifz8W4CSVG1T03i8RFmUuS0EWGMhekzi6Mqz","user_uuid":"Q1duxk8t"
 ```
-这些信息，可以用返回值添加在postman请求头中来进行调试
-#### 4. 本地调试
 
-1. 拿到本地返回值中的instance\_uuid，token
-   这些信息也可以在local.yaml中找到，执行时，工具会写入对应的相关信息。
-3. 在postman中加入请求头固定值
-    1. Ones-Check-Point:team,
-    2. Ones-Plugin-Id:(返回值instance\_uuid) 5a21a6d7,
-    3. Ones-Auth-Token:(返回值中的token) lNMOIa9V\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+这些信息，可以作为接口请求头的值来进行接口调试。
+
+#### 调试接口
+
+我们可以使用控制台返回的 `instance_uuid` 和 `token` 在 [Postman](https://www.postman.com/) 中进行接口调试：
 
 ![image](images/test3.png)
 
+如上图所示，我们在接口的请求头中添加了 `Ones-Check-Point` `Ones-Plugin-Id` `Ones-Plugin-Token` 三个参数：
 
+```ts title="Header"
+{
+  "Ones-Check-Point": "team",
+  "Ones-Plugin-Id": "5a21a6d7", // instance_uuid
+  "Ones-Plugin-Token": "lNMOIa9VUhX72Ym0ZrP0eSo98OiXifz8W4CSVG1T03i8RFmUuS0EWGMhekzi6Mqz", // token
+}
+```
 
-4. 拿到返回值"Hello World!"
+可以看到，接口调用成功后给我们返回了 "Hello world"：
 
----
-## 注意
-
-1. 如果修改了配置（/config/plugin.yaml），需要重新走 install 生命周期，才能看到效果；
-    1. 例如：新增了能力，修改了配置项，声明了新权限点等等
-2. 如果使用 ONES dev 环境进行开发，你可以在[ones-platform-api](https://cd.myones.net/job/development/job/platform-api/job/ones-platform-api/)构建环境时控制台输出中获取调试环境的”平台服务ip和端口号“中的端口号，平台服务的ip都是固定的tcp://119.23.130.213：
-    1. 首先需要现在ones-platform-api-seed构建项目
-
-![image](images/test4.png)
-
-
-
-2. 构建项目以后即可在ones-platform-api下看到所有分支的项目
-
-![image](images/test5.png)
-
-3. 进入对应分支的项目构建环境，可以在控制台中输出看到tcp\_port
-
-![image](images/test6.png)
+```json
+{
+  "data": {
+    "res": "Hello world",
+    "requestBody": {}
+  }
+}
+```

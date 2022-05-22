@@ -98,6 +98,12 @@ const config = {
           {
             type: 'docSidebar',
             position: 'left',
+            label: 'ONES接口',
+            sidebarId: 'ONES',
+          },
+          {
+            type: 'docSidebar',
+            position: 'left',
             label: '介绍',
             sidebarId: 'intro',
           },
