@@ -32,6 +32,45 @@ api:
 
 在"backend/index.js"的 "install()" 函数中添加创建脚本属性的方法，在插件安装过程中，就会创建了该脚本属性。
 
+### 向新增的属性添加选项值
+
+在 plugin.yaml 中注册路由插件安装时会自动调用
+
+```yaml
+- type: addition
+  methods:
+    - POST
+  url: /scriptFieldSearch
+  function: scriptFieldSearch
+```
+
+⚠️ 注意：向属性组中添加值函数名必须使用 scriptFieldSearch 该名字
+
+```javascript
+export async function scriptFieldSearch(request: PluginRequest): Promise<PluginResponse> {
+  const body = request.body || {}
+  Logger.info('[Plugin】scriptFieldSearch====请求成功');
+  let resp = <PluginResponse>{
+    body: {
+      code: 200,
+      body: {
+        page_result: {
+          s1ze: 20,
+          page: 1,
+          total: 1
+        },
+        options: [{
+          uuid: "sdanisae",
+          value: "选项1"
+        }
+        ]
+      }
+    },
+  }
+  return resp
+}
+```
+
 ```javascript
 import { PluginRequest, PluginResponse } from '@ones-op/node-types'
 import { Field, Notify, NotifyWay, FieldTypeEnum, PoolEnum } from '@ones-op/node-ability'
