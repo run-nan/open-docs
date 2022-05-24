@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # 添加开放能力
 
-> 插件开发视频教程: [插件开发入门](../../examples/videos/start.mdx)
+> 插件开发视频教程: [插件开发入门](../examples/videos/start.mdx)
 
 在插件根目录运行 op 的 `add` 命令，可以向插件新增开放能力：
 
@@ -27,10 +27,10 @@ op add
 
 这里可以选择接口相关能力和业务开放能力。详细的能力列表可以参考：
 
-- [接口相关能力列表](../abilities/api/index.md)
-- [业务开放能力列表](../abilities/bussiness/index.md)
+- [接口相关能力列表](../../abilities/api/index.md)
+- [业务开放能力列表](../../abilities/bussiness/index.md)
 
-这里我们以 [简单登录校验](../abilities/bussiness/simple-auth.md) 能力为例，当选择添加该能力后，可以看到在 `/config/plugin.yaml` 文件的 `abilities` 字段中新增了一项内容：
+这里我们以 [简单登录校验](../../abilities/bussiness/simple-auth.md) 能力为例，当选择添加该能力后，可以看到在 `/config/plugin.yaml` 文件的 `abilities` 字段中新增了一项内容：
 
 ```yaml title="/config/plugin.yaml"
 abilities:

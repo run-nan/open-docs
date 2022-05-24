@@ -679,7 +679,7 @@ curl -X GET \
 }
 ```
 
-#### 获取 project 的附件则如下[3-获取附件资源](../resource/resource.md/#3-获取附件资源)
+#### 获取 project 的附件则如下[3-获取附件资源](../../resource/resource.md/#3-获取附件资源)
 
 #### 请求体示例
 

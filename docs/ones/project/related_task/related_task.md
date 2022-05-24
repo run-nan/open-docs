@@ -37,11 +37,11 @@ JSON
 
 #### 参数列表
 
-| 参数名              | 值类型   | 是否必须 | 说明                                                             |
-| :------------------ | :------- | :------- | :--------------------------------------------------------------- |
-| task_uuids          | []string | T        | 关联的 task 的 UUID 数组                                         |
-| task_link_type_uuid | string   | T        | [关联关系类型](../../item/task_link_type.md#task_link_type) uuid |
-| link_desc_type      | string   | T        | [关联关系类型](../../item/task_link_type.md#task_link_type) desc |
+| 参数名              | 值类型   | 是否必须 | 说明                                                                            |
+| :------------------ | :------- | :------- | :------------------------------------------------------------------------------ |
+| task_uuids          | []string | T        | 关联的 task 的 UUID 数组                                                        |
+| task_link_type_uuid | string   | T        | [关联关系类型](../../item/task_link_type/task_link_type.md#task_link_type) uuid |
+| link_desc_type      | string   | T        | [关联关系类型](../../item/task_link_type/task_link_type.md#task_link_type) desc |
 
 ### 返回参数列表
 
@@ -95,11 +95,11 @@ JSON
 
 #### 参数列表
 
-| 参数名              | 值类型   | 是否必须 | 说明                                                             |
-| :------------------ | :------- | :------- | :--------------------------------------------------------------- |
-| task_uuids          | []string | T        | 关联的 task 的 UUID 数组                                         |
-| task_link_type_uuid | string   | T        | [关联关系类型](../../item/task_link_type.md#task_link_type) uuid |
-| link_desc_type      | string   | T        | [关联关系类型](../../item/task_link_type.md#task_link_type) desc |
+| 参数名              | 值类型   | 是否必须 | 说明                                                                            |
+| :------------------ | :------- | :------- | :------------------------------------------------------------------------------ |
+| task_uuids          | []string | T        | 关联的 task 的 UUID 数组                                                        |
+| task_link_type_uuid | string   | T        | [关联关系类型](../../item/task_link_type/task_link_type.md#task_link_type) uuid |
+| link_desc_type      | string   | T        | [关联关系类型](../../item/task_link_type/task_link_type.md#task_link_type) desc |
 
 ### 返回参数列表
 

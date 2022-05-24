@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # 在本地调试插件
 
-> 本地调试视频教程: [插件开发与调试](../../examples/videos/test.mdx)
+> 本地调试视频教程: [插件开发与调试](../examples/videos/test.mdx)
 
 插件开发完成后，你可以直接在本地打包，然后在插件管理中上传安装。
 

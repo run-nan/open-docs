@@ -20,40 +20,40 @@
 
 task
 
-| 参数名              | 值类型                                     | 取值范围     | 说明                                                |
-| :------------------ | :----------------------------------------- | :----------- | --------------------------------------------------- |
-| uuid                | string                                     | len=16       | 由创建者 uuid+随机 8 位字符组成                     |
-| owner               | string                                     | len=8        | 工作项创建者的用户 id                               |
-| assign              | string                                     | len=8        | 工作项负责人的用户 id                               |
-| sprint_uuid         | string                                     | len=16       | 里程碑 id                                           |
-| project_uuid        | string                                     | len=16       | 项目 id                                             |
-| issue_type_uuid     | string                                     | len=8        | 工作项类型 id                                       |
-| status_uuid         | string                                     | len=8        | 工作项状态 id                                       |
-| create_time         | int64                                      |              | 工作项创建时间，微秒                                |
-| summary             | string                                     | len<=1024    | 工作项名                                            |
-| desc                | string                                     | len<=65536   | 工作项描述                                          |
-| desc_rich           | string                                     | len<=65536   | 工作项描述(富文本)                                  |
-| parent_uuid         | string                                     | len=16       | 父工作项 id                                         |
-| path                | string                                     |              | 工作项路径，用来表示子工作项关系                    |
-| position            | int64                                      |              | 工作项位置                                          |
-| number              | int                                        |              | 工作项序号                                          |
-| priority            | string                                     | len=8        | 返回 field_option 的 uuid，该 uuid 为优先级的选项值 |
-| deadline            | int64                                      |              | 工作项截止日期                                      |
-| field_values        | array                                      |              | field_value 列表，见下方说明                        |
-| watchers            | array                                      |              | 工作项关注者                                        |
-| code_commits        | array                                      |              | 工作项 commit, 见下方说明                           |
-| update_time         | int64                                      |              | 显示的更新时间                                      |
-| server_update_stamp | int64                                      |              | 更新时间戳（包括工作项的权限更新）                  |
-| related_task_count  | array                                      | [total,done] | 关联工作项数据统计                                  |
-| subtask_count       | array                                      | [total,done] | 子工作项数据统计                                    |
-| discussion_count    | int64                                      |              | 消息数量                                            |
-| attachment_count    | int64                                      |              | 附件数量                                            |
-| assess_manhour      | int64                                      |              | 预估工时                                            |
-| total_manhour       | int64                                      |              | 已登记工时合计                                      |
-| remaining_manhour   | int64                                      |              | 剩余工时                                            |
-| manhours            | array                                      |              | 登记工时列表，见下方说明                            |
-| gantt               | [gannt](../../item/task_gantt.md#时间视图) |              | 时间视图                                            |
-| product_uuids       | []string                                   |              | 关联产品                                            |
+| 参数名              | 值类型                                                | 取值范围     | 说明                                                |
+| :------------------ | :---------------------------------------------------- | :----------- | --------------------------------------------------- |
+| uuid                | string                                                | len=16       | 由创建者 uuid+随机 8 位字符组成                     |
+| owner               | string                                                | len=8        | 工作项创建者的用户 id                               |
+| assign              | string                                                | len=8        | 工作项负责人的用户 id                               |
+| sprint_uuid         | string                                                | len=16       | 里程碑 id                                           |
+| project_uuid        | string                                                | len=16       | 项目 id                                             |
+| issue_type_uuid     | string                                                | len=8        | 工作项类型 id                                       |
+| status_uuid         | string                                                | len=8        | 工作项状态 id                                       |
+| create_time         | int64                                                 |              | 工作项创建时间，微秒                                |
+| summary             | string                                                | len<=1024    | 工作项名                                            |
+| desc                | string                                                | len<=65536   | 工作项描述                                          |
+| desc_rich           | string                                                | len<=65536   | 工作项描述(富文本)                                  |
+| parent_uuid         | string                                                | len=16       | 父工作项 id                                         |
+| path                | string                                                |              | 工作项路径，用来表示子工作项关系                    |
+| position            | int64                                                 |              | 工作项位置                                          |
+| number              | int                                                   |              | 工作项序号                                          |
+| priority            | string                                                | len=8        | 返回 field_option 的 uuid，该 uuid 为优先级的选项值 |
+| deadline            | int64                                                 |              | 工作项截止日期                                      |
+| field_values        | array                                                 |              | field_value 列表，见下方说明                        |
+| watchers            | array                                                 |              | 工作项关注者                                        |
+| code_commits        | array                                                 |              | 工作项 commit, 见下方说明                           |
+| update_time         | int64                                                 |              | 显示的更新时间                                      |
+| server_update_stamp | int64                                                 |              | 更新时间戳（包括工作项的权限更新）                  |
+| related_task_count  | array                                                 | [total,done] | 关联工作项数据统计                                  |
+| subtask_count       | array                                                 | [total,done] | 子工作项数据统计                                    |
+| discussion_count    | int64                                                 |              | 消息数量                                            |
+| attachment_count    | int64                                                 |              | 附件数量                                            |
+| assess_manhour      | int64                                                 |              | 预估工时                                            |
+| total_manhour       | int64                                                 |              | 已登记工时合计                                      |
+| remaining_manhour   | int64                                                 |              | 剩余工时                                            |
+| manhours            | array                                                 |              | 登记工时列表，见下方说明                            |
+| gantt               | [gannt](../../item/task_gantt/task_gantt.md#时间视图) |              | 时间视图                                            |
+| product_uuids       | []string                                              |              | 关联产品                                            |
 
 ## 工作项属性
 

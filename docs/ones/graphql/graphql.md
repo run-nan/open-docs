@@ -28,7 +28,7 @@ GraphQL 是关于图的查询语言。它是对连接现代应用程序到云服
 
 ## <p id="type_system">类型系统</p>
 
-GraphQL 是定义在类型系统（Type System）上的图查询语言。所有的查询都是基于已被定义好的 Schema 模型之上。查看 [ONES GraphQL Schema](schema.md) 定义。
+GraphQL 是定义在类型系统（Type System）上的图查询语言。所有的查询都是基于已被定义好的 Schema 模型之上。查看 [ONES GraphQL Schema](./schema/schema.md) 定义。
 
 ### <p id="learn_resource">学习 GraphQL</p>
 
@@ -313,7 +313,7 @@ between 用于整型浮点型数据比较
 
 ---
 
-组织筛选条件示例：[example](./example.md#request_graphql)
+组织筛选条件示例：[example](./example/example.md#request_graphql)
 
 查询自定义属性多选下拉列表示例：
 

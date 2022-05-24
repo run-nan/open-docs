@@ -312,11 +312,11 @@ JSON
 
 ### 参数列表
 
-| aliases   | type              | required | canUpdate | allowEmpty | description                              |
-| :-------- | :---------------- | :------- | :-------- | :--------- | :--------------------------------------- |
-| item_type | text              | T        | F         | F          | [Item 类型]                              |
-| key       | text              | F        | F         | F          | [Item Key]                               |
-| values    | map[string]object |          |           |            | 具体参数见[Schema](../graphql/schema.md) |
+| aliases   | type              | required | canUpdate | allowEmpty | description                                     |
+| :-------- | :---------------- | :------- | :-------- | :--------- | :---------------------------------------------- |
+| item_type | text              | T        | F         | F          | [Item 类型]                                     |
+| key       | text              | F        | F         | F          | [Item Key]                                      |
+| values    | map[string]object |          |           |            | 具体参数见[Schema](../graphql/schema/schema.md) |
 
 ### 返回值列表
 
@@ -356,11 +356,11 @@ JSON
 
 item
 
-| aliases   | type              | required | canUpdate | allowEmpty | description                              |
-| :-------- | :---------------- | :------- | :-------- | :--------- | :--------------------------------------- |
-| item_type | text              | T        | F         | F          | [Item 类型]                              |
-| key       | text              | F        | F         | F          | [Item Key]                               |
-| values    | map[string]object |          |           |            | 具体参数见[Schema](../graphql/schema.md) |
+| aliases   | type              | required | canUpdate | allowEmpty | description                                     |
+| :-------- | :---------------- | :------- | :-------- | :--------- | :---------------------------------------------- |
+| item_type | text              | T        | F         | F          | [Item 类型]                                     |
+| key       | text              | F        | F         | F          | [Item Key]                                      |
+| values    | map[string]object |          |           |            | 具体参数见[Schema](../graphql/schema/schema.md) |
 
 ### 返回值列表
 
@@ -392,11 +392,11 @@ JSON
 
 ### 参数列表
 
-| aliases   | type              | required | canUpdate | allowEmpty | description                              |
-| :-------- | :---------------- | :------- | :-------- | :--------- | :--------------------------------------- |
-| item_type | text              | T        | F         | F          | [Item 类型]                              |
-| key       | text              | F        | F         | F          | [Item Key]                               |
-| values    | map[string]object |          |           |            | 具体参数见[Schema](../graphql/schema.md) |
+| aliases   | type              | required | canUpdate | allowEmpty | description                                     |
+| :-------- | :---------------- | :------- | :-------- | :--------- | :---------------------------------------------- |
+| item_type | text              | T        | F         | F          | [Item 类型]                                     |
+| key       | text              | F        | F         | F          | [Item Key]                                      |
+| values    | map[string]object |          |           |            | 具体参数见[Schema](../graphql/schema/schema.md) |
 
 ### 返回值列表
 
