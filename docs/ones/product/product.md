@@ -17,7 +17,7 @@
   - [更新模块](#更新模块)
   - [删除模块](#删除模块)
 
-说明：在产品管理中新建工作项请参考[创建工作项](../project/task.md#1-添加工作项)文档，通过 `product_uuids` 关联相应产品即可。
+说明：在产品管理中新建工作项请参考[创建工作项](../project/task/task.md#1-添加工作项)文档，通过 `product_uuids` 关联相应产品即可。
 
 ## schema
 
@@ -124,7 +124,7 @@
 
 ## 查询产品详细信息
 
-[调用 graphql 接口](../graphql/introduction.md#call_ones_graphql)
+[调用 graphql 接口](../graphql/graphql.md#call_ones_graphql)
 
 ```graphql
 {
@@ -183,7 +183,7 @@
 
 ## 新建产品
 
-[调用方式](../item/introduction.md#添加item)
+[调用方式](../item/item.md#添加item)
 
 [参数列表](#product)
 
@@ -218,7 +218,7 @@
 
 ## 更新产品
 
-[调用方式](../item/introduction.md#更新item)
+[调用方式](../item/item.md#更新item)
 
 [参数列表](#product)
 
@@ -252,7 +252,7 @@
 
 ### 删除产品
 
-[调用方式](../item/introduction.md#删除item)
+[调用方式](../item/item.md#删除item)
 
 ### 返回值参考
 
@@ -266,7 +266,7 @@
 
 ## 查询产品下模块列表
 
-[调用 graphql 接口](../graphql/introduction.md#call_ones_graphql)
+[调用 graphql 接口](../graphql/graphql.md#call_ones_graphql)
 
 ```graphql
 {
@@ -306,7 +306,7 @@
 
 ## 新建模块
 
-[调用方式](../item/introduction.md#添加item)
+[调用方式](../item/item.md#添加item)
 
 [参数列表](#productmodule)
 
@@ -345,7 +345,7 @@
 
 ### 新建子模块
 
-[调用方式](../item/introduction.md#添加item)
+[调用方式](../item/item.md#添加item)
 
 [参数列表](#productmodule)
 
@@ -384,7 +384,7 @@
 
 ### 更新模块
 
-[调用方式](../item/introduction.md#更新item)
+[调用方式](../item/item.md#更新item)
 
 [参数列表](#productmodule)
 
@@ -420,7 +420,7 @@
 
 ### 删除模块
 
-[调用方式](../item/introduction.md#删除item)
+[调用方式](../item/item.md#删除item)
 
 ### 返回值参考
 
