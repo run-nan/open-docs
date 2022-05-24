@@ -2,81 +2,21 @@
 
 ## 能力描述
 
-支持插件集成某个三方系统，实现以下三种功能：
+插件可集成某个三方系统，实现以下三种功能：
 
-**登录：用户可通过登录第三方系统，达到登录 ones 系统的功能。**
+登录：用户可通过登录第三方系统，达到登录 ones 系统的功能。
 
-**组织人员同步：把第三方的部门信息，人员信息同步到 ones 系统的功能。**
+组织人员同步：把第三方的部门信息，人员信息同步到 ones 系统的功能。
 
-**消息推送：实现 ones 可调用第三方消息系统发送消息的功能**
-
-## 能力声明
-
-##### 1、在`plugin.yaml`中添加如下内容，
-
-```yaml
-abilities:
-  - id: LKJHgdfsx
-    name: account
-    version: 1.0.0
-    abilityType: account
-    function:
-      sendMessage: SendMessage
-      createLoginUrl: CreateLoginUrl
-      doExchangeUser: DoExchangeUser
-      doPullData: DoPullData
-    config:
-      # 是否实现了登录功能
-      - key: canLogin
-        value: true
-        show: false
-      # 是否实现了同步功能
-      - key: canSync
-        value: true
-        show: false
-      # 是否实现了发送消息的功能
-      - key: canMessage
-        value: true
-        show: false
-      # 第三方登录的logo地址，写的是文件名，要求该文件放在前端资源根目录下，web/dist/
-      - key: logo
-        value: 'logo.svg'
-        show: false
-      # 第三方登录名称文案
-      - key: title
-        value: '企业微信测试demo'
-        show: false
-      # 第三方描述文案
-      - key: desc
-        value: '我是企业微信测试demo'
-        show: false
-      # 第三方详情提醒文案
-      - key: detailTip
-        value: '我是企业微信测试demo，detailTip'
-        show: false
-      # 第三方配置提醒文案
-      - key: configTip
-        value: '我是企业微信测试demo，configTip'
-        show: false
-```
-
-##### 2.plugin.yaml 配置在产品界面上的表现
-
-> > > > > > > ee83a9f3997b84c84656123e23ec07632e92345e ![image](file:///Users/ones/go/src/github.com/bangwork/open-docs/docs/dev/abilities/bussiness/docking1.jpg?lastModify=1653232007)
-
-![image](file:///Users/ones/go/src/github.com/bangwork/open-docs/docs/dev/abilities/bussiness/docking2.jpg?lastModify=1653232007)
-
-![image](file:///Users/ones/go/src/github.com/bangwork/open-docs/docs/dev/abilities/bussiness/docking3.jpg?lastModify=1653232007)
-
-![image](file:///Users/ones/go/src/github.com/bangwork/open-docs/docs/dev/abilities/bussiness/docking4.jpg?lastModify=1653232007)
-
-![image](file:///Users/ones/go/src/github.com/bangwork/open-docs/docs/dev/abilities/bussiness/docking5.jpg?lastModify=1653232007)
+消息推送：实现 ones 可调用第三方消息系统发送消息的功能。（暂时不支持）
 
 ## 能力使用
 
-##### 在 account.ts 文件中添加如下内容，
+###  1.code：
 
 ```javascript
+
+
 // 所有project调插件函数，需要统一返回的结构体格式
 function respData(code: number, errcode, model, reason, type, body: Object): PluginResponse {
   return {
@@ -216,3 +156,69 @@ export async function SendMessage(request: PluginRequest): Promise<PluginRespons
   return respData(200, "","","","",{})
 }
 ```
+
+##### 2.plugin.yaml
+
+```javascript
+
+abilities:
+    - id: LKJHgdfsx
+      name: account
+      version: 1.0.0
+      abilityType: account
+      function:
+        sendMessage: SendMessage
+        createLoginUrl: CreateLoginUrl
+        doExchangeUser: DoExchangeUser
+        doPullData: DoPullData
+      config:
+        # 是否实现了登录功能
+        - key: canLogin
+          value: true
+          show: false
+        # 是否实现了同步功能
+        - key: canSync
+          value: true
+          show: false
+        # 是否实现了发送消息的功能
+        - key: canMessage
+          value: true
+          show: false
+        # 第三方登录的logo地址，写的是文件名，要求该文件放在前端资源根目录下，web/dist/
+        - key: logo
+          value: "logo.svg"
+          show: false
+        # 第三方登录名称文案
+        - key: title
+          value: "企业微信测试demo"
+          show: false
+        # 第三方描述文案
+        - key: desc
+          value: "我是企业微信测试demo"
+          show: false
+        # 第三方详情提醒文案
+        - key: detailTip
+          value: "我是企业微信测试demo，detailTip"
+          show: false
+        # 第三方配置提醒文案
+        - key: configTip
+          value: "我是企业微信测试demo，configTip"
+          show: false
+
+
+
+
+
+```
+
+##### 3.plugin.yaml 配置在产品界面上的表现
+
+![image](docking1.jpg)
+
+![image](docking2.jpg)
+
+![image](docking3.jpg)
+
+![image](docking4.jpg)
+
+![image](docking5.jpg)
