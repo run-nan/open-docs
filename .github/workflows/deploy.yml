@@ -1,4 +1,4 @@
-name: Deploy
+name: Publish
 on:
   push:
     branches:
@@ -8,15 +8,19 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: setup Node.js v16
+        uses: actions/setup-node@v3
         with:
-          node-version: "16"
-      - uses: actions/cache@v3
+          node-version: 16
+      - name: cache dependencies
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-      - run: npm ci
+      - name: install dependencies
+        run: npm ci
       - run: npm run build
       - uses: appleboy/scp-action@v0.1.2
         with:
@@ -27,3 +31,31 @@ jobs:
           target: /usr/share/nginx/docs
           strip_components: 1
           rm: true
+      - name: send notification
+        run: >
+          curl 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=20dc3e3c-dfa4-4d10-8900-292810e5b046' -H 'Content-Type: application/json' -d '{
+            "msgtype": "template_card",
+            "template_card": {
+              "card_type": "text_notice",
+              "card_action": {
+                "type": 1,
+                "url": "https://docs.partner.ones.ai/"
+              },
+              "source": {
+                "desc": "开放平台在线文档"
+              },
+              "main_title": {
+                "title": "🦋 发布成功"
+              },
+              "horizontal_content_list": [
+                {
+                  "keyname": "用户名",
+                  "value": "ones"
+                },
+                {
+                  "keyname": "密码",
+                  "value": "onesopen"
+                }
+              ]
+            }
+          }'
