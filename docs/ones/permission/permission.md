@@ -106,16 +106,16 @@ UserDomain：用户域，若干用户的集合。
 
 permission_rule
 
-| 参数名            | 值类型 | 允许空值 | 取值范围 | 说明                                                         |
-| :---------------- | :----- | :------- | :------- | :----------------------------------------------------------- |
-| uuid              | string | F        | len=8    | 权限规则 uuid                                                |
-| context_type      | string | F        |          | 权限规则适用的[上下文类型](../context/context.md#上下文类型) |
-| context_param     | object | T        |          | 权限规则适用的[上下文参数](../context/context.md#上下文参数) |
-| user_domain_type  | string | F        |          | [用户域类型](../user_domain/user_domain.md#用户域模型)       |
-| user_domain_param | object | T        |          | [用户域参数](../user_domain/user_domain.md#用户域取值范围)   |
-| permission        | string | F        |          | 权限点，详见[权限列表](#权限列表)                            |
-| create_time       | int    | T        |          | 权限规则创建时间，秒，添加和修改时无需提供                   |
-| read_only         | bool   | F        |          | 是否只读，添加和修改时无需提供                               |
+| 参数名            | 值类型 | 允许空值 | 取值范围 | 说明                                                        |
+| :---------------- | :----- | :------- | :------- | :---------------------------------------------------------- |
+| uuid              | string | F        | len=8    | 权限规则 uuid                                               |
+| context_type      | string | F        |          | 权限规则适用的[上下文类型](./context/context.md#上下文类型) |
+| context_param     | object | T        |          | 权限规则适用的[上下文参数](./context/context.md#上下文参数) |
+| user_domain_type  | string | F        |          | [用户域类型](./user_domain/user_domain.md#用户域模型)       |
+| user_domain_param | object | T        |          | [用户域参数](./user_domain/user_domain.md#用户域取值范围)   |
+| permission        | string | F        |          | 权限点，详见[权限列表](#权限列表)                           |
+| create_time       | int    | T        |          | 权限规则创建时间，秒，添加和修改时无需提供                  |
+| read_only         | bool   | F        |          | 是否只读，添加和修改时无需提供                              |
 
 ### 权限计算结果
 
@@ -124,8 +124,8 @@ evaluated_permission
 | 参数名            | 值类型 | 允许空值 | 说明                                                                                           |
 | :---------------- | :----- | :------- | :--------------------------------------------------------------------------------------------- |
 | key               | string | F        | 权限计算结果唯一标识，根据 context_type, context_param 和 permission 生成                      |
-| context_type      | string | F        | [上下文类型](../context/context.md#上下文类型)                                                 |
-| context_param     | object | T        | [上下文参数](../context/context.md#上下文参数)                                                 |
+| context_type      | string | F        | [上下文类型](./context/context.md#上下文类型)                                                  |
+| context_param     | object | T        | [上下文参数](./context/context.md#上下文参数)                                                  |
 | permission        | string | F        | 权限点，详见[权限列表](#权限列表)                                                              |
 | additional_checks | array  | T        | 额外检查条件，当此字段不为空时，还需要满足字段下任意一个条件才说明用户有这个权限，详见下方示例 |
 
