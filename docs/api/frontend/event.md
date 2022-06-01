@@ -118,6 +118,6 @@ useEffect(() => {
 
 ```typescript title="dispatch"
 OPPluginDispatch('onChange', { value: 'new value' }).then((result) => {
-  console.log(`listener processed value: ${value}`)
+  console.log(`listener processed value: ${result.data}`)
 })
 ```
