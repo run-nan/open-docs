@@ -1,8 +1,4 @@
----
-sidebar_position: 3
----
-
-# Event 事件通信
+# 事件通信
 
 我们提供了一套事件通信库，可以帮你在插件内（跨模块）通信，或者通过事件触发 ONES 的某些事件。
 
@@ -11,7 +7,7 @@ sidebar_position: 3
 你可以进入 web 目录，并通过以下命令安装此包
 
 ```bash npm2yarn
-npm i @ones-op/event
+npm install @ones-op/event
 ```
 
 ## 声明
@@ -29,7 +25,7 @@ import {
 
 ## OPDispatch
 
-插件可以通过此函数触发 ONES 系统内的一些事件，你可以跳转快速查询目前支持的[事件列表]()。
+插件可以通过此函数触发 ONES 系统内的一些事件，你可以跳转快速查询目前支持的[事件列表](./list.md)。
 
 ## OPPluginListener 插件监听方法
 
