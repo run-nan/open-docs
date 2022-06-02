@@ -29,6 +29,8 @@ function: ImportOpml
 
 拦截导入接口以后对文件进行解析并转换格式,将 opml 文件转换为 xlsx 文件
 
+![测试场景](file-operation2.png)
+
 ```javascript
 {
 const body = request.body
