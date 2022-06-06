@@ -12,7 +12,7 @@
 
 ## 安装
 
-你可以进入 `/web` 目录，通过以下命令安装此包：
+进入 `/web` 目录，通过以下命令安装此包：
 
 ```bash npm2yarn
 npm install @ones-op/event
@@ -32,17 +32,17 @@ OPDispatch('invoke:ones:global:progressManager')
 
 通过此方法可以触发系统内的一些事件。
 
-#### Params
+#### 参数
 
-##### type
-
-事件类型字符串，完整的事件列表可以参考：[事件列表](./list.md)
+##### `type`
 
 - 类型：`EventEnum`
 
+事件类型字符串，完整的事件列表可以参考：[事件列表](./list.md)
+
 ### OPPluginListener
 
-过此方法可以在插件内部添加自定义监听器，无法跨插件使用。
+通过此方法可以在插件内部添加自定义监听器，无法跨插件使用。
 
 :::caution 注意
 
@@ -50,25 +50,25 @@ OPDispatch('invoke:ones:global:progressManager')
 
 :::
 
-#### Params
+#### 参数
 
-##### type
-
-事件类型字符串
+##### `type`
 
 - 类型：`string`
 
-##### listener
+事件类型字符串
 
-事件监听回调
+##### `listener`
 
 - 类型：`(event) => any`
 
-#### Returns
+事件监听回调
+
+#### 返回值
 
 移除事件监听的函数
 
-#### Demo
+#### 示例
 
 ```ts
 useEffect(() => {
@@ -83,21 +83,21 @@ useEffect(() => {
 
 通过此方法可以在插件内部派发事件，无法跨插件使用。
 
-#### Params
+#### 参数
 
-##### type
-
-事件类型字符串
+##### `type`
 
 - 类型：`string`
 
-##### params
+事件类型字符串
 
-事件参数对象
+##### `params`
 
 - 类型：`object`
 
-#### Returns
+事件参数对象
+
+#### 返回值
 
 Promise 对象，参数为 `OPPluginListener` 事件处理函数返回的数据。
 
@@ -124,7 +124,7 @@ interface OPListenerProcessResult<T> {
 }
 ```
 
-#### Demo
+#### 示例
 
 `OPPluginListener` 事件处理函数返回数据：
 
