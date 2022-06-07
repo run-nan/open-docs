@@ -4,6 +4,9 @@ node_modules/
 _*
 .*
 
+#files
+*.pdf
+
 # images
 *.ico
 *.jpg
