@@ -32,13 +32,11 @@ OPDispatch('invoke:ones:global:progressManager')
 
 通过此方法可以触发系统内的一些事件。
 
-#### 参数
+#### Params
 
-##### `type`
-
-- 类型：`EventEnum`
-
-事件类型字符串，完整的事件列表可以参考：[事件列表](./list.md)
+| 参数 | 说明                                                          |    类型     | 必填 | 默认值 |
+| :--: | :------------------------------------------------------------ | :---------: | :--: | :----: |
+| type | 事件类型字符串，完整的事件列表可以参考：[事件列表](./list.md) | `EventEnum` |  是  |        |
 
 ### OPPluginListener
 
@@ -50,25 +48,18 @@ OPDispatch('invoke:ones:global:progressManager')
 
 :::
 
-#### 参数
+#### Params
 
-##### `type`
+|   参数   | 说明           |       类型       | 必填 | 默认值 |
+| :------: | :------------- | :--------------: | :--: | :----: |
+|   type   | 事件类型字符串 |     `string`     |  是  |        |
+| listener | 事件监听回调   | `(event) => any` |  是  |        |
 
-- 类型：`string`
-
-事件类型字符串
-
-##### `listener`
-
-- 类型：`(event) => any`
-
-事件监听回调
-
-#### 返回值
+#### Returns
 
 移除事件监听的函数
 
-#### 示例
+#### Demo
 
 ```ts
 useEffect(() => {
@@ -83,21 +74,15 @@ useEffect(() => {
 
 通过此方法可以在插件内部派发事件，无法跨插件使用。
 
-#### 参数
+#### Params
 
-##### `type`
+|  参数  | 说明           |   类型   | 必填 | 默认值 |
+| :----: | :------------- | :------: | :--: | :----: |
+|  type  | 事件类型字符串 | `string` |  是  |        |
+| params | 事件参数对象   | `object` |  是  |        |
 
-- 类型：`string`
-
-事件类型字符串
-
-##### `params`
-
-- 类型：`object`
-
-事件参数对象
-
-#### 返回值
+<!--
+#### Returns
 
 Promise 对象，参数为 `OPPluginListener` 事件处理函数返回的数据。
 
@@ -124,7 +109,7 @@ interface OPListenerProcessResult<T> {
 }
 ```
 
-#### 示例
+#### Demo
 
 `OPPluginListener` 事件处理函数返回数据：
 
@@ -147,4 +132,4 @@ useEffect(() => {
 OPPluginDispatch('onChange', { value: 'new value' }).then((result) => {
   console.log(`listener processed value: ${result.data}`)
 })
-```
+``` -->
