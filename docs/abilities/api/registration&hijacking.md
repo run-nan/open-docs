@@ -246,7 +246,7 @@ Ones-Plugin-Id 说明：对于前端来说插件类型分为四种
 
 https://gitlab.partner.ones.ai/example/api-register-jack
 
-### F & Q
+### FAQ
 
 > ### 使用 addition:新增类型问题描述
 >
