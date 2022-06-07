@@ -97,6 +97,7 @@ useEffect(() => {
 
 事件参数对象
 
+<!--
 #### 返回值
 
 Promise 对象，参数为 `OPPluginListener` 事件处理函数返回的数据。
@@ -147,4 +148,4 @@ useEffect(() => {
 OPPluginDispatch('onChange', { value: 'new value' }).then((result) => {
   console.log(`listener processed value: ${result.data}`)
 })
-```
+``` -->
