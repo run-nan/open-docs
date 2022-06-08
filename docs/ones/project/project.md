@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 # ONES Project API 示例调用 简易流程
 
 - [1. 创建一个项目](#1-创建一个项目)
@@ -565,5 +563,3 @@ curl -X GET \
   "server_update_stamp": 1566200797728400
 }
 ```
-
-> > > > > > > main

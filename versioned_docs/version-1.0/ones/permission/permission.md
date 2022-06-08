@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 # ONES Permission API Document
 
 ## 简介
@@ -523,5 +521,3 @@ curl -X GET \
   "server_update_stamp": 1565936389460960
 }
 ```
-
-> > > > > > > main
