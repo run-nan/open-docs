@@ -6,9 +6,9 @@
 
 ### 环境依赖
 
-|  ONES  |
-| :----: |
-| 3.7.1+ |
+|  ONES   |
+| :-----: |
+| v3.7.1+ |
 
 ## 安装
 
@@ -50,16 +50,30 @@ OPDispatch('invoke:ones:global:progressManager')
 
 #### Params
 
-|   参数   | 说明           |       类型       | 必填 | 默认值 |
-| :------: | :------------- | :--------------: | :--: | :----: |
-|   type   | 事件类型字符串 |     `string`     |  是  |        |
-| listener | 事件监听回调   | `(event) => any` |  是  |        |
+|   参数   | 说明           |                    类型                    | 必填 | 默认值 |
+| :------: | :------------- | :----------------------------------------: | :--: | :----: |
+|   type   | 事件类型字符串 |                  `string`                  |  是  |        |
+| listener | 事件监听回调   | `(event) => OPListenerProcessResult｜void` |  是  |        |
 
 #### Returns
 
 移除事件监听的函数
 
-#### Demo
+#### Types
+
+```ts
+enum OPListenerProcessResultState {
+  SUCCESS = 'SUCCESS',
+  FAILED = 'FAILED',
+}
+
+interface OPListenerProcessResult<T> {
+  state: OPListenerProcessResultState
+  data: T
+}
+```
+
+#### Examples
 
 ```ts
 useEffect(() => {
@@ -79,7 +93,7 @@ useEffect(() => {
 |  参数  | 说明           |   类型   | 必填 | 默认值 |
 | :----: | :------------- | :------: | :--: | :----: |
 |  type  | 事件类型字符串 | `string` |  是  |        |
-| params | 事件参数对象   | `object` |  是  |        |
+| params | 事件参数对象   |  `any`   |  否  |        |
 
 <!--
 #### Returns
@@ -109,7 +123,7 @@ interface OPListenerProcessResult<T> {
 }
 ```
 
-#### Demo
+#### Examples
 
 `OPPluginListener` 事件处理函数返回数据：
 
