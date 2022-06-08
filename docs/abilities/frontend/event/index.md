@@ -59,18 +59,7 @@ OPDispatch('invoke:ones:global:progressManager')
 
 移除事件监听的函数
 
-#### Example
-
-```ts
-useEffect(() => {
-  const cancelFn = OPPluginListener('onChange', ({ value }) => {
-    console.log(`new value: ${value}`)
-  })
-  return () => cancelFn()
-}, [])
-```
-
-#### Type Reference
+#### Types
 
 ```ts
 export enum OPListenerProcessResultState {
@@ -79,9 +68,20 @@ export enum OPListenerProcessResultState {
 }
 
 export interface OPListenerProcessResult<T> {
-  state: MFListenerProcessResultState
+  state: OPListenerProcessResultState
   data: T
 }
+```
+
+#### Examples
+
+```ts
+useEffect(() => {
+  const cancelFn = OPPluginListener('onChange', ({ value }) => {
+    console.log(`new value: ${value}`)
+  })
+  return () => cancelFn()
+}, [])
 ```
 
 ### OPPluginDispatch
@@ -123,7 +123,7 @@ interface OPListenerProcessResult<T> {
 }
 ```
 
-#### Example
+#### Examples
 
 `OPPluginListener` 事件处理函数返回数据：
 
