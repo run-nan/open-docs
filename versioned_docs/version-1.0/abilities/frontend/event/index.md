@@ -62,12 +62,12 @@ OPDispatch('invoke:ones:global:progressManager')
 #### Types
 
 ```ts
-export enum OPListenerProcessResultState {
+enum OPListenerProcessResultState {
   SUCCESS = 'SUCCESS',
   FAILED = 'FAILED',
 }
 
-export interface OPListenerProcessResult<T> {
+interface OPListenerProcessResult<T> {
   state: OPListenerProcessResultState
   data: T
 }
