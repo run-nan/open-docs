@@ -7,9 +7,7 @@ sidebar_position: 1
 ## 能力描述
 
 提供请求外部接口与请求 ONES 接口能力，插件可以访问外部接口或者 ONES 标准系统提供的接口。
-具体的 ONES 接口，可以参考实例的 api 文档。文档可以在这里找到：
-
-![image](interface-ability1.jpg)
+具体的 ONES 接口，可以参考实例的 api 文档。文档可以在 [这里](../../ones/readme/index.md) 找到：
 
 访问外部接口，请根据对应的接口说明来传递参数、返回结果。
 
