@@ -39,7 +39,9 @@ Project description:
 Project creating raw options: {"useDefaultPreset":true,"projectType":"plugin"}
 ```
 
-完成初始化的插件工程目录结构详见[目录结构](../guide/structure.md)一节
+初始化完成后的插件工程目录结构详见[目录结构](../guide/structure.md)一节
+
+至此，我们已经完成插件工程的初始化操作
 
 ## 关于插件工程脚手架工具 `op`
 
@@ -98,4 +100,4 @@ npx op packup
 
 ![image](images/install.jpg)
 
-现在，我们完成了第一个插件的创建与安装！
+现在，我们完成了第一个插件的安装
