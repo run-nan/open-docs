@@ -47,9 +47,7 @@ Project creating raw options: {"useDefaultPreset":true,"projectType":"plugin"}
 
 在插件工程初始化的过程中会将 `@ones/cli-plugin` 作为插件工程的 `devDependencies` 安装到项目依赖中
 
-同时 `@ones/cli-plugin` 对外暴露了 `op` 指令
-
-我们需要通过 [npx](https://docs.npmjs.com/cli/v8/commands/npx) 调用 `@ones/cli-plugin` 暴露的指令，我们以查看 `op` 工具的帮助信息为例：
+`@ones/cli-plugin` 对外暴露了 `op` 指令，我们需要通过 [npx](https://docs.npmjs.com/cli/v8/commands/npx) 调用它，以查看 `op` 工具的帮助信息为例：
 
 ```bash
 npx op help
