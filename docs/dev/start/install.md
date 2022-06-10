@@ -19,15 +19,15 @@ npm config set @ones:registry=https://npm.partner.ones.ai/registry/
 
 :::note
 
-只配置 @ones 代理，不会影响你本地的其他 npm 代理
+只配置 `@ones` 代理，不会影响你本地的其他 npm 代理
 
 :::
 
 ## 开发工具安装
 
-### 安装脚手架
+### 安装基础脚手架工具 ONES CLI
 
-可以使用下列任一命令安装 [ONES CLI](../../api/cli/index.md)，其中内置了插件开发脚手架 `op`：
+可以使用下列任意指令安装 [ONES CLI](../../api/cli/index.md)，其中内置了插件开发脚手架工具 `op`
 
 ```bash npm2yarn
 npm install -g @ones/cli
@@ -35,15 +35,38 @@ npm install -g @ones/cli
 sudo npm install -g @ones/cli
 ```
 
-安装之后，你就可以在命令行中访问 `ones` 命令。你可以使用 `--version` 来验证它是否安装成功，并检查其版本是否正确：
+完成安装后，你可以在命令行中使用 `ones` 指令来验证是否正确安装 [ONES CLI](../../api/cli/index.md)
 
 ```
-ones --version
+➜ ones
+Usage: ones [options] [command]
+
+Options:
+  -v, --version                    output the current version
+  -h, --help                       display help for command
+
+Commands:
+  create [options] [project-name]  create project from preset project template by type
+
+      Tip: if you leave the [project-name] blank and
+      1. not specified the specific path, then will use current folder name as default project name
+      2. the specific path is also specified, then will use the folder name as default project name
+
+  envinfo                          print environment info
+  help [command]                   display help for command
+
 ```
 
-#### 升级
+你还可以使用 `--version` 来检查其版本是否正确
 
-后续如需升级脚手架，可以运行下列任一命令：
+```
+➜ ones --version
+1.0.0
+```
+
+### 升级 ONES CLI
+
+后续如需升级脚手架，可以运行以下任意指令：
 
 ```bash
 npm update -g @ones/cli
@@ -51,15 +74,21 @@ npm update -g @ones/cli
 sudo npm update -g @ones/cli
 ```
 
-同样的，可以使用 `--version` 检查其版本是否正确：
+## 补充说明
 
+在初始化插件工程的过程中，ONES CLI 会对项目下的 `/backend` 进行依赖安装操作，过程中可能会出现依赖安装异常的情况
+
+这是因为插件开发所需的部分依赖，使用了 `CMake` 工具，因此如果项目依赖安装过程中出现异常，需要安装 `CMake` 工具
+
+### 安装 CMake（mac / linux）
+
+#### 使用 `brew` 安装
+
+```bash
+brew install cmake
 ```
-ones --version
-```
 
-### 安装 cmake（mac / linux）
-
-插件开发所需的部分依赖，使用了 cmake 工具，因此 cmake 也是必须安装的。
+#### 使用 `dmg` 安装
 
 目前最新的 3.23 rc 版本有问题，建议安装 3.22 稳定版本：[cmake-3.22.2-macos-universal.dmg](https://github.com/Kitware/CMake/releases/download/v3.22.2/cmake-3.22.2-macos-universal.dmg)
 

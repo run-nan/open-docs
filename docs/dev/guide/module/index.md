@@ -1,25 +1,20 @@
 # 添加插槽模块
 
-在插件根目录运行 op 的 `add` 命令，可以向插件新增插槽模块：
+在插件工程根目录执行 op 的 `add module` 指令，可以向插件新增插槽模块：
 
 ```
-op add
+npx op add module
 ```
-
-其输出如下：
-
-```
-? 请选择插件后端(ability) 或 前端(module)的能力配置:  [Use arrows to move, type to filter]
-> 能力 ability
-  模块 module
-  退出 exit
-```
-
-选择「模块 module」，可以看到如下插槽模块列表：
 
 ![](../images/module.png)
 
-详细的插槽模块可以参考：[插槽模块列表](../../../api/module-type/index.md)
+在列表中可以通过选择方向键选择插槽模块
+
+## 插槽列表
+
+- [插槽模块列表](../../../api/module-type/index.md)
+
+## 插槽添加示例
 
 这里我们以 `ones:global:banner` 全局插槽为例，当选择添加这个模块后，可以看到在 `/config/plugin.yaml` 文件的`modules` 字段中新增了一项内容：
 
