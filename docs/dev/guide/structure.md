@@ -34,6 +34,10 @@ sidebar_position: 1
 │   │   └── logo.svg # 插件 Logo
 │   ├── src
 │   └── tsconfig.json
-└── workspace
-    └── plugin.sql
+├── workspace
+│   └── locale # 配置文件使用的语言包
+│   │   └── zh.yaml # 简体中文
+│   │   └── en.yaml # 英文
+│   │   └── ja.yaml # 日文
+│   └── plugin.sql
 ```

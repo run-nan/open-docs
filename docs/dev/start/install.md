@@ -25,7 +25,7 @@ npm config set @ones:registry=https://npm.partner.ones.ai/registry/
 
 ## 开发工具安装
 
-### 安装基础脚手架工具 `ones-cli`
+### 安装基础脚手架工具 ONES CLI
 
 可以使用下列任意指令安装 [ONES CLI](../../api/cli/index.md)，其中内置了插件开发脚手架工具 `op`
 
@@ -57,14 +57,14 @@ Commands:
 
 ```
 
-你也可以使用 `--version` 来验证它是否安装成功，并检查其版本是否正确
+你还可以使用 `--version` 来检查其版本是否正确
 
 ```
 ➜ ones --version
 1.0.0
 ```
 
-### 升级 `ones-cli` 升级
+### 升级 ONES CLI
 
 后续如需升级脚手架，可以运行以下任意指令：
 
@@ -72,4 +72,45 @@ Commands:
 npm update -g @ones/cli
 # or
 sudo npm update -g @ones/cli
+```
+
+## 补充说明
+
+在初始化插件工程的过程中，ONES CLI 会对项目下的 `/backend` 进行依赖安装操作，过程中可能会出现依赖安装异常的情况
+
+这是因为插件开发所需的部分依赖，使用了 `CMake` 工具，因此如果项目依赖安装过程中出现异常，需要安装 `CMake` 工具
+
+### 安装 CMake（mac / linux）
+
+#### 使用 `brew` 安装
+
+```bash
+brew install cmake
+```
+
+#### 使用 `dmg` 安装
+
+目前最新的 3.23 rc 版本有问题，建议安装 3.22 稳定版本：[cmake-3.22.2-macos-universal.dmg](https://github.com/Kitware/CMake/releases/download/v3.22.2/cmake-3.22.2-macos-universal.dmg)
+
+dmg 安装完成后，需要执行命令完成安装过程：
+
+```
+sudo "/Applications/CMake.app/Contents/bin/cmake-gui" --install
+```
+
+```
+Password:
+输出：
+Linked: '/usr/local/bin/cmake' -> '/Applications/CMake.app/Contents/bin/cmake'
+Linked: '/usr/local/bin/ctest' -> '/Applications/CMake.app/Contents/bin/ctest'
+Linked: '/usr/local/bin/cpack' -> '/Applications/CMake.app/Contents/bin/cpack'
+Linked: '/usr/local/bin/cmake-gui' -> '/Applications/CMake.app/Contents/bin/cmake-gui'
+Linked: '/usr/local/bin/ccmake' -> '/Applications/CMake.app/Contents/bin/ccmake'
+```
+
+检查安装是否成功：
+
+```
+cmake --version
+# cmake version 3.22.3
 ```

@@ -3,7 +3,7 @@
 在插件工程根目录执行 op 的 `add module` 指令，可以向插件新增插槽模块：
 
 ```
-npx op add ability
+npx op add module
 ```
 
 ![](../images/module.png)

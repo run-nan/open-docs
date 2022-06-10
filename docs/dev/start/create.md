@@ -8,7 +8,7 @@ sidebar_position: 2
 
 我们使用一个空文件夹作为插件工程的根目录，比如 `/Users/jeff/dev/test-plugin`
 
-进入 `test-plugin` 目录后，通过 `ones-cli` 的 `create` 指令完成插件工程的初始化操作：
+进入 `test-plugin` 目录后，通过 ONES CLI 的 `create` 指令完成插件工程的初始化操作：
 
 ```bash
 cd /Users/jeff/dev/test-plugin
@@ -28,7 +28,7 @@ ones create -d -t plugin
 
 ![image](images/create.png)
 
-在插件工程初始化完成后 `ones-cli` 会输出插件工程的相关信息
+在插件工程初始化完成后 ONES CLI 会输出插件工程的相关信息
 
 ```
 Project has been created
@@ -45,11 +45,11 @@ Project creating raw options: {"useDefaultPreset":true,"projectType":"plugin"}
 
 ## 关于插件工程脚手架工具 `op`
 
-`op` 作为插件工程内置的脚手架工具，可以帮助开发者更好的完成插件研发工作
+在插件工程初始化的过程中会将 `@ones/cli-plugin` 作为插件工程的 `devDependencies` 安装到项目依赖中
 
-后续针对插件工程的调试、插槽或能力添加、工程打包等操作均可通过 `op` 工具完成
+同时 `@ones/cli-plugin` 对外暴露了 `op` 指令
 
-在插件工程中通过以下指令查看 `op` 工具的帮助信息：
+我们需要通过 [npx](https://docs.npmjs.com/cli/v8/commands/npx) 调用 `@ones/cli-plugin` 暴露的指令，我们以查看 `op` 工具的帮助信息为例：
 
 ```bash
 npx op help
@@ -81,6 +81,8 @@ npx op -v
 ➜ npx op -v
 1.0.0
 ```
+
+后续针对插件工程的调试、插槽或能力添加、工程打包等操作均可通过 `op` 指令完成，这样可以帮助开发者更好的完成插件研发工作
 
 ## 插件打包
 
