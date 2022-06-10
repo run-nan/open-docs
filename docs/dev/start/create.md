@@ -18,7 +18,7 @@ cd /Users/jeff/dev/test-plugin
 ones create -d -t plugin
 ```
 
-初始化过程中 `ones-cli` 会完成以下操作：
+初始化过程中 ONES CLI 会完成以下操作：
 
 1. 初始化 `git`
 2. 创建工程模板文件
