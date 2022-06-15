@@ -14,8 +14,8 @@ const config = {
   organizationName: 'BangWork', // Usually your GitHub org/user name.
   projectName: 'open-docs', // Usually your repo name.
   i18n: {
-    defaultLocale: 'zh-CN',
-    locales: ['zh-CN'],
+    defaultLocale: 'en',
+    locales: ['en', 'zh-CN'],
   },
 
   presets: [
@@ -44,22 +44,6 @@ const config = {
     ],
   ],
 
-  plugins: [
-    [
-      'content-docs',
-      /** @type {import('@docusaurus/plugin-content-docs').Options} */
-      ({
-        id: 'ones',
-        path: 'docs-ones',
-        routeBasePath: 'ones',
-        showLastUpdateAuthor: true,
-        showLastUpdateTime: true,
-        sidebarPath: require.resolve('./sidebars.js'),
-        editUrl: 'https://github.com/BangWork/open-docs/tree/main/docs-ones',
-      }),
-    ],
-  ],
-
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -70,9 +54,9 @@ const config = {
         maxHeadingLevel: 6,
       },
       navbar: {
-        title: 'ONES 开放平台',
+        title: 'ONES Open Platform',
         logo: {
-          alt: 'ONES 开放平台',
+          alt: 'ONES Open Platform',
           src: 'images/logo.png',
           srcDark: 'images/logo-dark.png',
         },
@@ -80,13 +64,13 @@ const config = {
           {
             type: 'docSidebar',
             position: 'left',
-            label: '开发',
+            label: 'Guides',
             sidebarId: 'dev',
           },
           {
             type: 'docSidebar',
             position: 'left',
-            label: '开放能力',
+            label: 'Abilities',
             sidebarId: 'abilities',
           },
           {
@@ -98,24 +82,24 @@ const config = {
           {
             type: 'docSidebar',
             position: 'left',
-            label: 'ONES 接口',
+            label: 'ONES API',
             sidebarId: 'ones',
           },
           {
             type: 'docSidebar',
             position: 'left',
-            label: '介绍',
+            label: 'Introduction',
             sidebarId: 'intro',
           },
           {
             type: 'docSidebar',
             position: 'left',
-            label: '常见问题',
+            label: 'FAQ',
             sidebarId: 'faq',
           },
           {
             to: 'changelog',
-            label: '更新日志',
+            label: 'Changelog',
             position: 'left',
           },
           {

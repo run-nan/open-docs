@@ -6,6 +6,7 @@
     "prepare": "husky install",
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
+    "start:zh": "docusaurus start --locale zh-CN",
     "build": "docusaurus build --out-dir dist",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",

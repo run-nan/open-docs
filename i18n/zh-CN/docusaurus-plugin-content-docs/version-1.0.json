@@ -1,0 +1,102 @@
+{
+  "version.label": {
+    "message": "1.0",
+    "description": "The label for version 1.0"
+  },
+  "sidebar.dev.category.开始": {
+    "message": "开始",
+    "description": "The label for category 开始 in sidebar dev"
+  },
+  "sidebar.dev.category.指南": {
+    "message": "指南",
+    "description": "The label for category 指南 in sidebar dev"
+  },
+  "sidebar.dev.category.添加插槽模块": {
+    "message": "添加插槽模块",
+    "description": "The label for category 添加插槽模块 in sidebar dev"
+  },
+  "sidebar.dev.category.示例教程": {
+    "message": "示例教程",
+    "description": "The label for category 示例教程 in sidebar dev"
+  },
+  "sidebar.dev.category.视频教程": {
+    "message": "视频教程",
+    "description": "The label for category 视频教程 in sidebar dev"
+  },
+  "sidebar.dev.category.插件开发示例": {
+    "message": "插件开发示例",
+    "description": "The label for category 插件开发示例 in sidebar dev"
+  },
+  "sidebar.abilities.category.Frontend": {
+    "message": "前端能力",
+    "description": "The label for category Frontend in sidebar abilities"
+  },
+  "sidebar.abilities.category.事件通信": {
+    "message": "事件通信",
+    "description": "The label for category 事件通信 in sidebar abilities"
+  },
+  "sidebar.abilities.category.接口能力": {
+    "message": "接口能力",
+    "description": "The label for category 接口能力 in sidebar abilities"
+  },
+  "sidebar.abilities.category.基础能力": {
+    "message": "基础能力",
+    "description": "The label for category 基础能力 in sidebar abilities"
+  },
+  "sidebar.abilities.category.插件自定义权限点": {
+    "message": "插件自定义权限点",
+    "description": "The label for category 插件自定义权限点 in sidebar abilities"
+  },
+  "sidebar.abilities.category.插件自定义配置页面": {
+    "message": "插件自定义配置页面",
+    "description": "The label for category 插件自定义配置页面 in sidebar abilities"
+  },
+  "sidebar.abilities.category.插件多语言支持": {
+    "message": "插件多语言支持",
+    "description": "The label for category 插件多语言支持 in sidebar abilities"
+  },
+  "sidebar.abilities.category.业务能力": {
+    "message": "业务能力",
+    "description": "The label for category 业务能力 in sidebar abilities"
+  },
+  "sidebar.api.category.插件配置": {
+    "message": "插件配置",
+    "description": "The label for category 插件配置 in sidebar api"
+  },
+  "sidebar.ones.category.Permission": {
+    "message": "Permission",
+    "description": "The label for category Permission in sidebar ones"
+  },
+  "sidebar.ones.category.Project": {
+    "message": "Project",
+    "description": "The label for category Project in sidebar ones"
+  },
+  "sidebar.ones.category.Wiki": {
+    "message": "Wiki",
+    "description": "The label for category Wiki in sidebar ones"
+  },
+  "sidebar.ones.category.TestCase": {
+    "message": "TestCase",
+    "description": "The label for category TestCase in sidebar ones"
+  },
+  "sidebar.ones.category.Resource": {
+    "message": "Resource",
+    "description": "The label for category Resource in sidebar ones"
+  },
+  "sidebar.ones.category.Webhook": {
+    "message": "Webhook",
+    "description": "The label for category Webhook in sidebar ones"
+  },
+  "sidebar.ones.category.Item": {
+    "message": "Item",
+    "description": "The label for category Item in sidebar ones"
+  },
+  "sidebar.ones.category.Graphql": {
+    "message": "Graphql",
+    "description": "The label for category Graphql in sidebar ones"
+  },
+  "sidebar.ones.category.Http": {
+    "message": "Http",
+    "description": "The label for category Http in sidebar ones"
+  }
+}
