@@ -1,0 +1,114 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# 风格指南
+
+本文是针对 ONES 开放平台代码的官方风格指南。它可以帮助你规避错误和反模式，减少对细枝末节的过度纠结。
+
+我们的规范包含两类规则：
+
+- 格式化规则
+- 代码质量规则
+
+它们大都来源于行业内的最佳实践，不过我们认为任何风格指南都不会完美适用于所有的团队或项目，所以基于过去的经验、周围的技术堆栈和团队价值观，进行了一些调整。
+
+## 格式化规则
+
+我们采用 [Prettier](https://prettier.io/) 作为格式化规则的首选参考，因为 [Prettier](https://prettier.io/) 可以减少对这类规则的定制需求。我们并不介意你是否使用分号或尾逗号，也不介意你在 HTML 属性中使用单引号还是双引号，因为 [Prettier](https://prettier.io/) 将统一从头开始格式化你的代码。
+
+我们遵循大部分 [Prettier](https://prettier.io/) 的默认规则，除了以下这些：
+
+### 最大行长
+
+为了便于阅读，我们默认使用 100 个字符。
+
+### 属性引号
+
+如果对象中至少有一个属性需要引号，则为所有属性加上引号。
+
+<Tabs>
+  <TabItem value="correct" label="✅ 正确的">
+
+```ts
+{
+  'user-name': 'ones',
+  'home': 'ones.com'
+}
+// 或者
+{
+  user: 'ones',
+  home: 'ones.com'
+}
+```
+
+  </TabItem>
+  <TabItem value="incorrect" label="❌ 不推荐">
+
+```ts
+{
+  'user-name': 'ones',
+  home: 'ones.com'
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### 分号
+
+仅在 [可能导致 ASI 失败](https://prettier.io/docs/en/rationale.html#semicolons) 的行首添加分号。
+
+<Tabs>
+  <TabItem value="correct" label="✅ 正确的">
+
+```ts
+let shouldAddLines = true
+if (shouldAddLines) {
+  ;[-1, 1].forEach((delta) => addLine(delta * 20))
+}
+```
+
+  </TabItem>
+  <TabItem value="incorrect" label="❌ 不推荐">
+
+```ts
+// prettier-ignore
+let shouldAddLines = true;
+if (shouldAddLines) {
+  // prettier-ignore
+  [-1, 1].forEach((delta) => addLine(delta * 20));
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### 引号
+
+使用单引号代替双引号。
+
+:::info 提示
+
+JSX 中的引号忽略该选项 – 请查阅 [jsx-single-quote](https://prettier.io/docs/en/options.html#jsx-quotes).
+
+:::
+
+<Tabs>
+  <TabItem value="correct" label="✅ 正确的">
+
+```ts
+let name = 'ones'
+```
+
+  </TabItem>
+  <TabItem value="incorrect" label="❌ 不推荐">
+
+```ts
+// prettier-ignore
+let name = "ones"
+```
+
+  </TabItem>
+</Tabs>
+
+## 代码质量规则

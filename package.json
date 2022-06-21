@@ -34,15 +34,15 @@
     "@commitlint/cli": "~17.0.2",
     "@commitlint/config-conventional": "~17.0.2",
     "@docusaurus/module-type-aliases": "~2.0.0-beta.18",
-    "@tsconfig/docusaurus": "~1.0.5",
-    "@typescript-eslint/eslint-plugin": "~5.19.0",
-    "@typescript-eslint/parser": "~5.19.0",
+    "@tsconfig/docusaurus": "~1.0.6",
+    "@typescript-eslint/eslint-plugin": "~5.24.0",
+    "@typescript-eslint/parser": "~5.24.0",
     "eslint": "~8.13.0",
     "eslint-config-prettier": "~8.5.0",
-    "eslint-plugin-react-hooks": "~4.5.0",
+    "eslint-plugin-react-hooks": "~4.6.0",
     "husky": "~7.0.4",
     "lint-staged": "~12.3.8",
-    "prettier": "~2.6.2",
+    "prettier": "~2.7.1",
     "typescript": "~4.6.4"
   }
 }

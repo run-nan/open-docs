@@ -1,0 +1,111 @@
+# Style Guide
+
+This is the official style guide for ONES open platform code. It's a great reference to avoid errors, bikeshedding, and anti-patterns.
+
+Our style guide has two categories of rules:
+
+- Formatting rules
+- Code quality rules
+
+Most of them come from best practices in the industry. However, we don't believe that any style guide is ideal for all teams or projects, so some adjustments have been made based on past experience, the surrounding tech stack, and team values.
+
+## Formatting rules
+
+We use [Prettier](https://prettier.io/) as the preferred reference for formatting rules. Because [Prettier](https://prettier.io/) alleviates the need for this whole category of rules. We don't mind whether you use semicolons or trailing commas. We don't mind whether your HTML uses single-quotes or double-quotes for attribute values, Because [Prettier](https://prettier.io/) is going to reprint the entire program from scratch in a consistent way.
+
+We follow most of [Prettier](https://prettier.io/) default rules, except for the following:
+
+### Print Width
+
+For readability we use 100 characters by default.
+
+### Quote Props
+
+If at least one property in an object requires quotes, quote all properties.
+
+<Tabs>
+  <TabItem value="correct" label="✅ Correct">
+
+```ts
+{
+  'user-name': 'ones',
+  'home': 'ones.com'
+}
+// or
+{
+  user: 'ones',
+  home: 'ones.com'
+}
+```
+
+  </TabItem>
+  <TabItem value="incorrect" label="❌ Incorrect">
+
+```ts
+{
+  'user-name': 'ones',
+  home: 'ones.com'
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Semicolons
+
+Only add semicolons at the beginning of lines that [may introduce ASI failures](https://prettier.io/docs/en/rationale.html#semicolons).
+
+<Tabs>
+  <TabItem value="correct" label="✅ Correct">
+
+```ts
+let shouldAddLines = true
+if (shouldAddLines) {
+  ;[-1, 1].forEach((delta) => addLine(delta * 20))
+}
+```
+
+  </TabItem>
+  <TabItem value="incorrect" label="❌ Incorrect">
+
+```ts
+// prettier-ignore
+let shouldAddLines = true;
+if (shouldAddLines) {
+  // prettier-ignore
+  [-1, 1].forEach((delta) => addLine(delta * 20));
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Quotes
+
+Use single quotes instead of double quotes.
+
+:::note
+
+JSX quotes ignore this option – see [jsx-single-quote](https://prettier.io/docs/en/options.html#jsx-quotes).
+
+:::
+
+<Tabs>
+  <TabItem value="correct" label="✅ Correct">
+
+```ts
+let name = 'ones'
+```
+
+  </TabItem>
+  <TabItem value="incorrect" label="❌ Incorrect">
+
+```ts
+// prettier-ignore
+let name = "ones"
+```
+
+  </TabItem>
+</Tabs>
+
+## Code quality rules
