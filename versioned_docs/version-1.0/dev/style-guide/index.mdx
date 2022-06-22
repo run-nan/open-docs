@@ -1,3 +1,6 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
 # Style Guide
 
 This is the official style guide for ONES open platform code. It's a great reference to avoid errors, bikeshedding, and anti-patterns.
@@ -134,7 +137,7 @@ If all variables in destructuring should be const, this rule warns the variables
 :::
 
 <Tabs>
-  <TabItem value="correct" label="✅ 正确的">
+  <TabItem value="correct" label="✅ Correct">
 
 ```tsx
 let { a, b } = obj
@@ -145,7 +148,7 @@ export { a, b }
 ```
 
   </TabItem>
-  <TabItem value="incorrect" label="❌ 不推荐">
+  <TabItem value="incorrect" label="❌ Incorrect">
 
 ```tsx
 let { a, b } = obj
