@@ -13,11 +13,39 @@ Most of them come from best practices in the industry. However, we don't believe
 
 We use [Prettier](https://prettier.io/) as the preferred reference for formatting rules. Because [Prettier](https://prettier.io/) alleviates the need for this whole category of rules. We don't mind whether you use semicolons or trailing commas. We don't mind whether your HTML uses single-quotes or double-quotes for attribute values, Because [Prettier](https://prettier.io/) is going to reprint the entire program from scratch in a consistent way.
 
-We follow most of [Prettier](https://prettier.io/) default rules, except for the following:
+We follow most of [Prettier](https://prettier.io/) [recommended rules](https://prettier.io/docs/en/options.html), except for the following:
 
 ### Print Width
 
 For readability we use 100 characters by default.
+
+### Quotes
+
+Use single quotes instead of double quotes.
+
+:::info
+
+JSX quotes ignore this option – see [jsx-single-quote](https://prettier.io/docs/en/options.html#jsx-quotes).
+
+:::
+
+<Tabs>
+  <TabItem value="correct" label="✅ Correct">
+
+```tsx
+let name = 'ones'
+```
+
+  </TabItem>
+  <TabItem value="incorrect" label="❌ Incorrect">
+
+```tsx
+// prettier-ignore
+let name = "ones"
+```
+
+  </TabItem>
+</Tabs>
 
 ### Quote Props
 
@@ -26,7 +54,7 @@ If at least one property in an object requires quotes, quote all properties.
 <Tabs>
   <TabItem value="correct" label="✅ Correct">
 
-```ts
+```tsx
 {
   'user-name': 'ones',
   'home': 'ones.com'
@@ -41,7 +69,7 @@ If at least one property in an object requires quotes, quote all properties.
   </TabItem>
   <TabItem value="incorrect" label="❌ Incorrect">
 
-```ts
+```tsx
 {
   'user-name': 'ones',
   home: 'ones.com'
@@ -58,7 +86,7 @@ Only add semicolons at the beginning of lines that [may introduce ASI failures](
 <Tabs>
   <TabItem value="correct" label="✅ Correct">
 
-```ts
+```tsx
 let shouldAddLines = true
 if (shouldAddLines) {
   ;[-1, 1].forEach((delta) => addLine(delta * 20))
@@ -68,7 +96,7 @@ if (shouldAddLines) {
   </TabItem>
   <TabItem value="incorrect" label="❌ Incorrect">
 
-```ts
+```tsx
 // prettier-ignore
 let shouldAddLines = true;
 if (shouldAddLines) {
@@ -80,32 +108,203 @@ if (shouldAddLines) {
   </TabItem>
 </Tabs>
 
-### Quotes
+## Code quality rules
 
-Use single quotes instead of double quotes.
+Because we use TypeScript to write all the code, we use [TypeScript ESLint](https://typescript-eslint.io/) to ensure code quality. [TypeScript ESLint](https://typescript-eslint.io/) enables [ESLint](https://eslint.org/) to run on TypeScript code. It brings in the best of both tools to help you write the best JavaScript or TypeScript code you possibly can.
 
-:::note
+we've split these rules into two priorities:
 
-JSX quotes ignore this option – see [jsx-single-quote](https://prettier.io/docs/en/options.html#jsx-quotes).
+- Priority A: Essential (Error Prevention)
+- Priority B: Recommended
+
+Of course, we basically follow [TypeScript ESLint](https://typescript-eslint.io/) [recommended rules](https://typescript-eslint.io/rules/), except for the following:
+
+### Priority A Rules: Essential
+
+### Prefer const
+
+Requires `const` declarations for variables that are never reassigned after declared.
+
+`const` declaration tells readers, "this variable is never reassigned," reducing cognitive load and improving maintainability.
+
+:::info
+
+If all variables in destructuring should be const, this rule warns the variables. Otherwise, ignores them.
 
 :::
 
 <Tabs>
-  <TabItem value="correct" label="✅ Correct">
+  <TabItem value="correct" label="✅ 正确的">
 
-```ts
-let name = 'ones'
+```tsx
+let { a, b } = obj
+a = a + 1
+// or
+const { a, b } = obj
+export { a, b }
 ```
 
   </TabItem>
-  <TabItem value="incorrect" label="❌ Incorrect">
+  <TabItem value="incorrect" label="❌ 不推荐">
 
-```ts
-// prettier-ignore
-let name = "ones"
+```tsx
+let { a, b } = obj
+export { a, b }
 ```
 
   </TabItem>
 </Tabs>
 
-## Code quality rules
+#### Exhaustive React Hooks dependencies
+
+It helps you find components that don’t handle updates consistently.
+
+<Tabs>
+  <TabItem value="correct" label="✅ Correct">
+
+```tsx
+function Example({ someProp }) {
+  useEffect(() => {
+    function doSomething() {
+      console.log(someProp)
+    }
+    doSomething()
+  }, [someProp])
+}
+```
+
+  </TabItem>
+  <TabItem value="incorrect" label="❌ Incorrect">
+
+```tsx
+function Example({ someProp }) {
+  function doSomething() {
+    console.log(someProp)
+  }
+  useEffect(() => {
+    doSomething()
+  }, [])
+}
+```
+
+  </TabItem>
+</Tabs>
+
+#### Consistent type definitions
+
+Enforces type definitions to consistently use `interface`.
+
+<Tabs>
+  <TabItem value="correct" label="✅ Correct">
+
+```tsx
+type T = string
+type Foo = string | {}
+
+interface T {
+  x: number
+}
+```
+
+  </TabItem>
+  <TabItem value="incorrect" label="❌ Incorrect">
+
+```tsx
+type T = { x: number }
+```
+
+  </TabItem>
+</Tabs>
+
+#### Consistent type exports
+
+Enforces consistent usage of type exports.
+
+<Tabs>
+  <TabItem value="correct" label="✅ Correct">
+
+```tsx
+interface ButtonProps {
+  onClick: () => void
+}
+class Button implements ButtonProps {
+  onClick() {
+    console.log('button!')
+  }
+}
+export { Button, type ButtonProps } from 'some-library'
+```
+
+  </TabItem>
+  <TabItem value="incorrect" label="❌ Incorrect">
+
+```tsx
+interface ButtonProps {
+  onClick: () => void
+}
+class Button implements ButtonProps {
+  onClick() {
+    console.log('button!')
+  }
+}
+export { Button, ButtonProps } from 'some-library'
+```
+
+  </TabItem>
+</Tabs>
+
+#### Consistent type imports
+
+Enforces consistent usage of type imports.
+
+<Tabs>
+  <TabItem value="correct" label="✅ Correct">
+
+```tsx
+import { type Foo } from 'Foo'
+import type Bar from 'Bar'
+type T = Foo
+const x: Bar = 1
+```
+
+  </TabItem>
+  <TabItem value="incorrect" label="❌ Incorrect">
+
+```tsx
+import { Foo } from 'Foo'
+import Bar from 'Bar'
+type T = Foo
+const x: Bar = 1
+```
+
+  </TabItem>
+</Tabs>
+
+#### No redundant type constituents
+
+Disallows members of unions and intersections that do nothing or override type information.
+
+### Priority B Rules: Recommended
+
+#### No console
+
+Disallows the use of `console`, except `console.warn` and `console.error`.
+
+Such messages are considered to be for debugging purposes and therefore not suitable to ship to the client. In general, calls using `console` should be stripped before being pushed to production.
+
+<Tabs>
+  <TabItem value="correct" label="✅ Correct">
+
+```tsx
+console.error('error')
+```
+
+  </TabItem>
+  <TabItem value="incorrect" label="❌ Incorrect">
+
+```tsx
+console.log('log')
+```
+
+  </TabItem>
+</Tabs>
