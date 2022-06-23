@@ -4,12 +4,6 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: [
-    'eslint:recommended',
-    'plugin:react-hooks/recommended',
-    'plugin:@typescript-eslint/recommended',
-    'prettier',
-  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
@@ -20,8 +14,15 @@ module.exports = {
     sourceType: 'module',
     project: ['./tsconfig.json', './packages/*/tsconfig.json'],
   },
-  plugins: ['react-hooks', '@typescript-eslint'],
+  plugins: ['react-hooks', '@typescript-eslint', '@docusaurus'],
   ignorePatterns: ['packages/icons'],
+  extends: [
+    'eslint:recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@docusaurus/recommended',
+    'prettier',
+  ],
   rules: {
     'no-console': [
       'warn',
@@ -29,8 +30,6 @@ module.exports = {
         allow: ['error', 'warn'],
       },
     ],
-    'no-empty-function': 'off',
-    'no-unused-vars': 'off',
     'prefer-const': [
       'error',
       {
@@ -40,6 +39,9 @@ module.exports = {
 
     'react-hooks/exhaustive-deps': 'error',
 
+    'space-before-blocks': 'off',
+    '@typescript-eslint/space-before-blocks': ['error'],
+
     '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
     '@typescript-eslint/consistent-type-exports': [
       'error',
@@ -48,7 +50,7 @@ module.exports = {
       },
     ],
     '@typescript-eslint/consistent-type-imports': ['error'],
-    '@typescript-eslint/no-empty-function': 'off',
+    '@typescript-eslint/no-redundant-type-constituents': ['error'],
     '@typescript-eslint/no-this-alias': 'off',
     '@typescript-eslint/prefer-optional-chain': ['warn'],
   },
