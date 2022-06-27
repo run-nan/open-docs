@@ -95,12 +95,11 @@ useEffect(() => {
 |  type  | 事件类型字符串 | `string` |  是  |        |
 | params | 事件参数对象   |  `any`   |  否  |        |
 
-<!--
-#### Returns
+#### Returns`v3.7.(TODO)+`
 
-Promise 对象，参数为 `OPPluginListener` 事件处理函数返回的数据。
+`Promise`对象，当所有`OPPluginListener`处理函数处理完后`resolve`，参数为`OPPluginListener`事件处理函数返回的数据**数组**。
 
-返回数据格式约定如下：
+`OPPluginListener`处理函数返回数据格式**约定**如下：
 
 ```ts
 enum OPListenerProcessResultState {
@@ -114,7 +113,7 @@ interface OPListenerProcessResult<T> {
 }
 ```
 
-如果你没做任何返回，或者返回为 `undefined`，我们将默认返回以下数据：
+如果你没在`OPPluginListener`处理函数里做任何返回，或者返回值为 `undefined`，我们将默认返回以下数据：
 
 ```ts
 {
@@ -125,12 +124,11 @@ interface OPListenerProcessResult<T> {
 
 #### Examples
 
-`OPPluginListener` 事件处理函数返回数据：
+`OPPluginListener`处理函数返回数据：
 
 ```ts title="OPPluginListener"
 useEffect(() => {
   const cancelFn = OPPluginListener('onChange', ({ value }) => {
-    console.log(`new value: ${value}`)
     return {
       state: OPListenerProcessResultState.SUCCESS,
       data: value + 1,
@@ -140,10 +138,10 @@ useEffect(() => {
 }, [])
 ```
 
-`OPPluginDispatch` 打印其返回值：
+`OPPluginDispatch`打印其返回值：
 
 ```ts title="OPPluginDispatch"
-OPPluginDispatch('onChange', { value: 'new value' }).then((result) => {
-  console.log(`listener processed value: ${result.data}`)
+OPPluginDispatch('onChange', { value: 0 }).then((result) => {
+  console.log(`listener processed value: ${result[0].data}`)
 })
-``` -->
+```
