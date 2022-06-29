@@ -20,7 +20,7 @@ service:
   config:
     - key: 配置项名称
       value: 配置项默认值
-      type: 101
+      type: Input
       required: true
 abilities:
   - id: Simple-login-vUqb
@@ -115,12 +115,12 @@ modules:
 
 插件功能配置页的配置项数组，配置参数如下：
 
-| 属性 | 说明 | 类型 | 必填 | 默认值 |
-| :-: | :-- | :-: | :-: | :-: |
-| key | 配置项名称 | `string` | 是 | |
-| required | 是否必填 | `boolean` | 是 | |
-| value | 配置项默认值 | `string` | 否 | |
-| type | 配置项类型 | `string` | 否 |  |
+|   属性   | 说明         |            类型             | 必填 | 默认值 |
+| :------: | :----------- | :-------------------------: | :--: | :----: |
+|   key    | 配置项名称   |          `string`           |  是  |        |
+| required | 是否必填     |          `boolean`          |  是  |        |
+|  value   | 配置项默认值 |          `string`           |  否  |        |
+|   type   | 配置项类型   | `Input｜TextArea｜Password` |  否  |        |
 
 ### permission
 
@@ -251,10 +251,10 @@ modules:
 
 模块的显示条件，可选值如下：
 
-| 属性 | 说明 | 类型 | 必填 | 默认值 |
-| :-: | :-- | :-: | :-: | :-: |
-| teamSize | 团队规模 | `Array<'single'｜'multiple'>` | 否 | |
-| plan | 服务计划 | `Array<'free'｜'team'｜'enterprise'>` | 否 | |
+|   属性   | 说明     |                 类型                  | 必填 | 默认值 |
+| :------: | :------- | :-----------------------------------: | :--: | :----: |
+| teamSize | 团队规模 |     `Array<'single'｜'multiple'>`     |  否  |        |
+|   plan   | 服务计划 | `Array<'free'｜'team'｜'enterprise'>` |  否  |        |
 
 ### moduleType
 
