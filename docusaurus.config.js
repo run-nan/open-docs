@@ -30,10 +30,10 @@ const config = {
           remarkPlugins: [[require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }]],
         },
         blog: {
-          blogTitle: '更新日志',
-          blogDescription: '更新日志',
+          blogTitle: 'Changelog',
+          blogDescription: 'Changelog',
           blogSidebarCount: 'ALL',
-          blogSidebarTitle: '更新日志',
+          blogSidebarTitle: 'Changelog',
           path: 'changelog',
           routeBasePath: 'changelog',
         },
