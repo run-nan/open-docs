@@ -37,10 +37,9 @@ modules:
     title: trigger
     moduleType: ones:global:trigger
     entry: modules/ones-global-trigger-QIOs/index.html
-    # add config
-    preload: true
-    manual: true
-    actions:
+    preload: true # 必须项
+    manual: true # 必须项
+    actions: # 必须项
       - action:pre:ones:task:fields:update
 ```
 
@@ -116,3 +115,9 @@ function TriggerPlugin() {
   )
 }
 ```
+
+## FAQ
+
+<h3>多个 module 使用了同一个 action ，开放平台是如何处理冲突？</h3>
+
+开放平台将会按插件管理页列表顺序串行激活`module`，每个`module`都将拿到`action`的原始数据，所有`module`处理完后，使用 lodash 的[`merge`](https://lodash.com/docs/#merge)函数合并处理结果并返回给 ONES 系统。
