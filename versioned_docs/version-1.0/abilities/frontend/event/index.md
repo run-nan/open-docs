@@ -95,7 +95,7 @@ useEffect(() => {
 |  type  | 事件类型字符串 | `string` |  是  |        |
 | params | 事件参数对象   |  `any`   |  否  |        |
 
-#### Returns`v3.7.(TODO)+`
+#### Returns`v0.6.1+`
 
 `Promise`对象，当所有`OPPluginListener`处理函数处理完后`resolve`，参数为`OPPluginListener`事件处理函数返回的数据**数组**。
 
