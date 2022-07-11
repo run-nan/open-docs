@@ -95,48 +95,48 @@ abilities:
 ```typescript
 // 落盘前调用，支持添加属性修改
 export async function taskPreAction(request: PluginRequest): Promise<PluginResponse> {
-  var body = request?.body as any
-  var userUUID  = body.user_uuid
-  var lang = body.lang
-  var events = body.task_events
-  var action = events[0].action
-  Logger.info("nEvents",events)
-  Logger.info("userID:",userUUID)
-  Logger.info("lang",lang)
-  Logger.info("action",action)
-  return {
-    statusCode:200,
-    body: {
-      code:200,
-      body:{
-        is_follow: true,
-        is_reject:false,
-        reject_reason:"拒绝理由",
-        task_events:events,
-        other_data:"其他数据"
-      }
-    }
-  }
+	var body = request?.body as any
+	var userUUID  = body.user_uuid
+	var lang = body.lang
+	var events = body.task_events
+	var action = events[0].action
+	Logger.info("nEvents",events)
+	Logger.info("userID:",userUUID)
+	Logger.info("lang",lang)
+	Logger.info("action",action)
+	return {
+		statusCode:200,
+		body: {
+			code:200,
+			body:{
+				is_follow: true,
+				is_reject:false,
+				reject_reason:"拒绝理由",
+				task_events:events,
+				other_data:"其他数据"
+			}
+		}
+	}
 }
 // 落盘后调用
 export async function taskActionDone(request: PluginRequest): Promise<PluginResponse> {
-  var body = request?.body as any
-  var events = body.task_events
-  var otherData = body.other_data
-  var userUUID  = body.user_uuid
-  var lang = body.lang
-  var action = events[0].action
-  Logger.info("ans event",events)
-  Logger.info("ans other_data",otherData)
-  Logger.info("ans userID:",userUUID)
-  Logger.info("ans lang",lang)
-  Logger.info("ans action",action)
-  return {
-    statusCode:200,
-    body: {
-      code:200
-    }
-  }
+	var body = request?.body as any
+	var events = body.task_events
+	var otherData = body.other_data
+	var userUUID  = body.user_uuid
+	var lang = body.lang
+	var action = events[0].action
+	Logger.info("ans event",events)
+	Logger.info("ans other_data",otherData)
+	Logger.info("ans userID:",userUUID)
+	Logger.info("ans lang",lang)
+	Logger.info("ans action",action)
+	return {
+		statusCode:200,
+		body: {
+			code:200
+		}
+	}
 }
 ```
 
@@ -146,11 +146,11 @@ export async function taskActionDone(request: PluginRequest): Promise<PluginResp
 
 - 忽略：设置返回的“is_follow = false”
 
-- 拒绝：设置返回的“is_follow = true ” && “is_reject = true”
+- 拒绝：设置返回的“is_follow = true” && “is_reject = true”
 
-- 接受：设置返回的“is_follow = true ” && “is_reject = false”
+- 接受：设置返回的“is_follow = true” && “is_reject = false”
 
-- 修改：设置返回的“is_follow = true ” && “is_reject = false”  并对“event”对象添加属性修改；
+- 修改：设置返回的“is_follow = true” && “is_reject = false”  并对“event”对象添加属性修改；
 
 如下所示：填写field_name 和 value 即可
 
@@ -160,23 +160,23 @@ var events = body.task_events
 var action = events[0].action
 // 添加属性修改
 var aField =  {
-  field_name: "标题",
-  value:     "哈哈哈-插件",
+     field_name: "标题",
+     value:     "哈哈哈-插件",
 }
 events[0].task_fields.push(aField)
 return {
-  statusCode:200,
-  body: {
-    code:200,
-    body:{
-      is_follow: true,
-      is_reject:false,
-      reject_reason:"",
-      task_events:events,
-      other_data:"其他数据"
+        statusCode:200,
+        body: {
+            code:200,
+            body:{
+                is_follow: true,
+                is_reject:false,
+                reject_reason:"",
+                task_events:events,
+                other_data:"其他数据"
+            }
+        }
     }
-  }
-}
 
 ```
 
