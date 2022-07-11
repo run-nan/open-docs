@@ -97,9 +97,9 @@ useEffect(() => {
 
 #### Returns`v0.6.1+`
 
-`Promise`对象，当所有`OPPluginListener`处理函数处理完后`resolve`，参数为`OPPluginListener`事件处理函数返回的数据**数组**。
+`Promise` 对象，当所有 `OPPluginListener` 处理函数处理完后 `resolve` ，参数为 `OPPluginListener` 事件处理函数返回的数据**数组**。
 
-`OPPluginListener`处理函数返回数据格式**约定**如下：
+`OPPluginListener` 处理函数返回数据格式**约定**如下：
 
 ```ts
 enum OPListenerProcessResultState {
@@ -113,7 +113,7 @@ interface OPListenerProcessResult<T> {
 }
 ```
 
-如果你没在`OPPluginListener`处理函数里做任何返回，或者返回值为 `undefined`，我们将默认返回以下数据：
+如果你没在 `OPPluginListener` 处理函数里做任何返回，或者返回值为 `undefined` ，我们将默认返回以下数据：
 
 ```ts
 {
@@ -124,7 +124,7 @@ interface OPListenerProcessResult<T> {
 
 #### Examples
 
-`OPPluginListener`处理函数返回数据：
+`OPPluginListener` 处理函数返回数据：
 
 ```ts title="OPPluginListener"
 useEffect(() => {
@@ -138,7 +138,7 @@ useEffect(() => {
 }, [])
 ```
 
-`OPPluginDispatch`打印其返回值：
+`OPPluginDispatch` 打印其返回值：
 
 ```ts title="OPPluginDispatch"
 OPPluginDispatch('onChange', { value: 0 }).then((result) => {

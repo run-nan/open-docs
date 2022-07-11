@@ -45,7 +45,7 @@ modules:
 
 :::caution 注意
 
-`actions`里声明的类型，必须与代码里`useAction`用到的类型保持一致，否则将会导致系统无法调起插件，或者系统操作（Action）永久陷入 pending 状态。
+`actions` 里声明的类型，必须与代码里 `useAction` 用到的类型保持一致，否则将会导致系统无法调起插件，或者系统操作（Action）永久陷入 pending 状态。
 
 :::
 
@@ -120,4 +120,4 @@ function TriggerPlugin() {
 
 <h3>多个 module 使用了同一个 action ，开放平台是如何处理冲突？</h3>
 
-开放平台将会按插件管理页列表顺序串行激活`module`，每个`module`都将拿到`action`的原始数据，所有`module`处理完后，使用 lodash 的[`merge`](https://lodash.com/docs/#merge)函数合并处理结果并返回给 ONES 系统。
+开放平台将会按插件管理页列表顺序串行激活 `module` ，每个 `module` 都将拿到 `action` 的原始数据，所有 `module` 处理完后，使用 lodash 的 [`merge`](https://lodash.com/docs/#merge) 函数合并处理结果并返回给 ONES 系统。
