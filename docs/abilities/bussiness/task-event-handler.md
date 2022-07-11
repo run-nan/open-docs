@@ -144,13 +144,13 @@ export async function taskActionDone(request: PluginRequest): Promise<PluginResp
 
 4. taskPreAction操作举例
 
-- 忽略：设置返回的**“is_follow = false”**
+- 忽略：设置返回的“is_follow = false”
 
-- 拒绝：设置返回的**“is_follow = true ”** && **“is_reject = true”**
+- 拒绝：设置返回的“is_follow = true ” && “is_reject = true”
 
-- 接受：设置返回的**“is_follow = true ”** && **“is_reject = false”**
+- 接受：设置返回的“is_follow = true ” && “is_reject = false”
 
-- 修改：设置返回的**“is_follow = true ”** && **“is_reject = false”**  并对**“event”**对象添加属性修改；
+- 修改：设置返回的“is_follow = true ” && “is_reject = false”  并对“event”对象添加属性修改；
 
 如下所示：填写field_name 和 value 即可
 
