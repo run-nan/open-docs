@@ -59,62 +59,60 @@ url: team/:team_uuid/plugin/permissioninfo/list
 
 入参
 
-| 参数              | 类型   | 说明                  |
-| ----------------- | ------ | --------------------- |
-| instance_id       | string | 插件实例 id           |
+| 参数                | 类型   | 说明                  |
+|-------------------| ------ | --------------------- |
+| instance_uuid     | string | 插件实例 id           |
 | team_uuid         | string | 所属团队 id           |
 | organization_uuid | string | 所属组织 id           |
-| user_uuid         | string | 组织负责人账户用户 id |
-
 返回
 
 ```json
 {
-    "data": [
+  "data": [
+    {
+      "org_uuid": "8Z6vS8FZ",
+      "team_uuid": "GSwm2Lix",
+      "instance_uuid": "78ed9ab1",
+      "permission_name": "页面编辑权限",
+      "permission_field": "table_edit_permission",
+      "permission_id": 56076,
+      "permission_desc": "管理员可以给予用户页面的编辑权限，可查看可编辑",
+      "rule_info": [
         {
-            "org_uuid": "8Z6vS8FZ",
-            "team_uuid": "GSwm2Lix",
-            "instance_uuid": "78ed9ab1",
-            "permission_name": "页面编辑权限",
-            "permission_field": "table_edit_permission",
-            "permission_id": 56076,
-            "permission_desc": "管理员可以给予用户页面的编辑权限，可查看可编辑",
-            "rule_info": [
-                {
-                    "id": 25,
-                    "permission": 56076,
-                    "context_type": "plugin",
-                    "context_param_1": "78ed9ab1",
-                    "context_param_2": "",
-                    "user_domain_type": "everyone",
-                    "user_domain_param": "",
-                    "position": 0
-                }
-            ]
-        },
-        {
-            "org_uuid": "8Z6vS8FZ",
-            "team_uuid": "GSwm2Lix",
-            "instance_uuid": "78ed9ab1",
-            "permission_name": "页面查看权限",
-            "permission_field": "table_view_permission",
-            "permission_id": 50227,
-            "permission_desc": "管理员可以给予用户页面的查看权限，只可查看不可编辑",
-            "rule_info": [
-                {
-                    "id": 26,
-                    "permission": 50227,
-                    "context_type": "plugin",
-                    "context_param_1": "78ed9ab1",
-                    "context_param_2": "",
-                    "user_domain_type": "everyone",
-                    "user_domain_param": "",
-                    "position": 0
-                }
-            ]
+          "id": 25,
+          "permission": 56076,
+          "context_type": "plugin",
+          "context_param_1": "78ed9ab1",
+          "context_param_2": "",
+          "user_domain_type": "everyone",
+          "user_domain_param": "",
+          "position": 0
         }
-    ]
-
+      ]
+    },
+    {
+      "org_uuid": "8Z6vS8FZ",
+      "team_uuid": "GSwm2Lix",
+      "instance_uuid": "78ed9ab1",
+      "permission_name": "页面查看权限",
+      "permission_field": "table_view_permission",
+      "permission_id": 50227,
+      "permission_desc": "管理员可以给予用户页面的查看权限，只可查看不可编辑",
+      "rule_info": [
+        {
+          "id": 26,
+          "permission": 50227,
+          "context_type": "plugin",
+          "context_param_1": "78ed9ab1",
+          "context_param_2": "",
+          "user_domain_type": "everyone",
+          "user_domain_param": "",
+          "position": 0
+        }
+      ]
+    }
+  ]
+}
 ```
 
 #### check
@@ -128,7 +126,6 @@ url: team/:team_uuid/plugin/permissionrule/check
 | instance_id\*     | string | 插件实例 id           |
 | team_uuid         | string | 所属团队 id           |
 | organization_uuid | string | 所属组织 id           |
-| user_uuid         | string | 组织负责人账户用户 id |
 | permission_field  | string | 自定义权限点          |
 
 返回
