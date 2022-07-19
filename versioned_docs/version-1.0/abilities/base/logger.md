@@ -34,3 +34,9 @@ function logExample() {
   Logger.error('error: ', new Error('error message'))
 }
 ```
+
+## 预览与导出
+
+插件日志支持预览与导出，记录日志级别包括 **info**，**warning**， **error**，不包括 **debug**。
+
+![插件日志预览与导出](./pluginlog-preview-export.jpg)
