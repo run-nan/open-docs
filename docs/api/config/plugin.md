@@ -17,6 +17,7 @@ service:
   host_version: 1.0.0
   host_sub_version: 1.0.0
   min_system_version: 3.5.0
+  contact: 联系方式
   config:
     - key: 配置项名称
       value: 配置项默认值
@@ -108,6 +109,15 @@ modules:
 - 类型：`string`
 
 最低兼容的 ONES 系统版本
+
+### contact
+
+- 类型：`string`
+- 必填: `否`
+- 最大长度: `255`
+- 示例: `邮箱: tom@gmail.com\n电话: 077x-123456`
+
+联系方式
 
 ### config
 
