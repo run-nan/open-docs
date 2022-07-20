@@ -15,6 +15,7 @@ ONES 插件开发需要 [Node.js](https://nodejs.org/zh-cn/) v16.13.0 或更高�
 
 ```
 npm config set @ones:registry=https://npm.partner.ones.ai/registry/
+npm config set @ones-op:registry=https://npm.partner.ones.ai/registry/
 ```
 
 :::note
