@@ -35,38 +35,30 @@ function: ImportOpml
 {
 const body = request.body
 const url = request.url
-let urlArr
+let urlArr = []
 if (url) {
     urlArr = url.toString().split("/")
     if (urlArr.length > 5) {
-        // teamUUID = urlArr[2]  //获得TeamUUID
-        teamUUID = globalThis.onesEnv.teamUUID  //获得TeamUUID
-        libraryUUID = urlArr[5]  //获得libraryUUID
-        console.log("teamUUID:", teamUUID + ",libraryUUID:", libraryUUID)
-        //获得用例库的用例配置的UUID
+        teamUUID = globalThis.onesEnv.teamUUID
+        libraryUUID = urlArr[5]  //libraryUUID
+        //用例库的用例配置的UUID
         const testcaseOptionUUID = await getTestcaseOptionUUID(globalThis.onesEnv.teamUUID, libraryUUID)
         if (testcaseOptionUUID != null) {
-            var testcaseOptionJson = JSON.parse(JSON.stringify(testcaseOptionUUID))
-            if (testcaseOptionJson) {
-                Optionuuid = testcaseOptionJson.data.testcaseLibraries[0].testcaseFieldConfig.uuid;
-                AftertestcaseCaseCount = testcaseOptionJson.data.testcaseLibraries[0].testcaseCaseCount;
-                console.log("Optionuuid:", Optionuuid)
-                console.log("AftertestcaseCaseCount:", AftertestcaseCaseCount)
+            if (testcaseOptionUUID) {
+                Optionuuid = testcaseOptionUUID?.data?.testcaseLibraries[0]?.testcaseFieldConfig?.uuid;
+                AftertestcaseCaseCount = testcaseOptionUUID?.data?.testcaseLibraries[0]?.testcaseCaseCount;
             }
         }
-        //获得用例库的用例配置
+        //用例库的用例配置
         const testcaceOption = await getTestcaseOption(teamUUID, libraryUUID, Optionuuid)
-        // Logger.info("Option（用例库配置）:", testcaceOption)
-        var Option = JSON.parse((JSON.stringify(testcaceOption)))
-        if (Option != null) {
-            //获得优先级类型
-            var priority = Option.data.fields.find((n) => n.name == '优先级');
+        if (testcaceOption != null) {
+            //优先级类型
+            const priority = testcaceOption?.data?.fields.find((n) => n.name == '优先级');
             for (let i = 0; i < priority.options.length; i++) {
                 priorityArr.push(priority.options[i].value)
             }
             //设置用例库导入前的数量信息
             AftertestmoduleCaseCount = await getModules()
-            console.log("AftertestmoduleCaseCount:", AftertestmoduleCaseCount)
         }
         //解析opml数据
         if (body) {
@@ -74,7 +66,6 @@ if (url) {
             opmljson = JSON.parse(JSON.stringify(obj))
         }
         getName(opmljson.children[0].children, Node)
-        //getName(opmljson.children[0].children, Node)
         if (countSuccess < 1) {
             return faildBody
         }
@@ -110,9 +101,8 @@ const response = await fetchONES({
   body: new Uint8Array(data.getBuffer()),
   // root: true,
 })
-// console.log("response:", response)
 if (response != null) {
-  var res = JSON.parse(JSON.stringify(response.body))
+  const res = JSON.parse(JSON.stringify(response.body))
   return res.file_hash
 }
 return response
