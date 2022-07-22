@@ -1,6 +1,6 @@
 # 添加插槽模块
 
-在插件工程根目录执行 op 的 `add module` 或 `add sub-module` 指令，可以向插件新增插槽模块：
+在插件工程根目录执行 op 的 `add module` 或 `add sub-module` 指令，可以向插件新增插槽模块或子模块：
 
 ```
 npx op add module

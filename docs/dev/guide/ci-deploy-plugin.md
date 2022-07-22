@@ -17,7 +17,7 @@ sidebar_position: 5
 ### 前置条件
 
 - Gitlab 上已经配置了流水线，如果你使用的是 [https://gitlab.plugins.myones.net/](https://gitlab.plugins.myones.net/) 来托管插件代码，则无需额外配置；
-- 正确配置了项目文件夹中的 `config/ci-deploy.yaml` 文件，详见下文。
+- 正确配置了项目文件夹中的 `/config/ci-deploy.yaml` 文件，详见下文。
 
 ### 配置 ci-deploy.yaml
 
@@ -61,7 +61,7 @@ Now you can commit your changes to the remote repository and deploy your project
 
 `ci` 与 `pickteam ci` 指令执行完登录操作后会将「用户凭证」与「团队信息」写入工程下的 `config/ci-deploy.yaml` 文件中。
 
-```yaml title="config/ci-deploy.yaml"
+```yaml title="/config/ci-deploy.yaml"
 default:
   host: http://120.76.45.123
   username: test1@ones.ai
@@ -75,7 +75,7 @@ default:
 
 ### 凭证信息脱敏
 
-`config/ci-deploy.yaml` 文件中会明文存储用户凭证。
+`/config/ci-deploy.yaml` 文件中会明文存储用户凭证。
 
 在不便于明文存储凭证的场景下，开发者可以将用户凭证添加至 「[CI/CD variable](https://gitlab.plugins.myones.net/help/ci/variables/index.md#add-a-cicd-variable-to-a-project)」
 
@@ -89,12 +89,12 @@ default:
 
 :::
 
-随后编辑 `config/ci-deploy.yaml` 的 `username` 和 `password` 字段，使用以下占位符替换着两个字段的值：
+随后编辑 `/config/ci-deploy.yaml` 的 `username` 和 `password` 字段，使用以下占位符替换着两个字段的值：
 
 - **${username}**
 - **${password}**
 
-```yaml title="config/ci-deploy.yaml"
+```yaml title="/config/ci-deploy.yaml"
 default:
   host: http://120.76.45.123
   username: ${username}
