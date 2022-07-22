@@ -21,6 +21,7 @@
     "email": "linhuangdong@ones.ai",
     "url": "https://www.yuque.com/htmlin"
   },
+  "license": "UNLICENSED",
   "devDependencies": {
     "@commitlint/cli": "~17.0.3",
     "@commitlint/config-conventional": "~17.0.3",
