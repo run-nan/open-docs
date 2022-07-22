@@ -145,7 +145,7 @@ success!
 
 :::caution 注意
 
-如果修改了插件配置文件（`config/plugin.yaml`），需要重新运行 `npx op invoke run` 命令才能使配置生效。
+如果修改了插件配置文件（`config/plugin.yaml`），需要运行 `npx op invoke clear` 并重新运行 `npx op invoke run` 指令才能使配置生效。
 
 :::
 

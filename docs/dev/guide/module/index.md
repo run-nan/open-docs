@@ -4,7 +4,7 @@
 
 ```
 npx op add module
-#
+# Or
 npx op add sub-module
 ```
 
