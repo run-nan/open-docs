@@ -82,17 +82,17 @@ sudo npm update -g @ones/cli
 
 ### 安装 node-gyp (windows)
 
-在初始化插件工程的过程中，ONES CLI 会对项目下的 `/backend` 进行依赖安装操作，过程中可能会出现依赖安装异常的情况
+在初始化插件工程的过程中，ONES CLI 会对项目下的 `/backend` 进行依赖安装操作，过程中可能会出现依赖安装异常的情况。
 
-在 Windows 中安装 Nodejs 的过程中，开发者需要勾选安装额外的构建工具 `node-gyp`:
+这通常是缺失了构建所需的工具导致的问题，这需要开发者在 Windows 中安装 Nodejs 的过程中，开发者需要勾选安装额外的构建工具 `node-gyp`:
 
 ![Install node-gyp](./images/Windows%20node-gyp%20installation.png)
 
-需要注意的是，在部分 Windows 发行版本中（例如家庭版），在安装 Nodejs 的过程中默认不会询问用户是否需要使用管理员权限进行安装。
+需要注意的是，在部分 Windows 发行版本中（例如家庭版），在安装 Nodejs 的过程中默认不会询问用户是否需要使用管理员权限进行安装，而 `node-gyp` 可能会因为权限缺失导致安装失败。
 
-`node-gyp` 可能会因为权限缺失导致安装失败，在这种场景下开发者可以使用以下指令在 `Powershell` 中使用管理员权限去安装 Nodejs：
+在这种场景下开发者可以通过以下指令在 `Powershell` 中使用管理员权限启动 Nodejs 安装器：
 
-```
+```Powershell
 msiexec /package "C:\foo\baz\node-v16.xx.xx-x64.msi"
 ```
 
