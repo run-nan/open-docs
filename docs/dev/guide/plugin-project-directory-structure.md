@@ -2,14 +2,20 @@
 sidebar_position: 1
 ---
 
-# 目录结构
-
-插件的主要目录结构如下：
+# 插件工程目录结构
 
 ```
 .
 ├── README.md
 ├── ability-templates
+│   ├── account
+│   ├── api-register-jack
+│   ├── configuration-page
+│   ├── item-mutation
+│   ├── script-field-float
+│   ├── send-short-message
+│   ├── simple-auth
+│   └── system-db
 ├── backend # 后端资源目录
 │   ├── node_modules
 │   ├── package-lock.json
@@ -23,6 +29,9 @@ sidebar_position: 1
 │   └── plugin.yaml
 ├── logo.svg
 ├── node_modules
+│   └── @ones
+│       ├── cli-plugin
+│       └── cli-plugin-template
 ├── package-lock.json
 ├── package.json
 ├── web # 前端资源目录

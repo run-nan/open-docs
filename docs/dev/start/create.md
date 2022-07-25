@@ -14,8 +14,7 @@ sidebar_position: 2
 cd /Users/jeff/dev/test-plugin
 
 # -d 选项表明使用默认的工程创建预设配置
-# -t plugin 选项用于指定创建的工程类型为「插件」
-ones create -d -t plugin
+ones create -d
 ```
 
 初始化过程中 ONES CLI 会完成以下操作：
@@ -39,7 +38,7 @@ Project description:
 Project creating raw options: {"useDefaultPreset":true,"projectType":"plugin"}
 ```
 
-初始化完成后的插件工程目录结构详见[目录结构](../guide/structure.md)一节
+初始化完成后的插件工程目录结构详见[目录结构](../guide/plugin-project-directory-structure.md)一节
 
 至此，我们已经完成插件工程的初始化操作
 
