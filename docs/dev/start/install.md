@@ -23,7 +23,7 @@ npm config set @ones-op:registry=https://npm.partner.ones.ai/registry/
 
 :::note
 
-只配置 `@ones` 代理，不会影响你本地的其他 npm 代理
+只配置 `@ones` 和 `@ones-op` 域指向的 npm 仓库不会影响在本地安装其他依赖项时 npm 仓库的指向
 
 :::
 
@@ -80,11 +80,27 @@ sudo npm update -g @ones/cli
 
 ## 补充说明
 
+### 安装 node-gyp (windows)
+
+在初始化插件工程的过程中，ONES CLI 会对项目下的 `/backend` 进行依赖安装操作，过程中可能会出现依赖安装异常的情况
+
+在 Windows 中安装 `Nodejs` 的过程中，开发者需要勾选安装额外的构建工具 `node-gyp`:
+
+![Install node-gyp](./images/Windows%20node-gyp%20installation.png)
+
+如果在安装额外的构建工具仍然失败，可以尝试以管理员的身份在 `Powershell` 中安装 `windows-build-tools` 后再尝试安装依赖：
+
+```bash npm2yarn
+npm install windows-build-tools --global
+```
+
+如果在安装 `windows-build-tools` 后进行依赖安装仍然存在问题，建议开发者从 `npm` 的 `debug log` 中对问题进行定位、修复
+
+### 安装 CMake（mac / linux）
+
 在初始化插件工程的过程中，ONES CLI 会对项目下的 `/backend` 进行依赖安装操作，过程中可能会出现依赖安装异常的情况
 
 这是因为插件开发所需的部分依赖，使用了 `CMake` 工具，因此如果项目依赖安装过程中出现异常，需要安装 `CMake` 工具
-
-### 安装 CMake（mac / linux）
 
 #### 使用 `brew` 安装
 
