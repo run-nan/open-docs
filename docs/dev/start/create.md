@@ -33,9 +33,8 @@ ones create -d
 Project has been created
 Project path: /Users/jeff/dev/test-plugin
 Project name: test-plugin
-Project template: plugin
 Project description:
-Project creating raw options: {"useDefaultPreset":true,"projectType":"plugin"}
+Project sub CLI: @ones/cli-plugin
 ```
 
 初始化完成后的插件工程目录结构详见[目录结构](../guide/plugin-project-directory-structure.md)一节

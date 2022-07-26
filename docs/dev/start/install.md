@@ -9,7 +9,7 @@ sidebar_position: 1
 
 ONES 插件开发需要 [Node.js](https://nodejs.org/zh-cn/) v16.13.0 或更高版本，你可以使用 [n](https://github.com/tj/n)，[nvm](https://github.com/creationix/nvm) 或 [nvm-windows](https://github.com/coreybutler/nvm-windows) 在同一台电脑中管理多个 Node 版本。
 
-### 配置 npm 代理
+### 配置 npm 仓库
 
 插件开发过程中需要用到的所有依赖，均放在 ONES 的私有 npm 仓库上，因此需要配置代理才能顺利访问并获取内容。
 
@@ -23,7 +23,7 @@ npm config set @ones-op:registry=https://npm.partner.ones.ai/registry/
 
 :::note
 
-只配置 `@ones` 代理，不会影响你本地的其他 npm 代理
+只配置 `@ones` 和 `@ones-op` 域指向的 npm 仓库不会影响在本地安装其他依赖项时 npm 仓库的指向
 
 :::
 
@@ -80,11 +80,29 @@ sudo npm update -g @ones/cli
 
 ## 补充说明
 
+### 安装 node-gyp (windows)
+
+在初始化插件工程的过程中，ONES CLI 会对项目下的 `/backend` 进行依赖安装操作，过程中可能会出现依赖安装异常的情况。
+
+这通常是缺失了构建所需的工具导致的问题，这需要开发者在 Windows 中安装 Nodejs 的过程中，开发者需要勾选安装额外的构建工具 `node-gyp`:
+
+![Install node-gyp](./images/Windows%20node-gyp%20installation.png)
+
+需要注意的是，在部分 Windows 发行版本中（例如家庭版），在安装 Nodejs 的过程中默认不会询问用户是否需要使用管理员权限进行安装，而 `node-gyp` 可能会因为权限缺失导致安装失败。
+
+在这种情况下，开发者需要使用管理员权限启动 `Powershell` 或 `CMD` 并通过以下指令启动 Nodejs 安装器：
+
+```Powershell
+msiexec /package "C:\foo\baz\node-v16.xx.xx-x64.msi"
+```
+
+如果在正确安装 `node-gyp` 的情况下初始化插件工程的过程仍然存在问题，建议开发者从 `npm` 的 `debug log` 中对问题进行定位、修复或上报
+
+### 安装 CMake（mac / linux）
+
 在初始化插件工程的过程中，ONES CLI 会对项目下的 `/backend` 进行依赖安装操作，过程中可能会出现依赖安装异常的情况
 
 这是因为插件开发所需的部分依赖，使用了 `CMake` 工具，因此如果项目依赖安装过程中出现异常，需要安装 `CMake` 工具
-
-### 安装 CMake（mac / linux）
 
 #### 使用 `brew` 安装
 
