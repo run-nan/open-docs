@@ -9,7 +9,7 @@ sidebar_position: 1
 
 ONES 插件开发需要 [Node.js](https://nodejs.org/zh-cn/) v16.13.0 或更高版本，你可以使用 [n](https://github.com/tj/n)，[nvm](https://github.com/creationix/nvm) 或 [nvm-windows](https://github.com/coreybutler/nvm-windows) 在同一台电脑中管理多个 Node 版本。
 
-### 配置 npm 代理
+### 配置 npm 仓库
 
 插件开发过程中需要用到的所有依赖，均放在 ONES 的私有 npm 仓库上，因此需要配置代理才能顺利访问并获取内容。
 
