@@ -90,13 +90,13 @@ sudo npm update -g @ones/cli
 
 需要注意的是，在部分 Windows 发行版本中（例如家庭版），在安装 Nodejs 的过程中默认不会询问用户是否需要使用管理员权限进行安装，而 `node-gyp` 可能会因为权限缺失导致安装失败。
 
-在这种场景下开发者可以通过以下指令在 `Powershell` 中使用管理员权限启动 Nodejs 安装器：
+在这种情况下，开发者需要使用管理员权限启动 `Powershell` 或 `CMD` 并通过以下指令启动 Nodejs 安装器：
 
 ```Powershell
 msiexec /package "C:\foo\baz\node-v16.xx.xx-x64.msi"
 ```
 
-如果安装依赖的过程中仍然存在问题，建议开发者从 `npm` 的 `debug log` 中对问题进行定位与修复
+如果在正确安装 `node-gyp` 的情况下初始化插件工程的过程仍然存在问题，建议开发者从 `npm` 的 `debug log` 中对问题进行定位、修复或上报
 
 ### 安装 CMake（mac / linux）
 
