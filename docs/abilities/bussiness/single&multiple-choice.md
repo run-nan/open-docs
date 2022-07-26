@@ -89,3 +89,36 @@ export async function GetOptions(request: PluginRequest): Promise<PluginResponse
   }
 }
 ```
+
+## 能力使用范围
+
+Project 项目管理
+
+- 项目内筛选器将脚本属性作为筛选条件显示
+
+Product 产品管理
+
+- 产品内筛选器将脚本属性作为筛选条件显示
+
+Plan 项目集
+
+- 项目集内筛选器将脚本属性作为筛选条件显示
+
+Task 工作项类型
+
+- 新建工作项弹窗
+- 工作项详情
+- 工作项列表（表格视图）和表头配置
+- 批量新建工作项
+- 批量修改工作项属性
+- 批量导入
+- 批量导出
+- 关键属性设置
+
+Report 报表
+
+- 将脚本属性作为筛选条件显示
+
+Sprint 迭代
+
+- 将脚本属性作为筛选条件显示
