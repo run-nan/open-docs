@@ -2,22 +2,22 @@
 sidebar_position: 5
 ---
 
-# Developing ONES Project
+# 开发 ONES Project
 
-We provide the frontend open source service for customers who need in-depth customization. You can learn the entire process of ONES Project from the start of development to the building a release tarball by reading this page.
+我们为有需要做深度定制化的客户提供了前端源码开放服务，你可以通过阅读此页面了解到 ONES Project 从开始开发到构建发布包的全流程。
 
-## Precondition
+## 前置条件
 
-Before starting, make sure you meet the following conditions:
+在开始之前，请确保你满足如下条件：
 
-- [ONES Code](https://gitlab.partner.ones.ai/ones-code) Reading permissions of a certain version group
-- [Node.js](https://nodejs.org/) v16.13.0 or later
-- [Git](https://git-scm.com/) version control tool
-- [Git](https://git-scm.com/)-based source code hosting service platform
+- [ONES Code](https://gitlab.partner.ones.ai/ones-code) 某个版本组的读权限
+- [Node.js](https://nodejs.org/) v16.13.0 或更高版本
+- [Git](https://git-scm.com/) 版本管理工具
+- 基于 [Git](https://git-scm.com/) 的源代码托管服务平台
 
-## Create repositories
+## 创建仓库
 
-Create two empty repositories in your [Git](https://git-scm.com/)-based source code hosting service platform called ones-project-web and ones-ai-web-common and clone them to your local directory with the following structure.
+在你的基于 [Git](https://git-scm.com/) 的源代码托管服务平台里创建两个空仓库，分别命名为 ones-project-web 与 ones-ai-web-common，并将其按如下目录结构克隆到本地。
 
 ```
 .
@@ -25,11 +25,11 @@ Create two empty repositories in your [Git](https://git-scm.com/)-based source c
 │   ├── ones-ai-web-common
 ```
 
-## Add ONES remote repositories
+## 添加 ONES 远程仓库
 
-You can get information about the repositories in [ONES Code](https://gitlab.partner.ones.ai/ones-code), and the 3.6 LTS version will be used as an example.
+你可以在 [ONES Code](https://gitlab.partner.ones.ai/ones-code) 得到相关仓库信息，下面将以 3.6 LTS 版本为例。
 
-In the ones-project-web directory, add the ONES ones-project-web remote and fetch it to the local.
+在 ones-project-web 目录下，添加 ONES ones-project-web 源，并将其拉取到本地。
 
 ```bash
 git remote add ones https://gitlab.partner.ones.ai/ones-code/3-6-x/ones-project-web.git
@@ -50,7 +50,7 @@ From https://gitlab.partner.ones.ai/ones-code/3-6-x/ones-project-web
  * [new branch]            v3.6.40    -> ones/v3.6.40
 ```
 
-In the ones-ai-web-common directory, add the ONES ones-ai-web-common remote and fetch it to the local.
+在 ones-ai-web-common 目录下，添加 ONES ones-ai-web-common 源，并将其拉取到本地。
 
 ```bash
 git remote add ones https://gitlab.partner.ones.ai/ones-code/3-6-x/ones-ai-web-common.git
@@ -71,17 +71,17 @@ From https://gitlab.partner.ones.ai/ones-code/3-6-x/ones-ai-web-common
  * [new branch]            v3.6.40    -> ones/v3.6.40
 ```
 
-:::caution WARNING
+:::caution 注意
 
-If you first cloned [ONES GitLab](https://gitlab.partner.ones.ai) project, the terminal will prompt you to enter the [ONES GitLab](https://gitlab.partner.ones.ai) account password to log in.
+如果你首次克隆 [GitLab](https://gitlab.partner.ones.ai) 项目，终端会提示你输入 [GitLab](https://gitlab.partner.ones.ai) 账号密码进行登录。
 
 :::
 
-## Synchronizing ONES code
+## 同步 ONES 代码
 
-Take the v3.6.40 version of the 3.6 LTS as an example.
+以 3.6 LTS 的 v3.6.40 版本为例。
 
-Create a development branch in the ones-project-web and ones-ai-web-common directories and reset them to ONES v3.6.40.
+分别在 ones-project-web 与 ones-ai-web-common 目录下，创建一个开发分支，并将他们重置到 ONES v3.6.40 版本。
 
 ```bash
 git switch -c my-dev-branch
@@ -101,15 +101,15 @@ Updating files: 100% (15315/15315), done.
 HEAD is now at 2e3a0f9de1 chore: save ONES private packages
 ```
 
-You now have a local branch that syncs the ONES v3.6.40 code.
+现在，你本地就存在一个同步了 ONES v3.6.40 版本代码的分支了。
 
-## Set up the development environment
+## 设置开发环境
 
-### Add local development configuration
+### 添加本地开发配置
 
-Copy ones-project-web/.ones-config/example as ones-project-web/.ones-config/development.
+将 ones-project-web/.ones-config/example 复制为 ones-project-web/.ones-config/development。
 
-Add the backend host address configuration.
+添加后端接口服务器地址配置。
 
 ```javascript title="ones-project-web/.ones-config/development/index.js"
 module.exports = {
@@ -119,23 +119,23 @@ module.exports = {
 }
 ```
 
-### Install dependencies
+### 安装依赖
 
-Run the installation command in the ones-project-web directory.
+在 ones-project-web 目录下运行安装命令。
 
 ```bash
 npm install
 ```
 
-:::caution WARNING
+:::caution 注意
 
-Currently, we use [git](https://git-scm.com/) to keep private npm packages in the repository so that you don't get errors during installation, so you can't use 'npm clean-install' and related aliases.
+目前我们是通过 [Git](https://git-scm.com/) 将私有 npm 包保留到仓库中，以便于你在安装过程不会产生错误，所以你无法使用 `npm clean-install` 以及相关别名命令。
 
 :::
 
-## Developing and debugging
+## 运行与调试
 
-When your development environment is set up, you can run the startup command in the ones-project-web directory.
+当你的开发环境都设置完成后，你可以在 ones-project-web 目录下运行启动命令。
 
 ```bash
 npm start
@@ -174,23 +174,23 @@ sentry task - isOnlineMode: false shouldSkipSentry: false
 构建成功，访问地址： http://dev.localhost:3000
 ```
 
-After the build is successful, the browser simply enter [http://dev.localhost:3000](http://dev.localhost:3000) access to the local projects.
+当构建成功后，在浏览器输入 [http://dev.localhost:3000](http://dev.localhost:3000) 即可访问本地项目。
 
-Try adding an `alert` to the end of src/scripts/index.jsx and save.
+尝试在 src/scripts/index.jsx 尾部添加一个 `alert`，并保存。
 
 ```jsx title="src/scripts/index.jsx"
 window.alert('hello world')
 ```
 
-Wait a while, the browser will be refreshed automatically and the alert will be displayed.
+稍等一会，浏览器将自动刷新，并显示提示。
 
-![](images/add%20alert.png)
+![](../guide/images/add%20alert.png)
 
-Now, you can start your research and development according to your needs.
+现在，你可以根据你的需求，开始你的研发了。
 
-## Build release tarball
+## 构建生产包
 
-When your functionality is complete and you need to build a release tarball of your current code, you can run the packing command in the ones-project-web directory.
+当你的功能研发完成后，需要对当前代码构建一个发布包，你可以在 ones-project-web 目录下运行打包命令。
 
 ```bash
 npm run build
@@ -227,4 +227,4 @@ sentry task - isOnlineMode: true shouldSkipSentry: true
 [15:35:39] 完成任务 'release' after 5.08 min
 ```
 
-After the build is completed, a release tarball named ones-ai-web.tar.gz will be generated in the ones-project-web directory.
+构建完成后，ones-project-web 目录下将会生成一个名为 ones-ai-web.tar.gz 的发布包。
