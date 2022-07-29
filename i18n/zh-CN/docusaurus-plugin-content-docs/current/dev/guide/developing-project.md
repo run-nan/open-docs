@@ -196,6 +196,10 @@ window.alert('hello world')
 npm run build
 ```
 
+:::tip 提示
+构建发布包可能需要数分钟，请耐心等待。
+:::
+
 ```bash
 ➜ npm run build
 

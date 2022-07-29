@@ -196,6 +196,10 @@ When your functionality is complete and you need to build a release tarball of y
 npm run build
 ```
 
+:::tip TIP
+It may take a few minutes to build a release tarball, please wait patiently.
+:::
+
 ```bash
 ➜ npm run build
 
