@@ -362,6 +362,16 @@ modules:
 
 「测试管理 - 用例库 - 用例」组件模块，用于替换「测试管理 - 用例库 - 用例」组件
 
+#### ones:testcase:library:component:case:caseList:action:new
+
+「测试管理 - 用例库 - 用例」组件的所有用例顶部操作模块，用于在「测试管理 - 用例库 - 用例」组件的所有用例顶部操作区域左侧追加新内容
+
+![](images/ones-testcase-library-component-case-caseList-action-new.png)
+
+可访问数据：
+
+- [useTeseCaseLibraryInfo](../packages/store.md#usetestcaselibraryinfo-v0-ones-v3)
+
 #### ones:testcase:library:settings:new
 
 「测试管理 - 用例库 - 用例库设置」设置模块插槽，用于在「测试管理 - 用例库 - 用例库设置」新增设置页面
