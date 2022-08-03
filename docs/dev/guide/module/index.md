@@ -14,7 +14,7 @@ npx op add sub-module
 
 ## 插槽列表
 
-- [插槽模块列表](../../../api/module-type/index.md)
+- [插槽模块列表](../../../api/slot/global.md)
 
 ## 插槽添加示例
 

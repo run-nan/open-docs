@@ -59,11 +59,12 @@ url: team/:team_uuid/plugin/permissioninfo/list
 
 入参
 
-| 参数                | 类型   | 说明                  |
-|-------------------| ------ | --------------------- |
-| instance_uuid     | string | 插件实例 id           |
-| team_uuid         | string | 所属团队 id           |
-| organization_uuid | string | 所属组织 id           |
+| 参数              | 类型   | 说明        |
+| ----------------- | ------ | ----------- |
+| instance_uuid     | string | 插件实例 id |
+| team_uuid         | string | 所属团队 id |
+| organization_uuid | string | 所属组织 id |
+
 返回
 
 ```json
@@ -121,12 +122,12 @@ url: team/:team_uuid/plugin/permissionrule/check
 
 入参
 
-| 参数              | 类型   | 说明                  |
-| ----------------- | ------ | --------------------- |
-| instance_id\*     | string | 插件实例 id           |
-| team_uuid         | string | 所属团队 id           |
-| organization_uuid | string | 所属组织 id           |
-| permission_field  | string | 自定义权限点          |
+| 参数              | 类型   | 说明         |
+| ----------------- | ------ | ------------ |
+| instance_id\*     | string | 插件实例 id  |
+| team_uuid         | string | 所属团队 id  |
+| organization_uuid | string | 所属组织 id  |
+| permission_field  | string | 自定义权限点 |
 
 返回
 

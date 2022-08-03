@@ -1,7 +1,7 @@
 {
   "version.label": {
-    "message": "1.0",
-    "description": "The label for version 1.0"
+    "message": "0.x",
+    "description": "The label for version 0.x"
   },
   "sidebar.dev.category.开始": {
     "message": "开始",
@@ -28,7 +28,7 @@
     "description": "The label for category 插件开发示例 in sidebar dev"
   },
   "sidebar.abilities.category.Frontend": {
-    "message": "前端能力",
+    "message": "Frontend",
     "description": "The label for category Frontend in sidebar abilities"
   },
   "sidebar.abilities.category.事件通信": {
@@ -98,5 +98,9 @@
   "sidebar.ones.category.Http": {
     "message": "Http",
     "description": "The label for category Http in sidebar ones"
+  },
+  "sidebar.abilities.category.Trigger 事件": {
+    "message": "Trigger 事件",
+    "description": "The label for category Trigger 事件 in sidebar abilities"
   }
 }

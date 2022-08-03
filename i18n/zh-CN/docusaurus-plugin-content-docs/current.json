@@ -7,10 +7,6 @@
     "message": "开始",
     "description": "The label for category 开始 in sidebar dev"
   },
-  "sidebar.dev.category.指南": {
-    "message": "指南",
-    "description": "The label for category 指南 in sidebar dev"
-  },
   "sidebar.dev.category.添加插槽模块": {
     "message": "添加插槽模块",
     "description": "The label for category 添加插槽模块 in sidebar dev"
@@ -98,5 +94,21 @@
   "sidebar.ones.category.Http": {
     "message": "Http",
     "description": "The label for category Http in sidebar ones"
+  },
+  "sidebar.dev.category.开发指南": {
+    "message": "开发指南",
+    "description": "The label for category 开发指南 in sidebar dev"
+  },
+  "sidebar.abilities.category.Trigger 事件": {
+    "message": "Trigger 事件",
+    "description": "The label for category Trigger 事件 in sidebar abilities"
+  },
+  "sidebar.api.category.Slot List": {
+    "message": "插槽模块列表",
+    "description": "The label for category Slot List in sidebar api"
+  },
+  "sidebar.api.category.Packages": {
+    "message": "能力包",
+    "description": "The label for category Packages in sidebar api"
   }
 }
