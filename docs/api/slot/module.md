@@ -70,6 +70,10 @@ sidebar_position: 3
 
 「我的工作台 - 仪表盘」组件的顶部操作模块，用于在「我的工作台 - 仪表盘」组件的顶部操作区域左侧追加新内容
 
+- 可访问的上下文数据：
+
+  - [useDashboardInfo](../packages/store.md#useDashboardInfo)
+
 ### ones:workspace:filter
 
 「我的工作台 - 筛选器」模块，用于替换「我的工作台」应用的「筛选器」模块
@@ -84,125 +88,249 @@ sidebar_position: 3
 
 「项目管理」模块插槽，用于在「项目管理」应用顶栏新增模块页面
 
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
+
 ### ones:project:index
 
 「项目管理」首页模块，用于替换「项目管理」应用的首页模块
+
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
 
 ### ones:project:component:overview
 
 「项目管理 - 项目概览」组件模块，用于替换「项目管理 - 项目概览」组件
 
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
+
 ### ones:project:component:overview:header:action:new
 
 「项目管理 - 项目概览」组件的顶部操作模块，用于在「项目管理 - 项目概览」组件的顶部操作区域左侧追加新内容
+
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
 
 ### ones:project:component:report
 
 「项目管理 - 报表」组件模块，用于替换「项目管理 - 报表」组件
 
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
+
 ### ones:project:component:member
 
 「项目管理 - 成员」组件模块，用于替换「项目管理 - 成员」组件
+
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
 
 ### ones:project:component:todo
 
 「项目管理 - 待办事项」组件模块，用于替换「项目管理 - 待办事项」组件
 
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
+
 ### ones:project:component:sprint
 
 「项目管理 - 迭代」组件模块，用于替换「项目管理 - 迭代」组件
+
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
 
 ### ones:project:component:sprintPlan
 
 「项目管理 - 迭代计划」组件模块，用于替换「项目管理 - 迭代计划」组件
 
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
+
 ### ones:project:component:publish
 
 「项目管理 - 发布」组件模块，用于替换「项目管理 - 发布」组件
+
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
 
 ### ones:project:component:desk
 
 「项目管理 - 工单」组件模块，用于替换「项目管理 - 工单」组件
 
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
+
 ### ones:project:component:deliverable
 
 「项目管理 - 交付物」组件模块，用于替换「项目管理 - 交付物」组件
+
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
 
 ### ones:project:component:milestone
 
 「项目管理 - 里程碑」组件模块，用于替换「项目管理 - 里程碑」组件
 
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
+
 ### ones:project:component:pipeline
 
 「项目管理 - 流水线」组件模块，用于替换「项目管理 - 流水线」组件
+
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
 
 ### ones:project:component:bug
 
 「项目管理 - 缺陷」组件模块，用于替换「项目管理 - 缺陷」组件
 
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
+
 ### ones:project:component:task
 
 「项目管理 - 任务」组件模块，用于替换「项目管理 - 任务」组件
+
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
 
 ### ones:project:component:filter
 
 「项目管理 - 筛选器」组件模块，用于替换「项目管理 - 筛选器」组件
 
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
+
 ### ones:project:component:gantt
 
 「项目管理 - 时间视图」组件模块，用于替换「项目管理 - 时间视图」组件
+
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
 
 ### ones:project:component:doc
 
 「项目管理 - 文档」组件模块，用于替换「项目管理 - 文档」组件
 
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
+
 ### ones:project:component:file
 
 「项目管理 - 文件」组件模块，用于替换「项目管理 - 文件」组件
+
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
 
 ### ones:project:component:plan
 
 「项目管理 - 项目计划」组件模块，用于替换「项目管理 - 项目计划」组件
 
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
+
 ### ones:project:component:demand
 
 「项目管理 - 需求」组件模块，用于替换「项目管理 - 需求」组件
+
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
 
 ### ones:project:component:story
 
 「项目管理 - 用户故事」组件模块，用于替换「项目管理 - 用户故事」组件
 
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
+
 ### ones:project:component:execute
 
 「项目管理 - 执行」组件模块，用于替换「项目管理 - 执行」组件
+
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
 
 ### ones:project:settings:new
 
 「项目管理 - 项目设置」设置模块插槽，用于在「项目管理 - 项目设置」新增设置页面
 
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
+
 ### ones:project:settings:component
 
 「项目管理 - 项目设置 - 项目组件」设置模块，用于替换「项目管理 - 项目设置 - 项目组件」设置页
+
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
 
 ### ones:project:settings:issueType
 
 「项目管理 - 项目设置 - 工作项类型」设置模块，用于替换「项目管理 - 项目设置 - 工作项类型」设置页
 
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
+
 ### ones:project:settings:permission
 
 「项目管理 - 项目设置 - 权限配置」设置模块，用于替换「项目管理 - 项目设置 - 权限配置」设置页
+
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
 
 ### ones:project:settings:sprint
 
 「项目管理 - 项目设置 - 迭代配置」设置模块，用于替换「项目管理 - 项目设置 - 迭代配置」设置页
 
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
+
 ### ones:project:settings:config
 
 「项目管理 - 项目设置 - 项目配置」设置模块，用于替换「项目管理 - 项目设置 - 项目配置」设置页
 
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
+
 ### ones:project:settings:operation
 
 「项目管理 - 项目设置 - 项目操作」设置模块，用于替换「项目管理 - 项目设置 - 项目操作」设置页
+
+- 可访问的上下文数据：
+
+  - [useProjectInfo](../packages/store.md#useProjectInfo)
 
 ## 知识库管理
 
@@ -236,36 +364,60 @@ sidebar_position: 3
 
 「测试管理 - 用例库 - 用例」组件模块，用于替换「测试管理 - 用例库 - 用例」组件
 
+- 可访问的上下文数据：
+
+  - [useTestCaseLibraryInfo](../packages/store.md#useTestCaseLibraryInfo)
+
 ### ones:testcase:library:component:case:caseList:action:new
 
 「测试管理 - 用例库 - 用例」组件的所有用例顶部操作模块，用于在「测试管理 - 用例库 - 用例」组件的所有用例顶部操作区域左侧追加新内容
 
 ![](images/ones-testcase-library-component-case-caseList-action-new.png)
 
-可访问数据：
+- 可访问的上下文数据：
 
-- [useTeseCaseLibraryInfo](../packages/store.md#useTestCaseLibraryInfo)
-- [useTestCaseListInfo](../packages/store.md#useTestCaseListInfo)
+  - [useTeseCaseLibraryInfo](../packages/store.md#useTestCaseLibraryInfo)
+  - [useTestCaseListInfo](../packages/store.md#useTestCaseListInfo)
 
 ### ones:testcase:library:settings:new
 
 「测试管理 - 用例库 - 用例库设置」设置模块插槽，用于在「测试管理 - 用例库 - 用例库设置」新增设置页面
 
+- 可访问的上下文数据：
+
+  - [useTestCaseLibraryInfo](../packages/store.md#useTestCaseLibraryInfo)
+
 ### ones:testcase:library:settings:info
 
 「测试管理 - 用例库 - 用例库设置 - 用例库信息」设置模块，用于替换「测试管理 - 用例库 - 用例库设置 - 用例库信息」设置页
+
+- 可访问的上下文数据：
+
+  - [useTestCaseLibraryInfo](../packages/store.md#useTestCaseLibraryInfo)
 
 ### ones:testcase:library:settings:permission
 
 「测试管理 - 用例库 - 用例库设置 - 权限配置」设置模块，用于替换「测试管理 - 用例库 - 用例库设置 - 权限配置」设置页
 
+- 可访问的上下文数据：
+
+  - [useTestCaseLibraryInfo](../packages/store.md#useTestCaseLibraryInfo)
+
 ### ones:testcase:library:settings:recycle
 
 「测试管理 - 用例库 - 用例库设置 - 回收站」设置模块，用于替换「测试管理 - 用例库 - 用例库设置 - 回收站」设置页
 
+- 可访问的上下文数据：
+
+  - [useTestCaseLibraryInfo](../packages/store.md#useTestCaseLibraryInfo)
+
 ### ones:testcase:library:settings:more
 
 「测试管理 - 用例库 - 用例库设置 - 删除用例库」设置模块，用于替换「测试管理 - 用例库 - 用例库设置 - 删除用例库」设置页
+
+- 可访问的上下文数据：
+
+  - [useTestCaseLibraryInfo](../packages/store.md#useTestCaseLibraryInfo)
 
 ### ones:testcase:plan
 
@@ -275,33 +427,65 @@ sidebar_position: 3
 
 「测试管理 - 测试计划 - 用例」组件模块，用于替换「测试管理 - 测试计划 - 用例」组件
 
+- 可访问的上下文数据：
+
+  - [useTestPlanInfo](../packages/store.md#useTestPlanInfo)
+
 ### ones:testcase:plan:component:demand
 
 「测试管理 - 测试计划 - 需求跟踪」组件模块，用于替换「测试管理 - 测试计划 - 需求跟踪」组件
+
+- 可访问的上下文数据：
+
+  - [useTestPlanInfo](../packages/store.md#useTestPlanInfo)
 
 ### ones:testcase:plan:component:demand:header:action:new
 
 「测试管理 - 测试计划 - 需求跟踪」组件的顶部操作模块，用于在「测试管理 - 测试计划 - 需求跟踪」组件的顶部操作区域左侧追加新内容
 
+- 可访问的上下文数据：
+
+  - [useTestPlanInfo](../packages/store.md#useTestPlanInfo)
+
 ### ones:testcase:plan:settings:new
 
 「测试管理 - 用例库 - 测试计划设置」设置模块插槽，用于在「测试管理 - 用例库 - 测试计划设置」新增设置页面
+
+- 可访问的上下文数据：
+
+  - [useTestPlanInfo](../packages/store.md#useTestPlanInfo)
 
 ### ones:testcase:plan:settings:info
 
 「测试管理 - 测试计划 - 测试计划设置 - 测试计划信息」设置模块，用于替换「测试管理 - 测试计划- 测试计划设置 - 测试计划信息」设置页
 
+- 可访问的上下文数据：
+
+  - [useTestPlanInfo](../packages/store.md#useTestPlanInfo)
+
 ### ones:testcase:plan:settings:perform
 
 「测试管理 - 测试计划 - 测试计划设置 - 执行配置」设置模块，用于替换「测试管理 - 测试计划- 测试计划设置 - 执行配置」设置页
+
+- 可访问的上下文数据：
+
+  - [useTestPlanInfo](../packages/store.md#useTestPlanInfo)
 
 ### ones:testcase:plan:settings:permission
 
 「测试管理 - 测试计划 - 测试计划设置 - 权限配置」设置模块，用于替换「测试管理 - 测试计划- 测试计划设置 - 权限配置」设置页
 
+- 可访问的上下文数据：
+
+  - [useTestPlanInfo](../packages/store.md#useTestPlanInfo)
+
 ### ones:testcase:plan:settings:more
 
 「测试管理 - 测试计划 - 测试计划设置 - 更多」设置模块，用于替换「测试管理 - 测试计划- 测试计划设置 - 更多」设置页
+
+- 可访问的上下文数据：
+
+  - [useTestPlanInfo](../packages/store.md#useTestPlanInfo)
 
 ### ones:testcase:report
 
@@ -313,57 +497,113 @@ sidebar_position: 3
 
 「产品管理」模块插槽，用于在「产品管理」应用顶栏新增模块页面
 
+- 可访问的上下文数据：
+
+  - [useProductInfo](../packages/store.md#useProductInfo)
+
 ### ones:product:index
 
 「产品管理」首页模块，用于替换「产品管理」应用的首页模块
+
+- 可访问的上下文数据：
+
+  - [useProductInfo](../packages/store.md#useProductInfo)
 
 ### ones:product:component:version
 
 「产品管理 - 版本」组件模块，用于替换「产品管理 - 版本」组件
 
+- 可访问的上下文数据：
+
+  - [useProductInfo](../packages/store.md#useProductInfo)
+
 ### ones:product:component:desk
 
 「产品管理 - 工单」组件模块，用于替换「产品管理 - 工单」组件
+
+- 可访问的上下文数据：
+
+  - [useProductInfo](../packages/store.md#useProductInfo)
 
 ### ones:product:component:module
 
 「产品管理 - 模块」组件模块，用于替换「产品管理 - 模块」组件
 
+- 可访问的上下文数据：
+
+  - [useProductInfo](../packages/store.md#useProductInfo)
+
 ### ones:product:component:bug
 
 「产品管理 - 缺陷」组件模块，用于替换「产品管理 - 缺陷」组件
+
+- 可访问的上下文数据：
+
+  - [useProductInfo](../packages/store.md#useProductInfo)
 
 ### ones:product:component:task
 
 「产品管理 - 任务」组件模块，用于替换「产品管理 - 任务」组件
 
+- 可访问的上下文数据：
+
+  - [useProductInfo](../packages/store.md#useProductInfo)
+
 ### ones:product:component:demand
 
 「产品管理 - 需求」组件模块，用于替换「产品管理 - 需求」组件
+
+- 可访问的上下文数据：
+
+  - [useProductInfo](../packages/store.md#useProductInfo)
 
 ### ones:product:component:story
 
 「产品管理 - 用户故事」组件模块，用于替换「产品管理 - 用户故事」组件
 
+- 可访问的上下文数据：
+
+  - [useProductInfo](../packages/store.md#useProductInfo)
+
 ### ones:product:settings:new
 
 「产品管理 - 产品设置」设置模块插槽，用于在「产品管理 - 产品设置」新增设置页面
+
+- 可访问的上下文数据：
+
+  - [useProductInfo](../packages/store.md#useProductInfo)
 
 ### ones:product:settings:config
 
 「产品管理 - 产品设置 - 产品配置」设置模块，用于替换「产品管理 - 产品设置 - 产品配置」设置页
 
+- 可访问的上下文数据：
+
+  - [useProductInfo](../packages/store.md#useProductInfo)
+
 ### ones:product:settings:info
 
 「产品管理 - 产品设置 - 基础信息」设置模块，用于替换「产品管理 - 产品设置 - 基础信息」设置页
+
+- 可访问的上下文数据：
+
+  - [useProductInfo](../packages/store.md#useProductInfo)
 
 ### ones:product:settings:component
 
 「产品管理 - 产品设置 - 组件设置」设置模块，用于替换「产品管理 - 产品设置 - 组件设置」设置页
 
+- 可访问的上下文数据：
+
+  - [useProductInfo](../packages/store.md#useProductInfo)
+
 ### ones:product:settings:more
 
 「产品管理 - 产品设置 - 更多」设置模块，用于替换「产品管理 - 产品设置 - 更多」设置页
+
+- 可访问的上下文数据：
+
+  - [useProductInfo](../packages/store.md#useProductInfo)
 
 ## 工单管理
 
@@ -421,21 +661,41 @@ sidebar_position: 3
 
 「项目集管理」模块插槽，用于在「项目集管理」应用顶栏新增模块页面
 
+- 可访问的上下文数据：
+
+  - [useProgramInfo](../packages/store.md#useProgramInfo)
+
 ### ones:plan:index
 
 「项目集管理」首页模块，用于替换「项目集管理」应用的首页模块
+
+- 可访问的上下文数据：
+
+  - [useProgramInfo](../packages/store.md#useProgramInfo)
 
 ### ones:plan:gantt
 
 「项目集管理 - 甘特图」模块，用于替换「项目集管理」应用的「甘特图」模块
 
+- 可访问的上下文数据：
+
+  - [useProgramInfo](../packages/store.md#useProgramInfo)
+
 ### ones:plan:component:project
 
 「项目集管理 - 项目集 - 项目」组件模块，用于替换「项目集管理 - 项目集 - 项目」组件
 
+- 可访问的上下文数据：
+
+  - [useProgramInfo](../packages/store.md#useProgramInfo)
+
 ### ones:plan:component:member
 
 「项目集管理 - 项目集 - 成员」组件模块，用于替换「项目集管理 - 项目集 - 成员」组件
+
+- 可访问的上下文数据：
+
+  - [useProgramInfo](../packages/store.md#useProgramInfo)
 
 ## 流水线管理
 
@@ -443,13 +703,25 @@ sidebar_position: 3
 
 「流水线管理」模块插槽，用于在「流水线管理」应用顶栏新增模块页面
 
+- 可访问的上下文数据：
+
+  - [usePipelineInfo](../packages/store.md#usePipelineInfo)
+
 ### ones:pipeline:index
 
 「流水线管理」首页模块，用于替换「流水线管理」应用的首页模块
 
+- 可访问的上下文数据：
+
+  - [usePipelineInfo](../packages/store.md#usePipelineInfo)
+
 ### ones:pipeline:component:history
 
 「流水线管理 - 流水线 - 历史」组件模块，用于替换「流水线管理 - 流水线 - 历史」组件
+
+- 可访问的上下文数据：
+
+  - [usePipelineInfo](../packages/store.md#usePipelineInfo)
 
 ## 版本管理
 
