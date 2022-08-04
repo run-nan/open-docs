@@ -4,6 +4,8 @@ sidebar_position: 3
 
 # Module Slot
 
+除全局插槽与应用插槽外的所有插槽，统称模块插槽
+
 ## settings
 
 插件设置模块，用于承载插件自身的设置项
@@ -242,7 +244,8 @@ sidebar_position: 3
 
 可访问数据：
 
-- [useTeseCaseLibraryInfo](../packages/store.md#usetestcaselibraryinfo-v0-ones-v3)
+- [useTeseCaseLibraryInfo](../packages/store.md#useTestCaseLibraryInfo)
+- [useTestCaseListInfo](../packages/store.md#useTestCaseListInfo)
 
 ### ones:testcase:library:settings:new
 

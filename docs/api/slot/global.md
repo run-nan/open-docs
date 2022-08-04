@@ -4,6 +4,8 @@ sidebar_position: 1
 
 # Global slot
 
+不与系统功能耦合或者作用于整个系统的插槽为全局插槽
+
 ## about:blank
 
 空白页模块，可脱离系统独立访问，插件安装后的页面 URL 为：
@@ -11,6 +13,12 @@ sidebar_position: 1
 ```
 ${location.protocol}://${location.host}/plugin/${组织id}/${团队id}/${service.app_id}/${service.version}/modules/${模块id}/index.html
 ```
+
+:::caution
+
+该插槽脱离系统独立访问，所以无法使用 [`@ones-op/store`](../packages/store.md) 获取系统数据
+
+:::
 
 ## ones:global:banner
 
@@ -60,7 +68,7 @@ modules:
 
 全局弹窗模块，用于在上传文件前展示
 
-:::caution 注意
+:::caution
 
 在富文本编辑器里（如描述），通过复制粘贴的方式插入图片，插槽将不会被激活
 
