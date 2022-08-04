@@ -203,10 +203,7 @@ interface TestCaseLibraryInfoType {
 
 ```tsx
 interface TestCaseListInfoType {
-  testCaseLibraryInfo: TestCaseLibraryInfoType
-  testCaseListInfo: {
-    selectedItems: Array<{ uuid: string }> // 当前选中的用例信息
-  }
+  selectedUUIDs: Array<string> // 当前选中的用例信息
 }
 ```
 
