@@ -2,26 +2,26 @@
 sidebar_position: 2
 ---
 
-# 全局变量
+# Global variable
 
-在插件中，你可以使用 `window` 访问我们在插件执行环境注入的全局变量。
+In the plugin, you can use `window` to access the global variables injected in the plugin execution environment
 
 ## **ones_op_locale**
 
-当前用户的语言偏好设置。包含以下字段：
+Current user's language preference settings including the following fields:
 
 ### locale
 
-- 类型：`string`
+- type：`string`
 
-当前语言标识，目前支持的语言标识如下：
+Current language identification. The currently supported language identification is as follows:
 
-| 语言标识 | 语言名称 |
-| :------: | :------: |
-|   `en`   |   英语   |
-| `zh-CN`  | 简体中文 |
+| language sign |   language name    |
+| :-----------: | :----------------: |
+|     `en`      |      English       |
+|    `zh-CN`    | Simplified Chinese |
 
-- 示例：
+- Example:
 
 ```ts
 const { locale } = window.__ones_op_locale__
