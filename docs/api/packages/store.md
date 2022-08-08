@@ -6,7 +6,7 @@ sidebar_position: 3
 
 [![](https://npm.partner.ones.ai/badge/v/@ones-op/store.svg)](https://npm.partner.ones.ai/package/@ones-op/store)
 
-我们提供了一套数据获取库，可以帮你在插件内获取标品数据。
+我们提供了一套数据获取库，可以帮你在插件内获取标品数据。为了保证数据的只读性，对象和数组数据将会使用 Proxy 代理。
 
 ## 兼容性
 
@@ -204,6 +204,8 @@ interface TestCaseLibraryInfoType {
 ```tsx
 interface TestCaseListInfoType {
   selectedUUIDs: Array<string> // 当前选中的用例信息
+  isFullSelected?: boolean // 当前用例是否全选
+  fullSelectedParams?: { [key: string]: any } // 全选场景下的查询条件以及标识
 }
 ```
 
