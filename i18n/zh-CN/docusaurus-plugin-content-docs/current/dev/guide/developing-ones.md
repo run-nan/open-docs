@@ -2,15 +2,17 @@
 sidebar_position: 5
 ---
 
-# 开发 ONES Project
+# 开发 ONES
 
-我们为有需要做深度定制化的客户提供了前端源码开放服务，你可以通过阅读此页面了解到 ONES Project 从开始开发到构建发布包的全流程。
+我们为有需要做深度定制化的客户提供了前端源码开放服务，你可以通过阅读此页面了解到 ONES 从开始开发到构建发布包的全流程。
+
+ONES 由 Project 和 Wiki 两个工程构成，你可以根据你的需求对单一工程进行开发，也可以同时开发两个工程，下面以开发 ones-project-web 为例（wiki-web 同理）。
 
 ## 前置条件
 
 在开始之前，请确保你满足如下条件：
 
-- [ONES Code](https://gitlab.partner.ones.ai/ones-code) 某个版本组的读权限
+- [ONES Code](https://gitlab.partner.ones.ai/ones-code) 某个版本组（至少一个主工程仓库与 common 仓库）的 [Reporter](https://gitlab.partner.ones.ai/help/user/permissions.md#project-members-permissions) 权限
 - [Node.js](https://nodejs.org/) v16.13.0 或更高版本
 - [Git](https://git-scm.com/) 版本管理工具
 - 基于 [Git](https://git-scm.com/) 的源代码托管服务平台
@@ -29,10 +31,15 @@ sidebar_position: 5
 
 你可以在 [ONES Code](https://gitlab.partner.ones.ai/ones-code) 得到相关仓库信息，下面将以 3.6 LTS 版本为例。
 
-在 ones-project-web 目录下，添加 ONES ones-project-web 源，并将其拉取到本地。
+在 ones-project-web 目录下，添加 ONES ones-project-web 源。
 
 ```bash
 git remote add ones https://gitlab.partner.ones.ai/ones-code/3-6-x/ones-project-web.git
+```
+
+将其拉取到本地。
+
+```bash
 git fetch ones
 ```
 
@@ -47,13 +54,17 @@ Receiving objects: 100% (388547/388547), 121.19 MiB | 3.31 MiB/s, done.
 Resolving deltas: 100% (288933/288933), done.
 From https://gitlab.partner.ones.ai/ones-code/3-6-x/ones-project-web
  * [new branch]            master     -> ones/master
- * [new branch]            v3.6.40    -> ones/v3.6.40
 ```
 
-在 ones-ai-web-common 目录下，添加 ONES ones-ai-web-common 源，并将其拉取到本地。
+在 ones-ai-web-common 目录下，添加 ONES ones-ai-web-common 源。
 
 ```bash
 git remote add ones https://gitlab.partner.ones.ai/ones-code/3-6-x/ones-ai-web-common.git
+```
+
+将其拉取到本地。
+
+```bash
 git fetch ones
 ```
 
@@ -68,7 +79,6 @@ Receiving objects: 100% (614505/614505), 190.45 MiB | 2.95 MiB/s, done.
 Resolving deltas: 100% (465256/465256), done.
 From https://gitlab.partner.ones.ai/ones-code/3-6-x/ones-ai-web-common
  * [new branch]            master     -> ones/master
- * [new branch]            v3.6.40    -> ones/v3.6.40
 ```
 
 :::caution 注意
@@ -79,29 +89,38 @@ From https://gitlab.partner.ones.ai/ones-code/3-6-x/ones-ai-web-common
 
 ## 同步 ONES 代码
 
-以 3.6 LTS 的 v3.6.40 版本为例。
+以 3.6 LTS Project v3.6.46 版本为例。
 
-分别在 ones-project-web 与 ones-ai-web-common 目录下，创建一个开发分支，并将他们重置到 ONES v3.6.40 版本。
+分别在 ones-project-web 与 ones-ai-web-common 目录下，创建一个开发分支，并将他们重置到 ONES Project v3.6.46 版本。
 
 ```bash
 git switch -c my-dev-branch
-git reset --hard ones/v3.6.40
 ```
+
+```bash
+git reset --hard ones/[version]
+```
+
+:::info 提示
+
+ones-ai-web-common 分支规则：`p[project-version]-w[wiki-version]`
+
+:::
 
 ```bash
 ➜ git switch -c my-dev-branch
 Switched to a new branch 'my-dev-branch'
-➜ git reset --hard ones/v3.6.40
+➜ git reset --hard ones/v3.6.46
 HEAD is now at 3587e43f81 chore: save ONES private packages
 ➜ cd ones-ai-web-common
 ➜ git switch -c my-dev-branch
 Switched to a new branch 'my-dev-branch'
-➜ git reset --hard ones/v3.6.40
+➜ git reset --hard ones/p3.6.46-w3.6.26
 Updating files: 100% (15315/15315), done.
 HEAD is now at 2e3a0f9de1 chore: save ONES private packages
 ```
 
-现在，你本地就存在一个同步了 ONES v3.6.40 版本代码的分支了。
+现在，你本地就存在一个同步了 ONES Project v3.6.46 版本代码的分支了。
 
 ## 设置开发环境
 
@@ -171,10 +190,10 @@ npm start
 sentry task - isOnlineMode: false shouldSkipSentry: false
 完成任务 'sentry' after 501 μs
 完成任务 'dev' after 579 ms
-构建成功，访问地址： http://dev.localhost:3000
+构建成功，访问地址： http://localhost:3000
 ```
 
-当构建成功后，在浏览器输入 [http://dev.localhost:3000](http://dev.localhost:3000) 即可访问本地项目。
+当构建成功后，在浏览器输入 [http://localhost:3000](http://localhost:3000) 即可访问本地项目（wiki 端口为 3001）。
 
 尝试在 src/scripts/index.jsx 尾部添加一个 `alert`，并保存。
 
@@ -196,8 +215,10 @@ window.alert('hello world')
 npm run build
 ```
 
-:::tip 提示
-构建发布包可能需要数分钟，请耐心等待。
+:::caution 注意
+
+请确保你有足够的内存构建，构建发布包可能需要数分钟，请耐心等待。
+
 :::
 
 ```bash
@@ -232,3 +253,13 @@ sentry task - isOnlineMode: true shouldSkipSentry: true
 ```
 
 构建完成后，ones-project-web 目录下将会生成一个名为 ones-ai-web.tar.gz 的发布包。
+
+## 同时开发 project 和 wiki 项目（可选）
+
+我们已经在 `.ones-config/example` 目录里预设好了同时开发的配置，你只需根据上述文档，将 ones-project-web 替换成 wiki-web，重新走一遍流程，即可将 wiki-web 项目运行起来，此时你的本地项目预览就已经能够做到在不同项目页面之间的相互跳转了。
+
+:::caution 注意
+
+为了便于维护，你的 ones-project-web 和 wiki-web 应该基于同一个版本分支的 ones-ai-web-common 代码进行开发。
+
+:::

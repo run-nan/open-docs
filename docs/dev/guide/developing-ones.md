@@ -2,15 +2,17 @@
 sidebar_position: 5
 ---
 
-# Developing ONES Project
+# Developing ONES
 
-We provide the frontend open source service for customers who need in-depth customization. You can learn the entire process of ONES Project from the start of development to the building a release tarball by reading this page.
+We provide the frontend open source service for customers who need in-depth customization. You can learn the entire process of ONES from the start of development to the building a release tarball by reading this page.
+
+ONES are made up of two projects, Project and Wiki. You can develop a single project, or two projects at the same time according to your requirements. The following is an example of developing ones-project-Web (the same is true for Wiki-web).
 
 ## Precondition
 
 Before starting, make sure you meet the following conditions:
 
-- [ONES Code](https://gitlab.partner.ones.ai/ones-code) Reading permissions of a certain version group
+- [ONES Code](https://gitlab.partner.ones.ai/ones-code) [Reporter](https://gitlab.partner.ones.ai/help/user/permissions.md#project-members-permissions) permissions of a certain version group(at least one main project repository and the common repository)
 - [Node.js](https://nodejs.org/) v16.13.0 or later
 - [Git](https://git-scm.com/) version control tool
 - [Git](https://git-scm.com/)-based source code hosting service platform
@@ -29,10 +31,15 @@ Create two empty repositories in your [Git](https://git-scm.com/)-based source c
 
 You can get information about the repositories in [ONES Code](https://gitlab.partner.ones.ai/ones-code), and the 3.6 LTS version will be used as an example.
 
-In the ones-project-web directory, add the ONES ones-project-web remote and fetch it to the local.
+In the ones-project-web directory, add the ONES ones-project-web remote.
 
 ```bash
 git remote add ones https://gitlab.partner.ones.ai/ones-code/3-6-x/ones-project-web.git
+```
+
+Fetch it to the local.
+
+```bash
 git fetch ones
 ```
 
@@ -47,13 +54,17 @@ Receiving objects: 100% (388547/388547), 121.19 MiB | 3.31 MiB/s, done.
 Resolving deltas: 100% (288933/288933), done.
 From https://gitlab.partner.ones.ai/ones-code/3-6-x/ones-project-web
  * [new branch]            master     -> ones/master
- * [new branch]            v3.6.40    -> ones/v3.6.40
 ```
 
-In the ones-ai-web-common directory, add the ONES ones-ai-web-common remote and fetch it to the local.
+In the ones-ai-web-common directory, add the ONES ones-ai-web-common remote.
 
 ```bash
 git remote add ones https://gitlab.partner.ones.ai/ones-code/3-6-x/ones-ai-web-common.git
+```
+
+Fetch it to the local.
+
+```bash
 git fetch ones
 ```
 
@@ -68,7 +79,6 @@ Receiving objects: 100% (614505/614505), 190.45 MiB | 2.95 MiB/s, done.
 Resolving deltas: 100% (465256/465256), done.
 From https://gitlab.partner.ones.ai/ones-code/3-6-x/ones-ai-web-common
  * [new branch]            master     -> ones/master
- * [new branch]            v3.6.40    -> ones/v3.6.40
 ```
 
 :::caution WARNING
@@ -79,29 +89,32 @@ If you first cloned [ONES GitLab](https://gitlab.partner.ones.ai) project, the t
 
 ## Synchronizing ONES code
 
-Take the v3.6.40 version of the 3.6 LTS as an example.
+Take the v3.6.46 version of the 3.6 LTS Project as an example.
 
-Create a development branch in the ones-project-web and ones-ai-web-common directories and reset them to ONES v3.6.40.
+Create a development branch in the ones-project-web and ones-ai-web-common directories and reset them to ONES Project v3.6.45.
 
 ```bash
 git switch -c my-dev-branch
-git reset --hard ones/v3.6.40
+```
+
+```bash
+git reset --hard ones/[version]
 ```
 
 ```bash
 ➜ git switch -c my-dev-branch
 Switched to a new branch 'my-dev-branch'
-➜ git reset --hard ones/v3.6.40
+➜ git reset --hard ones/v3.6.46
 HEAD is now at 3587e43f81 chore: save ONES private packages
 ➜ cd ones-ai-web-common
 ➜ git switch -c my-dev-branch
 Switched to a new branch 'my-dev-branch'
-➜ git reset --hard ones/v3.6.40
+➜ git reset --hard ones/p3.6.46-w3.6.26
 Updating files: 100% (15315/15315), done.
 HEAD is now at 2e3a0f9de1 chore: save ONES private packages
 ```
 
-You now have a local branch that syncs the ONES v3.6.40 code.
+You now have a local branch that syncs the ONES Project v3.6.46 code.
 
 ## Set up the development environment
 
@@ -171,10 +184,10 @@ npm start
 sentry task - isOnlineMode: false shouldSkipSentry: false
 完成任务 'sentry' after 501 μs
 完成任务 'dev' after 579 ms
-构建成功，访问地址： http://dev.localhost:3000
+构建成功，访问地址： http://localhost:3000
 ```
 
-After the build is successful, the browser simply enter [http://dev.localhost:3000](http://dev.localhost:3000) access to the local projects.
+After the build is successful, the browser simply enter [http://localhost:3000](http://localhost:3000) access to the local projects (wiki port is 3001).
 
 Try adding an `alert` to the end of src/scripts/index.jsx and save.
 
@@ -196,8 +209,10 @@ When your functionality is complete and you need to build a release tarball of y
 npm run build
 ```
 
-:::tip TIP
-It may take a few minutes to build a release tarball, please wait patiently.
+:::caution WARNING
+
+Make sure you have enough memory to build, it may take a few minutes to build a release tarball, please wait patiently.
+
 :::
 
 ```bash
@@ -232,3 +247,13 @@ sentry task - isOnlineMode: true shouldSkipSentry: true
 ```
 
 After the build is completed, a release tarball named ones-ai-web.tar.gz will be generated in the ones-project-web directory.
+
+## Develop both Project and Wiki projects (optional)
+
+We have preconfigured the configuration for simultaneous development in the `.ones-config/example` directory. You can simply replace ones-project-web with wiki-web and go through the process again to get the Wiki-web project up and running. At this point, your local project preview should be able to jump between different project pages.
+
+:::caution WARNING
+
+For ease of maintenance, your ones-project-Web and wiki-web should be developed based on ones-ai-web-common code in the same version branch.
+
+:::
