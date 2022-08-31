@@ -64,6 +64,10 @@ modules:
 
 :::
 
+### ones:global:trigger
+
+[Trigger 事件](../../abilities/frontend/trigger/index.md)，可以帮你在 ONES 的某些操作（Action）触发时，对操作的数据进行修改或者取消操作。
+
 ### ones:layout:sider
 
 系统侧边栏菜单模块，用于隐藏侧边栏菜单功能
