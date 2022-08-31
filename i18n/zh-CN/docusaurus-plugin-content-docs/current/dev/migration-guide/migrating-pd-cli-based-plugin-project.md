@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # 迁移基于 PD CLI 的插件工程
 
-随着使用 Nodejs 实现的 `ONES CLI` 与 `OP CLI` 正式版本的发布，开发者可以使用新版本的 CLI 工具替代 `PD CLI` 的所有职能。
+随着使用 Node.js 实现的 `ONES CLI` 与 `OP CLI` 正式版本的发布，开发者可以使用新版本的 CLI 工具替代 `PD CLI` 的所有职能。
 
 使用新版本的 CLI 工具需要针对插件工程完成一些不可避免的迁移工作，如有带来不便，我们深表歉意。
 
@@ -44,9 +44,9 @@ sidebar_position: 1
 - **备份需要迁移的插件工程**
 - 卸载旧版本的 CLI 工具
   ```
-  sudo npm uninstall @ones/cli --location=global
+  sudo npm uninstall @ones/cli -g
   # 或
-  npm uninstall @ones/cli --location=global
+  npm uninstall @ones/cli -g
   ```
 - [配置 Npm 仓库](../start/install.md#配置-npm-仓库)
 - [安装 ONES CLI](../start/install.md#安装基础脚手架工具-ones-cli)

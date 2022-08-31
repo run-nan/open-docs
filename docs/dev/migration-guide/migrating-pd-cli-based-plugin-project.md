@@ -1,6 +1,6 @@
 # Migrate the PD CLI-based plugin project
 
-With the release of official versions of `ONES CLI` and `OP CLI` implemented in Nodejs, developers can use the new version of CLI tools to replace all functions of `PD CLI`.
+With the release of official versions of `ONES CLI` and `OP CLI` implemented in Node.js, developers can use the new version of CLI tools to replace all functions of `PD CLI`.
 
 Using the new version of the CLI tools requires some unavoidable migration work for plugin projects, we apologize for any inconvenience.
 
@@ -40,9 +40,9 @@ Before you start, do the following:
 - **Back up plugin projects that need to be migrated.**
 - Uninstall old versions of CLI tools.
   ```
-  sudo npm uninstall @ones/cli --location=global
+  sudo npm uninstall @ones/cli -g
   # or
-  npm uninstall @ones/cli --location=global
+  npm uninstall @ones/cli -g
   ```
 - [Configure npm repository](../start/install.md#config-npm-repository)
 - [Install ONES CLI](../start/install.md#安装基础脚手架工具-ones-cli)
