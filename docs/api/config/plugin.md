@@ -271,3 +271,9 @@ modules:
 - 类型：`string`
 
 模块类型，可选值详见 [插槽模块列表](../slot/global.md)
+
+### permission
+
+- type：`string`
+
+Permission identifier, locally with plugin permissions or abilities. More information [here](../../abilities/base/customPermission/).

@@ -42,7 +42,7 @@ sidebar_position: 6
 
 name：权限配置名称
 
-field：Identification of authority. If the value is the same as the `id` or `permisson` value of the module, it controls the module permissions. In particular, as the same module can find capabilities that match the value of `permisson` and capabilities that match the value of `id`, use capabilities that match the value of `permisson` to control module permissions.
+field：权限识别的 key。 如果值与模块的 `id` 或 `permisson` 取值一致，即可控制对应模块权限。特别地，如同一模块能找到与 `permisson` 值一致的能力，与 `id` 值一致的能力，使用与 `permisson` 值一致的能力来控制模块权限。
 
 desc：权限内容描述
 
