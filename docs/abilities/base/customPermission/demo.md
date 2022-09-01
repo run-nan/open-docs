@@ -1,3 +1,7 @@
+---
+sidebar_position: 1
+---
+
 # 插件自定义权限点 Demo 实例
 
 ### Demo 代码示例

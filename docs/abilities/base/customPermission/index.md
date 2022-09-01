@@ -135,6 +135,38 @@ url: team/:team_uuid/plugin/permissionrule/check
 | ------------- | ---- | ---------- |
 | is_permission | bool | 是否有权限 |
 
+#### batch_check
+
+url: plugin/permissionrule/batch_check
+
+入参
+
+```json
+{
+  "permission_rules": [
+    {
+      "organization_uuid": "orgUUID",
+      "team_uuid": "teamUUID",
+      "permission_field": "field",
+      "instance_id": "instanceUUid",
+      "context": "context"
+    }
+  ]
+}
+```
+
+返回
+
+```json
+{
+  "data": [
+    {
+      "is_permission": true
+    }
+  ]
+}
+```
+
 ### 实现
 
 安装插件后，点击插件详情，可以在可用成员中添加成员权限。

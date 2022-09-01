@@ -192,7 +192,7 @@ JSON.parse(response?.body.toString())["data"]值有：
 <UserDomainNotExist> UserDomainNotExist // 用户域类型不存在
 ```
 
-### 5.检查是否有某个权限点权限 CheckPermissionRule（only support permission check_mode is standard）
+### 5.检查是否有某个权限点权限 CheckPermissionRule（仅支持 permission check_mode 的检查）
 
 ```javascript
 export async function checkPermissionRule(request: PluginRequest): Promise<PluginResponse> {
@@ -262,7 +262,7 @@ JSON.parse(response?.body.toString())["data"]
 success
 ```
 
-### 7.BatchCheckPermission（only support permission check_mode is standard ）
+### 7.BatchCheckPermission（仅支持 permission check_mode 的检查 ）
 
 ```javascript
 export async function batchCheckPermission(request: PluginRequest): Promise<PluginResponse> {
