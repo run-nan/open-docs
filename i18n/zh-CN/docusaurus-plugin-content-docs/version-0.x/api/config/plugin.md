@@ -270,7 +270,7 @@ modules:
 
 - 类型：`string`
 
-模块类型，可选值详见 [插槽模块列表](../slot/global.md)
+模块类型，可选值详见 [插槽模块列表](../module-type/index.md)
 
 ### permission
 

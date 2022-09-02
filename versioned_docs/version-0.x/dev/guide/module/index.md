@@ -19,7 +19,7 @@ op add
 
 ![](../images/module.png)
 
-详细的插槽模块可以参考：[插槽模块列表](../../../api/module-type/index.md)
+详细的插槽模块可以参考：[插槽模块列表](../../../api/module-type/)
 
 这里我们以 `ones:global:banner` 全局插槽为例，当选择添加这个模块后，可以看到在 `/config/plugin.yaml` 文件的`modules` 字段中新增了一项内容：
 
