@@ -110,5 +110,9 @@
   "sidebar.api.category.Packages": {
     "message": "能力包",
     "description": "The label for category Packages in sidebar api"
+  },
+  "sidebar.dev.category.Migration Guide": {
+    "message": "迁移指南",
+    "description": "The label for category 迁移指南 in sidebar dev"
   }
 }
