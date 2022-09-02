@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # @ones-op/fetch
 
-[![](https://npm.partner.ones.ai/badge/v/@ones-op/fetch.svg)](https://npm.partner.ones.ai/package/@ones-op/fetch)
+[![](https://npm.partner.ones.cn/badge/v/@ones-op/fetch.svg)](https://npm.partner.ones.cn/package/@ones-op/fetch)
 
 我们提供了一套接口请求库，可以帮你在插件前端内请求插件后端暴露的接口，同时也支持你请求外部接口。
 

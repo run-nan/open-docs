@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula')
 const config = {
   title: 'ONES 开放平台',
   tagline: 'ONES 开放平台',
-  url: 'https://docs.partner.ones.ai',
+  url: 'https://docs.partner.ones.cn',
   baseUrl: '/',
   favicon: 'images/favicon.ico',
   organizationName: 'BangWork', // Usually your GitHub org/user name.
@@ -129,11 +129,11 @@ const config = {
             items: [
               {
                 label: 'ONES',
-                href: 'https://ones.ai/',
+                href: 'https://ones.cn/',
               },
               {
                 label: 'Tower',
-                href: 'https://ones.ai/products/tower.html',
+                href: 'https://ones.cn/products/tower.html',
               },
             ],
           },

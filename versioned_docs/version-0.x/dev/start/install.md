@@ -14,7 +14,7 @@ ONES 插件开发需要 [Node.js](https://nodejs.org/zh-cn/) v16.13.0 或更高�
 插件开发过程中需要用到的所有依赖，均放在 ONES 的私有 npm 仓库上，因此需要配置代理才能顺利访问并获取内容。
 
 ```
-npm config set @ones:registry=https://npm.partner.ones.ai/registry/
+npm config set @ones:registry=https://npm.partner.ones.cn/registry/
 ```
 
 :::info

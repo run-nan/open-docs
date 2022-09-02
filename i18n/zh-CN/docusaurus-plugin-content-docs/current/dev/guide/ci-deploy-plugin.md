@@ -37,7 +37,7 @@ npx op pickteam ci
 ➜ npx op ci
 ? Branch name: master
 ? Please enter the environment base URL: http://120.76.45.123
-? Username: test1@ones.ai
+? Username: test1@ones.cn
 ? Password: [hidden]
   ✔ Converting CI deployment params
   ✔ Validating CI deployment params
@@ -64,7 +64,7 @@ Now you can commit your changes to the remote repository and deploy your project
 ```yaml title="/config/ci-deploy.yaml"
 default:
   host: http://120.76.45.123
-  username: test1@ones.ai
+  username: test1@ones.cn
   password: ibJDTEf7PET1
   ones-check-id: RPWfqknE
   ones-check-point: team

@@ -13,11 +13,11 @@
   },
   "link.item.label.ONES": {
     "message": "ONES",
-    "description": "The label of footer link with label=ONES linking to https://ones.ai/"
+    "description": "The label of footer link with label=ONES linking to https://ones.cn/"
   },
   "link.item.label.Tower": {
     "message": "Tower",
-    "description": "The label of footer link with label=Tower linking to https://ones.ai/products/tower.html"
+    "description": "The label of footer link with label=Tower linking to https://ones.cn/products/tower.html"
   },
   "copyright": {
     "message": "Copyright © 2022 ONES, Inc.",

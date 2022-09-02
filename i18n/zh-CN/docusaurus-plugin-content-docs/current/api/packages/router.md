@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # @ones-op/router
 
-[![](https://npm.partner.ones.ai/badge/v/@ones-op/router.svg)](https://npm.partner.ones.ai/package/@ones-op/router)
+[![](https://npm.partner.ones.cn/badge/v/@ones-op/router.svg)](https://npm.partner.ones.cn/package/@ones-op/router)
 
 我们提供了一套路由组件库，可以使你的插件程序能够操纵当前页面的 URL。使用路由用户能够直接链接到你的插件程序的某些部分。
 

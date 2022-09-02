@@ -108,7 +108,7 @@ async (request: PluginRequest): Promise<PluginResponse> => {
 
 在插件中，你可以使用 `window` 访问我们在插件执行环境注入的全局变量。
 
-## **ones_op_locale**[​](https://docs.partner.ones.ai/docs/api/frontend/window/#ones_op_locale%20%22Direct%20link%20to%20heading%22)
+## **ones_op_locale**[​](https://docs.partner.ones.cn/docs/api/frontend/window/#ones_op_locale%20%22Direct%20link%20to%20heading%22)
 
 当前用户的语言偏好设置。包含以下字段：
 

@@ -68,7 +68,7 @@ const result = await select('select * from email_id_map limit 10;')
 方法接收 sql 语句，不会返回结果。如果 sql 执行是失败会 throw error。
 
 ```typescript
-await exec('insert', `INSERT INTO email_id_map VALUES ("plugin@ones.ai", "001");`)
+await exec('insert', `INSERT INTO email_id_map VALUES ("plugin@ones.cn", "001");`)
 ```
 
 ### count 数据库计数

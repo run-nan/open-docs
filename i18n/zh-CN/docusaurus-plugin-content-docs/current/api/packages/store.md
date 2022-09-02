@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # @ones-op/store
 
-[![](https://npm.partner.ones.ai/badge/v/@ones-op/store.svg)](https://npm.partner.ones.ai/package/@ones-op/store)
+[![](https://npm.partner.ones.cn/badge/v/@ones-op/store.svg)](https://npm.partner.ones.cn/package/@ones-op/store)
 
 我们提供了一套数据获取库，可以帮你在插件内获取标品数据。为了保证数据的只读性，对象和数组数据将会使用 Proxy 代理。
 

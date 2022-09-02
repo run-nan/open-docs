@@ -45,7 +45,7 @@ npx op pickteam local
 ➜ npx op login
 ? Please enter the environment base URL: http://120.76.45.123
 ? Please enter the environment host URL: tcp://120.76.45.123:9006
-? Username: test1@ones.ai
+? Username: test1@ones.cn
 ? Password: [hidden]
   ✔ Converting inputted answers to login params
   ✔ Fetching user profile
@@ -122,7 +122,7 @@ webpack 5.72.1 compiled successfully in 217 ms
 连接成功!
 {
   action: 'run',
-  email: 'test1@ones.ai',
+  email: 'test1@ones.cn',
   password: 'ibJDTEf7PET1',
   reinstall: false,
   instance_uuid: '',

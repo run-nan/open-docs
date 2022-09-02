@@ -17,8 +17,8 @@ ONES 插件开发需要 [Node.js](https://nodejs.org/zh-cn/) v16.13.0 或更高�
 # It is strongly recommended to use the official NPM registry to avoid dependency issues
 npm config set registry=https://registry.npmjs.org/
 
-npm config set @ones:registry=https://npm.partner.ones.ai/registry/
-npm config set @ones-op:registry=https://npm.partner.ones.ai/registry/
+npm config set @ones:registry=https://npm.partner.ones.cn/registry/
+npm config set @ones-op:registry=https://npm.partner.ones.cn/registry/
 ```
 
 :::note

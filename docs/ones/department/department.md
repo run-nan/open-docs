@@ -342,7 +342,7 @@ POST
       "userid": "xiaowu001",
       "name": "xiaowu001",
       "department": ["23001"],
-      "email": "xiaowu001@ones.ai",
+      "email": "xiaowu001@ones.cn",
       "mobile": null,
       "avatar": null,
       "title": null
@@ -351,7 +351,7 @@ POST
       "userid": "xiaowu002",
       "name": "xiaowu002",
       "department": [],
-      "email": "xiaowu002@ones.ai",
+      "email": "xiaowu002@ones.cn",
       "mobile": null,
       "avatar": null,
       "title": null
@@ -360,7 +360,7 @@ POST
       "userid": "cai77",
       "name": "cai77",
       "department": ["23002"],
-      "email": "cai77@ones.ai",
+      "email": "cai77@ones.cn",
       "mobile": null,
       "avatar": null,
       "title": null
@@ -369,7 +369,7 @@ POST
       "userid": "lengbing",
       "name": "lengbing",
       "department": [],
-      "email": "lengbing@ones.ai",
+      "email": "lengbing@ones.cn",
       "mobile": "15818685557",
       "avatar": null,
       "title": null
@@ -378,7 +378,7 @@ POST
       "userid": "cmjcd",
       "name": "cmjcd",
       "department": [],
-      "email": "cmjcd@ones.ai",
+      "email": "cmjcd@ones.cn",
       "mobile": "15900009999",
       "avatar": null,
       "title": null

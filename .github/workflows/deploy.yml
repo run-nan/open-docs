@@ -39,7 +39,7 @@ jobs:
               "card_type": "text_notice",
               "card_action": {
                 "type": 1,
-                "url": "https://docs.partner.ones.ai/"
+                "url": "https://docs.partner.ones.cn/"
               },
               "source": {
                 "desc": "开放平台在线文档"
