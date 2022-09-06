@@ -2,26 +2,33 @@
 sidebar_position: 5
 ---
 
-# 在持续集成中调试插件
+# 插件持续集成方案
 
 > 持续集成视频教程: [插件持续集成测试](../examples/videos/ci.mdx)
 
-## 通过 Gitlab CI 自动安装插件到目标环境
+&emsp;&emsp;如果想要对插件项目做持续集成或持续交付，我们推荐开发者使用 Gitlab 去托管代码，并使用 Gitlab CI/CD 来测试、构建和发布插件。
 
-当插件代码托管在 Gitlab 上，且进行了相关的配置时，本地代码一旦提交，便会触发 Gitlab 的流水线。
-
-流水线会将插件打包并安装到配置的目标环境中：
-
-![ONES Open Platform - CI](images/ONES%20Open%20Platform%20-%20CI.png)
+&emsp;&emsp;在这里，我们提供了一种 `基于Gitlab插件持续集成方案`的实现思路，当本地代码一提交，便会触发 Gitlab CI/CD，将插件**打包并安装**到配置的目标环境中。
 
 ### 前置条件
 
-- Gitlab 上已经配置了流水线，如果你使用的是 [https://gitlab.plugins.myones.net/](https://gitlab.plugins.myones.net/) 来托管插件代码，则无需额外配置；
-- 正确配置了项目文件夹中的 `/config/ci-deploy.yaml` 文件，详见下文。
+- Gitlab 上已经配置了流水线项目(对于流水线项目感兴趣的开发者们，可以参考官方链接: [Gitlab CI/CD 官方文档](https://docs.gitlab.cn/jh/ci/index.html))；
+- 配置项目文件夹中的 `.gitlab-ci.yml` 文件，详见下文；
+- 配置项目文件夹中的 `/config/ci-deploy.yaml` 文件，详见下文。
+
+### 配置 .gitlab-ci.yml
+
+```yaml
+include:
+  - project: root/plugin-ci-template
+    file: /plugin-nodejs.yml
+```
+
+.gitlab-ci.yml 文件如何配置可以参考[.gitlab-ci.yml 快速入门](https://docs.gitlab.cn/jh/ci/yaml/gitlab_ci_yaml.html)，而我们插件项目的.gitlab-ci.yml 文件内容，其实就是去触发对应的流水线项目，将生成的插件包部署到对应的实例环境。
 
 ### 配置 ci-deploy.yaml
 
-开发者需要在项目根目录下分别通过以下指令为特定分支进行配置设置：
+`ci-deploy.yaml`文件的主要作用是**设置 Gitlab 流水线运在行时需要的参数**，那么开发者在项目根目录下可以分别通过以下指令为特定分支进行配置设置：
 
 ```
 # Step 1
@@ -61,11 +68,11 @@ Now you can commit your changes to the remote repository and deploy your project
 
 `ci` 与 `pickteam ci` 指令执行完登录操作后会将「用户凭证」与「团队信息」写入工程下的 `config/ci-deploy.yaml` 文件中。
 
-```yaml title="/config/ci-deploy.yaml"
+```yaml
 default:
   host: http://120.76.45.123
   username: test1@ones.cn
-  password: ibJDTEf7PET1
+  password: **********
   ones-check-id: RPWfqknE
   ones-check-point: team
   ones-plugin-id: built_in_apis
@@ -94,7 +101,7 @@ default:
 - **${username}**
 - **${password}**
 
-```yaml title="/config/ci-deploy.yaml"
+```yaml
 default:
   host: http://120.76.45.123
   username: ${username}

@@ -56,17 +56,17 @@ external 的新增接口必须以 /team/:teamUUID 开头，当插件在某个团
 
 ```yaml
 apis:
-    - type: addition         //接口类型：addition:新增
-    methods:                 //接口请求方式
-      - POST
-    url: /hello              //自定义url
-    function: hello          //名称与代码里的函数名保持一致
+  - type: addition         //接口类型：addition:新增
+  methods:                 //接口请求方式
+    - POST
+  url: /hello              //自定义url
+  function: hello          //名称与代码里的函数名保持一致
 
     - type: external         //external新增(团队级别的接口)
-    methods:
-      - POST
-    url: /team/:teamUUID/hello1
-    function: hello1
+  methods:
+    - POST
+  url: /team/:teamUUID/hello1
+  function: hello1
 ```
 
 ​ **接口劫持**，
@@ -93,78 +93,97 @@ import { fetchHttp, fetchONES } from '@ones-op/node-fetch'
 
 //addition 注册的接口对应方法
 export async function hello(request: PluginRequest): Promise<PluginResponse> {
-  const body = request.body || {}
-  Logger.info('[Plugin] hello ======= 请求成功')
-  return {
-    body: {
-      res: 'hello world',
-      requestBody: body,
-    },
-  }
+    const body = request.body || {}
+    Logger.info('[Plugin] hello ======= 请求成功')
+    return {
+        body: {
+            res: 'hello world',
+            requestBody: body,
+        },
+    }
 }
 
 // external 注册的接口对应方法
 export async function hello1(request: PluginRequest): Promise<PluginResponse> {
-  const body = request.body || {}
-  Logger.info('[Plugin] hello1 ======= 请求成功')
-  return {
-    body: {
-      res: 'hello world1',
-      requestBody: body,
-    },
-  }
+    const body = request.body || {}
+    Logger.info('[Plugin] hello1 ======= 请求成功')
+    return {
+        body: {
+            res: 'hello world1',
+            requestBody: body,
+        },
+    }
 }
 
 //replace 劫持的接口对应方法
 export async function jackFunc(
-  request: PluginRequest<Record<string, any>>
+    request: PluginRequest<Record<string, any>>
 ): Promise<PluginResponse> {
-  let userUUID = ''
-  let userToken = ''
-  if (request.headers['Ones-User-Id'] != null) {
+    let userUUID = ''
+    let userToken = ''
+    if (request.headers['Ones-User-Id'] != null) {
     userUUID = request.headers['Ones-User-Id']
     userToken = request.headers['Ones-Auth-Token']
-  }
-  const response = await fetchONES({
+}
+const response = await fetchONES({
     path: `/users/me`,
     method: 'GET',
     headers: {
-      'Ones-User-Id': [userUUID],
-      'Ones-Auth-Token': [userToken],
+        'Ones-User-Id': [userUUID],
+        'Ones-Auth-Token': [userToken],
     },
     root: false, //默认为true
-  })
-  if (response) {
+})
+if (response) {
     return response
-  }
-  return {
-    body: {},
-  }
 }
+return {
+    body: {},
+}
+
+//prefix 前置接口劫持
+export async function prefixFunc(
+    request: PluginRequest<Record<string, any>>
+): Promise<PluginResponse> {
+    let body = request?.body
+    // code
+    return {
+        // 返回被处理后或者按原样返回的请求头
+        body: body,
+    }
+}
+
+//suffix 后置接口劫持
+export async function suffixFunc(
+    request: PluginRequest<Record<string, any>>
+): Promise<PluginResponse> {
+    let body = {}
+    // code
+    return {
+        // 可以返回任意 body
+        body: body,
+    }
+}
+
 ```
 
 ### 实现过程
 
-### 请求过程
+#### 请求插件注册的接口
 
-##### 请求插件注册的接口
-
-1. addition 接口
-
-在 postman 等 api 接口调试工具中填写
+**`addition`** 接口在 postman 等调试工具中填写参数如下，
 
 ```javascript
 url：https://yourhost/hello
-headers: Ones-Check-Point:team; Ones-Plugin-Id:{插件实例ID}
+    headers: Ones-Check-Point:team; Ones-Plugin-Id:{插件实例ID}
 method: POST
 
 ```
 
-或命令行内容输入以下内容，
+或在终端、命令行内容输入以下内容，
 
 ```javascript
 curl --location --request POST 'https://yourhost/hello' \
---header 'User-Agent: Apipost client Runtime/+https://www.apipost.cn/' \
 --header 'Content-Type: application/json;charset=utf-8' \
 --header 'Ones-Check-Point: team' \
 --header 'Ones-Plugin-Id: {插件实例ID}' \
@@ -175,24 +194,19 @@ curl --location --request POST 'https://yourhost/hello' \
 
 ![image-20220427151328629](registertion&hijack5.png)
 
-1. external 接口
-
-​ 在 postman 等 api 接口调试工具中填写如下内容，细心的同学可以发下，external 类型接口和 addition 类型接口区别就是 url 多了 team/teamUUID ，
+**`external`** 接口在 postman 等调试工具中填写参数如下，
+addition 和 external 接口的区别就是 url 多了 team/teamUUID，但是 external 接口请求头可以不用带上 Ones-Check-Point 和 Ones-Plugin-Id
 
 ```javascript
 url：https://yourhost/team/{teamUUID}/hello1
-headers: Ones-Check-Point:team; Ones-Plugin-Id:{插件实例ID}
 method: POST
 ```
 
-​ 或命令行内容输入以下内容，
+或在终端、命令行内容输入以下内容，
 
 ```javascript
 curl --location --request POST 'https://yourhost/team/{teamUUID}/hello1' \
---header 'User-Agent: Apipost client Runtime/+https://www.apipost.cn/' \
 --header 'Content-Type: application/json;charset=utf-8' \
---header 'Ones-Check-Point: team' \
---header 'Ones-Plugin-Id: {插件实例ID}' \
 --data ''
 ```
 
@@ -200,15 +214,19 @@ curl --location --request POST 'https://yourhost/team/{teamUUID}/hello1' \
 
 ![image-20220427151740865](registertion&hijack6.png)
 
-##### 请求插件劫持的接口
+#### 请求插件劫持的接口
 
-​ replace 接口，劫持的是标品的 url，所以填写的 url 跟标品保持一致，并且带上这个接口必须有的参数信息，至于这个接口本身是 POST 请求还是 GET 请求，请求头需要设置什么参数，请参考 api 接口文档，
+​ **`replace`**接口请求参数需要注意以下几点，
+1、劫持的是标品的 url，所以填写的 url 跟标品保持一致；
+2、确认被替换接口本身是 POST 请求还是 GET 请求；
+3、确认被替换接口请求头需要设置什么参数，请参考 api 接口文档。
 
 ```javascript
 url：https://yourhost/users/me
-headers:
-  Ones-User-Id:{user_uuid}
-  Ones-Auth-Token:{user_token}
+    headers:
+        Ones-User-Id:{user_uuid}
+Ones-Auth-Token:{user_token}
+...
 method: GET
 ```
 
@@ -216,7 +234,6 @@ method: GET
 
 ```javascript
 curl --location --request GET 'https://yourhost/users/me' \
---header 'User-Agent: Apipost client Runtime/+https://www.apipost.cn/' \
 --header 'Ones-User-Id: {user_uuid}' \
 --header 'Ones-Auth-Token: {user_token}' \
 --header 'Content-Type: application/json' \
