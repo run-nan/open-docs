@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # upgrade.yaml
 
-插件项目下的 `/config/upgrade.yaml` 文件为插件升级配置文件，使用 [YAML](https://yaml.org/) 语法：
+The `/config/upgrade.yaml` file of the plugin project is the plugin upgrade configuration file, using the [YAML](https://yaml.org/) syntax:
 
 ```yaml
 workspace:
@@ -16,21 +16,21 @@ workspace:
 
 ## workspace
 
-插件升级过程中 workspace 的文件替换规则配置，用于规范文件冲突处理过程
+The file replacement rule configuration of `workspace` during the plugin upgrade process is used to standardize the file conflict processing process
 
 ### rule
 
-- 类型：`'save_new'` `'save_old'`
+- Type: `'save_new'` `'save_old'`
 
-文件替换规则，可选值如下：
+File replacement rule, optional values are as follows:
 
-|    规则    | 说明                                 |
-| :--------: | :----------------------------------- |
-| `save_new` | 新文件跟旧文件发生冲突时，保留新文件 |
-| `save_old` | 新文件跟旧文件发生冲突时，保留旧文件 |
+|    Rule    | Description                                                         |
+| :--------: | :--------------------------------------------------------------- |
+| `save_new` | When the new file conflicts with the old file, keep the new file |
+| `save_old` | When the new file conflicts with the old file, keep the old file |
 
 ### exclude
 
-- 类型：`(string | RegExp)[]`
+- Type: `(string | RegExp)[]`
 
-排除文件列表，支持正则匹配，该列表中的文件使用与 `rule` 相反的规则
+Exclude file list, supports regular matching, the files in this list use the opposite rule to `rule`
