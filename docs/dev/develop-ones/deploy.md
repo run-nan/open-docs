@@ -1,5 +1,5 @@
 ---
-sidebar_position: 6
+sidebar_position: 1
 ---
 
 # Deploy
@@ -35,7 +35,7 @@ Confirm permissions. The onesopenwiki tool must have executable permissions. The
 ##### Execute the onesopenwiki tool to generate a new ones-release image
 
 ```bash
-./onesopenwiki rebuild --wiki_web_tar=ones-wiki-web.x.x.x.tar.gz --ones_release_tag=xxx --ones_release_out_tag=xxx
+./onesopenwiki rebuild --wiki_web_tar=xxx --ones_release_tag=xxx --ones_release_out_tag=xxx
 ```
 
 • You can get help information by executing the command ./onesopenwiki rebuild --help.
@@ -130,8 +130,8 @@ Start upgrade...
 
 ##### Verify the result
 
-• Front-end effect verification
-• docker commands
+- Front-end effect verification
+- docker commands
 
 ```bash
 docker ps |grep 443
@@ -147,9 +147,9 @@ enter deployment path(cd /data/ones/...)
 touch 1.0.2022081101.tar && sh upgrade.sh && rm -rf 1.0.2022081101.tar
 ```
 
-## High Availability Environment
+### High Availability Environment
 
-### Preparation
+#### Preparation
 
 Before you start, do the following preparations:
 
@@ -157,16 +157,15 @@ Before you start, do the following preparations:
 - Front-end custom tar package: locally build & generate custom tar package, such as ones-wiki-web.tar.gz.
 - Operation and maintenance tools: docker , onesopenwiki.
   Install and configure the [dokcer](https://www.docker.com/products/docker-desktop/) environment locally.
-  ![](../develop-plugin/images/onesproject_docker.png)
 
 Confirm permission. The onesopenwiki tool must have executable permission。
 
-### Step By Step
+#### Step By Step
 
-#### Execute the onesopenproject tool to generate a local image
+##### Execute the onesopenwiki tool to generate a local image
 
 ```bash
-./onesopenwiki webimage --wiki_web_out_tag=xxx --project_web_tar=ones-wiki-web.tar.gz
+./onesopenwiki webimage --wiki_web_out_tag=xxx --wiki_web_tar=xxx
 ```
 
 • You can get help by executing the command ./onesopenwiki webimage --help.
@@ -183,9 +182,9 @@ Flags:
       --wiki_web_tar string       [require]Tar package of ONES.AI Wiki Web，suffix:.tar.gz
 ```
 
-• project_web_tar parameter, required, suffix format: .tar.gz. This parameter specifies the front-end custom tar package.
+• wiki_web_tar parameter, required, suffix format: .tar.gz. This parameter specifies the front-end custom tar package.
 
-You can refer to Private Deployment get project_web_tar param.
+You can refer to Private Deployment get wiki_web_tar param.
 
 • wiki_web_out_tag parameter, optional. According to the front-end tar package, the tag of the mirror wiki-web is generated.
 
@@ -218,7 +217,7 @@ Show the generated image:
 
 ```
 
-#### Push the image to the public|private repository
+##### Push the image to the public|private repository
 
 If the image is hosted in the public repository Dockerhub, then refer to "method a" to push to the public repository; if it is a customer's private repository, refer to "method b" to push to the private repository.
 
@@ -266,7 +265,7 @@ docker push 192.168.1.100/project/wiki-web:v1.0.2
 Login [repository](https://192.168.1.100/) ，and view the image file just uploaded
 ![](../develop-plugin/images/onesproject_private.png)
 
-#### High availability deployment
+##### High availability deployment
 
 Log in to the k8s operation machine and perform the following steps to implement the rolling update operation.
 
@@ -281,7 +280,7 @@ vi /data/ones/ones-ai-k8s/config/private.yaml
 make setup-ones
 ```
 
-#### Verify the result
+##### Verify the result
 
 • Check the tag of the wiki-web image. Such as:
 
@@ -291,7 +290,7 @@ kubectl -n ones-namespace  get pods -o yaml |grep image |grep wiki-web
 
 • Front-end effect verification
 
-#### Rollback [Optional]
+##### Rollback [Optional]
 
 If you need to roll back this deployment, you can do following commands.
 

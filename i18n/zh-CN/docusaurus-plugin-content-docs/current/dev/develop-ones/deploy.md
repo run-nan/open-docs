@@ -1,12 +1,12 @@
 ---
-sidebar_position: 2
+sidebar_position: 1
 ---
 
 # 部署
 
 前文可知，我们 ONES 将 Project 和 Wiki 两部分都进行了开源。您可以根据您的需求对单一工程进行开发，也可以同时开发两个工程。并且，您能够进行本地构建，生成 tar 包。
 
-本文介绍，如何使用运维工具，将 tar 包在您的生产(测试)环境中进行部署。考虑到，ONES 的客户环境包含：私有部署环境，高可用环境。下面，我们分别从这两种环境，详细介绍如何使用运维工具来部署 wiki-web（ones-project-web 同理）。
+本文介绍，如何使用运维工具，将 tar 包在您的生产（测试）环境中进行部署。考虑到，ONES 的客户环境包含：私有部署环境，高可用环境。下面，我们分别从这两种环境，详细介绍如何使用运维工具来部署 wiki-web（ones-project-web 同理）。
 
 ## 部署 wiki-web
 
@@ -35,7 +35,7 @@ scp onesopenwiki user_name@192.168.100.10:/home/user_name
 ##### 执行 onesopenwiki 工具，生成 ones-release 新镜像
 
 ```bash
-./onesopenwiki rebuild --wiki_web_tar=ones-wiki-web.x.x.x.tar.gz --ones_release_tag=xxx --ones_release_out_tag=xxx
+./onesopenwiki rebuild --wiki_web_tar=xxx --ones_release_tag=xxx --ones_release_out_tag=xxx
 ```
 
 • 您可以通过执行命令 ./onesopenwiki rebuild --help 获取帮助信息。
@@ -131,8 +131,8 @@ Start upgrade...
 
 ##### 验证效果
 
-• 前端效果验证。验证客户的定制改动效果。
-• docker 命令查看。
+- 前端效果验证。验证客户的定制改动效果。
+- docker 命令查看。
 
 ```bash
 docker ps |grep 443
@@ -148,9 +148,9 @@ enter deployment path(cd /data/ones/...)
 touch 1.0.2022081101.tar && sh upgrade.sh && rm -rf 1.0.2022081101.tar
 ```
 
-## 高可用环境
+### 高可用环境
 
-### 前置条件
+#### 前置条件
 
 在开始之前，请进行以下准备工作：
 
@@ -158,17 +158,16 @@ touch 1.0.2022081101.tar && sh upgrade.sh && rm -rf 1.0.2022081101.tar
 - 前端定制 tar 包：本地构建&生成客户定制的 tar 包，如 ones-wiki-web.tar.gz。
 - 运维工具：[docker](https://www.docker.com/products/docker-desktop/) 、onesopenwiki。
 
-本地安装并配置好 dokcer 环境。google 搜索 docker，官网下载，进行安装。
-![](../develop-plugin/images/onesproject_docker.png)
+本地安装并配置好 dokcer 环境。建议您通过 google 搜索 docker，下载并安装。
 
 确认权限。onesopenwiki 工具要有可执行权限。
 
-### 部署步骤
+#### 部署步骤
 
-#### 执行 onesopenproject 工具，生成本地镜像文件
+##### 执行 onesopenwiki 工具，生成本地镜像文件
 
 ```bash
-./onesopenwiki webimage --wiki_web_out_tag=xxx --project_web_tar=ones-wiki-web.tar.gz
+./onesopenwiki webimage --wiki_web_out_tag=xxx --wiki_web_tar=xxx
 ```
 
 • 您可以通过执行命令 ./onesopenwiki webimage --help 获取帮助信息。
@@ -185,7 +184,7 @@ Flags:
       --wiki_web_tar string       [require]Tar package of ONES.AI Wiki Web，suffix:.tar.gz
 ```
 
-• project_web_tar 参数，必填项，后缀格式要求：.tar.gz。该参数指定前端定制 tar 包。
+• wiki_web_tar 参数，必填项，后缀格式要求：.tar.gz。该参数指定前端定制 tar 包。
 
 该参数的获取，参考私有部署，
 
@@ -220,7 +219,7 @@ Show the generated image:
 
 ```
 
-#### 将镜像推送到公共|私有仓库
+##### 将镜像推送到公共|私有仓库
 
 如果镜像托管到公共仓库 Dockerhub，那么参考方式 a 推送到公共仓库；如果是客户私有仓库，参考方式 b 推送到私有仓库。
 
@@ -268,7 +267,7 @@ docker push 192.168.1.100/项目/wiki-web:v1.0.2
 登录 [项目的仓库](https://192.168.1.100/) ，查看刚才上传的镜像文件
 ![](../develop-plugin/images/onesproject_private.png)
 
-#### 高可用部署
+##### 高可用部署
 
 登录到 k8s 操作机，执行以下步骤，实现滚动更新操作。
 
@@ -281,7 +280,7 @@ vi /data/ones/ones-ai-k8s/config/private.yaml
 make setup-ones
 ```
 
-#### 效果
+##### 验证效果
 
 • 查看 wiki-web 镜像的版本。
 
@@ -291,7 +290,7 @@ kubectl -n ones-namespace  get pods -o yaml |grep image |grep wiki-web
 
 • 前端效果验证
 
-#### 回退
+##### 回退
 
 如果需要回退此次部署，可通过滚动更新操作。
 
