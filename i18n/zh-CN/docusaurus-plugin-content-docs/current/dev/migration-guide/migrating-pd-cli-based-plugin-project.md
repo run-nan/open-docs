@@ -165,7 +165,7 @@ ones create
 根据 `ONES CLI` 初始化之后的工程模版与迁移后的资源文件，开发者可以进一步考虑：
 
 - 探索 `OP CLI`
-  - [添加插槽](../guide/module/index.md)
-  - [添加开放能力](../guide/ability.md)
-  - [本地调试](../guide/local-debugging-plugin.md)
-  - [在持续集成中调试插件](../guide/ci-deploy-plugin.md)
+  - [添加插槽](../develop-plugin/module/index.md)
+  - [添加开放能力](../develop-plugin/ability.md)
+  - [本地调试](../develop-plugin/local-debugging-plugin.md)
+  - [在持续集成中调试插件](../develop-plugin/ci-deploy-plugin.md)

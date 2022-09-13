@@ -3,25 +3,9 @@
     "message": "Next",
     "description": "The label for version current"
   },
-  "sidebar.dev.category.开始": {
-    "message": "开始",
-    "description": "The label for category 开始 in sidebar dev"
-  },
   "sidebar.dev.category.添加插槽模块": {
     "message": "添加插槽模块",
     "description": "The label for category 添加插槽模块 in sidebar dev"
-  },
-  "sidebar.dev.category.示例教程": {
-    "message": "示例教程",
-    "description": "The label for category 示例教程 in sidebar dev"
-  },
-  "sidebar.dev.category.视频教程": {
-    "message": "视频教程",
-    "description": "The label for category 视频教程 in sidebar dev"
-  },
-  "sidebar.dev.category.插件开发示例": {
-    "message": "插件开发示例",
-    "description": "The label for category 插件开发示例 in sidebar dev"
   },
   "sidebar.abilities.category.Frontend": {
     "message": "前端能力",
@@ -95,10 +79,6 @@
     "message": "Http",
     "description": "The label for category Http in sidebar ones"
   },
-  "sidebar.dev.category.开发指南": {
-    "message": "开发指南",
-    "description": "The label for category 开发指南 in sidebar dev"
-  },
   "sidebar.abilities.category.Trigger 事件": {
     "message": "Trigger 事件",
     "description": "The label for category Trigger 事件 in sidebar abilities"
@@ -113,6 +93,30 @@
   },
   "sidebar.dev.category.Migration Guide": {
     "message": "迁移指南",
-    "description": "The label for category 迁移指南 in sidebar dev"
+    "description": "The label for category Migration Guide in sidebar dev"
+  },
+  "sidebar.dev.category.Getting Started": {
+    "message": "开始上手",
+    "description": "The label for category Getting Started in sidebar dev"
+  },
+  "sidebar.dev.category.Develop Plugin": {
+    "message": "开发插件",
+    "description": "The label for category Develop Plugin in sidebar dev"
+  },
+  "sidebar.dev.category.Develop ONES": {
+    "message": "开发 ONES",
+    "description": "The label for category Develop ONES in sidebar dev"
+  },
+  "sidebar.dev.category.Sample Tutorial": {
+    "message": "示例教程",
+    "description": "The label for category Sample Tutorial in sidebar dev"
+  },
+  "sidebar.dev.category.Videos": {
+    "message": "视频教程",
+    "description": "The label for category Videos in sidebar dev"
+  },
+  "sidebar.dev.category.Examples": {
+    "message": "插件开发示例",
+    "description": "The label for category Examples in sidebar dev"
   }
 }

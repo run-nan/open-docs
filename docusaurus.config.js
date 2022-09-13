@@ -28,6 +28,12 @@ const config = {
           showLastUpdateTime: true,
           sidebarPath: require.resolve('./sidebars.js'),
           remarkPlugins: [[require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }]],
+          versions: {
+            current: {
+              label: '🚧 Next',
+              noIndex: true,
+            },
+          },
         },
         blog: {
           blogTitle: 'Changelog',

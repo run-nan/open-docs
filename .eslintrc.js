@@ -30,6 +30,14 @@ module.exports = {
         allow: ['error', 'warn'],
       },
     ],
+    'no-constant-binary-expression': 'error',
+    'no-underscore-dangle': 'error',
+    'no-use-before-define': ['error', {
+      functions: false
+    }],
+    'object-shorthand': ['error', 'always', {
+      avoidQuotes: true
+    }],
     'prefer-const': [
       'error',
       {
@@ -39,9 +47,7 @@ module.exports = {
 
     'react-hooks/exhaustive-deps': 'error',
 
-    'space-before-blocks': 'off',
-    '@typescript-eslint/space-before-blocks': ['error'],
-
+    '@typescript-eslint/consistent-generic-constructors': 'error',
     '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
     '@typescript-eslint/consistent-type-exports': [
       'error',
@@ -50,8 +56,9 @@ module.exports = {
       },
     ],
     '@typescript-eslint/consistent-type-imports': ['error'],
+    '@typescript-eslint/member-ordering': ['warn'],
     '@typescript-eslint/no-redundant-type-constituents': ['error'],
     '@typescript-eslint/no-this-alias': 'off',
-    '@typescript-eslint/prefer-optional-chain': ['warn'],
+    '@typescript-eslint/prefer-optional-chain': ['error'],
   },
 }

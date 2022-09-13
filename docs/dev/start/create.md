@@ -37,7 +37,7 @@ Project description:
 Project sub CLI: @ones/cli-plugin
 ```
 
-初始化完成后的插件工程目录结构详见[目录结构](../guide/plugin-project-directory-structure.md)一节
+初始化完成后的插件工程目录结构详见[目录结构](../develop-plugin/plugin-project-directory-structure.md)一节
 
 至此，我们已经完成插件工程的初始化操作
 
