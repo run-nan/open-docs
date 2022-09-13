@@ -44,7 +44,7 @@ sidebar_position: 1
 │   ├── src
 │   └── tsconfig.json
 ├── workspace
-│   └── locale # 配置文件使用的语言包
+│   └── language # 配置文件使用的语言包
 │   │   └── zh.yaml # 简体中文
 │   │   └── en.yaml # 英文
 │   │   └── ja.yaml # 日文
