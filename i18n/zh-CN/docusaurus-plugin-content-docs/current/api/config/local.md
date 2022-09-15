@@ -173,3 +173,46 @@ id 由 op 工具随机生成
 - 类型: `string`
 
 如果用本地的数据库，数据库端口
+
+### local.instance_uuid
+
+- 类型: `string`
+
+调试插件的实例 UUID，第一次执行 `npx op invoke run ` 后，终端展示如下内容，
+
+```txt
+开始连接！
+{
+action: 'run',
+email: '',
+password: '',
+reinstall: false,
+instance_uuid: undefined,
+hostID: undefined,
+webIp: '127.0.0.1',
+webPort: '3000',
+orgUUID: '":"********","',
+teamUUID: '":"********","',
+user_uuid: '":"********","',
+token: '":"********","',
+webServiceUrl: '":"********","'
+}
+本地调试返回值: {"instance_uuid":"********","token":"":"********","","user_uuid":"":"********",""}
+
+```
+
+开发者可以从本地调试返回值或`config/plugin.yaml`文件内得到调试的插件实例 instance_uuid。
+
+如果执行了`npx op invoke clear` ，再次执行 `npx op invoke run `，会发现终端显示上一次的插件实例 UUID，
+
+```txt
+开始连接！
+{
+...
+instance_uuid: "********",
+...
+}
+本地调试返回值: {...}
+```
+
+只要`npx op invoke run`成功，开发者同样可以从本地调试返回值或`config/plugin.yaml`文件内得到调试的插件实例 instance_uuid。
