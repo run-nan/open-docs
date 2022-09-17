@@ -4,17 +4,30 @@ sidebar_position: 2
 
 # 添加开放能力
 
-> 插件开发视频教程: [插件开发入门](../sample-tutorial/videos/start.mdx)
-
 在插件工程根目录执行 `op` 的 `add ability` 指令，可以向插件新增开放能力：
 
 ```
-npx op add ability
+➜ npx op add ability
+  ✔ Validating the input params
+  ✔ Validating project files exists
+  ✔ Generating initial answers by input params
+  ✔ Parsing plugin config content
+
+Pre-require tasks run successfully
+? Please select the ability you want to add: …
+account@1.0.0
+api-register-jack@1.0.0
+api-register-jack@2.0.0
+configuration-page@1.0.0
+item-mutation@1.0.0
+script-field-float@1.0.0
+send-short-message@1.0.0
+simple-auth@1.0.0
+task-event-handler@1.0.0
+web-service@1.0.0
 ```
 
-![](./images/ability.png)
-
-在列表中可以通过选择方向键选择接口相关能力或业务开放能力
+在列表中可以通过方向键或输入能力名称搜索并选择接口相关能力或业务开放能力
 
 ## 开放能力列表
 

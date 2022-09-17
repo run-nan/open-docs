@@ -4,8 +4,6 @@ sidebar_position: 5
 
 # 插件持续集成方案
 
-> 持续集成视频教程: [插件持续集成测试](../sample-tutorial/videos/ci.mdx)
-
 &emsp;&emsp;如果想要对插件项目做持续集成或持续交付，我们推荐开发者使用 Gitlab 去托管代码，并使用 Gitlab CI/CD 来测试、构建和发布插件。
 
 &emsp;&emsp;在这里，我们提供了一种 `基于Gitlab插件持续集成方案`的实现思路，当本地代码一提交，便会触发 Gitlab CI/CD，将插件**打包并安装**到配置的目标环境中。
@@ -56,6 +54,7 @@ Now you can commit your changes to the remote repository and deploy your project
 
 ```raw
 ➜ npx op pickteam ci
+? branchName: default
 ? Pick the team below to update information into the config file: (Use arrow keys)
 ❯ TEAM A (RPWfqknE)
   TEAM B (Q8ecrHks)

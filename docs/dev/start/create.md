@@ -4,6 +4,8 @@ sidebar_position: 2
 
 # 创建第一个插件工程
 
+<video controls src={require('./videos/create-your-first-plugin-project.mp4').default} style={{ width: '100%' }} />
+
 ## 插件工程初始化
 
 我们使用一个空文件夹作为插件工程的根目录，比如 `/Users/jeff/dev/test-plugin`
@@ -24,8 +26,6 @@ ones create -d
 3. 安装插件开发脚手架工具 `op`
 4. 创建全局缓存文件
 5. 安装插件工程项目依赖
-
-![image](images/create.png)
 
 在插件工程初始化完成后 ONES CLI 会输出插件工程的相关信息
 
@@ -56,15 +56,18 @@ npx op help
 Usage: op [options] [command]
 
 Options:
-  -v, --version                output the current version
-  -h, --help                   display help for command
+  -v, --version                        output the current version
+  -h, --help                           display help for command
 
 Commands:
-  init                         initialize project dependencies and project settings, please run this command in project root directory
-  login [options] [url]        store the parameters that get user access token in specify environment for 'config/local.yaml'
-  add [options] <target-type>  add a ability or module for the project
-  packup                       pack up the plugin project and build .opk file in the root directory
-  help [command]               display help for command
+  init                                 initialize project dependencies and project settings, please run this command in project root directory
+  login [options] [baseURL] [hostURL]  store the parameters used to obtain user credentials in a specific environment into 'config/local.yaml'
+  ci [options] [url]                   store the parameters used to obtain user credentials in a specific branch for (gitlab) CI into 'config/ci-deploy.yaml'
+  pickteam [options] [target]          fetch the team list with the user credentials stored in the config file and update the config file with the team information from the team list for local debugging or CI deployment
+  add <target-type>                    add a ability or module for the project
+  packup [filename]                    pack up the plugin project and build .opk file in the root directory
+  invoke [options] <target>            start the plugin project locally and invoke one or several life-cycles of the plugin
+  help [command]                       display help for command
 ```
 
 查看 `op` 工具的版本信息：
@@ -86,9 +89,17 @@ npx op -v
 
 ```
 npx op packup
+# 或
+npx op packup CustomPluginName
 ```
 
-![image](images/opk.png)
+:::caution note
+
+In Windows TTY, if the custom plugin name contains Chinese characters when packaging the plugin, the command may not be executed correctly.
+
+Developers can try to `packup` the plugin with the default name and manually rename the file after the `packup` is complete.
+
+:::
 
 打包操作完成后可以在当前插件工程根目录中看到打包好的插件 `opk` 包，如 `test-plugin.opk`
 

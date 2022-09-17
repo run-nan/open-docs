@@ -7,15 +7,6 @@ sidebar_position: 1
 ```
 .
 ├── README.md
-├── ability-templates
-│   ├── account
-│   ├── api-register-jack
-│   ├── configuration-page
-│   ├── item-mutation
-│   ├── script-field-float
-│   ├── send-short-message
-│   ├── simple-auth
-│   └── system-db
 ├── backend # 后端资源目录
 │   ├── node_modules
 │   ├── package-lock.json
@@ -31,6 +22,7 @@ sidebar_position: 1
 ├── node_modules
 │   └── @ones
 │       ├── cli-plugin
+│       ├── cli-ability-template
 │       └── cli-plugin-template
 ├── package-lock.json
 ├── package.json

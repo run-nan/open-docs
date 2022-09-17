@@ -4,8 +4,6 @@ sidebar_position: 4
 
 # 在本地调试插件
 
-> 本地调试视频教程: [插件开发与调试](../sample-tutorial/videos/test.mdx)
-
 插件开发完成后，插件开发者可以在[本地打包插件](../start/create.md#插件打包)后于「插件管理」中上传安装。
 
 不过在插件正式发布之前，插件开发者可以通过 `op` 工具在本地对插件进行调试。
@@ -88,18 +86,19 @@ Usage: op invoke [options] <target>
 start the plugin project locally and invoke one or several life-cycles of the plugin
 
 Arguments:
-  target      specify the process (run, clear) or life-cycle (install, start, enable, disable, stop, uninstall) you want to invoke
+  target                     specify the process (run, clear) or life-cycle (install, start, enable, disable, stop, uninstall) you want to invoke
 
 Options:
-  -h, --help  display help for command
+  --webpack-logging <level>  specify the webpack logging level, default is 'error', support: 'none', 'error', 'warn', 'info', 'verbose'
+  -h, --help                 display help for command
 
 The target can point to the process or the life-cycles, the difference between them is that the process will contain multiple life-cycles
 
 Available processes:
   1. run:
-    When executed, the 'install' and 'start' and 'enable' life-cycle are called in turn
+    When executed, the 'install' and 'enable' and 'start' life-cycle are called in turn
   2. clear:
-    When executed, the 'disable' and 'stop' and 'uninstall' life-cycle are called in turn
+    When executed, the 'stop' and 'disable' and 'uninstall' life-cycle are called in turn
 ```
 
 完成登录与团队选择后，开发者可以通过在项目根目录执行 `npx op invoke run` 启动本地调试：

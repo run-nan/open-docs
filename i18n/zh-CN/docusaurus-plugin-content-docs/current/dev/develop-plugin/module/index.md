@@ -4,13 +4,30 @@
 
 ```
 npx op add module
-# Or
+# 或
 npx op add sub-module
+
+➜ npx op add module
+  ✔ Validating the input params
+  ✔ Validating project files exists
+  ✔ Generating initial answers by input params
+  ✔ Parsing plugin config content
+
+Pre-require tasks run successfully
+? Please select the module type you want to add: …
+ones:desk
+ones:manhour
+ones:performance
+ones:plan
+ones:pipeline
+ones:product
+ones:project
+ones:testcase
+ones:version
+ones:wiki
 ```
 
-![](../images/module.png)
-
-在列表中可以通过选择方向键选择插槽模块
+在列表中可以通过选择方向键或输入字符串搜索并选择插槽模块
 
 ## 插槽列表
 
