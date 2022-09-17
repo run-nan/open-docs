@@ -25,10 +25,8 @@ $ npm run start:zh
 ```
 
 ```
-docs：未发布的最新版本的英文文档
-versioned_docs/version-x：已发布的最新版本的英文文档
-i18n/zh-CN/docusaurus-plugin-content-docs/current：未发布的最新版本的中文文档
-i18n/zh-CN/docusaurus-plugin-content-docs/version-x：已发布的最新版本的中文文档
+docs：最新版本的英文文档
+i18n/zh-CN/docusaurus-plugin-content-docs/current：最新版本的中文文档
 ```
 
 ### Build
