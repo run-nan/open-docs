@@ -28,9 +28,10 @@ const config = {
           showLastUpdateTime: true,
           sidebarPath: require.resolve('./sidebars.js'),
           remarkPlugins: [[require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }]],
+          lastVersion: 'current',
           versions: {
             current: {
-              label: '🚧 Next',
+              label: '1.x',
               noIndex: true,
             },
           },
@@ -70,8 +71,14 @@ const config = {
           {
             type: 'docSidebar',
             position: 'left',
-            label: 'Guides',
-            sidebarId: 'dev',
+            label: 'Plugin Development',
+            sidebarId: 'pluginDev',
+          },
+          {
+            type: 'docSidebar',
+            position: 'left',
+            label: 'ONES Development',
+            sidebarId: 'onesDev',
           },
           {
             type: 'docSidebar',

@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 # Deploy
@@ -28,7 +28,7 @@ scp onesopenwiki user_name@192.168.100.10:/home/user_name
 ```
 
 Confirm permissions. The onesopenwiki tool must have executable permissions. The executing user (root as shown in the picture below) must have permissions such as docker commands.
-![](../develop-plugin/images/oneswiki_permission.png)
+![](../plugin-dev/guide/images/oneswiki_permission.png)
 
 #### Step By Step
 
@@ -58,9 +58,9 @@ Flags:
 • ones_release_tag parameter, required. The tag of the mirror ones-release used in the private deployment environment.
 
 View the tags of ones-release through deploy dir:
-![](../develop-plugin/images/ones-release-tag-01.png)
+![](../plugin-dev/guide/images/ones-release-tag-01.png)
 View by docker command:
-![](../develop-plugin/images/ones-release-tag-02.png)
+![](../plugin-dev/guide/images/ones-release-tag-02.png)
 • ones_release_out_tag parameter, optional. The tag of the new ones-release image after integrating the front-end tar package.
 
 Users can customize the format requirements: 1.0.yyyymmddxx, all numbers, and cannot have the same name as the existing ones-release image tag.
@@ -228,7 +228,7 @@ docker tag wiki-web:1.0.2022080201 onestest/wiki-web:v1.0.0
 docker push onestest/wiki-web:v1.0.0
 ```
 
-![](../develop-plugin/images/onesproject_public.png)
+![](../plugin-dev/guide/images/onesproject_public.png)
 
 • Push to private repository
 
@@ -263,7 +263,7 @@ docker push 192.168.1.100/project/wiki-web:v1.0.2
 ```
 
 Login [repository](https://192.168.1.100/) ，and view the image file just uploaded
-![](../develop-plugin/images/onesproject_private.png)
+![](../plugin-dev/guide/images/onesproject_private.png)
 
 ##### High availability deployment
 

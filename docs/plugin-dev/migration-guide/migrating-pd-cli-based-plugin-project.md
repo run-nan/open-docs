@@ -161,7 +161,7 @@ After understanding the file differences, developers can keep the initialized pr
 According to the project template and migrated resource files after `ONES CLI` initialization, developers can further consider:
 
 - Explore `OP CLI`
-  - [Add Front-end Slot](../develop-plugin/module/index.md)
-  - [Add Ability](../develop-plugin/ability.md)
-  - [Local debugging](../develop-plugin/local-debugging-plugin.md)
-  - [Debugging plugins through CI](../develop-plugin/ci-deploy-plugin.md)
+  - [Add Front-end Slot](../guide/module/index.md)
+  - [Add Ability](../guide/ability.md)
+  - [Local debugging](../guide/local-debugging-plugin.md)
+  - [Debugging plugins through CI](../guide/ci-deploy-plugin.md)

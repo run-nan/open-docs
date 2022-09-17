@@ -32,12 +32,13 @@ ones create -d
 ```
 Project has been created
 Project path: /Users/jeff/dev/test-plugin
+Project type: plugin
 Project name: test-plugin
 Project description:
 Project sub CLI: @ones/cli-plugin
 ```
 
-初始化完成后的插件工程目录结构详见[目录结构](../develop-plugin/plugin-project-directory-structure.md)一节
+初始化完成后的插件工程目录结构详见[目录结构](../guide/plugin-project-directory-structure.md)一节
 
 至此，我们已经完成插件工程的初始化操作
 
@@ -93,15 +94,15 @@ npx op packup
 npx op packup CustomPluginName
 ```
 
-:::caution note
+:::caution 注意
 
-In Windows TTY, if the custom plugin name contains Chinese characters when packaging the plugin, the command may not be executed correctly.
+在 Windows TTY 中，打包插件时自定义的插件名称中如果包含中文字符，指令可能不会被正确地执行。
 
-Developers can try to `packup` the plugin with the default name and manually rename the file after the `packup` is complete.
+开发者可以尝试使用默认名称进行插件打包，并在打包完成后手动对文件进行重命名。
 
 :::
 
-打包操作完成后可以在当前插件工程根目录中看到打包好的插件 `opk` 包，如 `test-plugin.opk`
+打包操作完成后可以在当前插件工程根目录中看到打包好的插件 `opk` 包
 
 ## 插件安装
 

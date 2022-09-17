@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 # 部署
@@ -28,7 +28,7 @@ scp onesopenwiki user_name@192.168.100.10:/home/user_name
 ```
 
 确认权限。onesopenwiki 工具要有可执行权限。执行的用户（如下图 root），要有 docker 命令等权限。
-![](../develop-plugin/images/oneswiki_permission.png)
+![](../plugin-dev/guide/images/oneswiki_permission.png)
 
 #### 部署步骤
 
@@ -58,9 +58,9 @@ Flags:
 • ones_release_tag 参数，必填项。私有部署环境所使用镜像 ones-release 的 tag。
 
 通过 deploy dir 查看 ones-release 的 tag。
-![](../develop-plugin/images/ones-release-tag-01.png)
+![](../plugin-dev/guide/images/ones-release-tag-01.png)
 通过 docker 命令查看
-![](../develop-plugin/images/ones-release-tag-02.png)
+![](../plugin-dev/guide/images/ones-release-tag-02.png)
 • ones_release_out_tag 参数，非必填项。集成前端 tar 包后的 ones-release 新镜像的 tag。
 
 用户可以自定义，格式要求：1.0.yyyymmddxx，均为数字，并且不能和现有的 ones-release 镜像 tag 重名。
@@ -230,7 +230,7 @@ docker tag wiki-web:1.0.2022080201 onestest/wiki-web:v1.0.0
 docker push onestest/wiki-web:v1.0.0
 ```
 
-![](../develop-plugin/images/onesproject_public.png)
+![](../plugin-dev/guide/images/onesproject_public.png)
 
 • 推送到私有仓库
 
@@ -265,7 +265,7 @@ docker push 192.168.1.100/项目/wiki-web:v1.0.2
 ```
 
 登录 [项目的仓库](https://192.168.1.100/) ，查看刚才上传的镜像文件
-![](../develop-plugin/images/onesproject_private.png)
+![](../plugin-dev/guide/images/onesproject_private.png)
 
 ##### 高可用部署
 

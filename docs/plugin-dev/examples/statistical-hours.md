@@ -1,8 +1,8 @@
 ---
-sidebar_position: 4
+sidebar_position: 3
 ---
 
-# 3. 分部门统计工时
+# 分部门统计工时
 
 > 插件示例地址：[分部门统计工时](https://gitlab.partner.ones.ai/example/manhourstatistics)
 

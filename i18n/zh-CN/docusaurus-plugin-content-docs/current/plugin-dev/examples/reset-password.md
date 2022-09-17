@@ -1,8 +1,8 @@
 ---
-sidebar_position: 3
+sidebar_position: 2
 ---
 
-# 2. 通过替换接口，替换重置密码链接
+# 通过替换接口，替换重置密码链接
 
 > 插件示例链接：[重置用户密码链接](https://gitlab.partner.ones.ai/example/restpassword)
 

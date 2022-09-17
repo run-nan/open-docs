@@ -30,5 +30,13 @@
   "item.label.Changelog": {
     "message": "更新日志",
     "description": "Navbar item with label Changelog"
+  },
+  "item.label.Plugin Development": {
+    "message": "插件开发",
+    "description": "Navbar item with label Plugin Development"
+  },
+  "item.label.ONES Development": {
+    "message": "ONES 开发",
+    "description": "Navbar item with label ONES Development"
   }
 }

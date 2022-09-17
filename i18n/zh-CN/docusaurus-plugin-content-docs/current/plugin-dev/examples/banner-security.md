@@ -1,8 +1,8 @@
 ---
-sidebar_position: 2
+sidebar_position: 1
 ---
 
-# 1. 系统 banner & security 弹窗
+# 系统 banner & security 弹窗
 
 > 插件示例链接：[系统 banner&security 弹窗](https://gitlab.partner.ones.ai/example/banneruploadtip)
 
