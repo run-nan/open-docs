@@ -78,6 +78,14 @@ sidebar_position: 3
 
 「我的工作台 - 筛选器」模块，用于替换「我的工作台」应用的「筛选器」模块
 
+### ones:workspace:filter:header:action:new
+
+「我的工作台 - 筛选器」组件的顶部操作模块，用于在「我的工作台 - 筛选器」组件的「视图管理」左侧追加新内容
+
+- 可访问的上下文数据：
+
+  - [useFilterInfo](../packages/store.md#useFilterInfo)
+
 ### ones:workspace:manhour
 
 「我的工作台 - 工时」模块，用于替换「我的工作台」应用的「工时」模块

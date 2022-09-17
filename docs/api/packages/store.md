@@ -56,6 +56,25 @@ interface DashboardInfoType {
 }
 ```
 
+### useFilterInfo `v0.3.0+` `ONES v3.10.26+` {#useFilterInfo}
+
+获取当前访问的筛选器视图信息
+
+#### Returns
+
+| 说明                     |       类型       |
+| :----------------------- | :--------------: |
+| 当前访问的筛选器视图信息 | `FilterInfoType` |
+
+#### Types
+
+```tsx
+interface FilterInfoType {
+  uuid: string // 当前筛选器视图的 UUID
+  name: string // 当前筛选器视图的名称
+}
+```
+
 ### useOrganizationInfo `v0.2.0+` `ONES v3.6.25+` {#useOrganizationInfo}
 
 获取当前组织信息
