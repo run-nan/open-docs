@@ -20,7 +20,7 @@ return {
     code: 502,
     reason: '插件服务不可用',
     type: 'error',
-    model: 'plugin.xxx',
+    model: '(plugin|Platform).xxx',
   },
 }
 ```
@@ -32,4 +32,4 @@ return {
 | code   | number           | 状态码                              |
 | reason | string           | 错误原因描述                        |
 | type   | warning \| error | 错误类型                            |
-| model  | plugin.xxx       | 错误的模型(以”plugin.“开头的返回值) |
+| model  | plugin.xxx \| Platform.xxx       | 错误的模型(以“plugin.”或者“Platform.”开头的返回值) |
