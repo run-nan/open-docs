@@ -246,3 +246,22 @@ interface UserInfoType {
   name: string // 当前用户的名称
 }
 ```
+
+### useProjectRoleInfo `v0.3.0+` `ONES v3.10.14+` {#useProjectRoleInfo}
+
+获取当前项目成员组件中，所选项目角色的信息
+
+#### Returns
+
+| 说明             |         类型          |
+| :--------------- | :-------------------: |
+| 所选项目角色信息 | `ProjectRoleInfoType` |
+
+#### Types
+
+```tsx
+interface ProjectRoleInfoType {
+  uuid: string // 当前选中角色的 UUID
+  name: string // 当前选中角色的名称
+}
+```

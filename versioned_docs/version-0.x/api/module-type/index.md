@@ -234,6 +234,12 @@ modules:
 
 「项目管理 - 成员」组件模块，用于替换「项目管理 - 成员」组件
 
+#### ones:project:component:member:action:new
+
+「项目管理 - 成员」组件顶部操作模块，用于在「项目管理 - 成员」组件的顶部操作区域左侧追加新内容
+
+![](images/ones-project-component-member-action-new.png)
+
 #### ones:project:component:todo
 
 「项目管理 - 待办事项」组件模块，用于替换「项目管理 - 待办事项」组件
