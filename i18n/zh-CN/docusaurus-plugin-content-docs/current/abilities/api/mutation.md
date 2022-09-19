@@ -29,7 +29,7 @@ abilities:
 
 ### 调用方法
 
-在 mutationeventhijack.ts 文件中可以调用 CheckManhourOp() 方法。 checkManhour 的事件类型会根据 return 中的 **code** 是否为 **200** 来判断此次事件的 check 是否成功；如果 check 失败，那么此次的操作将会失败
+在 mutationeventhijack.ts 文件中可以调用 CheckManhourOp() 方法。 checkManhour 的事件类型会根据返回状态码是否为 **200** 来判断此次事件的 check 是否成功。
 
 ```javascript
 import { Logger } from '@ones-op/node-logger'
@@ -51,4 +51,4 @@ export async function CheckManhourOp(request: any) {
 
 ### 示例解析
 
-根据上面的示例配置和实现，我们就完成了针对添加工时和更新工时这两个操作的前置拦截校验，你可以自己实现的校验逻辑来控制操作能否继续进行。比如你可以校验添加和更新的工时必须为整数
+根据上面的示例配置和实现，开发者可以完成针对添加工时和更新工时这两个操作的前置拦截校验，在后面的开发过程中，开发者可以根据实际需求来编写业务代码，比如校验添加和更新的工时必须为整数。

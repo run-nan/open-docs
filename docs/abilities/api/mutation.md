@@ -1,35 +1,35 @@
-# Mutation 事件劫持
+# Mutation Incident hijacking
 
-阅读之前最好先了解一下什么是 [Graphql Mutation](https://graphql.cn/learn/queries/) 。
+It's better to know what it is before reading. [Graphql Mutation](https://graphql.cn/learn/queries/) 。
 
-## 能力描述
+## Description of ability
 
-ONES 系统将许多数据都支持了使用 Graphql 操作。我们可以将每一次的 Graphql Mutation(_通过 Graphql 操作数据_) 看成是一个事件，**事件劫持 **这个能力就是可以对这些事件进行劫持，从而拓展出新的业务逻辑；
+The ONES system supports the use of Graphql operations for a lot of data. We can regard each `Graphql Mutation` (operate data\_ through Graphql) as an event. This ability is to hijack these events, thus expanding new business logic;
 
-能力会预先针对某些事件类型提供劫持的支持，这样插件就可以通过指定事件类型，劫持 Graphql Mutation 接口了；
+The ability will provide hijacking support for certain event types in advance, so that the plug-in can hijack the `Graphql Mutation` interface by specifying the event type;
 
-目前支持工时相关 Mutation 事件：addManhour,updateManhour。
+At present, support for working hours-related Mutation events：addManhour,updateManhour。
 
-## 能力使用
+## Ability use
 
-### 能力声明
+### Statement of Competency
 
-在 plugin.yaml 中添加
+Add to the file plugin.yaml
 
 ```yaml
 abilities:
-  - id: manhour-upsert-limit # 自定义的id
-    abilityType: item-mutation # 能力的类型表示，必须为这个
+  - id: manhour-upsert-limit # Customized id
+    abilityType: item-mutation # Types of Competencies
     function:
-      checkManhour: CheckManhourOp # checkManhour 为劫持的事件类型; CheckManhourOp 为自己实现的方法名称
+      checkManhour: CheckManhourOp # Method name of implementation
     setting:
-      prefix: check # 表示要执行的是 check 操作
-      operating: addManhour,updateManhour # 表示要check的是 addManhour 和 updateManhour 这两个事件
+      prefix: check
+      operating: addManhour,updateManhour #Check for relevant content before addManhour hours and updateManhour  hours.
 ```
 
-### 调用方法
+### Call the method
 
-在 mutationeventhijack.ts 文件中可以调用 CheckManhourOp() 方法。 checkManhour 的事件类型会根据 return 中的 **code** 是否为 **200** 来判断此次事件的 check 是否成功；如果 check 失败，那么此次的操作将会失败
+The event type will determine whether the result of the hijacking event is successful based on whether the status code in the return value is 200.
 
 ```javascript
 import { Logger } from '@ones-op/node-logger'
@@ -39,9 +39,9 @@ export async function CheckManhourOp(request: any) {
   Logger.info('[Plugin] CheckManhourOp =======', body)
   return {
     body: {
-      code: 200, // 注意这里的返回值是否为 200 会决定这次 check 是否成功
+      code: 200, // Note that whether the return value here is 200 will determine whether the check is successful.
       ResponseModel: 'Plugin.RegistrableDays',
-      Reason: 'Success', // 如果失败可以自定义原因
+      Reason: 'Success', // Can customize the reason for failure
       Type: null,
       Body: null,
     },
@@ -49,6 +49,6 @@ export async function CheckManhourOp(request: any) {
 }
 ```
 
-### 示例解析
+### Example analysis
 
-根据上面的示例配置和实现，我们就完成了针对添加工时和更新工时这两个操作的前置拦截校验，你可以自己实现的校验逻辑来控制操作能否继续进行。比如你可以校验添加和更新的工时必须为整数
+According to the above example configuration and implementation, we have completed the pre-interception check for adding hours and updating working hours. You can implement the verification logic by yourself to control whether the operation can continue. For example, you can verify that the hours added and updated must be integers.
