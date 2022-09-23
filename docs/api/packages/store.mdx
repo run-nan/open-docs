@@ -2,6 +2,9 @@
 sidebar_position: 3
 ---
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
 # @ones-op/store
 
 [![](https://npm.partner.ones.cn/badge/v/@ones-op/store.svg)](https://npm.partner.ones.cn/package/@ones-op/store)
@@ -37,7 +40,7 @@ function App() {
 
 ## API
 
-### useDashboardInfo `v0.2.0+` `ONES v3.6.25+` {#useDashboardInfo}
+### useDashboardInfo {#useDashboardInfo}
 
 获取当前访问的仪表盘信息
 
@@ -56,7 +59,10 @@ interface DashboardInfoType {
 }
 ```
 
-### useFilterInfo `v0.3.0+` `ONES v3.10.26+` {#useFilterInfo}
+### useFilterInfo {#useFilterInfo}
+
+- Added in: `v0.3.0`
+- ONES Requirement: `v3.10.26+`
 
 获取当前访问的筛选器视图信息
 
@@ -75,7 +81,7 @@ interface FilterInfoType {
 }
 ```
 
-### useOrganizationInfo `v0.2.0+` `ONES v3.6.25+` {#useOrganizationInfo}
+### useOrganizationInfo {#useOrganizationInfo}
 
 获取当前组织信息
 
@@ -94,7 +100,7 @@ interface OrganizationInfoType {
 }
 ```
 
-### usePipelineInfo `v0.2.0+` `ONES v3.6.25+` {#usePipelineInfo}
+### usePipelineInfo {#usePipelineInfo}
 
 获取当前流水线信息
 
@@ -113,7 +119,7 @@ interface PipelineInfoType {
 }
 ```
 
-### useProductInfo `v0.2.0+` `ONES v3.6.25+` {#useProductInfo}
+### useProductInfo {#useProductInfo}
 
 获取当前产品信息
 
@@ -132,7 +138,7 @@ interface ProductInfoType {
 }
 ```
 
-### useProgramInfo `v0.2.0+` `ONES v3.6.25+` {#useProgramInfo}
+### useProgramInfo {#useProgramInfo}
 
 获取当前项目集信息
 
@@ -151,7 +157,7 @@ interface ProgramInfoType {
 }
 ```
 
-### useProjectInfo `v0.2.0+` `ONES v3.6.25+` {#useProjectInfo}
+### useProjectInfo {#useProjectInfo}
 
 获取当前项目信息
 
@@ -170,7 +176,29 @@ interface ProjectInfoType {
 }
 ```
 
-### useTeamInfo `v0.2.0+` `ONES v3.6.25+` {#useTeamInfo}
+### useProjectRoleInfo {#useProjectRoleInfo}
+
+- Added in: `v0.3.0`
+- ONES Requirement: `v3.10.14+`
+
+获取当前项目成员组件中，所选项目角色的信息
+
+#### Returns
+
+| 说明             |         类型          |
+| :--------------- | :-------------------: |
+| 所选项目角色信息 | `ProjectRoleInfoType` |
+
+#### Types
+
+```tsx
+interface ProjectRoleInfoType {
+  uuid: string // 当前选中角色的 UUID
+  name: string // 当前选中角色的名称
+}
+```
+
+### useTeamInfo {#useTeamInfo}
 
 获取当前团队信息
 
@@ -189,7 +217,7 @@ interface TeamInfoType {
 }
 ```
 
-### useTestCaseLibraryInfo `v0.2.0+` `ONES v3.6.25+` {#useTestCaseLibraryInfo}
+### useTestCaseLibraryInfo {#useTestCaseLibraryInfo}
 
 获取当前访问的用例库的信息
 
@@ -208,7 +236,10 @@ interface TestCaseLibraryInfoType {
 }
 ```
 
-### useTestCaseListInfo `v0.2.5+` `ONES v3+` {#useTestCaseListInfo}
+### useTestCaseListInfo {#useTestCaseListInfo}
+
+- Added in: `v0.3.0`
+- ONES Requirement: `v3.10.0+`
 
 获取当前访问的用例库的用例列表信息
 
@@ -228,7 +259,7 @@ interface TestCaseListInfoType {
 }
 ```
 
-### useTestPlanInfo `v0.2.0+` `ONES v3.6.25+` {#useTestPlanInfo}
+### useTestPlanInfo {#useTestPlanInfo}
 
 获取当前测试计划信息
 
@@ -247,7 +278,7 @@ interface TestPlanInfoType {
 }
 ```
 
-### useUserInfo `v0.2.0+` `ONES v3.6.25+` {#useUserInfo}
+### useUserInfo {#useUserInfo}
 
 获取当前用户信息
 
@@ -263,24 +294,5 @@ interface TestPlanInfoType {
 interface UserInfoType {
   uuid: string // 当前用户的 UUID
   name: string // 当前用户的名称
-}
-```
-
-### useProjectRoleInfo `v0.3.0+` `ONES v3.10.14+` {#useProjectRoleInfo}
-
-获取当前项目成员组件中，所选项目角色的信息
-
-#### Returns
-
-| 说明             |         类型          |
-| :--------------- | :-------------------: |
-| 所选项目角色信息 | `ProjectRoleInfoType` |
-
-#### Types
-
-```tsx
-interface ProjectRoleInfoType {
-  uuid: string // 当前选中角色的 UUID
-  name: string // 当前选中角色的名称
 }
 ```

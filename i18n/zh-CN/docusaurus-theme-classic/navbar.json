@@ -3,10 +3,6 @@
     "message": "ONES 开放平台",
     "description": "The title in the navbar"
   },
-  "item.label.Guides": {
-    "message": "开发指南",
-    "description": "Navbar item with label Guides"
-  },
   "item.label.Abilities": {
     "message": "开放能力",
     "description": "Navbar item with label Abilities"
@@ -22,10 +18,6 @@
   "item.label.Introduction": {
     "message": "介绍",
     "description": "Navbar item with label Introduction"
-  },
-  "item.label.FAQ": {
-    "message": "常见问题",
-    "description": "Navbar item with label FAQ"
   },
   "item.label.Changelog": {
     "message": "更新日志",

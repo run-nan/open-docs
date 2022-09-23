@@ -105,12 +105,6 @@ const config = {
             sidebarId: 'intro',
           },
           {
-            type: 'docSidebar',
-            position: 'left',
-            label: 'FAQ',
-            sidebarId: 'faq',
-          },
-          {
             to: 'changelog',
             label: 'Changelog',
             position: 'left',

@@ -1,4 +1,4 @@
-# 常见问题
+# FAQ
 
 ## 实例协议非 https 时，本地调试插件的资源在 Chrome 94 或更高版本报 [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) 错误？
 
