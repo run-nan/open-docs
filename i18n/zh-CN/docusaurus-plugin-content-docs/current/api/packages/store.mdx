@@ -119,6 +119,37 @@ interface PipelineInfoType {
 }
 ```
 
+### usePluginInfo {#usePluginInfo}
+
+- 可用: `v0.3.0`
+- ONES 要求: `v3.10.26+`
+
+获取当前的插件信息
+
+#### Returns
+
+| 说明               |       类型       |
+| :----------------- | :--------------: |
+| 获取当前的插件信息 | `PluginInfoType` |
+
+#### Types
+
+```tsx
+interface PluginInfoType {
+  appID: string // 插件 ID
+  name: string // 插件名称
+  description: string // 插件描述
+  version: string // 插件版本
+  /**
+   * 插件状态
+   * 1：启用
+   * 2：禁用
+   */
+  status: 1 | 2
+  instanceID: string // 实例 ID
+}
+```
+
 ### useProductInfo {#useProductInfo}
 
 获取当前产品信息
