@@ -16,7 +16,7 @@ ${location.protocol}://${location.host}/plugin/${组织id}/${团队id}/${service
 
 :::caution
 
-该插槽脱离系统独立访问，所以无法使用 [`@ones-op/store`](../packages/store.md) 获取系统数据
+因为该插槽脱离系统独立访问，所以无法使用 [`@ones-op/store`](../packages/store.md) 获取系统数据
 
 :::
 
