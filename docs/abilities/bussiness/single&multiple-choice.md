@@ -19,15 +19,15 @@ sidebar_position: 2
 
 ### 能力声明
 
-在 plugin.yaml 中声明使用该能力
+在 plugin.yaml 中添加点击单/多选下拉框时，显示内容接口的对应方法，
 
 ```yaml
-abilities:
-  - id: optionS
-    name: 插件承载脚本属性-单选/多选
-    abilityType: PluginFieldValue
-    function:
-      calcFieldValue: GetOptions
+apis:
+  - type: addition
+    methods:
+      - POST
+    url: /scriptFieldSearch
+    function: GetOptions
 ```
 
 在"backend/index.js"的 "install()" 函数中添加创建脚本属性的方法，在插件安装过程中，就会创建了该脚本属性。
