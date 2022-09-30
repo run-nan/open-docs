@@ -48,7 +48,7 @@ Usage:
   onesopenwiki rebuild [flags]
 
 Flags:
-      --ones_release_out_tag string   [option]Tag of output ones-release image, format：1.0.yyyymmddxx
+      --ones_release_out_tag string   [option]Tag of output ones-release image, format：9.0.yyyymmddxx
       --ones_release_tag string       [require]Tag of input ones-release image
       --wiki_web_tar string           [require]Tar package of ONES.AI Wiki Web，suffix:.tar.gz
 ```
@@ -63,7 +63,7 @@ View by docker command:
 ![](../plugin-dev/guide/images/ones-release-tag-02.png)
 • ones_release_out_tag parameter, optional. The tag of the new ones-release image after integrating the front-end tar package.
 
-Users can customize the format requirements: 1.0.yyyymmddxx, all numbers, and cannot have the same name as the existing ones-release image tag.
+Users can customize the format requirements: 9.0.yyyymmddxx, all numbers, and cannot have the same name as the existing ones-release image tag.
 
 For Example :
 
@@ -75,28 +75,28 @@ log: /tmp/ones_open_wiki.log
 cmd.checkRedeploy:100 enter
 input params:{OnesReleaseTag:0.1.14597 WikiWebTar:ones-wiki-web.tar.gz OnesReleaseOutTag: backReleaseOutTag:}
 Auto generate params...
-generate params:{OnesReleaseTag:0.1.14597 WikiWebTar:ones-wiki-web.tar.gz OnesReleaseOutTag:1.0.2022081100 backReleaseOutTag:1.0.2022081101}
+generate params:{OnesReleaseTag:0.1.14597 WikiWebTar:ones-wiki-web.tar.gz OnesReleaseOutTag:9.0.2022081100 backReleaseOutTag:9.0.2022081101}
 cmd.checkRedeploy:152 success
 workdir:/tmp/ones3003415399
 cmd.renderBackDockerfile:155 enter
 cmd.renderBackDockerfile:164 success
 cmd.buildBackImage:185 enter
-Backup image ones-release:0.1.14597 to ones-release:1.0.2022081101
+Backup image ones-release:0.1.14597 to ones-release:9.0.2022081101
 cmd.buildBackImage:197 success
 cmd.renderRedeployDockerfile:168 enter
 cmd.renderRedeployDockerfile:181 success
 cmd.buildRedeployImage:201 enter
-Building image ones-release:1.0.2022081100
+Building image ones-release:9.0.2022081100
 Building image will take several minutes,Please wait a moment...
 cmd.buildRedeployImage:213 success
 Please continue to execute the following command to deploy the new image:
-	docker images | grep 1.0.2022081100
+	docker images | grep 9.0.2022081100
 	enter deployment path(cd /data/ones/...)
-	touch 1.0.2022081100.tar && sh upgrade.sh && rm -rf 1.0.2022081100.tar
+	touch 9.0.2022081100.tar && sh upgrade.sh && rm -rf 9.0.2022081100.tar
 To rollback the deployment image, execute the following command:
-	docker images | grep 1.0.2022081101
+	docker images | grep 9.0.2022081101
 	enter deployment path(cd /data/ones/...)
-	touch 1.0.2022081101.tar && sh upgrade.sh && rm -rf 1.0.2022081101.tar
+	touch 9.0.2022081101.tar && sh upgrade.sh && rm -rf 9.0.2022081101.tar
 ===================================================================================================================
 ```
 
@@ -110,19 +110,19 @@ For Example：
 
 ```bash
 #示例
-[root@auto-test ~]# docker images | grep 1.0.2022080102
-ones-release                     1.0.2022080102              269507c43b62   5 minutes ago   11.6GB
+[root@auto-test ~]# docker images | grep 9.0.2022080102
+ones-release                     9.0.2022080102              269507c43b62   5 minutes ago   11.6GB
 [root@auto-test ~]# cd /data/ones/pkg/69test_8fa28d
 [root@auto-test 69test_8fa28d]# ls
 ones-test-0.1.14476  ones-test-0.1.14476.tar.gz
 [root@auto-test 69test_8fa28d]# cd ones-test-0.1.14476
 [root@auto-test ones-test-0.1.14476]# ls *.sh
 env.sh  ones-deploy.sh  private_check.sh  upgrade.sh
-[root@auto-test ones-test-0.1.14476]# touch 1.0.2022080102.tar && sh upgrade.sh && rm -rf 1.0.2022080102.tar
+[root@auto-test ones-test-0.1.14476]# touch 9.0.2022080102.tar && sh upgrade.sh && rm -rf 9.0.2022080102.tar
 Check version
  Umask is 0022, is ok
 Disk space is ok
-Local version: 1.0.2022080101  online version: 1.0.2022080102
+Local version: 9.0.2022080101  online version: 9.0.2022080102
 New version found, confirm upgrade: Y/N
 y
 Start upgrade...
@@ -142,9 +142,9 @@ docker ps |grep 443
 If you need to roll back to the previous environment, follow the prompts in step 2 or view the log content of /tmp/ones_open.log.
 
 ```bash
-docker images | grep 1.0.2022081101
+docker images | grep 9.0.2022081101
 enter deployment path(cd /data/ones/...)
-touch 1.0.2022081101.tar && sh upgrade.sh && rm -rf 1.0.2022081101.tar
+touch 9.0.2022081101.tar && sh upgrade.sh && rm -rf 9.0.2022081101.tar
 ```
 
 ### High Availability Environment
@@ -178,7 +178,7 @@ Usage:
   onesopenwiki webimage [flags]
 
 Flags:
-      --wiki_web_out_tag string   [option]Tag of output wiki_web image, format：1.0.yyyymmddxx
+      --wiki_web_out_tag string   [option]Tag of output wiki_web image, format：9.0.yyyymmddxx
       --wiki_web_tar string       [require]Tar package of ONES.AI Wiki Web，suffix:.tar.gz
 ```
 
@@ -188,7 +188,7 @@ You can refer to Private Deployment get wiki_web_tar param.
 
 • wiki_web_out_tag parameter, optional. According to the front-end tar package, the tag of the mirror wiki-web is generated.
 
-Users can customize the format requirements: 1.0.yyyymmddxx, all numbers, and cannot have the same name as the existing wiki-web mirror tag.
+Users can customize the format requirements: 9.0.yyyymmddxx, all numbers, and cannot have the same name as the existing wiki-web mirror tag.
 
 • Executing this command will generate a local image file, which can be viewed through docker images |grep xxx
 
@@ -202,17 +202,17 @@ log: /tmp/ones_open_wiki.log
 cmd.checkWebImage:51 enter
 input params:{WikiWebTar:ones-wiki-web.tar.gz WikiWebOutTag:}
 Auto generate params...
-generate params:{WikiWebTar:ones-wiki-web.tar.gz WikiWebOutTag:1.0.2022081100}
+generate params:{WikiWebTar:ones-wiki-web.tar.gz WikiWebOutTag:9.0.2022081100}
 cmd.checkWebImage:91  success
 workdir:/tmp/ones685568270
 cmd.renderWebImageDockerfile:126 enter
 cmd.renderWebImageDockerfile:138 success
 cmd.buildWebImageImage:142 enter
-Building image wiki-web:1.0.2022081100
+Building image wiki-web:9.0.2022081100
 Building image will take several minutes,Please wait a moment...
 cmd.buildWebImageImage:154 success
 Show the generated image:
-	docker images | grep 1.0.2022081100
+	docker images | grep 9.0.2022081100
 ===================================================================================================================
 
 ```
@@ -224,8 +224,8 @@ If the image is hosted in the public repository Dockerhub, then refer to "method
 • Push to public repository
 
 ```bash
-docker tag wiki-web:1.0.2022080201 onestest/wiki-web:v1.0.0
-docker push onestest/wiki-web:v1.0.0
+docker tag wiki-web:9.0.2022080201 onestest/wiki-web:v9.0.0
+docker push onestest/wiki-web:v9.0.0
 ```
 
 ![](../plugin-dev/guide/images/onesproject_public.png)
@@ -258,8 +258,8 @@ docker login 192.168.1.100 -u xxx -p xxx
 • Push to private repository
 
 ```bash
-docker tag wiki-web:1.0.2022080201  192.168.1.100/project/wiki-web:v1.0.2
-docker push 192.168.1.100/project/wiki-web:v1.0.2
+docker tag wiki-web:9.0.2022080201  192.168.1.100/project/wiki-web:v9.0.2
+docker push 192.168.1.100/project/wiki-web:v9.0.2
 ```
 
 Login [repository](https://192.168.1.100/) ，and view the image file just uploaded
@@ -274,7 +274,7 @@ Log in to the k8s operation machine and perform the following steps to implement
 
 #Modify config/private.yaml. Add or modify wikiWebImage
 
-# wikiWebImage: 192.168.1.100/project/wiki-web:v1.0.2
+# wikiWebImage: 192.168.1.100/project/wiki-web:v9.0.2
 vi /data/ones/ones-ai-k8s/config/private.yaml
 # Redeploy the high availability environment
 make setup-ones
