@@ -78,6 +78,16 @@ modules:
 
 [Trigger 事件](../../abilities/frontend/trigger/index.md)，可以帮你在 ONES 的某些操作（Action）触发时，对操作的数据进行修改或者取消操作。
 
+## ones:global:progress:detail
+
+通过进度管理器能力创建的任务，可以对该任务的详情弹窗内容进行替换。
+
+![](images/ones-global-progress-detail.png)
+
+- 可访问的上下文数据：
+
+  - [useProgressJobInfo](../packages/store.md#useProgressJobInfo)
+
 ## ones:layout:sider
 
 系统侧边栏菜单模块，用于隐藏侧边栏菜单功能

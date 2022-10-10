@@ -327,3 +327,44 @@ interface UserInfoType {
   name: string // 当前用户的名称
 }
 ```
+
+### useProgressJobInfo {#useProgressJobInfo}
+
+- Added in: `v0.3.1`
+- ONES Requirement: `v3.11.0+`
+
+在进度管理器任务详情弹窗中，获取当前任务的信息
+
+#### Returns
+
+| 说明           |            类型            |
+| :------------- | :------------------------: |
+| 当前任务的信息 | `ProgressJobInfoStateType` |
+
+#### Types
+
+```tsx
+enum ProgressJobType {
+  PluginDataSync = 'plugin_data_sync',
+}
+
+enum ProgressJobStatus {
+  DONE = 'done',
+  FAIL = 'fail',
+}
+
+interface ProgressJobInfoStateType {
+  appID: string // 当前插件的appID
+  moduleID: string // 当前任务绑定的插槽模块id
+  jobType: ProgressJobType // 当前任务的类型
+  jobStatus: ProgressJobStatus // 任务的状态
+  successfulCount: number // 任务执行成功的个数
+  unprocessedCount: number // 任务执行中的个数
+  unsuccessfulCount: number // 任务执行失败的个数
+  // 能力使用done时传入的payload参数
+  payload: {
+    data: string
+    filePath: string
+  }
+}
+```
