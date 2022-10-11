@@ -86,7 +86,7 @@ modules:
 
 - 可访问的上下文数据：
 
-  - [useProgressJobInfo](../packages/store.md#useProgressJobInfo)
+  - [useProgressJobInfo](../packages/store.mdx#useProgressJobInfo)
 
 ## ones:layout:sider
 

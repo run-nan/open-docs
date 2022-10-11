@@ -31,7 +31,6 @@ module.exports = {
       },
     ],
     'no-constant-binary-expression': 'error',
-    'no-underscore-dangle': 'error',
     'no-use-before-define': ['error', {
       functions: false
     }],
@@ -57,7 +56,10 @@ module.exports = {
     ],
     '@typescript-eslint/consistent-type-imports': ['error'],
     '@typescript-eslint/member-ordering': ['warn'],
-    '@typescript-eslint/no-redundant-type-constituents': ['error'],
+    '@typescript-eslint/no-empty-function': ['error', {
+      allow: ['arrowFunctions']
+    }],
+    '@typescript-eslint/no-redundant-type-constituents': ['warn'],
     '@typescript-eslint/no-this-alias': 'off',
     '@typescript-eslint/prefer-optional-chain': ['error'],
   },
