@@ -1,6 +1,6 @@
 - [testcase report model 说明](#testcase_report-model-说明)
 - [API 说明](#api-说明)
-  - [1. 查看测试报告](#1-修改关联项目配置)
+  - [1. 查看测试报告](#1-查看测试报告)
 
 ## testcase_report model 说明
 
@@ -18,7 +18,7 @@
 
 ## API 说明
 
-### 1. 修改关联项目配置
+### 1. 查看测试报告
 
 #### URL
 

@@ -222,3 +222,7 @@ abilities:
 ![image](docking4.jpg)
 
 ![image](docking5.jpg)
+
+### 插件示例
+
+[Account Example](../../plugin-dev/examples/Account-SSO.md)

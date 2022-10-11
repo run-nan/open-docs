@@ -12,7 +12,7 @@
 
 ⚠️ 注意：使用插件三方发送消息能力前提
 
-1.实现登录功能/同步功能，若只实现同步功能，需要开启email自定绑定用户功能，这样系统才支持userUUID跟thirdPartyUUID的对应关系。
+1.实现登录功能/同步功能，若只实现同步功能，需要开启 email 自定绑定用户功能，这样系统才支持 userUUID 跟 thirdPartyUUID 的对应关系。
 
 ![image](docking6.jpg)
 
@@ -232,8 +232,13 @@ abilities:
 ![image](docking5.jpg)
 
 ##### 4.如何配置发送信息
+
 在项目管理设置-工作项类型-工作项通知中配置
 ![img.png](docking7.jpg)
 
 再结合需求场景配置发送通知的方式
 ![img.png](docking8.jpg)
+
+### 插件示例
+
+[Account Example](../../plugin-dev/examples/Account-SSO.md)
