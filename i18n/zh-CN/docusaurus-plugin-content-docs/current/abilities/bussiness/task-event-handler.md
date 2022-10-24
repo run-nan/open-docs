@@ -37,11 +37,11 @@
 
 ##### 使用步骤
 
-1. 使用 op 工具添加能力
+1. 使用 op 工具添加能力，选择 task-event-handler；
 
 ![img](task-event-handler-op.jpg)
 
-包含以下文件变更：
+插件项目结构变化：
 
 - 文件修改：config/plugin.yaml 上新增了能力配置
 
@@ -49,9 +49,7 @@
 
 2. 配置 config/plugin.yaml
 
-在能力 config 下，配置插件能力要关注的“工作项类型”和“工作项属性”
-
-支持配置多个“工作项类型”和“工作项属性”，以**“中英文逗号”**分隔
+在 abilities 选择对应的工作项处理器能力配置，开发者需要关注的“工作项类型”和“工作项属性”，支持配置多个“工作项类型”和“工作项属性”，以**“中英文逗号”**分隔
 
 ```yaml
 abilities:
@@ -83,20 +81,50 @@ abilities:
 
 - taskActionDone ：落盘后调用
 
-在两个的方法里新增对应的处理逻辑
+定义返回结构体变量，
+
+```tsx
+type taskPreResponse = {
+  statusCode: number,
+  body: {
+    code: number,
+    body: {
+      is_follow: boolean,
+      is_reject: boolean,
+      reject_reason: string,
+      task_events: any,
+      other_data: string,
+    },
+  },
+```
+
+在两个的方法里新增对应的处理逻辑，
+
+taskPreAction，
+
+- 忽略：设置返回的"is_follow = false"
+- 拒绝：设置返回的"is_follow = true" && "is_reject = true"
+- 接受：设置返回的"is_follow = true" && "is_reject = false"
+- 修改：设置返回的"is_follow = true" && "is_reject = false" 并对"event"对象添加属性修改，如下所示：填写 field_name 和 value 即可
 
 ```typescript
 // 落盘前调用，支持添加属性修改
 export async function taskPreAction(request: PluginRequest): Promise<PluginResponse> {
-  var body = request?.body as any
-  var userUUID = body.user_uuid
-  var lang = body.lang
-  var events = body.task_events
-  var action = events[0].action
+  const body = request?.body as any
+  const userUUID = body.user_uuid
+  const lang = body.lang
+  const events = body.task_events
+  const action = events[0].action
   Logger.info('nEvents', events)
   Logger.info('userID:', userUUID)
   Logger.info('lang', lang)
   Logger.info('action', action)
+  // 添加属性修改
+  const aField = {
+    field_name: '标题',
+    value: '测试添加属性修改标题',
+  }
+  events[0].task_fields.push(aField)
   return {
     statusCode: 200,
     body: {
@@ -104,13 +132,18 @@ export async function taskPreAction(request: PluginRequest): Promise<PluginRespo
       body: {
         is_follow: true,
         is_reject: false,
-        reject_reason: '拒绝理由',
+        reject_reason: '',
         task_events: events,
         other_data: '其他数据',
       },
     },
   }
 }
+```
+
+taskActionDone，
+
+```tsx
 // 落盘后调用
 export async function taskActionDone(request: PluginRequest): Promise<PluginResponse> {
   var body = request?.body as any
@@ -132,45 +165,6 @@ export async function taskActionDone(request: PluginRequest): Promise<PluginResp
   }
 }
 ```
-
-4. taskPreAction 操作举例
-
-- 忽略：设置返回的“is_follow = false”
-
-- 拒绝：设置返回的“is_follow = true” && “is_reject = true”
-
-- 接受：设置返回的“is_follow = true” && “is_reject = false”
-
-- 修改：设置返回的“is_follow = true” && “is_reject = false” 并对“event”对象添加属性修改；
-
-如下所示：填写 field_name 和 value 即可
-
-```typescript
-var body = request?.body as any
-var events = body.task_events
-var action = events[0].action
-// 添加属性修改
-var aField = {
-  field_name: '标题',
-  value: '哈哈哈-插件',
-}
-events[0].task_fields.push(aField)
-return {
-  statusCode: 200,
-  body: {
-    code: 200,
-    body: {
-      is_follow: true,
-      is_reject: false,
-      reject_reason: '',
-      task_events: events,
-      other_data: '其他数据',
-    },
-  },
-}
-```
-
-## 结构定义
 
 1. taskPreAction 入参
 
@@ -224,6 +218,72 @@ return {
 | field_name_map   | map[string]string | N        | 属性各个语言版本的 Name 比如： <br />en: 'Assignee/Owner' <br />origin: '{{field.assign}}' <br />zh: '负责人' |
 | field_value_type | string            | N        | 字段值类型 0-未知/1-int/2-string/3-[]string                                                                   |
 | value            | interface         | N        | 字段值                                                                                                        |
+
+## 能力示例
+
+示例地址
+
+[Task-Event-Handler](https://gitlab.partner.ones.ai/example/task-event-handler)
+
+示例内容
+
+- 不允许需求的负责人被修改
+- 允许任务的负责人被修改，并且修改任务标题
+
+示例代码，具体代码实现可以根据示例地址下载后查看，
+
+```tsx
+let res: taskPreResponse = {
+  statusCode: 200,
+  body: {
+    code: 200,
+    body: {
+      is_follow: true,
+      is_reject: false,
+      reject_reason: '拒绝理由',
+      task_events: events,
+      other_data: '其他数据',
+    },
+  },
+}
+
+//如果是'需求'修改负责人，则拒绝修改
+const is_reject_need = await reject_task(events[0], events[0]?.task_fields)
+if (is_reject_need == false) {
+  res.body.body.is_follow = true
+  res.body.body.is_reject = true
+  res.body.body.reject_reason = '不允许修改需求负责人！'
+  return res
+}
+
+//如果是'任务'修改负责人，则允许修改，并添加修改标题属性
+const is_reject_task = await reject_task(events[0], events[0]?.task_fields)
+if (is_reject_task) {
+  Logger.info('允许修改...')
+  res.body.body.is_follow = true
+  res.body.body.is_reject = false //允许修改
+
+  // 添加属性修改
+  const addField = {
+    field_name: '标题',
+    value: '测试修改标题-title',
+  }
+  res.body.body.task_events[0].task_fields.push(addField)
+  Logger.info('task_fields:', res.body.body.task_events[0].task_fields)
+  Logger.info('Pre res:', res)
+}
+return res
+```
+
+插件安装到实例环境后，在项目管理中点击修改需求的负责人，提示"不可修改负责人"，
+
+![img](not_allowed_to_modify.png)
+
+在项目管理中点击修改任务的负责人或截止日期，发现负责人修改成功，并且标题内容显示为"测试修改标题-title"，
+
+![img](change_date.png)
+
+![img](change_title.png)
 
 ## 能力注意事项
 

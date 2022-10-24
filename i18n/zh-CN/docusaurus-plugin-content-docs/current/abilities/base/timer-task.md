@@ -45,7 +45,7 @@ abilities:
         required: true
 ```
 
-在 `backend/index.js` 中声明定时任务调用方法：
+在 `backend/src/index.ts` 中声明定时任务调用方法：
 
 ```typescript
 // 固定间隔时间任务

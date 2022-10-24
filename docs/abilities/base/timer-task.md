@@ -45,7 +45,7 @@ abilities:
         required: true
 ```
 
-Declare scheduled task call methods in `backend/index.js`:
+Declare scheduled task call methods in `backend/src/index.ts`:
 
 ```typescript
 // fixed interval time task
