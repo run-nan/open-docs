@@ -35,7 +35,10 @@ scp onesopenwiki user_name@192.168.100.10:/home/user_name
 ##### 执行 onesopenwiki 工具，生成 ones-release 新镜像
 
 ```bash
-./onesopenwiki rebuild --wiki_web_tar=xxx --ones_release_tag=xxx --ones_release_out_tag=xxx
+cd ${部署包目录下}
+./onesopenwiki rebuild --wiki_web_tar=xxx --ones_release_tag=xxx --ones_release_out_tag=x.x.x.sp-x.x.x
+or
+./onesopenwiki rebuild --wiki_web_tar=xxx --ones_release_tag=xxx --ones_release_out_tag_major_version=x.x
 ```
 
 • 您可以通过执行命令 ./onesopenwiki rebuild --help 获取帮助信息。
@@ -48,9 +51,10 @@ Usage:
   onesopenwiki rebuild [flags]
 
 Flags:
-      --ones_release_out_tag string   [option]Tag of output ones-release image, format：9.0.yyyymmddxx
+      --ones_release_out_tag string   [option]Tag of output ones-release image, format：${currentVersion}.sp-${ones_release_out_tag_major_version}.${number}
       --ones_release_tag string       [require]Tag of input ones-release image
       --wiki_web_tar string           [require]Tar package of ONES.AI Wiki Web，suffix:.tar.gz
+      --ones_release_out_tag_major_version string [require]Tag of output ones-release image tag major_version format: x.x
 ```
 
 • wiki_web_tar，必填项，后缀格式要求：.tar.gz。该参数指定前端定制 tar 包。
@@ -63,41 +67,41 @@ Flags:
 ![](../plugin-dev/guide/images/ones-release-tag-02.png)
 • ones_release_out_tag 参数，非必填项。集成前端 tar 包后的 ones-release 新镜像的 tag。
 
-用户可以自定义，格式要求：9.0.yyyymmddxx，均为数字，并且不能和现有的 ones-release 镜像 tag 重名。
+用户可以自定义，格式要求：${当前版本}.sp-${自定义版本}(3.6.6.sp-1.0.0|3.6.7.8.sp-1.0.1)，并且不能和现有的 ones-release 镜像 tag 重名。
 
 执行日志如下：
 
 ```bash
 #示例
-[root@auto-test zhangyuan]# ./onesopenwiki rebuild --wiki_web_tar=ones-wiki-web.tar.gz  --ones_release_tag=0.1.14597
+[root@auto-test ones-test-0.1.15420]# ./onesopenwiki rebuild --wiki_web_tar=ones-wiki-web.tar.gz  --ones_release_tag=0.1.15420 --ones_release_out_tag_major_version=1.0
 ===================================================================================================================
-2022-09-11 10:44:47
-log: /tmp/ones_open_wiki.log
-cmd.checkRedeploy:100 enter
-input params:{OnesReleaseTag:0.1.14597 WikiWebTar:ones-wiki-web.tar.gz OnesReleaseOutTag: backReleaseOutTag:}
+2022-11-11 12:06:45
+log: /tmp/ones_open_web.log
+cmd.checkRedeploy:101 enter
+input params:{OnesReleaseTag:0.1.15420 ProjectWebTar:ones-wiki-web.tar.gz OnesReleaseOutTag: }
 Auto generate params...
-generate params:{OnesReleaseTag:0.1.14597 WikiWebTar:ones-wiki-web.tar.gz OnesReleaseOutTag:9.0.2022081100 backReleaseOutTag:9.0.2022081101}
-cmd.checkRedeploy:152 success
-workdir:/tmp/ones3003415399
-cmd.renderBackDockerfile:155 enter
-cmd.renderBackDockerfile:164 success
-cmd.buildBackImage:185 enter
-Backup image ones-release:0.1.14597 to ones-release:9.0.2022081101
-cmd.buildBackImage:197 success
-cmd.renderRedeployDockerfile:168 enter
-cmd.renderRedeployDockerfile:181 success
-cmd.buildRedeployImage:201 enter
-Building image ones-release:9.0.2022081100
+generate params:{OnesReleaseTag:0.1.15420 ProjectWebTar:ones-wiki-web.tar.gz OnesReleaseOutTag: OnesReleaseOutTagMajorVersion:1.0 }
+cmd.checkRedeploy:153 success
+workdir:/tmp/ones1336995671
+cmd.renderRedeployDockerfile:157 enter
+cmd.renderRedeployDockerfile:170 success
+cmd.buildRedeployImage:174 enter
+Building image ones-release:0.1.15420.sp-1.0.1
 Building image will take several minutes,Please wait a moment...
-cmd.buildRedeployImage:213 success
+cmd.buildRedeployImage:186 success
 Please continue to execute the following command to deploy the new image:
-	docker images | grep 9.0.2022081100
-	enter deployment path(cd /data/ones/...)
-	touch 9.0.2022081100.tar && sh upgrade.sh && rm -rf 9.0.2022081100.tar
+        docker images | grep 0.1.15420.sp-1.0.1
+        enter deployment path(cd /data/ones/...)
+        rm -rf *.sp-*.tar && touch 0.1.15420.sp-1.0.1.tar && sh upgrade.sh && rm -rf 0.1.15420.sp-1.0.1.tar
 To rollback the deployment image, execute the following command:
-	docker images | grep 9.0.2022081101
-	enter deployment path(cd /data/ones/...)
-	touch 9.0.2022081101.tar && sh upgrade.sh && rm -rf 9.0.2022081101.tar
+        enter deployment path(cd /data/ones/...)
+        view the port (config.json 'port'|'https_port' field)
+		docker ps | grep (port) //get CONTAINER ID
+        docker rm -f (CONTAINER ID)
+        view the volume name (config.json 'volume' field)
+        docker volume rm (volume name), may be wrong please check the documentation(https://docs.partner.ones.cn/) or contact us.
+        ./onesconfigure regain --p backup package(.tar)
+If you encounter any problems, please check the documentation(https://docs.partner.ones.cn/) or contact us.
 ===================================================================================================================
 ```
 
@@ -111,23 +115,44 @@ To rollback the deployment image, execute the following command:
 
 ```bash
 #示例
-[root@auto-test ~]# docker images | grep 9.0.2022080102
-ones-release                     9.0.2022080102              269507c43b62   5 minutes ago   11.6GB
+[root@auto-test ~]# docker images | grep 0.1.15420.sp-1.0.1
+ones-release                     0.1.15420.sp-1.0.1            269507c43b62   5 minutes ago   11.6GB
 [root@auto-test ~]# cd /data/ones/pkg/69test_8fa28d
 [root@auto-test 69test_8fa28d]# ls
 ones-test-0.1.14476  ones-test-0.1.14476.tar.gz
 [root@auto-test 69test_8fa28d]# cd ones-test-0.1.14476
 [root@auto-test ones-test-0.1.14476]# ls *.sh
 env.sh  ones-deploy.sh  private_check.sh  upgrade.sh
-[root@auto-test ones-test-0.1.14476]# touch 9.0.2022080102.tar && sh upgrade.sh && rm -rf 9.0.2022080102.tar
+[root@auto-test ones-test-0.1.14476]# rm -rf *.sp-*.tar && touch 0.1.15420.sp-1.0.1.tar && sh upgrade.sh && rm -rf 0.1.15420.sp-1.0.1.tar
 Check version
  Umask is 0022, is ok
 Disk space is ok
-Local version: 9.0.2022080101  online version: 9.0.2022080102
+1
+1
+1
+1
+Local version: 0.1.15420  online version: 0.1.15420.sp-1.0.1
 New version found, confirm upgrade: Y/N
 y
 Start upgrade...
+[INFO] 2022/10/11 12:07:50 image exists [ones-release:0.1.15420.sp-1.0.1]
+[INFO] 2022/10/11 12:07:54 get options from volume
+[INFO] 2022/10/11 12:07:55 upgrade options
+[INFO] 2022/10/11 12:07:55  check param enable_host_name_leak !!!!!!!!!!!
+[INFO] 2022/10/11 12:07:55  end check param enable_host_name_leak !!!!!!!!!!!
+[WARN] 2022/10/11 12:07:55 You are going to update from version 0.1.15420 to version 0.1.15420.sp-1.0.1 .
+In version 3.6 you need to export audit log.
+Have you export the audit log?(enter Y/N)
+n
+Are you sure update ONES?(enter Y/N)
+y
+[INFO] 2022/10/11 12:07:57 stop openresty, ones-ai-audit-log-sync, ones-ai-binlog-event-sync, ones-ai-project-api, ones-ai-wiki-api...
+[INFO] 2022/10/11 12:07:58 backup audit-log-sync offset ...
+[INFO] 2022/10/11 12:07:58 Backup volume data
+[INFO] 2022/10/11 12:08:17 waiting for mysql up ...
 ```
+
+![](../plugin-dev/guide/images/deploy.png)
 
 ##### 验证效果
 
@@ -143,10 +168,16 @@ docker ps |grep 443
 如果需要回退到之前的环境，那么根据步骤 2 的提示或者查看/tmp/ones_open.log 日志内容，执行相关命令来实现。
 
 ```bash
-docker images | grep 9.0.2022081101
-enter deployment path(cd /data/ones/...)
-touch 9.0.2022081101.tar && sh upgrade.sh && rm -rf 9.0.2022081101.tar
+1、进入到部署包目录下
+2、查看部署环境端口号port // cat config.json | grep port
+3、执行 docker ps | grep (port) //获取CONTAINER ID
+4、执行 docker rm -f (CONTAINER ID) //删除容器
+5、查看部署环境容器的volume name // cat config.json | grep volume
+6、执行 docker volume rm (volume name) //删除容器卷 该步骤可能会报错，请查看下面的操作示例图
+7、执行 ./onesconfigure regain --p (backup package) //backup package:部署包目录下的备份包 回滚操作
 ```
+
+![](../plugin-dev/guide/images/rollback.png)
 
 ### 高可用环境
 

@@ -35,7 +35,10 @@ Confirm permissions. The onesopenwiki tool must have executable permissions. The
 ##### Execute the onesopenwiki tool to generate a new ones-release image
 
 ```bash
-./onesopenwiki rebuild --wiki_web_tar=xxx --ones_release_tag=xxx --ones_release_out_tag=xxx
+cd ${deployment package directory}
+./onesopenwiki rebuild --wiki_web_tar=xxx --ones_release_tag=xxx --ones_release_out_tag=x.x.x.sp-x.x.x
+or
+./onesopenwiki rebuild --wiki_web_tar=xxx --ones_release_tag=xxx --ones_release_out_tag_major_version=x.x
 ```
 
 • You can get help information by executing the command ./onesopenwiki rebuild --help.
@@ -48,9 +51,10 @@ Usage:
   onesopenwiki rebuild [flags]
 
 Flags:
-      --ones_release_out_tag string   [option]Tag of output ones-release image, format：9.0.yyyymmddxx
+      --ones_release_out_tag string   [option]Tag of output ones-release image, format：${currentVersion}.sp-${ones_release_out_tag_major_version}.${number}
       --ones_release_tag string       [require]Tag of input ones-release image
       --wiki_web_tar string           [require]Tar package of ONES.AI Wiki Web，suffix:.tar.gz
+      --ones_release_out_tag_major_version string [require]Tag of output ones-release image tag major_version format: x.x
 ```
 
 • wiki_web_tar, required. suffix format: .tar.gz. This parameter specifies the front-end custom tar package.
@@ -63,40 +67,41 @@ View by docker command:
 ![](../plugin-dev/guide/images/ones-release-tag-02.png)
 • ones_release_out_tag parameter, optional. The tag of the new ones-release image after integrating the front-end tar package.
 
-Users can customize the format requirements: 9.0.yyyymmddxx, all numbers, and cannot have the same name as the existing ones-release image tag.
+Users can customize the format requirements: ${ current version}.sp-${custom version}(3.6.6.sp-1.0.0|3.6.7.8.sp-1.0.1), and cannot have the same name as the existing ones-release image tag.
 
 For Example :
 
 ```bash
-[root@auto-test zhangyuan]# ./onesopenwiki rebuild --wiki_web_tar=ones-wiki-web.tar.gz  --ones_release_tag=0.1.14597
+#示例
+[root@auto-test ones-test-0.1.15420]# ./onesopenwiki rebuild --wiki_web_tar=ones-wiki-web.tar.gz  --ones_release_tag=0.1.15420 --ones_release_out_tag_major_version=1.0
 ===================================================================================================================
-2022-09-11 10:44:47
-log: /tmp/ones_open_wiki.log
-cmd.checkRedeploy:100 enter
-input params:{OnesReleaseTag:0.1.14597 WikiWebTar:ones-wiki-web.tar.gz OnesReleaseOutTag: backReleaseOutTag:}
+2022-11-11 12:06:45
+log: /tmp/ones_open_web.log
+cmd.checkRedeploy:101 enter
+input params:{OnesReleaseTag:0.1.15420 ProjectWebTar:ones-wiki-web.tar.gz OnesReleaseOutTag: }
 Auto generate params...
-generate params:{OnesReleaseTag:0.1.14597 WikiWebTar:ones-wiki-web.tar.gz OnesReleaseOutTag:9.0.2022081100 backReleaseOutTag:9.0.2022081101}
-cmd.checkRedeploy:152 success
-workdir:/tmp/ones3003415399
-cmd.renderBackDockerfile:155 enter
-cmd.renderBackDockerfile:164 success
-cmd.buildBackImage:185 enter
-Backup image ones-release:0.1.14597 to ones-release:9.0.2022081101
-cmd.buildBackImage:197 success
-cmd.renderRedeployDockerfile:168 enter
-cmd.renderRedeployDockerfile:181 success
-cmd.buildRedeployImage:201 enter
-Building image ones-release:9.0.2022081100
+generate params:{OnesReleaseTag:0.1.15420 ProjectWebTar:ones-wiki-web.tar.gz OnesReleaseOutTag: OnesReleaseOutTagMajorVersion:1.0 }
+cmd.checkRedeploy:153 success
+workdir:/tmp/ones1336995671
+cmd.renderRedeployDockerfile:157 enter
+cmd.renderRedeployDockerfile:170 success
+cmd.buildRedeployImage:174 enter
+Building image ones-release:0.1.15420.sp-1.0.1
 Building image will take several minutes,Please wait a moment...
-cmd.buildRedeployImage:213 success
+cmd.buildRedeployImage:186 success
 Please continue to execute the following command to deploy the new image:
-	docker images | grep 9.0.2022081100
-	enter deployment path(cd /data/ones/...)
-	touch 9.0.2022081100.tar && sh upgrade.sh && rm -rf 9.0.2022081100.tar
+        docker images | grep 0.1.15420.sp-1.0.1
+        enter deployment path(cd /data/ones/...)
+        rm -rf *.sp-*.tar && touch 0.1.15420.sp-1.0.1.tar && sh upgrade.sh && rm -rf 0.1.15420.sp-1.0.1.tar
 To rollback the deployment image, execute the following command:
-	docker images | grep 9.0.2022081101
-	enter deployment path(cd /data/ones/...)
-	touch 9.0.2022081101.tar && sh upgrade.sh && rm -rf 9.0.2022081101.tar
+        enter deployment path(cd /data/ones/...)
+        view the port (config.json 'port'|'https_port' field)
+		docker ps | grep (port) //get CONTAINER ID
+        docker rm -f (CONTAINER ID)
+        view the volume name (config.json 'volume' field)
+        docker volume rm (volume name), may be wrong please check the documentation(https://docs.partner.ones.cn/) or contact us.
+        ./onesconfigure regain --p backup package(.tar)
+If you encounter any problems, please check the documentation(https://docs.partner.ones.cn/) or contact us.
 ===================================================================================================================
 ```
 
@@ -109,24 +114,44 @@ Follow the prompts in step 2 to deploy the new image. First cd into the deployme
 For Example：
 
 ```bash
-#示例
-[root@auto-test ~]# docker images | grep 9.0.2022080102
-ones-release                     9.0.2022080102              269507c43b62   5 minutes ago   11.6GB
+[root@auto-test ~]# docker images | grep 0.1.15420.sp-1.0.1
+ones-release                     0.1.15420.sp-1.0.1            269507c43b62   5 minutes ago   11.6GB
 [root@auto-test ~]# cd /data/ones/pkg/69test_8fa28d
 [root@auto-test 69test_8fa28d]# ls
 ones-test-0.1.14476  ones-test-0.1.14476.tar.gz
 [root@auto-test 69test_8fa28d]# cd ones-test-0.1.14476
 [root@auto-test ones-test-0.1.14476]# ls *.sh
 env.sh  ones-deploy.sh  private_check.sh  upgrade.sh
-[root@auto-test ones-test-0.1.14476]# touch 9.0.2022080102.tar && sh upgrade.sh && rm -rf 9.0.2022080102.tar
+[root@auto-test ones-test-0.1.14476]# rm -rf *.sp-*.tar && touch 0.1.15420.sp-1.0.1.tar && sh upgrade.sh && rm -rf 0.1.15420.sp-1.0.1.tar
 Check version
  Umask is 0022, is ok
 Disk space is ok
-Local version: 9.0.2022080101  online version: 9.0.2022080102
+1
+1
+1
+1
+Local version: 0.1.15420  online version: 0.1.15420.sp-1.0.1
 New version found, confirm upgrade: Y/N
 y
 Start upgrade...
+[INFO] 2022/10/11 12:07:50 image exists [ones-release:0.1.15420.sp-1.0.1]
+[INFO] 2022/10/11 12:07:54 get options from volume
+[INFO] 2022/10/11 12:07:55 upgrade options
+[INFO] 2022/10/11 12:07:55  check param enable_host_name_leak !!!!!!!!!!!
+[INFO] 2022/10/11 12:07:55  end check param enable_host_name_leak !!!!!!!!!!!
+[WARN] 2022/10/11 12:07:55 You are going to update from version 0.1.15420 to version 0.1.15420.sp-1.0.1 .
+In version 3.6 you need to export audit log.
+Have you export the audit log?(enter Y/N)
+n
+Are you sure update ONES?(enter Y/N)
+y
+[INFO] 2022/10/11 12:07:57 stop openresty, ones-ai-audit-log-sync, ones-ai-binlog-event-sync, ones-ai-project-api, ones-ai-wiki-api...
+[INFO] 2022/10/11 12:07:58 backup audit-log-sync offset ...
+[INFO] 2022/10/11 12:07:58 Backup volume data
+[INFO] 2022/10/11 12:08:17 waiting for mysql up ...
 ```
+
+![](../plugin-dev/guide/images/deploy.png)
 
 ##### Verify the result
 
@@ -142,10 +167,16 @@ docker ps |grep 443
 If you need to roll back to the previous environment, follow the prompts in step 2 or view the log content of /tmp/ones_open.log.
 
 ```bash
-docker images | grep 9.0.2022081101
-enter deployment path(cd /data/ones/...)
-touch 9.0.2022081101.tar && sh upgrade.sh && rm -rf 9.0.2022081101.tar
+1、Go to the deployment package directory
+2、View the deployment environment port number // cat config.json | grep port
+3、implement docker ps | grep (port) //get CONTAINER ID
+4、implement docker rm -f (CONTAINER ID) //delete container
+5、View the deployment environment container volume name // cat config.json | grep volume
+6、implement docker volume rm (volume name) //delete container volume This step may report an error, please see the operation example below
+7、implement ./onesconfigure regain --p (backup package) // backup package:backup package in the deployment package directory  rollback operation
 ```
+
+![](../plugin-dev/guide/images/rollback.png)
 
 ### High Availability Environment
 
@@ -178,7 +209,7 @@ Usage:
   onesopenwiki webimage [flags]
 
 Flags:
-      --wiki_web_out_tag string   [option]Tag of output wiki_web image, format：9.0.yyyymmddxx
+      --wiki_web_out_tag string   [option]Tag of output ones-release image, format：${currentVersion}.sp-${ones_release_out_tag_major_version}.${number}
       --wiki_web_tar string       [require]Tar package of ONES.AI Wiki Web，suffix:.tar.gz
 ```
 
