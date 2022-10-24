@@ -58,6 +58,7 @@ apis:
     methods:
       - GET
     url: /users/me
+    scope: project/wiki         //If not filled in, the default hijacking interface is Project
     function: jackFunc
     - type: prefix
     methods:

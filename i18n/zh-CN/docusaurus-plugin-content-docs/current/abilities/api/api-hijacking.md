@@ -57,7 +57,8 @@ apis:
     - type: replace             //接口类型： replace:替换 prefix:前置 suffix:后置
     methods:                    //接口请求方式
       - GET
-    url: /users/me              //标品url
+    url: /users/me              //劫持接口url
+    scope: project/wiki         //project或wiki接口，没有该属性则默认为project
     function: jackFunc          //名称与代码里的函数名保持一致
     - type: prefix
     methods:

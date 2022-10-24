@@ -35,86 +35,69 @@ async function fetchBaidu() {
 
 Request:
 
-| Parameter | Type                           | Description | 默认值 |
-| --------- | ------------------------------ | ----------- | ------ |
-| url\*     | string                         | 请求地址    | -      |
-| method\*  | string                         | 请求类型    | -      |
-| body      | object \| Uint8Array \| string | 请求体      | -      |
-| headers   | Record<string, string[]>       | 请求头      | -      |
+| Parameter | Type                     | Description     | 默认值 |
+| --------- | ------------------------ | --------------- | ------ |
+| url\*     | string                   | Request address | -      |
+| method\*  | string                   | Type of request | -      |
+| body      | object                   | Uint8Array      | string |
+| headers   | Record<string, string[]> | Request header  | -      |
 
 Response
 
-| Parameter  | Type                           | Description | Default value |
-| ---------- | ------------------------------ | ----------- | ------------- |
-| body       | object \| Uint8Array \| string | 返回体      | -             |
-| header     | Record<string, string[]>       | 返回头      | -             |
-| statusCode | number \| string \| undefined  | 状态码      | -             |
+| Parameter  | Type                     | Description     | Default value |
+| ---------- | ------------------------ | --------------- | ------------- |
+| body       | object                   | Uint8Array      | string        |
+| header     | Record<string, string[]> | Response header | -             |
+| statusCode | number                   | string          | undefined     |
 
 ### Interface provided by ONES standard system
 
 ### fetchONES
 
-Each plugin generates a superuser, and each superuser will have access to all data when accessing the interface provided by ONES standard system.
+Each plugin will generate a super user, and each super user will have access rights to all data when accessing the interface provided by the ONES standard system. When fetchONES interface request method, bring `root=true` in the input parameter, you can use super user to access.
 
-When the fetchONES interface requests the method, you can use superuser access by bringing `root=true` into the parameter. If we don't want to request as a plugin administrator, we should first set the `root=false` in the code, and then add `Ones-User-Id` and `Ones-Auth-Token` parameters to the request header, which can hijack the interface. The corresponding method is obtained. For specific implementation, please refer to the example below.
+If we don't want to request as a plugin administrator, then we first need to set `root to false` in the code, and then add `Ones-User-Id` and `Ones-Auth-Token` to the request header. That is, these two parameters can be obtained in the corresponding method of the hijacked interface.
+
+For the specific implementation, please refer to the following code.
+
+```typescript
+const response = await fetchONES({
+  path: `/team/${globalThis.onesEnv.teamUUID}/items/view`,
+  method: 'POST',
+  body: {
+    query: {
+      must: [
+        { equal: { item_type: 'field' } },
+        { in: { pool: ['project'] } },
+        { in: { 'context.type': ['team'] } },
+      ],
+    },
+    view: ['[default]'],
+  },
+  root: true, //The default is true
+})
+```
 
 Request:
 
-| Parameter | Type                           | Description     | Default value |
-| --------- | ------------------------------ | --------------- | ------------- |
-| url\*     | string                         | 请求地址        | -             |
-| method\*  | string                         | Type of request | -             |
-| body      | object \| Uint8Array \| string | 请求体          | -             |
-| headers   | Record<string, string[]>       | 请求头          | -             |
+| Parameter | Type                     | Description                                                                                 | Default value |
+| --------- | ------------------------ | ------------------------------------------------------------------------------------------- | ------------- |
+| url\*     | string                   | The request address, if it is a wiki interface, you need to add 'wiki' before the parameter | -             |
+| method\*  | string                   | Type of request                                                                             | -             |
+| body      | object                   | Uint8Array                                                                                  | string        |
+| headers   | Record<string, string[]> | Request header                                                                              | -             |
 
 Response:
 
-| PARAMETER  | TYPE                           | DESCRIPTION | DEFAULT VALUE |
-| ---------- | ------------------------------ | ----------- | ------------- |
-| body       | object \| Uint8Array \| string | 返回体      | -             |
-| header     | Record<string, string[]>       | 返回头      | -             |
-| statusCode | number \| string \| undefined  | 状态码      | -             |
+| PARAMETER  | TYPE                     | DESCRIPTION     | DEFAULT VALUE |
+| ---------- | ------------------------ | --------------- | ------------- |
+| body       | object                   | Uint8Array      | string        |
+| header     | Record<string, string[]> | Response header | -             |
+| statusCode | number                   | string          | undefined     |
 
-### Example
+When requesting the ones plugin interface, developers will use the plug-in user by default. If you want to use other users, they first need to confirm that the header of the request object already contains the current user's `Ones-User-Id `and `Ones-Auth-Token` parameter information (usually, it can be carried during addition and external interface testing. When the plugin is installed in the instance environment, the user will also bring the user's `Ones-User-Id` and `Ones-Auth-Token` while clicking on the page to access the plug-in interface).
 
-```typescript
-  const response = await fetchONES(
-    {
-        path: `/team/${globalThis.onesEnv.teamUUID}/items/view`,
-        method: 'POST',
-        body: {
-            query: {
-                must: [
-                    { equal: { item_type: 'field' } },
-                    { in: { pool: ['project'] } },
-                    { in: { 'context.type': ['team'] } },
-                ],
-            },
-            view: ['[default]'],
-        },
-        root: true,
-    }
-)
-
-
-return response
-}
-```
-
-When we request the ONES plugin interface, we will use plugin users by default. If you want to use other users, you can refer to the following spelling.
-
-Declare the hijacked interface，
-
-```typescript
-apis:
-  - type: replace
-    methods:
-      - GET
-    url: /users/me
-    function: getUserme
-```
-
-The corresponding method to implement the hijacking interface ` getUserme()` is as follows. If we want to use the current user access interface, then the header of the request object already contains the two parameter information of the current user's `Ones-User-Id` and `Ones-Auth-Token`. We can obtain it by referring to the following code.
+Finally, the interface access of other users can be achieved by referring to the following code.
 
 ```typescript
 export async function getUserme(
@@ -133,7 +116,7 @@ export async function getUserme(
       'Ones-User-Id': [userUUID],
       'Ones-Auth-Token': [userToken],
     },
-    root: false, //默认为true
+    root: false, //The default is true
   })
   if (response) {
     return response
