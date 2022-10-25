@@ -300,7 +300,7 @@ sidebar_position: 3
 「项目管理 」自定义组件模块，用于在「项目管理 - 项目设置 」新增自定义组件
 
 - 可访问的上下文数据：
-  - [useProjectInfo](../packages/store.md#useProjectInfo)
+  - [useProjectInfo](../packages/store.mdx#useProjectInfo)
 
 :::caution 注意
 该插槽必须搭配后端业务能力 [插件承载 project 自定义组件](../../abilities/bussiness/project_custom_component.md) 使用
@@ -311,7 +311,7 @@ sidebar_position: 3
 「项目管理 - 项目设置」设置模块插槽，用于在「项目管理 - 项目设置」新增设置页面
 
 - 可访问的上下文数据：
-  - [useProjectInfo](../packages/store.md#useProjectInfo)
+  - [useProjectInfo](../packages/store.mdx#useProjectInfo)
 
 ### ones:project:settings:component
 
