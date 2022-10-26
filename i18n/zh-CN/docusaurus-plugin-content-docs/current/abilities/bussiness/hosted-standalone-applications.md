@@ -47,9 +47,23 @@ abilities:
    2. start 指令需要接收参数 port，args,例如： ./hello_service --port=`PARAMS_PORT --args=Args`
    3. start 指令在实现启动时需要后台启动,例如：/usr/bin/nohup ./hello_service `--port=$PARAMS_PORT --args=$Args` >/dev/null 2>&1 &
 
-### **环境依赖**
+### 环境依赖
 
-独立应用提供的运行环境依赖 ONES 部署的镜像环境，目前是 **centos:7.2**
+独立应用的运行环境的系统架构为 **Linux amd64**
+
+推荐在原生的 Linux amd64 环境中进行独立应用二进制文件的编译，为确保独立应用的正常启动，需根据以下流程进行自检：
+
+1. 构建一个私有部署环境，并将 web 服务 的二进制文件拷贝进私有部署环境的容器中尝试运行，确保可以执行
+2. 在 Linux amd64 的机器上，将 web 服务 的二进制文件拷贝到基础镜像为 node:16.13.1 的 docker 容器中尝试运行，确保可以执行
+   ```shell
+   # 在Linux amd64 的机器中运行以下命令
+   docker run -itd --name=node16  node:16.13.1
+   docker cp ./web_service node16:/web_service
+   docker exec -it node16 bash
+   ./web_service
+   ```
+
+若出现问题无法解决，请及时联系开放平台。例如：当独立应用使用 Golang 语言开发，并且编译参数 CGO_ENABLED=1，这代表该程序可能有动态链接，动态链接库在 Runtime 环境（node:16.13.1）中很可能没有
 
 ### **如何访问服务**
 
@@ -118,7 +132,7 @@ func main() {
 **将 go 服务编译成二进制文件(必须是 linux 的 amd64)**
 
 ```shell
-GOOS=linux GOARCH=amd64 go build -o=plugin_platform
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o=plugin_platform
 ```
 
 **ℹ️**
@@ -204,7 +218,3 @@ export async function helloWeb(request: PluginRequest): Promise<PluginResponse> 
 1. **当你想实现一个 ONES 内置的标准外部服务，如 API 账号同步、通用存储服务 等；**
 2. **将已经存在的服务部署到系统内部，以便插件或者其他外部服务调用；**
 3. **静态网站服务，在 ONES 部署实例的子域名上内嵌一个独立网站；**
-
-## 常见问题
-
-1. 使用独立应用能力的插件，除了在私有部署测试以外， 应用本身一定要确保在 node:16.13.1 的 docker 容器中可以运行，如果有异常应当及时联系开放平台。例如：当独立应用使用 Golang 语言开发，并且编译参数 CGO_ENABLED=1，这代表该程序可能有动态链接，动态链接库在 Runtime 环境（node:16.13.1）中很可能没有。
