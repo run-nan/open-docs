@@ -1,8 +1,12 @@
+---
+sidebar_position: 7
+---
+
 # 工作项处理器
 
 ## 能力描述
 
-当系统产生“工作项更新”事件时，注册了该能力的插件将在此事件生效（落盘）前，收到这个事件的数据，并能够对其进行一些操作，例如：
+当系统产生“工作项更新或新增”事件时，注册了该能力的插件将在此事件生效（落盘）前，收到这个事件的数据，并能够对其进行一些操作，例如：
 
 1. 忽略：不处理此事件；
 2. 拒绝：阻止此事件生效；
@@ -199,14 +203,14 @@ export async function taskActionDone(request: PluginRequest): Promise<PluginResp
 
 5. TaskEvent
 
-| 字段                      | 字段类型          | 是否必填 | 描述                                                                                                                         |
-| ------------------------- | ----------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| task_fields               | []TaskEventField  | Y        | 变更字段列表                                                                                                                 |
-| task_uuid                 | string            | Y        | task 的 uuid                                                                                                                 |
-| action                    | string            | Y        | update:普通属性<br />transit：状态变更（带有步骤属性）<br />change_issue_type：工作项类型变更<br />publish_version：版本发布 |
-| issue_type_scope_uuid     | string            | Y        | 工作项类型 ScopeUUID                                                                                                         |
-| issue_type_scope_name     | string            | Y        | 工作项类型 Scope 的 Name                                                                                                     |
-| issue_type_scope_name_map | map[string]string | Y        | 工作项类型 Scope 各个语言版本的 Name                                                                                         |
+| 字段                      | 字段类型          | 是否必填 | 描述                                                                                                                                              |
+| ------------------------- | ----------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| task_fields               | []TaskEventField  | Y        | 变更字段列表                                                                                                                                      |
+| task_uuid                 | string            | Y        | task 的 uuid                                                                                                                                      |
+| action                    | string            | Y        | update:普通属性<br />transit：状态变更（带有步骤属性）<br />change_issue_type：工作项类型变更<br />publish_version：版本发布<br />add: 新建工作项 |
+| issue_type_scope_uuid     | string            | Y        | 工作项类型 ScopeUUID                                                                                                                              |
+| issue_type_scope_name     | string            | Y        | 工作项类型 Scope 的 Name                                                                                                                          |
+| issue_type_scope_name_map | map[string]string | Y        | 工作项类型 Scope 各个语言版本的 Name                                                                                                              |
 
 6. TaskEventField
 
@@ -287,12 +291,10 @@ return res
 
 ## 能力注意事项
 
-1. TaskEvent.action 为 “transit”、“publish_version”时
+1. TaskEvent.action 为 “transit”、“publish_version”时 ,不允许插件进行状态修改（即使修改了也不会生效）；
 
-2. 不允许插件进行状态修改（即使修改了也不会生效）；
+2. taskPreAction 处理逻辑早于步骤属性必填校验，如果插件将步骤属性的必填项值改为空值，则会报错；
 
-3. taskPreAction 处理逻辑早于步骤属性必填校验，如果插件将步骤属性的必填项值改为空值，则会报错；
+3. TaskEvent.action 为“change_issue_type”时，不允许插件进行工作项类型和父工作项的修改（即使修改了也不会生效）；
 
-4. TaskEvent.action 为“change_issue_type”时，不允许插件进行工作项类型和父工作项的修改（即使修改了也不会生效）；
-
-5. TaskEvent 暂不支持删除某个属性的变更；
+4. TaskEvent 暂不支持删除某个属性的变更；
