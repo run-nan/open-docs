@@ -37,20 +37,20 @@ async function fetchBaidu() {
 
 入参
 
-| 参数     | 类型                     | 说明       | 默认值 |
-| -------- | ------------------------ | ---------- | ------ | ------ | --- |
-| url\*    | string                   | 请求地址   | -      |
-| method\* | string                   | 请求类型   | -      |
-| body     | object                   | Uint8Array | string | 请求体 | -   |
-| headers  | Record<string, string[]> | 请求头     | -      |
+| 参数     | 类型                          | 说明     | 默认值 |
+| -------- | ----------------------------- | -------- | ------ |
+| url\*    | string                        | 请求地址 | -      |
+| method\* | string                        | 请求类型 | -      |
+| body     | object \| Uint8Array \|string | 请求体   | -      |
+| headers  | Record<string, string[]>      | 请求头   | -      |
 
 返回
 
-| 参数       | 类型                     | 说明       | 默认值    |
-| ---------- | ------------------------ | ---------- | --------- | ------ | --- |
-| body       | object                   | Uint8Array | string    | 返回体 | -   |
-| header     | Record<string, string[]> | 返回头     | -         |
-| statusCode | number                   | string     | undefined | 状态码 | -   |
+| 参数       | 类型                           | 说明   | 默认值 |
+| ---------- | ------------------------------ | ------ | ------ |
+| body\*     | object \| Uint8Array \| string | 返回体 | -      |
+| header\*   | Record<string, string[]>       | 返回头 | -      |
+| statusCode | number \| string \| undefined  | 状态码 | -      |
 
 ### ONES 标准系统提供的接口
 
@@ -81,21 +81,20 @@ const response = await fetchONES({
 
 入参
 
-| 参数     | 类型                     | 说明                                                      | 默认值 |
-| -------- | ------------------------ | --------------------------------------------------------- | ------ | ------ | --- |
-| path\*   | string                   | 请求地址，如果是 wiki 接口，<br />需要在参数前添加'/wiki' | -      |
-| method\* | string                   | 请求类型                                                  | -      |
-| body     | object                   | Uint8Array                                                | string | 请求体 | -   |
-| headers  | Record<string, string[]> | 请求头                                                    | -      |
-|          |                          |                                                           |        |
+| 参数     | 类型                          | 说明                                                      | 默认值 |
+| -------- | ----------------------------- | --------------------------------------------------------- | ------ |
+| url\*    | string                        | 请求地址，如果是 wiki 接口，<br />需要在参数前添加'/wiki' | -      |
+| method\* | string                        | 请求类型                                                  | -      |
+| body     | object \| Uint8Array \|string | 请求体                                                    | -      |
+| headers  | Record<string, string[]>      | 请求头                                                    | -      |
 
 返回
 
-| 参数       | 类型                     | 说明       | 默认值    |
-| ---------- | ------------------------ | ---------- | --------- | ------ | --- |
-| body       | object                   | Uint8Array | string    | 返回体 | -   |
-| header     | Record<string, string[]> | 返回头     | -         |
-| statusCode | number                   | string     | undefined | 状态码 | -   |
+| 参数       | 类型                           | 说明   | 默认值 |
+| ---------- | ------------------------------ | ------ | ------ |
+| body\*     | object \| Uint8Array \| string | 返回体 | -      |
+| header\*   | Record<string, string[]>       | 返回头 | -      |
+| statusCode | number \| string \| undefined  | 状态码 | -      |
 
 开发者在请求 ones 插件接口的时候，会默认使用插件用户，如果想要使用其他用户，首先需要确认 request 对象的头部已经包含当前用户的 `Ones-User-Id` 、` Ones-Auth-Token` 这两个参数信息（**一般可以在 addition 和 external 接口测试的时候带上**，当插件被安装到实例环境后，用户通过点击页面访问插件接口的同时，也会自行带上用户的`Ones-User-Id`和`Ones-Auth-Token`），
 

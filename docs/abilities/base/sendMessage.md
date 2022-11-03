@@ -16,7 +16,13 @@ sidebar_position: 13
 
 ### 使用
 
-调用方法输入用户的 user_uuid
+在文件中导入能力方法，
+
+```tsx
+import { Notify, NotifyWay } from '@ones-op/node-ability'
+```
+
+调用方法，在`ToUsers`中填入收件人的`user_uuid`，
 
 ```javascript
 export async function test5(request: PluginRequest): Promise<PluginResponse> {

@@ -132,7 +132,8 @@ abilities:
 
 - 每次点击插件提供的钉钉扫码登录入口，都会先进入到`CreateLoginUrl()`方法内部，该方法的主要作用是创建第三方登录的 URL，URL 的构建格式可以参考[钉钉扫码登录](https://open.dingtalk.com/document/orgapp-server/scan-qr-code-to-log-on-to-third-party-websites)。
 - `CreateLoginUrl()`方法中的请求头 Request 已经包含重定向 ONES 的 URL，使用以下代码可以对重定向 URL 进行 urlencode 编码。
-  :::
+
+:::
 
 ```tsx
 type CreateLoginUrlResponse = {
@@ -171,7 +172,8 @@ export async function CreateLoginUrl(request: PluginRequest): Promise<PluginResp
 
 - 经过扫码获得临时授权后，页面会回调到 ONES 的登录界面，接下来需要开发者在`DoExchangeUser()`方法中实现根据临时授权票据获取用户信息、调用接口获取授权用户信息和返回登录用户信息等操作步骤，调用的相关接口信息可以参考——[根据 sns 临时授权码获取用户信息](https://open.dingtalk.com/document/orgapp-server/obtain-the-user-information-based-on-the-sns-temporary-authorization)。
 - 在钉钉回调到 ONES 登录界面后时，临时授权 code 可以在`DoExchangeUser()`方法的请求头 Request 里得到，当用户信息按照代码中的`DoExchangeUserResponse`的格式返回后，第三方系统用户即可成功登录 ONES。
-  :::
+
+:::
 
 ```tsx
 // 确认登录用户
@@ -239,7 +241,8 @@ export async function DoExchangeUser(request: PluginRequest): Promise<PluginResp
 - 部门信息并不能全部同步，目前仅支持同步**根部门下**的所有用户信息；
 - 开发者可以在同步代码中调用创建部门接口、添加用户到部门接口去分配同步的用户到的某个部门；
 - 开发者或团队管理者手动管理同步过来的用户到不同部门。
-  :::
+
+:::
 
 ```tsx
 // 同步信息

@@ -35,20 +35,20 @@ async function fetchBaidu() {
 
 Request:
 
-| Parameter | Type                     | Description     | 默认值 |
-| --------- | ------------------------ | --------------- | ------ |
-| url\*     | string                   | Request address | -      |
-| method\*  | string                   | Type of request | -      |
-| body      | object                   | Uint8Array      | string |
-| headers   | Record<string, string[]> | Request header  | -      |
+| Parameter | Type                         | Description     | 默认值 |
+| --------- | ---------------------------- | --------------- | ------ |
+| url\*     | string                       | Request address | -      |
+| method\*  | string                       | Type of request | -      |
+| body      | object \|Uint8Array \|string | Request body    | -      |
+| headers   | Record<string, string[]>     | Request header  | -      |
 
 Response
 
-| Parameter  | Type                     | Description     | Default value |
-| ---------- | ------------------------ | --------------- | ------------- |
-| body       | object                   | Uint8Array      | string        |
-| header     | Record<string, string[]> | Response header | -             |
-| statusCode | number                   | string          | undefined     |
+| Parameter  | Type                          | Description     | Default value |
+| ---------- | ----------------------------- | --------------- | ------------- |
+| body       | object\|Uint8Array\|string    | Response body   | -             |
+| header     | Record<string, string[]>      | Response header | -             |
+| statusCode | number \| string \| undefined | StatusCode      | -             |
 
 ### Interface provided by ONES standard system
 
@@ -80,20 +80,20 @@ const response = await fetchONES({
 
 Request:
 
-| Parameter | Type                     | Description                                                                                 | Default value |
-| --------- | ------------------------ | ------------------------------------------------------------------------------------------- | ------------- |
-| url\*     | string                   | The request address, if it is a wiki interface, you need to add 'wiki' before the parameter | -             |
-| method\*  | string                   | Type of request                                                                             | -             |
-| body      | object                   | Uint8Array                                                                                  | string        |
-| headers   | Record<string, string[]> | Request header                                                                              | -             |
+| Parameter | Type                           | Description                                                                                 | Default value |
+| --------- | ------------------------------ | ------------------------------------------------------------------------------------------- | ------------- |
+| url\*     | string                         | The request address, if it is a wiki interface, you need to add 'wiki' before the parameter | -             |
+| method\*  | string                         | Type of request                                                                             | -             |
+| body      | object \| Uint8Array \| string | Request body                                                                                | -             |
+| headers   | Record<string, string[]>       | Request header                                                                              | -             |
 
 Response:
 
-| PARAMETER  | TYPE                     | DESCRIPTION     | DEFAULT VALUE |
-| ---------- | ------------------------ | --------------- | ------------- |
-| body       | object                   | Uint8Array      | string        |
-| header     | Record<string, string[]> | Response header | -             |
-| statusCode | number                   | string          | undefined     |
+| PARAMETER  | TYPE                          | DESCRIPTION     | DEFAULT VALUE |
+| ---------- | ----------------------------- | --------------- | ------------- |
+| body       | object\|Uint8Array\|string    | Response body   | -             |
+| header     | Record<string, string[]>      | Response header | -             |
+| statusCode | number \| string \| undefined | StatusCode      | -             |
 
 When requesting the ones plugin interface, developers will use the plug-in user by default. If you want to use other users, they first need to confirm that the header of the request object already contains the current user's `Ones-User-Id `and `Ones-Auth-Token` parameter information (usually, it can be carried during addition and external interface testing. When the plugin is installed in the instance environment, the user will also bring the user's `Ones-User-Id` and `Ones-Auth-Token` while clicking on the page to access the plug-in interface).
 
