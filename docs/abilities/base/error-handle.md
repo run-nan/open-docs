@@ -27,9 +27,9 @@ return {
 
 参数属性如下，
 
-| 参数   | 类型             | 说明                                |
-| ------ | ---------------- | ----------------------------------- |
-| code   | number           | 状态码                              |
-| reason | string           | 错误原因描述                        |
-| type   | warning \| error | 错误类型                            |
-| model  | plugin.xxx \| Platform.xxx       | 错误的模型(以“plugin.”或者“Platform.”开头的返回值) |
+| 参数   | 类型                       | 说明                                               |
+| ------ | -------------------------- | -------------------------------------------------- |
+| code   | number                     | 状态码                                             |
+| reason | string                     | 错误原因描述                                       |
+| type   | warning \| error           | 错误类型                                           |
+| model  | plugin.xxx \| Platform.xxx | 错误的模型(以“plugin.”或者“Platform.”开头的返回值) |
