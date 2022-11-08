@@ -3,6 +3,14 @@
     "message": "ONES 开放平台",
     "description": "The title in the navbar"
   },
+  "item.label.Learning": {
+    "message": "学习地图",
+    "description": "Navbar item with label Learning"
+  },
+  "item.label.Guide": {
+    "message": "入门指引",
+    "description": "Navbar item with label Guide"
+  },
   "item.label.Abilities": {
     "message": "开放能力",
     "description": "Navbar item with label Abilities"
@@ -11,13 +19,17 @@
     "message": "API",
     "description": "Navbar item with label API"
   },
+  "item.label.Tools": {
+    "message": "开发工具",
+    "description": "Navbar item with label Tools"
+  },
   "item.label.ONES API": {
     "message": "ONES 接口",
     "description": "Navbar item with label ONES API"
   },
-  "item.label.Introduction": {
-    "message": "介绍",
-    "description": "Navbar item with label Introduction"
+  "item.label.FAQ": {
+    "message": "FAQ",
+    "description": "Navbar item with label FAQ"
   },
   "item.label.Changelog": {
     "message": "更新日志",
@@ -30,5 +42,13 @@
   "item.label.ONES Development": {
     "message": "ONES 开发",
     "description": "Navbar item with label ONES Development"
+  },
+  "item.label.Development": {
+    "message": "开发",
+    "description": "Navbar item with label Development"
+  },
+  "item.label.Deploy": {
+    "message": "部署",
+    "description": "Navbar item with label Deploy"
   }
 }
