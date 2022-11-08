@@ -24,6 +24,9 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
+          id: 'default',
+          path: 'docs',
+          routeBasePath: 'docs',
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
           sidebarPath: require.resolve('./sidebars.js'),
@@ -51,6 +54,18 @@ const config = {
     ],
   ],
 
+  plugins: [
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'project',
+        path: 'project',
+        routeBasePath: 'project',
+        sidebarPath: require.resolve('./sidebarsProject.js'),
+      },
+    ],
+  ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -69,49 +84,94 @@ const config = {
         },
         items: [
           {
-            type: 'docSidebar',
             position: 'left',
-            label: 'Plugin Development',
-            sidebarId: 'pluginDev',
+            label: 'Learning',
+            to: 'docs/learning',
+            docsPluginId: 'default',
           },
           {
             type: 'docSidebar',
             position: 'left',
-            label: 'ONES Development',
-            sidebarId: 'onesDev',
+            label: 'Guide',
+            sidebarId: 'guide',
+            docsPluginId: 'default',
           },
           {
             type: 'docSidebar',
             position: 'left',
             label: 'Abilities',
             sidebarId: 'abilities',
+            docsPluginId: 'default',
           },
           {
             type: 'docSidebar',
             position: 'left',
             label: 'API',
             sidebarId: 'api',
+            docsPluginId: 'default',
+          },
+          {
+            type: 'docSidebar',
+            position: 'left',
+            label: 'Tools',
+            sidebarId: 'tools',
+            docsPluginId: 'default',
           },
           {
             type: 'docSidebar',
             position: 'left',
             label: 'ONES API',
-            sidebarId: 'ones',
+            sidebarId: 'onesAPI',
+            docsPluginId: 'default',
           },
           {
             type: 'docSidebar',
             position: 'left',
-            label: 'Introduction',
-            sidebarId: 'intro',
+            label: 'FAQ',
+            sidebarId: 'faq',
+            docsPluginId: 'default',
+          },
+          {
+            type: 'docSidebar',
+            position: 'left',
+            label: 'Development',
+            sidebarId: 'development',
+            docsPluginId: 'project',
+          },
+          {
+            type: 'docSidebar',
+            position: 'left',
+            label: 'Deploy',
+            sidebarId: 'deploy',
+            docsPluginId: 'project',
           },
           {
             to: 'changelog',
             label: 'Changelog',
             position: 'left',
+            docsPluginId: 'default',
+          },
+          {
+            //首页默认展示item的第一项
+            type: 'dropdown',
+            position: 'right',
+            items: [
+              {
+                label: 'Plugin Development',
+                to: '/docs/learning',
+                docsPluginId: 'default',
+              },
+              {
+                label: 'ONES Development',
+                to: '/project/deploy',
+                docsPluginId: 'project',
+              },
+            ],
           },
           {
             type: 'docsVersionDropdown',
             position: 'right',
+            docsPluginId: 'default',
           },
           {
             type: 'localeDropdown',
