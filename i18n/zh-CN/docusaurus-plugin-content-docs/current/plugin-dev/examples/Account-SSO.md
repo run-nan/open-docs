@@ -341,11 +341,9 @@ export async function DoPullData(request: PluginRequest): Promise<PluginResponse
 
 ![message-copper-return](account-src/message-copper-return.png)
 
-当创建需求时，第三方系统的用户也能收到提醒，
-
 ![message-notification](account-src/message-notification.png)
 
-当发送通知成功时，会触发访问插件代码`SendMessage()`方法内部，开发者可以在该方法内实现其他的业务逻辑。
+当消息通知成功时，可以在插件日志页面查看到`SendMessage()`方法内部输出的信息。当然，开发者也可以在该方法内实现具体的业务逻辑。
 
 ```tsx
 // 发送消息
