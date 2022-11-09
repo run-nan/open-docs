@@ -30,14 +30,14 @@ npm run start:zh
 
 ```
 /docs # 英文文档
-/i18n/zh-CN/docusaurus-plugin-content-docs/current #中文文档
+/i18n/zh-CN/docusaurus-plugin-content-docs/current # 中文文档
 ```
 
 Review 完成后复制一份到正式的文档目录：
 
 ```
 /versioned_docs/version-1.x # 英文文档
-/i18n/zh-CN/docusaurus-plugin-content-docs/version-1.x #中文文档
+/i18n/zh-CN/docusaurus-plugin-content-docs/version-1.x # 中文文档
 ```
 
 ### Build
