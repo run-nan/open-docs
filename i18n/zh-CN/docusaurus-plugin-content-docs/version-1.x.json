@@ -1,7 +1,27 @@
 {
   "version.label": {
-    "message": "🚧 Canary",
-    "description": "The label for version current"
+    "message": "1.x",
+    "description": "The label for version 1.x"
+  },
+  "sidebar.pluginDev.category.Getting Started": {
+    "message": "开始上手",
+    "description": "The label for category Getting Started in sidebar pluginDev"
+  },
+  "sidebar.pluginDev.category.Guide": {
+    "message": "开发指南",
+    "description": "The label for category Guide in sidebar pluginDev"
+  },
+  "sidebar.pluginDev.category.添加插槽模块": {
+    "message": "添加插槽模块",
+    "description": "The label for category 添加插槽模块 in sidebar pluginDev"
+  },
+  "sidebar.pluginDev.category.Examples": {
+    "message": "示例",
+    "description": "The label for category Examples in sidebar pluginDev"
+  },
+  "sidebar.pluginDev.category.Migration Guide": {
+    "message": "迁移指南",
+    "description": "The label for category Migration Guide in sidebar pluginDev"
   },
   "sidebar.abilities.category.Frontend": {
     "message": "前端能力",
@@ -10,6 +30,10 @@
   "sidebar.abilities.category.事件通信": {
     "message": "事件通信",
     "description": "The label for category 事件通信 in sidebar abilities"
+  },
+  "sidebar.abilities.category.Trigger 事件": {
+    "message": "Trigger 事件",
+    "description": "The label for category Trigger 事件 in sidebar abilities"
   },
   "sidebar.abilities.category.接口能力": {
     "message": "接口能力",
@@ -38,6 +62,14 @@
   "sidebar.api.category.插件配置": {
     "message": "插件配置",
     "description": "The label for category 插件配置 in sidebar api"
+  },
+  "sidebar.api.category.Slot List": {
+    "message": "插槽模块列表",
+    "description": "The label for category Slot List in sidebar api"
+  },
+  "sidebar.api.category.Packages": {
+    "message": "能力包",
+    "description": "The label for category Packages in sidebar api"
   },
   "sidebar.ones.category.Permission": {
     "message": "Permission",
@@ -74,37 +106,5 @@
   "sidebar.ones.category.Http": {
     "message": "Http",
     "description": "The label for category Http in sidebar ones"
-  },
-  "sidebar.abilities.category.Trigger 事件": {
-    "message": "Trigger 事件",
-    "description": "The label for category Trigger 事件 in sidebar abilities"
-  },
-  "sidebar.api.category.Slot List": {
-    "message": "插槽模块列表",
-    "description": "The label for category Slot List in sidebar api"
-  },
-  "sidebar.api.category.Packages": {
-    "message": "能力包",
-    "description": "The label for category Packages in sidebar api"
-  },
-  "sidebar.pluginDev.category.Getting Started": {
-    "message": "开始上手",
-    "description": "The label for category Getting Started in sidebar pluginDev"
-  },
-  "sidebar.pluginDev.category.Guide": {
-    "message": "开发指南",
-    "description": "The label for category Guide in sidebar pluginDev"
-  },
-  "sidebar.pluginDev.category.添加插槽模块": {
-    "message": "添加插槽模块",
-    "description": "The label for category 添加插槽模块 in sidebar pluginDev"
-  },
-  "sidebar.pluginDev.category.Examples": {
-    "message": "示例",
-    "description": "The label for category Examples in sidebar pluginDev"
-  },
-  "sidebar.pluginDev.category.Migration Guide": {
-    "message": "迁移指南",
-    "description": "The label for category Migration Guide in sidebar pluginDev"
   }
 }
