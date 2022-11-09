@@ -163,6 +163,18 @@ const config = {
       },
     ],
   ],
+
+  plugins: [
+    [
+      '@docusaurus/plugin-ideal-image',
+      {
+        max: 2560,
+        min: 1024,
+        steps: 2,
+        disableInDev: false,
+      },
+    ],
+  ],
 }
 
 module.exports = config
