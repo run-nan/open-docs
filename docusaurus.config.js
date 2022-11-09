@@ -28,10 +28,9 @@ const config = {
           showLastUpdateTime: true,
           sidebarPath: require.resolve('./sidebars.js'),
           remarkPlugins: [[require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }]],
-          lastVersion: 'current',
           versions: {
             current: {
-              label: '1.x',
+              label: '🚧 Canary',
               noIndex: true,
             },
           },

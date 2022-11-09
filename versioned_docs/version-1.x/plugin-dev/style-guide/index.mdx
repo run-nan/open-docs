@@ -1,0 +1,519 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Style Guide
+
+This is the official style guide for ONES open platform code. It's a great reference to avoid errors, bikeshedding, and anti-patterns.
+
+Our style guide has two categories of rules:
+
+- Formatting rules
+- Code quality rules
+
+Most of them come from best practices in the industry. However, we don't believe that any style guide is ideal for all teams or projects, so some adjustments have been made based on past experience, the surrounding tech stack, and team values.
+
+## Formatting rules
+
+We use [Prettier](https://prettier.io/) as the preferred reference for formatting rules. Because [Prettier](https://prettier.io/) alleviates the need for this whole category of rules. We don't mind whether you use semicolons or trailing commas. We don't mind whether your HTML uses single-quotes or double-quotes for attribute values, Because [Prettier](https://prettier.io/) is going to reprint the entire program from scratch in a consistent way.
+
+We follow most of [Prettier](https://prettier.io/) [recommended rules](https://prettier.io/docs/en/options.html), except for the following:
+
+### Print Width
+
+For readability we use 100 characters by default.
+
+### Quotes
+
+Use single quotes instead of double quotes.
+
+:::info
+
+JSX quotes ignore this option – see [jsx-single-quote](https://prettier.io/docs/en/options.html#jsx-quotes).
+
+:::
+
+<Tabs>
+  <TabItem value="incorrect" label="❌ Incorrect">
+
+```tsx
+// prettier-ignore
+let name = "ones"
+```
+
+  </TabItem>
+  <TabItem value="correct" label="✅ Correct">
+
+```tsx
+let name = 'ones'
+```
+
+  </TabItem>
+</Tabs>
+
+### Quote Props
+
+If at least one property in an object requires quotes, quote all properties.
+
+<Tabs>
+  <TabItem value="incorrect" label="❌ Incorrect">
+
+```tsx
+{
+  'user-name': 'ones',
+  home: 'ones.com'
+}
+```
+
+  </TabItem>
+  <TabItem value="correct" label="✅ Correct">
+
+```tsx
+{
+  'user-name': 'ones',
+  'home': 'ones.com'
+}
+// or
+{
+  user: 'ones',
+  home: 'ones.com'
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Semicolons
+
+Only add semicolons at the beginning of lines that [may introduce ASI failures](https://prettier.io/docs/en/rationale.html#semicolons).
+
+<Tabs>
+  <TabItem value="incorrect" label="❌ Incorrect">
+
+```tsx
+// prettier-ignore
+let shouldAddLines = true;
+if (shouldAddLines) {
+  // prettier-ignore
+  [-1, 1].forEach((delta) => addLine(delta * 20));
+}
+```
+
+  </TabItem>
+  <TabItem value="correct" label="✅ Correct">
+
+```tsx
+let shouldAddLines = true
+if (shouldAddLines) {
+  ;[-1, 1].forEach((delta) => addLine(delta * 20))
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Code quality rules
+
+Because we use TypeScript to write all the code, we use [TypeScript ESLint](https://typescript-eslint.io/) to ensure code quality. [TypeScript ESLint](https://typescript-eslint.io/) enables [ESLint](https://eslint.org/) to run on TypeScript code. It brings in the best of both tools to help you write the best JavaScript or TypeScript code you possibly can.
+
+we've split these rules into two priorities:
+
+- Priority A: Essential (Error Prevention)
+- Priority B: Recommended
+
+Of course, we basically follow [TypeScript ESLint](https://typescript-eslint.io/) [recommended rules](https://typescript-eslint.io/rules/), except for the following:
+
+### Priority A Rules: Essential
+
+#### Consistent generic constructors
+
+Enforces specifying generic type arguments on type annotation or constructor name of a constructor call.
+
+<Tabs>
+  <TabItem value="incorrect" label="❌ Incorrect">
+
+```tsx
+const map: Map<string, number> = new Map()
+const set: Set<string> = new Set()
+```
+
+  </TabItem>
+  <TabItem value="correct" label="✅ Correct">
+
+```tsx
+const map = new Map<string, number>()
+const map: Map<string, number> = new MyMap()
+const set = new Set<string>()
+const set: Set<string> = new Set<string>()
+```
+
+  </TabItem>
+</Tabs>
+
+#### Consistent type definitions
+
+Enforces type definitions to consistently use `interface`.
+
+<Tabs>
+  <TabItem value="incorrect" label="❌ Incorrect">
+
+```tsx
+type T = { x: number }
+```
+
+  </TabItem>
+  <TabItem value="correct" label="✅ Correct">
+
+```tsx
+type T = string
+type Foo = string | {}
+
+interface T {
+  x: number
+}
+```
+
+  </TabItem>
+</Tabs>
+
+#### Consistent type exports
+
+Enforces consistent usage of type exports.
+
+<Tabs>
+  <TabItem value="incorrect" label="❌ Incorrect">
+
+```tsx
+interface ButtonProps {
+  onClick: () => void
+}
+class Button implements ButtonProps {
+  onClick() {
+    console.log('button!')
+  }
+}
+export { Button, ButtonProps } from 'some-library'
+```
+
+  </TabItem>
+  <TabItem value="correct" label="✅ Correct">
+
+```tsx
+interface ButtonProps {
+  onClick: () => void
+}
+class Button implements ButtonProps {
+  onClick() {
+    console.log('button!')
+  }
+}
+export { Button, type ButtonProps } from 'some-library'
+```
+
+  </TabItem>
+</Tabs>
+
+#### Consistent type imports
+
+Enforces consistent usage of type imports.
+
+<Tabs>
+  <TabItem value="incorrect" label="❌ Incorrect">
+
+```tsx
+import { Foo } from 'Foo'
+import Bar from 'Bar'
+type T = Foo
+const x: Bar = 1
+```
+
+  </TabItem>
+  <TabItem value="correct" label="✅ Correct">
+
+```tsx
+import { type Foo } from 'Foo'
+import type Bar from 'Bar'
+type T = Foo
+const x: Bar = 1
+```
+
+  </TabItem>
+</Tabs>
+
+#### Exhaustive React Hooks dependencies
+
+It helps you find components that don’t handle updates consistently.
+
+<Tabs>
+  <TabItem value="incorrect" label="❌ Incorrect">
+
+```tsx
+function Example({ someProp }) {
+  function doSomething() {
+    console.log(someProp)
+  }
+  useEffect(() => {
+    doSomething()
+  }, [])
+}
+```
+
+  </TabItem>
+  <TabItem value="correct" label="✅ Correct">
+
+```tsx
+function Example({ someProp }) {
+  useEffect(() => {
+    function doSomething() {
+      console.log(someProp)
+    }
+    doSomething()
+  }, [someProp])
+}
+```
+
+  </TabItem>
+</Tabs>
+
+#### No constant binary expression
+
+Disallows expressions where the operation doesn’t affect the value.
+
+<Tabs>
+  <TabItem value="incorrect" label="❌ Incorrect">
+
+```tsx
+const value1 = +x == null
+const value3 = !foo == null
+const value4 = new Boolean(foo) === true
+const arrIsEmpty = someArr === []
+```
+
+  </TabItem>
+  <TabItem value="correct" label="✅ Correct">
+
+```tsx
+const value1 = x == null
+const value3 = !(foo == null)
+const value4 = Boolean(foo) === true
+const arrIsEmpty = someArr.length === 0
+```
+
+  </TabItem>
+</Tabs>
+
+#### No duplicate imports
+
+Disallow duplicate module imports.
+
+Using a single import statement per module will make the code clearer because you can see everything being imported from that module on one line.
+
+<Tabs>
+  <TabItem value="incorrect" label="❌ Incorrect">
+
+```tsx
+import { merge } from 'module'
+import something from 'another-module'
+import { find } from 'module'
+```
+
+  </TabItem>
+  <TabItem value="correct" label="✅ Correct">
+
+```tsx
+import { merge, find } from 'module'
+import something from 'another-module'
+```
+
+  </TabItem>
+</Tabs>
+
+#### No redundant type constituents
+
+Disallows members of unions and intersections that do nothing or override type information.
+
+<Tabs>
+  <TabItem value="incorrect" label="❌ Incorrect">
+
+```tsx
+type UnionAny = any | 'foo'
+type UnionUnknown = unknown | 'foo'
+type UnionNever = never | 'foo'
+
+type UnionNumberLiteral = number | 1
+type UnionStringLiteral = string | 'foo'
+
+type IntersectionAny = any & 'foo'
+type IntersectionUnknown = string & unknown
+
+type IntersectionBooleanLiteral = boolean & false
+type IntersectionStringLiteral = string & 'foo'
+```
+
+  </TabItem>
+  <TabItem value="correct" label="✅ Correct">
+
+```tsx
+type UnionAny = any
+type UnionUnknown = unknown
+type UnionNever = never
+
+type UnionNumberLiteral = number
+type UnionStringLiteral = string
+
+type IntersectionAny = any
+type IntersectionUnknown = string
+
+type IntersectionBooleanLiteral = false
+type IntersectionStringLiteral = 'foo'
+
+type ReturnUnionNever = () => string | never
+```
+
+  </TabItem>
+</Tabs>
+
+#### No underscore dangle
+
+Disallow dangling underscores in identifiers.
+
+The intent with the underscores was to make it obvious that this method was special in some way.
+
+<Tabs>
+  <TabItem value="incorrect" label="❌ Incorrect">
+
+```tsx
+var foo_
+var __proto__ = {}
+foo._bar()
+```
+
+  </TabItem>
+  <TabItem value="correct" label="✅ Correct">
+
+```tsx
+obj.__proto__ = {}
+var file = __filename
+function foo(_bar) {}
+```
+
+  </TabItem>
+</Tabs>
+
+#### No use before define
+
+Disallow the use of variables before they are defined.
+
+In ES6, block-level bindings (let and const) introduce a "temporal dead zone" where a ReferenceError will be thrown with any attempt to access the variable before its declaration.
+
+<Tabs>
+  <TabItem value="incorrect" label="❌ Incorrect">
+
+```tsx
+alert(a)
+var a = 10
+
+f()
+function f() {}
+```
+
+  </TabItem>
+  <TabItem value="correct" label="✅ Correct">
+
+```tsx
+var a
+a = 10
+alert(a)
+
+function f() {}
+f(1)
+```
+
+  </TabItem>
+</Tabs>
+
+#### Prefer const
+
+Requires `const` declarations for variables that are never reassigned after declared.
+
+`const` declaration tells readers, "this variable is never reassigned," reducing cognitive load and improving maintainability.
+
+:::info
+
+If all variables in destructuring should be const, this rule warns the variables. Otherwise, ignores them.
+
+:::
+
+<Tabs>
+  <TabItem value="incorrect" label="❌ Incorrect">
+
+```tsx
+let { a, b } = obj
+export { a, b }
+```
+
+  </TabItem>
+  <TabItem value="correct" label="✅ Correct">
+
+```tsx
+let { a, b } = obj
+a = a + 1
+// or
+const { a, b } = obj
+export { a, b }
+```
+
+  </TabItem>
+</Tabs>
+
+### Priority B Rules: Recommended
+
+#### No console
+
+Disallows the use of `console`, except `console.warn` and `console.error`.
+
+Such messages are considered to be for debugging purposes and therefore not suitable to ship to the client. In general, calls using `console` should be stripped before being pushed to production.
+
+<Tabs>
+  <TabItem value="incorrect" label="❌ Incorrect">
+
+```tsx
+console.log('log')
+```
+
+  </TabItem>
+  <TabItem value="correct" label="✅ Correct">
+
+```tsx
+console.error('error')
+```
+
+  </TabItem>
+</Tabs>
+
+#### Prefer optional chain
+
+Enforces using concise optional chain expressions instead of chained logical ands.
+
+<Tabs>
+  <TabItem value="incorrect" label="❌ Incorrect">
+
+```tsx
+foo && foo.a && foo.a.b && foo.a.b.method && foo.a.b.method()
+foo &&
+  foo.a != null &&
+  foo.a.b !== null &&
+  foo.a.b.c != undefined &&
+  foo.a.b.c.d !== undefined &&
+  foo.a.b.c.d.e
+```
+
+  </TabItem>
+  <TabItem value="correct" label="✅ Correct">
+
+```tsx
+foo?.a?.b?.method?.()
+foo?.a?.b?.c?.d?.e
+```
+
+  </TabItem>
+</Tabs>
