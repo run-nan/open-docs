@@ -31,10 +31,9 @@ const config = {
           showLastUpdateTime: true,
           sidebarPath: require.resolve('./sidebars.js'),
           remarkPlugins: [[require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }]],
-          lastVersion: 'current',
           versions: {
             current: {
-              label: '1.x',
+              label: '🚧 Canary',
               noIndex: true,
             },
           },
@@ -220,6 +219,18 @@ const config = {
       {
         hashed: true,
         language: ['en', 'zh'],
+      },
+    ],
+  ],
+
+  plugins: [
+    [
+      '@docusaurus/plugin-ideal-image',
+      {
+        max: 2560,
+        min: 1024,
+        steps: 2,
+        disableInDev: false,
       },
     ],
   ],
