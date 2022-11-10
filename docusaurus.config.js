@@ -105,8 +105,8 @@ const config = {
           {
             type: 'docSidebar',
             position: 'left',
-            label: 'API',
-            sidebarId: 'api',
+            label: 'Reference',
+            sidebarId: 'reference',
             docsPluginId: 'default',
           },
           {
@@ -119,8 +119,8 @@ const config = {
           {
             type: 'docSidebar',
             position: 'left',
-            label: 'ONES API',
-            sidebarId: 'onesAPI',
+            label: 'API',
+            sidebarId: 'api',
             docsPluginId: 'default',
           },
           {
