@@ -63,6 +63,15 @@ const config = {
         sidebarPath: require.resolve('./sidebarsProject.js'),
       },
     ],
+    [
+      '@docusaurus/plugin-ideal-image',
+      {
+        max: 2560,
+        min: 1024,
+        steps: 2,
+        disableInDev: false,
+      },
+    ],
   ],
 
   themeConfig:
@@ -162,7 +171,7 @@ const config = {
               },
               {
                 label: 'ONES Development',
-                to: '/project/deploy',
+                to: '/project/development',
                 docsPluginId: 'project',
               },
             ],
@@ -219,18 +228,6 @@ const config = {
       {
         hashed: true,
         language: ['en', 'zh'],
-      },
-    ],
-  ],
-
-  plugins: [
-    [
-      '@docusaurus/plugin-ideal-image',
-      {
-        max: 2560,
-        min: 1024,
-        steps: 2,
-        disableInDev: false,
       },
     ],
   ],
