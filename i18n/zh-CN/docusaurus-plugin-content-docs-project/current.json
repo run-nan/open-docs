@@ -1,0 +1,10 @@
+{
+  "sidebar.Development.category.development": {
+    "message": "开发",
+    "description": "The label for category Development in sidebar development"
+  },
+  "sidebar.Deploy.category.deploy": {
+    "message": "部署",
+    "description": "The label for category Deploy in sidebar deploy"
+  }
+}
