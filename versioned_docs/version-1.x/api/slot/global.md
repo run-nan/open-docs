@@ -14,6 +14,8 @@ sidebar_position: 1
 ${location.protocol}://${location.host}/plugin/${组织id}/${团队id}/${service.app_id}/${service.version}/modules/${模块id}/index.html
 ```
 
+一个插件中最多可声明 10 个该插槽，系统中最多同时存在 100 个该插槽
+
 :::caution
 
 因为该插槽脱离系统独立访问，所以无法使用 [`@ones-op/store`](../packages/store.mdx) 获取系统数据
@@ -23,6 +25,8 @@ ${location.protocol}://${location.host}/plugin/${组织id}/${团队id}/${service
 ## ones:global:banner
 
 顶栏公告模块，用于展示全局的公告信息
+
+一个插件中最多可声明 1 个该插槽，系统中最多同时存在 1 个该插槽
 
 ## ones:global:error:code
 
@@ -56,13 +60,15 @@ modules:
 }
 ```
 
-|  属性   | 说明                                                                                                                                                             |              类型              | 必填 | 默认值 |
-| :-----: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------: | :--: | :----: |
-|  code   | HTTP 状态码                                                                                                                                                      |            `number`            |  是  |        |
-| errcode | 系统错误码                                                                                                                                                       |            `string`            |  是  |        |
-|  model  | 插件标识，必须带有 `plugin.` 前缀                                                                                                                                |            `string`            |  是  |        |
-| reason  | 自定义提示信息                                                                                                                                                   |            `string`            |  是  |        |
-|  type   | 提示信息类型，对应 [ONES Design toast 组件](https://bangwork.github.io/ones-design/?path=/docs/core-toast--toast%E5%85%A8%E5%B1%80%E6%8F%90%E7%A4%BA) 的展示形态 | `'info'` `'warning'` `'error'` |  是  |        |
+|  属性   | 说明                                                                                                                                                            |              类型              | 必填 | 默认值 |
+| :-----: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------: | :--: | :----: |
+|  code   | HTTP 状态码                                                                                                                                                     |            `number`            |  是  |        |
+| errcode | 系统错误码                                                                                                                                                      |            `string`            |  是  |        |
+|  model  | 插件标识，必须带有 `plugin.` 前缀                                                                                                                               |            `string`            |  是  |        |
+| reason  | 自定义提示信息                                                                                                                                                  |            `string`            |  是  |        |
+|  type   | 提示信息类型，对应[ONES Design toast 组件](https://bangwork.github.io/ones-design/?path=/docs/core-toast--toast%E5%85%A8%E5%B1%80%E6%8F%90%E7%A4%BA) 的展示形态 | `'info'` `'warning'` `'error'` |  是  |        |
+
+一个插件中最多可声明 10 个该插槽，系统中最多同时存在 100 个该插槽
 
 ## ones:global:modal:upload
 
@@ -74,9 +80,13 @@ modules:
 
 :::
 
+一个插件中最多可声明 1 个该插槽，系统中最多同时存在 1 个该插槽
+
 ## ones:global:trigger
 
 [Trigger 事件](../../abilities/frontend/trigger/index.md)，可以帮你在 ONES 的某些操作（Action）触发时，对操作的数据进行修改或者取消操作。
+
+一个插件中最多可声明 10 个该插槽，系统中最多同时存在 100 个该插槽
 
 ## ones:global:progress:detail
 
@@ -88,11 +98,15 @@ modules:
 
   - [useProgressJobInfo](../packages/store.mdx#useProgressJobInfo)
 
+一个插件中最多可声明 10 个该插槽，系统中最多同时存在 100 个该插槽
+
 ## ones:layout:sider
 
 系统侧边栏菜单模块，用于隐藏侧边栏菜单功能
 
 ![](images/ones-layout-sider.png)
+
+一个插件中最多可声明 10 个该插槽，系统中最多同时存在 100 个该插槽
 
 ## ones:layout:header:action:new
 
@@ -100,11 +114,15 @@ modules:
 
 ![](images/ones-layout-header-action-new.png)
 
+一个插件中最多可声明 10 个该插槽，系统中最多同时存在 100 个该插槽
+
 ## ones:layout:header:action:search
 
 系统顶栏右侧操作模块，用于替换系统顶栏右侧「搜索」操作模块
 
 ![](images/ones-layout-header-action-search.png)
+
+一个插件中最多可声明 1 个该插槽，系统中最多同时存在 1 个该插槽
 
 ## ones:layout:header:action:add
 
@@ -112,11 +130,15 @@ modules:
 
 ![](images/ones-layout-header-action-add.png)
 
+一个插件中最多可声明 1 个该插槽，系统中最多同时存在 1 个该插槽
+
 ## ones:layout:header:action:help
 
 系统顶栏右侧操作模块，用于替换系统顶栏右侧「帮助」操作模块
 
-![](images/ones-layout-header-action-help.png)
+![img](images/ones-layout-header-action-help.png)
+
+一个插件中最多可声明 1 个该插槽，系统中最多同时存在 1 个该插槽
 
 ## ones:layout:header:action:settings
 
@@ -124,14 +146,20 @@ modules:
 
 ![](images/ones-layout-header-action-settings.png)
 
+一个插件中最多可声明 1 个该插槽，系统中最多同时存在 1 个该插槽
+
 ## ones:layout:header:action:notification
 
 系统顶栏右侧操作模块，用于替换系统顶栏右侧「通知」操作模块
 
 ![](images/ones-layout-header-action-notification.png)
 
+一个插件中最多可声明 1 个该插槽，系统中最多同时存在 1 个该插槽
+
 ## ones:layout:header:action:avatar
 
 系统顶栏右侧操作模块，用于替换系统顶栏右侧「头像」操作模块
 
 ![](images/ones-layout-header-action-avatar.png)
+
+一个插件中最多可声明 1 个该插槽，系统中最多同时存在 1 个该插槽
