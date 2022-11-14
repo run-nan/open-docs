@@ -18,7 +18,7 @@ For detailed declarations, please refer to the configuration instructions.
 
 |   ONES    |
 | :-------: |
-| v3.10.20+ |
+| v3.11.30+ |
 
 ## Install
 
