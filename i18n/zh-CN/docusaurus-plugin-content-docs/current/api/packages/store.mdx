@@ -368,3 +368,118 @@ interface ProgressJobInfoStateType {
   }
 }
 ```
+
+### useDocumentInfo {#useDocumentInfo}
+
+- 可用：`v0.3.1`
+- ONES 要求：`v3.11.0+`
+
+在 wiki 编辑器的自定义宏中，获取当前宏的数据
+
+#### Returns
+
+| 说明                         |     类型      |
+| :--------------------------- | :-----------: |
+| 当前宏的数据已经对数据的操作 | `PluginState` |
+
+#### Types
+
+```tsx
+interface ExportText {
+  type: 'text'
+  data: string
+}
+
+interface ExportLink {
+  type: 'link'
+  data: {
+    url: string
+    title: string
+  }
+}
+
+interface ExportImage {
+  type: 'image'
+  // 图片在编辑器服务器中的资源名称
+  data: string
+}
+
+type ExportSpec = ExportImage | ExportLink | ExportText
+
+enum EmbedPluginRuntimeStatus {
+  /**
+   * 插件正常运行
+   */
+  VALID = 'VALID',
+  /**
+   * 插件数据有问题（插件开发者使用）
+   */
+  DATA_INVALID = 'DATA_INVALID',
+  /**
+   * 插件资源加载错误（插槽错误边界捕获的错误）
+   */
+  PLUGIN_RESOURCE_INVALID = 'PLUGIN_RESOURCE_INVALID',
+}
+
+type BuiltInToolbarStep = 'init'
+
+// 初始化状态，默认所有的 toolbar 处于关闭状态
+interface BuiltInToolbarState<T> {
+  builtIn: true
+  value: BuiltInToolbarStep
+  /**
+   * 开发者在插槽之间跳转时（切换 toolbar），可以携带自定义参数。
+   * 因为 toolbar 的插槽关闭后就销毁了，不能保存状态，可以通过这个参数保存到渲染文档块的插槽中。
+   */
+  customData?: T
+}
+
+// 打开开发者定义的 toolbar
+interface CustomToolbarState<T> {
+  builtIn: false
+  value: {
+    // 对应的 moduleID
+    id: string
+    title: string
+  }
+  customData?: T
+}
+
+type ToolbarState<T> = BuiltInToolbarState<T> | CustomToolbarState<T>
+
+interface PluginState<DocumentCustomData, Toolbar> {
+  // 是否是当前用户触发的，如果文档刷新后，就会变成`false`。
+  isTriggerByUser: boolean | undefined
+  // 当前是否在编辑页面
+  editable: boolean | undefined
+  toolbarState: ToolbarState<Toolbar> | undefined
+
+  saveData: (
+    data: DocumentCustomData,
+    config: {
+      exportSpec: ExportSpec[]
+    }
+  ) => void
+  // 跳转到 toolbar，获取关闭 toolbar
+  goToState: (state: ToolbarState<Toolbar>) => void
+  // 删除文档的自定义宏
+  destroy: () => void
+  data: DocumentCustomData | undefined
+  id: string
+
+  exportSpec: ExportSpec[] | undefined
+  // 上传资源到 wiz 服务器，因为导出 word/PDF 时，如果使用图片格式，图片必须先上传到 wiz 服务器。
+  uploadResource:
+    | ((
+        file: File,
+        onProgress: (error: Error | null, percentage: number) => void
+      ) => Promise<string>)
+    | undefined
+  // 获取 wiz 服务器资源的地址，用来获取服务器上的资源。
+  getApiService: () => Promise<string | undefined>
+
+  // 插件运行时状态，比如，插件数据有问题，插件开发者可以展示公共的错误模板。
+  status: EmbedPluginRuntimeStatus | undefined
+  setStatus: (status: EmbedPluginRuntimeStatus) => void
+}
+```

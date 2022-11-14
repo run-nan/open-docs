@@ -476,6 +476,16 @@ sidebar_position: 3
 
 一个插件中最多可声明 1 个该插槽，系统中最多同时存在 1 个该插槽
 
+### ones:wiki:editor:embed
+
+Insert a custom block element into the Wiki collaborative page
+
+- Available Hook API
+
+  - [useDocumentInfo](../packages//store.mdx#useDocumentInfo)
+
+Declare a maximum of 10 slots in each plugin, and up to 100 slots in the system.
+
 ## 测试管理
 
 ### ones:testcase:new
