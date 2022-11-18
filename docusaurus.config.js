@@ -230,7 +230,12 @@ const config = {
         language: ['en', 'zh'],
       },
     ],
+    ['@docusaurus/theme-mermaid', {}],
   ],
+
+  markdown: {
+    mermaid: true,
+  },
 }
 
 module.exports = config
