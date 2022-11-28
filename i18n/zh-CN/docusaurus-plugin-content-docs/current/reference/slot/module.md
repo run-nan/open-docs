@@ -10,9 +10,7 @@ sidebar_position: 3
 
 插件设置模块，用于承载插件自身的设置项
 
-一个插件中最多可声明 1 个该插槽，系统中最多同时存在 1 个该插槽
-
-该插槽仅限在团队级别插件中使用
+一个插件中最多可声明 10 个该插槽，系统中最多同时存在 100 个该插槽
 
 ## 登录
 
@@ -193,7 +191,7 @@ sidebar_position: 3
   - [useProjectInfo](../packages/store.mdx#useProjectInfo)
   - [useProjectRoleInfo](../packages/store.mdx#useProjectRoleInfo)
 
-一个插件中最多可声明 1 个该插槽，系统中最多同时存在 1 个该插槽
+一个插件中最多可声明 10 个该插槽，系统中最多同时存在 100 个该插槽
 
 ### ones:project:component:todo
 
@@ -386,7 +384,7 @@ sidebar_position: 3
 该插槽必须搭配后端业务能力 [插件承载 project 自定义组件](../../abilities/bussiness/project_custom_component.md) 使用
 :::
 
-一个插件中最多可声明 1 个该插槽，系统中最多同时存在 1 个该插槽
+一个插件中最多可声明 10 个该插槽，系统中最多同时存在 1 个该插槽
 
 ### ones:project:settings:new
 
@@ -476,6 +474,16 @@ sidebar_position: 3
 「知识库管理 - 与我共享」模块，用于替换「知识库管理」应用的「与我共享」模块
 
 一个插件中最多可声明 1 个该插槽，系统中最多同时存在 1 个该插槽
+
+### ones:wiki:editor:embed
+
+在 wiki 协同页面中插入块元素
+
+- 可访问的上下文数据：
+
+  - [useDocumentInfo](../packages/store.mdx#useDocumentInfo)
+
+一个插件中最多可声明 10 个该插槽，系统中最多同时存在 100 个该插槽
 
 ## 测试管理
 

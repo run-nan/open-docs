@@ -26,7 +26,7 @@ ${location.protocol}://${location.host}/plugin/${组织id}/${团队id}/${service
 
 顶栏公告模块，用于展示全局的公告信息
 
-一个插件中最多可声明 10 个该插槽，系统中最多同时存在 100 个该插槽
+一个插件中最多可声明 1 个该插槽，系统中最多同时存在 1 个该插槽
 
 ## ones:global:error:code
 
@@ -68,7 +68,7 @@ modules:
 | reason  | 自定义提示信息                                                                                                                                                  |            `string`            |  是  |        |
 |  type   | 提示信息类型，对应[ONES Design toast 组件](https://bangwork.github.io/ones-design/?path=/docs/core-toast--toast%E5%85%A8%E5%B1%80%E6%8F%90%E7%A4%BA) 的展示形态 | `'info'` `'warning'` `'error'` |  是  |        |
 
-一个插件中最多可声明 1 个该插槽，系统中最多同时存在 1 个该插槽
+一个插件中最多可声明 10 个该插槽，系统中最多同时存在 100 个该插槽
 
 ## ones:global:modal:upload
 
@@ -106,7 +106,7 @@ modules:
 
 ![](images/ones-layout-sider.png)
 
-一个插件中最多可声明 1 个该插槽，系统中最多同时存在 1 个该插槽
+一个插件中最多可声明 10 个该插槽，系统中最多同时存在 100 个该插槽
 
 ## ones:layout:header:action:new
 
