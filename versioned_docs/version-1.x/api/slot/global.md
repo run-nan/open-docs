@@ -70,6 +70,29 @@ modules:
 
 一个插件中最多可声明 10 个该插槽，系统中最多同时存在 100 个该插槽
 
+## ones:global:modal
+
+global modal module, commonly used in global modal interaction or as a [logic layer carrier without render](../../abilities/bussiness/layout-custom-quick-action#pure-logic-without-render)
+
+:::caution
+
+`preload`、`manul` must be `true` in yaml, otherwise the slot won't be invoked!
+At present, it could only used in such scene [custom quick action](../../abilities/bussiness/layout-custom-quick-action)
+
+:::
+
+```yaml title="config/plugin.yaml"
+modules:
+  - id: ones-global-modal-wKG8
+    title: modal
+    moduleType: ones:global:modal
+    entry: modules/ones-global-modal-wKG8/index.html
+    preload: true # required
+    manual: true # required
+```
+
+In a plugin, you can only declare 10 such slots, what's more, the count in a system is 100.
+
 ## ones:global:modal:upload
 
 全局弹窗模块，用于在上传文件前展示

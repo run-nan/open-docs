@@ -70,6 +70,28 @@ modules:
 
 一个插件中最多可声明 10 个该插槽，系统中最多同时存在 100 个该插槽
 
+## ones:global:modal
+
+全局弹窗模块，用于全局弹窗交互或不需要界面的[逻辑层载体](../../abilities/bussiness/layout-custom-quick-action#%E6%97%A0%E7%95%8C%E9%9D%A2%E7%BA%AF%E9%80%BB%E8%BE%91%E7%B1%BB%E5%9E%8B)
+
+:::caution
+
+yaml 配置中，`preload`、`manul`值必须设置成 `true` 否则插槽无法激活！
+目前，暂只支持[自定义快捷操作按钮](../../abilities/bussiness/layout-custom-quick-action)场景
+:::
+
+```yaml title="config/plugin.yaml"
+modules:
+  - id: ones-global-modal-wKG8
+    title: modal
+    moduleType: ones:global:modal
+    entry: modules/ones-global-modal-wKG8/index.html
+    preload: true # 必须项
+    manual: true # 必须项
+```
+
+一个插件中最多可声明 10 个该插槽，系统中最多同时存在 100 个该插槽
+
 ## ones:global:modal:upload
 
 全局弹窗模块，用于在上传文件前展示

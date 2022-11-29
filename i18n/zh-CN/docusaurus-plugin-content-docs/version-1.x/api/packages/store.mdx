@@ -229,6 +229,27 @@ interface ProjectRoleInfoType {
 }
 ```
 
+### useTaskInfo {#useTaskInfo}
+
+- 添加版本：`v0.5.0`
+- ONES 版本要求：`v3.11.40+`
+
+获取当前工作项信息
+
+#### Returns
+
+| 说明           |      类型      |
+| :------------- | :------------: |
+| 当前工作项信息 | `TaskInfoType` |
+
+#### Types
+
+```tsx
+interface TaskInfoType {
+  uuid: string // 当前工作项的 UUID
+}
+```
+
 ### useTeamInfo {#useTeamInfo}
 
 获取当前团队信息
