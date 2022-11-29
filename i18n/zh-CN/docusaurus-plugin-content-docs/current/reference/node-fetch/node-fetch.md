@@ -1,1 +1,94 @@
-### @ones-op/node-fetch（接口访问）
+# @ones-op/node-fetch
+
+## 要求
+
+| **ONES** |
+| -------- |
+| 3.6+     |
+
+## API 列表
+
+### fetchHttp
+
+**作用：**用于访问外部服务
+
+#### 参数列表：
+
+| **参数** | **类型**                 | **说明** | **默认值** | **必填** |
+| -------- | ------------------------ | -------- | ---------- | -------- |
+| url      | string                   | 请求地址 | -          | 是       |
+| method   | string                   | 请求类型 | -          | 是       |
+| body     | object/Uint8Array/string | 请求体   | -          |          |
+| headers  | Record<string, string[]> | 请求头   | -          |          |
+
+#### 返回参数列表：
+
+| **参数**   | **类型**                     | **说明** | **默认值** | **必填** |
+| ---------- | ---------------------------- | -------- | ---------- | -------- |
+| statusCode | number / string / undefined  | 状态码   | -          |          |
+| body       | object / Uint8Array / string | 返回体   | -          |          |
+| headers    | Record<string, string[]>     | 返回头   | -          |          |
+
+#### 示例：
+
+```typescript
+//请求百度接口
+const response = await fetchHttp({
+  url: 'https://www.baidu.com',
+  method: 'GET',
+})
+```
+
+### fetchONES
+
+**作用：**用于访问 ONES 系统标准接口
+
+#### 参数列表：
+
+| **参数** | **类型**                 | **说明**                                           | **默认值** | **必填** |
+| -------- | ------------------------ | -------------------------------------------------- | ---------- | -------- |
+| path     | string                   | 请求地址，如果是 wiki 接口 需要在参数前添加'/wiki' | -          | 是       |
+| method   | string                   | 请求类型                                           | -          | 是       |
+| body     | object/Uint8Array/string | 请求体                                             | -          |          |
+| headers  | Record<string, string[]> | 请求头                                             | -          |          |
+| root     | bool                     | 是否使用插件超级用户                               | true       |          |
+
+#### 返回参数列表：
+
+| **参数**   | **类型**                     | **说明** | **默认值** | **必填** |
+| ---------- | ---------------------------- | -------- | ---------- | -------- |
+| statusCode | number / string / undefined  | 状态码   | -          |          |
+| body       | object / Uint8Array / string | 返回体   | -          |          |
+| headers    | Record<string, string[]>     | 返回头   | -          |          |
+
+#### 示例：
+
+```typescript
+//使用超级用户请求
+const response = await fetchONES({
+  path: `/team/${globalThis.onesEnv.teamUUID}/items/view`,
+  method: 'POST',
+  body: {
+    query: {
+      must: [
+        { equal: { item_type: 'field' } },
+        { in: { pool: ['project'] } },
+        { in: { 'context.type': ['team'] } },
+      ],
+    },
+    view: ['[default]'],
+  },
+  root: true, //默认为true
+})
+
+//使用普通用户请求
+const response = await fetchONES({
+  path: `/users/me`,
+  method: 'GET',
+  headers: {
+    'Ones-User-Id': [userUUID],
+    'Ones-Auth-Token': [userToken],
+  },
+  root: false, //默认为true
+})
+```
