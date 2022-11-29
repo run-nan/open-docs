@@ -475,6 +475,16 @@ sidebar_position: 3
 
 一个插件中最多可声明 1 个该插槽，系统中最多同时存在 1 个该插槽
 
+### ones:wiki:editor:embed
+
+在 wiki 协同页面中插入块元素
+
+- 可访问的上下文数据：
+
+  - [useDocumentInfo](../packages/store.mdx#useDocumentInfo)
+
+一个插件中最多可声明 10 个该插槽，系统中最多同时存在 100 个该插槽
+
 ## 测试管理
 
 ### ones:testcase:new
