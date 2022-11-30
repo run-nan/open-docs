@@ -93,7 +93,7 @@ npx op packup
 npx op packup CustomPluginName
 ```
 
-:::caution note
+:::caution notice
 
 In Windows TTY, if the custom plugin name contains Chinese characters when packaging the plugin, the command may not be executed correctly.
 

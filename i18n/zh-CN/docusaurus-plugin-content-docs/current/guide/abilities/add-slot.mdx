@@ -1,0 +1,121 @@
+---
+sidebar_position: 1
+---
+
+import Image from '@theme/IdealImage'
+
+# 添加插槽
+
+## 概述
+
+我们为你预设了很多插槽，使你可以非常方便的在 ONES 上进行你想要的定制化操作。目前你可以把插槽简单的当作“占位符”，你的插件就是往这个占位符中填充代码。
+
+## 插槽
+
+- [插槽模块列表](../../abilities/slot/slot.md)
+
+## 使用
+
+### 第一步：添加插槽模块
+
+在插件工程根目录下执行`npx op add module`， 可以向插件中新增插槽模块。
+
+```
+➜ npx op add module
+  ✔ Validating the input params
+  ✔ Validating project files exists
+  ✔ Generating initial answers by input params
+  ✔ Parsing plugin config content
+Pre-require tasks run successfully
+? Please select the module type you want to add: …
+ones:desk
+ones:manhour
+ones:performance
+ones:plan
+ones:pipeline
+ones:product
+ones:project
+ones:testcase
+ones:version
+ones:wiki
+```
+
+在列表中可以通过选择方向键或输入字符串搜索并选择插槽模块
+
+:::note
+如果你选择的插槽是包含子模块的，那将会继续询问你是否需要添加子模块。你可以一起添加，也可以选择后面手动添加。
+:::
+
+### 第二步：添加插槽子模块
+
+在插件工程目录下执行`npx op add sub-module`， 可以向插槽模块中添加子模块
+
+```
+➜ npx op add sub-module
+  ✔ Validating the input params
+  ✔ Validating project files exists
+  ✔ Generating initial answers by input params
+  ✔ Parsing plugin config content
+
+Pre-require tasks run successfully
+? Please select the module you want to add a sub module: (Use arrow keys)
+❯ ones-workspace-fKFw
+❯ ones-plan-fKFF
+❯ ones-wiki-uuDB
+```
+
+在列表中可以通过选择方向键或输入字符串搜索并选择插槽模块 id
+
+:::caution 注意
+并不是所有插槽都存在**子模块**，如果你查阅[模块列表](../../abilities/slot/slot.md)之后发现你需要的模块不存在子模块则可跳过第二步。
+:::
+
+### 第三步：添加逻辑代码
+
+每个插槽模块的逻辑代码，都存放于 `/web/src/modules/` 目录下以插槽模块 id 命名的目录中。你可以把每个插槽模块都当作一个独立的 React 应用，它和你以往熟悉的 React 开发方式并没有什么区别，你只需要关注你的业务逻辑即可。
+
+我们为插件提供 [TypeScript](https://www.typescriptlang.org/zh/) 的天然支持，默认支持引入 .ts 和 .tsx 文件。
+
+插件打包时，我们仅执行 .ts 和 .tsx 文件的转译工作，并 不 执行任何的类型检查，它只为在你编码时提供友好的类型提示，帮助你减少问题的产生。
+
+:::caution 注意
+对于每个插件模块的打包，我们都是以模块内的 `index.tsx` 文件为入口，请不要删掉这个入口文件，不然你的打包过程可能会出现异常。
+:::
+
+### 第四步：添加样式代码
+
+同样的每个插槽的样式代码也都存放于 `/web/src/modules/` 目录下以插槽模块 id 命名的目录中。打开目录下的`index.css` 文件，默认生成的内容如下：
+
+```css title="index.css"
+#ones-mf-root {
+}
+```
+
+`id="ones-mf-root"`的元素是插槽模块的根元素，所以你可以将样式写在`#ones-mf-root`的选择器下，当然这只是推荐，并不是必须的，你可以选择任何你喜欢的方式来编写样式代码。
+
+#### PostCSS
+
+我们也为插件提供了 [PostCSS](https://postcss.org/) 预处理器的天然支持，并默认帮你开启了以下功能。
+
+- [autoprefixer](https://github.com/postcss/autoprefixer)
+- [cssnano](https://cssnano.co/)
+- [postcss-import](https://github.com/postcss/postcss-import)
+- [postcss-nested](https://github.com/postcss/postcss-nested)
+
+### 添加插槽示例
+
+这里我们以 `ones:global:banner` 全局插槽为例，当选择添加这个模块后，可以看到在 `/config/plugin.yaml` 文件的`modules` 字段中新增了一项内容：
+
+```yaml title="/config/plugin.yaml"
+modules:
+  - id: ones-global-banner-3QC4
+    title: banner
+    entry: modules/ones-global-banner-3QC4/index.html
+    moduleType: ones:global:banner
+```
+
+同时，还会生成与 `entry` 字段对应的 `/web/src/modules/ones-global-banner-3QC4` 目录，其中包含 `index.tsx` 与 `index.css` 两个文件：
+
+<Image img={require('./images/plugin-directory.png')} />
+
+在插件工程根目录下执行`npx op invoke run`，这样你就能在远端调试环境中插槽对应的位置看到你的插件了。

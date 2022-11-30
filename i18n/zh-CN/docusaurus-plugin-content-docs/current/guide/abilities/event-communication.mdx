@@ -1,0 +1,164 @@
+---
+sidebar_position: 6
+---
+
+import Image from '@theme/IdealImage'
+
+# 事件通信
+
+## 要求
+
+| ONES    |
+| ------- |
+| v3.7.1+ |
+
+## 概述
+
+事件系统是组件间通信的主要方式之一。自定义组件可以触发任意的事件，引用组件的页面也可以监听这些事件。我们提供了一套事件通信库，可以帮你在同一个插件内跨模块通信（通信的模块都需要处于挂载状态）。你也可以通过事件触发 ONES 的某些事件。
+
+## 使用
+
+### 第一步：安装依赖
+
+进入`/web`目录，通过以下命令安装此包：
+
+```bash npm2yarn
+npm install @ones-op/event
+```
+
+### 第二步：自定义监听器
+
+添加自定义监听器，当指定事件类型被`dispatch`时，会执行监听回调。**无法跨插件使用**
+
+```tsx
+import { OPPluginListener } from '@ones-op/event'
+
+useEffect(() => {
+  const cancelFn = OPPluginListener('onChange', ({ value }) => {
+    return {
+      state: OPListenerProcessResultState.SUCCESS,
+      data: value + 1,
+    }
+  })
+  return () => cancelFn()
+}, [])
+```
+
+:::caution
+在组件销毁时，请保证调用取消监听函数，以避免占用内存，以及产生一些意料之外的 BUG。
+:::
+
+### 第三步：派发事件
+
+派发指定类型的事件，并返回`OPPluginListener`处理函数返回的 Promise 对象。**无法跨插件使用**
+
+```tsx
+import { OPPluginDispatch } from '@ones-op/event'
+
+OPPluginDispatch('onChange', { value: 0 }).then((result) => {
+  console.log(`listener processed value: ${result[0].data}`)
+})
+```
+
+具体参数释义请参考：[@ones-op/event](../../reference/event/event.md)
+
+## 示例
+
+### 示例一：激活全局进度管理器
+
+#### 第一步：添加一个插槽
+
+以【我的工作台】-【概览】为例，执行以下指令选择`ones:workspace:overview`
+
+```bash
+npx op add module
+```
+
+#### 第二步：Dispatch 事件
+
+```tsx title="index.tsx"
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { ConfigProvider, Button } from '@ones-design/core'
+import { OPDispatch } from '@ones-op/event'
+import { resourceMap } from './language'
+import './index.css'
+
+function App() {
+  /** 多语言部分 */
+  const locale = (window as any).__ones_op_locale__?.locale || 'zh-CN'
+  const langResource = resourceMap[locale]
+
+  const handleClick = () => {
+    OPDispatch('invoke:ones:global:progressManager')
+  }
+
+  return <Button onClick={handleClick}>{langResource.text}</Button>
+}
+
+ReactDOM.render(
+  <ConfigProvider>
+    <App />
+  </ConfigProvider>,
+  document.getElementById('ones-mf-root')
+)
+```
+
+#### 第三步：在 ONES 触发
+
+登陆 ONES 系统，【我的工作台】-【概览】已被插件替换，点击按钮**进度管理器**被触发。如图：
+
+<Image img={require('./images/progress-manager-zh.png')} />
+
+### 示例二：触发成员列表刷新
+
+**要求**
+
+| ONES      |
+| --------- |
+| v3.11.15+ |
+
+支持 ONES 中所有的成员列表
+
+#### 第一步：添加一个插槽
+
+以【项目管理】-【成员】-【新增操作按钮】为例，执行以下指令选择`ones:project:component:member:action:new`
+
+```bash
+npx op add module
+```
+
+#### 第二步：Dispatch 事件
+
+```tsx title="index.tsx"
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { ConfigProvider, Button } from '@ones-design/core'
+import { OPDispatch } from '@ones-op/event'
+import { resourceMap } from './language'
+import './index.css'
+
+function App() {
+  const locale = (window as any).__ones_op_locale__?.locale || 'zh-CN'
+  const langResource = resourceMap[locale]
+
+  const handleClick = () => {
+    OPDispatch('ones:event:memberList:refresh')
+  }
+
+  return <Button onClick={handleClick}>{langResource.text}</Button>
+}
+
+ReactDOM.render(
+  <ConfigProvider>
+    <App />
+  </ConfigProvider>,
+  document.getElementById('ones-mf-root')
+)
+```
+
+#### 第三步：在 ONES 系统触发
+
+登陆 ONES，进入【项目管理】-【成员】顶栏操作区域，点击按钮**刷新成员列表**，发现成员列表数据已被更新。如图：
+
+<Image img={require('./images/member-zh.png')} />

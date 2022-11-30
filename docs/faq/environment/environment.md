@@ -1,0 +1,66 @@
+---
+title: install ones/cli
+description: FAQ for install ones/cli
+keywords: [ones/cli, environment]
+---
+
+## Windows
+
+- ### Install node-gyp
+
+  In the process of initializing the plugin project, ONES CLI will install the `/backend` of the project depending on it, and the dependent installation exception may occur in the process.
+
+  This is usually caused by the lack of tools needed for construction, which requires developers to check and install additional build tools `node-gyp` during the installation of NodeJS.
+
+  ![Install node-gyp](./images/Windows%20node-gyp%20installation.png)
+
+  It should be noted that in some Windows distributions (such as the home version), users are not asked by default whether they need to use administrator permissions to install NodeJS, while `node-gpy` may fail due to lack of permissions.
+
+  In this case, the developer needs to start `Powershell` or `CMD` with administrator permissions and start the NodeJS installer with the following instructions:
+
+  ```Powershell
+  msiexec /package "C:\foo\baz\node-v16.xx.xx-x64.msi"
+  ```
+
+  If you are correctly installing `node-gyp`, there are still problems in the process of initializing the plugin project. It is recommended that developers locate, fix, or report the problem from the `npm debug log`.
+
+## MAC/Linux
+
+- ### Install CMake
+
+  In the process of initializing the plugin project, ONES CLI will install the `/backend` of the project depending on it, and the dependent installation exception may occur in the process.
+
+  This is because some of the dependencies required for plugin development use the `CMake` tool. Therefore, if the project depends on an exception during the installation process, you need to install the `CMake` tool.
+
+  #### Install for `brew`
+
+  ```bash
+  brew install cmake
+  ```
+
+  #### Install for `dmg`
+
+  It is recommended that you install stable version 3.22：[cmake-3.22.2-macos-universal.dmg](https://github.com/Kitware/CMake/releases/download/v3.22.2/cmake-3.22.2-macos-universal.dmg)
+
+  After the dmg installation is complete, you need to execute the command to complete the installation process:
+
+  ```
+  sudo "/Applications/CMake.app/Contents/bin/cmake-gui" --install
+  ```
+
+  ```
+  Password:
+  Output:
+  Linked: '/usr/local/bin/cmake' -> '/Applications/CMake.app/Contents/bin/cmake'
+  Linked: '/usr/local/bin/ctest' -> '/Applications/CMake.app/Contents/bin/ctest'
+  Linked: '/usr/local/bin/cpack' -> '/Applications/CMake.app/Contents/bin/cpack'
+  Linked: '/usr/local/bin/cmake-gui' -> '/Applications/CMake.app/Contents/bin/cmake-gui'
+  Linked: '/usr/local/bin/ccmake' -> '/Applications/CMake.app/Contents/bin/ccmake'
+  ```
+
+  Check that the installation is successful:
+
+  ```
+  cmake --version
+  # cmake version 3.22.2
+  ```

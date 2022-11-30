@@ -3,108 +3,56 @@
     "message": "🚧 Canary",
     "description": "The label for version current"
   },
-  "sidebar.abilities.category.Frontend": {
-    "message": "前端能力",
-    "description": "The label for category Frontend in sidebar abilities"
+  "sidebar.guide.category.Overview": {
+    "message": "概览",
+    "description": "The label for category Overview in sidebar guide"
   },
-  "sidebar.abilities.category.事件通信": {
-    "message": "事件通信",
-    "description": "The label for category 事件通信 in sidebar abilities"
+  "sidebar.guide.category.Installation": {
+    "message": "安装",
+    "description": "The label for category Installation in sidebar guide"
   },
-  "sidebar.abilities.category.接口能力": {
-    "message": "接口能力",
-    "description": "The label for category 接口能力 in sidebar abilities"
+  "sidebar.guide.category.Create an plugin": {
+    "message": "创建插件",
+    "description": "The label for category Create an plugin in sidebar guide"
   },
-  "sidebar.abilities.category.基础能力": {
-    "message": "基础能力",
-    "description": "The label for category 基础能力 in sidebar abilities"
+  "sidebar.learning.link.Learning": {
+    "message": "Learning",
+    "description": "The label for link Learning in sidebar learning, linking to /docs/learning"
   },
-  "sidebar.abilities.category.插件自定义权限点": {
-    "message": "插件自定义权限点",
-    "description": "The label for category 插件自定义权限点 in sidebar abilities"
-  },
-  "sidebar.abilities.category.插件自定义配置页面": {
-    "message": "插件自定义配置页面",
-    "description": "The label for category 插件自定义配置页面 in sidebar abilities"
-  },
-  "sidebar.abilities.category.插件多语言支持": {
-    "message": "插件多语言支持",
-    "description": "The label for category 插件多语言支持 in sidebar abilities"
-  },
-  "sidebar.abilities.category.业务能力": {
-    "message": "业务能力",
-    "description": "The label for category 业务能力 in sidebar abilities"
-  },
-  "sidebar.api.category.插件配置": {
-    "message": "插件配置",
-    "description": "The label for category 插件配置 in sidebar api"
-  },
-  "sidebar.ones.category.Permission": {
+  "sidebar.api.category.Permission": {
     "message": "Permission",
-    "description": "The label for category Permission in sidebar ones"
+    "description": "The label for category Permission in sidebar api"
   },
-  "sidebar.ones.category.Project": {
+  "sidebar.api.category.Project": {
     "message": "Project",
-    "description": "The label for category Project in sidebar ones"
+    "description": "The label for category Project in sidebar api"
   },
-  "sidebar.ones.category.Wiki": {
+  "sidebar.api.category.Wiki": {
     "message": "Wiki",
-    "description": "The label for category Wiki in sidebar ones"
+    "description": "The label for category Wiki in sidebar api"
   },
-  "sidebar.ones.category.TestCase": {
+  "sidebar.api.category.TestCase": {
     "message": "TestCase",
-    "description": "The label for category TestCase in sidebar ones"
+    "description": "The label for category TestCase in sidebar api"
   },
-  "sidebar.ones.category.Resource": {
+  "sidebar.api.category.Resource": {
     "message": "Resource",
-    "description": "The label for category Resource in sidebar ones"
+    "description": "The label for category Resource in sidebar api"
   },
-  "sidebar.ones.category.Webhook": {
+  "sidebar.api.category.Webhook": {
     "message": "Webhook",
-    "description": "The label for category Webhook in sidebar ones"
+    "description": "The label for category Webhook in sidebar api"
   },
-  "sidebar.ones.category.Item": {
+  "sidebar.api.category.Item": {
     "message": "Item",
-    "description": "The label for category Item in sidebar ones"
+    "description": "The label for category Item in sidebar api"
   },
-  "sidebar.ones.category.Graphql": {
+  "sidebar.api.category.Graphql": {
     "message": "Graphql",
-    "description": "The label for category Graphql in sidebar ones"
+    "description": "The label for category Graphql in sidebar api"
   },
-  "sidebar.ones.category.Http": {
+  "sidebar.api.category.Http": {
     "message": "Http",
-    "description": "The label for category Http in sidebar ones"
-  },
-  "sidebar.abilities.category.Trigger 事件": {
-    "message": "Trigger 事件",
-    "description": "The label for category Trigger 事件 in sidebar abilities"
-  },
-  "sidebar.api.category.Slot List": {
-    "message": "插槽模块列表",
-    "description": "The label for category Slot List in sidebar api"
-  },
-  "sidebar.api.category.Packages": {
-    "message": "能力包",
-    "description": "The label for category Packages in sidebar api"
-  },
-  "sidebar.pluginDev.category.Getting Started": {
-    "message": "开始上手",
-    "description": "The label for category Getting Started in sidebar pluginDev"
-  },
-  "sidebar.pluginDev.category.Guide": {
-    "message": "开发指南",
-    "description": "The label for category Guide in sidebar pluginDev"
-  },
-  "sidebar.pluginDev.category.添加插槽模块": {
-    "message": "添加插槽模块",
-    "description": "The label for category 添加插槽模块 in sidebar pluginDev"
-  },
-  "sidebar.pluginDev.category.Examples": {
-    "message": "示例",
-    "description": "The label for category Examples in sidebar pluginDev"
-  },
-  "sidebar.pluginDev.category.Migration Guide": {
-    "message": "迁移指南",
-    "description": "The label for category Migration Guide in sidebar pluginDev"
+    "description": "The label for category Http in sidebar api"
   }
 }

@@ -23,10 +23,6 @@
     "message": "开发工具",
     "description": "Navbar item with label Tools"
   },
-  "item.label.ONES API": {
-    "message": "ONES 接口",
-    "description": "Navbar item with label ONES API"
-  },
   "item.label.FAQ": {
     "message": "FAQ",
     "description": "Navbar item with label FAQ"

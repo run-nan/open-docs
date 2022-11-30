@@ -1,0 +1,66 @@
+---
+title: 安装 ones/cli
+description: 安装 ones/cli 可能会遇到的问题
+keywords: [ones/cli, 环境问题]
+---
+
+## Windows
+
+- ### 安装 node-gyp
+
+  在初始化插件工程的过程中，ONES CLI 会对项目下的 `/backend` 进行依赖安装操作，过程中可能会出现依赖安装异常的情况。
+
+  这通常是缺失了构建所需的工具导致的问题，这需要开发者在安装 Nodejs 的过程中勾选安装额外的构建工具 `node-gyp`。
+
+  ![Install node-gyp](./images/Windows%20node-gyp%20installation.png)
+
+  需要注意的是，在部分 Windows 发行版本中（例如家庭版），在安装 Nodejs 的过程中默认不会询问用户是否需要使用管理员权限进行安装，而 `node-gyp` 可能会因为权限缺失导致安装失败。
+
+  在这种情况下，开发者需要使用管理员权限启动 `Powershell` 或 `CMD` 并通过以下指令启动 Nodejs 安装器。
+
+  ```Powershell
+  msiexec /package "C:\foo\baz\node-v16.xx.xx-x64.msi"
+  ```
+
+  如果在正确安装 `node-gyp` 的情况下初始化插件工程的过程仍然存在问题，建议开发者从 `npm` 的 `debug log` 中对问题进行定位、修复或上报。
+
+## Mac/Linux
+
+- ### 安装 CMake
+
+  在初始化插件工程的过程中，ONES CLI 会对项目下的 `/backend` 进行依赖安装操作，过程中可能会出现依赖安装异常的情况。
+
+  这是因为插件开发所需的部分依赖，使用了 `CMake` 工具，因此如果项目依赖安装过程中出现异常，需要安装 `CMake` 工具。
+
+  #### 使用 `brew` 安装
+
+  ```bash
+  brew install cmake
+  ```
+
+  #### 使用 `dmg` 安装
+
+  建议安装 3.22 稳定版本：[cmake-3.22.2-macos-universal.dmg](https://github.com/Kitware/CMake/releases/download/v3.22.2/cmake-3.22.2-macos-universal.dmg)
+
+  dmg 安装完成后，需要执行命令完成安装过程：
+
+  ```
+  sudo "/Applications/CMake.app/Contents/bin/cmake-gui" --install
+  ```
+
+  ```
+  Password:
+  输出：
+  Linked: '/usr/local/bin/cmake' -> '/Applications/CMake.app/Contents/bin/cmake'
+  Linked: '/usr/local/bin/ctest' -> '/Applications/CMake.app/Contents/bin/ctest'
+  Linked: '/usr/local/bin/cpack' -> '/Applications/CMake.app/Contents/bin/cpack'
+  Linked: '/usr/local/bin/cmake-gui' -> '/Applications/CMake.app/Contents/bin/cmake-gui'
+  Linked: '/usr/local/bin/ccmake' -> '/Applications/CMake.app/Contents/bin/ccmake'
+  ```
+
+  检查是否安装成功：
+
+  ```
+  cmake --version
+  # cmake version 3.22.2
+  ```
