@@ -1,0 +1,127 @@
+import Image from '@theme/IdealImage'
+
+# App slot
+
+## Requirements
+
+| **ONES** |
+| :------: |
+|   3.6+   |
+
+## Overview
+
+<Image img={require('./images/my-work.png')} />
+
+App slot is a set of slots corresponding to product lines one by one.
+
+The slots currently supported are as follows:
+
+- [ones:workspace](#onesworkspace)
+- [ones:project](#onesproject)
+- [ones:wiki](#oneswiki)
+- [ones:testcase](#onestestcase)
+- [ones:product](#onesproduct)
+- [ones:desk](#onesdesk)
+- [ones:deskhome](#onesdeskhome)
+- [ones:manhour](#onesmanhour)
+- [ones:performance](#onesperformance)
+- [ones:plan](#onesplan)
+- [ones:pipeline](#onespipeline)
+- [ones:version](#onesversion)
+
+## Slots
+
+#### ones:workspace
+
+**Module path：** My work
+
+**Number limit：** Declare a maximum of 1 slots in each plugin, and up to 1 slots in the system.
+
+#### ones:project
+
+**Module path：** ONES Project
+
+**Number limit：** Declare a maximum of 1 slots in each plugin, and up to 1 slots in the system.
+
+#### ones:wiki
+
+**Module path：** ONES Wiki
+
+**Number limit：** Declare a maximum of 1 slots in each plugin, and up to 1 slots in the system.
+
+#### ones:testcase
+
+**Module path：** ONES TestCase
+
+**Number limit：** Declare a maximum of 1 slots in each plugin, and up to 1 slots in the system.
+
+#### ones:product
+
+**Module path：** Product Management
+
+**Number limit：** Declare a maximum of 1 slots in each plugin, and up to 1 slots in the system.
+
+#### ones:desk
+
+**Module path：** ONES Desk
+
+**Number limit：** Declare a maximum of 1 slots in each plugin, and up to 1 slots in the system.
+
+#### ones:deskhome
+
+**Module path：** ONES DeskHome
+
+**Number limit：** Declare a maximum of 1 slots in each plugin, and up to 1 slots in the system.
+
+This slot only can be accessed by the URL described below:
+
+```
+${location.protocol}://${location.host}/project/#/desk_home
+```
+
+#### ones:manhour
+
+**Module path：** Worklog Management
+
+**Number limit：** Declare a maximum of 1 slots in each plugin, and up to 1 slots in the system.
+
+#### ones:performance
+
+**Module path：** ONES Performance
+
+**Number limit：** Declare a maximum of 1 slots in each plugin, and up to 1 slots in the system.
+
+#### ones:plan
+
+**Module path：** ONES Plan
+
+**Number limit：** Declare a maximum of 1 slots in each plugin, and up to 1 slots in the system.
+
+#### ones:pipeline
+
+**Module path：** ONES Pipeline
+
+**Number limit：** Declare a maximum of 1 slots in each plugin, and up to 1 slots in the system.
+
+#### ones:version
+
+**Module path：** Version Management
+
+**Number limit：** Declare a maximum of 1 slots in each plugin, and up to 1 slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-workspace-9rMc
+    title: My work
+    moduleType: ones:workspace
+    modules:
+      - id: ones-workspace-A0r3
+        title: Overview
+        entry: modules/ones-workspace-9rMc/ones-workspace-A0r3/index.html
+```
+
+**Supported config options：**
+
+- [modules(required)](../../../reference/config/plugin.md#subModule)

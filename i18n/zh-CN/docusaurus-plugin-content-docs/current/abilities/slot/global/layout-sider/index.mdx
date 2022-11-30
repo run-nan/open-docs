@@ -1,0 +1,38 @@
+import Image from '@theme/IdealImage'
+
+# 系统侧边栏插槽
+
+## 要求
+
+| **ONES** |
+| :------: |
+|   3.6+   |
+
+## 概述
+
+<Image img={require('./images/sider.png')} />
+
+系统侧边栏菜单模块，用于隐藏侧边栏菜单功能
+
+当前支持的插槽：
+
+- [ones:layout:sider](#oneslayoutsider)
+
+## 插槽
+
+#### ones:layout:sider
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+## 使用
+
+```yaml
+modules:
+  - id: ones-layout-sider-MTKc
+    title: sider
+    moduleType: ones:layout:sider
+```
+
+**支持的配置项：**
+
+- [disabled](../../../../reference/config/plugin.md#disabled)

@@ -1,0 +1,127 @@
+import Image from '@theme/IdealImage'
+
+# 应用插槽
+
+## 要求
+
+| **ONES** |
+| :------: |
+|   3.6+   |
+
+## 概述
+
+<Image img={require('./images/my-work.png')} />
+
+应用插槽为可枚举类型，与产品线一一对应
+
+当前支持的插槽：
+
+- [ones:workspace](#onesworkspace)
+- [ones:project](#onesproject)
+- [ones:wiki](#oneswiki)
+- [ones:testcase](#onestestcase)
+- [ones:product](#onesproduct)
+- [ones:desk](#onesdesk)
+- [ones:deskhome](#onesdeskhome)
+- [ones:manhour](#onesmanhour)
+- [ones:performance](#onesperformance)
+- [ones:plan](#onesplan)
+- [ones:pipeline](#onespipeline)
+- [ones:version](#onesversion)
+
+## 插槽
+
+#### ones:workspace
+
+**模块路径：** 我的工作台
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:project
+
+**模块路径：** 项目管理
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:wiki
+
+**模块路径：** 知识库管理
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:testcase
+
+**模块路径：** 测试管理
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:product
+
+**模块路径：** 产品管理
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:desk
+
+**模块路径：** 工单管理
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:deskhome
+
+**模块路径：** 工单门户
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+当前插槽只能通过 URL 访问，路径如下：
+
+```
+${location.protocol}://${location.host}/project/#/desk_home
+```
+
+#### ones:manhour
+
+**模块路径：** 工时管理
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:performance
+
+**模块路径：** 效能管理
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:plan
+
+**模块路径：** 项目集管理
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:pipeline
+
+**模块路径：** 流水线管理
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:version
+
+**模块路径：** 版本管理
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+## 使用
+
+```yaml
+modules:
+  - id: ones-workspace-9rMc
+    title: My work
+    moduleType: ones:workspace
+    modules:
+      - id: ones-workspace-A0r3
+        title: Overview
+        entry: modules/ones-workspace-9rMc/ones-workspace-A0r3/index.html
+```
+
+**支持的配置项：**
+
+- [modules（必填）](../../../reference/config/plugin.md#subModule)

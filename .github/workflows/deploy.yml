@@ -6,6 +6,7 @@ on:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   deploy:
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
       - name: checkout
