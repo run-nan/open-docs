@@ -12,7 +12,7 @@
 
 ## 能力使用
 
-### SDK 文档：[@ones-op/node-fetch](../../reference/node-fetch/node-fetch.md)
+### SDK 文档：[@ones-op/node-fetch](../../reference/packages/node-fetch/node-fetch.md)
 
 ### 第一步：安装依赖
 
@@ -27,7 +27,7 @@ npm install @ones-op/node-fetch
 
 **API：** fetchHttp
 
-调用 fetchHttp 并传入外部接口的 url 和请求方法对外部接口进行访问，详细参数可参照 [SDK](../../reference/node-fetch/node-fetch.md) 文档。
+调用 fetchHttp 并传入外部接口的 url 和请求方法对外部接口进行访问，详细参数可参照 [SDK](../../reference/packages/node-fetch/node-fetch.md) 文档。
 
 **示例代码：**
 

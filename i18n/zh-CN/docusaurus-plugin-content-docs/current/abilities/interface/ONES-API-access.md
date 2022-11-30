@@ -14,7 +14,7 @@ ONES API 是 ONES 标品所有对外开放的接口，比如查看某工作项�
 
 ## 能力使用
 
-### SDK 文档：[@ones-op/node-fetch](../../reference/node-fetch/node-fetch.md)
+### SDK 文档：[@ones-op/node-fetch](../../reference/packages/node-fetch/node-fetch.md)
 
 ### 第一步：安装依赖
 

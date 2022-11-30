@@ -44,4 +44,4 @@ const { uuid, name } = useTeamInfo()
 
 - For more information about the context that can be obtained by a slot, please see: [Slots](../../abilities/slot/slot.md)
 
-- For specific usage examples and parameter definitions, please refer to: [@ones-op/store](../../reference/store/store.md)
+- For specific usage examples and parameter definitions, please refer to: [@ones-op/store](../../reference/packages/store/store.md)

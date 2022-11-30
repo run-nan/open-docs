@@ -75,4 +75,4 @@ You can directly use the `Fetch` interface provided by us.
 
 ## Other
 
-For the definition of specific parameters, please refer to: [@ones-op/fetch](../../reference//fetch/fetch.md)
+For the definition of specific parameters, please refer to: [@ones-op/fetch](../../reference/packages/fetch/fetch.md)

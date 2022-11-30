@@ -44,4 +44,4 @@ const { uuid, name } = useTeamInfo()
 
 - 某个插槽具体能获取到的上下文信息详情请参考：[插槽列表](../../abilities/slot/slot.md)
 
-- 具体使用示例以及参数释义请参考：[@ones-op/store](../../reference/store/store.md)
+- 具体使用示例以及参数释义请参考：[@ones-op/store](../../reference/packages/store/store.md)

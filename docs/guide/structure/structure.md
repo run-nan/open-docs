@@ -1,5 +1,7 @@
 # Directory structure of plugin project
 
+## Overview
+
 To provide a better and more integrated development experience, plugin projects created with ONES CLI follow the same basic directory structure.
 
 ### Directory structure

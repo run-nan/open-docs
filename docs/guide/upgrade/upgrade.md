@@ -13,7 +13,7 @@ To upgrade a plugin, you need to modify the configuration file `/config/plugin.y
 - The value of the `app_id` field in the new plugin and the old plugin must remain the same
 - The `version` field of the new version of the plugin must be higher than the old version of the plugin
 
-示例配置：
+Example configuration:
 
 ```yaml
 # Old version

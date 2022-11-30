@@ -4,7 +4,7 @@
 
 The lifecycle of a plugin refers to the complete process from uploading to uninstalling the plugin in ONES. From the time the plugin is uploaded to the ONES instance, the state flow of the plugin is shown in the figure below. The state of the plugin changes when the user installs, enables, etc. The lifecycle method will be run when the plugin state changes, and developers can add their own code to the lifecycle method to implement business logic.
 
-![image-20221128151345908](images/image-20221128151345908.png)
+![](images/lifecycle.png)
 
 ## Lifecycle method
 

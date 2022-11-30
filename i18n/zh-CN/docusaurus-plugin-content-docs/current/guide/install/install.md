@@ -56,7 +56,7 @@ sudo npm install -g @ones/cli
 1.0.0
 ```
 
-具体使用指令可以参考：[ONES CLI](../../tools/cli/cli.md)
+具体使用指令可以参考：[ONES CLI](../../tools/cli/index.mdx)
 
 #### 升级 ONES CLI
 

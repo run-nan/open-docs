@@ -75,4 +75,4 @@ const response = await OPFetch({
 
 ## 其他
 
-具体参数释义请参考：[@ones-op/fetch](../../reference/fetch/fetch.md)
+具体参数释义请参考：[@ones-op/fetch](../../reference/packages/fetch/fetch.md)

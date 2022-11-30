@@ -51,7 +51,7 @@ After the installation is complete, you can use the `--version` command on the c
 1.0.0
 ```
 
-For specific instructions, please refer to: [ONES CLI](../../tools/cli/cli.md)
+For specific instructions, please refer to: [ONES CLI](../../tools/cli/index.mdx)
 
 #### Upgrade ONES CLI
 

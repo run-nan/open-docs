@@ -12,7 +12,7 @@ The network request ability provides an API for plugin to access external servic
 
 ## Usage
 
-### SDK document:[@ones-op/node-fetch](../../reference/node-fetch/node-fetch.md)
+### SDK document:[@ones-op/node-fetch](../../reference/packages/node-fetch/node-fetch.md)
 
 ### Step 1: Installing dependencies
 
@@ -27,7 +27,7 @@ npm install @ones-op/node-fetch
 
 #### fetchHttp
 
-Call `fetchHttp` and pass the url and request method of the external API to access the external API. For more information, please see the [SDK](../../reference/node-fetch/node-fetch.md) document.
+Call `fetchHttp` and pass the url and request method of the external API to access the external API. For more information, please see the [SDK](../../reference/packages/node-fetch/node-fetch.md) document.
 
 #### Example:
 

@@ -14,7 +14,7 @@ ONES API is the open API of ONES, such as viewing the details of a issue, adding
 
 ## Usage
 
-### SDK document:[@ones-op/node-fetch](../../reference/node-fetch/node-fetch.md)
+### SDK document:[@ones-op/node-fetch](../../reference/packages/node-fetch/node-fetch.md)
 
 ### Step 1: Installing dependencies
 
