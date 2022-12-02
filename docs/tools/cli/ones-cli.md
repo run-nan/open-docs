@@ -2,10 +2,10 @@
 
 ## Overview
 
-| Module          | Command             | Description                                          |
-| --------------- | ------------------- | ---------------------------------------------------- |
-| [app](#create)  | [create](#create)   | Create project from preset project template by type. |
-| [env](#envinfo) | [envinfo](#envinfo) | Print environment info                               |
+| Command             | Description                                          |
+| ------------------- | ---------------------------------------------------- |
+| [create](#create)   | Create project from preset project template by type. |
+| [envinfo](#envinfo) | Print environment info                               |
 
 ## create
 
@@ -40,4 +40,15 @@ Print environment info
 
 ```shell
 ones envinfo
+
+# System:
+#   OS: macOS Mojave 10.14.5
+#   CPU: (8) x64 Intel(R) Core(TM) i7-7820HQ CPU @ 2.90GHz
+#   Memory: 2.97 GB / 16.00 GB
+#   Shell: 5.3 - /bin/zsh
+# Binaries:
+#   Node: 8.16.0 - ~/.nvm/versions/node/v8.16.0/bin/node
+#   Yarn: 1.15.2 - ~/.yarn/bin/yarn
+#   npm: 6.9.0 - ~/.nvm/versions/node/v8.16.0/bin/npm
+#   Watchman: 4.9.0 - /usr/local/bin/watchman
 ```

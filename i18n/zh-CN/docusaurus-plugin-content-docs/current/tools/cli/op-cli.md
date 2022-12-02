@@ -10,15 +10,15 @@ OP CLI 会作为项目依赖安装在插件工程中。
 
 ## 概览
 
-| 模块名称         | 指令名称              | 指令描述                                                                               |
-| ---------------- | --------------------- | -------------------------------------------------------------------------------------- |
-| [app](#init)     | [init](#init)         | 初始化项目依赖项和项目设置。                                                           |
-|                  | [add](#add)           | 为插件工程添加「前端插槽」或「开放能力」。                                             |
-|                  | [packup](#packup)     | 构建插件工程并在工程根目录下生成 `.opk` 文件。                                         |
-| [config](#login) | [login](#login)       | 将用于在特定环境中获取用户凭证的参数存储到 `config/local.yaml` 中。                    |
-|                  | [ci](#ci)             | 将用于在 (gitlab) CI 的特定分支中获取用户凭证的参数存储到 `config/ci-deploy.yaml` 中。 |
-|                  | [pickteam](#pickteam) | 获取团队列表并使用团队列表中的团队信息更新配置文件，以进行本地调试或持续集成。         |
-| [debug](#invoke) | [invoke](#invoke)     | 在本地启动插件项目并调用插件的一个或多个生命周期。                                     |
+| 指令名称              | 指令描述                                                                               |
+| --------------------- | -------------------------------------------------------------------------------------- |
+| [init](#init)         | 初始化项目依赖项和项目设置。                                                           |
+| [add](#add)           | 为插件工程添加「前端插槽」或「开放能力」。                                             |
+| [packup](#packup)     | 构建插件工程并在工程根目录下生成 `.opk` 文件。                                         |
+| [login](#login)       | 将用于在特定环境中获取用户凭证的参数存储到 `config/local.yaml` 中。                    |
+| [ci](#ci)             | 将用于在 (gitlab) CI 的特定分支中获取用户凭证的参数存储到 `config/ci-deploy.yaml` 中。 |
+| [pickteam](#pickteam) | 获取团队列表并使用团队列表中的团队信息更新配置文件，以进行本地调试或持续集成。         |
+| [invoke](#invoke)     | 在本地启动插件项目并调用插件的一个或多个生命周期。                                     |
 
 ## init
 
@@ -73,7 +73,7 @@ npx op packup [filename]
 
 登录成功后，CLI 会将作用域参数存储到 `~/.ones/cli-plugin.yaml` 中，并被用于本地调试。
 
-同时，如果当前项目之前从未选择过「团队信息」，此命令将尝试自动运行 `npx op pickteam -t local`。
+同时，如果当前项目之前从未选择过「团队信息」，此命令将尝试自动运行 `npx op pickteam local`。
 
 ```shell
 npx op packup [options] [filename]
@@ -94,20 +94,57 @@ npx op packup [options] [filename]
 | `--password <password>` | `-p <password>` | 密码                                                                          |
 | `--scope [url]`         | `-s [url]`      | 使用特定 `scope` 参数登录，默认为当前环境 URL，该选项与 `-u`、`-p` 选项互斥。 |
 
+### 关于 `--scope` 选项
+
+为了方便插件开发者在不同工程中使用相同或者不同环境配置的需要，在每次使用 `login` 指令登录成功后，CLI 会尝试在用户目录下记录登录过程中所使用的用户凭证信息。
+
+:::note
+在不同的操作系统中，凭证信息存储的路径会有所区别。
+
+- **Linux/macOS:** `~/.ones/cli-plugin.yaml`
+- **Windows:** `C:\Users\YOUR_USERNAME\.ones\cli-plugin.yaml`
+  :::
+
+```yaml
+scopes:
+  https://foo.example.com:
+    baseURL: https://foo.example.com
+    username: foo
+    password: fooPass
+  https://bar.example.com:
+    baseURL: https://bar.example.com
+    username: bar
+    password: barPass
+```
+
+需要注意的是，当执行 `login` 指令并使用 `scope` 选项时：
+
+- 会与 `-u` `-p` 选项互斥。
+- 如果所选择的 `scope` 的凭证失效，则进入交互式问答中输入新的用户凭证信息（效果等同于执行 `npx op login`）。
+
 ### 示例
 
+1. 进入交互式问答流程，输入登录参数。
+
 ```shell
-# 进入交互式问答流程，输入登录参数
 npx op login
+```
 
-# 指定登录环境为 'https://dev.ones.ai' 并进入交互式问答流程输入剩余的参数：hostURL, username, password
+2. 指定登录环境为 `https://dev.ones.ai` 并进入交互式问答流程输入剩余的参数：`hostURL`, `username`, `password`。
+
+```shell
 npx op login https://dev.ones.ai
+```
 
-# 指定登录环境为 'https://dev.ones.ai' 并将 hostURL 设置为 'tcp://dev.ones.ai:9006'
-# 同时指定用户凭证信息，这将直接执行登录操作
+3. 指定登录环境为 `https://dev.ones.ai` 并将 `hostURL` 设置为 `tcp://dev.ones.ai:9006`，同时指定用户凭证信息，这将直接执行登录操作。
+
+```shell
 npx op login https://dev.ones.ai tcp://dev.ones.ai:9006 -u test@ones.ai -p password
+```
 
-# 指定登录环境为 'https://partnerdev.ones.ai'，但使用 'https://dev.ones.ai' scope 下保存的用户凭证
+4. 指定登录环境为 `https://partnerdev.ones.ai`，但使用 `https://dev.ones.ai` scope 下保存的用户凭证。
+
+```shell
 npx op login https://partnerdev.ones.ai tcp://dev.ones.ai:9006 -s https://dev.ones.ai
 ```
 
@@ -119,7 +156,7 @@ npx op login https://partnerdev.ones.ai tcp://dev.ones.ai:9006 -s https://dev.on
 
 与 [登录命令](#login) 不同，当前命令不会将登录参数作为 `scope` 存储到 `~/.ones/cli-plugin.yaml` 中。
 
-但是如果运行完成后当前分支没有选择过团队信息，那么会自动执行 `npx op pickteam -t ci -b $currentSpecifyBranch`。
+但是如果运行完成后当前分支没有选择过团队信息，那么会自动执行 `npx op pickteam ci -b $currentSpecifyBranch`。
 
 ```shell
 npx op ci [options] [url]
@@ -133,33 +170,42 @@ npx op ci [options] [url]
 
 ### 选项
 
-| 选项名称                | 选项别名        | 选项描述                                                                      |
-| ----------------------- | --------------- | ----------------------------------------------------------------------------- |
-| `--username <username>` | `-u <username>` | 用作用户名的电子邮件地址或电话号码。                                          |
-| `--password <password>` | `-p <password>` | 密码。                                                                        |
-| `--scope [url]`         | `-s [url]`      | 使用特定 `scope` 参数登录，默认为当前环境 URL，该选项与 `-u`、`-p` 选项互斥。 |
+| 选项名称                      | 选项别名           | 选项描述                                                                      |
+| ----------------------------- | ------------------ | ----------------------------------------------------------------------------- |
+| `--branch-name <branch-name>` | `-b <branch-name>` | 指定持续集成需要部署的分支名称，默认为 `master` 或 `main` 分支。              |
+| `--username <username>`       | `-u <username>`    | 用作用户名的电子邮件地址或电话号码。                                          |
+| `--password <password>`       | `-p <password>`    | 密码。                                                                        |
+| `--scope [url]`               | `-s [url]`         | 使用特定 `scope` 参数登录，默认为当前环境 URL，该选项与 `-u`、`-p` 选项互斥。 |
 
 ### 示例
 
+1. 进入交互式问答流程，输入持续集成部署参数
+
 ```shell
-# 进入交互式问答流程，输入持续集成部署参数
 npx op ci
+```
 
-# 指定持续集成的环境地址为 'https://dev.ones.ai'
-# 然后进入交互式问答流程输入剩余参数：branch, username, password
+2. 指定持续集成的环境地址为 `https://dev.ones.ai`，然后进入交互式问答流程输入剩余参数：`branch` `username` `password`
+
+```shell
 npx op ci https://dev.ones.ai
+```
 
-# 指定持续集成的环境地址为 'https://dev.ones.ai'，并指定用户凭证信息
+3. 指定持续集成的环境地址为 `https://dev.ones.ai`，并指定用户凭证信息
+
+```shell
 npx op ci https://dev.ones.ai -b next -u test@ones.ai -p password
+```
 
-# 使用'https://dev.ones.ai'作用域参数，指定部署的环境地址为'https://partnerdev.ones.ai'
-# 制定持续集成的环境地址为 'https://partnerdev.ones.ai'，但使用 'https://dev.ones.ai' scope 下保存的用户凭证
+4. 使用 `https://dev.ones.ai` 作用域参数，指定部署的环境地址为 `https://partnerdev.ones.ai`，指定持续集成的环境地址为 `https://partnerdev.ones.ai`，但使用 `https://dev.ones.ai` scope 下保存的用户凭证。
+
+```shell
 npx op ci https://partnerdev.ones.ai -b next -s https://dev.ones.ai
 ```
 
 ## pickteam
 
-使用存储在配置文件中的用户凭证(`config/local.yaml`)获取团队列表，并使用团队列表中的团队信息更新配置文件以用于本地调试或持续集成。
+使用存储在配置文件中的用户凭证(`config/local.yaml` 或 `config/ci-deploy.yaml`)获取团队列表，并使用团队列表中的团队信息更新配置文件以用于本地调试或持续集成。
 
 在选择团队信息之前，需要先执行 `npx op login` 或 `npx op ci` 完成登录操作。
 
@@ -191,29 +237,33 @@ npx op pickteam [options] [target]
 
 ### 示例
 
+1.使用存储在 `config/local.yaml` 中的用户凭证获取团队列表，在这之前需要先执行 `npx op login` 指令。
+
 ```shell
-# 使用存储在 `config/local.config` 中的用户凭证获取团队列表
-# 在这之前需要先执行 `npx op login` 指令
 npx op pickteam local
+```
 
-# 进入交互式问答选择持续集成分支
-# 并使用存储在 `config/ci-deploy.config` 中的分支信息中的用户凭证获取团队列表
-# 在这之前需要先执行 `npx op ci` 指令
+2. 进入交互式问答选择持续集成分支，并使用存储在 `config/ci-deploy.yaml` 中的分支信息中的用户凭证获取团队列表，在这之前需要先执行 `npx op ci` 指令
+
+```shell
 npx op pickteam ci
+```
 
-# 使用存储在 `config/ci-deploy.config` 中的 `next` 分支信息中的用户凭证获取团队列表
-# 请注意分支名称区分大小写，分支名称必须与`config/ci-deploy.config`中的分支名称相同
-# 如果没有匹配的分支名称，CLI 将抛出错误
+3. 使用存储在 `config/ci-deploy.yaml` 中的 `next` 分支信息中的用户凭证获取团队列表，请注意分支名称区分大小写，分支名称必须与`config/ci-deploy.yaml`中的分支名称相同，如果没有匹配的分支名称，CLI 将抛出错误。
+
+```shell
 npx op pickteam ci -b next
+```
 
-# 使用存储在 `config/local.config` 中的用户凭证获取团队列表
-# 获取团队列表后，CLI 将尝试选择团队 UUID 为 “T7YB134K” 的团队信息
-# 如果没有成功匹配团队 UUID，CLI 将抛出错误
+4. 使用存储在 `config/local.yaml` 中的用户凭证获取团队列表，获取团队列表后，CLI 将尝试选择团队 UUID 为 “T7YB134K” 的团队信息，如果没有成功匹配团队 UUID，CLI 将抛出错误。
+
+```shell
 npx op pickteam local --team-uuid T7YB134K
+```
 
-# 使用存储在 `config/ci-deploy.config` 中的 `next` 分支信息中的用户凭证获取团队列表
-# 获取团队列表后，CLI 将尝试选择团队名称为 `TestTeamName` 的团队信息
-# 如果没有成功匹配团队名称，CLI 将抛出错误
+5. 使用存储在 `config/ci-deploy.yaml` 中的 `next` 分支信息中的用户凭证获取团队列表，获取团队列表后，CLI 将尝试选择团队名称为 `TestTeamName` 的团队信息，如果没有成功匹配团队名称，CLI 将抛出错误。
+
+```shell
 npx op pickteam ci -b next --team-name TestTeamName
 ```
 

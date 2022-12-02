@@ -2,10 +2,10 @@
 
 ## 概览
 
-| 模块名称        | 指令名称            | 指令描述                         |
-| --------------- | ------------------- | -------------------------------- |
-| [app](#create)  | [create](#create)   | 根据类型从预设项目模板创建项目。 |
-| [env](#envinfo) | [envinfo](#envinfo) | 输出环境信息。                   |
+| 指令名称            | 指令描述                         |
+| ------------------- | -------------------------------- |
+| [create](#create)   | 根据类型从预设项目模板创建项目。 |
+| [envinfo](#envinfo) | 输出环境信息。                   |
 
 ## create
 
@@ -13,8 +13,8 @@
 
 如果开发者将参数 `project-name` 留空：
 
-1. 且不指定具体路径，则默认使用当前文件夹名称作为项目名称。
-2. 并且还指定了路径，然后将使用文件夹名称作为默认项目名称。
+1. 并且不使用 `--specific-path` 选项指定具体路径，则默认使用当前路径中的文件夹名称作为项目名称。
+2. 并且使用 `--specific-path` 选项指定具体路径，则使用指定路径中的文件夹名称作为默认项目名称。
 
 ```shell
 ones create [options] [project-name]
@@ -40,4 +40,15 @@ ones create [options] [project-name]
 
 ```shell
 ones envinfo
+
+# System:
+#   OS: macOS Mojave 10.14.5
+#   CPU: (8) x64 Intel(R) Core(TM) i7-7820HQ CPU @ 2.90GHz
+#   Memory: 2.97 GB / 16.00 GB
+#   Shell: 5.3 - /bin/zsh
+# Binaries:
+#   Node: 8.16.0 - ~/.nvm/versions/node/v8.16.0/bin/node
+#   Yarn: 1.15.2 - ~/.yarn/bin/yarn
+#   npm: 6.9.0 - ~/.nvm/versions/node/v8.16.0/bin/npm
+#   Watchman: 4.9.0 - /usr/local/bin/watchman
 ```

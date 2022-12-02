@@ -10,15 +10,15 @@ Developer need to use [npx](https://docs.npmjs.com/cli/v8/commands/npx) to execu
 
 ## Overview
 
-| Module           | Command               | Description                                                                                                                       |
-| ---------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| [app](#init)     | [init](#init)         | Initialize project dependencies and project settings.                                                                             |
-|                  | [add](#add)           | Add a ability or module for the project.                                                                                          |
-|                  | [packup](#packup)     | Pack up the plugin project and build `.opk` file in the root directory.                                                           |
-| [config](#login) | [login](#login)       | Store the parameters used to obtain user credentials in a specific environment into `config/local.yaml`.                          |
-|                  | [ci](#ci)             | Store the parameters used to obtain user credentials in a specific branch for (gitlab) CI into `config/ci-deploy.yaml`.           |
-|                  | [pickteam](#pickteam) | Fetch the team list and update the config file with the team information from the team list for local debugging or CI deployment. |
-| [debug](#invoke) | [invoke](#invoke)     | Start the plugin project locally and invoke one or several life-cycles of the plugin.                                             |
+| Command               | Description                                                                                                                       |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| [init](#init)         | Initialize project dependencies and project settings.                                                                             |
+| [add](#add)           | Add a ability or module for the project.                                                                                          |
+| [packup](#packup)     | Pack up the plugin project and build `.opk` file in the root directory.                                                           |
+| [login](#login)       | Store the parameters used to obtain user credentials in a specific environment into `config/local.yaml`.                          |
+| [ci](#ci)             | Store the parameters used to obtain user credentials in a specific branch for (gitlab) CI into `config/ci-deploy.yaml`.           |
+| [pickteam](#pickteam) | Fetch the team list and update the config file with the team information from the team list for local debugging or CI deployment. |
+| [invoke](#invoke)     | Start the plugin project locally and invoke one or several life-cycles of the plugin.                                             |
 
 ## init
 
@@ -73,7 +73,7 @@ Argument `baseURL` and `hostURL` is protocol sensitive, different protocol type 
 
 After login successfully, CLI will store the scope parameters into `~/.ones/cli-plugin.yaml` for local debugging.
 
-And at the same time, this command will try to run `npx op pickteam -t local` automatically if the current project has never had a team picked before.
+And at the same time, this command will try to run `npx op pickteam local` automatically if the current project has never had a team picked before.
 
 ```shell
 npx op packup [options] [filename]
@@ -94,20 +94,55 @@ npx op packup [options] [filename]
 | `--password <password>` | `-p <password>` | Password.                                                                                                                           |
 | `--scope [url]`         | `-s [url]`      | Use specific scope parameters login, default is current environment url, this option is mutually exclusive with `-u`, `-p` options. |
 
+### About `--scope` option
+
+:::note
+In different operating systems, the path of credential storage will be different.
+
+- **Linux/macOS:** `~/.ones/cli-plugin.yaml`
+- **Windows:** `C:\Users\YOUR_USERNAME\.ones\cli-plugin.yaml`
+  :::
+
+```yaml title="Content like this"
+scopes:
+  https://foo.example.com:
+    baseURL: https://foo.example.com
+    username: foo
+    password: fooPass
+  https://bar.example.com:
+    baseURL: https://bar.example.com
+    username: bar
+    password: barPass
+```
+
+It should be noted that when executing the `login` command and using the `scope` option:
+
+- This option is mutually exclusive with `-u`, `-p` options.
+- If the selected `scope` credential is invalid, enter the interactive question and answer to enter the new user credential information (the effect is equivalent to executing `npx op login`).
+
 ### Examples
 
+1. Enter the interactive Q&A process and input the login parameters.
+
 ```shell
-# Enter the interactive Q&A process and input the login parameters
 npx op login
+```
 
-# Login to 'https://dev.ones.ai' environment
-# And then enter the inquiry session flow input rest parameters: hostURL, username, password
+2. Login to `https://dev.ones.ai` environment. And then enter the inquiry session flow input rest parameters: `hostURL`, `username`, `password`.
+
+```shell
 npx op login https://dev.ones.ai
+```
 
-# Login to 'https://dev.ones.ai' environment and set hostURL to 'tcp://dev.ones.ai:9006' with two parameters and not enter the interactive Q&A process
+3. Login to `https://dev.ones.ai` environment and set `hostURL` to `tcp://dev.ones.ai:9006` with two parameters and not enter the interactive Q&A process.
+
+```shell
 npx op login https://dev.ones.ai tcp://dev.ones.ai:9006 -u test@ones.ai -p password
+```
 
-# use 'https://dev.ones.ai' scope parameters to login to 'https://partnerdev.ones.ai' environment
+4. Use `https://dev.ones.ai` scope parameters to login to `https://partnerdev.ones.ai` environment.
+
+```shell
 npx op login https://partnerdev.ones.ai tcp://dev.ones.ai:9006 -s https://dev.ones.ai
 ```
 
@@ -119,7 +154,7 @@ Argument `url` is protocol sensitive, different protocol type will be treated as
 
 Unlike the [login command](#login), current command does not store the scope parameters into `~/.ones/cli-plugin.yaml`.
 
-But if the current branch has never picked a team after the run is complete, `npx op pickteam -t ci -b $currentSpecifyBranch` will be automatically executed which is consistent.
+But if the current branch has never picked a team after the run is complete, `npx op pickteam ci -b $currentSpecifyBranch` will be automatically executed which is consistent.
 
 ```shell
 npx op ci [options] [url]
@@ -142,25 +177,33 @@ npx op ci [options] [url]
 
 ### Example
 
+1. Enter the interactive Q&A process and input the parameters for CI deployment.
+
 ```shell
-# Enter the interactive Q&A process and input the parameters for CI deployment
 npx op ci
+```
 
-# Specify the environment address for the CI deployment as 'https://dev.ones.ai',
-# and then enter the interactive Q&A process input rest parameters: branch, username, password
+2. Specify the environment address for the CI deployment as `https://dev.ones.ai`, and then enter the interactive Q&A process input rest parameters: `branch`, `username` and `password`.
+
+```shell
 npx op ci https://dev.ones.ai
+```
 
-# Specify the environment address for the CI deployment as 'https://dev.ones.ai',
-# and not enter the interactive Q&A process input rest parameters
+3. Specify the environment address for the CI deployment as `https://dev.ones.ai`, and not enter the interactive Q&A process input rest parameters.
+
+```shell
 npx op ci https://dev.ones.ai -b next -u test@ones.ai -p password
+```
 
-# Use 'https://dev.ones.ai' scope parameters and specify the environment address for the CI deployment as 'https://partnerdev.ones.ai'
+4. Use `https://dev.ones.ai` scope parameters and specify the environment address for the CI deployment as `https://partnerdev.ones.ai`.
+
+```shell
 npx op ci https://partnerdev.ones.ai -b next -s https://dev.ones.ai
 ```
 
 ## pickteam
 
-Fetch the team list with the user credentials stored in the config file (`config/local.yaml`) and update the config file with the team information from the team list for local debugging or CI deployment.
+Fetch the team list with the user credentials stored in the config file (`config/local.yaml` or `config/ci-deploy.yaml`) and update the config file with the team information from the team list for local debugging or CI deployment.
 
 Before performing this operation, the login operation should be completed in the corresponding target.
 
@@ -192,29 +235,33 @@ When `--team-uuid` and `--team-name` are specified at the same time, only `--tea
 
 ### Example
 
+1. Fetch the team list with the user credentials stored in the `config/local.yaml`. If does not store user credentials, you need to execute `npx op login` first.
+
 ```shell
-# Fetch the team list with the user credentials stored in the `config/local.config`
-# if does not store user credentials, you need to execute `npx op login` first
 npx op pickteam local
+```
 
-# Display the branch list with the user credentials stored in the `config/ci-deploy.config`,
-# and enter the interactive Q&A process for choosing the branch to fetch the team list
-# if does not store user credentials, you need to execute `npx op ci` first
+2. Display the branch list with the user credentials stored in the `config/ci-deploy.yaml`, and enter the interactive Q&A process for choosing the branch to fetch the team list, if does not store user credentials, you need to execute `npx op ci` first.
+
+```shell
 npx op pickteam ci
+```
 
-# Fetch the team list with the user credentials stored in `config/ci-deploy.config` with the branch name `next`
-# please note that the branch name is case sensitive, and the branch name must be the same as the branch name in the `config/ci-deploy.config`
-# the CLI will throw an error if no branch name matches
+3. Fetch the team list with the user credentials stored in `config/ci-deploy.yaml` with the branch name `next`, please note that the branch name is case sensitive, and the branch name must be the same as the branch name in the `config/ci-deploy.yaml`, the CLI will throw an error if no branch name matches.
+
+```shell
 npx op pickteam ci -b next
+```
 
-# Fetch the team list with the user credentials stored in the `config/local.config`
-# after fetching the team list, CLI will try to pick the team with the team UUID `T7YB134K`
-# the CLI will throw an error if no team UUID matches
+4. Fetch the team list with the user credentials stored in the `config/local.yaml`, after fetching the team list, CLI will try to pick the team with the team UUID `T7YB134K`, the CLI will throw an error if no team UUID matches
+
+```shell
 npx op pickteam local --team-uuid T7YB134K
+```
 
-# Fetch the team list with the user credentials stored in `config/ci-deploy.config` with the branch name `next`
-# after fetching the team list, CLI will try to pick the team with the team name `TestTeamName`
-# the CLI will throw an error if no team name matches
+5. Fetch the team list with the user credentials stored in `config/ci-deploy.yaml` with the branch name `next`, after fetching the team list, CLI will try to pick the team with the team name `TestTeamName`, the CLI will throw an error if no team name matches
+
+```shell
 npx op pickteam ci -b next --team-name TestTeamName
 ```
 
