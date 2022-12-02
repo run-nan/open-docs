@@ -101,7 +101,6 @@ In different operating systems, the path of credential storage will be different
 
 - **Linux/macOS:** `~/.ones/cli-plugin.yaml`
 - **Windows:** `C:\Users\YOUR_USERNAME\.ones\cli-plugin.yaml`
-  :::
 
 ```yaml title="Content like this"
 scopes:
@@ -114,6 +113,8 @@ scopes:
     username: bar
     password: barPass
 ```
+
+:::
 
 It should be noted that when executing the `login` command and using the `scope` option:
 

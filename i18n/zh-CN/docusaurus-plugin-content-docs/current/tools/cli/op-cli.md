@@ -103,7 +103,6 @@ npx op packup [options] [filename]
 
 - **Linux/macOS:** `~/.ones/cli-plugin.yaml`
 - **Windows:** `C:\Users\YOUR_USERNAME\.ones\cli-plugin.yaml`
-  :::
 
 ```yaml
 scopes:
@@ -116,6 +115,8 @@ scopes:
     username: bar
     password: barPass
 ```
+
+:::
 
 需要注意的是，当执行 `login` 指令并使用 `scope` 选项时：
 
