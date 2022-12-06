@@ -8,13 +8,13 @@
 
 ## 概述
 
-接口访问能力为插件提供了 ONES 标准系统接口( ONES API ) 的访问 API。
+接口访问能力为插件提供了访问 ONES 标准系统接口( ONES API ) 的 SDK。
 
-ONES API 是 ONES 标品所有对外开放的接口，比如查看某工作项详情，添加工作项等接口，可通过访问这些接口与 ONES 标品进行交互。每个插件都会在系统中生成一个超级用户（详情可见[插件超级用户](../basic/plugin-superuser)），超级用户在访问 ONES API 时，会拥有所有数据的访问权限。
+ONES API 是 ONES 标品所有对外开放的接口，比如查看某工作项详情，添加工作项等接口，可通过访问这些接口与 ONES 标品进行交互。每个插件都会在系统中生成一个超级用户（详情可见[插件超级用户](../../basic/plugin-superuser)），超级用户在访问 ONES API 时，会拥有所有数据的访问权限。
 
 ## 能力使用
 
-### SDK 文档：[@ones-op/node-fetch](../../reference/packages/node-fetch/node-fetch.md)
+### SDK 文档：[@ones-op/node-fetch](../../../reference/packages/node-fetch)
 
 ### 第一步：安装依赖
 

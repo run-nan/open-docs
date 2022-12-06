@@ -20,7 +20,7 @@ The following are the steps to use the pre-intercept verification for the two op
 
 ### Step 1: Add ability
 
-Add the Mutation event hijacking ability in the plugin configuration file, you can use `op add ability` to add the `item-mutation` ability.
+Add the Mutation event hijacking ability in the plugin configuration file, you can use `npx op add ability` to add the `item-mutation` ability.
 
 Example configuration:
 
@@ -43,7 +43,7 @@ abilities:
 
 ### Step 2: Write the handler function
 
-Write the processing function `CheckManhourOp` in `backend/src/item-mutation.ts` of the plugin project, and this function will be called when the hijacking event occurs in the configuration. The event type of `checkManhour` will judge whether the check of this event is successful or not according to whether the returned status code is **200**.
+Write the processing function `CheckManhourOp` in the `backend/src/item-mutation.ts` of the plugin project, which will be called when the event hijacked in the configuration occurs. The event type of `checkManhour` will judge whether the inspection of this event is successful or not according to whether the returned status code is **200**.
 
 The `CheckManhourOp` function template looks like this:
 

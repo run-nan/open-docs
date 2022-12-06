@@ -2,7 +2,7 @@
 
 ## Overview
 
-The lifecycle of a plugin refers to the complete process from uploading to uninstalling the plugin in ONES. From the time the plugin is uploaded to the ONES instance, the state flow of the plugin is shown in the figure below. The state of the plugin changes when the user installs, enables, etc. The lifecycle method will be run when the plugin state changes, and developers can add their own code to the lifecycle method to implement business logic.
+The lifecycle of a plugin refers to the complete process of the plugin from uploading to uninstalling in ONES. From the time the plugin is uploaded to the ONES instance, the state flow of the plugin is shown in the figure below. The state of the plugin changes when the user installs, enables, etc. The lifecycle method will be run when the plugin state changes, and developers can add their own code to the lifecycle method to implement business logic.
 
 ![](images/lifecycle.png)
 
@@ -89,7 +89,7 @@ export function OrgUpgrade(request: PluginRequest, teamUUIDList: string[]) {
 | request      | PluginRequest | Relevant information and environment information of the initiator of the request, such as the `uuid` and `token` of the user who triggered the plugin event, and the current language of ONES (multilingual related). |
 | teamUUIDList | string[]      | The target team UUID list enabled this time, when the organization-level plugin is enabled, it will be applied to specific teams, and the teams stored in this list are the teams to be effective.                    |
 
-#### **Note**
+### **Note**
 
 1. Operations in `Enable` and `Disable` methods must be idempotent.
 2. Time-consuming operations should not be performed in lifecycle methods.

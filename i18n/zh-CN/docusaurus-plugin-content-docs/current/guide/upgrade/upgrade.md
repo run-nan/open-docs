@@ -34,10 +34,6 @@ service:
 
 `upgrade.yaml` 编写需符合 yaml 语法，内容规则如下：
 
-- workspace
-
-  插件升级过程中 `workspace` 目录下文件的替换规则，用于规范文件冲突处理过程
-
 - rule
 
   文件替换规则，可选值如下：
@@ -49,9 +45,9 @@ service:
 
 - exclude
 
-  排除列表，支持正则表达式匹配文件，命中的文件不应用 `rule` 的规则。例如：`rule` 配置了 `save_old`，则 `exclude` 规则命中的文件列表采用 `save_new` 策略。
+  排除列表，支持正则表达式匹配文件，命中的文件不应用 `rule` 的规则。例如：`rule` 配置了 `save_old`，则 `exclude` 命中的文件列表采用 `save_new` 策略。
 
-示例配置：该配置表示当新旧插件 `workspace` 目录下的文件发生冲突时，保留新插件中的文件。满足 `exclude` 所配置规则的文件，保留旧插件中的文件
+示例配置：该配置表示当新旧插件 `workspace` 目录下的文件发生冲突时，保留新插件中的文件。 `exclude`匹配的文件，保留旧插件中的文件
 
 ```yaml
 workspace:

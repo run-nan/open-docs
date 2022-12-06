@@ -86,10 +86,7 @@ export async function Install() {
   ```typescript
   import { exec } from '@ones-op/node-database'
   try {
-    const result = await exec(
-      'insert',
-      `INSERT INTO email_id_map VALUES ("plugin@ones.cn", "001");`
-    )
+    await exec('insert', `INSERT INTO email_id_map VALUES ("plugin@ones.cn", "001");`)
   } catch (error) {
     Logger.error('ERROR: ', error)
   }

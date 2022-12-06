@@ -8,13 +8,13 @@
 
 ## Overview
 
-The ONES API access ability provides the plugin with ONES API access to API.
+The ONES API access ability provides an SDK for plugin to access the ONES API.
 
-ONES API is the open API of ONES, such as viewing the details of a issue, adding issue and so on. You can interact with ONES by accessing these API. Each plugin generates a superuser in the system (see basic ability: [Plugin superuser](../basic/plugin-superuser)), and the superuser has access to all data when accessing the API provided by the ONES.
+ONES API is the open API of ONES, such as viewing the details of a issue, adding issue and so on. You can interact with ONES by accessing these API. Each plugin generates a superuser in the system (see basic ability: [Plugin superuser](../../basic/plugin-superuser)), and the superuser has access to all data when accessing the API provided by the ONES.
 
 ## Usage
 
-### SDK document:[@ones-op/node-fetch](../../reference/packages/node-fetch/node-fetch.md)
+### SDK document:[@ones-op/node-fetch](../../../reference/packages/node-fetch)
 
 ### Step 1: Installing dependencies
 

@@ -14,13 +14,15 @@ ONES 系统中很多数据都支持使用 Graphql 操作。我们可以将每一
 
 ## 能力使用
 
-使用能力劫持 `checkManhour` 事件类型，可对工时操作进行一些校验逻辑，若校验失败则本次修改操作会报错，只有通过校验才能正常完成操作。
+### checkManhour
+
+使用该能力劫持 `checkManhour` 事件类型，可对工时操作进行一些校验逻辑，若校验失败则本次修改操作会报错，只有通过校验才能正常完成操作。
 
 以下是针对添加工时和更新工时这两个操作的前置拦截校验的使用步骤，在开发过程中，开发者可以根据实际需求来编写业务代码，例如校验添加和更新的工时必须为整数、修改数值范围等场景。
 
-### 第一步：添加能力
+#### 第一步：添加能力
 
-在插件的配置文件中添加 Mutation 事件劫持能力，可使用 `op add ability` 添加 `item-mutation` 能力。
+在插件的配置文件中添加 Mutation 事件劫持能力，可使用 `npx op add ability` 添加 `item-mutation` 能力。
 
 示例配置：
 
@@ -41,9 +43,9 @@ abilities:
         fieldType: Input
 ```
 
-### 第二步：编写处理函数
+#### 第二步：编写处理函数
 
-在插件工程的`backend/src/item-mutation.ts`中编写处理函数 `CheckManhourOp`，在发生配置中劫持的事件是，会调用该函数。而 `checkManhour` 的事件类型会根据返回状态码是否为 **200** 来判断此次事件的检验是否成功。
+在插件工程的`backend/src/item-mutation.ts`中编写处理函数 `CheckManhourOp`，在发生配置中劫持的事件时，会调用该函数。而 `checkManhour` 的事件类型会根据返回状态码是否为 **200** 来判断此次事件的检验是否成功。
 
 `CheckManhourOp` 函数模板如下所示：
 

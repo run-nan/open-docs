@@ -10,11 +10,9 @@
 
 有时候我们需要改变 ONES 系统中某些行为的表现，在某个行为前后增加一些操作或者替换行为本身来达到业务需求。插件可以通过接口劫持能力对 ONES 标准系统中所有对外开放的接口进行劫持，支持前置、后置和替换方式；
 
-- 前置劫持，是指当请求进入标准系统时，未被处理前就会先被转发到插件，由插件对请求进行修改后，回传给标准系统并继续执行原先的逻辑。一般用于修改请求的参数，或对请求进行校验；
-
-- 后置劫持，是指当请求在标准系统完成处理后，将会被传递给插件，由插件对其内容进行修改后再回传给标准系统，并返回给请求方。一般用于对响应内容进行加工；
-
 - 替换，插件可以”替换“标准系统系统的某个接口，让插件能够对现有系统的某个请求进行完全的自定义处理。
+- 前置劫持，是指当请求进入标准系统时，未被处理前就会先被转发到插件，由插件对请求进行修改后，回传给标准系统并继续执行原先的逻辑。一般用于修改请求的参数，或对请求进行校验；
+- 后置劫持，是指当请求在 ONES 完成处理后，会发送通知给插件，插件此时可进行一些后置处理，但无法修改响应内容。
 
 **劫持**和**替换**都是比较底层的操作，可能对系统功能产生未知风险。一般只有在其它能力都不满足需求的情况下，才考虑使用接口劫持能力。
 
@@ -24,8 +22,8 @@
 
 ### **能力使用须知：**
 
-1. 目前对于同一接口，只能有一个插件进行劫持或替换。
-2. 如果修改了插件配置文件（config/plugin.yaml），需要运行 `npx op invoke clear` 并重新运行 `npx op invoke run` 指令才能使配置生效。
+1. 组织级别的接口和团队级别的接口的差别在于团队级别接口的 url 中包含有 `/team/:teamUUID`。对于同一个接口：组织级别接口只允许一个插件进行劫持；团队级别接口允许每个团队中都有一个插件进行劫持，但同个团队中只允许一个插件进行劫持。
+2. 在本地调试中，如果修改了插件配置文件`config/plugin.yaml`，需要运行 `npx op invoke clear` 并重新运行 `npx op invoke run` 指令才能使配置生效。
 
 ### 接口劫持能力三种劫持方式用法
 
@@ -57,9 +55,9 @@ sequenceDiagram
   apis:
     - type: replace #接口类型： replace:替换
       methods: #接口请求方式
-        - GET
-      url: /users/me #劫持接口url
-      scope: project/wiki #project或wiki接口，没有该属性则默认为project
+        - POST
+      url: /team/:teamUUID/page/:pageUUID/update_title #劫持接口url
+      scope: wiki #project或wiki接口，没有该属性则默认为project
       function: jackFunc #名称与代码里的函数名保持一致
   ```
 
@@ -67,34 +65,42 @@ sequenceDiagram
 
   在插件代码中，如果插件还需要请求 ONES 被替换的接口，需要在请求头中带上：`headers: { 'Replace': "replace", }`
 
-  ```typescript
-  import { Logger } from '@ones-op/node-logger' //需要导入的依赖依赖包
-  import { fetchHttp, fetchONES } from '@ones-op/node-fetch'
+  该示例替换了 wiki 修改页面标题的接口，会将页面标题设置为"plugin title"
 
-  //处理函数
+  ```typescript
+  import { fetchONES } from '@ones-op/node-fetch'
+  import { Logger } from '@ones-op/node-logger'
   export async function jackFunc(
-      request: PluginRequest<Record<string, any>>
+    request: PluginRequest<Record<string, any>>
   ): Promise<PluginResponse> {
-      let userUUID = ''
-      let userToken = ''
-      if (request.headers['Ones-User-Id'] != null) {
+    Logger.info('replace success')
+    let userUUID = ''
+    let userToken = ''
+    if (request.headers['Ones-User-Id'] != null) {
       userUUID = request.headers['Ones-User-Id']
       userToken = request.headers['Ones-Auth-Token']
-  }
-  const response = await fetchONES({
-      path: `/users/me`,
-      method: 'GET',
+    }
+    Logger.info('url:', request.url)
+    let response = await fetchONES({
+      path: '/wiki' + request.url,
+      method: 'POST',
       headers: {
-          'Ones-User-Id': [userUUID],
-          'Ones-Auth-Token': [userToken],
+        'Ones-User-Id': [userUUID],
+        'Ones-Auth-Token': [userToken],
+        'Replace': 'replace',
       },
-      root: false, //默认为true
-  })
-  if (response) {
+      body: {
+        title: 'plugin title',
+      },
+      root: false,
+    })
+    Logger.info(JSON.stringify(response, undefined, 2))
+    if (response) {
       return response
-  }
-  return {
+    }
+    return {
       body: {},
+    }
   }
   ```
 
@@ -129,23 +135,26 @@ sequenceDiagram
   apis:
     - type: prefix #接口类型： prefix:前置劫持
       methods:
-        - GET
-      url: /标品url
-      scope: project/wiki
+        - POST
+      url: /team/:teamUUID/page/:pageUUID/update_title
+      scope: wiki
       function: prefixFunc
   ```
 
 - 处理方法示例写法
+
+  该示例对 wiki 修改页面标题的接口进行前置劫持，在本次修改标题中加上后缀
 
   ```typescript
   //prefix 前置接口劫持
   export async function prefixFunc(
     request: PluginRequest<Record<string, any>>
   ): Promise<PluginResponse> {
-    let body = request?.body
-    // code
+    let body = request?.body as any
+    let headers = request?.headers as any
+    body.title = body.title + '-plugin'
     return {
-      // 返回被处理后或者按原样返回的请求头
+      headers: headers,
       body: body,
     }
   }
@@ -170,25 +179,35 @@ sequenceDiagram
 
   ```yaml
   apis:
-    - type: prefix #接口类型： suffix:后置
+    - type: suffix #接口类型： suffix:后置
       methods:
         - GET
-      url: /标品url
+      url: /users/me
+      scope: project
       function: suffixFunc
   ```
 
 - 处理方法示例写法
 
+  该示例表示当接口完成处理之后，记录一些内容到`suffix.txt`文件中
+
   ```typescript
-  //suffix 后置接口劫持
+  import { createFile, writeStrings } from '@ones-op/node-file'
+  import { Logger } from '@ones-op/node-logger'
+  export async function Install() {
+    await createFile('./suffix.txt')
+    Logger.info('[Plugin] Install')
+  }
+  //suffix hijacking
   export async function suffixFunc(
     request: PluginRequest<Record<string, any>>
   ): Promise<PluginResponse> {
-    let body = {}
-    // code
+    Logger.info('suffix success')
+    let body = request?.body as any
+    await writeStrings('./suffix.txt', [JSON.stringify(request, undefined, 2)])
     return {
       // 可以返回任意 body
-      body: body,
+      body: {},
     }
   }
   ```

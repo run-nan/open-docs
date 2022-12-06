@@ -34,7 +34,7 @@ Call `fetchHttp` and pass the url and request method of the external API to acce
 ```typescript
 import { fetchHttp } from '@ones-op/node-fetch'
 
-async function callBaidu() {
+async function callGoogle() {
   const response = await fetchHttp({
     url: 'https://www.google.com',
     method: 'GET',

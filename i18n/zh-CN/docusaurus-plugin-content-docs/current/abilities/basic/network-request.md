@@ -34,7 +34,7 @@ npm install @ones-op/node-fetch
 ```typescript
 import { fetchHttp } from '@ones-op/node-fetch'
 
-async function callBaidu() {
+async function callGoogle() {
   const response = await fetchHttp({
     url: 'https://www.google.com',
     method: 'GET',

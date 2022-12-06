@@ -11,7 +11,6 @@ sidebar_position: 2
 ## 能力
 
 - [基础能力](../../abilities/basic/basic.md)
-- [接口能力](../../abilities/interface/interface.md)
 - [业务能力](../../abilities//business/business.md)
 
 ## 使用

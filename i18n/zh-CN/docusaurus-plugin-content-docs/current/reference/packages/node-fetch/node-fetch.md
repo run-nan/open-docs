@@ -1,70 +1,76 @@
 # @ones-op/node-fetch
 
-## Requirements
+## 包描述
 
-| **ONES** |
-| -------- |
-| 3.6+     |
+插件**后端**接口访问能力相关 API
 
-## API
+## 兼容要求
+
+| ONES |
+| ---- |
+| 3.6+ |
+
+## API 列表
 
 ### fetchHttp
 
-**Function:** Used to access external services
+**作用：**用于访问外部服务
 
-#### Params:
+#### Params
 
-| **Param** | **Type**                 | Description     | **Default** | **Required** |
-| --------- | ------------------------ | --------------- | ----------- | ------------ |
-| url       | string                   | Request address | -           | Yes          |
-| method    | string                   | Request type    | -           | Yes          |
-| body      | object/Uint8Array/string | Request body    | -           |              |
-| headers   | Record<string, string[]> | Request header  | -           |              |
+| **参数** | **类型**                 | **说明** | **默认值** | **必填** |
+| -------- | ------------------------ | -------- | ---------- | -------- |
+| url      | string                   | 请求地址 | -          | 是       |
+| method   | string                   | 请求类型 | -          | 是       |
+| body     | object/Uint8Array/string | 请求体   | -          |          |
+| headers  | Record<string, string[]> | 请求头   | -          |          |
 
-#### Returns:
+#### Returns
 
-| **Param**  | **Type**                     | Description | **Default** | **Required** |
-| ---------- | ---------------------------- | ----------- | ----------- | ------------ |
-| statusCode | number / string / undefined  | Status code | -           |              |
-| body       | object / Uint8Array / string | Return body | -           |              |
-| headers    | Record<string, string[]>     | Turn back   | -           |              |
+| **参数**   | **类型**                     | **说明** | **默认值** | **必填** |
+| ---------- | ---------------------------- | -------- | ---------- | -------- |
+| statusCode | number / string / undefined  | 状态码   | -          |          |
+| body       | object / Uint8Array / string | 返回体   | -          |          |
+| headers    | Record<string, string[]>     | 返回头   | -          |          |
 
-#### Example:
+#### Example
 
 ```typescript
-//Request Baidu interface
+//请求百度接口
 const response = await fetchHttp({
   url: 'https://www.baidu.com',
   method: 'GET',
 })
 ```
 
+---
+
 ### fetchONES
 
-**Function: **Used to access ONES system standard interface
+**作用：**用于访问 ONES 系统标准接口
 
-#### Params:
+#### Params
 
-| **Param** | **Type**                 | Description                                                                     | **Default** | **Required** |
-| --------- | ------------------------ | ------------------------------------------------------------------------------- | ----------- | ------------ |
-| path      | string                   | Request address. For wiki interface, you need to add'/ wiki' before parameters. | -           | Yes          |
-| method    | string                   | Request type                                                                    | -           | Yes          |
-| body      | object/Uint8Array/string | Request body                                                                    | -           |              |
-| headers   | Record<string, string[]> | Request header                                                                  | -           |              |
-| root      | bool                     | Whether to use the plugin superuser                                             | true        |              |
+| **参数** | **类型**                 | **说明**                                           | **默认值** | **必填** |
+| -------- | ------------------------ | -------------------------------------------------- | ---------- | -------- |
+| path     | string                   | 请求地址，如果是 wiki 接口 需要在参数前添加'/wiki' | -          | 是       |
+| method   | string                   | 请求类型                                           | -          | 是       |
+| body     | object/Uint8Array/string | 请求体                                             | -          |          |
+| headers  | Record<string, string[]> | 请求头                                             | -          |          |
+| root     | bool                     | 是否使用插件超级用户                               | true       |          |
 
-#### Returns:
+#### Returns
 
-| **Param**  | **Type**                     | Description | **Default** | **Required** |
-| ---------- | ---------------------------- | ----------- | ----------- | ------------ |
-| statusCode | number / string / undefined  | Status code | -           |              |
-| body       | object / Uint8Array / string | Return body | -           |              |
-| headers    | Record<string, string[]>     | Turn back   | -           |              |
+| **参数**   | **类型**                     | **说明** | **默认值** | **必填** |
+| ---------- | ---------------------------- | -------- | ---------- | -------- |
+| statusCode | number / string / undefined  | 状态码   | -          |          |
+| body       | object / Uint8Array / string | 返回体   | -          |          |
+| headers    | Record<string, string[]>     | 返回头   | -          |          |
 
-#### 示例：
+#### Example
 
 ```typescript
-//Use a superuser request
+//使用超级用户请求
 const response = await fetchONES({
   path: `/team/${globalThis.onesEnv.teamUUID}/items/view`,
   method: 'POST',
@@ -78,10 +84,10 @@ const response = await fetchONES({
     },
     view: ['[default]'],
   },
-  root: true, //Default is true
+  root: true, //默认为true
 })
 
-//Use a normal user request
+//使用普通用户请求
 const response = await fetchONES({
   path: `/users/me`,
   method: 'GET',
@@ -89,6 +95,8 @@ const response = await fetchONES({
     'Ones-User-Id': [userUUID],
     'Ones-Auth-Token': [userToken],
   },
-  root: false, //Default is true
+  root: false, //默认为true
 })
 ```
+
+---

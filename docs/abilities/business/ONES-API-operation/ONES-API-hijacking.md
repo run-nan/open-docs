@@ -10,11 +10,9 @@
 
 Sometimes we need to change the performance of certain behaviors in the ONES, add some operations before and after a certain behavior or replace the behavior itself to meet business. The plugin can use the ONES API hijacking ability to support all ONES API, such as prefix hijacking, subffix hijacking and replace API;
 
-- Prefix hijacking means that when the request enters ONES, it will be forwarded to the plugin before it is processed. After the request is modified by the plugin, it will be sent back to ONES and continue to execute the original logic. It is generally used to modify the parameters of the request, or to check the request for verification
-
-- Subffix hijacking means that when the request is processed in ONES, it will be passed to the plugin. After the plugin modifies its content, it will be sent back to ONES and returned to the requester. Generally used to process the response content.
-
 - Replace API, the plugin can "replace" an ONES API, allowing the plugin to fully customize a request from ONES.
+- Prefix hijacking means that when the request enters ONES, it will be forwarded to the plugin before it is processed. After the request is modified by the plugin, it will be sent back to ONES and continue to execute the original logic. It is generally used to modify the parameters of the request, or to check the request for verification
+- Subffix hijacking means that when the request is processed in the ONES, a notification will be sent to the plugin. The plugin can perform some post-processing at this time, but cannot modify the response content
 
 hijack and replace are relatively low-level operations, which may cause unknown risks to ONES function. Generally speaking, the use of ONES API hijacking ability is considered only if other abilities do not meet the requirements.
 
@@ -24,8 +22,8 @@ hijack and replace are relatively low-level operations, which may cause unknown 
 
 ### **Instruction for use**
 
-1. Currently, only one plugin can hijack or replace the same API using the ONES API hijacking ability. There are conflicts when multiple plugins are configured on the same API.
-2. If you modify the plugin configuration file (`config/plugin.yaml`), you need to run `npx op invoke clear` and rerun the `npx op invoke run` directive for the configuration to take effect.
+1. The difference between the organization-level API and the team-level API is that the url of the team-level API contains `/team/:teamUUID`. For the same API: the organization-level API only allows one plugin to hijack; the team-level API allows one plugin in each team to hijack, but only one plugin in the same team is allowed to hijack.
+2. If you modify the plugin configuration file `config/plugin.yaml`, you need to run `npx op invoke clear` and rerun the `npx op invoke run` directive for the configuration to take effect.
 
 ### Usage of ONES API hijacking ability:
 
@@ -58,9 +56,9 @@ sequenceDiagram
   apis:
     - type: replace #API type: replace
       methods: #API request mode
-        - GET
-      url: /users/me #Hijacking API url
-      scope: project/wiki #Project or wiki API. Without this attribute, it defaults to project
+        - POST
+      url: /team/:teamUUID/page/:pageUUID/update_title #Hijacking API url
+      scope: wiki #Project or wiki API. Without this attribute, it defaults to project
       function: jackFunc #The name is consistent with the function name in the code
   ```
 
@@ -68,34 +66,42 @@ sequenceDiagram
 
   In the plugin code, if the plugin also needs to request the replaced ONES API, it needs to include in the request header: `headers: { 'Replace': "replace", }`
 
-  ```typescript
-  import { Logger } from '@ones-op/node-logger' //Dependency packages that need to be imported
-  import { fetchHttp, fetchONES } from '@ones-op/node-fetch'
+  This example replaces the wiki's API for modifying the page title, and will set the page title to "plugin title"
 
-  //processing function
+  ```typescript
+  import { fetchONES } from '@ones-op/node-fetch'
+  import { Logger } from '@ones-op/node-logger'
   export async function jackFunc(
-      request: PluginRequest<Record<string, any>>
+    request: PluginRequest<Record<string, any>>
   ): Promise<PluginResponse> {
-      let userUUID = ''
-      let userToken = ''
-      if (request.headers['Ones-User-Id'] != null) {
+    Logger.info('replace success')
+    let userUUID = ''
+    let userToken = ''
+    if (request.headers['Ones-User-Id'] != null) {
       userUUID = request.headers['Ones-User-Id']
       userToken = request.headers['Ones-Auth-Token']
-  }
-  const response = await fetchONES({
-      path: `/users/me`,
-      method: 'GET',
+    }
+    Logger.info('url:', request.url)
+    let response = await fetchONES({
+      path: '/wiki' + request.url,
+      method: 'POST',
       headers: {
-          'Ones-User-Id': [userUUID],
-          'Ones-Auth-Token': [userToken],
+        'Ones-User-Id': [userUUID],
+        'Ones-Auth-Token': [userToken],
+        'Replace': 'replace',
       },
-      root: false, //Default is true
-  })
-  if (response) {
+      body: {
+        title: 'plugin title',
+      },
+      root: false,
+    })
+    Logger.info(JSON.stringify(response, undefined, 2))
+    if (response) {
       return response
-  }
-  return {
+    }
+    return {
       body: {},
+    }
   }
   ```
 
@@ -128,25 +134,28 @@ sequenceDiagram
 
   ```yaml
   apis:
-    - type: prefix #API type: prefix
+    - type: prefix #API type: suffix
       methods:
-        - GET
-      url: /标品url
-      scope: project/wiki
+        - POST
+      url: /team/:teamUUID/page/:pageUUID/update_title
+      scope: wiki
       function: prefixFunc
   ```
 
 - Sample writing of processing method
+
+  This example pre-hijacks the API for modifying the page title of the wiki, and adds a suffix to the title of this modification
 
   ```typescript
   //Prefix hijacking
   export async function prefixFunc(
     request: PluginRequest<Record<string, any>>
   ): Promise<PluginResponse> {
-    let body = request?.body
-    // code
+    let body = request?.body as any
+    let headers = request?.headers as any
+    body.title = body.title + '-prefix'
     return {
-      // Returns the request header that is processed or returned as is
+      headers: headers,
       body: body,
     }
   }
@@ -171,25 +180,35 @@ sequenceDiagram
 
   ```yaml
   apis:
-    - type: prefix #API type: suffix
+    - type: suffix #API type: suffix
       methods:
         - GET
-      url: /Standard url
+      url: /users/me
+      scope: project
       function: suffixFunc
   ```
 
 - Sample writing of processing method
 
+  This example means that when the interface finishes processing, record some content to the `workspace/suffix.txt` file
+
   ```typescript
+  import { createFile, writeStrings } from '@ones-op/node-file'
+  import { Logger } from '@ones-op/node-logger'
+  export async function Install() {
+    await createFile('./suffix.txt')
+    Logger.info('[Plugin] Install')
+  }
   //suffix hijacking
   export async function suffixFunc(
     request: PluginRequest<Record<string, any>>
   ): Promise<PluginResponse> {
-    let body = {}
-    // code
+    Logger.info('suffix success')
+    let body = request?.body as any
+    await writeStrings('./suffix.txt', [JSON.stringify(request, undefined, 2)])
     return {
-      // Any body can be returned
-      body: body,
+      // 可以返回任意 body
+      body: {},
     }
   }
   ```

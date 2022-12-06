@@ -34,10 +34,6 @@ When the plugin upgrades, it replaces the files in the `workspace` directory acc
 
 `upgrade.yaml` must be written in accordance with yaml syntax, and the content rules are as follows:
 
-- workspace
-
-  File replacement rule configuration of `workspace` during plugin upgrade to standardize file conflict handling
-
 - rule
 
   File replacement rules. Available values are as follows:
@@ -51,7 +47,7 @@ When the plugin upgrades, it replaces the files in the `workspace` directory acc
 
   Exclude list, support regular expressions to match files, hit files do not apply `rule` rules. For example, if `rule` is configured with `save_old`, the list of files hit by the `exclude` rule uses the `save_new` policy.
 
-Sample configuration: this configuration means that when the files in the `workspace` directory of the new and old plugins conflict, the files in the new plugin are retained. Files that meet the rules configured by `exclude` and retain the files in the old plugin
+Sample configuration: This configuration means that when the files in the `workspace` directory of the old and new plugin conflict, the files in the new plugin will be kept. `exclude` matched files, keep files from old plugin
 
 ```yaml
 workspace:

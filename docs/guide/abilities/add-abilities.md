@@ -11,7 +11,6 @@ If you want to customize some of the behaviors in ONES business module, we also 
 ## Abilities
 
 - [Basic ability](../../abilities/basic/basic.md)
-- [Interface ability](../../abilities/interface/interface.md)
 - [Business ability](../../abilities//business/business.md)
 
 ## Usage
