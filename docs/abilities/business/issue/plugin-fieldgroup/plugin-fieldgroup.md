@@ -22,11 +22,11 @@ This ability is generally available in the following scenarios:
 
 After using this ability to add script-field and FieldGroup, you can see the option of FieldGroup when adding issue fields, as shown in the following figure
 
-![](images/FieldGroup0.png)
+![](images/fieldGroup0.png)
 
 Script field can be edited on the issue's details page after the FieldGroup has been added to the issue
 
-![](images/FieldGroup1.png)
+![](images/fieldGroup1.png)
 
 ## Usage
 
