@@ -40,7 +40,7 @@
 
 - **工作项**
 
-  在代码中调用 `Field.FieldsAdd` 添加脚本属性。详情可参考文档： [插件承载脚本属性 - 单选/多选](../script-field-selection)
+  在代码中调用 `Field.FieldsAdd` 添加脚本属性。详情可参考文档： [插件承载脚本属性 - 单选/多选](../../script-field-selection/images/script-field-selection.md)
 
   ```typescript
   import { Field } from '@ones-op/node-ability'

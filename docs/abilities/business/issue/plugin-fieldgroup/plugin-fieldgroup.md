@@ -40,7 +40,7 @@ FieldGroups can only add **single-selection/multiple-selection** types of script
 
 - **Issue**
 
-  Call `Field.FieldsAdd` in your code to add script-field. For details, please refer to the document: [script-field-selection](../script-field-selection)
+  Call `Field.FieldsAdd` in your code to add script-field. For details, please refer to the document: [script-field-selection](../../script-field-selection/images/script-field-selection.md)
 
   ```typescript
   import { Field } from '@ones-op/node-ability'

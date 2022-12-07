@@ -8,7 +8,7 @@
 
 ## Overview
 
-When the ONES API generates an error, it needs to return a specific error format, so that the UI can display a friendly error prompt. Therefore, all API provided to UI calls need to return error information in a standard format. For example, when a plugin uses the [ONES API hijacking ability](../interface/ONES-API-hijacking) to hijack an API, since the original API is replaced, an error message must be returned in a standard format when an error occurs. **The plugin API error handle ability** provides the specification of error information, so that the plugin API can return errors in the correct form and display its own error prompts.
+When the ONES API generates an error, it needs to return a specific error format, so that the UI can display a friendly error prompt. Therefore, all API provided to UI calls need to return error information in a standard format. For example, when a plugin uses the [ONES API hijacking ability](../business/ONES-API-operation/ONES-API-hijacking.md) to hijack an API, since the original API is replaced, an error message must be returned in a standard format when an error occurs. **The plugin API error handle ability** provides the specification of error information, so that the plugin API can return errors in the correct form and display its own error prompts.
 
 ## Usage
 
