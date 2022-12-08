@@ -1,0 +1,77 @@
+import Image from '@theme/IdealImage'
+import sampleSimpleAuth1 from './images/sample-simple-auth1.png'
+import sampleSimpleAuth2 from './images/sample-simple-auth2.png'
+
+# 场景一： 指定部门的员工进行简单登录
+
+## 场景描述
+
+客户希望`Altman`部门的员工可以进行不需要密码直接登录 ONES。
+
+## 实现效果
+
+用户无需输入密码，只需声明自己的部门和`user_uuid`，即可直接登录。
+
+- 部门为`monster`的员工，无法进行简单登录
+
+<Image img={sampleSimpleAuth1} />
+
+- 部门为`Altman`的员工，成功进行简单登录，并且拿到通行 token
+
+<Image img={sampleSimpleAuth2} />
+
+## 解决方案
+
+### 实现思路
+
+通过简单登录的能力，当识别到部门为`Altman`的员工，则跳过 ONES 系统的常规登录逻辑，通过直接调用插件的简单登录实现接口，直接实现员工的登录状态。
+
+### 插件开发
+
+1. 使用 op 工具添加简单登录能力
+
+2. 完成简单登录方法的业务逻辑
+
+```typescript
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+export async function SimpleAuthValidate(request: PluginRequest): Promise<PluginResponse> {
+  const body = request?.body as any
+  let user_uuid = body['user_uuid']
+  let department = body['department']
+  if (!user_uuid) {
+    return {
+      body: {
+        code: 400,
+        reason: '缺少参数 user_uuid',
+      },
+    }
+  }
+  if (!department) {
+    return {
+      body: {
+        code: 400,
+        reason: '缺少参数 department',
+      },
+    }
+  } else if (department != 'Altman') {
+    return {
+      body: {
+        code: 401,
+        reason: '该部门不能进行简单登录',
+      },
+    }
+  }
+  return {
+    body: {
+      code: 200,
+      data: {
+        uuid: user_uuid,
+        department: department,
+      },
+    },
+  }
+}
+```
+
+3. 安装并启用插件即可支持指定部门员工的简单登录。

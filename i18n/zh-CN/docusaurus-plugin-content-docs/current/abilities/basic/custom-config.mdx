@@ -1,0 +1,109 @@
+import Image from '@theme/IdealImage'
+import customConfig1 from './images/custom-config1.png'
+
+# 插件自定义配置
+
+## 要求
+
+| **ONES** |
+| :------- |
+| 3.6+     |
+
+## 概述
+
+插件可以通过该能力自定义添加插件的配置项。
+
+在`配置中心 -> 插件管理`下，每个插件的详情页面中包含了配置项的值。在插件未启用时，可以修改配置项的值。
+配置项的类型支持单行，多行文本，密码文本三种类型。
+
+<Image img={customConfig1} />
+
+并且插件后端可以通过调用 API 获取插件自定义配置项的数据。
+
+## 使用
+
+### 给插件添加自定义配置项
+
+> 插件配置项字段说明
+
+|              | 说明           | 值                                                          |
+| :----------- | :------------- | :---------------------------------------------------------- |
+| **key**      | 该配置项的名称 | -                                                           |
+| **value**    | 配置的默认值   | -                                                           |
+| **type**     | 配置项类型     | 101: 单行输入框 <br/> 102: 多行输入框 <br/> 103: 密码输入框 |
+| **required** | 是否必填       | true/false                                                  |
+
+在`config/plugin.yaml`文件下的`config`字段添加需要的内容，即可为插件新增两个配置项**configKey1**与**configkey2**，类型为多行输入框。
+
+```yaml
+service:
+  app_id: ...
+  name: ability-customConfig
+  ...
+  config:
+    - key: configKey1
+      value: ''
+      type: 102
+      required: true
+    - key: configKey2
+      value: ''
+      type: 102
+      required: true
+...
+...
+```
+
+### 插件后端调用接口获取插件自定义配置项:1
+
+通过`@ones-op/node-ability'`包的`Plugin.getPluginConfig()`直接获取插件配置
+
+```typescript
+import { Plugin } from '@ones-op/node-ability'
+
+export async function configurationPageTest1() {
+  const configs = await Plugin.getPluginConfig()
+}
+```
+
+### 插件后端调用接口获取插件自定义配置项 2
+
+按以下代码及参数构造`fetchONES`入参进行接口访问，即可从返回值中获取插件配置项相关信息。
+
+> 注意，需要将返回参数转成 json 格式，然后从 json 数组中获取到配置项的相关信息。
+
+```javascript
+import { fetchONES } from '@ones-op/node-fetch'
+
+export async function configurationPageTest2() {
+  const response = await fetchONES({
+    path: `/team/${globalThis.onesEnv.teamUUID}`,
+    method: 'POST',
+    headers: {
+      'Ones-Plugin-Id': ['built_in_apis'],
+      'Ones-Check-Point': ['team'],
+      'Ones-Check-Id': [`${globalThis.onesEnv.teamUUID}`],
+      'AbilityName': ['ConfigList'],
+    },
+    body: {
+      instance_id: `${globalThis.onesEnv.instanceId}`,
+      team_uuid: `${globalThis.onesEnv.teamUUID}`,
+      organization_uuid: `${globalThis.onesEnv.organizationUUID}`,
+    },
+  })
+  //@ts-ignore
+  const byteBody = response?.body || {}
+  console.log(byteBody)
+
+  const stringBody = byteBody.toString()
+  const JSONBody = JSON.parse(stringBody)
+
+  for (let i = 0; i < JSONBody.length; i++) {
+    Logger.info(JSONBody[i]['arg_key']) //获取配置项的key值
+    Logger.info(JSONBody[i]['arg_value']) //获取配置项的value值
+  }
+
+  return {
+    body: response?.body.toString(),
+  }
+}
+```

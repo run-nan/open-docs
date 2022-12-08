@@ -1,0 +1,163 @@
+import Image from '@theme/IdealImage'
+import simpleAuth1 from './images/simple-auth1.png'
+import simpleAuth2 from './images/simple-auth2.png'
+import simpleAuth3 from './images/simple-auth3.png'
+
+# 简单登录
+
+## 要求
+
+| **ONES** |
+| :------- |
+| 3.6+     |
+
+## 概述
+
+该能力让每个插件开发者可以实现自己的登录校验逻辑，越过原本 ONES 的登录校验逻辑，通过自己的登录逻辑进登录 ONES。
+
+通过该能力，用户可以无需 ONES 密码，请求简单登录的专用接口，使用自己的逻辑完成登录。我们以默认的简单登录实现为示例，通过 postman 请求简单登录的专用接口，仅需提供用户的`user_uuid`，无需提供账号及密码，即可成功登录。
+
+<Image img={simpleAuth1} />
+
+## 使用
+
+通过 OP 工具添加该能力，然后在该能力的对应方法中实现自己的登录验证逻辑即可，该方法名默认为`SimpleAuthValidate`，用户可以在`config/plugin.yaml`中修改方法名，相关步骤如下所示。
+
+### 第一步: 通过 OP 工具添加并使用能力
+
+在`插件根目录`使用命令行输入 OP 命令添加能力（该指令需要 OP 工具版本 1.0 及以上）
+
+```shell
+npx op add ability
+```
+
+选中并添加`simple-auth@1.0.0`
+
+<Image img={simpleAuth2} />
+
+OP 工具会为插件添加如下内容
+
+- `{{插件根目录}}/config/plugin.yaml`中 abilities 字段新增相关段落。
+
+  ```yaml
+  service:
+    app_id: ...
+    name: simple-auth
+    ...
+  apis:
+    ...
+  abilities:
+    - id: C5CWrHte
+      name: Simple-login
+      version: 1.0.0
+      abilityType: SimpleAuth
+      function:
+        validateFunc: SimpleAuthValidate
+  ```
+
+  `plugin.yaml`文件的`abilities`字段中，`id`的值可以自定义，`name`的值可以自定义，`function.validateFunc`的值可以替换成你实现能力方法的名称，当然保持默认也可以。
+
+- OP 工具在插件中新增文件`{{插件根目录}}/backend/src/simple-auth.ts`
+
+```typescript
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+// 示例方法 SimpleAuth 简单登录能力使用
+export async function SimpleAuthValidate(request: PluginRequest): Promise<PluginResponse> {
+  const { user_uuid } = request?.body as any
+  if (!user_uuid) {
+    return {
+      body: {
+        code: 400,
+        reason: '缺少参数 user_uuid',
+      },
+    }
+  }
+  //在这里可以填写你的登录验证逻辑
+  return {
+    body: {
+      code: 200,
+      data: {
+        uuid: user_uuid,
+      },
+    },
+  }
+}
+```
+
+### 第二步: 实现自己的简单登录校验逻辑
+
+当用户进行简单登录时，ONES 会调用插件中的`SimpleAuthValidate`方法，在方法内进行登录逻辑的处理，开发者需要在`SimpleAuthValidate`方法内完成自己的登录校验逻辑，指定自己的登录规则。
+
+在这里，我们实现的规则为: 只允许以`W`开头的`user_uuid`进行简单登录。
+
+`{{插件根目录}}/backend/src/simple-auth.ts`
+
+```typescript
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+// 示例方法 SimpleAuth 简单登录能力使用
+export async function SimpleAuthValidate(request: PluginRequest): Promise<PluginResponse> {
+  const { user_uuid } = request?.body as any
+  if (!user_uuid) {
+    return {
+      body: {
+        code: 400,
+        reason: '缺少参数 user_uuid',
+      },
+    }
+  }
+  //只允许W开头的user_uuid进行免登录
+  if (!user_uuid.startsWith('W')) {
+    return {
+      body: {
+        code: 401,
+        reason: '该用户没有权限进行简单登录',
+      },
+    }
+  }
+  return {
+    body: {
+      code: 200,
+      data: {
+        uuid: user_uuid,
+      },
+    },
+  }
+}
+```
+
+### 第三步: 请求简单登录接口登录 ONES
+
+安装并启用插件，并且用不同的`user_uuid`进行验证。
+
+简单登录接口的 url 为`{{ ONES IpAddress}}/project/api/project/ability/simple_auth_login`，其中{{ ONES IpAddress}}为你的 ONES 实例地址。
+
+> Use the curl command to request a simple login API to try to log in. Replace the following command with the corresponding parameters (required for all places where `{{}} `parentheses are used), and copy to the command line to use it.
+
+```
+#  Ones-Plugin-Id的值为插件instance_uuid，在插件日志可以得到。
+#  Ones-Check-Id是本次请求user_uuid所在的team_uuid
+#  Ones-Plugin-AbilityId 是在plugin.yaml中声明的ability的id
+curl --location --request POST '{{ ONES IpAddress}}/project/api/project/ability/simple_auth_login' \
+--header 'Ones-Check-Point: team' \
+--header 'Ones-Plugin-Id: {{instance_uuid}}' \
+--header 'Ones-Check-Id: {{team_uuid}}' \
+--header 'Ones-Plugin-AbilityId: {{ability_id}}' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+   "user_uuid": {{user_uuid}}
+}'
+```
+
+- `uuid`为`LxCJav69`，返回预定的错误值，结果如下
+
+<Image img={simpleAuth3} />
+
+- `uuid`为`WArQASip`，成功进行简单登录，并且得到返回的 token
+
+<Image img={simpleAuth1} />
+
+## 示例
+
+- [指定部门的员工进行简单登录](sample-simple-auth1.mdx)

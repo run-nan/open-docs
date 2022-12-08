@@ -1,0 +1,161 @@
+import Image from '@theme/IdealImage'
+import simpleAuth1 from './images/simple-auth1.png'
+import simpleAuth2 from './images/simple-auth2.png'
+import simpleAuth3 from './images/simple-auth3.png'
+
+# Simple Auth
+
+## Requirements
+
+| **ONES** |
+| :------- |
+| 3.6+     |
+
+## Overview
+
+This ability allows each plugin developer to implement their own login verification logic, beyond the original ONES login verification logic, through their own login logic to log in to ONES.
+
+Through this ability, users can request a dedicated API for simple login without an ONES password, and use their own logic to complete the login. We take the default simple login implementation as an example. You only need to provide the user's `user_uuid` through the dedicated API for requesting simple login through postman, and you can log in successfully without providing an account number and password.
+
+<Image img={simpleAuth1} />
+
+## Usage
+
+Add this ability through the OP tool, and then implement your own login verification logic in the corresponding method of this ability. The default name of this method is `SimpleAuthValidate`. Users can modify the method name in `config/plugin.yaml`, as shown below.
+
+### Step 1: Add and use ability through the OP tool
+
+Use the Command Line to enter the OP command in the plugin root directory to add ability (this directive requires OP tool version 1.0 or above)
+
+```shell
+npx op add ability
+```
+
+Select and add `simple-auth@1.0.0`
+
+<Image img={simpleAuth2} />
+
+The OP tool add the following to the plugin
+
+- The OP tool adds abilitiy field related paragraphs in `{{plugin root directory}}/config/plugin.yaml`
+
+  ```yaml
+  service:
+    app_id: ...
+    name: ability-scriptFloat
+    ...
+  apis:
+    ...
+  abilities:
+    - id: C5CWrHte
+      name: Simple-login
+      version: 1.0.0
+      abilityType: SimpleAuth
+      function:
+        validateFunc: SimpleAuthValidate
+  ```
+
+  In the `abilities` field of the `config/plugin.yaml` file, the value of `id` can be customized, the value of `name` can be customized, and the value of `function.validateFunc` can be replaced with the name of your implementation method. Of course, you can keep it by default.
+
+- The OP tool adds files to the plugin in `{{plugin root directory}}/backend/src/simple-auth.ts`
+
+```typescript
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+// Example Function
+export async function SimpleAuthValidate(request: PluginRequest): Promise<PluginResponse> {
+  const { user_uuid } = request?.body as any
+  if (!user_uuid) {
+    return {
+      body: {
+        code: 400,
+        reason: '缺少参数 user_uuid',
+      },
+    }
+  }
+  return {
+    body: {
+      code: 200,
+      data: {
+        uuid: user_uuid,
+      },
+    },
+  }
+}
+```
+
+### Step 2: Implement your own simple login verification logic
+
+When a user logs in with Simple Auth, ONES calls the `SimpleAuthValidate` method in the plugin to process the login logic in the method. Plugin developers need to complete their own login verification logic and specify their own login rules in the `SimpleAuthValidate` method.
+
+Here, the rule we implement is that only `user_uuid` starting with `W` is allowed for simple login.
+
+`{{plugin root directory}}/backend/src/simple-auth.ts`
+
+```typescript
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+// Example function SimpleAuth
+export async function SimpleAuthValidate(request: PluginRequest): Promise<PluginResponse> {
+  const { user_uuid } = request?.body as any
+  if (!user_uuid) {
+    return {
+      body: {
+        code: 400,
+        reason: '缺少参数 user_uuid',
+      },
+    }
+  }
+  if (!user_uuid.startsWith('W')) {
+    return {
+      body: {
+        code: 401,
+        reason: '该 user_uuid 没有权限进行简单登录',
+      },
+    }
+  }
+  return {
+    body: {
+      code: 200,
+      data: {
+        uuid: user_uuid,
+      },
+    },
+  }
+}
+```
+
+### Step 3: Request a simple login API to log in to ONES
+
+Install and enable plugin,try different `user_uuid` to vvrify the results.
+
+The url of the simple login API is `{{ ONES IpAddress}}/project/api/project/ability/simple_auth_login`, where {{ONES IpAddress}} is your ONES instance address.
+
+> Replace the corresponding parameters（required for all places where `{{}}` parentheses are used）
+
+```
+#  The value of Ones-Plugin-Id is plugin's instance_uuid, which can be obtained by viewing the plugin log.
+#  Ones-Check-Id is the team_uuid where the request user_uuid is located.
+#  Ones-Plugin-AbilityId is the ability you declared in plugin.yaml.
+curl --location --request POST '{{ ONES IpAddress}}/project/api/project/ability/simple_auth_login' \
+--header 'Ones-Check-Point: team' \
+--header 'Ones-Plugin-Id: {{instance_uuid}}' \
+--header 'Ones-Check-Id: {{team_uuid}}' \
+--header 'Ones-Plugin-AbilityId: {{ability_id}}' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+   "user_uuid": {{user_uuid}}
+}'
+```
+
+- `uuid` is `LxCJav69`,returns the predetermined error value, and the result is as follows
+
+<Image img={simpleAuth3} />
+
+- `uuid` is `WArQASip`,successfully make a simple login and get the returned token.
+
+<Image img={simpleAuth1} />
+
+## Examples
+
+- [Assign employees of the department to make a simple login](sample-simple-auth1.mdx)
