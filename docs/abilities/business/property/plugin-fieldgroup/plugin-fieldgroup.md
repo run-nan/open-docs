@@ -40,7 +40,7 @@ FieldGroups can only add **single-selection/multiple-selection** types of script
 
 - **Issue**
 
-  Call `Field.FieldsAdd` in your code to add script-field. For details, please refer to the document: [script-field-selection](../../script-field-selection/images/script-field-selection.md)
+  Call `Field.FieldsAdd` in your code to add script-field. For details, please refer to the document: [script-field-selection](../script-field-selection/script-field-selection.mdx)
 
   ```typescript
   import { Field } from '@ones-op/node-ability'
@@ -71,7 +71,7 @@ FieldGroups can only add **single-selection/multiple-selection** types of script
   //Add a script-field of type single-selection to the project
   const ItemsAddProjectRes = await Field.ItemsAdd({
     FieldType: FieldTypeEnum.SingleLabel, //Indicates adding a single-selection type script-field
-    Name: 'product_field',
+    Name: 'project_field',
     ItemType: 'field',
     Pool: PoolEnum.Project, //Entity type is project
     ContextType: 'team',
@@ -90,7 +90,7 @@ FieldGroups can only add **single-selection/multiple-selection** types of script
   | FieldType   | string | script-field type<br />- `FieldTypeEnum.SingleLabel`: single-selectionion<br />- `FieldTypeEnum.MultiLabel`: multiple-selection |
   | Name        | string | Field name                                                                                                                      |
   | ItemType    | string | Fixed value：`field`                                                                                                            |
-  | Pool        | string | Entity type：<br />- `PoolEnum.Product`: product<br />- `PoolEnum.Project`: project                                             |
+  | Pool        | string | Fixed value：`PoolEnum.Project`: project                                                                                        |
   | ContextType | string | context type                                                                                                                    |
   | required    | bool   | Is it required                                                                                                                  |
 
@@ -188,7 +188,7 @@ Establish an association relationship for multiple fields to form an FieldGroup,
 
   | Param      | Type               | Description                                                                                                                                                                                                                                                      |
   | ---------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-  | ObjectType | string             | The entity type of the FieldGroup, optional value:<br />- `PoolEnum.Project`: project<br />- `PoolEnum.Product`: product<br />- `PoolEnum.Task`: issue                                                                                                           |
+  | ObjectType | string             | The entity type of the FieldGroup, optional value:<br />- `PoolEnum.Project`: project<br />- `PoolEnum.Task`: issue                                                                                                                                              |
   | Name       | string             | FieldGroup name                                                                                                                                                                                                                                                  |
   | Relations  | IRelationMessage[] | `IRelationMessage` Contains the following field<br />- `FieldUUID`: The `fieldUUID` of the field<br />- `FieldParentUUID`: The parent field `UUID`, which means forming a hierarchical relationship with this field<br />- `Position`:Position in the FieldGroup |
 
@@ -346,13 +346,13 @@ Each option value of a **single-selectionion/multiple-selection** script-field h
 
 - **Params**
 
-  | Param      | Type   | Description                                                                                      |
-  | ---------- | ------ | ------------------------------------------------------------------------------------------------ |
-  | TeamUUID   | string | The `uuid` of team                                                                               |
-  | FieldUUID  | string | `fieldUUID` for script-field                                                                     |
-  | UUID       | string | `UUID` of the option value                                                                       |
-  | Value      | string | option value                                                                                     |
-  | ObjectType | int    | Entity type, optional values are as follows:<br />- 1: product<br />- 2: project<br />- 3: issue |
+  | Param      | Type   | Description                                                                    |
+  | ---------- | ------ | ------------------------------------------------------------------------------ |
+  | TeamUUID   | string | The `uuid` of team                                                             |
+  | FieldUUID  | string | `fieldUUID` for script-field                                                   |
+  | UUID       | string | `UUID` of the option value                                                     |
+  | Value      | string | option value                                                                   |
+  | ObjectType | int    | Entity type, optional values are as follows:<br />- 1: project<br />- 2: issue |
 
 ## Examples
 

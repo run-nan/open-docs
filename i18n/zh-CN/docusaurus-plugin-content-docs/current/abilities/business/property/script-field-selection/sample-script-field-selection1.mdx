@@ -1,0 +1,159 @@
+# 场景一： 位置信息属性
+
+## 场景描述
+
+希望在工作项属性中可以设置位置信息，包括国家、省份和城市。
+并且这些属性相互之间符合真实约束，这些约束使用`插件承载属性组`能力实现(实现案例[位置信息属性组](../plugin-fieldgroup/location-fieldgroup-scene-one.md))，本场景仅提供脚本属性本身的实现。
+
+## 解决方案
+
+### 实现思路：
+
+通过向工作项中添加国家、省份和城市的三个类型为单选菜单的脚本属性来表达位置信息。将每个脚本属性的`fieldUUID`持久化进数据库中待后续使用。
+
+## 插件开发
+
+1. `{{插件根目录}}/config/plugin.yaml`中添加脚本属性 - 单选/多选相关配置
+
+```yaml
+service:
+  app_id: ...
+  name: ability-scriptSelection
+  ...
+apis:
+  - type: addition
+    methods:
+      - POST
+    url: /scriptFieldSearch
+    function: GetOptions
+```
+
+2. 编写`plugin.sql`文件，建立`script_field`表，用于记录脚本属性`name`和`fieldUUID`的对应关系。
+
+```sql
+-- SQL 描述文件, 一般用来初始化插件数据库， 可以配合 ImportSql() 使用
+-- 注意⚠️：表名需要用 {{}} 括起来
+CREATE TABLE IF NOT EXISTS `{{script_field}}`(
+    `id` INT(11) AUTO_INCREMENT,
+    `fieldUUID` varchar(128) CHARACTER SET latin1 NOT NULL COMMENT 'uuid',
+    `name` varchar(128) CHARACTER SET latin1 NOT NULL COMMENT 'name',
+    PRIMARY KEY (`id`)
+    ) ENGINE = InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+```
+
+3. 在插件安装时调用的`install`方法内，使用`FieldsAdd`方法添加国家、省份和城市三个的脚本属性，并且持久化不同脚本属性的 uuid 入数据库中。
+
+```typescript
+export async function Install() {
+  Logger.info('[Plugin] Install')
+  await importSQL('plugin.sql')
+  const fieldUUIDs: any[] = []
+  //添加单选类型的脚本属性至工作项
+  const issueScriptField = ['Country', 'Province', 'City']
+  for (const fieldName of issueScriptField) {
+    const FieldsAddProjectRes = await Field.FieldsAdd({
+      Name: fieldName,
+      Type: 1001, //表示添加单选类型脚本属性
+    })
+    if (FieldsAddProjectRes.Error) {
+      //如果添加失败，抛出异常
+      throw new Error('Failed to create property')
+    }
+    //添加成功返回属性的UUID
+    const { UUID: fieldUUID } = FieldsAddProjectRes
+    fieldUUIDs.push(fieldUUID)
+    Logger.info('fieldUUID:', fieldUUID)
+    try {
+      const sql =
+        'INSERT into script_field(fieldUUID, name) values("' +
+        fieldUUID +
+        '", "' +
+        fieldName +
+        '");'
+      await exec('insert', sql)
+    } catch (error) {
+      Logger.error('error: ', error)
+    }
+  }
+  return
+}
+```
+
+4. 在`GetOptions`方法内，根据数据库记录的对应关系，识别出国家、省份和城市三个的脚本属性，并返回对应信息。
+
+```typescript
+const Countries: string[] = ['America', 'China', 'Japan']
+const Provinces: string[] = ['Washington', 'Hawaii', 'Guangdong', 'SiChuan', 'Tokyo']
+const Cities: string[] = [
+  'Seattle',
+  'Olympia',
+  'Hilo',
+  'Kahului',
+  'Dongguan',
+  'Shenzhen',
+  'Chengdu',
+  'Leshan',
+  'Hokkaido',
+]
+
+export async function GetOptions(request: PluginRequest): Promise<PluginResponse> {
+  const body = request?.body as any
+  const options: OptionType[] = [] //返回的选项数据
+  let field = await getFieldMap()
+  console.log(body)
+  switch (field.get(body.field_uuid)) {
+    case 'Country':
+      for (let i in Countries) {
+        options.push({
+          uuid: Countries[i],
+          value: Countries[i],
+        })
+      }
+      break
+    case 'Province':
+      for (let i in Provinces) {
+        options.push({
+          uuid: Provinces[i],
+          value: Provinces[i],
+        })
+      }
+      break
+    case 'City':
+      for (let i in Cities) {
+        options.push({
+          uuid: Cities[i],
+          value: Cities[i],
+        })
+      }
+      break
+    default:
+      break
+  }
+
+  return {
+    statusCode: 200,
+    body: {
+      code: 200,
+      body: {
+        options: options,
+      },
+    },
+  }
+}
+
+async function getFieldMap(): Promise<any> {
+  let field = new Map()
+  try {
+    const sql = 'select * from script_field;'
+    const result = await select(sql)
+    console.log(result)
+    result.forEach((f) => {
+      field.set(f.fieldUUID, f.name)
+      field.set(f.name, f.fieldUUID)
+    })
+  } catch (error) {
+    Logger.error('error: ' + error)
+  }
+  return field
+}
+```

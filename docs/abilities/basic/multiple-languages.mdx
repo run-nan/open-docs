@@ -12,7 +12,7 @@ import multiLan2 from './images/multiple-Languages2.png'
 
 ## Overview
 
-This ability allows the plugin to be synchronized with the language of the ONES . After the plugin is installed, the language of the plugin can be switched with the language switch of the ONES .
+This ability allows the plugin to be synchronized with the language of the ONES.After the plugin is installed, the language of the plugin can be switched with the language switch of the ONES.
 
 Take the details page of the plugin as an example, when the language of the ONES is Chinese, as shown in the following figure.
 
@@ -26,134 +26,144 @@ As can be seen from above, the name description and configuration of the plugin 
 
 ## Usage
 
-1. ### Use multiple languages in plugin configuration
+### 1. Use multiple languages in plugin configuration files
 
-   The multilingual implementation of the plugin configuration is relatively simple. Follow these steps to modify the configuration file.
+#### Plugin basic information in multiple languages
 
-   **Step 1**：Replace the places in the `config/plugin.yaml` file that need to use multiple languages with `{{.key}`, and replace 2 fields as shown below.
+The multi-language implementation of the basic information of the plugin is relatively simple,just follow these steps to modify the plugin configuration file.
 
-   ```yaml
-   service:
-     name: '{{.PluginName}}'
-     description: '{{.PluginDescription}}'
-   ```
+**Step 1**：Replace the places in the `config/plugin.yaml` file that need to use multiple languages with `{{.key}`, and replace 2 fields as shown below.
 
-   **Step 2**：Create a new `language` folder under the `workspace` folder under the plugin root directory, and create two new yaml files `en.yaml` and `zh.yaml` under the path `{{plugin root directory}}/workspace/language`. Write the Chinese value of `{{key}}`in `zh.yaml` and the English value in `en.yaml` as shown below.
+:::caution
+The `'{{key}'` used in replacement must be enclosed in quotation marks.
+:::
 
-   `{{plugin root directory}}/workspace/language/zh.yaml`
+```yaml
+service:
+  name: '{{.PluginName}}'
+  description: '{{.PluginDescription}}'
+```
 
-   ```yaml
-   PluginName: 多语言
-   PluginDescription: 这是一个支持中英文两种语言的插件
-   ```
+**Step 2**：Create a new `language` folder under the `workspace` folder under the plugin root directory, and create two new yaml files `en.yaml` and `zh.yaml` under the path `{{plugin root directory}}/workspace/language`. Write the Chinese value of `{{key}}`in `zh.yaml` and the English value in `en.yaml` as shown below.
 
-   `{{plugin root directory}}/workspace/language/en.yaml`
+`{{plugin root directory}}/workspace/language/zh.yaml`
 
-   ```yaml
-   PluginName: Multil-Language-Plugin
-   PluginDescription: The plugin is used to test Mult-Language abilities.
-   ```
+```yaml
+PluginName: 多语言
+PluginDescription: 这是一个支持中英文两种语言的插件
+```
 
-   This completes the use of multiple languages in the plugin configuration.
+`{{plugin root directory}}/workspace/language/en.yaml`
 
-2. ### Plugin custom configuration items with multiple languages.
+```yaml
+PluginName: Multil-Language-Plugin
+PluginDescription: The plugin is used to test Mult-Language abilities.
+```
 
-   The multilingual implementation of the plugin custom configuration item is also achieved by modifying the configuration file, but requires a few additional actions.
+In this way, the multi-language basic information of the plugin is realized.
 
-   **Step 1**：Add a new `label` field to the `config` configuration item in `config/plugin.yaml`, and replace it with `{{.key} `in `label`, as shown below. At the same time, the name of the `config` on the page is replaced by the value in the `label` field.
+---
 
-   ```yaml
-   service:
-   name: '{{.PluginName}}'
-   description: '{{.PluginDescription}}'
-   config:
-      - key: configKey1
-         label: '{{.Name}}'
-         value: li
-         type: Input
-         required: true
-      - key: configKey2
-         label: '{{.Age}}'
-         value: 20
-         type: Input
-         required: true
-   ```
+#### Plugin configuration items and ability configuration items are multilingual
 
-   **Step 2**：Add the corresponding values of `{{.key}}` in `zh.yaml` and `en.yaml`, as shown below.
+The multilingual implementation of plugin configuration items and ability configuration items is also achieved by modifying the configuration file, but requires a few additional steps.
 
-   `{{plugin root directory}}\workspace\language\zh.yaml`
+Here, take the configuration item of the plugin as an example, the configuration item of the ability is consistent with the way the plugin configuration item is used.
 
-   ```yaml
-   PluginName: 多语言
-   PluginDescription: 这是一个支持中英文两种语言的插件
-   Name: 姓名
-   Age: 年龄
-   ```
+**Step 1**：Add a new `label` field to the `config` configuration item in `config/plugin.yaml`, and replace it with `{{.key} `in `label`, as shown below. At the same time, the name of the `config` on the page is replaced by the value in the `label` field.
 
-   `{{plugin root directory}}\workspace\language\en.yaml`
+```yaml
+service:
+name: '{{.PluginName}}'
+description: '{{.PluginDescription}}'
+config:
+   - key: configKey1
+      label: '{{.Name}}'
+      value: li
+      type: Input
+      required: true
+   - key: configKey2
+      label: '{{.Age}}'
+      value: 20
+      type: Input
+      required: true
+```
 
-   ```yaml
-   PluginName: Multil-Language-Plugin
-   PluginDescription: The plugin is used to test Mult-Language abilities.
-   Name: Name
-   Age: Age
-   ```
+**Step 2**：Add the corresponding values of `{{.key}}` in `zh.yaml` and `en.yaml`, as shown below.
 
-   In this way, the custom configuration items of the plugin also implement multiple languages.
+`{{plugin root directory}}\workspace\language\zh.yaml`
 
-3. ### Use multiple languages in plugin code
+```yaml
+PluginName: 多语言
+PluginDescription: 这是一个支持中英文两种语言的插件
+Name: 姓名
+Age: 年龄
+```
 
-   Through API, plugin developers can obtain the user's locale. For variables that exist in `zh.yaml` and `en.yaml`, we can directly call API to obtain values, so as to build different return parameters according to the current locale.
+`{{plugin root directory}}\workspace\language\en.yaml`
 
-   ```typescript
-   import { Language } from '@ones-op/node-ability'
+```yaml
+PluginName: Multil-Language-Plugin
+PluginDescription: The plugin is used to test Mult-Language abilities.
+Name: Name
+Age: Age
+```
 
-   export async function multiple_language() {
-     // obtain the user's locale
-     const language = await Language.getLanguage(user_uuid)
-     // Get the PluginDescription value corresponding to the user's language
-     const description = await Language.getLanguageString(language, 'PluginDescription')
-     Logger.info(language)
-     Logger.info(description)
+In this way, plugin configuration items and ability configuration items also implement multiple languages.
+
+### 2. Use multiple languages in plugin backend
+
+Through API, plugin developers can obtain the user's locale. For variables that exist in `zh.yaml` and `en.yaml`, we can directly call API to obtain values, so as to build different return parameters according to the current locale.
+
+```typescript
+import { Language } from '@ones-op/node-ability'
+
+export async function multiple_language() {
+  // obtain the user's locale
+  const language = await Language.getLanguage(user_uuid)
+  // Get the PluginDescription value corresponding to the user's language
+  const description = await Language.getLanguageString(language, 'PluginDescription')
+  Logger.info(language)
+  Logger.info(description)
+}
+```
+
+### 3. Use multiple languages in plugin frontend
+
+In the plugin, you can use `window` to access the global variables that we injected in the plugin execution environment to get the locale.
+We can get the current user's language settings to dynamically change the front-end display information, as shown below.
+
+```javascript
+   //Access the global variable to get the locale
+   const locale = (window as any).__ones_op_locale__?.locale || 'zh-CN'
+
+   const zhHans = {
+   toast: '吐司',
+   modal: '对话框',
+   text: '你好',
+   pwdErr: '请再次输入密码！',
+   userNameErr: '用户名错误!',
+   ok: '确定',
+   cancel: '取消'
    }
-   ```
 
-4. ### Plugin front-end uses multiple languages
+   const en: typeof zhHans = {
+   toast: 'toast',
+   modal: 'Dialog',
+   text: 'hello',
+   pwdErr: 'please input password again',
+   userNameErr: 'usename error!',
+   ok: 'ok',
+   cancel: 'cancel'
+   }
 
-   In the plugin, you can use `window` to access the global variables that we injected in the plugin execution environment to get the locale.
-   We can get the current user's language settings to dynamically change the front-end display information, as shown below.
+   const resourceMap: { [_: string]: typeof zhHans } = {
+   'zh-CN': zhHans,
+   'en': en
+   }
 
-   ```javascript
-      //Access the global variable to get the locale
-      const locale = (window as any).__ones_op_locale__?.locale || 'zh-CN'
-
-      const zhHans = {
-      toast: '吐司',
-      modal: '对话框',
-      text: '你好',
-      pwdErr: '请再次输入密码！',
-      userNameErr: '用户名错误!',
-      ok: '确定',
-      cancel: '取消'
-      }
-
-      const en: typeof zhHans = {
-      toast: 'toast',
-      modal: 'Dialog',
-      text: 'hello',
-      pwdErr: 'please input password again',
-      userNameErr: 'usename error!',
-      ok: 'ok',
-      cancel: 'cancel'
-      }
-
-      const resourceMap: { [_: string]: typeof zhHans } = {
-      'zh-CN': zhHans,
-      'en': en
-      }
-
-      const langResource = resourceMap[locale]
-   ```
+   const langResource = resourceMap[locale]
+```
 
 ### Use suggestion:
 

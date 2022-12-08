@@ -40,7 +40,7 @@
 
 - **工作项**
 
-  在代码中调用 `Field.FieldsAdd` 添加脚本属性。详情可参考文档： [插件承载脚本属性 - 单选/多选](../../script-field-selection/images/script-field-selection.md)
+  在代码中调用 `Field.FieldsAdd` 添加脚本属性。详情可参考文档： [插件承载脚本属性 - 单选/多选](../script-field-selection/script-field-selection.mdx)
 
   ```typescript
   import { Field } from '@ones-op/node-ability'
@@ -71,7 +71,7 @@
   //向项目添加单选类型的脚本属性
   const ItemsAddProjectRes = await Field.ItemsAdd({
     FieldType: FieldTypeEnum.SingleLabel, //表示添加单选类型脚本属性
-    Name: 'product_field',
+    Name: 'project_field',
     ItemType: 'field',
     Pool: PoolEnum.Project, //实体类型为项目
     ContextType: 'team',
@@ -90,7 +90,7 @@
   | FieldType   | string | 脚本属性类型：<br />- `FieldTypeEnum.SingleLabel`: 单选<br />- `FieldTypeEnum.MultiLabel`: 多选 |
   | Name        | string | 属性名称                                                                                        |
   | ItemType    | string | 固定值：`field`                                                                                 |
-  | Pool        | string | 实体类型：<br />- `PoolEnum.Product`: 产品<br />- `PoolEnum.Project`: 项目                      |
+  | Pool        | string | 固定值: `PoolEnum.Project`                                                                      |
   | ContextType | string | 上下文类型                                                                                      |
   | required    | bool   | 是否必填                                                                                        |
 
@@ -112,17 +112,17 @@ apis:
 编写 `GetOptions` 处理函数，如果同时有多个**单选/多选**类型的脚本属性，可根据添加脚本属性时返回的`fieldUUID`进行逻辑划分。
 
 ```typescript
-type OptionType{
-  uuid: string,		//属性值`UUID`
-  value: string,	//属性值
+interface OptionType {
+  uuid: string //属性值`UUID`
+  value: string //属性值
 }
 export async function GetOptions(request: PluginRequest): Promise<PluginResponse> {
   const body = request?.body as any
-  const options:  OptionType[] = [];									//返回的选项数据
-  for ( let i = 0; i < 3; i++ ){
+  const options: OptionType[] = [] //返回的选项数据
+  for (let i = 0; i < 3; i++) {
     options.push({
-      uuid: "fieldValueUUID-" + i.toString(),	//选项值的`uuid`
-      value: "fieldValue-" + i.toString()						//选项值
+      uuid: 'fieldValueUUID-' + i.toString(), //选项值的`uuid`
+      value: 'fieldValue-' + i.toString(), //选项值
     })
   }
 
@@ -132,8 +132,8 @@ export async function GetOptions(request: PluginRequest): Promise<PluginResponse
       code: 200,
       body: {
         options: options,
-      }
-    }
+      },
+    },
   }
 }
 ```
@@ -188,7 +188,7 @@ export async function GetOptions(request: PluginRequest): Promise<PluginResponse
 
   | 参数       | 类型               | 说明                                                                                                                                                                      |
   | ---------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-  | ObjectType | string             | 属性组的实体类型，可选值：<br />- `PoolEnum.Project`: 项目<br />- `PoolEnum.Product`: 产品<br />- `PoolEnum.Task`: 工作项                                                 |
+  | ObjectType | string             | 属性组的实体类型，可选值：<br />- `PoolEnum.Project`: 项目<br />- `PoolEnum.Task`: 工作项                                                                                 |
   | Name       | string             | 属性组名称                                                                                                                                                                |
   | Relations  | IRelationMessage[] | `IRelationMessage` 包含以下属性<br />- `FieldUUID`: 属性的`fieldUUID`<br />- `FieldParentUUID`: 父属性`UUID`，表示和该属性形成层级关系<br />- `Position`:在属性组中的位置 |
 
@@ -346,13 +346,13 @@ export async function GetOptions(request: PluginRequest): Promise<PluginResponse
 
 - **参数介绍**
 
-  | 参数       | 类型   | 说明                                                                  |
-  | ---------- | ------ | --------------------------------------------------------------------- |
-  | TeamUUID   | string | 团队`uuid`                                                            |
-  | FieldUUID  | string | 脚本属性`fieldUUID`                                                   |
-  | UUID       | string | 选项值的`UUID`                                                        |
-  | Value      | string | 选项值                                                                |
-  | ObjectType | int    | 实体类型，可选值如下：<br />- 1: 产品<br />- 2: 项目<br />- 3: 工作项 |
+  | 参数       | 类型   | 说明                                                   |
+  | ---------- | ------ | ------------------------------------------------------ |
+  | TeamUUID   | string | 团队`uuid`                                             |
+  | FieldUUID  | string | 脚本属性`fieldUUID`                                    |
+  | UUID       | string | 选项值的`UUID`                                         |
+  | Value      | string | 选项值                                                 |
+  | ObjectType | int    | 实体类型，可选值如下：<br />- 1: 项目<br />- 2: 工作项 |
 
 ## 示例场景
 

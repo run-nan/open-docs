@@ -1,3 +1,7 @@
+import Image from '@theme/IdealImage'
+import sampleScriptFieldFload1 from './images/sample-script-field-float1.png'
+import sampleScriptFieldFload2 from './images/sample-script-field-float2.png'
+
 # 场景一： 自动统计工作项某一类关联关系的数量
 
 ## 场景描述
@@ -6,21 +10,21 @@
 
 以下图为例说明,该工作项共有 2 个关联内容，而用户需要的是`关联`下工作项的数量。
 
-![image](./images/sample-script-field-float1.png)
+<Image img={sampleScriptFieldFload1} />
 
 ## 实现效果
 
 通过脚本属性的方式，自动统计该工作项的关联关系为"关联"的工作项数量，并且进行显示。
 
-![image](./images/sample-script-field-float2.png)
+<Image img={sampleScriptFieldFload2} />
 
 ## 解决方案
 
-### 实现思路：
+### 实现思路
 
 使用`插件承载脚本属性 - 数字`能力，在脚本属性计算方法中通过某一个工作项的 uuid 请求 ONES 标品获取其"关联"这个关联关系关联的工作项数量，组装脚本属性计算方法返回参数并返回，启用插件添加该脚本属性至工作项中即可。
 
-## 插件开发
+### 插件开发
 
 1. 使用 op 工具添加脚本属性能力
 

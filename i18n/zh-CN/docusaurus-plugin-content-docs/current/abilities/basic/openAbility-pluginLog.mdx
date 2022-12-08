@@ -15,34 +15,34 @@ import pluginLog1 from './images/pluginLog1.png'
 
 插件日志会显示在插件详情页中的日志页中，该页面只显示 `info`，`warning`，`error` 级别的日志。
 
-可以在**插件管理**中查看日志详情，具体表现如下图所示。
+可以在`配置中心 -> 插件管理`中每个插件的**详情页面**查看插件日志，具体表现如下图所示。
 
 <Image img={pluginLog1} />
 
 ## 使用
 
-在本地调试时，如果需要将日志打印在控制台，可以在 `config/local.yaml` 中开启配置 `debug_mode: true`。
+在本地调试时，如果需要将日志打印在控制台，可以在 `config/local.yaml` 中开启配置 `debug_mode: true`，并且日志文件会保存在插件目录的`ones-plugin-node-host.log`。
 
 ### 插件日志能力使用：
 
-1. #### 安装依赖
+#### 1. 安装依赖
 
-   在插件根目录下运行以下指令安装依赖。（注意，默认该能力是后端使用，并且使用目录在 `backend` 下）
+在插件根目录下运行以下指令安装依赖。（注意，默认该能力是后端使用，并且使用目录在 `backend` 下）
 
-   ```shell
-   cd backend
-   npm i @ones-op/node-logger
-   ```
+```shell
+cd backend
+npm i @ones-op/node-logger
+```
 
-2. #### 使用示例
+#### 2. 使用示例
 
-   ```javascript
-   import { Logger } from '@ones-op/node-logger'
+```javascript
+import { Logger } from '@ones-op/node-logger'
 
-   function logExample() {
-     Logger.debug('test')
-     Logger.info('hello world')
-     Logger.warning('hello', 'world')
-     Logger.error('error: ', new Error('error message'))
-   }
-   ```
+function logExample() {
+  Logger.debug('debug 级别日志')
+  Logger.info('info 级别日志')
+  Logger.warning('warning 级别日志')
+  Logger.error('error 级别日志')
+}
+```

@@ -22,138 +22,148 @@ import multiLan2 from './images/multiple-Languages2.png'
 
 <Image img={multiLan2} />
 
-从上可见，插件的名称描述以及配置以及全部成了英文显示。
+从上可见，插件的名称描述以及配置全部成了英文显示。
 
 ## 使用
 
-1. ### 在插件配置中使用多语言
+### 1. 在插件配置文件中使用多语言
 
-   插件配置的多语言实现较为简单，按以下步骤修改配置文件即可。
+#### 插件基本信息使用多语言
 
-   **第一步**：将`config/plugin.yaml`文件中需要使用多语言的地方使用`{{.key}`替换，如下所示替换了 2 个字段。
+插件基本信息的多语言实现较为简单，按以下步骤修改插件配置文件即可。
 
-   ```yaml
-   service:
-     name: '{{.PluginName}}'
-     description: '{{.PluginDescription}}'
-   ```
+**第一步**：将`config/plugin.yaml`文件中需要使用多语言的地方使用`'{{.key}'`替换，如下所示替换了 2 个字段。
 
-   **第二步**：在插件根目录下的`workspace`文件夹下新建`language`文件夹，在`{{插件目录}}/workspace/language`路径下，新建`en.yaml`与`zh.yaml`两个 yaml 文件，在`zh.yaml`中写入`{{.key}}`对应中文的值，在`en.yaml`写入英文的值，如下所示。
+:::caution 注意
+替换时使用的`'{{.key}'`，必须用引号括起。
+:::
 
-   `{{插件目录}}/workspace/language/zh.yaml`
+```yaml
+service:
+  name: '{{.PluginName}}'
+  description: '{{.PluginDescription}}'
+```
 
-   ```yaml
-   PluginName: 多语言
-   PluginDescription: 这是一个支持中英文两种语言的插件
-   ```
+**第二步**：在插件根目录下的`workspace`文件夹下新建`language`文件夹，在`{{插件目录}}/workspace/language`路径下，新建`en.yaml`与`zh.yaml`两个 yaml 文件，在`zh.yaml`中写入`{{.key}}`对应中文的值，在`en.yaml`写入英文的值，如下所示。
 
-   `{{插件目录}}/workspace/language/en.yaml`
+`{{插件目录}}/workspace/language/zh.yaml`
 
-   ```yaml
-   PluginName: Multil-Language-Plugin
-   PluginDescription: The plugin is used to test Mult-Language abilities.
-   ```
+```yaml
+PluginName: 多语言
+PluginDescription: 这是一个支持中英文两种语言的插件
+```
 
-   如此便完成了在插件配置中使用多语言
+`{{插件目录}}/workspace/language/en.yaml`
 
-2. ### 插件自定义配置项使用多语言
+```yaml
+PluginName: Multil-Language-Plugin
+PluginDescription: The plugin is used to test Mult-Language abilities.
+```
 
-   插件自定义配置项的多语言同样是通过修改配置文件实现，不过需要一点额外的步骤。
+如此便实现了插件基本信息的多语言
 
-   **第一步**：将`config/plugin.yaml`中的`config`配置项新添加`label`字段，在`label`中使用`{{.key}`替换，如下所示。同时，页面上该`config`的名称由`label`字段中的值代替。
+---
 
-   ```yaml
-   service:
-   name: '{{.PluginName}}'
-   description: '{{.PluginDescription}}'
-   config:
-      - key: configKey1
-         label: '{{.Name}}'
-         value: li
-         type: Input
-         required: true
-      - key: configKey2
-         label: '{{.Age}}'
-         value: 20
-         type: Input
-         required: true
-   ```
+#### 插件配置项和能力配置项使用多语言
 
-   **第二步**：在`zh.yaml`和`en.yaml`下补充对应`{{.key}}`的值，如下所示。
+插件配置项和能力配置项的多语言同样是通过修改配置文件实现，不过需要一点额外的步骤。
 
-   `{{插件目录}}/workspace/language/zh.yaml`
+这里以插件的配置项为例，能力的配置项与插件配置项的使用方式一致。
 
-   ```yaml
-   PluginName: 多语言
-   PluginDescription: 这是一个支持中英文两种语言的插件
-   Name: 姓名
-   Age: 年龄
-   ```
+**第一步**：将`config/plugin.yaml`中的`config`配置项新添加`label`字段，在`label`中使用`{{.key}`替换，如下所示。同时，页面上该`config`的名称由`label`字段中的值代替。
 
-   `{{插件目录}}/workspace/language/en.yaml`
+```yaml
+service:
+name: '{{.PluginName}}'
+description: '{{.PluginDescription}}'
+config:
+   - key: configKey1
+      label: '{{.Name}}'
+      value: li
+      type: Input
+      required: true
+   - key: configKey2
+      label: '{{.Age}}'
+      value: 20
+      type: Input
+      required: true
+```
 
-   ```yaml
-   PluginName: Multil-Language-Plugin
-   PluginDescription: The plugin is used to test Mult-Language abilities.
-   Name: Name
-   Age: Age
-   ```
+**第二步**：在`zh.yaml`和`en.yaml`下补充对应`{{.key}}`的值，如下所示。
 
-   如此一来，插件的自定义配置项也实现了多语言。
+`{{插件目录}}/workspace/language/zh.yaml`
 
-3. ### 插件代码中使用多语言
+```yaml
+PluginName: 多语言
+PluginDescription: 这是一个支持中英文两种语言的插件
+Name: 姓名
+Age: 年龄
+```
 
-   通过 API，插件开发者能获取用户的语言环境，对于在`zh.yaml`和`en.yaml`存在的变量，我们可以 API 直接进行值的调用获取，从而根据当前的语言环境，构建不同的返回参数。
+`{{插件目录}}/workspace/language/en.yaml`
 
-   ```typescript
-   import { Language } from '@ones-op/node-ability'
+```yaml
+PluginName: Multil-Language-Plugin
+PluginDescription: The plugin is used to test Mult-Language abilities.
+Name: Name
+Age: Age
+```
 
-   export async function multiple_language() {
-     // 获取用户语言
-     const language = await Language.getLanguage(user_uuid)
-     // 获取用户语言对应的PluginDescription值
-     const description = await Language.getLanguageString(language, 'PluginDescription')
-     Logger.info(language)
-     Logger.info(description)
+如此一来，插件配置项和能力配置项也实现了多语言。
+
+### 2. 插件后端使用多语言
+
+通过 API，插件开发者能获取用户的语言环境，对于在`zh.yaml`和`en.yaml`存在的变量，我们可以 API 直接进行值的调用获取，从而根据当前的语言环境，构建不同的返回参数。
+
+```typescript
+import { Language } from '@ones-op/node-ability'
+
+export async function multiple_language() {
+  // 获取用户语言
+  const language = await Language.getLanguage(user_uuid)
+  // 获取用户语言对应的PluginDescription值
+  const description = await Language.getLanguageString(language, 'PluginDescription')
+  Logger.info(language)
+  Logger.info(description)
+}
+```
+
+### 3. 插件前端使用多语言
+
+在插件中，你可以使用 window 访问我们在插件执行环境注入的全局变量，从而获取语言环境。
+我们可以获取当前用户的语言设置来动态改变前端展示信息，如下所示。
+
+```javascript
+   //访问全局变量获取语言环境
+   const locale = (window as any).__ones_op_locale__?.locale || 'zh-CN'
+
+   const zhHans = {
+   toast: '吐司',
+   modal: '对话框',
+   text: '你好',
+   pwdErr: '请再次输入密码！',
+   userNameErr: '用户名错误!',
+   ok: '确定',
+   cancel: '取消'
    }
-   ```
 
-4. ### 插件前端使用多语言
+   const en: typeof zhHans = {
+   toast: 'toast',
+   modal: 'Dialog',
+   text: 'hello',
+   pwdErr: 'please input password again',
+   userNameErr: 'usename error!',
+   ok: 'ok',
+   cancel: 'cancel'
+   }
 
-   在插件中，你可以使用 window 访问我们在插件执行环境注入的全局变量，从而获取语言环境。
-   我们可以获取当前用户的语言设置来动态改变前端展示信息，如下所示。
+   const resourceMap: { [_: string]: typeof zhHans } = {
+   'zh-CN': zhHans,
+   'en': en
+   }
 
-   ```javascript
-      //访问全局变量获取语言环境
-      const locale = (window as any).__ones_op_locale__?.locale || 'zh-CN'
-
-      const zhHans = {
-      toast: '吐司',
-      modal: '对话框',
-      text: '你好',
-      pwdErr: '请再次输入密码！',
-      userNameErr: '用户名错误!',
-      ok: '确定',
-      cancel: '取消'
-      }
-
-      const en: typeof zhHans = {
-      toast: 'toast',
-      modal: 'Dialog',
-      text: 'hello',
-      pwdErr: 'please input password again',
-      userNameErr: 'usename error!',
-      ok: 'ok',
-      cancel: 'cancel'
-      }
-
-      const resourceMap: { [_: string]: typeof zhHans } = {
-      'zh-CN': zhHans,
-      'en': en
-      }
-
-      const langResource = resourceMap[locale]
-   ```
+   const langResource = resourceMap[locale]
+```
 
 ### 使用建议：
 

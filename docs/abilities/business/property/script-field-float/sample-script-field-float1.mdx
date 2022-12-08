@@ -1,3 +1,7 @@
+import Image from '@theme/IdealImage'
+import sampleScriptFieldFload1 from './images/sample-script-field-float1.png'
+import sampleScriptFieldFload2 from './images/sample-script-field-float2.png'
+
 # Scene 1： Automatically count the number of relationships of a certain type of issue
 
 ## Scene description
@@ -6,20 +10,21 @@ Users want to automatically count the number of issue related to the "link" of a
 
 The following figure shows that the issue has two link contents, and what the user needs is the number of issue under `Link`.
 
-![image](./images/sample-script-field-float1.png)
+<Image img={sampleScriptFieldFload1} />
 
 ## Performance
 
 Through the way of script property, the number of issue whose link relationship is "Link" is automatically counted and displayed.
-![image](./images/sample-script-field-float2.png)
+
+<Image img={sampleScriptFieldFload2} />
 
 ## Solution
 
-### Implementation idea:
+### Implementation idea
 
 Use "Plugin Script properties - Number" ability.In the script property calculation method, the uuid of a issue requests ONES to obtain the number of issue link relationship with its "Link". The assembly script property calculation method returns parameters and returns, and you can enable the plugin to add the script property to the issue.
 
-## Plugin development
+### Plugin development
 
 1. Use OP tool to add ability "Plugin Script properties - Number".
 
