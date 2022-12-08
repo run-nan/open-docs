@@ -59,6 +59,6 @@ To upgrade the scaffolding later, you can run any of the following instructions:
 
 :::caution notice
 
-If there are environmental problems in installing ONES CLI, please refer to [FAQ](../../faq/environment/environment.md)
+If there are environmental problems in installing ONES CLI, please refer to [FAQ](../../faq/environment/ones-cli.mdx)
 
 :::

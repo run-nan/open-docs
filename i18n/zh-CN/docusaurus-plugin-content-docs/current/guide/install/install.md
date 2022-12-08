@@ -70,6 +70,6 @@ sudo npm update -g @ones/cli
 
 :::caution 注意
 
-安装过程中出现环境问题可参考 [FAQ](../../faq/environment/environment.md)
+安装过程中出现环境问题可参考 [FAQ](../../faq/environment/ones-cli.mdx)
 
 :::
