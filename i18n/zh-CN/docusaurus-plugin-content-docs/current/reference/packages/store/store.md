@@ -514,3 +514,26 @@ interface ActionPayload<T = unknown> {
 当调用 `next` 或 `cancel` 方法后，插件将会被销毁，此时你将无法进行一些 DOM 操作，如 toast 提示等。  
 如果你有页面提示需求，你应该在提示完成后，再调用 `next` 或 `cancel` 方法。
 :::
+
+### useCodeRepository {#useCodeRepository}
+
+- Added in: `v0.3.0`
+- ONES Requirement: `v3.10.0+`
+
+获取用户当前选择的代码仓信息
+
+#### Returns
+
+| 说明                     |         类型         |
+| :----------------------- | :------------------: |
+| 用户当前选择的代码仓信息 | `CodeRepositoryInfo` |
+
+#### Types
+
+```tsx
+interface CodeRepositoryInfo {
+  uuid: string
+  // 上一步，可以打开上一步的“选择代码仓“的弹窗
+  previous: () => void
+}
+```
