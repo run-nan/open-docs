@@ -1,0 +1,48 @@
+# Requirements traceability
+
+import Image from '@theme/IdealImage'
+
+## Requirements
+
+| **ONES** |
+| :------: |
+|   3.6+   |
+
+## Overview
+
+<Image img={require('./images/demand-action.png')} />
+
+We have provided slots for "ONES TestCase" - "Test plans" - "Requirements traceability" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:testcase:plan:component:demand:header:action:new](#onestestcaseplancomponentdemandheaderactionnew)
+
+## Slots
+
+#### ones:testcase:plan:component:demand:header:action:new
+
+**Module path：** ONES TestCase / Test plans / Requirements traceability / top header action / new module
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-testcase-plan-component-demand-header-action-new-giL0
+    title: New action
+    moduleType: ones:testcase:plan:component:demand:header:action:new
+    entry: >-
+      modules/ones-testcase-plan-component-demand-header-action-new-giL0/index.html
+```
+
+### Available Hook API
+
+- [useTestPlanInfo](../../../../../../reference/packages/store/store.md#useTestPlanInfo)
+
+```ts
+import { useTestPlanInfo } from '@ones-op/store'
+
+const testPlanInfo = useTestPlanInfo()
+```

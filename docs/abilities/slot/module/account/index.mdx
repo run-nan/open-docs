@@ -1,0 +1,60 @@
+# My profile
+
+import Image from '@theme/IdealImage'
+
+## Requirements
+
+| **ONES** |
+| :------: |
+|   3.6+   |
+
+## Overview
+
+<Image img={require('./images/account.png')} />
+
+We have provided slots for "My profile" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:account:new](#onesaccountnew)
+- [ones:account:personal](#onesaccountpersonal)
+- [ones:account:dashboard](#onesaccountdashboard)
+
+## Slots
+
+#### ones:account:new
+
+**Module path：** My profile / new module
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+#### ones:account:personal
+
+**Module path：** My profile / Personal info
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:account:dashboard
+
+**Module path：** My profile / Dashboard
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-account-personal-uhK0
+    title: Personal info
+    moduleType: ones:account:personal
+    modules:
+      - id: ones-account-personal-JhsH
+        title: My account
+        entry: >-
+          modules/ones-account-personal-uhK0/ones-account-personal-JhsH/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../reference/config/plugin.md#disabled)
+- [modules(required)](../../../../reference/config/plugin.md#subModule)

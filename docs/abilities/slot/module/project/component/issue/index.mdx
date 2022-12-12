@@ -1,0 +1,69 @@
+import Image from '@theme/IdealImage'
+
+# Issue detail
+
+## Requirements
+
+| **ONES** |
+| :------: |
+|   3.6+   |
+
+## Overview
+
+<Image img={require('./images/activity.png')} />
+
+We have provided slots for "ONES Project" - "Project component" - "Issue detail" - "Activity" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:issue:feed:all](#onesissuefeedall)
+- [ones:issue:feed:comment](#onesissuefeedcomment)
+- [ones:issue:feed:file](#onesissuefeedfile)
+- [ones:issue:feed:relate](#onesissuefeedrelate)
+- [ones:issue:feed:changelog](#onesissuefeedchangelog)
+
+## Slots
+
+#### ones:issue:feed:all
+
+**Module path：** ONES Project / Project component / Issue detail / Activity / All
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:issue:feed:comment
+
+**Module path：** ONES Project / Project component / Issue detail / Activity / Comment
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:issue:feed:file
+
+**Module path：** ONES Project / Project component / Issue detail / Activity / Attachment
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:issue:feed:relate
+
+**Module path：** ONES Project / Project component / Issue detail / Activity / Link
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:issue:feed:changelog
+
+**Module path：** ONES Project / Project component / Issue detail / Activity / Change history
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-issue-feed-comment-GAy9
+    title: Comment
+    moduleType: ones:issue:feed:comment
+    entry: modules/ones-issue-feed-comment-GAy9/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../../../reference/config/plugin.md#disabled)

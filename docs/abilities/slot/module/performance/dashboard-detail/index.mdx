@@ -1,0 +1,38 @@
+import Image from '@theme/IdealImage'
+
+# Dashboard details
+
+## Requirements
+
+| **ONES** |
+| :------: |
+|   3.6+   |
+
+## Requirements
+
+<Image img={require('./images/detail.png')} />{' '}
+
+We have provided slots for "ONES Performance" - "Dashboard" - "Dashboard details" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:performance:component:dashboard:header:action:new](#onesperformancecomponentdashboardheaderactionnew)
+
+## Slots
+
+#### ones:performance:component:dashboard:header:action:new
+
+**Module path：** ONES Performance / Dashboard / Dashboard details / top header action / new module
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-performance-component-dashboard-header-action-new-twsu
+    title: Header action
+    moduleType: ones:performance:component:dashboard:header:action:new
+    entry: >-
+      modules/ones-performance-component-dashboard-header-action-new-twsu/index.html
+```

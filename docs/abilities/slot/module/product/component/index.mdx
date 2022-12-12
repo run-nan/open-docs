@@ -1,0 +1,89 @@
+import Image from '@theme/IdealImage'
+
+# Product component
+
+## Requirements
+
+| **ONES** |
+| :------: |
+|   3.6+   |
+
+## Overview
+
+<Image img={require('./images/component.png')} />
+
+We have provided slots for "Product Management" - "Product component" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:product:component:version](#onesproductcomponentversion)
+- [ones:product:component:desk](#onesproductcomponentdesk)
+- [ones:product:component:story](#onesproductcomponentstory)
+- [ones:product:component:bug](#onesproductcomponentbug)
+- [ones:product:component:task](#onesproductcomponenttask)
+- [ones:product:component:demand](#onesproductcomponentdemand)
+- [ones:product:component:module](#onesproductcomponentmodule)
+
+## Slots
+
+#### ones:product:component:version
+
+**Module path：** Product Management / Product component / Version
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:product:component:desk
+
+**Module path：** Product Management / Product component / Ticket
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:product:component:story
+
+**Module path：** Product Management / Product component / User story
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:product:component:bug
+
+**Module path：** Product Management / Product component / Bug
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:product:component:task
+
+**Module path：** Product Management / Product component / Task
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:product:component:demand
+
+**Module path：** Product Management / Product component / Requirement
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:product:component:module
+
+**Module path：** Product Management / Product component / Module
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-product-component-story-Aa2M
+    title: User story
+    moduleType: ones:product:component:story
+    entry: modules/ones-product-component-story-Aa2M/index.html
+```
+
+### Available Hook API
+
+- [useProductInfo](../../../../../reference/packages/store/store.md#useProductInfo)
+
+```ts
+import { useProductInfo } from '@ones-op/store'
+
+const productInfo = useProductInfo()
+```

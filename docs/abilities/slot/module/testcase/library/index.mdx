@@ -1,0 +1,51 @@
+# Test case library component
+
+import Image from '@theme/IdealImage'
+
+## Requirements
+
+| **ONES** |
+| :------: |
+|   3.6+   |
+
+## Overview
+
+<Image img={require('./images/library.png')} />
+
+We have provided slots for "ONES TestCase" - "Test case library" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:testcase:library:component:case](#onestestcaselibrarycomponentcase)
+
+## Slots
+
+#### ones:testcase:library:component:case
+
+**Module path：** ONES TestCase / Test case library / Test cases
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-testcase-library-component-case-Z5xR
+    title: Test cases
+    moduleType: ones:testcase:library:component:case
+    entry: modules/ones-testcase-library-component-case-Z5xR/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../../reference/config/plugin.md#disabled)
+
+### Available Hook API
+
+- [useTestCaseLibraryInfo](../../../../../reference/packages/store/store.md#useTestCaseLibraryInfo)
+
+```ts
+import { useTestCaseLibraryInfo } from '@ones-op/store'
+
+const testCaseLibraryInfo = useTestCaseLibraryInfo()
+```

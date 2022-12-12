@@ -1,0 +1,62 @@
+import Image from '@theme/IdealImage'
+
+# Dashboard
+
+## Requirements
+
+| **ONES** |
+| :------: |
+|   3.6+   |
+
+## Overview
+
+<Image img={require('./images/dashboard.png')} />
+
+We have provided slots for "My profile" - "Dashboard" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:account:dashboard:new](#onesaccountdashboardnew)
+- [ones:account:dashboard:common](#onesaccountdashboardcommon)
+- [ones:account:dashboard:create](#onesaccountdashboardcreate)
+- [ones:account:dashboard:share](#onesaccountdashboardshare)
+
+## Slots
+
+#### ones:account:dashboard:new
+
+**Module path：** My profile / Dashboard / new module
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+#### ones:account:dashboard:common
+
+**Module path：** My profile / Dashboard / Starred Dashboards
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:account:dashboard:create
+
+**Module path：** My profile / Dashboard / Created by me
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:account:dashboard:share
+
+**Module path：** My profile / Dashboard / Shared with me
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-account-dashboard-common-nR0N
+    title: Starred Dashboards
+    moduleType: ones:account:dashboard:common
+    entry: modules/ones-account-dashboard-common-nR0N/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../../reference/config/plugin.md#disabled)

@@ -1,0 +1,81 @@
+# 用例库设置
+
+import Image from '@theme/IdealImage'
+
+## 要求
+
+| **ONES** |
+| :------: |
+|   3.6+   |
+
+## 概述
+
+<Image img={require('./images/settings.png')} />
+
+我们为「测试管理」-「用例库」-「用例库设置」提供了一些插槽，以便于为该应用定制化页面模块。
+
+当前支持的插槽：
+
+- [ones:testcase:library:settings:new](#onestestcaselibrarysettingsnew)
+- [ones:testcase:library:settings:info](#onestestcaselibrarysettingsinfo)
+- [ones:testcase:library:settings:permission](#onestestcaselibrarysettingspermission)
+- [ones:testcase:library:settings:recycle](#onestestcaselibrarysettingsrecycle)
+- [ones:testcase:library:settings:delete](#onestestcaselibrarysettingsdelete)
+
+## 插槽
+
+#### ones:testcase:library:settings:new
+
+**模块路径：** 测试管理 / 用例库 / 用例库设置 / 新模块
+
+**个数限制：** 一个插件中最多可声明 **10 **个该插槽，系统中最多同时存在 **100 **个该插槽
+
+#### ones:testcase:library:settings:info
+
+**模块路径：** 测试管理 / 用例库 / 用例库设置 / 用例库信息
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:testcase:library:settings:permission
+
+**模块路径：** 测试管理 / 用例库 / 用例库设置 / 权限配置
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:testcase:library:settings:recycle
+
+**模块路径：** 测试管理 / 用例库 / 用例库设置 / 回收站
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:testcase:library:settings:delete
+
+**模块路径：** 测试管理 / 用例库 / 用例库设置 / 删除用例库
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+**ONES 要求：** `v3.11.15+`
+
+## 使用
+
+```yaml
+modules:
+  - id: ones-testcase-library-settings-info-qHnI
+    title: Info
+    moduleType: ones:testcase:library:settings:info
+    entry: modules/ones-testcase-library-settings-info-qHnI/index.html
+```
+
+**支持的配置项：**
+
+- [disabled](../../../../../../reference/config/plugin.md#disabled)
+
+### 可访问的上下文数据
+
+- [useTestCaseLibraryInfo](../../../../../../reference/packages/store/store.md#useTestCaseLibraryInfo)
+
+```ts
+import { useTestCaseLibraryInfo } from '@ones-op/store'
+
+const testCaseLibraryInfo = useTestCaseLibraryInfo()
+```

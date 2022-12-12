@@ -1,0 +1,56 @@
+# 用例
+
+import Image from '@theme/IdealImage'
+
+## 要求
+
+| **ONES** |
+| :------: |
+| v3.10.0+ |
+
+## 概述
+
+<Image img={require('./images/test-cases.png')} />
+
+我们为「测试管理」-「用例库」-「用例」提供了一些插槽，以便于为该应用定制化页面模块。
+
+当前支持的插槽：
+
+- [ones:testcase:library:component:case:caseList:action:new](#onestestcaselibrarycomponentcasecaselistactionnew)
+
+## 插槽
+
+#### ones:testcase:library:component:case:caseList:action:new
+
+**模块路径：** 测试管理 / 用例库 / 用例 / 顶部操作模块 / 新模块
+
+**个数限制：** 一个插件中最多可声明 **10 **个该插槽，系统中最多同时存在 **100 **个该插槽
+
+## 使用
+
+```yaml
+modules:
+  - id: ones-testcase-library-component-case-caseList-action-new-E_FK
+    title: New Action
+    moduleType: ones:testcase:library:component:case:caseList:action:new
+    entry: >-
+      modules/ones-testcase-library-component-case-caseList-action-new-E_FK/index.html
+```
+
+### 可访问的上下文数据
+
+- [useTestCaseLibraryInfo](../../../../../../reference/packages/store/store.md#useTestCaseLibraryInfo)
+
+```ts
+import { useTestCaseLibraryInfo } from '@ones-op/store'
+
+const testCaseLibraryInfo = useTestCaseLibraryInfo()
+```
+
+- [useTestCaseListInfo](../../../../../../reference/packages/store/store.md#useTestCaseListInfo)
+
+```ts
+import { useTestCaseListInfo } from '@ones-op/store'
+
+const testCaseListInfo = useTestCaseListInfo()
+```
