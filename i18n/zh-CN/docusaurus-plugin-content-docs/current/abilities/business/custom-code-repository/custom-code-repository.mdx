@@ -1,0 +1,445 @@
+import Image from '@theme/IdealImage'
+
+# 自定义代码仓
+
+## 要求
+
+| **ONES** |
+| -------- |
+| 3.10.28+ |
+
+## 概述
+
+开放平台提供了自定义集成代码仓的能力，使用该能力可以将集成的第三方代码仓的代码提交和合并请求与 ONES Project 的任务相关联。关联成功后团队成员在完成编码后，提交 Commit 时在提交消息（Commit message）输入包含本段代码涉及的研发任务的 ID，或者提交 Pull Request 时在标题（Title）输入涉及的研发任务的 ID，通过“空格”隔开，提交后可以在 ONES 实时查看代码提交和代码合并请求情况。
+
+### 能力表现
+
+1. 在使用该能力后，可以在配置中心 -> 流水线管理配置 -> 代码仓配置页面，点击「关联代码仓」查看到能力添加的关联代码仓选项。
+
+   <Image img={require('./images/code-repo-connector.png')} />
+
+2. 通过能力实现关联代码仓的逻辑后，即可跟 ONES 系统的 GitHub、GitLab、私有 GitLab、SVN、私有 Bitbucket 等内置类型一样去关联代码仓，关联成功后将和其他内置类型一样，在代码仓配置面列表展示。
+
+   <Image img={require('./images/code-repo-list.png')} />
+
+3. 通过能力实现新增代码提交（Commit）和新增代码合并请求（Pull Request）逻辑后，你可以在工作项详情的 “代码关联” 栏位查看代码关联结果。
+
+   <Image img={require('./images/code-repo-task.png')} />
+
+4. 迭代支持汇总需求已关联的代码提交数据，迭代负责人可以据此跟进开发进展。
+
+   <Image img={require('./images/code-repo-print.png')} />
+
+5. 迭代概览下将汇总统计当前迭代的代码提交情况，帮助迭代负责人评估开发贡献量。 目前支持统计和分析代码提交次数、代码提交次数趋势、代码提交影响行数的情况。
+
+   <Image img={require('./images/code-repo-print-overview.png')} />
+
+## 使用
+
+### 第一步：在插件项目中添加能力和插槽配置
+
+#### 1. 添加能力
+
+在 “插件根目录” 使用 `OP` 命令添加能力：
+
+```shell
+npx op add ability
+```
+
+选中并添加 `custom-code-repository`：
+
+<Image img={require('./images/code-repo-op-add-ability.png')} />
+
+OP 工具会询问是否使用默认值，选择是即可，OP 工具会为插件添加如下内容:
+
+- 在插件根目录的 `config/plugin.yaml` 中 `abilities` 字段新增相关段落：
+
+  ```yaml
+  service:
+    app_id: ...
+    name: ability-CustomCodeRepository
+    ...
+  apis:
+    ...
+  abilities:
+    - id: CkrqExqC
+      name: 自定义代码仓库
+      version: 1.0.0
+      abilityType: CustomCodeRepository
+      relateModule:
+        addRepoPage: ''
+      function:
+        removeRepoFunc: removeRepo
+      config:
+        - key: repoToolName
+          label: 关联代码仓工具名称
+          value: 自定义代码仓类型
+          fieldType: Input
+          show: true
+        - key: repoToolDesc
+          label: 关联代码仓工具描述
+          value: 自定义代码仓类型
+          fieldType: Input
+          show: true
+        - key: repoToolIcon
+          label: 关联代码仓工具图标
+          value: logo.svg
+          fieldType: Input
+          show: false
+  ```
+
+  其中 abilities.config 中 3 个配置的作用主要用于配置中心 -> 流水线管理配置 -> 代码仓配置页面 -> 关联代码仓页面展示自定义的代码仓关联工具配置，具体如下表所示：
+
+| **配置**     | **描述**                                                                                                |
+| ------------ | ------------------------------------------------------------------------------------------------------- |
+| repoToolName | 自定义关联代码仓工具名称（必填，最大长度 128）                                                          |
+| repoToolDesc | 自定义关联代码仓工具描述（必填）                                                                        |
+| repoToolIcon | 自定义关联代码仓工具图标（必填，最大长度 255）<br/>规则：logo.svg 对应插件目录 web/public/logo.svg 文件 |
+
+- 在插件根目录的 `backend/src` 目录下新增 `custom-code-repository.ts` 文件。
+
+  文件中包括一个默认 `removeRepo` 方法实现，当管理人员在代码仓配置页面做 “移除关联” 操作时将调用此方法。提供该方法的主要目的是让插件能够收到代码仓被移除的通知。开发者可以保持不变，也可以修改此方法做自定义的清理逻辑（注意：方法的返回值不会影响系统移除关联代码仓）。
+
+```typescript
+import type { PluginRequest, PluginResponse } from 'open-node/packages/types/dist/types/index'
+
+export async function removeRepo(request: PluginRequest): Promise<PluginResponse> {
+  const body = request?.body as any
+  if (body && body.data) {
+    const repoInfo = body.data
+  }
+  return {
+    body: {
+      code: 200,
+    },
+  }
+}
+```
+
+#### 2. 添加插槽
+
+在 “插件根目录” 使用 OP 命令添加插槽，用于自定义关联代码仓交互逻辑：
+
+```shell
+npx op add module
+```
+
+选中并添加 [ones:settings:pipeline:default:repo:link](../../slot/module/code_repository/index.md) 类型插槽：
+
+<Image img={require('./images/code-repo-op-add-module.png')} />
+
+OP 工具会询问是否使用默认值，选择是即可，OP 工具会为插件添加如下内容:
+
+- 在插件根目录的 `config/plugin.yaml` 中 modules 字段新增相关段落：
+
+  ```mysql
+  modules:
+    - id: ones-settings-pipeline-default-repo-link-R5w-
+      title: 关联代码仓页面
+      moduleType: ones:settings:pipeline:default:repo:link
+      entry: modules/ones-settings-pipeline-default-repo-link-R5w-/index.html
+  ```
+
+- 在插件根目录的 `web/src/modules` 目录下新增 `ones-settings-pipeline-default-repo-link-R5w-` 目录，目录下有 `index.css` 和 `index.tsx` 两个文件。
+
+#### 3. 能力关联插槽
+
+在 `plugin.yaml` 文件中，将能力与插槽关联，即将插槽的 `id` 配置到能力的配置 `addRepoPage` 值中，最后效果如下：
+
+```yaml
+service:
+  app_id: ...
+  name: ability-CustomCodeRepository
+  ...
+apis:
+  ...
+abilities:
+  - id: CkrqExqC
+    name: 自定义代码仓库
+    version: 1.0.0
+    abilityType: CustomCodeRepository
+    relateModule:
+      addRepoPage: 'ones-settings-pipeline-default-repo-link-R5w-'
+    function:
+      removeRepoFunc: removeRepo
+    config:
+      - key: repoToolName
+        label: 关联代码仓工具名称
+        value: 自定义关联代码仓工具
+        fieldType: Input
+        show: true
+      - key: repoToolDesc
+        label: 关联代码仓工具描述
+        value: 自定义关联代码仓工具
+        fieldType: Input
+        show: true
+      - key: repoToolIcon
+        label: 关联代码仓工具图标
+        value: logo.svg
+        fieldType: Input
+        show: false
+modules:
+  - id: ones-settings-pipeline-default-repo-link-R5w-
+    title: 关联代码仓页面
+    moduleType: ones:settings:pipeline:default:repo:link
+    entry: modules/ones-settings-pipeline-default-repo-link-R5w-/index.html
+```
+
+### 第二步：自定义代码仓关联页面
+
+区别于 ONES 系统内置的关联代码仓方式，点击「关联代码仓」下一步有默认的添加关联代码仓的弹窗页面，如下图 Github 方式的关联代码仓页面：
+
+<Image img={require('./images/code-repo-github-add-repo.png')} />
+
+开发者需要在插槽 `ones-settings-pipeline-default-repo-link-R5w-` 自定义该关联代码仓页面逻辑，来实现 “代码仓平台的认证” 和 “新增关联代码仓” 功能，对于 “代码仓平台的认证” 可以是 OAuth 方式也可以 Token 或账户密码形式，开发者可以视情况而定。
+
+:::caution 注意
+此页面关联代码仓成功或失败的提示文案，需由开发者实现。关联成功的代码仓将在代码仓管理页面展示，此时区别于内置类型关联的代码仓，插件关联的将展示 “查看详情” 按钮。
+:::
+
+### 第三步：添加关联代码仓
+
+为了能够将插件关联的代码仓同步到 ONES 系统中来，我们在 SDK 方法中提供了 “添加代码仓” 方法，可以按如下方式使用：
+
+```typescript
+import { addRepos } from '@ones-op/node-ability'
+
+const toolUUID: string = 'xxx';
+const list: RepoInfo[] = [...];
+const batchResponse = await addRepos(toolUUID, list);
+```
+
+方法的入参和出参介绍如下：
+
+**入参：**
+
+| 参数     | 类型       | 描述                                              | 必填 | 取值范围     |
+| -------- | ---------- | ------------------------------------------------- | ---- | ------------ |
+| toolUUID | string     | 关联代码仓方式 UUID                               | Y    | len=8        |
+| teamUUID | string     | 团队 UUID（组织级别插件必填，团队级别插件非必填） | N    | len=8        |
+| list     | RepoInfo[] | 新增关联代码仓列表                                | Y    | 0<=size<=100 |
+
+> RepoInfo
+
+| 参数              | 类型   | 描述                                                                    | 必填 | 取值范围 |
+| ----------------- | ------ | ----------------------------------------------------------------------- | ---- | -------- |
+| userUUID          | string | 关联代码仓操作人员 UUID（可以从插槽提供的获取用户方法获取）             | Y    | len=8    |
+| uri               | string | 关联代码仓 URI（举例https://github.com/nodejs/node为https://github.com) | Y    | len<=100 |
+| namespace         | string | 命名空间（举例https://github.com/nodejs/node为nodejs)                   | Y    | len<=256 |
+| name              | string | 仓库名称（举例https://github.com/nodejs/node为node)                     | Y    | len<=256 |
+| certificationType | enum   | 认证方式（枚举值：OAUTH、PASSWORD、TOKEN、NONE、OTHER）                 | Y    | -        |
+
+**出参：**
+
+> BatchRepoResponse
+
+| 参数         | 类型           | 描述                   | 必填 |
+| ------------ | -------------- | ---------------------- | ---- |
+| successCount | int            | 关联代码仓成功数量     | Y    |
+| failureCount | int            | 关联代码仓失败数量     | Y    |
+| Responses    | RepoResponse[] | 关联代码仓详细信息列表 | Y    |
+
+> RepoResponse
+
+| 参数      | 类型    | 描述               | 必填 |
+| --------- | ------- | ------------------ | ---- |
+| success   | boolean | 是否关联成功       | Y    |
+| uri       | string  | 关联代码仓 URI     | Y    |
+| namespace | string  | 命名空间           | Y    |
+| name      | string  | 仓库名称           | Y    |
+| repoUUID  | string  | 代码仓 UUID        | Y    |
+| error     | string  | 关联失败时错误描述 | N    |
+
+`toolUUID` 字段对应自定义代码仓关联方式在 ONES 系统的 UUID 唯一标识，可以通过定义如下方法获取，其中 `CkrqExqC` 对应 `plugin.yaml` 文件中的能力 ID：
+
+```typescript
+import { getAbilityProperties } from '@ones-op/node-ability'
+
+export async function getRepoToolUUID(): Promise<string> {
+  const repoToolUUIDKey = 'repoToolUUID'
+  const abilityID = 'CkrqExqC'
+
+  let repoToolUUID = ''
+  const property = await getAbilityProperties(abilityID, [repoToolUUIDKey])
+  if (property?.repoToolUUID) {
+    repoToolUUID = property[repoToolUUIDKey]
+  }
+  return repoToolUUID
+}
+```
+
+:::caution 注意
+当为团队级别插件时调用 `getAbilityProperties` 方法时 `teamUUID` 可以不传，当为组织级别插件调用时 `teamUUID` 则为必传值。
+:::
+
+### 第四步：添加代码仓提交（Commit）和合并请求（Pull Request）
+
+关联代码仓成功后，可以调用 SDK 方法将代码仓的提交（Commit）和合并请求（Pull Request）数据同步到 ONES 系统。
+
+**1. 添加码仓提交（Commit）：**
+
+```typescript
+import { addRepos } from '@ones-op/node-ability'
+
+const toolUUID: string = 'xxx';
+const repoUUID: string = 'xxx';
+const list: AddRepoInfo[] = [...];
+await addRepoCommits(toolUUID, repoUUID, list)
+```
+
+方法的入参和出参介绍如下：
+
+**入参：**
+
+| 参数     | 类型         | 描述                                          | 必填 | 取值范围     |
+| -------- | ------------ | --------------------------------------------- | ---- | ------------ |
+| toolUUID | string       | 关联代码仓方式 UUID                           | Y    | len=8        |
+| repoUUID | string       | 代码仓 UUID                                   | Y    | len=8        |
+| teamUUID | string       | 团队 UUID（组织级别插件必填，团队级别插必填） | N    | len=8        |
+| list     | RepoCommit[] | 代码仓 commit 列表                            | Y    | 0<=size<=100 |
+
+> RepoCommit
+
+| 参数           | 类型   | 描述                      | 必填 | 取值范围       |
+| -------------- | ------ | ------------------------- | ---- | -------------- |
+| hash           | string | commit 唯一标识           | Y    | len<=48        |
+| author         | string | commit 作者名称           | Y    | len<=128       |
+| message        | string | commit 描述               | Y    | -              |
+| branch         | string | commit 提交分支           | Y    | len<=128       |
+| url            | string | commit 可访问的 web url   | Y    | len<=2048      |
+| createAt       | int64  | commit 时间戳（单位：秒） | Y    | min=1          |
+| statsTotal     | int64  | 统计影响行总数            | N    | max=2147483647 |
+| statsAdditions | int64  | 统计添加影响行总数        | N    | max=2147483647 |
+| statsDeletions | int64  | 统计删除影响行总数        | N    | max=2147483647 |
+
+**2. 添加码仓合并请求（Pull Request）：**
+
+```typescript
+import { addRepos } from '@ones-op/node-ability'
+
+const toolUUID: string = 'xxx'
+const repoUUID: string = 'xxx'
+const pullRequest: RepoPullRequest = '{...}'
+await addRepoPullRequest(toolUUID, repoUUID, pullRequest)
+```
+
+方法的入参和出参介绍如下：
+
+**入参：**
+
+| 参数     | 类型            | 描述                                              | 必填 | 取值范围 |
+| -------- | --------------- | ------------------------------------------------- | ---- | -------- |
+| toolUUID | string          | 关联代码仓方式 UUID                               | Y    | len=8    |
+| repoUUID | string          | 代码仓 UUID                                       | Y    | len=8    |
+| teamUUID | string          | 团队 UUID（组织级别插件必填，团队级别插件非必填） | N    | len=8    |
+| pr       | RepoPullRequest | 代码仓 pull request 信息                          | Y    | -        |
+
+> RepoPullRequest
+
+| 参数       | 类型         | 描述                                                 | 必填 | 取值范围       |
+| ---------- | ------------ | ---------------------------------------------------- | ---- | -------------- |
+| number     | number       | pr 编号（pr 唯一标识）                               | Y    | max=2147483647 |
+| action     | enum         | pr 动作（枚举值：UPDATE、CLOSE、ADD、REOPEN、MERGE） | Y    | -              |
+| author     | string       | pr 作者名称                                          | Y    | len<=128       |
+| title      | string       | pr 标题                                              | Y    | len<=256       |
+| url        | string       | pr 可访问的 web url                                  | Y    | len<=1024      |
+| fromBranch | string       | pr 源分支                                            | Y    | len<=128       |
+| toBranch   | string       | pr 目标分支                                          | Y    | len<=128       |
+| createAt   | int64        | pr 创建时间戳（单位：秒）                            | Y    | min=1          |
+| state      | enum         | pr 状态（枚举值：OPEN、MERGED、CLOSED）              | Y    | -              |
+| reviewers  | string array | pr 审核人员名称列表                                  | N    | -              |
+| updateAt   | int64        | pr 最后更新时间戳（单位：秒）                        | N    | min=1          |
+| updateUser | string       | pr 最后更新用户名称                                  | N    | len<=128       |
+
+为了方便查询已关联的代码仓信息，我们提供如下 2 个 SDK 方法：
+
+**1. 查询已关联的单个代码仓**
+
+```typescript
+import { addRepos } from '@ones-op/node-ability'
+
+const toolUUID = 'xxx'
+const uri = 'xxx'
+const namespace = 'xxx'
+const name = 'xxx'
+const repoInfo = await queryRepo(toolUUID, uri, namespace, name)
+```
+
+方法的入参和出参介绍如下：
+
+**入参：**
+
+| 参数      | 类型   | 描述                                              | 必填 | 取值范围 |
+| --------- | ------ | ------------------------------------------------- | ---- | -------- |
+| teamUUID  | string | 团队 UUID（组织级别插件必填，团队级别插件非必填） | N    | len=8    |
+| toolUUID  | string | 关联代码仓方式 UUID                               | Y    | len=8    |
+| uri       | string | 关联代码仓 URI                                    | Y    | len<=100 |
+| namespace | string | 代码仓命名空间                                    | Y    | len<=256 |
+| name      | string | 代码仓名称                                        | Y    | len<=256 |
+
+**出参：**
+
+> RepoInfo
+
+| 参数              | 类型   | 描述                                                    | 必填 |
+| ----------------- | ------ | ------------------------------------------------------- | ---- |
+| repoUUID          | string | 关联代码仓 UUID                                         | Y    |
+| userUUID          | string | 关联操作人员 UUID                                       | Y    |
+| uri               | string | 关联代码仓 URI                                          | Y    |
+| namespace         | string | 关联代码仓命名空间                                      | Y    |
+| name              | string | 关联代码仓名称                                          | Y    |
+| certificationType | enum   | 认证方式（枚举值：oauth、password、token、none、other） | Y    |
+
+**2. 查询已关联的所有代码仓**
+
+```typescript
+import { addRepos } from '@ones-op/node-ability'
+
+const toolUUID = 'xxx'
+const repoInfos = await queryRepos(toolUUID)
+```
+
+方法的入参和出参介绍如下：
+
+**入参：**
+
+| 参数     | 类型   | 描述                                              | 必填 | 取值范围 |
+| -------- | ------ | ------------------------------------------------- | ---- | -------- |
+| teamUUID | string | 团队 UUID（组织级别插件必填，团队级别插件非必填） | N    | len=8    |
+| toolUUID | string | 关联代码仓方式 UUID                               | Y    | len=8    |
+
+**出参：** RepoInfo[]
+
+> RepoInfo
+
+| 参数              | 类型   | 描述                                                    | 必填 |
+| ----------------- | ------ | ------------------------------------------------------- | ---- |
+| repoUUID          | string | 关联代码仓 UUID                                         | Y    |
+| userUUID          | string | 关联操作人员 UUID                                       | Y    |
+| uri               | string | 关联代码仓 URI                                          | Y    |
+| namespace         | string | 关联代码仓命名空间                                      | Y    |
+| name              | string | 关联代码仓仓库名称                                      | Y    |
+| certificationType | enum   | 认证方式（枚举值：oauth、password、token、none、other） | Y    |
+
+## 能力不同生命周期阶段表现
+
+1. 插件启用
+
+- 关联代码仓选项列表页面，新增能力定义的关联方式；
+- 插件定义的关联方式，下一步弹出能力定义的关联页面，可通过该页面关联代码仓；
+- 通过能力定义的关联方式关联代码仓成功后，可在代码仓管理页面查看。
+- 通过能力同步代码仓的提交（Commit）和合并请求（Pull Request）数据，关联工作项成功后在项目下显示。
+
+2. 插件停用
+
+- 关联代码仓选项列表页面，能力定义的关联方式将隐藏，下次启用恢复；
+- 能力关联的代码仓，在代码仓管理页面将隐藏，下次启用恢复；
+- 通过能力同步代码仓的提交（Commit）和合并请求（Pull Request）数据，关联工作项成功后在项目下显示，不会隐藏；
+- 此时调用能力提供的 SDK 方法将报错，注意捕获错误或区分插件状态处理。
+
+3. 插件卸载
+
+- 关联代码仓选项列表页面，能力定义的关联方式被删除，下次安装不可恢复；
+- 能力关联的代码仓，在代码仓管理页面被删除，下次安装不可恢复；
+- 通过能力同步代码仓的提交（Commit）和合并请求（Pull Request）数据，关联工作项成功后在项目下显示，不会删除。
+- 此时调用能力提供的 SDK 方法将报错，注意捕获错误或区分插件状态处理。

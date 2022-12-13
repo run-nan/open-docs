@@ -28,7 +28,7 @@ import Image from '@theme/IdealImage'
 
 :::caution 注意
 
-当前插槽需要使用[自定义代码仓](../)能力。
+当前插槽需要使用[自定义代码仓](../../../business/custom-code-repository/custom-code-repository.mdx)能力。
 
 :::
 

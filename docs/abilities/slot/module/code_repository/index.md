@@ -28,7 +28,7 @@ The slots currently supported are as follows:
 
 :::caution
 
-This slot need the ability `[custom code repository](../)`.
+This slot need the ability [custom code repository](../../../business/custom-code-repository/custom-code-repository.mdx).
 
 :::
 
