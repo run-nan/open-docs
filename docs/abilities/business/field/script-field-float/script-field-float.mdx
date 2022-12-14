@@ -2,7 +2,7 @@ import Image from '@theme/IdealImage'
 import scriptFieldFloat1 from './images/script-field-float1.png'
 import scriptFieldFloat2 from './images/script-field-float2.png'
 
-# Plugin Script properties - Floating point number
+# Plugin Script fields - Floating point number
 
 ## Requirements
 
@@ -12,23 +12,23 @@ import scriptFieldFloat2 from './images/script-field-float2.png'
 
 ## Overview
 
-This ability allows the plugin implement a special [issue property](https://guide.ones.pro/wiki/#/team/LBrdb4wE/space/6XDAYB1a/page/ChPFxP95).Script property and system property of the same type are rerepresented in the same way in **ONES**(also supports searching through filters and sorting display
-).The difference between them is that the names and values of script properties are entirely determined by the code in the plugin, and users cannot actively modify them in ONES,but plugin developers can complete a variety of business development by implementing different script attribute value calculation rules.
+This ability allows the plugin implement a special [issue field](https://guide.ones.pro/wiki/#/team/LBrdb4wE/space/6XDAYB1a/page/ChPFxP95).Script field and system field of the same type are rerepresented in the same way in **ONES**(also supports searching through filters and sorting display
+).The difference between them is that the names and values of script fields are entirely determined by the code in the plugin, and users cannot actively modify them in ONES,but plugin developers can complete a variety of business development by implementing different script attribute value calculation rules.
 
-Scenarios where script properties apply:
+Scenarios where script fields apply:
 
 1. Count the value by a certain calculation rule
 2. Hoped that the value is accurate and cannot be artificially altered
 
-When the plugin executes the install method, the issue property is created and added to the global properties list. The user can add this property to the desired issue.
+When the plugin executes the install method, the issue field is created and added to the global fields list. The user can add this field to the desired issue.
 
 <Image img={scriptFieldFloat2} />
 
-When the plugin is unabled/uninstalled, the value of this property becomes 0, becoming a read-only property that loses its statistical function. This property is put back into use when the plugin is re-enabled/installed.
+When the plugin is unabled/uninstalled, the value of this field becomes 0, becoming a read-only field that loses its statistical function. This field is put back into use when the plugin is re-enabled/installed.
 
 ## Usage
 
-Add the ability through the OP tool, modify the configuration related to the ability, and complete the business logic in the script properties method, as shown below.
+Add the ability through the OP tool, modify the configuration related to the ability, and complete the business logic in the script fields method, as shown below.
 
 ### step 1: Add and use ability through the OP tool：
 
@@ -123,7 +123,7 @@ The OP tool will ask if you want to use the default value, just choose yes, and 
 
 ### Step 2: Modify plugin configuration file
 
-Modify the corresponding content of the script property in the `{{plugin root directory}}/config/plugin.yaml`, where `config` is the configuration of the script property, and the value corresponding to the 'FieldName' key is the script property's name. Change it to the name you need. Here, change it to **脚本属性 1**, the value of `calcFieldValue` corresponds to the script property method name, and you can change it to the method name you want. Here, change it to **countFunc**.
+Modify the corresponding content of the script field in the `{{plugin root directory}}/config/plugin.yaml`, where `config` is the configuration of the script field, and the value corresponding to the 'FieldName' key is the script field's name. Change it to the name you need. Here, change it to **脚本属性 1**, the value of `calcFieldValue` corresponds to the script field method name, and you can change it to the method name you want. Here, change it to **countFunc**.
 
 ```yaml
 service:
@@ -146,46 +146,46 @@ abilities:
         show: false
 ```
 
-### step 3: Complete the script property calculation rule
+### step 3: Complete the script field calculation rule
 
-Modify the script property method, which defaults to the `calcFieldValues` method of `{{plugin root directory}}/backend/src/script-field-float.ts`. Note that the value in the returned parameter `returnValue` defaults to floating point, and its unit defaults to `1 / 100000`. You can modify your script property calculation logic according to the content in the comments. You can implement this method in any path at the backend of the plugin, but be careful to throw the method.
+Modify the script field method, which defaults to the `calcFieldValues` method of `{{plugin root directory}}/backend/src/script-field-float.ts`. Note that the value in the returned parameter `returnValue` defaults to floating point, and its unit defaults to `1 / 100000`. You can modify your script field calculation logic according to the content in the comments. You can implement this method in any path at the backend of the plugin, but be careful to throw the method.
 
 The default implementation method is given here, which only follows the previous step and modifies the method name to `countFunc`
 
 ### Scope of use of ability
 
-#### Project
+- Project
 
-- Intra-project filters display script properties as filter criteria
+  Intra-project filters display script fields as filter criteria
 
-#### Pruduct
+- Pruduct
 
-- Intra-product filters display script properties as filter criteria
+  Intra-product filters display script fields as filter criteria
 
-#### Plan
+- Plan
 
-- The filter within the itemset displays script properties as filter criteria
+  The filter within the itemset displays script fields as filter criteria
 
-#### Task
+- Task
 
-- New task pop-up window
-- Task Detals
-- Task list (table view) and header configuration
-- Batch New task
-- Modify task properties in bulk
-- Batch import
-- Batch export
+  New task pop-up window
+  Task Detals
+  Task list (table view) and header configuration
+  Batch New task
+  Modify task fields in bulk
+  Batch import
+  Batch export
 
 ## Examples
 
-- [Automatically count the number of relationships of a certain type of issue](sample-script-field-float1.mdx)
+- [Automatically count the number of relationships of a certain link type of issue](sample-script-field-float1.mdx)
 
 ## FAQ
 
-##### What if you want to create multiple script properties?
+##### What if you want to create multiple script fields?
 
 The abilities in `plugin.yaml` is an array.The ability can be used many times. Note that `id` of ability should be different.
 
-##### What if there is an property with the same in the system?
+##### What if there is an field with the same in the system?
 
-There are two cases of property with the same name. If you have different issue types with the same name, enabling the plugin at this time will cause an error. It can be hosted if it has the same name and there is no plugin to host the property.
+There are two cases of field with the same name. If you have different issue types with the same name, enabling the plugin at this time will cause an error. It can be hosted if it has the same name and there is no plugin to host the field.
