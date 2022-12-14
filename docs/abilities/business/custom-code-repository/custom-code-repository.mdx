@@ -124,23 +124,9 @@ Use the `OP` command to add modules in the plugin project:
 npx op add module
 ```
 
-select [ones:settings:pipeline:default:repo:link](../../slot/module/code_repository/index.md) type module:
+select [ones:settings:pipeline:default:repo:link](../../slot/module/code_repository/index.md#onessettingspipelinedefaultrepolink) type module:
 
 <Image img={require('./images/code-repo-op-add-module.png')} />
-
-The OP tool will ask whether to use the default value, select Yes, and the OP tool will add the following content to the plugin:
-
-- Add relevant paragraphs in the `modules` field of `config/plugin.yaml` in the plugin project:
-
-```yaml
-modules:
-  - id: ones-settings-pipeline-default-repo-link-R5w-
-    title: linkRepository
-    moduleType: ones:settings:pipeline:default:repo:link
-    entry: modules/ones-settings-pipeline-default-repo-link-R5w-/index.html
-```
-
-- Add the `ones-settings-pipeline-default-repo-link-R5w-` directory under the `web/src/modules` directory of the plugin project, and there are `index.css` and `index.tsx` in the directory files.
 
 #### 3. Abilities Link Modules
 
@@ -187,13 +173,13 @@ modules:
 
 ### step2: Custom code repository link page
 
-区别于 ONES 系统内置的关联代码仓方式，点击「关联代码仓」下一步有默认的添加关联代码仓的弹窗页面，如下图 Github 方式的关联代码仓页面：
+Different from the built-in linked code repository method of the ONES system, click "Link Code repository" and there will be a default pop-up window page for adding linked code repository in the next step, as shown in the following figure for the associated code warehouse page of the Github method:
 
 Different from the built-in link code repository type of the ONES system, click "Link Repository" and there will be a default popup window page for adding code repository in the next step, as shown in the following figure for the link code repository page of the Github type:
 
 <Image img={require('./images/code-repo-github-add-repo-en.png')} />
 
-Developers need to customize the logic of the link code repository page in the module `ones-settings-pipeline-default-repo-link-R5w-` to realize the functions of "authentication of code repository platform" and "link code repository". The "authentication of the code repository platform" can be in the form of OAuth or Token or account password, and the developer can decide according to the situation.
+Developers need to customize the logic of the link code repository page in the module `ones-settings-pipeline-default-repo-link-R5w-` to realize the functions of "authentication of code repository platform" and "link code repository". The "authentication of the code repository platform" can be OAuth, Token, account password or other forms, or no authentication, and the developer can decide according to the situation.
 
 :::caution notice
 This page is linked with the prompt copy of the success or failure of the code repository, which needs to be implemented by the developer. The successfully linked code repository will be displayed on the code repository management page. At this time, different from the code repository linked with the built-in type, the "View Details" button will be displayed for the plugin associated.
@@ -201,87 +187,24 @@ This page is linked with the prompt copy of the success or failure of the code r
 
 ### step3: Add repositories
 
-In order to be able to add the code repositories to the ONES system, we provide the "add code repositories" method in the SDK method, which can be used as follows:
+In order to be able to add the code repositories to the ONES system, we provide the [add code repositories](../../../reference/packages/node-ability/node-ability.md#addrepos) method in the SDK method, which can be used as follows:
 
 ```typescript
 import { addRepos } from '@ones-op/node-ability'
 
 const toolUUID: string = 'xxx';
-const list: RepoInfo[] = [...];
+const list: AddRepoInfo[] = [...];
 const batchResponse = await addRepos(toolUUID, list);
 ```
 
-The input and output parameters of the method are introduced as follows:
-
-**input parameters:**
-
-| Parameter | Type       | Description                                                                           | Require | Value range  |
-| --------- | ---------- | ------------------------------------------------------------------------------------- | ------- | ------------ |
-| toolUUID  | string     | UUID of the link code repository type                                                 | Y       | len=8        |
-| teamUUID  | string     | Team UUID (mandatory for organization-level plugins, optional for team-level plugins) | N       | len=8        |
-| list      | RepoInfo[] | Add a list of code repositories                                                       | Y       | 0<=size<=100 |
-
-> RepoInfo
-
-| Parameter         | Type   | Description                                                               | Require | Value range |
-| ----------------- | ------ | ------------------------------------------------------------------------- | ------- | ----------- |
-| userUUID          | string | add repository user UUID                                                  | Y       | len=8       |
-| uri               | string | add repository URI（https://github.com/nodejs/node is https://github.com) | Y       | len<=100    |
-| namespace         | string | add repository namespace（https://github.com/nodejs/node is nodejs)       | Y       | len<=256    |
-| name              | string | add repository name（https://github.com/nodejs/node is node)              | Y       | len<=256    |
-| certificationType | enum   | authentication type (enum: OAUTH、PASSWORD、TOKEN、NONE、OTHER)           | Y       | -           |
-
-**output parameter:**
-
-> BatchRepoResponse
-
-| Parameter    | Type           | Description                                   | Require |
-| ------------ | -------------- | --------------------------------------------- | ------- |
-| successCount | int            | the number of successfully added repositories | Y       |
-| failureCount | int            | the number of failures added repositories     | Y       |
-| Responses    | RepoResponse[] | the detail info of add repositories           | Y       |
-
-> RepoResponse
-
-| Parameter | Type    | Description          | Require |
-| --------- | ------- | -------------------- | ------- |
-| success   | boolean | whether succeed      | Y       |
-| uri       | string  | repository uri       | Y       |
-| namespace | string  | repository namespace | Y       |
-| name      | string  | repository name      | Y       |
-| repoUUID  | string  | repository UUID      | Y       |
-| error     | string  | error detail         | N       |
-
-The `toolUUID` field corresponds to the UUID unique identifier of the custom code repository type in the ONES system, which can be obtained by defining the following method, where `CkrqExqC` corresponds to the capability ID in the `plugin.yaml` file:
-
-```typescript
-import { getAbilityProperties } from '@ones-op/node-ability'
-
-export async function getRepoToolUUID(): Promise<string> {
-  const repoToolUUIDKey = 'repoToolUUID'
-  const abilityID = 'CkrqExqC'
-
-  let repoToolUUID = ''
-  const property = await getAbilityProperties(abilityID, [repoToolUUIDKey])
-  if (property?.repoToolUUID) {
-    repoToolUUID = property[repoToolUUIDKey]
-  }
-  return repoToolUUID
-}
-```
-
-:::caution notice
-When calling the `getAbilityProperties` method for a team-level plugin, `teamUUID` can be omitted, and when calling for an organization-level plugin, `teamUUID` must be passed.
-:::
-
 ### step4: add code repository commit and pull request
 
-After successfully link the code repository, you can call the SDK method to add the commit and pull request data of the code repository to the ONES system.
+After successfully link the code repository, you can call the SDK methods [add repository commits](../../../reference/packages/node-ability/node-ability.md#addrepocommits) and [add repository pull request](../../../reference/packages/node-ability/node-ability.md#addrepopullrequest) to the ONES system.
 
-**1. add commit:**
+1. add commit:
 
 ```typescript
-import { addRepos } from '@ones-op/node-ability'
+import { addRepoCommits } from '@ones-op/node-ability'
 
 const toolUUID: string = 'xxx';
 const repoUUID: string = 'xxx';
@@ -289,35 +212,10 @@ const list: AddRepoInfo[] = [...];
 await addRepoCommits(toolUUID, repoUUID, list)
 ```
 
-The input and output parameters of the method are introduced as follows:
-
-**input parameters：**
-
-| Parameter | Type         | Description                                                                           | Require | Value range  |
-| --------- | ------------ | ------------------------------------------------------------------------------------- | ------- | ------------ |
-| toolUUID  | string       | UUID of the link code repository type                                                 | Y       | len=8        |
-| repoUUID  | string       | UUID of the code repository                                                           | Y       | len=8        |
-| teamUUID  | string       | Team UUID (mandatory for organization-level plugins, optional for team-level plugins) | N       | len=8        |
-| list      | RepoCommit[] | Add a list of code commits                                                            | Y       | 0<=size<=100 |
-
-> RepoCommit
-
-| Parameter      | Type   | Description                                                  | Require | Value range    |
-| -------------- | ------ | ------------------------------------------------------------ | ------- | -------------- |
-| hash           | string | commit unique identifier                                     | Y       | len<=48        |
-| author         | string | commit author                                                | Y       | len<=128       |
-| message        | string | commit message                                               | Y       | -              |
-| branch         | string | commit branch                                                | Y       | len<=128       |
-| url            | string | commit web url                                               | Y       | len<=2048      |
-| createAt       | int64  | commit timestamp (unit: second)                              | Y       | min=1          |
-| statsTotal     | int64  | Statistics affect the total number of rows                   | N       | max=2147483647 |
-| statsAdditions | int64  | Count the total number of rows affected by adding statistics | N       | max=2147483647 |
-| statsDeletions | int64  | Count the total number of rows affected by deletion          | N       | max=2147483647 |
-
-**2. add pull request**
+2. add pull request
 
 ```typescript
-import { addRepos } from '@ones-op/node-ability'
+import { addRepoPullRequest } from '@ones-op/node-ability'
 
 const toolUUID: string = 'xxx'
 const repoUUID: string = 'xxx'
@@ -325,40 +223,12 @@ const pullRequest: RepoPullRequest = '{...}'
 await addRepoPullRequest(toolUUID, repoUUID, pullRequest)
 ```
 
-The input and output parameters of the method are introduced as follows:
+In order to facilitate the query of linked code repositories information, we provide the two SDK methods [query linked single code repository](../../../reference/packages/node-ability/node-ability.md#queryrepo) and [query all linked code repositories](../../../reference/packages/node-ability/node-ability.md#queryrepos):
 
-**input parameters：**
-
-| Parameter | Type            | Description                                                                           | Require | Value range |
-| --------- | --------------- | ------------------------------------------------------------------------------------- | ------- | ----------- |
-| toolUUID  | string          | UUID of the link code repository type                                                 | Y       | len=8       |
-| repoUUID  | string          | UUID of the code repository                                                           | Y       | len=8       |
-| teamUUID  | string          | Team UUID (mandatory for organization-level plugins, optional for team-level plugins) | N       | len=8       |
-| pr        | RepoPullRequest | pull request info                                                                     | Y       | -           |
-
-> RepoPullRequest
-
-| Parameter  | Type         | Description                                         | Require | Value range    |
-| ---------- | ------------ | --------------------------------------------------- | ------- | -------------- |
-| number     | number       | pr unique identifier                                | Y       | max=2147483647 |
-| action     | enum         | pr action (enum: UPDATE、CLOSE、ADD、REOPEN、MERGE) | Y       | -              |
-| author     | string       | pr author                                           | Y       | len<=128       |
-| title      | string       | pr title                                            | Y       | len<=256       |
-| url        | string       | pr web url                                          | Y       | len<=1024      |
-| fromBranch | string       | pr source branch                                    | Y       | len<=128       |
-| toBranch   | string       | pr dest branch                                      | Y       | len<=128       |
-| createAt   | int64        | pr timestamp (unit: second)                         | Y       | min=1          |
-| state      | enum         | pr state (enum: OPEN、MERGED、CLOSED)               | Y       | -              |
-| reviewers  | string array | pr reviewers                                        | N       | -              |
-| updateAt   | int64        | last update pr timestamp (unit: second)             | N       | min=1          |
-| updateUser | string       | last updat pr user name                             | N       | len<=128       |
-
-In order to facilitate the query of linked code repositories information, we provide the following two SDK methods:
-
-**1. query linked single code repository**
+1. query linked single code repository
 
 ```typescript
-import { addRepos } from '@ones-op/node-ability'
+import { queryRepo } from '@ones-op/node-ability'
 
 const toolUUID = 'xxx'
 const uri = 'xxx'
@@ -367,61 +237,14 @@ const name = 'xxx'
 const repoInfo = await queryRepo(toolUUID, uri, namespace, name)
 ```
 
-The input and output parameters of the method are introduced as follows:
-
-**input parameters：**
-
-| Parameter | Type   | Description                                                                           | Require | Value range |
-| --------- | ------ | ------------------------------------------------------------------------------------- | ------- | ----------- |
-| toolUUID  | string | UUID of the link code repository type                                                 | Y       | len=8       |
-| teamUUID  | string | Team UUID (mandatory for organization-level plugins, optional for team-level plugins) | N       | len=8       |
-| uri       | string | repository URI                                                                        | Y       | len<=100    |
-| namespace | string | repository namespace                                                                  | Y       | len<=256    |
-| name      | string | repository name                                                                       | Y       | len<=256    |
-
-**output parameters：**
-
-> RepoInfo
-
-| Parameter         | Type   | Description                                                     | Require |
-| ----------------- | ------ | --------------------------------------------------------------- | ------- |
-| repoUUID          | string | repository UUID                                                 | Y       |
-| userUUID          | string | linked repository user UUID                                     | Y       |
-| uri               | string | repository URI                                                  | Y       |
-| namespace         | string | repository namespace                                            | Y       |
-| name              | string | repository name                                                 | Y       |
-| certificationType | enum   | authentication type (enum: OAUTH、PASSWORD、TOKEN、NONE、OTHER) | Y       |
-
-**2. query all linked code repositories**
+2. query all linked code repositories
 
 ```typescript
-import { addRepos } from '@ones-op/node-ability'
+import { queryRepos } from '@ones-op/node-ability'
 
 const toolUUID = 'xxx'
 const repoInfos = await queryRepos(toolUUID)
 ```
-
-The input and output parameters of the method are introduced as follows:
-
-**input parameters：**
-
-| Parameter | Type   | Description                                                                           | Require | Value range |
-| --------- | ------ | ------------------------------------------------------------------------------------- | ------- | ----------- |
-| toolUUID  | string | UUID of the link code repository type                                                 | Y       | len=8       |
-| teamUUID  | string | Team UUID (mandatory for organization-level plugins, optional for team-level plugins) | N       | len=8       |
-
-**output parameters：** RepoInfo[]
-
-> RepoInfo
-
-| Parameter         | Type   | Description                                                     | Require |
-| ----------------- | ------ | --------------------------------------------------------------- | ------- |
-| repoUUID          | string | repository UUID                                                 | Y       |
-| userUUID          | string | linked repository user UUID                                     | Y       |
-| uri               | string | repository URI                                                  | Y       |
-| namespace         | string | repository namespace                                            | Y       |
-| name              | string | repository name                                                 | Y       |
-| certificationType | enum   | authentication type (enum: OAUTH、PASSWORD、TOKEN、NONE、OTHER) | Y       |
 
 ## Abilities in Different Life Cycle Stages
 
