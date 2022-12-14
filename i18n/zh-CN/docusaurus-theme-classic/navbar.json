@@ -8,7 +8,7 @@
     "description": "Navbar item with label Learning"
   },
   "item.label.Guide": {
-    "message": "入门指引",
+    "message": "指南",
     "description": "Navbar item with label Guide"
   },
   "item.label.Abilities": {
@@ -46,5 +46,9 @@
   "item.label.Deploy": {
     "message": "部署",
     "description": "Navbar item with label Deploy"
+  },
+  "item.label.Reference": {
+    "message": "Reference",
+    "description": "Navbar item with label Reference"
   }
 }

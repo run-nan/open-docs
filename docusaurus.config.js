@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula')
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'ONES 开放平台',
-  tagline: 'ONES 开放平台',
+  tagline: 'ONES 全面开放基座能力，助力客户与合作伙伴构建企业数字化平台，加速企业发布产品。',
   url: 'https://docs.partner.ones.cn',
   baseUrl: '/',
   favicon: 'images/favicon.ico',
@@ -94,7 +94,7 @@ const config = {
           {
             position: 'left',
             label: 'Learning',
-            to: 'docs/learning',
+            to: 'docs/next/learning',
             docsPluginId: 'default',
           },
           {
@@ -166,12 +166,12 @@ const config = {
             items: [
               {
                 label: 'Plugin Development',
-                to: '/docs/learning',
+                to: 'docs/next/learning',
                 docsPluginId: 'default',
               },
               {
                 label: 'ONES Development',
-                to: '/project/development',
+                to: 'project/development',
                 docsPluginId: 'project',
               },
             ],

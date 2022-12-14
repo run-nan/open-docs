@@ -233,6 +233,15 @@
   "Get Started": {
     "message": "快速开始"
   },
+  "ONES Open Platform": {
+    "message": "ONES 开放平台"
+  },
+  "ONES fully opens the pedestal capability to help customers and partners build an enterprise digital platform and accelerate the release of products.": {
+    "message": "ONES 全面开放基座能力，助力客户与合作伙伴构建企业数字化平台，加速企业发布产品。"
+  },
+  "Basic Concept": {
+    "message": "基本概念"
+  },
   "theme.SearchBar.noResultsText": {
     "message": "没有找到任何文档"
   },
@@ -310,5 +319,281 @@
   "theme.IdealImageMessage.error": {
     "message": "出现错误，点击重试",
     "description": "When the image fails to load for unknown error"
+  },
+  "Open Abilities": {
+    "message": "开放能力"
+  },
+  "Slots": {
+    "message": "插槽"
+  },
+  "App slot": {
+    "message": "应用插槽"
+  },
+  "Global slot": {
+    "message": "全局插槽"
+  },
+  "My work": {
+    "message": "我的工作台"
+  },
+  "ONES Project": {
+    "message": "项目管理"
+  },
+  "ONES Wiki": {
+    "message": "知识库管理"
+  },
+  "ONES Plan": {
+    "message": "项目集管理"
+  },
+  "ONES TestCase": {
+    "message": "测试管理"
+  },
+  "ONES Pipeline": {
+    "message": "流水线管理"
+  },
+  "ONES Desk": {
+    "message": "工单管理"
+  },
+  "ONES DeskHome": {
+    "message": "工单门户"
+  },
+  "ONES Performance": {
+    "message": "效能管理"
+  },
+  "Product Management": {
+    "message": "产品管理"
+  },
+  "Worklog Management": {
+    "message": "工时管理"
+  },
+  "Version Management": {
+    "message": "版本管理"
+  },
+  "Configuration": {
+    "message": "配置中心"
+  },
+  "Account": {
+    "message": "个人中心"
+  },
+  "Organization settings": {
+    "message": "组织管理"
+  },
+  "Login": {
+    "message": "登陆"
+  },
+  "Basic": {
+    "message": "基础能力"
+  },
+  "日志": {
+    "message": "日志"
+  },
+  "超级用户": {
+    "message": "超级用户"
+  },
+  "文件操作": {
+    "message": "文件操作"
+  },
+  "数据库": {
+    "message": "数据库"
+  },
+  "接口标准错误": {
+    "message": "接口标准错误"
+  },
+  "多语言": {
+    "message": "多语言"
+  },
+  "插件发送消息": {
+    "message": "插件发送消息"
+  },
+  "网络请求": {
+    "message": "网络请求"
+  },
+  "定时器": {
+    "message": "定时器"
+  },
+  "自定义配置页": {
+    "message": "自定义配置页"
+  },
+  "Business": {
+    "message": "业务能力"
+  },
+  "ONES 接口": {
+    "message": "ONES 接口"
+  },
+  "属性": {
+    "message": "属性"
+  },
+  "工作项": {
+    "message": "工作项"
+  },
+  "权限点": {
+    "message": "权限点"
+  },
+  "Item 处理器": {
+    "message": "Item 处理器"
+  },
+  "托管独立应用": {
+    "message": "托管独立应用"
+  },
+  "文件解析": {
+    "message": "文件解析"
+  },
+  "ONES Project 自定义组件": {
+    "message": "ONES Project 自定义组件"
+  },
+  "Tools and Resources": {
+    "message": "工具与资源"
+  },
+  "Overview": {
+    "message": "了解概况"
+  },
+  "You can first understand the basics of development to facilitate a quick start.": {
+    "message": "你可以首先了解开发的基础知识，以便快速入门。"
+  },
+  "Basic Introduction": {
+    "message": "基本介绍"
+  },
+  "Plugin types": {
+    "message": "插件类型"
+  },
+  "Prepare": {
+    "message": "环境准备"
+  },
+  "Environmental installation is an important preparatory work before the development of open platform plugin.": {
+    "message": "环境安装是开发开放平台插件前的一项重要准备工作。"
+  },
+  "Environment building": {
+    "message": "环境搭建"
+  },
+  "Installation": {
+    "message": "安装"
+  },
+  "Development": {
+    "message": "开发调试"
+  },
+  "You can follow the development process to start developing your application.": {
+    "message": "您可以按照开发流程开始开发应用程序。"
+  },
+  "Experience": {
+    "message": "体验插件开发"
+  },
+  "Create plugin": {
+    "message": "创建插件"
+  },
+  "Plugin structure": {
+    "message": "插件目录结构"
+  },
+  "Ability usage": {
+    "message": "能力使用"
+  },
+  "Advanced": {
+    "message": "高级指南"
+  },
+  "Lifecycle": {
+    "message": "生命周期"
+  },
+  "Packaged": {
+    "message": "打包部署"
+  },
+  "Quickly generate a package and install it to ONES": {
+    "message": "快速生成插件包并将其安装到 ONES"
+  },
+  "Release plugin": {
+    "message": "发布插件"
+  },
+  "Package plugin": {
+    "message": "打包插件"
+  },
+  "CI": {
+    "message": "持续集成"
+  },
+  "Management": {
+    "message": "插件管理"
+  },
+  "Manage your plugin": {
+    "message": "管理你的插件"
+  },
+  "Usage": {
+    "message": "使用插件"
+  },
+  "Upgrade": {
+    "message": "插件升级"
+  },
+  "Learning": {
+    "message": "学习地图"
+  },
+  "Understand the whole process of ONES plugin development and quickly find the information you need.": {
+    "message": "了解 ONES 插件开发的整个过程，并快速找到您需要的信息。"
+  },
+  "ONES CLI": {
+    "message": "ONES CLI"
+  },
+  "ONES CLI is a command line interface tool that helps developers build ONES open platform plugin.": {
+    "message": "ONES CLI是一个命令行界面工具，帮助开发人员构建 ONES 开放平台插件。"
+  },
+  "ONES Diagtools": {
+    "message": "ONES Diagtools"
+  },
+  "ONES Diagtools CLI and ONES Diagtools Desktop are diagnostic tools for open platforms.": {
+    "message": "ONES Diagtools CLI 和 ONES Diagtools Desktop 是开放平台的诊断工具。"
+  },
+  "ONES Design": {
+    "message": "ONES Design"
+  },
+  "ONES Design is an Ant Design based React UI component library, which is mainly used for the research and development of enterprise level R & D management tools.": {
+    "message": "ONES Design 是基于 Ant Design 的 React UI 组件库，主要用于企业级研发管理工具的研发。"
+  },
+  "Log": {
+    "message": "日志"
+  },
+  "Super admin": {
+    "message": "超级用户"
+  },
+  "File Operation": {
+    "message": "文件操作"
+  },
+  "Database": {
+    "message": "数据库"
+  },
+  "Error handling": {
+    "message": "错误处理"
+  },
+  "Internationalization": {
+    "message": "国际化"
+  },
+  "Notifications": {
+    "message": "通知"
+  },
+  "Request": {
+    "message": "请求"
+  },
+  "Timer": {
+    "message": "定时器"
+  },
+  "Custom configuration": {
+    "message": "自定义配置"
+  },
+  "ONES interface": {
+    "message": "ONES 接口"
+  },
+  "Field": {
+    "message": "属性"
+  },
+  "Issue": {
+    "message": "工作项"
+  },
+  "Permission": {
+    "message": "权限点"
+  },
+  "Issue processor": {
+    "message": "Issue 处理器"
+  },
+  "Independent hosting service": {
+    "message": "托管独立应用"
+  },
+  "File parsing": {
+    "message": "文件解析"
+  },
+  "ONES project Custom component": {
+    "message": "自定义 ONES 项目管理组件"
   }
 }
