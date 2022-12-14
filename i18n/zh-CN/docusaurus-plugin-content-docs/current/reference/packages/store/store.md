@@ -530,6 +530,8 @@ interface ActionPayload<T = unknown> {
 
 #### Types
 
+> `CodeRepositoryInfo.uuid` 和能力方法 `addRepoCommits` 中的[`toolUUID`](../../../reference/packages/node-ability/node-ability.md#addrepocommits) 一致。
+
 ```tsx
 interface CodeRepositoryInfo {
   uuid: string

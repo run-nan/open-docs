@@ -524,11 +524,14 @@ Get the code repository info that the current user selected.
 
 #### Returns
 
-| explanation                                              |         type         |
+| Description                                              |         Type         |
 | :------------------------------------------------------- | :------------------: |
 | the code repository info that the current user selected. | `CodeRepositoryInfo` |
 
 #### Types
+
+> `CodeRepositoryInfo.uuid` is consistent with the [`toolUUID`](../../../reference/packages/node-ability/node-ability.md#addrepocommits)
+> of the ability's function `addRepoCommits`.
 
 ```tsx
 interface CodeRepositoryInfo {
