@@ -1,5 +1,6 @@
 ---
 sidebar_position: 2
+description: 多样的能力提供，轻松制定你的 ONES。
 ---
 
 # 添加能力

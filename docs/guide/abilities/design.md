@@ -1,8 +1,9 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
+description: ONES Design is an Ant Design based React UI component library, which is mainly used for the research and development of enterprise level R & D management tools.
 ---
 
-# Use ONES Design
+# ONES Design
 
 ## Overview
 

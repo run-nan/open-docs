@@ -1,0 +1,36 @@
+---
+id: type
+sidebar_position: 3
+---
+
+import Image from '@theme/IdealImage'
+
+# Plugin type
+
+## Overview
+
+ONES now supports 「single team」 and 「multi team」team management strategies, so the granularity of plugin is divided into 「team level plugin」and 「organization level plugin」.
+
+### Team level plugin
+
+It takes effect under the team under which it is installed.
+
+<Image img={require('./images/team-en.png')} />
+
+### Organization level plugin
+
+Plugins that are effective for all teams in the organization only need to be installed once under [Organization Management]-[Plugin Management] to take effect for each team.
+
+<Image img={require('./images/organization.png')} />
+
+### Other types
+
+If you are careful, you may find that in addition to "Normal Plugin", there are also two parts: "Org Structure Syn, login and notification" and "Independent hosting service" under plugin management. so let's take a look at the difference between these two parts and normal functional plugins.
+
+#### Org Structure Syn, login and notification
+
+It is generally used to interface with third party account services.
+
+#### Independent hosting service
+
+Used to run instance level services. For example, replace the instance storage file service with a service of your own choice.

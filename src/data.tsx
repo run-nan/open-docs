@@ -367,7 +367,7 @@ export const learnings: {
           },
           {
             docTitle: <Translate>Ability usage</Translate>,
-            url: `${baseUrl}guide/abilities/add-slot`,
+            url: `${baseUrl}guide/abilities`,
           },
         ],
       },

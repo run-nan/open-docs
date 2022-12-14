@@ -1,8 +1,9 @@
 ---
 sidebar_position: 2
+description: A variety of capabilities are available to easily develop your ONES.
 ---
 
-# Add Ability
+# Add ability
 
 ## Overview
 

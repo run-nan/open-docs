@@ -1,0 +1,89 @@
+---
+id: create
+sidebar_position: 4
+---
+
+import Image from '@theme/IdealImage'
+
+# Create an Plugin
+
+## Overview
+
+You can create a plugin project that can be installed in the ONES system so that you can personalize the ONES system.
+
+## Usage
+
+### Step 1: Create an Plugin
+
+You can use ONES CLI to create a new plugin project
+
+1. Navigate to the directory where the plugin project was created, or use a new directory as the directory for the plugin project. For example: `/dev/test`
+2. Run the following command to create a plugin project
+
+```bash
+cd /dev/test
+
+# -d Option indicates that the default project is used to create a preset configuration
+ones create -d
+```
+
+If you want to create an **organization level** plugin, then you need to use `--plugin-type` to specify, execute the following instructions
+
+```bash
+ones create --plugin-type organization
+```
+
+During initialization, ONES CLI does the following:
+
+1. Initialize git
+2. Create a project template file
+3. Install plugin to develop scaffolding tool op
+4. Create a global cache file
+5. Install plugin project dependencies
+
+After the initialization of the plugin project, ONES CLI will output the relevant information of the plugin project.
+
+```bash
+Project has been created
+Project path: /dev/test
+Project name: test
+Project description:
+Project sub CLI: @ones/cli-plugin
+```
+
+### Step 2: Package Plugin
+
+After the plugin project is created successfully, you can try to package the plugin by running the following command:
+
+```
+npx op packup
+# or
+npx op packup CustomPluginName
+```
+
+:::caution notice
+
+In Windows TTY, If the plugin name customized when packaging the plugin contains Chinese characters, the instructions may not be executed correctly.
+
+Developers can try to package the plugin with the default name and manually rename the file after the packaging is complete.
+
+:::
+
+After the packaging operation is completed, you can see the packaged plugin `opk` package in the root directory of the current plugin project.
+
+### Step 3: Install plugin in the ONES system
+
+In an environment with plugin enabled, you can upload and install this `opk` package:
+
+- ##### Team level plugin installation
+
+  【Configuration】-【Plugin management】
+
+<Image img={require('./images/install-plugin.png')} />
+
+- ##### Organization level plugin installation
+  【Organization settings】-【Plugin management】
+
+<Image img={require('./images/org-plugin-en.png')} />
+
+At this point, you have finished installing the first plugin.

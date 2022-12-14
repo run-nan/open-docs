@@ -1,8 +1,9 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
+description: ONES Design 是基于 Ant Design 的 React UI 组件库，主要用于企业级研发管理工具的研发。
 ---
 
-# 使用 ONES Design 组件库
+# ONES Design
 
 ## 概述
 

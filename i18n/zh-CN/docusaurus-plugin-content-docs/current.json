@@ -55,9 +55,9 @@
     "message": "Http",
     "description": "The label for category Http in sidebar api"
   },
-  "sidebar.guide.category.Main Concepts": {
+  "sidebar.guide.category.Main concepts": {
     "message": "主要概念",
-    "description": "The label for category Main Concepts in sidebar guide"
+    "description": "The label for category Main concepts in sidebar guide"
   },
   "sidebar.abilities.category.Slot": {
     "message": "插槽",

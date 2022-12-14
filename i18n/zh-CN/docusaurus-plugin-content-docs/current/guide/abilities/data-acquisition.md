@@ -1,5 +1,6 @@
 ---
-sidebar_position: 5
+sidebar_position: 6
+description: 平台提供一套灵活的数据获取机制，方便在插件中获取 ONES 的上下文信息。
 ---
 
 # 数据获取

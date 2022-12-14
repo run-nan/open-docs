@@ -1,8 +1,9 @@
 ---
-sidebar_position: 5
+sidebar_position: 6
+description: The platform provides a flexible data acquisition mechanism to facilitate the acquisition of context information of ONES in plugin.
 ---
 
-# Data Acquisition
+# Data acquisition
 
 ## Requirements
 
