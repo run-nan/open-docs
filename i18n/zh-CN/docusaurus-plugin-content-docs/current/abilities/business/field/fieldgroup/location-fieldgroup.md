@@ -1,4 +1,4 @@
-# 位置信息属性组
+# 场景：位置信息属性组
 
 ## 场景描述
 
@@ -33,7 +33,6 @@ export async function Install() {
       Name: fieldName,
       Type: 1001, //表示添加单选类型脚本属性
     })
-    console.log(FieldsAddProjectRes)
     if (FieldsAddProjectRes.Error) {
       //如果添加失败，抛出异常
       throw new Error('Failed to create property')
@@ -87,7 +86,7 @@ export async function Install() {
 
 - **添加配置**
 
-  ```yaml
+  ```yaml title="config/plugin.yaml"
   apis:
     - type: addition
       methods:
@@ -211,7 +210,7 @@ export async function Install() {
 
 - **添加配置**
 
-  ```yaml
+  ```yaml title="config/plugin.yaml"
   apis:
     - type: addition
       methods:
@@ -312,7 +311,7 @@ export async function Install() {
 
 - **添加配置**
 
-  ```yaml
+  ```yaml title="config/plugin.yaml"
   apis:
     - type: addition
       methods:

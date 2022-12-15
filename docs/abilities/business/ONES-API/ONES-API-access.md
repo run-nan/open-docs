@@ -3,8 +3,8 @@
 ## Requirements
 
 | **ONES** |
-| -------- |
-| 3.6+     |
+| :------- |
+| v3.6.0+  |
 
 ## Overview
 
@@ -44,7 +44,7 @@ const response = await fetchONES({
     },
     view: ['[default]'],
   },
-  root: true, //默认为true
+  root: true, //default is true
 })
 ```
 
@@ -75,7 +75,7 @@ export async function getUserme(
       'Ones-User-Id': [userUUID],
       'Ones-Auth-Token': [userToken],
     },
-    root: false, //默认为true
+    root: false, //default is true
   })
 
   if (response) {

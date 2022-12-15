@@ -6,7 +6,7 @@ import Image from '@theme/IdealImage'
 
 | **ONES** |
 | :------- |
-| 3.6+     |
+| v3.6.0+  |
 
 ## Overview
 
@@ -66,9 +66,9 @@ FieldGroups can only add **single-selection/multiple-selection** types of script
 - **Params**
 
   | Param | Type   | Description                                                                       |
-  | ----- | ------ | --------------------------------------------------------------------------------- |
+  | :---- | :----- | :-------------------------------------------------------------------------------- |
   | Name  | string | field name                                                                        |
-  | Type  | int    | script-field type<br />- 1001：single-selectionion<br/>- 1002：multiple-selection |
+  | Type  | int    | script-field type<br />- 1001: single-selectionion<br/>- 1002: multiple-selection |
 
 - **Project**
 
@@ -98,7 +98,7 @@ FieldGroups can only add **single-selection/multiple-selection** types of script
   **Params**
 
   | Param       | Type   | Description                                                                                                                     |
-  | ----------- | ------ | ------------------------------------------------------------------------------------------------------------------------------- |
+  | :---------- | :----- | :------------------------------------------------------------------------------------------------------------------------------ |
   | FieldType   | string | script-field type<br />- `FieldTypeEnum.SingleLabel`: single-selectionion<br />- `FieldTypeEnum.MultiLabel`: multiple-selection |
   | Name        | string | Field name                                                                                                                      |
   | ItemType    | string | Fixed value：`field`                                                                                                            |
@@ -124,17 +124,17 @@ FieldGroups can only add **single-selection/multiple-selection** types of script
    Write the `GetOptions` processing function. If there are multiple **single-selectionion/multiple-selectionion** types of script-field at the same time, they can be logically divided according to the `fieldUUID` returned when adding script-field.
 
    ```typescript
-   type OptionType{
-     uuid: string,		// fieldUUID
-     value: string,	//field value
+   interface OptionType {
+     uuid: string // fieldUUID
+     value: string //field value
    }
    export async function GetOptions(request: PluginRequest): Promise<PluginResponse> {
      const body = request?.body as any
-     const options:  OptionType[] = [];									//Returned option data
-     for ( let i = 0; i < 3; i++ ){
+     const options: OptionType[] = [] //Returned option data
+     for (let i = 0; i < 3; i++) {
        options.push({
-         uuid: "fieldValueUUID-" + i.toString(),				//The `uuid` of the option value
-         value: "fieldValue-" + i.toString()						//option value
+         uuid: 'fieldValueUUID-' + i.toString(), //The `uuid` of the option value
+         value: 'fieldValue-' + i.toString(), //option value
        })
      }
 
@@ -144,8 +144,8 @@ FieldGroups can only add **single-selection/multiple-selection** types of script
          code: 200,
          body: {
            options: options,
-         }
-       }
+         },
+       },
      }
    }
    ```
@@ -199,7 +199,7 @@ Establish an association relationship for multiple fields to form an FieldGroup,
   The parameters of the `Field.AddGroupField` method are as follows:
 
   | Param      | Type               | Description                                                                                                                                                                                                                                                      |
-  | ---------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | :--------- | :----------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
   | ObjectType | string             | The entity type of the FieldGroup, optional value:<br />- `PoolEnum.Project`: project<br />- `PoolEnum.Task`: issue                                                                                                                                              |
   | Name       | string             | FieldGroup name                                                                                                                                                                                                                                                  |
   | Relations  | IRelationMessage[] | `IRelationMessage` Contains the following field<br />- `FieldUUID`: The `fieldUUID` of the field<br />- `FieldParentUUID`: The parent field `UUID`, which means forming a hierarchical relationship with this field<br />- `Position`:Position in the FieldGroup |
@@ -288,10 +288,10 @@ When submitting the modification of the value of the field in the FieldGroup, th
   The data in `option` is the field value that needs to be updated
 
   ```typescript
-  type UpdateType {
-    field_uuid: string,			//The `UUID` of the field
-    option_uuid:  string,		//The `UUID` of the field value
-    option_value: string, 	//field value
+  interface UpdateType {
+    field_uuid: string //The `UUID` of the field
+    option_uuid: string //The `UUID` of the field value
+    option_value: string //field value
   }
   export async function GroupFieldValidate(request: PluginRequest): Promise<PluginResponse> {
     const body = request?.body as any
@@ -303,8 +303,8 @@ When submitting the modification of the value of the field in the FieldGroup, th
         code: 200,
         body: {
           options: options,
-        }
-      }
+        },
+      },
     }
   }
   ```
@@ -359,7 +359,7 @@ Each option value of a **single-selectionion/multiple-selection** script-field h
 - **Params**
 
   | Param      | Type   | Description                                                                    |
-  | ---------- | ------ | ------------------------------------------------------------------------------ |
+  | :--------- | :----- | :----------------------------------------------------------------------------- |
   | TeamUUID   | string | The `uuid` of team                                                             |
   | FieldUUID  | string | `fieldUUID` for script-field                                                   |
   | UUID       | string | `UUID` of the option value                                                     |

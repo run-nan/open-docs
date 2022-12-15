@@ -1,4 +1,4 @@
-# Use external storage
+# Scene: Use external storage
 
 ## Scene Description
 
@@ -169,7 +169,7 @@ func Run(addr string) error {
 
 The configuration is as follows: the configuration can be modified as needed
 
-```yaml title="config/plugin.yaml
+```yaml title="config/plugin.yaml"
 abilities:
   - id: PJJUbGnq
     name: file_storage

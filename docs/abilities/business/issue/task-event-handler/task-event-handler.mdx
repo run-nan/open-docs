@@ -4,9 +4,9 @@ import Image from '@theme/IdealImage'
 
 ## Requirements
 
-| ONES     | @ones/cli-ability-template | @ones/cli-plugin |
-| -------- | -------------------------- | ---------------- |
-| v3.7.54+ | 1.4.0                      | 1.5.1            |
+| ONES     |
+| :------- |
+| v3.7.54+ |
 
 ## Overview
 
@@ -57,7 +57,7 @@ When ONES enables the plugin that uses the TaskEventHandle ability, the executio
 
 ### Step 1: Add configuration
 
-Use `npx op add ability` to add `task-event-handler` ability. After adding, the `backend/src/taskeventhandler.ts` file will be added, and the following configurations will be added to the configuration file.
+Use `npx op add ability` to add `task-event-handler` ability. After adding, the `backend/src/task-event-handler.ts` file will be added, and the following configurations will be added to the configuration file.
 
 :::tip
 Developers only need to pay attention to two configurations of **issue type** and **issue field**. Multiple configurations of **issue type** and **issue field** are supported. Between multiple configurations Delimited by **","** .
@@ -89,7 +89,7 @@ abilities:
 
 ### Step 2: Add pre-processing
 
-The `backend/src/taskeventhandler.ts` file will automatically generate the `taskPreAction` function, which is a pre-processing function. This function will be called before the event takes effect, and different strategies will be adopted according to the returned content。
+The `backend/src/task-event-handler.ts` file will automatically generate the `taskPreAction` function, which is a pre-processing function. This function will be called before the event takes effect, and different strategies will be adopted according to the returned content。
 
 - **Return**
 
@@ -117,7 +117,7 @@ The `backend/src/taskeventhandler.ts` file will automatically generate the `task
   ```
 
   | Param         | Type                                 | Required | Description                                                          |
-  | ------------- | ------------------------------------ | -------- | -------------------------------------------------------------------- |
+  | :------------ | :----------------------------------- | :------- | :------------------------------------------------------------------- |
   | is_follow     | string                               | Y        | Express concern                                                      |
   | is_reject     | string                               | Y        | Whether to refuse                                                    |
   | reject_reason | string                               | N        | Reject reason                                                        |
@@ -148,7 +148,7 @@ The `backend/src/taskeventhandler.ts` file will automatically generate the `task
   **TaskEventField**<span id="TaskEventField"></span>
 
   | Param            | Type              | Required | Description                                                                                                                             |
-  | ---------------- | ----------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+  | :--------------- | :---------------- | :------- | :-------------------------------------------------------------------------------------------------------------------------------------- |
   | field_uuid       | string            | N        | The `uuid` of the field                                                                                                                 |
   | field_type       | string            | N        | Field type                                                                                                                              |
   | field_name       | string            | N        | The `key` for the field name                                                                                                            |
@@ -160,7 +160,7 @@ The `backend/src/taskeventhandler.ts` file will automatically generate the `task
 
   After modifying the field or state of a issue, the title of the issue will be modified synchronously.
 
-  ```typescript title="backend/src/taskeventhandler.ts"
+  ```typescript title="backend/src/task-event-handler.ts"
   export async function taskPreAction(request: PluginRequest): Promise<PluginResponse> {
     const body = request?.body as any
     const userUUID = body.user_uuid
@@ -195,12 +195,12 @@ The `backend/src/taskeventhandler.ts` file will automatically generate the `task
 
 ### Step 3: Add post-processing
 
-The `taskActionDone` function is automatically generated in the `backend/src/taskeventhandler.ts` file. This function is post-processing and will be called first after the event takes effect.
+The `taskActionDone` function is automatically generated in the `backend/src/task-event-handler.ts` file. This function is post-processing and will be called first after the event takes effect.
 
 - Params
 
   | Param       | Type                                 | Required | Description                                                      |
-  | ----------- | ------------------------------------ | -------- | ---------------------------------------------------------------- |
+  | :---------- | :----------------------------------- | :------- | :--------------------------------------------------------------- |
   | user_uuid   | string                               | Y        | User `uuid`                                                      |
   | lang        | string                               | Y        | Current user language                                            |
   | task_events | []<a href="#TaskEvent">TaskEvent</a> | Y        | Changed data                                                     |
@@ -208,7 +208,7 @@ The `taskActionDone` function is automatically generated in the `backend/src/tas
 
 - **Example**
 
-  ```typescript
+  ```typescript title="backend/src/task-event-handler.ts"
   export async function taskActionDone(request: PluginRequest): Promise<PluginResponse> {
     var body = request?.body as any
     var events = body.task_events

@@ -1,37 +1,35 @@
 # @ones-op/node-fetch
 
-## Package description
-
 Plugin **backend** API access capability related to API
 
-## Compatibility Requirements
+## Requirements
 
-| **Constraint** | **Content**                    |
-| -------------- | ------------------------------ |
-| ONES VERSION   | LTS：3.6.x<br />Feature：3.6.x |
+| **ONES** |
+| :------- |
+| v3.6.0+  |
 
 ## API
 
 ### fetchHttp
 
-**Function:** Used to access external services
+Used to access external services
 
 #### Params:
 
-| **Param** | **Type**                 | Description     | **Default** | **Required** |
-| --------- | ------------------------ | --------------- | ----------- | ------------ |
-| url       | string                   | Request address | -           | Yes          |
-| method    | string                   | Request type    | -           | Yes          |
-| body      | object/Uint8Array/string | Request body    | -           |              |
-| headers   | Record<string, string[]> | Request header  | -           |              |
+| **Param** | **Type**                 | Description     | **Required** | **Default** |
+| :-------- | :----------------------- | :-------------- | :----------- | :---------- |
+| url       | string                   | Request address | Y            | -           |
+| method    | string                   | Request type    | Y            | -           |
+| body      | object/Uint8Array/string | Request body    | N            | -           |
+| headers   | Record<string, string[]> | Request header  | N            | -           |
 
 #### Returns:
 
-| **Param**  | **Type**                     | Description | **Default** | **Required** |
-| ---------- | ---------------------------- | ----------- | ----------- | ------------ |
-| statusCode | number / string / undefined  | Status code | -           |              |
-| body       | object / Uint8Array / string | Return body | -           |              |
-| headers    | Record<string, string[]>     | Turn back   | -           |              |
+| **Param**  | **Type**                     | Description | **Required** | **Default** |
+| :--------- | :--------------------------- | :---------- | :----------- | :---------- |
+| statusCode | number / string / undefined  | Status code | -            | -           |
+| body       | object / Uint8Array / string | Return body | -            | -           |
+| headers    | Record<string, string[]>     | Turn back   | -            | -           |
 
 #### Example:
 
@@ -45,25 +43,25 @@ const response = await fetchHttp({
 
 ### fetchONES
 
-**Function: **Used to access ONES system standard interface
+Used to access ONES system standard interface
 
 #### Params:
 
-| **Param** | **Type**                 | Description                                                                     | **Default** | **Required** |
-| --------- | ------------------------ | ------------------------------------------------------------------------------- | ----------- | ------------ |
-| path      | string                   | Request address. For wiki interface, you need to add'/ wiki' before parameters. | -           | Yes          |
-| method    | string                   | Request type                                                                    | -           | Yes          |
-| body      | object/Uint8Array/string | Request body                                                                    | -           |              |
-| headers   | Record<string, string[]> | Request header                                                                  | -           |              |
-| root      | bool                     | Whether to use the plugin superuser                                             | true        |              |
+| **Param** | **Type**                 | Description                                                                     | **Required** | **Default** |
+| :-------- | :----------------------- | :------------------------------------------------------------------------------ | :----------- | :---------- |
+| path      | string                   | Request address. For wiki interface, you need to add'/ wiki' before parameters. | Y            | -           |
+| method    | string                   | Request type                                                                    | Y            | -           |
+| body      | object/Uint8Array/string | Request body                                                                    | N            | -           |
+| headers   | Record<string, string[]> | Request header                                                                  | N            | -           |
+| root      | bool                     | Whether to use the plugin superuser                                             | N            | true        |
 
 #### Returns:
 
-| **Param**  | **Type**                     | Description | **Default** | **Required** |
-| ---------- | ---------------------------- | ----------- | ----------- | ------------ |
-| statusCode | number / string / undefined  | Status code | -           |              |
-| body       | object / Uint8Array / string | Return body | -           |              |
-| headers    | Record<string, string[]>     | Turn back   | -           |              |
+| **Param**  | **Type**                     | Description | **Required** | **Default** |
+| :--------- | :--------------------------- | :---------- | :----------- | :---------- |
+| statusCode | number / string / undefined  | Status code | -            | -           |
+| body       | object / Uint8Array / string | Return body | -            | -           |
+| headers    | Record<string, string[]>     | Turn back   | -            | -           |
 
 #### Example：
 

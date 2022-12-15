@@ -1,37 +1,35 @@
 # @ones-op/node-fetch
 
-## 包描述
-
 插件**后端**接口访问能力相关 API
 
 ## 要求
 
-| ONES |
-| ---- |
-| 3.6+ |
+| ONES    |
+| :------ |
+| v3.6.0+ |
 
 ## API
 
 ### fetchHttp
 
-**作用：**用于访问外部服务
+用于访问外部服务
 
 #### Params
 
-| **参数** | **类型**                 | **说明** | **默认值** | **必填** |
-| -------- | ------------------------ | -------- | ---------- | -------- |
-| url      | string                   | 请求地址 | -          | 是       |
-| method   | string                   | 请求类型 | -          | 是       |
-| body     | object/Uint8Array/string | 请求体   | -          |          |
-| headers  | Record<string, string[]> | 请求头   | -          |          |
+| **参数** | **类型**                 | **说明** | **必填** | **默认值** |
+| :------- | :----------------------- | :------- | :------- | :--------- |
+| url      | string                   | 请求地址 | 是       | -          |
+| method   | string                   | 请求类型 | 是       | -          |
+| body     | object/Uint8Array/string | 请求体   | 否       | -          |
+| headers  | Record<string, string[]> | 请求头   | 否       | -          |
 
 #### Returns
 
-| **参数**   | **类型**                     | **说明** | **默认值** | **必填** |
-| ---------- | ---------------------------- | -------- | ---------- | -------- |
-| statusCode | number / string / undefined  | 状态码   | -          |          |
-| body       | object / Uint8Array / string | 返回体   | -          |          |
-| headers    | Record<string, string[]>     | 返回头   | -          |          |
+| **参数**   | **类型**                     | **说明** | **必填** | **默认值** |
+| :--------- | :--------------------------- | :------- | :------- | :--------- |
+| statusCode | number / string / undefined  | 状态码   | -        | -          |
+| body       | object / Uint8Array / string | 返回体   | -        | -          |
+| headers    | Record<string, string[]>     | 返回头   | -        | -          |
 
 #### Example
 
@@ -47,25 +45,25 @@ const response = await fetchHttp({
 
 ### fetchONES
 
-**作用：**用于访问 ONES 系统标准接口
+用于访问 ONES 系统标准接口
 
 #### Params
 
-| **参数** | **类型**                 | **说明**                                           | **默认值** | **必填** |
-| -------- | ------------------------ | -------------------------------------------------- | ---------- | -------- |
-| path     | string                   | 请求地址，如果是 wiki 接口 需要在参数前添加'/wiki' | -          | 是       |
-| method   | string                   | 请求类型                                           | -          | 是       |
-| body     | object/Uint8Array/string | 请求体                                             | -          |          |
-| headers  | Record<string, string[]> | 请求头                                             | -          |          |
-| root     | bool                     | 是否使用插件超级用户                               | true       |          |
+| **参数** | **类型**                 | **说明**                                           | **必填** | **默认值** |
+| :------- | :----------------------- | :------------------------------------------------- | :------- | :--------- |
+| path     | string                   | 请求地址，如果是 wiki 接口 需要在参数前添加'/wiki' | 是       | -          |
+| method   | string                   | 请求类型                                           | 是       | -          |
+| body     | object/Uint8Array/string | 请求体                                             | 否       | -          |
+| headers  | Record<string, string[]> | 请求头                                             | 否       | -          |
+| root     | bool                     | 是否使用插件超级用户                               | 否       | true       |
 
 #### Returns
 
-| **参数**   | **类型**                     | **说明** | **默认值** | **必填** |
-| ---------- | ---------------------------- | -------- | ---------- | -------- |
-| statusCode | number / string / undefined  | 状态码   | -          |          |
-| body       | object / Uint8Array / string | 返回体   | -          |          |
-| headers    | Record<string, string[]>     | 返回头   | -          |          |
+| **参数**   | **类型**                     | **说明** | **必填** | **默认值** |
+| :--------- | :--------------------------- | :------- | :------- | :--------- |
+| statusCode | number / string / undefined  | 状态码   | -        | -          |
+| body       | object / Uint8Array / string | 返回体   | -        | -          |
+| headers    | Record<string, string[]>     | 返回头   | -        | -          |
 
 #### Example
 

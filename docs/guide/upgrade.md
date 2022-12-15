@@ -44,7 +44,7 @@ When the plugin upgrades, it replaces the files in the `workspace` directory acc
   File replacement rules. Available values are as follows:
 
   | **Rules** | **Description**                                               |
-  | --------- | ------------------------------------------------------------- |
+  | :-------- | :------------------------------------------------------------ |
   | save_new  | When a new file conflicts with an old one, keep the new file. |
   | save_old  | When a new file conflicts with an old one, keep the old file. |
 
@@ -54,7 +54,7 @@ When the plugin upgrades, it replaces the files in the `workspace` directory acc
 
 Sample configuration: This configuration means that when the files in the `workspace` directory of the old and new plugin conflict, the files in the new plugin will be kept. The files matched by `exclude`, except `a.txt` and files in the `temp` directory
 
-```yaml
+```yaml title="config/upgrade.yaml"
 workspace:
   rule: save_new
   exclude:

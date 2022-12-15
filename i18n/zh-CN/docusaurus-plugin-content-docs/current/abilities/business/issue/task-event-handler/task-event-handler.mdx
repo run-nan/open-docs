@@ -4,9 +4,9 @@ import Image from '@theme/IdealImage'
 
 ## 要求
 
-| ONES     | @ones/cli-ability-template | @ones/cli-plugin |
-| -------- | -------------------------- | ---------------- |
-| v3.7.54+ | 1.4.0                      | 1.5.1            |
+| ONES     |
+| :------- |
+| v3.7.54+ |
 
 ## 概述
 
@@ -57,7 +57,7 @@ import Image from '@theme/IdealImage'
 
 ### 第一步：添加配置
 
-使用 `npx op add ability` 添加`task-event-handler`能力。添加之后会新增`backend/src/taskeventhandler.ts`文件，在配置文件中新增了以下配置。
+使用 `npx op add ability` 添加`task-event-handler`能力。添加之后会新增`backend/src/task-event-handler.ts`文件，在配置文件中新增了以下配置。
 
 :::tip
 开发者只需要关注的**工作项类型**和**工作项属性**两个配置，支持配置多个**工作项类型**和**工作项属性**，多个配置之间以 **","** 分隔。
@@ -89,7 +89,7 @@ abilities:
 
 ### 第二步：添加前置处理
 
-`backend/src/taskeventhandler.ts`文件中会自动生成`taskPreAction`函数，该函数是前置处理函数，在事件生效前会先调用该函数，并根据返回内容采取不同的策略。
+`backend/src/task-event-handler.ts`文件中会自动生成`taskPreAction`函数，该函数是前置处理函数，在事件生效前会先调用该函数，并根据返回内容采取不同的策略。
 
 - **返回内容**
 
@@ -117,50 +117,50 @@ abilities:
   ```
 
   | 参数          | 类型        | 必填 | 说明                                             |
-  | ------------- | ----------- | ---- | ------------------------------------------------ |
-  | is_follow     | string      | Y    | 是否关注                                         |
-  | is_reject     | string      | Y    | 是否拒绝                                         |
-  | reject_reason | string      | N    | 拒绝原因                                         |
-  | task_events   | []TaskEvent | Y    | 变更的数据（插件可以添加变更属性值）             |
-  | other_data    | interface   | N    | 其他数据（该数据会传递到 `taskActionDone` 方法） |
+  | :------------ | :---------- | :--- | :----------------------------------------------- |
+  | is_follow     | string      | 是   | 是否关注                                         |
+  | is_reject     | string      | 是   | 是否拒绝                                         |
+  | reject_reason | string      | 否   | 拒绝原因                                         |
+  | task_events   | []TaskEvent | 是   | 变更的数据（插件可以添加变更属性值）             |
+  | other_data    | interface   | 否   | 其他数据（该数据会传递到 `taskActionDone` 方法） |
 
 - **入参介绍**
 
   在函数入参的请求体中包含以下内容：
 
   | 参数        | 类型                                 | 是否必填 | 描述         |
-  | ----------- | ------------------------------------ | -------- | ------------ |
-  | user_uuid   | string                               | Y        | 用户 `uuid`  |
-  | lang        | string                               | Y        | 当前用户语言 |
-  | task_events | []<a href="#TaskEvent">TaskEvent</a> | Y        | 变更的数据   |
+  | :---------- | :----------------------------------- | :------- | :----------- |
+  | user_uuid   | string                               | 是       | 用户 `uuid`  |
+  | lang        | string                               | 是       | 当前用户语言 |
+  | task_events | []<a href="#TaskEvent">TaskEvent</a> | 是       | 变更的数据   |
 
   **TaskEvent**<span id="TaskEvent"></span>
 
   | 参数                      | 类型                                           | 必填 | 说明                                                                                                                                                          |
-  | ------------------------- | ---------------------------------------------- | ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-  | task_fields               | []<a href="#TaskEventField">TaskEventField</a> | Y    | 变更属性列表                                                                                                                                                  |
-  | task_uuid                 | string                                         | Y    | 工作项的`uuid`                                                                                                                                                |
-  | action                    | string                                         | Y    | `update`:普通属性<br />`transit`：状态变更（带有步骤属性）<br />`change_issue_type`：工作项类型变更 <br />`publish_version`：版本发布 <br />`add`: 新建工作项 |
-  | issue_type_scope_uuid     | string                                         | Y    | 在所属项目下工作项类型 UUID                                                                                                                                   |
-  | issue_type_scope_name     | string                                         | Y    | 工作项类型在项目下的名字                                                                                                                                      |
-  | issue_type_scope_name_map | map[string]string                              | Y    | `issue_type_scope`在各个语言版本的名称                                                                                                                        |
+  | :------------------------ | :--------------------------------------------- | :--- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+  | task_fields               | []<a href="#TaskEventField">TaskEventField</a> | 是   | 变更属性列表                                                                                                                                                  |
+  | task_uuid                 | string                                         | 是   | 工作项的`uuid`                                                                                                                                                |
+  | action                    | string                                         | 是   | `update`:普通属性<br />`transit`：状态变更（带有步骤属性）<br />`change_issue_type`：工作项类型变更 <br />`publish_version`：版本发布 <br />`add`: 新建工作项 |
+  | issue_type_scope_uuid     | string                                         | 是   | 在所属项目下工作项类型 UUID                                                                                                                                   |
+  | issue_type_scope_name     | string                                         | 是   | 工作项类型在项目下的名字                                                                                                                                      |
+  | issue_type_scope_name_map | map[string]string                              | 是   | `issue_type_scope`在各个语言版本的名称                                                                                                                        |
 
   **TaskEventField**<span id="TaskEventField"></span>
 
   | 参数             | 类型              | 必填 | 说明                                                                                                        |
-  | ---------------- | ----------------- | ---- | ----------------------------------------------------------------------------------------------------------- |
-  | field_uuid       | string            | N    | 属性`uuid`                                                                                                  |
-  | field_type       | string            | N    | 属性类型                                                                                                    |
-  | field_name       | string            | N    | 属性名称的 `key`                                                                                            |
-  | field_name_map   | map[string]string | N    | 属性各个语言版本的名称比如： <br />en: 'Assignee/Owner' <br />origin: '{{field.assign}}' <br />zh: '负责人' |
-  | field_value_type | string            | N    | 字段值类型:<br />0 - any<br />1 - int<br />2 - string<br />3 - []string                                     |
-  | value            | interface         | N    | 属性值                                                                                                      |
+  | :--------------- | :---------------- | :--- | :---------------------------------------------------------------------------------------------------------- |
+  | field_uuid       | string            | 否   | 属性`uuid`                                                                                                  |
+  | field_type       | string            | 否   | 属性类型                                                                                                    |
+  | field_name       | string            | 否   | 属性名称的 `key`                                                                                            |
+  | field_name_map   | map[string]string | 否   | 属性各个语言版本的名称比如： <br />en: 'Assignee/Owner' <br />origin: '{{field.assign}}' <br />zh: '负责人' |
+  | field_value_type | string            | 否   | 字段值类型:<br />0 - any<br />1 - int<br />2 - string<br />3 - []string                                     |
+  | value            | interface         | 否   | 属性值                                                                                                      |
 
 - **示例**
 
   修改工作项属性或者状态之后，会同步修改该工作项的标题。
 
-  ```typescript
+  ```typescript title="backend/src/task-event-handler.ts"
   // 落盘前调用，支持添加属性修改
   export async function taskPreAction(request: PluginRequest): Promise<PluginResponse> {
     const body = request?.body as any
@@ -196,20 +196,20 @@ abilities:
 
 ### 第三步：添加后置处理
 
-`backend/src/taskeventhandler.ts`文件中会自动生成`taskActionDone`函数，该函数是后置处理，在事件生效之后会先调用该函数。
+`backend/src/task-event-handler.ts`文件中会自动生成`taskActionDone`函数，该函数是后置处理，在事件生效之后会先调用该函数。
 
 - **参数介绍**
 
   | 字段        | 类型                                 | 必填 | 说明                                          |
-  | ----------- | ------------------------------------ | ---- | --------------------------------------------- |
-  | user_uuid   | string                               | Y    | 用户`uuid`                                    |
-  | lang        | string                               | Y    | 当前用户语言                                  |
-  | task_events | []<a href="#TaskEvent">TaskEvent</a> | Y    | 变更的数据                                    |
-  | other_data  | interface                            | N    | 其他数据（该数据会来自 `taskPreAction` 方法） |
+  | :---------- | :----------------------------------- | :--- | :-------------------------------------------- |
+  | user_uuid   | string                               | 是   | 用户`uuid`                                    |
+  | lang        | string                               | 是   | 当前用户语言                                  |
+  | task_events | []<a href="#TaskEvent">TaskEvent</a> | 是   | 变更的数据                                    |
+  | other_data  | interface                            | 否   | 其他数据（该数据会来自 `taskPreAction` 方法） |
 
 - **示例**
 
-  ```typescript title="backend/src/taskeventhandler.ts"
+  ```typescript title="backend/src/task-event-handler.ts"
   export async function taskActionDone(request: PluginRequest): Promise<PluginResponse> {
     var body = request?.body as any
     var events = body.task_events

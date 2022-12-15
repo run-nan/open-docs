@@ -1,4 +1,4 @@
-# Location FieldGroup
+# Scene: Location FieldGroup
 
 ## Scene Description
 
@@ -33,7 +33,6 @@ export async function Install() {
       Name: fieldName,
       Type: 1001,
     })
-    console.log(FieldsAddProjectRes)
     if (FieldsAddProjectRes.Error) {
       throw new Error('Failed to create field')
     }
@@ -85,7 +84,7 @@ export async function Install() {
 
 - Add configuration
 
-  ```yaml
+  ```yaml title="config/plugin.yaml"
   apis:
     - type: addition
       methods:
@@ -209,7 +208,7 @@ export async function Install() {
 
 - **Add configuration**
 
-  ```yaml
+  ```yaml title="config/plugin.yaml"
   apis:
     - type: addition
       methods:
@@ -310,7 +309,7 @@ export async function Install() {
 
 - **添加配置**
 
-  ```yaml
+  ```yaml title="config/plugin.yaml"
   apis:
     - type: addition
       methods:

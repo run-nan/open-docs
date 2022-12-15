@@ -4,7 +4,7 @@
 
 | **ONES** |
 | -------- |
-| 3.6+     |
+| v3.6.0+  |
 
 ## Overview
 
@@ -28,7 +28,7 @@ return {
 **Params description**
 
 | Param  | Type             | Description                                                |
-| ------ | ---------------- | ---------------------------------------------------------- |
+| :----- | :--------------- | :--------------------------------------------------------- |
 | code   | number           | Request error code                                         |
 | reason | string           | Error cause description                                    |
 | type   | warning \| error | Error level                                                |

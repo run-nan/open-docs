@@ -6,7 +6,7 @@ import Image from '@theme/IdealImage'
 
 | **ONES** |
 | :------- |
-| 3.6+     |
+| v3.6.0+  |
 
 ## 概述
 
@@ -100,7 +100,7 @@ import Image from '@theme/IdealImage'
   **参数介绍**
 
   | 参数        | 类型   | 说明                                                                                            |
-  | ----------- | ------ | ----------------------------------------------------------------------------------------------- |
+  | :---------- | :----- | :---------------------------------------------------------------------------------------------- |
   | FieldType   | string | 脚本属性类型：<br />- `FieldTypeEnum.SingleLabel`: 单选<br />- `FieldTypeEnum.MultiLabel`: 多选 |
   | Name        | string | 属性名称                                                                                        |
   | ItemType    | string | 固定值：`field`                                                                                 |
@@ -201,7 +201,7 @@ export async function GetOptions(request: PluginRequest): Promise<PluginResponse
   `Field.AddGroupField` 方法的参数如下所示：
 
   | 参数       | 类型               | 说明                                                                                                                                                                      |
-  | ---------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | :--------- | :----------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
   | ObjectType | string             | 属性组的实体类型，可选值：<br />- `PoolEnum.Project`: 项目<br />- `PoolEnum.Task`: 工作项                                                                                 |
   | Name       | string             | 属性组名称                                                                                                                                                                |
   | Relations  | IRelationMessage[] | `IRelationMessage` 包含以下属性<br />- `FieldUUID`: 属性的`fieldUUID`<br />- `FieldParentUUID`: 父属性`UUID`，表示和该属性形成层级关系<br />- `Position`:在属性组中的位置 |
@@ -361,7 +361,7 @@ export async function GetOptions(request: PluginRequest): Promise<PluginResponse
 - **参数介绍**
 
   | 参数       | 类型   | 说明                                                   |
-  | ---------- | ------ | ------------------------------------------------------ |
+  | :--------- | :----- | :----------------------------------------------------- |
   | TeamUUID   | string | 团队`uuid`                                             |
   | FieldUUID  | string | 脚本属性`fieldUUID`                                    |
   | UUID       | string | 选项值的`UUID`                                         |
