@@ -1,30 +1,30 @@
-# @ones-op/node-ability
+# @ones-op/node-ability（Business ability library，Encapsulation of business abilities and requests）
 
-我们提供了一套接口请求库，允许插件开发者调用插件的基础能力。
+We provide a set of interface request libraries that allow plugin developers to call the basic abilities of plugins.
 
-## 要求
+## Compatibility Requirements
 
-| **内容**                       |
-| :----------------------------- |
-| LTS：3.6.x<br />Feature：3.6.x |
+| **Constraint** | **Content**                    |
+| :------------- | :----------------------------- |
+| ONES VERSION   | LTS：3.6.x<br />Feature：3.6.x |
 
 ## API
 
 ### getLanguage
 
-获取用户语言
+Get user language
 
 #### Params
 
-|   参数    | 说明      |  类型  | 必填 | 默认值 |
-| :-------: | :-------- | :----: | :--: | :----: |
-| user_uuid | 用户 uuid | string |  是  |        |
+| parameters | explain   | type   | required | default value |
+| :--------- | :-------- | :----- | :------- | :------------ |
+| user_uuid  | user uuid | string | Y        |               |
 
 #### Returns
 
-|   参数   | 说明         |  类型  |
-| :------: | :----------- | :----: |
-| language | 用户语言种类 | string |
+| parameters | explain            | type   |
+| :--------- | :----------------- | :----- |
+| language   | user language type | string |
 
 #### Example
 
@@ -38,20 +38,20 @@ export async function multiple_language() {
 
 ### getLanguageString
 
-获取指定语言的对应内容
+Gets the corresponding content of the specified language
 
 #### Params
 
-|   参数   | 说明           |  类型  | 必填 | 默认值 |
-| :------: | :------------- | :----: | :--: | :----: |
-| language | 语言种类       | string |  是  |        |
-|   key    | 想要获取的字段 | string |  是  |        |
+| parameters | explain                   | type   | required | default value |
+| :--------- | :------------------------ | :----- | :------- | :------------ |
+| language   | language type             | string | Y        |               |
+| key        | the field you want to get | string | Y        |               |
 
 #### Returns
 
-| 参数  | 说明                   |  类型  |
-| :---: | :--------------------- | :----: |
-| value | key 在该语言下对应的值 | string |
+| parameters | explain                                         | type   |
+| :--------- | :---------------------------------------------- | :----- |
+| value      | The corresponding value of key in this language | string |
 
 #### Example
 
@@ -59,18 +59,18 @@ export async function multiple_language() {
 import { Language } from '@ones-op/node-ability'
 
 export async function multiple_language() {
-  const description = await Language.getLanguageString(language, 'PluginDescription')
+  const language = await Language.getLanguage(user_uuid)
 }
 ```
 
 ### addRepos
 
-Add linked repositories.
+Add linked repositories
 
 #### Params
 
 | parameters | explain                                                                               | type       | required | value range  |
-| ---------- | ------------------------------------------------------------------------------------- | ---------- | -------- | ------------ |
+| :--------- | :------------------------------------------------------------------------------------ | :--------- | :------- | :----------- |
 | toolUUID   | UUID of the link code repository type                                                 | string     | Y        | len=8        |
 | teamUUID   | Team UUID (mandatory for organization-level plugins, optional for team-level plugins) | string     | N        | len=8        |
 | list       | Add a list of code repositories                                                       | RepoInfo[] | Y        | 0<=size<=100 |
@@ -78,7 +78,7 @@ Add linked repositories.
 > RepoInfo
 
 | parameters        | explain                                                                                                                | type   | required | value range |
-| ----------------- | ---------------------------------------------------------------------------------------------------------------------- | ------ | -------- | ----------- |
+| :---------------- | :--------------------------------------------------------------------------------------------------------------------- | :----- | :------- | :---------- |
 | userUUID          | add repository user UUID                                                                                               | string | Y        | len=8       |
 | uri               | add repository URI（https://github.com/nodejs/node is https://github.com)                                              | string | Y        | len<=100    |
 | namespace         | add repository namespace（https://github.com/nodejs/node is nodejs)                                                    | string | Y        | len<=256    |
@@ -90,7 +90,7 @@ Add linked repositories.
 > BatchRepoResponse
 
 | parameters   | explain                                       | type           | required |
-| ------------ | --------------------------------------------- | -------------- | -------- |
+| :----------- | :-------------------------------------------- | :------------- | :------- |
 | successCount | the number of successfully added repositories | int            | Y        |
 | failureCount | the number of failures added repositories     | int            | Y        |
 | Responses    | the detail info of add repositories           | RepoResponse[] | Y        |
@@ -98,7 +98,7 @@ Add linked repositories.
 > RepoResponse
 
 | parameters | explain              | type    | required |
-| ---------- | -------------------- | ------- | -------- |
+| :--------- | :------------------- | :------ | :------- |
 | success    | whether succeed      | boolean | Y        |
 | uri        | repository uri       | string  | Y        |
 | namespace  | repository namespace | string  | Y        |
@@ -118,12 +118,12 @@ const batchResponse = await addRepos(toolUUID, list);
 
 ### queryRepo
 
-query linked single code repository.
+query linked single code repository
 
 #### Params
 
 | parameters | explain                                                                               | type   | required | value range |
-| ---------- | ------------------------------------------------------------------------------------- | ------ | -------- | ----------- |
+| :--------- | :------------------------------------------------------------------------------------ | :----- | :------- | :---------- |
 | toolUUID   | UUID of the link code repository type                                                 | string | Y        | len=8       |
 | teamUUID   | Team UUID (mandatory for organization-level plugins, optional for team-level plugins) | string | N        | len=8       |
 | uri        | repository URI                                                                        | string | Y        | len<=100    |
@@ -135,7 +135,7 @@ query linked single code repository.
 > RepoInfo
 
 | parameters        | explain                                                         | type   | required |
-| ----------------- | --------------------------------------------------------------- | ------ | -------- |
+| :---------------- | :-------------------------------------------------------------- | :----- | :------- |
 | repoUUID          | repository UUID                                                 | string | Y        |
 | userUUID          | linked repository user UUID                                     | string | Y        |
 | uri               | repository URI                                                  | string | Y        |
@@ -157,12 +157,12 @@ const repoInfo = await queryRepo(toolUUID, uri, namespace, name)
 
 ### queryRepos
 
-query all linked code repositories.
+query all linked code repositories
 
 #### Params
 
 | parameters | explain                                                                               | type   | required | value range |
-| ---------- | ------------------------------------------------------------------------------------- | ------ | -------- | ----------- |
+| :--------- | :------------------------------------------------------------------------------------ | :----- | :------- | :---------- |
 | toolUUID   | UUID of the link code repository type                                                 | string | Y        | len=8       |
 | teamUUID   | Team UUID (mandatory for organization-level plugins, optional for team-level plugins) | string | N        | len=8       |
 
@@ -171,7 +171,7 @@ query all linked code repositories.
 > RepoInfo[]
 
 | parameters        | explain                                                         | type   | required |
-| ----------------- | --------------------------------------------------------------- | ------ | -------- |
+| :---------------- | :-------------------------------------------------------------- | :----- | :------- |
 | repoUUID          | repository UUID                                                 | string | Y        |
 | userUUID          | linked repository user UUID                                     | string | Y        |
 | uri               | repository URI                                                  | string | Y        |
@@ -190,12 +190,12 @@ const repoInfos = await queryRepos(toolUUID)
 
 ### addRepoCommits
 
-add repo commits.
+add repo commits
 
 #### Params
 
 | parameters | explain                                                                               | type         | required | value range  |
-| ---------- | ------------------------------------------------------------------------------------- | ------------ | -------- | ------------ |
+| :--------- | :------------------------------------------------------------------------------------ | :----------- | :------- | :----------- |
 | toolUUID   | UUID of the link code repository type                                                 | string       | Y        | len=8        |
 | repoUUID   | UUID of the code repository                                                           | string       | Y        | len=8        |
 | teamUUID   | Team UUID (mandatory for organization-level plugins, optional for team-level plugins) | string       | N        | len=8        |
@@ -204,7 +204,7 @@ add repo commits.
 > RepoCommit
 
 | parameters     | explain                                                      | type   | required | value range    |
-| -------------- | ------------------------------------------------------------ | ------ | -------- | -------------- |
+| :------------- | :----------------------------------------------------------- | :----- | :------- | :------------- |
 | hash           | commit unique identifier                                     | string | Y        | len<=48        |
 | author         | commit author                                                | string | Y        | len<=128       |
 | message        | commit message                                               | string | Y        | -              |
@@ -214,10 +214,6 @@ add repo commits.
 | statsTotal     | Statistics affect the total number of rows                   | int64  | N        | max=2147483647 |
 | statsAdditions | Count the total number of rows affected by adding statistics | int64  | N        | max=2147483647 |
 | statsDeletions | Count the total number of rows affected by deletion          | int64  | N        | max=2147483647 |
-
-#### Returns
-
-none.
 
 #### Example
 
@@ -232,12 +228,12 @@ await addRepoCommits(toolUUID, repoUUID, list)
 
 ### addRepoPullRequest
 
-add single repo pull request (support for add and update).
+add single repo pull request (support for add and update)
 
 #### Params
 
 | parameters | explain                                                                               | type            | required | value range |
-| ---------- | ------------------------------------------------------------------------------------- | --------------- | -------- | ----------- |
+| :--------- | :------------------------------------------------------------------------------------ | :-------------- | :------- | :---------- |
 | toolUUID   | UUID of the link code repository type                                                 | string          | Y        | len=8       |
 | repoUUID   | UUID of the code repository                                                           | string          | Y        | len=8       |
 | teamUUID   | Team UUID (mandatory for organization-level plugins, optional for team-level plugins) | string          | N        | len=8       |
@@ -246,7 +242,7 @@ add single repo pull request (support for add and update).
 > RepoPullRequest
 
 | parameters | explain                                             | type         | required | value range    |
-| ---------- | --------------------------------------------------- | ------------ | -------- | -------------- |
+| :--------- | :-------------------------------------------------- | :----------- | :------- | :------------- |
 | number     | pr unique identifier                                | number       | Y        | max=2147483647 |
 | action     | pr action (enum: UPDATE、CLOSE、ADD、REOPEN、MERGE) | enum         | Y        | -              |
 | author     | pr author                                           | string       | Y        | len<=128       |
@@ -259,10 +255,6 @@ add single repo pull request (support for add and update).
 | reviewers  | pr reviewers                                        | string array | N        | len<=1024      |
 | updateAt   | last update pr timestamp (unit: second)             | int64        | N        | min=1          |
 | updateUser | last updat pr user name                             | string       | N        | len<=128       |
-
-#### Returns
-
-none.
 
 #### Example
 

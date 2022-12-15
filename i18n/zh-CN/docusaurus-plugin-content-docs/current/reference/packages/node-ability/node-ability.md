@@ -16,14 +16,14 @@
 
 #### Params
 
-|   参数    | 说明      |  类型  | 必填 | 默认值 |
-| :-------: | :-------- | :----: | :--: | :----: |
-| user_uuid | 用户 uuid | string |  是  |        |
+| 参数      | 说明      | 类型   | 必填 | 默认值 |
+| :-------- | :-------- | :----- | :--- | :----- |
+| user_uuid | 用户 uuid | string | 是   | -      |
 
 #### Returns
 
-|   参数   | 说明         |  类型  |
-| :------: | :----------- | :----: |
+| 参数     | 说明         | 类型   |
+| :------- | :----------- | :----- |
 | language | 用户语言种类 | string |
 
 #### Example
@@ -42,15 +42,15 @@ export async function multiple_language() {
 
 #### Params
 
-|   参数   | 说明           |  类型  | 必填 | 默认值 |
-| :------: | :------------- | :----: | :--: | :----: |
-| language | 语言种类       | string |  是  |        |
-|   key    | 想要获取的字段 | string |  是  |        |
+| 参数     | 说明           | 类型   | 必填 | 默认值 |
+| :------- | :------------- | :----- | :--- | :----- |
+| language | 语言种类       | string | 是   |        |
+| key      | 想要获取的字段 | string | 是   |        |
 
 #### Returns
 
-| 参数  | 说明                   |  类型  |
-| :---: | :--------------------- | :----: |
+| 参数  | 说明                   | 类型   |
+| :---- | :--------------------- | :----- |
 | value | key 在该语言下对应的值 | string |
 
 #### Example
@@ -65,12 +65,12 @@ export async function multiple_language() {
 
 ### addRepos
 
-新增代码仓。
+新增代码仓
 
 #### Params
 
 | 参数     | 说明                                              | 类型       | 必填 | 取值范围     |
-| -------- | ------------------------------------------------- | ---------- | ---- | ------------ |
+| :------- | :------------------------------------------------ | :--------- | :--- | :----------- |
 | toolUUID | 关联代码仓方式 UUID                               | string     | 是   | len=8        |
 | teamUUID | 团队 UUID（组织级别插件必填，团队级别插件非必填） | string     | 否   | len=8        |
 | list     | 新增关联代码仓列表                                | RepoInfo[] | 是   | 0<=size<=100 |
@@ -78,7 +78,7 @@ export async function multiple_language() {
 > RepoInfo
 
 | 参数              | 说明                                                                              | 类型   | 必填 | 取值范围 |
-| ----------------- | --------------------------------------------------------------------------------- | ------ | ---- | -------- |
+| :---------------- | :-------------------------------------------------------------------------------- | :----- | :--- | :------- |
 | userUUID          | 关联代码仓操作人员 UUID（可以从插槽提供的获取用户方法获取）                       | string | 是   | len=8    |
 | uri               | 关联代码仓 URI（举例https://github.com/nodejs/node为https://github.com)           | string | 是   | len<=100 |
 | namespace         | 命名空间（举例https://github.com/nodejs/node为nodejs)                             | string | 是   | len<=256 |
@@ -90,7 +90,7 @@ export async function multiple_language() {
 > BatchRepoResponse
 
 | 参数         | 类型           | 说明                   | 必填 |
-| ------------ | -------------- | ---------------------- | ---- |
+| :----------- | :------------- | :--------------------- | :--- |
 | successCount | int            | 关联代码仓成功数量     | 是   |
 | failureCount | int            | 关联代码仓失败数量     | 是   |
 | Responses    | RepoResponse[] | 关联代码仓详细信息列表 | 是   |
@@ -98,7 +98,7 @@ export async function multiple_language() {
 > RepoResponse
 
 | 参数      | 类型    | 说明               | 必填 |
-| --------- | ------- | ------------------ | ---- |
+| :-------- | :------ | :----------------- | :--- |
 | success   | boolean | 是否关联成功       | 是   |
 | uri       | string  | 关联代码仓 URI     | 是   |
 | namespace | string  | 命名空间           | 是   |
@@ -123,7 +123,7 @@ const batchResponse = await addRepos(toolUUID, list);
 #### Params
 
 | 参数      | 说明                                              | 类型   | 必填 | 取值范围 |
-| --------- | ------------------------------------------------- | ------ | ---- | -------- |
+| :-------- | :------------------------------------------------ | :----- | :--- | :------- |
 | teamUUID  | 团队 UUID（组织级别插件必填，团队级别插件非必填） | string | 否   | len=8    |
 | toolUUID  | 关联代码仓方式 UUID                               | string | 是   | len=8    |
 | uri       | 关联代码仓 URI                                    | string | 是   | len<=100 |
@@ -133,7 +133,7 @@ const batchResponse = await addRepos(toolUUID, list);
 #### Returns
 
 | 参数              | 说明                                                    | 类型   | 必填 |
-| ----------------- | ------------------------------------------------------- | ------ | ---- |
+| :---------------- | :------------------------------------------------------ | :----- | :--- |
 | repoUUID          | 关联代码仓 UUID                                         | string | 是   |
 | userUUID          | 关联操作人员 UUID                                       | string | 是   |
 | uri               | 关联代码仓 URI                                          | string | 是   |
@@ -155,12 +155,12 @@ const repoInfo = await queryRepo(toolUUID, uri, namespace, name)
 
 ### queryRepos
 
-查询已关联的所有代码仓。
+查询已关联的所有代码仓
 
 #### Params
 
 | 参数     | 说明                                              | 类型   | 必填 | 取值范围 |
-| -------- | ------------------------------------------------- | ------ | ---- | -------- |
+| :------- | :------------------------------------------------ | :----- | :--- | :------- |
 | teamUUID | 团队 UUID（组织级别插件必填，团队级别插件非必填） | string | 否   | len=8    |
 | toolUUID | 关联代码仓方式 UUID                               | string | 是   | len=8    |
 
@@ -169,7 +169,7 @@ const repoInfo = await queryRepo(toolUUID, uri, namespace, name)
 > RepoInfo[]
 
 | 参数              | 说明                                                    | 类型   | 必填 |
-| ----------------- | ------------------------------------------------------- | ------ | ---- |
+| :---------------- | :------------------------------------------------------ | :----- | :--- |
 | repoUUID          | 关联代码仓 UUID                                         | string | 是   |
 | userUUID          | 关联操作人员 UUID                                       | string | 是   |
 | uri               | 关联代码仓 URI                                          | string | 是   |
@@ -188,12 +188,12 @@ const repoInfos = await queryRepos(toolUUID)
 
 ### addRepoCommits
 
-新增代码仓提交 commit。
+新增代码仓提交 commit
 
 #### Params
 
 | 参数     | 说明                                          | 类型         | 必填 | 取值范围     |
-| -------- | --------------------------------------------- | ------------ | ---- | ------------ |
+| :------- | :-------------------------------------------- | :----------- | :--- | :----------- |
 | toolUUID | 关联代码仓方式 UUID                           | string       | 是   | len=8        |
 | repoUUID | 代码仓 UUID                                   | string       | 是   | len=8        |
 | teamUUID | 团队 UUID（组织级别插件必填，团队级别插必填） | string       | 否   | len=8        |
@@ -202,7 +202,7 @@ const repoInfos = await queryRepos(toolUUID)
 > RepoCommit
 
 | 参数           | 说明                      | 类型   | 必填 | 取值范围       |
-| -------------- | ------------------------- | ------ | ---- | -------------- |
+| :------------- | :------------------------ | :----- | :--- | :------------- |
 | hash           | commit 唯一标识           | string | 是   | len<=48        |
 | author         | commit 作者名称           | string | 是   | len<=128       |
 | message        | commit 描述               | string | 是   | -              |
@@ -212,10 +212,6 @@ const repoInfos = await queryRepos(toolUUID)
 | statsTotal     | 统计影响行总数            | int64  | 否   | max=2147483647 |
 | statsAdditions | 统计添加影响行总数        | int64  | 否   | max=2147483647 |
 | statsDeletions | 统计删除影响行总数        | int64  | 否   | max=2147483647 |
-
-#### Returns
-
-无。
 
 #### Example
 
@@ -230,12 +226,12 @@ await addRepoCommits(toolUUID, repoUUID, list)
 
 ### addRepoPullRequest
 
-新增代码仓合并请求 pull request（支持新增和更新）。
+新增代码仓合并请求 pull request（支持新增和更新）
 
 #### Params
 
 | 参数     | 说明                                              | 类型            | 必填 | 取值范围 |
-| -------- | ------------------------------------------------- | --------------- | ---- | -------- |
+| :------- | :------------------------------------------------ | :-------------- | :--- | :------- |
 | toolUUID | 关联代码仓方式 UUID                               | string          | 是   | len=8    |
 | repoUUID | 代码仓 UUID                                       | string          | 是   | len=8    |
 | teamUUID | 团队 UUID（组织级别插件必填，团队级别插件非必填） | string          | 否   | len=8    |
@@ -244,7 +240,7 @@ await addRepoCommits(toolUUID, repoUUID, list)
 > RepoPullRequest
 
 | 参数       | 说明                                                 | 类型         | 必填 | 取值范围       |
-| ---------- | ---------------------------------------------------- | ------------ | ---- | -------------- |
+| :--------- | :--------------------------------------------------- | :----------- | :--- | :------------- |
 | number     | pr 编号（pr 唯一标识）                               | number       | 是   | max=2147483647 |
 | action     | pr 动作（枚举值：UPDATE、CLOSE、ADD、REOPEN、MERGE） | enum         | 是   | -              |
 | author     | pr 作者名称                                          | string       | 是   | len<=128       |
@@ -257,10 +253,6 @@ await addRepoCommits(toolUUID, repoUUID, list)
 | reviewers  | pr 审核人员名称列表                                  | string array | 否   | len<=1024      |
 | updateAt   | pr 最后更新时间戳（单位：秒）                        | int64        | 否   | min=1          |
 | updateUser | pr 最后更新用户名称                                  | string       | 否   | len<=128       |
-
-#### Returns
-
-无。
 
 #### Example
 
