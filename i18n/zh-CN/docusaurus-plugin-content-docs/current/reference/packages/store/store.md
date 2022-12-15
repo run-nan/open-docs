@@ -539,3 +539,64 @@ interface CodeRepositoryInfo {
   previous: () => void
 }
 ```
+
+### useTestReportComponentInfo {#useTestReportComponentInfo}
+
+- 可用：`TODO`
+- ONES 要求：`TODO`
+
+在插件自定义测试报告组件中，获取当前组件的数据以及对数据进行操作的方法
+
+#### Returns
+
+| 说明                           |             类型              |
+| :----------------------------- | :---------------------------: |
+| 当前组件的数据以及对数据的操作 | `TestcaseReportComponentInfo` |
+
+#### Types
+
+```tsx
+interface ExportTitle {
+  // 导出标题
+  type: 'title'
+  content: string
+}
+
+interface ExportText {
+  // 导出普通文本
+  type: 'text'
+  content: string
+}
+
+interface ExportLink {
+  // 导出链接
+  type: 'link'
+  content: string
+  url: string
+}
+
+interface ExportImage {
+  // 导出图片
+  type: 'image'
+  url: string
+}
+
+interface ExportCustomContent {
+  // 导出自定义内容
+  type: 'custom'
+  content: string // html文本
+}
+
+type ExportItem = ExportTitle | ExportText | ExportLink | ExportImage | ExportCustomContent
+
+interface TestcaseReportComponentInfo<T extends Record<string, any> = {}> {
+  isReportMode: boolean // 是否处于报告页面，如果为false的话则为报告模板页面
+  isViewMode: boolean // 是否处于查看模式，如果为false的话则为编辑模式
+  contentUUID: string // 如果当前处于报告页面，表示报告ID，如果处于报告模板页面，表示报告模板ID
+  componentSetting: T // 组件的配置信息
+  componentUUID: string // 组件的ID
+  updateComponentSettingConfig: (newConfig: Partial<T>) => void // 更新组件的配置信息的方法
+  updateComponentExportContent: (exportItems: ExportItem[]) => void // 更新组件的导出内容的方法
+  addOnSubmitSettingListener: (next: () => void) => () => void // 监听点击配置弹窗确认按钮时的回调函数的方法，返回值的是取消监听的方法
+}
+```
