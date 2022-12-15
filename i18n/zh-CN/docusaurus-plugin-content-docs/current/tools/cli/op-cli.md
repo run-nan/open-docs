@@ -36,12 +36,20 @@ npx op init
 
 ```shell
 npx op add <target-type>
+```
 
-# 为插件工程添加「前端插槽」或「子前端插槽」
+### 示例
+
+1. 为插件工程添加「前端插槽」或「子前端插槽」
+
+```shell
 npx op add module
 npx op add sub-module
+```
 
-# 为插件工程添加「开放能力」
+2. 为插件工程添加「开放能力」
+
+```shell
 npx op add ability
 ```
 
@@ -76,7 +84,7 @@ npx op packup [filename]
 同时，如果当前项目之前从未选择过「团队信息」，此命令将尝试自动运行 `npx op pickteam local`。
 
 ```shell
-npx op packup [options] [filename]
+npx op login [options] [baseURL] [hostURL]
 ```
 
 ### 参数
@@ -211,7 +219,7 @@ npx op ci https://partnerdev.ones.ai -b next -s https://dev.ones.ai
 在选择团队信息之前，需要先执行 `npx op login` 或 `npx op ci` 完成登录操作。
 
 ```shell
-npx op pickteam [options] [target]
+npx op pickteam [target] [options]
 ```
 
 ### 参数
@@ -292,6 +300,8 @@ npx op invoke [options] <target>
 - `stop`
 - `disable`
 - `uninstall`
+
+关于生命周期，开发者可在[「入门指引 - 插件生命周期」](../guide/../../guide/lifecycle/lifecycle.md)一节中了解详情。
 
 ### 可调用的「流程」名称
 

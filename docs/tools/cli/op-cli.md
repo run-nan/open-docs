@@ -36,12 +36,20 @@ Add a ability or module for the project.
 
 ```shell
 npx op add <target-type>
+```
 
-# Add module or sub-module for project
+### Examples
+
+1. Add module or sub-module for project
+
+```shell
 npx op add module
 npx op add sub-module
+```
 
-# Add ability or sub-module for project
+2. Add ability or sub-module for project
+
+```shell
 npx op add ability
 ```
 
@@ -76,7 +84,7 @@ After login successfully, CLI will store the scope parameters into `~/.ones/cli-
 And at the same time, this command will try to run `npx op pickteam local` automatically if the current project has never had a team picked before.
 
 ```shell
-npx op packup [options] [filename]
+npx op login [options] [baseURL] [hostURL]
 ```
 
 ### Arguments
@@ -209,7 +217,7 @@ Fetch the team list with the user credentials stored in the config file (`config
 Before performing this operation, the login operation should be completed in the corresponding target.
 
 ```shell
-npx op pickteam [options] [target]
+npx op pickteam [target] [options]
 ```
 
 ### Arguments
@@ -290,6 +298,8 @@ npx op invoke [options] <target>
 - `stop`
 - `disable`
 - `uninstall`
+
+Developer can learn more about [available life-cycle](../guide/../../guide/lifecycle/lifecycle.md) in the guide section.
 
 ### Available processes
 
