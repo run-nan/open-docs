@@ -8,7 +8,7 @@ import scriptFieldFloat2 from './images/script-field-float2.png'
 
 | **ONES** |
 | :------- |
-| 3.6+     |
+| v3.6.0+  |
 
 ## 概述
 
@@ -19,11 +19,11 @@ import scriptFieldFloat2 from './images/script-field-float2.png'
 1. 通过某个计算规则来统计数值
 2. 希望数值准确，不能人为改动
 
-在插件执行`install()`方法时，会创建该工作项属性，并且添加到全局属性列表中。用户可以将该属性添加到需要的工作项上。
+### 能力表现
+
+在插件执行`install()`方法时，会创建该工作项属性，并且添加到全局属性列表中。用户可以将该属性添加到需要的工作项类型上。当插件停用/卸载时，该属性值变成 0，成为一个失去统计功能的只读属性。当插件重新启用/安装时，该属性重新投入使用。
 
 <Image img={scriptFieldFloat2} />
-
-当插件停用/卸载时，该属性值变成 0，成为一个失去统计功能的只读属性。当插件重新启用/安装时，该属性重新投入使用。
 
 ## 使用
 
@@ -41,10 +41,11 @@ npx op add ability
 
 <Image img={scriptFieldFloat1} />
 
+<br />
 OP 工具会询问是否使用默认值，选择是即可，OP 工具会为插件添加如下内容
 
-- `{{插件根目录}}/config/plugin.yaml`中 abilities 字段新增相关段落。
-  ```yaml
+- 在插件的配置文件中`plugin.yaml`的 abilities 字段新增相关段落
+  ```yaml title="config/plugin.yaml"
   service:
     app_id: ...
     name: ability-scriptFloat
@@ -64,9 +65,9 @@ OP 工具会询问是否使用默认值，选择是即可，OP 工具会为插�
           fieldType: Input
           show: false
   ```
-- OP 工具在插件中新增文件`{{插件根目录}}/backend/src/script-field-float.ts`
+- 在插件后端中新增文件`script-field-float.ts`
 
-  ```typescript
+  ```typescript title="backend/src/script-field-float.ts"
   import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 
   // 示例方法 脚本浮点型的计算方法
@@ -122,9 +123,9 @@ OP 工具会询问是否使用默认值，选择是即可，OP 工具会为插�
 
 ### 第二步: 修改插件配置文件
 
-修改`{{插件根目录}}/config/plugin.yaml`中脚本属性对应内容,其中`config`为脚本属性的配置，'FieldName'键对应的值为脚本属性名称，将其修改为你需要的称呼，这里修改为**脚本属性 1**，`calcFieldValue`的值对应脚本属性方法名，可以修改其为你想要的方法名，这里修改为**countFunc**。
+修改插件配置文件中脚本属性 - 浮点数能力的对应内容,其中**abilities.config**为脚本属性能力的配置，**abilities.config.value**的值为脚本属性的名称，这里修改为"脚本属性 1"，**abilities.function.calcFieldValue**的值为脚本属性计算方法名，这里修改为"countFunc"
 
-```yaml
+```yaml title="config/plugin.yaml"
 service:
   app_id: ...
   name: ability-scriptFloat
@@ -138,6 +139,7 @@ abilities:
     abilityType: ScriptFieldFloat
     function:
       calcFieldValue: countFunc
+    # 能力的配置项
     config:
       - key: FieldName
         value: 脚本属性1
@@ -147,11 +149,17 @@ abilities:
 
 ### 第三步: 完成脚本属性计算规则
 
-修改脚本属性方法，其默认为`{{插件根目录}}/backend/src/script-field-float.ts`的`calcFieldValues`方法，注意返回参数`returnValue`中的值默认为浮点数，其单位默认为`1/100000`，按照自己的业务逻辑，以及注释中要求的数据结构构造返回参数即可。
+修改脚本属性计算方法，其默认为`backend/src/script-field-float.ts`的`calcFieldValues`方法，按照自己的业务逻辑，以及注释中要求的数据结构构造返回参数即可
 
 这里给出默认的实现方法，仅遵从上一步，修改了方法名为`countFunc`
 
-```typescript
+:::info
+
+注意返回参数`returnValue`中的值默认为浮点数，其单位默认为`1/100000`，当返回数值为**200000**时，实际数值为**2**
+
+:::
+
+```typescript title="backend/src/script-field-float.ts"
 export const countFunc = async (request: PluginRequest): Promise<PluginResponse> => {
   const body = request?.body as any
   const returnValue: any[] = []
@@ -193,7 +201,7 @@ export const countFunc = async (request: PluginRequest): Promise<PluginResponse>
 
 - Issue 工作项
 
-  <br />
+  <p />
   新建工作项弹窗
   <br />
   工作项详情
@@ -216,12 +224,12 @@ export const countFunc = async (request: PluginRequest): Promise<PluginResponse>
 
 - [自动统计工作项某一类关联关系的数量](sample-script-field-float1.mdx)
 
-## FAQ
+## 常见问题
 
-##### 如果要创建多个脚本属性怎么办？
+**如果要创建多个脚本属性怎么办**
 
 `plugin.yaml`中的`abilities`是一个数组。可以使用多次该能力，但是数组中每个能力的 id 应该不同。
 
-##### 如果系统中存在同名属性是怎么处理的？
+**如果系统中存在同名属性是怎么处理的**
 
 同名属性分为两种情况。同名不同类型，这个时候启用插件会报错。同名同属性并且没有插件承载该属性的情况下，可以承载。

@@ -4,11 +4,17 @@
 
 | **ONES** |
 | -------- |
-| 3.6+     |
+| v3.6.0+  |
 
 ## Overview
 
-Sometimes plugin want to persist their own data. The database ability allows each plugin to have its own independent database and provides methods to access and manipulate it. This ability is compatible with **mysql version 5.7.x** SQL syntax.
+Sometimes plugin want to persist their own data. The database ability allows each plugin to have its own independent database and provides methods to access and manipulate it.
+
+:::note
+
+This ability is compatible with **mysql version 5.7.x** SQL syntax
+
+:::
 
 ## Usage
 
@@ -28,6 +34,10 @@ To create a database, you need to write the table creation statements of all tab
 
 **Sample SQL file:**
 
+:::tip
+The table name in the statement needs to be enclosed in {{ }}
+:::
+
 ```sql title=/workspace/plugin.sql
 CREATE TABLE IF NOT EXISTS `{{email_id_map}}`  (
     `email` varchar(128) CHARACTER SET latin1 NOT NULL COMMENT 'email',
@@ -36,17 +46,13 @@ CREATE TABLE IF NOT EXISTS `{{email_id_map}}`  (
 ) ENGINE = InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 ```
 
-:::caution NOTICE
-The table name in the statement needs to be enclosed in {{}}
-:::
-
 #### Step 3: Database initialization
 
 Call the `importSQL` method to create a database table. It is recommended to initialize the table in the plugin's `Install` method.
 
 **Example**:
 
-```typescript
+```typescript title="backend/src/index.ts"
 import { importSQL } from '@ones-op/node-database'
 
 // Lifecycle hook installation plugin

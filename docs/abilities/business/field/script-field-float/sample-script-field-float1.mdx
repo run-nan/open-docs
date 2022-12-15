@@ -2,7 +2,7 @@ import Image from '@theme/IdealImage'
 import sampleScriptFieldFload1 from './images/sample-script-field-float1.png'
 import sampleScriptFieldFload2 from './images/sample-script-field-float2.png'
 
-# Scene 1： Automatically count the number of relationships of a certain link type of issue
+# Scene ： Automatically count the number of relationships of a certain link type of issue
 
 ## Scene description
 
@@ -22,15 +22,15 @@ Through the way of script filed, the number of issue whose link relationship is 
 
 ### Implementation idea
 
-Use "Plugin Script fileds - Number" ability.In the script filed calculation method, the uuid of a issue requests ONES to obtain the number of issue link relationship with its "Link". The assembly script filed calculation method returns parameters and returns, and you can enable the plugin to add the script filed to the issue.
+Use `Plugin Script fields - Floating point number` ability.In the script filed calculation method, the uuid of a issue requests ONES to obtain the number of issue link relationship with its "Link". The assembly script filed calculation method returns parameters and returns, and you can enable the plugin to add the script filed to the issue.
 
 ### Plugin development
 
-1. Use OP tool to add ability "Plugin Script fileds - Number".
+1. Use OP tool to add ability `Plugin Script fields - Floating point number`.
 
-2. Modify the configuration related to script filed in the `{{plugin root directory}}/config/plugin.yaml`.
+2. Modify the configuration related to script filed in the plugin configuration file `plugin.yaml`.
 
-```yaml
+```yaml title="config/plugin.yaml"
 service: ...
 apis: ...
 modules: []
@@ -49,7 +49,12 @@ abilities:
 ```
 
 3. In the script filed method `linkTime`, use graphQL to query the number of "Link" issue in batches.
-   > Note: In the case of batch input of issue(task) uuid, we try to use graqhQL only once for processing, otherwise a large number of network requests will be generated.
+
+:::caution
+
+In the case of batch uuid, we try to use graqhQL only once, otherwise a large number of network requests will be generated.
+
+:::
 
 ```typescript
 import { fetchONES } from '@ones-op/node-fetch'
@@ -64,7 +69,6 @@ export const linkTime = async (request: PluginRequest): Promise<PluginResponse> 
       uuidArray.push(taskUUID)
     }
     const jsonUuidArray = JSON.stringify(uuidArray)
-    console.log(JSON.stringify(uuidArray))
     const tempAbility = await fetchONES({
       path: `/team/${globalThis.onesEnv.teamUUID}/items/graphql`,
       method: 'POST',

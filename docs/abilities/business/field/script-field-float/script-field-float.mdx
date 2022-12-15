@@ -8,7 +8,7 @@ import scriptFieldFloat2 from './images/script-field-float2.png'
 
 | **ONES** |
 | :------- |
-| 3.6+     |
+| v3.6.0+  |
 
 ## Overview
 
@@ -20,11 +20,13 @@ Scenarios where script fields apply:
 1. Count the value by a certain calculation rule
 2. Hoped that the value is accurate and cannot be artificially altered
 
-When the plugin executes the install method, the issue field is created and added to the global fields list. The user can add this field to the desired issue.
+### Performance
+
+When the plugin executes the install method, the issue field is created and added to the global fields list. The user can add this field to the desired issue type.
 
 <Image img={scriptFieldFloat2} />
 
-When the plugin is unabled/uninstalled, the value of this field becomes 0, becoming a read-only field that loses its statistical function. This field is put back into use when the plugin is re-enabled/installed.
+When the plugin is unabled/uninstalled, the value of this field becomes 0, becoming a read-only field that loses its statistical function. This field is put back into use when the plugin is disabled/installed.
 
 ## Usage
 
@@ -44,8 +46,8 @@ Select and add `script-field-float@1.0.0`
 
 The OP tool will ask if you want to use the default value, just choose yes, and the OP tool will add the following to the plugin
 
-- The OP tool adds `abilitiy` field related paragraphs in `{{plugin root directory}}/config/plugin.yaml`
-  ```yaml
+- The OP tool adds `abilitiy` field related paragraphs in plugin configuration file `plugin.yaml`
+  ```yaml title="config/plugin.yaml"
   service:
     app_id: ...
     name: ability-scriptFloat
@@ -65,9 +67,9 @@ The OP tool will ask if you want to use the default value, just choose yes, and 
           fieldType: Input
           show: false
   ```
-- The OP tool adds files to the plugin in `{{plugin root directory}}/backend/src/script-field-float.ts`
+- The OP tool adds file `script-field-float.ts` to the plugin backend
 
-  ```typescript
+  ```typescript title="backend/src/script-field-float.ts"
   import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 
   // 示例方法 脚本浮点型的计算方法
@@ -123,9 +125,9 @@ The OP tool will ask if you want to use the default value, just choose yes, and 
 
 ### Step 2: Modify plugin configuration file
 
-Modify the corresponding content of the script field in the `{{plugin root directory}}/config/plugin.yaml`, where `config` is the configuration of the script field, and the value corresponding to the 'FieldName' key is the script field's name. Change it to the name you need. Here, change it to **脚本属性 1**, the value of `calcFieldValue` corresponds to the script field method name, and you can change it to the method name you want. Here, change it to **countFunc**.
+Modify the corresponding content of the apability in the plugin configuration file, where **abilities.config** is the configuration of the script field ability, and the value of **abilities.config.value** is the name of the script field,here it is changed to "脚本属性 1",The value of **abilities.function.calcFieldValue** is the name of the script field calculation method, and here it is changed to "countFunc".
 
-```yaml
+```yaml title="config/plugin.yaml"
 service:
   app_id: ...
   name: ability-scriptFloat
@@ -148,9 +150,15 @@ abilities:
 
 ### step 3: Complete the script field calculation rule
 
-Modify the script field method, which defaults to the `calcFieldValues` method of `{{plugin root directory}}/backend/src/script-field-float.ts`. Note that the value in the returned parameter `returnValue` defaults to floating point, and its unit defaults to `1 / 100000`. You can modify your script field calculation logic according to the content in the comments. You can implement this method in any path at the backend of the plugin, but be careful to throw the method.
+Modify the script field method, which defaults to the `calcFieldValues` method of `{{plugin root directory}}/backend/src/script-field-float.ts`.
 
 The default implementation method is given here, which only follows the previous step and modifies the method name to `countFunc`
+
+:::info
+
+Note that the value in the returned parameter `returnValue` defaults to floating point, and its unit defaults to `1 / 100000`. When the returned value is **200000**, the actual value is **2**
+
+:::
 
 ### Scope of use of ability
 
@@ -167,13 +175,19 @@ The default implementation method is given here, which only follows the previous
   The filter within the itemset displays script fields as filter criteria
 
 - Task
-
+  <p />
   New task pop-up window
+  <br />
   Task Detals
+  <br />
   Task list (table view) and header configuration
+  <br />
   Batch New task
+  <br />
   Modify task fields in bulk
+  <br />
   Batch import
+  <br />
   Batch export
 
 ## Examples

@@ -6,7 +6,7 @@ We provide a set of interfaces related to the plugin database, allowing plugin d
 
 | **ONES** |
 | -------- |
-| 3.6+     |
+| v3.6.0+  |
 
 ## API
 
@@ -16,15 +16,9 @@ Initialize the database
 
 #### Params
 
-| parameters  | explain       |  type  | required | default value |
-| :---------: | :------------ | :----: | :------: | :-----------: |
-| sqlFileName | sql file path | string |    Y     |               |
-
-#### Returns
-
-| parameters | explain | type |
-| :--------: | :------ | :--: |
-|    none    | -       |  -   |
+| parameters  | explain       | type   | required | default value |
+| :---------- | :------------ | :----- | :------- | :------------ |
+| sqlFileName | sql file path | string | Y        | -             |
 
 #### Example
 
@@ -42,15 +36,15 @@ Receives the sql statement related to the query and returns the query result, wh
 
 #### Params
 
-| parameters | explain                            |  type  | required | default value |
-| :--------: | :--------------------------------- | :----: | :------: | :-----------: |
-|    sql     | sql statement related to the query | string |    Y     |               |
+| parameters | explain                            | type   | required | default value |
+| :--------- | :--------------------------------- | :----- | :------- | :------------ |
+| sql        | sql statement related to the query | string | Y        | -             |
 
 #### Returns
 
-| parameters | explain          |         type         |
-| :--------: | :--------------- | :------------------: |
-|   result   | sql query result | Record<string,any>[] |
+| parameters | explain          | type                 |
+| :--------- | :--------------- | :------------------- |
+| result     | sql query result | Record<string,any>[] |
 
 #### Example
 
@@ -72,16 +66,10 @@ Execute the relevant sql statement and no result is returned. If sql execution f
 
 #### Params
 
-| parameters | explain                                                                        |  type  | required | default value |
-| :--------: | :----------------------------------------------------------------------------- | :----: | :------: | :-----------: |
-|  operate   | operation type，'insert' 、'update' 、 'delete' 、'create' 、'alter' 、 'drop' | string |    Y     |               |
-|    sql     | sql statement                                                                  | string |    Y     |               |
-
-#### Returns
-
-| parameters | explain | type |
-| :--------: | :------ | :--: |
-|    none    | -       |  -   |
+| parameters | explain                                                                        | type   | required | default value |
+| :--------- | :----------------------------------------------------------------------------- | :----- | :------- | :------------ |
+| operate    | operation type，'insert' 、'update' 、 'delete' 、'create' 、'alter' 、 'drop' | string | Y        | -             |
+| sql        | sql statement                                                                  | string | Y        | -             |
 
 #### Example
 
@@ -106,15 +94,15 @@ Count related sql interface.If the sql execution is a failure, it will throw err
 
 #### Params
 
-| parameters | explain       |  type  | required | default value |
-| :--------: | :------------ | :----: | :------: | :-----------: |
-|    sql     | sql statement | string |    Y     |               |
+| parameters | explain       | type   | required | default value |
+| :--------- | :------------ | :----- | :------- | :------------ |
+| sql        | sql statement | string | Y        | -             |
 
 #### Returns
 
-| parameters | explain             |  type  |
-| :--------: | :------------------ | :----: |
-|   result   | statistical results | number |
+| parameters | explain             | type   |
+| :--------- | :------------------ | :----- |
+| result     | statistical results | number |
 
 #### Example
 

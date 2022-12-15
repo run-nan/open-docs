@@ -9,19 +9,27 @@ import scriptFieldSelection3 from './images/script-field-selection3.png'
 
 | **ONES** |
 | :------- |
-| 3.6+     |
+| v3.6.0+  |
 
 ## 概述
 
 该能力允许插件实现了一个类型为“**单选菜单/多选菜单**”的特殊的`工作项/项目`属性。脚本属性和同类型系统属性在 **ONES** 的表现形式是一样的（同样支持通过筛选器查找，支持进行排序展示），它们不同点在于，脚本属性的名称是由插件的代码决定的，用户不能在 ONES 上进行修改，并且其各个选项值由它自己的业务逻辑计算得出，插件开发者可以通过实现不同的脚本属性值计算规则，完成多样的业务开发。
 
-在插件安装时，会执行创建该脚本属性(单选菜单或多选菜单)，并且添加到全局属性列表中。用户可以将该属性添加到需要的`工作项/项目`上。
+### 能力表现
 
-工作项的脚本属性允许移除，但是项目的**脚本属性**添加后无法移除,并且两者在 ONES 中均无法移除。
+在插件安装时，会执行创建该脚本属性(单选菜单或多选菜单)，并且添加到全局属性列表中。用户可以将该属性添加到需要的`工作项类型/项目`上
+
+:::caution
+
+添加进工作项类型中的脚本属性允许移除，但是全局的脚本属性和项目中的脚本属性添加后无法移除
+
+:::
+
+<br />
+
+该脚本属性添加到`工作项类型/项目`后，表现与其它系统属性相同。
 
 <Image img={scriptFieldSelection1} />
-
-该脚本属性添加到`工作项/项目`后，表现与其它系统属性相同。
 
 ### 工作项中的脚本属性 - 单选/多选
 
@@ -31,7 +39,7 @@ import scriptFieldSelection3 from './images/script-field-selection3.png'
 
 :::caution 注意
 
-- 当前项目属性只支持在项目的`概览`下使用，在项目的属性表头下并不适用。
+当前项目属性只支持在项目的`概览`下使用，在项目的属性表头下并不适用。
 
 :::
 
@@ -41,13 +49,13 @@ import scriptFieldSelection3 from './images/script-field-selection3.png'
 
 按如下步骤即可使用该能力。
 
-### 第一步: 在`config/plugin.yaml`文件中，`apis`字段内新增内容。
+### 第一步: 在插件配置文件`config/plugin.yaml`文件中，`apis`字段内新增内容
 
 这一步是为在插件中暴露一个接口，当用户点击该能力生成的脚本属性时，ONES 会通过这个接口获取该脚本属性的选项内容。
 
-在 `plugin.yaml` 中添加 `/scriptFieldSearch` 接口, 即使添加多个**单选/多选**类型的脚本属性也只需要配置一次。
+在插件配置文件中添加 `/scriptFieldSearch` 接口, 多个**单选/多选**类型的脚本属性共用该接口
 
-```yaml
+```yaml title="config/plugin.yaml"
 service:
   app_id: ...
   name: ability-scriptSelection
@@ -64,10 +72,9 @@ apis:
 
 #### 使用`FieldsAdd`方法，创建`工作项`下的脚本属性
 
-```typescript
+```typescript title="backend/src/index.ts"
 import { Field } from '@ones-op/node-ability'
 import { Logger } from '@ones-op/node-logger'
-import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 
 export async function Install() {
   Logger.info('[Plugin] Install')
@@ -92,16 +99,18 @@ export async function Install() {
 }
 ```
 
-**参数介绍**
+**FieldsAdd 参数介绍**
 
 | 参数 | 类型   | 说明                                            |
-| ---- | ------ | ----------------------------------------------- |
+| :--- | :----- | :---------------------------------------------- |
 | Name | string | 属性名称                                        |
 | Type | int    | 脚本属性类型<br />- 1001：单选<br/>- 1002：多选 |
 
+---
+
 #### 使用`ItemsAdd`方法，创建`项目`下的脚本属性
 
-```typescript
+```typescript title="backend/src/index.ts"
 import { Field, FieldTypeEnum, PoolEnum } from '@ones-op/node-ability'
 import { Logger } from '@ones-op/node-logger'
 
@@ -129,10 +138,10 @@ export async function Install() {
 }
 ```
 
-**参数介绍**
+**ItemsAdd 参数介绍**
 
 | 参数        | 类型   | 说明                                                                                            |
-| ----------- | ------ | ----------------------------------------------------------------------------------------------- |
+| :---------- | :----- | :---------------------------------------------------------------------------------------------- |
 | FieldType   | string | 脚本属性类型：<br />- `FieldTypeEnum.SingleLabel`: 单选<br />- `FieldTypeEnum.MultiLabel`: 多选 |
 | Name        | string | 属性名称                                                                                        |
 | ItemType    | string | 固定值：`field`                                                                                 |

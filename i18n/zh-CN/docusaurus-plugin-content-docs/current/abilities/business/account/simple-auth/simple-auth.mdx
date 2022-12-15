@@ -17,8 +17,6 @@ import simpleAuth3 from './images/simple-auth3.png'
 
 通过该能力，用户可以无需 ONES 密码，请求简单登录的专用接口，使用自己的逻辑完成登录。我们以默认的简单登录实现为示例，通过 postman 请求简单登录的专用接口，仅需提供用户的`user_uuid`，无需提供账号及密码，即可成功登录。
 
-<Image img={simpleAuth1} />
-
 ## 使用
 
 通过 OP 工具添加该能力，然后在该能力的对应方法中实现自己的登录验证逻辑即可，该方法名默认为`SimpleAuthValidate`，用户可以在`config/plugin.yaml`中修改方法名，相关步骤如下所示。

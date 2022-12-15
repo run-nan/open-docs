@@ -1,4 +1,4 @@
-# 场景一： 位置信息属性
+# 场景： 位置信息属性
 
 ## 场景描述
 
@@ -11,11 +11,17 @@
 
 通过向工作项中添加国家、省份和城市的三个类型为单选菜单的脚本属性来表达位置信息。将每个脚本属性的`fieldUUID`持久化进数据库中待后续使用。
 
+:::tip
+
+示例中出现的数据库相关 API: importSQL,exec,select 等请参考 **[数据库](../../../basic/database.mdx)** 能力
+
+:::
+
 ## 插件开发
 
-1. `{{插件根目录}}/config/plugin.yaml`中添加脚本属性 - 单选/多选相关配置
+#### 1. 在插件配置文件中添加脚本属性 - 单选/多选相关配置
 
-```yaml
+```yaml title="config/plugin.yam"
 service:
   app_id: ...
   name: ability-scriptSelection
@@ -28,9 +34,9 @@ apis:
     function: GetOptions
 ```
 
-2. 编写`plugin.sql`文件，建立`script_field`表，用于记录脚本属性`name`和`fieldUUID`的对应关系。
+#### 2. 编写`plugin.sql`文件，建立`script_field`表，用于记录脚本属性`name`和`fieldUUID`的对应关系。
 
-```sql
+```sql title="workspace/plugin.sql"
 -- SQL 描述文件, 一般用来初始化插件数据库， 可以配合 ImportSql() 使用
 -- 注意⚠️：表名需要用 {{}} 括起来
 CREATE TABLE IF NOT EXISTS `{{script_field}}`(
@@ -41,9 +47,9 @@ CREATE TABLE IF NOT EXISTS `{{script_field}}`(
     ) ENGINE = InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 ```
 
-3. 在插件安装时调用的`install`方法内，使用`FieldsAdd`方法添加国家、省份和城市三个的脚本属性，并且持久化不同脚本属性的 uuid 入数据库中。
+#### 3. 在插件安装时调用的`install`方法内，使用`FieldsAdd`方法添加国家、省份和城市三个的脚本属性，并且持久化不同脚本属性的 uuid 入数据库中。
 
-```typescript
+```typescript title="backend/src/index.ts"
 export async function Install() {
   Logger.info('[Plugin] Install')
   await importSQL('plugin.sql')
@@ -79,7 +85,7 @@ export async function Install() {
 }
 ```
 
-4. 在`GetOptions`方法内，根据数据库记录的对应关系，识别出国家、省份和城市三个的脚本属性，并返回对应信息。
+#### 4. 在`GetOptions`方法内，根据数据库记录的对应关系，识别出国家、省份和城市三个的脚本属性，并返回对应信息。
 
 ```typescript
 const Countries: string[] = ['America', 'China', 'Japan']
@@ -96,10 +102,15 @@ const Cities: string[] = [
   'Hokkaido',
 ]
 
+interface OptionType {
+  uuid: string //属性值`UUID`
+  value: string //属性值
+}
+
 export async function GetOptions(request: PluginRequest): Promise<PluginResponse> {
   const body = request?.body as any
   const options: OptionType[] = [] //返回的选项数据
-  let field = await getFieldMap()
+  const field = await getFieldMap()
   console.log(body)
   switch (field.get(body.field_uuid)) {
     case 'Country':

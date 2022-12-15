@@ -4,9 +4,9 @@ We provide a set of interface request libraries that allow plugin developers to 
 
 ## Compatibility Requirements
 
-| **Constraint** | **Content**                    |
-| :------------- | :----------------------------- |
-| ONES VERSION   | LTS：3.6.x<br />Feature：3.6.x |
+| **ONES** |
+| -------- |
+| v3.6.0+  |
 
 ## API
 
@@ -18,7 +18,7 @@ Get user language
 
 | parameters | explain   | type   | required | default value |
 | :--------- | :-------- | :----- | :------- | :------------ |
-| user_uuid  | user uuid | string | Y        |               |
+| user_uuid  | user uuid | string | Y        | -             |
 
 #### Returns
 
@@ -44,8 +44,8 @@ Gets the corresponding content of the specified language
 
 | parameters | explain                   | type   | required | default value |
 | :--------- | :------------------------ | :----- | :------- | :------------ |
-| language   | language type             | string | Y        |               |
-| key        | the field you want to get | string | Y        |               |
+| language   | language type             | string | Y        | -             |
+| key        | the field you want to get | string | Y        | -             |
 
 #### Returns
 

@@ -1,21 +1,27 @@
-# Scene 1： Location information property
+# Scene 1： Location information field
 
 ## Scene description
 
-Uses want to set location information, including country, province, and city, in the issue item properties.
-And these properties conform to real constraints with each other, which are implemented using `Plugin fieldGroup` ability.(Examples[Location information FieldGroup](../fieldgroup/location-fieldgroup.md))，this scene only provides the implementation of the script properties themselves。
+Uses want to set location information, including country, province, and city, in the issue item fields.
+And these fields conform to real constraints with each other, which are implemented using `Plugin fieldGroup` ability.(Examples[Location information FieldGroup](../fieldgroup/location-fieldgroup.md))，this scene only provides the implementation of the script fields themselves。
 
 ## Solution
 
 ### Implementation idea:
 
-Location information is expressed by adding script properties of three types of country, province, and city to the issue item, which are radio menus. Persist the `fieldUUID` of each script property into the database for later use.
+Location information is expressed by adding script fields of three types of country, province, and city to the issue item, which are radio menus. Persist the `fieldUUID` of each script field into the database for later use.
+
+:::tip
+
+For the database-related API: importSQL,exec,select that appears in the example, please refer to **[Database](../../../basic/database.mdx)** ability
+
+:::
 
 ## Plugin development
 
-1. Add related configuration in `{{plugin root directory}}/config/plugin.yaml`
+1. Add related configuration in plugin configuration file `plugin.yaml`
 
-```yaml
+```yaml title="config/plugin.yam"
 service:
   app_id: ...
   name: ability-scriptSelection
@@ -28,9 +34,9 @@ apis:
     function: GetOptions
 ```
 
-2. Write the `plugin.sql` file and create `script_field` table to record the corresponding relationship between the `name` and `fieldUUID` of script properties.
+2. Write the `plugin.sql` file and create `script_field` table to record the corresponding relationship between the `name` and `fieldUUID` of script fields.
 
-```sql
+```sql title="workspace/plugin.sql"
 -- SQL 描述文件, 一般用来初始化插件数据库， 可以配合 ImportSql() 使用
 -- 注意⚠️：表名需要用 {{}} 括起来
 CREATE TABLE IF NOT EXISTS `{{script_field}}`(
@@ -41,9 +47,9 @@ CREATE TABLE IF NOT EXISTS `{{script_field}}`(
     ) ENGINE = InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 ```
 
-3. In the `install` method called when the plugin is installed, use the `FieldsAdd` method to add script properties of country, province and city, and persist the uuid of different script properties into the database.
+3. In the `install` method called when the plugin is installed, use the `FieldsAdd` method to add script fields of country, province and city, and persist the uuid of different script fields into the database.
 
-```typescript
+```typescript title="backend/src/index.ts"
 export async function Install() {
   Logger.info('[Plugin] Install')
   await importSQL('plugin.sql')
@@ -57,7 +63,7 @@ export async function Install() {
     })
     if (FieldsAddProjectRes.Error) {
       //如果添加失败，抛出异常
-      throw new Error('Failed to create property')
+      throw new Error('Failed to create field')
     }
     //添加成功返回属性的UUID
     const { UUID: fieldUUID } = FieldsAddProjectRes
@@ -79,7 +85,7 @@ export async function Install() {
 }
 ```
 
-4. In the `GetOptions` method, the script properties of country, province and city are identified according to the corresponding relationship of database records, and the corresponding information is returned.
+4. In the `GetOptions` method, the script fields of country, province and city are identified according to the corresponding relationship of database records, and the corresponding information is returned.
 
 ```typescript
 const Countries: string[] = ['America', 'China', 'Japan']
@@ -96,10 +102,15 @@ const Cities: string[] = [
   'Hokkaido',
 ]
 
+interface OptionType {
+  uuid: string //属性值`UUID`
+  value: string //属性值
+}
+
 export async function GetOptions(request: PluginRequest): Promise<PluginResponse> {
   const body = request?.body as any
   const options: OptionType[] = [] //返回的选项数据
-  let field = await getFieldMap()
+  const field = await getFieldMap()
   console.log(body)
   switch (field.get(body.field_uuid)) {
     case 'Country':
