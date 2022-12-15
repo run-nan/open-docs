@@ -50,9 +50,9 @@ When the plugin upgrades, it replaces the files in the `workspace` directory acc
 
 - exclude
 
-  Exclude list, support regular expressions to match files, hit files do not apply `rule` rules. For example, if `rule` is configured with `save_old`, the list of files hit by the `exclude` rule uses the `save_new` policy.
+  Exclusion list, supports regular expression matching files, the hit files do not apply `rule` rules.
 
-Sample configuration: This configuration means that when the files in the `workspace` directory of the old and new plugin conflict, the files in the new plugin will be kept. `exclude` matched files, keep files from old plugin
+Sample configuration: This configuration means that when the files in the `workspace` directory of the old and new plugin conflict, the files in the new plugin will be kept. The files matched by `exclude`, except `a.txt` and files in the `temp` directory
 
 ```yaml
 workspace:

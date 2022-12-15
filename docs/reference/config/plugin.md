@@ -276,7 +276,7 @@ modules:
 
 - type：`string`
 
-Permission identifier, locally with plugin permissions or abilities. More information [here](../../abilities/basic/customPermission/).
+Permission identifier, locally with plugin permissions or abilities. More information [here](../../abilities/business/permission/customPermission/).
 
 ### modules {#subModule}
 

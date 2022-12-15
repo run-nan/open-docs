@@ -1,0 +1,260 @@
+import Image from '@theme/IdealImage'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Independent hosting service
+
+## Requirements
+
+| ONES      | @ones/cli-ability-template | @ones/cli-plugin |
+| --------- | -------------------------- | ---------------- |
+| v3.10.28+ | 1.4.0                      | 1.5.1            |
+
+## Overview
+
+Open platform provides the ability to Independent hosting service, which is an independent and complete web service, which can be common network services such as static website service, file storage service or proxy service. Using this ability, independent services can be deployed in the ONES in the form of plugin, and maintained and managed uniformly by the internal mechanism of the ONES. More customized features can be achieved by using this ability, such as the following scenarios:
+
+1. When you want to implement a standard external service built into ONES, such as API account synchronization, general storage service, etc.
+2. Deploy existing services to ONES so that plugin or other external services can be invoked
+3. Static website service, which embeds an independent website in the subdomain name of the ONES deployment instance
+
+### Ability performance
+
+Embed an existing service into the ONES, and the effect is as follows:
+
+- Enable the service locally, and access the service to return the result
+
+  <Image img={require('./images/independent-service-01.png')} />
+
+- Package the service into a plugin and install and enable it in the ONES. The following figure shows the plugin details page where the plugin is installed to an environment:
+
+  <Image img={require('./images/independent-service-02.png')} />
+
+- As shown in the following figure, the service built into the ONES can be accessed through a specific URL, and the result returned is no different from that of the local deployment.
+
+  <Image img={require('./images/independent-service-03.png')} />
+
+## Usage
+
+### Step 1: Develop independent service
+
+**Independent services need to meet the following requirements**
+
+- Parameter reception
+
+  When starting an independent service, the platform passes two parameters, `port` and `args`, to the independent service, where the `port` parameter is the `port` that the independent service listens to, and `args` is the other parameter passed into the independent service. Therefore, these two parameters must be received and processed in the independent service.
+
+- Record process PID
+
+  In a independent service, you must record the process PID to the `pid.txt` file in the current directory
+
+- Compile executable files according to the system architecture of the operating environment
+
+  The system architecture of the running environment for independent services is **Linux amd64**
+  It is recommended to compile the independent service binaries in the native **Linux amd64** environment. To ensure the normal startup of the independent service, you need to self check according to the following process:
+
+  1. Build a private deployment environment and copy the binaries of the web service into the container of the private deployment environment to try to run it to ensure that it can be executed
+
+  2. On the **Linux amd64** machine, copy the binaries of the web service to the docker container with the underlying image `node:16.13.1` and try to run it to ensure that it can be executed.
+
+  3. On a `Linux amd64` machine run the following command
+
+  ```shell
+   docker run -itd --name=node16  node:16.13.1
+   docker cp ./web_service node16:/web_service
+   docker exec -it node16 bash
+   ./web_service
+  ```
+
+**Recommended writing for independent service**
+
+<Tabs>
+<TabItem value="go" label="Goland">
+
+```go
+// Goland
+package main
+import (
+    "flag"
+    "fmt"
+    "github.com/gin-gonic/gin"
+    "log"
+    "os"
+    "strconv"
+)
+
+var (
+    port int
+    args string
+)
+
+func init() {
+    flag.IntVar(&port, "port", 0, "int flag value")
+    flag.StringVar(&args, "args", "", "int flag value")
+}
+
+func main() {
+    pid := os.Getpid()
+    fmt.Printf("Process PID: %d \n", pid)
+
+    err := os.WriteFile("./pid.txt", []byte(strconv.Itoa(pid)), 0644)
+    if err != nil {
+        log.Fatal("Failed to record the process", err)
+    }
+
+    flag.Parse()
+    r := gin.Default()
+    r.GET("/", func(c *gin.Context) {
+        c.String(200, "Hello World!")
+    })
+    fmt.Println("port:", port)
+    fmt.Println("args:", args)
+    log.Fatal(r.Run(fmt.Sprintf(":%d", port)))
+}
+```
+
+</TabItem>
+
+</Tabs>
+
+### Step 2: Write independent service management scripts
+
+The independent service is started and stopped through the `workspace/start.sh` script file, and the script needs to meet the following requirements:
+
+- Ensure that the binary of the independent service has permission to execute the **shell** file
+
+- Need to support `start` and `stop` instructions
+
+- The `start` instruction needs to receive the parameter `port`, `args`, for example: `./hello_service --port=PARAMS_PORT --args=Args`
+
+- The `start` instruction needs to be started in the background when it is implemented, for example:`/usr/bin/nohup ./hello_service --port=$PARAMS_PORT --args=$Args >/dev/null 2>&1 &`
+
+**Recommended way of writing**: If there is no special requirement, it can be used directly, just modify the name of the binary file in the startup command (replace `hello_service` in the following content)
+
+```shell title="workspace/plugin.yaml"
+#!/bin/bash
+
+usage() {
+    echo -e "Usage: $(basename $0) [options]"
+    echo -e " start"
+
+    exit 1
+}
+
+# Deal with startup service
+start() {
+    echo "/usr/bin/nohup ./hello_service --port=$PARAMS_PORT --args=$ARGS >/dev/null 2>&1 &"
+    /usr/bin/nohup ./hello_service --port=$PARAMS_PORT --args=$ARGS > nohup.out 2>&1 &
+}
+
+# Processing stop service
+stop() {
+  # The pid.txt here must be consistent with the interior of the service
+  echo "kill -9 $(cat pid.txt)"
+  kill -9 "$(cat pid.txt)"
+}
+
+parse_config() {
+    for arg in ${ARGS}
+    do
+        case ${arg} in
+            --port=*)
+                PARAMS_PORT=${arg#*=}
+                ;;
+            --path=*)
+                PATH=${arg#*=}
+                ;;
+            --args=*)
+                ARGS=${arg#*=}
+                ;;
+        esac
+    done
+}
+
+ARGS="$@"
+# Declaration instruction (this is the entrance)
+
+parse_config
+case $1 in
+help) usage;;
+start) start;;
+stop) stop;;
+*) usage;;
+esac
+```
+
+:::tip
+The above writing method will redirect the standard output of the independent service to the `nohup.out` file, and additional processing is required when the log information is stored in it to prevent accumulation and occupation of disk storage.
+:::
+
+### Step 3: Add ability configuration
+
+By using `npx op add ability` to add the `web-service` ability, the following content is added to the `abilities` field of the `plugin.yaml` configuration file:
+
+```yaml title="config/plugin.yaml"
+abilities:
+  - id: qRUFfcomn
+    name: 'hello_service_plugin'
+    version: 1.0.0
+    abilityType: web_service
+    config:
+      - key: root_route
+        value: file_storage
+        fieldType: Input
+        show: false
+      - key: start_file
+        value: 'start.sh'
+        fieldType: Input
+        show: false
+      - key: is_open
+        value: false
+        fieldType: Input
+        show: false
+      - key: args
+        value: 'name'
+        fieldType: Input
+        show: false
+```
+
+The role of each configuration in `abilities.config` is shown in the following table, and whether to display it on the plugin details page is decided according to the show attribute in each data:
+
+| **Configuration item** | **Action**                                                                                       |
+| ---------------------- | ------------------------------------------------------------------------------------------------ |
+| root_route             | When the independent service is started, the access path is generated based on the configuration |
+| start_file             | Name of the independent service management script                                                |
+| is_open                | Indicates whether external access is allowed                                                     |
+| args                   | Parameters passed to independent services                                                        |
+
+### Step 4: Package plugin
+
+Copy the binary file and management script of the independent service to the `workspace` directory of the plugin project, and package the plugin. The directory structure is as follows:
+
+```
+workspace          //Plugin project workspace directory
+├── hello_service  //Executable files for independent services
+└── start.sh       //Management scripts for independent services
+```
+
+### Access independent service
+
+independent services support both external and internal access after the plugin is successfully installed and enabled:
+
+- **External access**
+
+  url splicing rules： `url = {{ONES-host}}/plugin_service/{{root_route}}`，`ONES-host` is the access address of the ONES, and `root_route` is the plugin ability configuration.
+
+  eg：https://your-host:10000/plugin_service/file_storage/
+
+  - `https://your-host:10000` this paragraph is the domain name based on your environment.
+  - `plugin_service` is a specific prefix that accesses independently owned
+  - `file_storage` is the value of `root_route` that you declare in your ability.
+
+- **Internal access**
+
+  Independent deployment: `http://127.0.0.1:9008/{{root_route}}`
+
+  Highly available deployment：`http://plugin-service-proxy-svc:9007/{{root_route}}`
+
+## Examples
+
+- [Use external storage](./external-storage)

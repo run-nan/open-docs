@@ -276,7 +276,7 @@ modules:
 
 - 类型：`string`
 
-权限标识，与插件权限或能力配合使用，详情见 [插件自定义权限点](../../abilities/basic/customPermission/)
+权限标识，与插件权限或能力配合使用，详情见 [插件自定义权限点](../../abilities/business/permission/customPermission/)
 
 ### modules {#subModule}
 

@@ -133,7 +133,7 @@ export const features: {
           {
             /** 超级用户 */
             label: <Translate>Super admin</Translate>,
-            url: `${baseUrl}abilities/basic/plugin-superuser`,
+            url: `${baseUrl}abilities/basic/super-admin`,
           },
           {
             /**  文件操作 */
@@ -143,13 +143,13 @@ export const features: {
           {
             /** 数据库 */
             label: <Translate>Database</Translate>,
-            url: `${baseUrl}abilities/basic/plugin-db`,
+            url: `${baseUrl}abilities/basic/database`,
           },
 
           {
             /** 错误处理 */
             label: <Translate>Error handling</Translate>,
-            url: `${baseUrl}abilities/basic/plugin-api-error-handle`,
+            url: `${baseUrl}abilities/basic/error-handling`,
           },
           {
             /** 多语言-国际化 */
@@ -184,7 +184,7 @@ export const features: {
           {
             /** ONES 接口 */
             label: <Translate>ONES interface</Translate>,
-            url: `${baseUrl}abilities/business/ONES-API-operation`,
+            url: `${baseUrl}abilities/business/ONES-API`,
           },
           {
             /** 属性 */
@@ -215,7 +215,7 @@ export const features: {
           {
             /** 托管独立应用 */
             label: <Translate>Independent hosting service</Translate>,
-            url: `${baseUrl}abilities/business/host-standalone-application`,
+            url: `${baseUrl}abilities/business/Independent-hosting-service`,
           },
           {
             /** 文件解析 */

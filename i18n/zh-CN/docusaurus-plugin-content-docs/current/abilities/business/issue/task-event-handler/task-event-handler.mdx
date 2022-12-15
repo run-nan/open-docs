@@ -1,0 +1,240 @@
+import Image from '@theme/IdealImage'
+
+# 工作项处理器
+
+## 要求
+
+| ONES     | @ones/cli-ability-template | @ones/cli-plugin |
+| -------- | -------------------------- | ---------------- |
+| v3.7.54+ | 1.4.0                      | 1.5.1            |
+
+## 概述
+
+当你希望在工作项属性变更时做一些处理和校验，可以通过使用工作项处理器能力来实现需求。该能力能够在系统产生工作项更新事件时，对事件做前置处理、校验和后置通知。当安装了使用该能力的插件后，工作项更新事件会在处理之前先由插件进行前置处理，插件可根据需求对本次事件采取忽略、拒绝和修改等操作；而在事件处理完成之后，插件会收到一个通知，此时可进行一些后置的处理。
+
+**适用场景：**
+
+1. 工作项的某个属性或者状态在更改时有限制，例如不允许更改需求类型的工作项修改标题。
+2. 在工作项属性更改完成后，执行后置操作。例如更新了需求类型的工作项负责人之后，给对应的人员发送邮件。
+
+### 使用范围
+
+- **已覆盖**
+
+  包括工作项属性、脚本属性、状态的变化；
+
+  包括标品前端操作以及直接调用接口产生的事件；
+
+- **未覆盖**
+
+  不包括评论、上传文件等不直接改变属性/状态的操作；
+
+  不包括计算属性如停留次数、间隔时间等的变化；
+
+  不包括后置动作触发的变动；
+
+  不包括工时的处理（工时是一个单独的 `item` 类型，在后续能力中增加对应的类似能力）；
+
+  不包括非正常流程修改状态的功能所触发的状态变更；
+
+### 触发点
+
+- 工作项详情页面进行属性或状态修改
+- 批量修改工作项属性
+- 批量变更工作项类型
+
+### 能力表现
+
+使用工作项处理器能力配置不允许修改需求负责人，修改需求负责人时报错
+
+<Image img={require('./images/task-event-handle0.png')} />
+
+## 使用
+
+当 ONES 启用了使用工作项处理器能力的插件后，工作项属性和状态变更事件执行流程如下图所示：
+
+<Image img={require('./images/task-event-handle1.png')} />
+
+### 第一步：添加配置
+
+使用 `npx op add ability` 添加`task-event-handler`能力。添加之后会新增`backend/src/taskeventhandler.ts`文件，在配置文件中新增了以下配置。
+
+:::tip
+开发者只需要关注的**工作项类型**和**工作项属性**两个配置，支持配置多个**工作项类型**和**工作项属性**，多个配置之间以 **","** 分隔。
+:::
+
+示例配置: 表示关注**需求**、**缺陷**和**任务**的**工作项类型**，关注**截止日期**和**负责人**的**工作项属性**的更改事件。
+
+```yaml title="config/plugin.yaml"
+abilities:
+  - id: de265bd9-9otf
+    name: 工作项处理器
+    abilityType: TaskEventHandler
+    version: 1.0.0
+    function:
+      taskActionDoneFunc: taskActionDone
+      taskPreActionFunc: taskPreAction
+    config:
+      - fieldType: Input
+        key: issueTypeScope
+        show: true
+        label: '工作项类型'
+        value: '需求,缺陷,任务'
+      - fieldType: Input
+        key: field
+        show: true
+        label: '工作项属性'
+        value: '截止日期,负责人'
+```
+
+### 第二步：添加前置处理
+
+`backend/src/taskeventhandler.ts`文件中会自动生成`taskPreAction`函数，该函数是前置处理函数，在事件生效前会先调用该函数，并根据返回内容采取不同的策略。
+
+- **返回内容**
+
+  `taskPreAction`函数返回内容的结构体如下所示，根据`is_follow`、`is_reject`和`task_events`字段的值采取不同策略：
+
+  - 忽略：设置返回的`is_follow = false`，表示插件不做额外处理，更新事件按正常流程执行。
+  - 拒绝：设置返回的`is_follow = true && is_reject = true`，表示不执行此次更新事件，直接结束。
+  - 接受：设置返回的`is_follow = true && is_reject = false`，表示接受此次事件，但不修改此次更新内容，只在事件完成之后通知插件。
+  - 修改：设置返回的`is_follow = true && is_reject = false` 并通过返回`task_events`对象添加属性修改，表示接受此次事件，对此次的更新内容进行修改并在事件完成之后通知插件。
+
+  ```typescript
+  type taskPreResponse = {
+    statusCode: number
+    body: {
+      code: number
+      body: {
+        is_follow: boolean
+        is_reject: boolean
+        reject_reason: string
+        task_events: any
+        other_data: string
+      }
+    }
+  }
+  ```
+
+  | 参数          | 类型        | 必填 | 说明                                             |
+  | ------------- | ----------- | ---- | ------------------------------------------------ |
+  | is_follow     | string      | Y    | 是否关注                                         |
+  | is_reject     | string      | Y    | 是否拒绝                                         |
+  | reject_reason | string      | N    | 拒绝原因                                         |
+  | task_events   | []TaskEvent | Y    | 变更的数据（插件可以添加变更属性值）             |
+  | other_data    | interface   | N    | 其他数据（该数据会传递到 `taskActionDone` 方法） |
+
+- **入参介绍**
+
+  在函数入参的请求体中包含以下内容：
+
+  | 参数        | 类型                                 | 是否必填 | 描述         |
+  | ----------- | ------------------------------------ | -------- | ------------ |
+  | user_uuid   | string                               | Y        | 用户 `uuid`  |
+  | lang        | string                               | Y        | 当前用户语言 |
+  | task_events | []<a href="#TaskEvent">TaskEvent</a> | Y        | 变更的数据   |
+
+  **TaskEvent**<span id="TaskEvent"></span>
+
+  | 参数                      | 类型                                           | 必填 | 说明                                                                                                                                                          |
+  | ------------------------- | ---------------------------------------------- | ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | task_fields               | []<a href="#TaskEventField">TaskEventField</a> | Y    | 变更属性列表                                                                                                                                                  |
+  | task_uuid                 | string                                         | Y    | 工作项的`uuid`                                                                                                                                                |
+  | action                    | string                                         | Y    | `update`:普通属性<br />`transit`：状态变更（带有步骤属性）<br />`change_issue_type`：工作项类型变更 <br />`publish_version`：版本发布 <br />`add`: 新建工作项 |
+  | issue_type_scope_uuid     | string                                         | Y    | 在所属项目下工作项类型 UUID                                                                                                                                   |
+  | issue_type_scope_name     | string                                         | Y    | 工作项类型在项目下的名字                                                                                                                                      |
+  | issue_type_scope_name_map | map[string]string                              | Y    | `issue_type_scope`在各个语言版本的名称                                                                                                                        |
+
+  **TaskEventField**<span id="TaskEventField"></span>
+
+  | 参数             | 类型              | 必填 | 说明                                                                                                        |
+  | ---------------- | ----------------- | ---- | ----------------------------------------------------------------------------------------------------------- |
+  | field_uuid       | string            | N    | 属性`uuid`                                                                                                  |
+  | field_type       | string            | N    | 属性类型                                                                                                    |
+  | field_name       | string            | N    | 属性名称的 `key`                                                                                            |
+  | field_name_map   | map[string]string | N    | 属性各个语言版本的名称比如： <br />en: 'Assignee/Owner' <br />origin: '{{field.assign}}' <br />zh: '负责人' |
+  | field_value_type | string            | N    | 字段值类型:<br />0 - any<br />1 - int<br />2 - string<br />3 - []string                                     |
+  | value            | interface         | N    | 属性值                                                                                                      |
+
+- **示例**
+
+  修改工作项属性或者状态之后，会同步修改该工作项的标题。
+
+  ```typescript
+  // 落盘前调用，支持添加属性修改
+  export async function taskPreAction(request: PluginRequest): Promise<PluginResponse> {
+    const body = request?.body as any
+    const userUUID = body.user_uuid
+    const lang = body.lang
+    const events = body.task_events
+    const action = events[0].action
+    Logger.info('nEvents', events)
+    Logger.info('userID:', userUUID)
+    Logger.info('lang', lang)
+    Logger.info('action', action)
+    // 添加属性修改
+    const aField = {
+      field_name: '标题',
+      value: '测试添加属性修改标题',
+    }
+    events[0].task_fields.push(aField)
+    return {
+      statusCode: 200,
+      body: {
+        code: 200,
+        body: {
+          is_follow: true,
+          is_reject: false,
+          reject_reason: '',
+          task_events: events,
+          other_data: '其他数据',
+        },
+      },
+    }
+  }
+  ```
+
+### 第三步：添加后置处理
+
+`backend/src/taskeventhandler.ts`文件中会自动生成`taskActionDone`函数，该函数是后置处理，在事件生效之后会先调用该函数。
+
+- **参数介绍**
+
+  | 字段        | 类型                                 | 必填 | 说明                                          |
+  | ----------- | ------------------------------------ | ---- | --------------------------------------------- |
+  | user_uuid   | string                               | Y    | 用户`uuid`                                    |
+  | lang        | string                               | Y    | 当前用户语言                                  |
+  | task_events | []<a href="#TaskEvent">TaskEvent</a> | Y    | 变更的数据                                    |
+  | other_data  | interface                            | N    | 其他数据（该数据会来自 `taskPreAction` 方法） |
+
+- **示例**
+
+  ```typescript title="backend/src/taskeventhandler.ts"
+  export async function taskActionDone(request: PluginRequest): Promise<PluginResponse> {
+    var body = request?.body as any
+    var events = body.task_events
+    var otherData = body.other_data
+    var userUUID = body.user_uuid
+    var lang = body.lang
+    var action = events[0].action
+    Logger.info('ans event', events)
+    Logger.info('ans other_data', otherData)
+    Logger.info('ans userID:', userUUID)
+    Logger.info('ans lang', lang)
+    Logger.info('ans action', action)
+
+    return {
+      statusCode: 200,
+      body: {
+        code: 200,
+      },
+    }
+  }
+  ```
+
+### 注意事项
+
+1. `TaskEvent.action` 为 `transit`、`publish_version`时 ,不允许插件进行状态修改。
+2. `taskPreAction` 处理逻辑早于步骤属性必填校验，如果插件将步骤属性的必填项值改为空值，则会报错。
+3. `TaskEvent.action` 为`change_issue_type`时，不允许插件进行工作项类型和父工作项的修改。
+4. `TaskEvent` 暂不支持删除某个属性的变更。
