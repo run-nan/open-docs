@@ -1,12 +1,12 @@
 import Image from '@theme/IdealImage'
 
-# 自定义代码仓
+# 自定义集成代码仓
 
 ## 要求
 
-| **ONES** |
-| -------- |
-| 3.10.28+ |
+| **ONES**  |
+| --------- |
+| v3.11.53+ |
 
 ## 概述
 
@@ -40,15 +40,19 @@ import Image from '@theme/IdealImage'
 
 #### 1. 添加能力
 
-在 “插件根目录” 使用 `OP` 命令添加能力：
+在 “插件根目录” 使用 `OP` 命令添加能力，选择 `custom-code-repository` 类型：
 
 ```shell
-npx op add ability
+$ npx op add ability
+  ✔ Validating the input params
+  ✔ Validating project files exists
+  ✔ Generating initial answers by input params
+  ✔ Parsing plugin config content
+
+Pre-require tasks run successfully
+? Please select the ability you want to add: … custom-code-repository
+custom-code-repository@1.0.0
 ```
-
-选中并添加 `custom-code-repository`：
-
-<Image img={require('./images/code-repo-op-add-ability.png')} />
 
 OP 工具会询问是否使用默认值，选择是即可，OP 工具会为插件添加如下内容:
 
@@ -98,10 +102,10 @@ OP 工具会询问是否使用默认值，选择是即可，OP 工具会为插�
 
 - 在插件根目录的 `backend/src` 目录下新增 `custom-code-repository.ts` 文件。
 
-  文件中包括一个默认 `removeRepo` 方法实现，当管理人员在代码仓配置页面做 “移除关联” 操作时将调用此方法。提供该方法的主要目的是让插件能够收到代码仓被移除的通知。开发者可以保持不变，也可以修改此方法做自定义的清理逻辑（注意：方法的返回值不会影响系统移除关联代码仓）。
+  文件中包括一个默认 `removeRepo` 方法实现，当管理人员在代码仓配置页面做 “移除关联” 操作时将调用此方法。提供该方法的主要目的是让插件能够收到代码仓被移除的通知。开发者可以保持不变，也可以修改此方法做自定义的清理逻辑（方法的返回值不会影响系统移除关联代码仓）。
 
 ```typescript
-import type { PluginRequest, PluginResponse } from 'open-node/packages/types/dist/types/index'
+import { PluginRequest, PluginResponse } from '@ones-op/node-types'
 
 export async function removeRepo(request: PluginRequest): Promise<PluginResponse> {
   const body = request?.body as any
@@ -118,15 +122,19 @@ export async function removeRepo(request: PluginRequest): Promise<PluginResponse
 
 #### 2. 添加插槽
 
-在 “插件根目录” 使用 OP 命令添加插槽，用于自定义关联代码仓交互逻辑：
+在 “插件根目录” 使用 OP 命令添加插槽，选择 [ones:settings:pipeline:default:repo:link](../../slot/module/code_repository/index.md#onessettingspipelinedefaultrepolink) 类型插槽：
 
 ```shell
-npx op add module
+$ npx op add module
+  ✔ Validating the input params
+  ✔ Validating project files exists
+  ✔ Generating initial answers by input params
+  ✔ Parsing plugin config content
+
+Pre-require tasks run successfully
+? Please select the module type you want to add: … ones:settings:pipeline:default:repo:link
+ones:settings:pipeline:default:repo:link
 ```
-
-选中并添加 [ones:settings:pipeline:default:repo:link](../../slot/module/code_repository/index.md#onessettingspipelinedefaultrepolink) 类型插槽：
-
-<Image img={require('./images/code-repo-op-add-module.png')} />
 
 #### 3. 能力关联插槽
 
@@ -175,12 +183,12 @@ modules:
 
 区别于 ONES 系统内置的关联代码仓方式，点击「关联代码仓」下一步有默认的添加关联代码仓的弹窗页面，如下图 Github 方式的关联代码仓页面：
 
-<Image img={require('./images/code-repo-github-add-repo.png')} />
+<Image img={require('./images/code-repo-github-add-repo.png')} style={{ maxWidth: 600 }} />
 
 开发者需要在插槽 `ones-settings-pipeline-default-repo-link-R5w-` 自定义该关联代码仓页面逻辑，来实现 “代码仓平台的认证” 和 “新增关联代码仓” 功能，对于 “代码仓平台的认证” 可以是 OAuth、Token、账户密码或其他形式，也可以不认证，开发者可以视情况而定。
 
 :::caution 注意
-此页面关联代码仓成功或失败的提示文案，需由开发者实现。关联成功的代码仓将在代码仓管理页面展示，此时区别于内置类型关联的代码仓，插件关联的将展示 “查看详情” 按钮。
+此页面关联代码仓成功或失败的提示文案，需由开发者实现。关联成功的代码仓将在代码仓管理页面展示，此时区别于内置类型关联的代码仓，插件关联的将不展示 “查看详情” 按钮。
 :::
 
 ### 第三步：新增关联代码仓
@@ -190,27 +198,49 @@ modules:
 ```typescript
 import { addRepos } from '@ones-op/node-ability'
 
-const toolUUID: string = 'xxx';
-const list: AddRepoInfo[] = [...];
-const batchResponse = await addRepos(toolUUID, list);
+const toolUUID: string = 'xxx'
+const list: AddRepoInfo[] = [...]
+const batchResponse = await addRepos(toolUUID, list)
 ```
+
+`toolUUID` 字段对应自定义代码仓关联方式在 ONES 系统的 UUID 唯一标识，可以通过定义如下方法获取，其中 `CkrqExqC` 对应 `plugin.yaml` 文件中的能力 ID：
+
+```typescript
+import { getAbilityProperties } from '@ones-op/node-ability'
+
+export async function getRepoToolUUID(): Promise<string> {
+  const repoToolUUIDKey = 'repoToolUUID'
+  const abilityID = 'CkrqExqC'
+
+  let repoToolUUID = ''
+  const property = await getAbilityProperties(abilityID, [repoToolUUIDKey])
+  if (property?.repoToolUUID) {
+    repoToolUUID = property[repoToolUUIDKey]
+  }
+  return repoToolUUID
+}
+```
+
+:::caution 注意
+当为团队级别插件时调用 `getAbilityProperties` 方法时 `teamUUID` 可以不传，当为组织级别插件调用时 `teamUUID` 则为必传值。
+:::
 
 ### 第四步：新增代码仓提交（Commit）和合并请求（Pull Request）
 
 关联代码仓成功后，可以调用 SDK 的 [新增代码仓提交](../../../reference/packages/node-ability/node-ability.md#addrepocommits) 和 [新增代码仓合并请求](../../../reference/packages/node-ability/node-ability.md#addrepopullrequest) 同步数据到 ONES 系统。
 
-1. 新增码仓提交（Commit）：
+1. 新增代码仓提交（Commit）：
 
 ```typescript
 import { addRepoCommits } from '@ones-op/node-ability'
 
-const toolUUID: string = 'xxx';
-const repoUUID: string = 'xxx';
-const list: AddRepoInfo[] = [...];
+const toolUUID: string = 'xxx'
+const repoUUID: string = 'xxx'
+const list: AddRepoInfo[] = [...]
 await addRepoCommits(toolUUID, repoUUID, list)
 ```
 
-2. 新增码仓合并请求（Pull Request）：
+2. 新增代码仓合并请求（Pull Request）（支持新增和更新）：
 
 ```typescript
 import { addRepoPullRequest } from '@ones-op/node-ability'
@@ -266,3 +296,7 @@ const repoInfos = await queryRepos(toolUUID)
 - 能力关联的代码仓，在代码仓管理页面被删除，下次安装不可恢复；
 - 通过能力同步代码仓的提交（Commit）和合并请求（Pull Request）数据，关联工作项成功后在项目下显示，不会删除。
 - 此时调用能力提供的 SDK 方法将报错，注意捕获错误或区分插件状态处理。
+
+## 示例场景
+
+- [场景一：集成指定版本私有 Gitlab 代码仓](./custom-code-repository-private-gitlab)

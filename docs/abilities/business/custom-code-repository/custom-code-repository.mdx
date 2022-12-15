@@ -1,16 +1,16 @@
 import Image from '@theme/IdealImage'
 
-# Custom Code Repository
+# Custom Integration Code Repository
 
 ## Requirements
 
-| **ONES** |
-| -------- |
-| 3.10.28+ |
+| **ONES**  |
+| --------- |
+| v3.11.53+ |
 
 ## Overview
 
-Open platform provides the ability to customize the code repository, which can be used to associate the code commit and pull request of the integrated third-party code repository with the ONES Project issue. After the association is successful, after the team members complete the coding, enter the ID of the issue item involved in the Commit message when submitting the Commit, or enter the ID of the issue item involved in the Title when submitting the Pull Request. Separated by "space", you can view the code commit and code pull request in ONES in real time after submission.
+Open platform provides the ability custom integration code repository, which can be used to associate the code commit and pull request of the integrated third-party code repository with the ONES Project issue. After the association is successful, after the team members complete the coding, enter the ID of the issue item involved in the Commit message when submitting the Commit, or enter the ID of the issue item involved in the Title when submitting the Pull Request. Separated by "space", you can view the code commit and code pull request in ONES in real time after submission.
 
 ### Ability performance
 
@@ -40,15 +40,19 @@ Open platform provides the ability to customize the code repository, which can b
 
 #### 1. Add abilities
 
-Use the `OP` command to add capabilities in the plugin project:
+Use the `OP` command to add capabilities in the plugin project, select `custom-code-repository` type:
 
 ```shell
-npx op add ability
+$ npx op add ability
+  ✔ Validating the input params
+  ✔ Validating project files exists
+  ✔ Generating initial answers by input params
+  ✔ Parsing plugin config content
+
+Pre-require tasks run successfully
+? Please select the ability you want to add: … custom-code-repository
+custom-code-repository@1.0.0
 ```
-
-select `custom-code-repository`：
-
-<Image img={require('./images/code-repo-op-add-ability.png')} />
 
 The OP tool will ask whether to use the default value, select Yes, and the OP tool will add the following content to the plugin:
 
@@ -88,7 +92,7 @@ The OP tool will ask whether to use the default value, select Yes, and the OP to
           show: false
   ```
 
-  Among them, the three configurations in abilities.config are mainly used in Configuration -> Pipeline settings -> Repository -> link Code Warehouse page to display the custom code repository link tool configuration, as shown in the following table:
+  Among them, the three configurations in abilities.config are mainly used in Configuration -> Pipeline settings -> Repository -> link Code repository page to display the custom code repository link tool configuration, as shown in the following table:
 
 | **Configuration item** | **Description**                                                                                                                                        |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -98,10 +102,10 @@ The OP tool will ask whether to use the default value, select Yes, and the OP to
 
 - Add a `custom-code-repository.ts` file in the `backend/src` directory of the plugin project.
 
-  The file includes a default `removeRepo` method implementation, which will be called when the administrator does the "unlink" operation on the repository configuration page. The main purpose of providing this method is to allow the plugin to receive notifications that the code repository is unlink. Developers can keep it unchanged, or modify this method to do custom cleanup logic (note: the return value of the method will not affect the system to remove the link code warehouse).
+  The file includes a default `removeRepo` method implementation, which will be called when the administrator does the "unlink" operation on the repository configuration page. The main purpose of providing this method is to allow the plugin to receive notifications that the code repository is unlink. Developers can keep it unchanged, or modify this method to do custom cleanup logic (the return value of the method will not affect the system to remove the link code repository).
 
 ```typescript
-import type { PluginRequest, PluginResponse } from 'open-node/packages/types/dist/types/index'
+import { PluginRequest, PluginResponse } from '@ones-op/node-types'
 
 export async function removeRepo(request: PluginRequest): Promise<PluginResponse> {
   const body = request?.body as any
@@ -118,15 +122,19 @@ export async function removeRepo(request: PluginRequest): Promise<PluginResponse
 
 #### 2. add modules
 
-Use the `OP` command to add modules in the plugin project:
+Use the `OP` command to add modules in the plugin project, select [ones:settings:pipeline:default:repo:link](../../slot/module/code_repository/index.md#onessettingspipelinedefaultrepolink) type:
 
 ```shell
-npx op add module
+$ npx op add module
+  ✔ Validating the input params
+  ✔ Validating project files exists
+  ✔ Generating initial answers by input params
+  ✔ Parsing plugin config content
+
+Pre-require tasks run successfully
+? Please select the module type you want to add: … ones:settings:pipeline:default:repo:link
+ones:settings:pipeline:default:repo:link
 ```
-
-select [ones:settings:pipeline:default:repo:link](../../slot/module/code_repository/index.md#onessettingspipelinedefaultrepolink) type module:
-
-<Image img={require('./images/code-repo-op-add-module.png')} />
 
 #### 3. Abilities Link Modules
 
@@ -173,11 +181,11 @@ modules:
 
 ### step2: Custom code repository link page
 
-Different from the built-in linked code repository method of the ONES system, click "Link Code repository" and there will be a default pop-up window page for adding linked code repository in the next step, as shown in the following figure for the associated code warehouse page of the Github method:
+Different from the built-in linked code repository method of the ONES system, click "Link Code repository" and there will be a default pop-up window page for adding linked code repository in the next step, as shown in the following figure for the associated code repository page of the Github method:
 
 Different from the built-in link code repository type of the ONES system, click "Link Repository" and there will be a default popup window page for adding code repository in the next step, as shown in the following figure for the link code repository page of the Github type:
 
-<Image img={require('./images/code-repo-github-add-repo-en.png')} />
+<Image img={require('./images/code-repo-github-add-repo-en.png')} style={{ maxWidth: 600 }} />
 
 Developers need to customize the logic of the link code repository page in the module `ones-settings-pipeline-default-repo-link-R5w-` to realize the functions of "authentication of code repository platform" and "link code repository". The "authentication of the code repository platform" can be OAuth, Token, account password or other forms, or no authentication, and the developer can decide according to the situation.
 
@@ -192,27 +200,49 @@ In order to be able to add the code repositories to the ONES system, we provide 
 ```typescript
 import { addRepos } from '@ones-op/node-ability'
 
-const toolUUID: string = 'xxx';
-const list: AddRepoInfo[] = [...];
-const batchResponse = await addRepos(toolUUID, list);
+const toolUUID: string = 'xxx'
+const list: AddRepoInfo[] = [...]
+const batchResponse = await addRepos(toolUUID, list)
 ```
+
+The `toolUUID` field corresponds to the UUID unique identifier of the custom code repository type in the ONES system, which can be obtained by defining the following method, where `CkrqExqC` corresponds to the capability ID in the `plugin.yaml` file:
+
+```typescript
+import { getAbilityProperties } from '@ones-op/node-ability'
+
+export async function getRepoToolUUID(): Promise<string> {
+  const repoToolUUIDKey = 'repoToolUUID'
+  const abilityID = 'CkrqExqC'
+
+  let repoToolUUID = ''
+  const property = await getAbilityProperties(abilityID, [repoToolUUIDKey])
+  if (property?.repoToolUUID) {
+    repoToolUUID = property[repoToolUUIDKey]
+  }
+  return repoToolUUID
+}
+```
+
+:::caution notice
+When calling the `getAbilityProperties` method for a team-level plugin, `teamUUID` can be omitted, and when calling for an organization-level plugin, `teamUUID` must be passed.
+:::
 
 ### step4: add code repository commit and pull request
 
 After successfully link the code repository, you can call the SDK methods [add repository commits](../../../reference/packages/node-ability/node-ability.md#addrepocommits) and [add repository pull request](../../../reference/packages/node-ability/node-ability.md#addrepopullrequest) to the ONES system.
 
-1. add commit:
+1. add commits:
 
 ```typescript
 import { addRepoCommits } from '@ones-op/node-ability'
 
-const toolUUID: string = 'xxx';
-const repoUUID: string = 'xxx';
-const list: AddRepoInfo[] = [...];
+const toolUUID: string = 'xxx'
+const repoUUID: string = 'xxx'
+const list: AddRepoInfo[] = [...]
 await addRepoCommits(toolUUID, repoUUID, list)
 ```
 
-2. add pull request
+2. add pull request (support for add and update)
 
 ```typescript
 import { addRepoPullRequest } from '@ones-op/node-ability'
@@ -268,3 +298,7 @@ const repoInfos = await queryRepos(toolUUID)
 - The code repository linked with the ability is deleted on the code repository management page, and the next installation cannot be restored;
 - Through the ability to add the commit and pull request data of the code repository, after the associated work item is successfully displayed under the project, it will not be deleted.
 - At this time, an error will be reported when calling the SDK method provided by the capability. Pay attention to catching errors or distinguishing between plugin state processing.
+
+## Examples
+
+- [Scene One: Integrate the private Gitlab code repository of the specified version](./custom-code-repository-private-gitlab)

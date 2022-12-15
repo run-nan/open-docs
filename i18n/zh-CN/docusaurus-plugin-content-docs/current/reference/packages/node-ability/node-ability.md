@@ -77,13 +77,13 @@ export async function multiple_language() {
 
 > RepoInfo
 
-| 参数              | 说明                                                                    | 类型   | 必填 | 取值范围 |
-| ----------------- | ----------------------------------------------------------------------- | ------ | ---- | -------- |
-| userUUID          | 关联代码仓操作人员 UUID（可以从插槽提供的获取用户方法获取）             | string | 是   | len=8    |
-| uri               | 关联代码仓 URI（举例https://github.com/nodejs/node为https://github.com) | string | 是   | len<=100 |
-| namespace         | 命名空间（举例https://github.com/nodejs/node为nodejs)                   | string | 是   | len<=256 |
-| name              | 仓库名称（举例https://github.com/nodejs/node为node)                     | string | 是   | len<=256 |
-| certificationType | 认证方式（枚举值：OAUTH、PASSWORD、TOKEN、NONE、OTHER）                 | enum   | 是   | -        |
+| 参数              | 说明                                                                              | 类型   | 必填 | 取值范围 |
+| ----------------- | --------------------------------------------------------------------------------- | ------ | ---- | -------- |
+| userUUID          | 关联代码仓操作人员 UUID（可以从插槽提供的获取用户方法获取）                       | string | 是   | len=8    |
+| uri               | 关联代码仓 URI（举例https://github.com/nodejs/node为https://github.com)           | string | 是   | len<=100 |
+| namespace         | 命名空间（举例https://github.com/nodejs/node为nodejs)                             | string | 是   | len<=256 |
+| name              | 仓库名称（举例https://github.com/nodejs/node为node)                               | string | 是   | len<=256 |
+| certificationType | 认证方式，只用于代码仓列表页面展示（枚举值：OAUTH、PASSWORD、TOKEN、NONE、OTHER） | enum   | 是   | -        |
 
 #### Returns
 
@@ -115,28 +115,6 @@ const toolUUID: string = 'xxx';
 const list: AddRepoInfo[] = [...];
 const batchResponse = await addRepos(toolUUID, list);
 ```
-
-`toolUUID` 字段对应自定义代码仓关联方式在 ONES 系统的 UUID 唯一标识，可以通过定义如下方法获取，其中 `CkrqExqC` 对应 `plugin.yaml` 文件中的能力 ID：
-
-```typescript
-import { getAbilityProperties } from '@ones-op/node-ability'
-
-export async function getRepoToolUUID(): Promise<string> {
-  const repoToolUUIDKey = 'repoToolUUID'
-  const abilityID = 'CkrqExqC'
-
-  let repoToolUUID = ''
-  const property = await getAbilityProperties(abilityID, [repoToolUUIDKey])
-  if (property?.repoToolUUID) {
-    repoToolUUID = property[repoToolUUIDKey]
-  }
-  return repoToolUUID
-}
-```
-
-:::caution 注意
-当为团队级别插件时调用 `getAbilityProperties` 方法时 `teamUUID` 可以不传，当为组织级别插件调用时 `teamUUID` 则为必传值。
-:::
 
 ### queryRepo
 
@@ -252,7 +230,7 @@ await addRepoCommits(toolUUID, repoUUID, list)
 
 ### addRepoPullRequest
 
-新增代码仓合并请求 pull request。
+新增代码仓合并请求 pull request（支持新增和更新）。
 
 #### Params
 
@@ -276,7 +254,7 @@ await addRepoCommits(toolUUID, repoUUID, list)
 | toBranch   | pr 目标分支                                          | string       | 是   | len<=128       |
 | createAt   | pr 创建时间戳（单位：秒）                            | int64        | 是   | min=1          |
 | state      | pr 状态（枚举值：OPEN、MERGED、CLOSED）              | enum         | 是   | -              |
-| reviewers  | pr 审核人员名称列表                                  | string array | 否   | -              |
+| reviewers  | pr 审核人员名称列表                                  | string array | 否   | len<=1024      |
 | updateAt   | pr 最后更新时间戳（单位：秒）                        | int64        | 否   | min=1          |
 | updateUser | pr 最后更新用户名称                                  | string       | 否   | len<=128       |
 
