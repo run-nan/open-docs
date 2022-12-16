@@ -37,7 +37,7 @@ npx op login
 npx op pickteam local
 ```
 
-在插件工程根目录中执行 `OP` 工具的 `login` 指令进行登陆操作，按照提示依次输入调试环境信息：
+在插件工程根目录中执行 `OP` 工具的 `login` 指令进行登录操作，按照提示依次输入调试环境信息：
 
 ```raw
 ➜ npx op login

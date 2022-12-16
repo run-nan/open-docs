@@ -219,4 +219,5 @@ Gitlab 的代码仓提交（Commit）对应 webhook 的 [push_events](https://do
 
 - 对于代码仓在 ONES 系统被移除场景，开发者可以在能力添加的 `removeRepo` 方法新增删除 webhook 逻辑；
 - 对于插件启用、停用场景，由于此时插件定义的接口将无法访问，并且新增代码仓提交（Commit）和合并请求（Pull Request）的 SDK 方法将无法调用，开发者可以在插件启用时恢复代码仓的 webhook，在插件停用时删除代码仓的 webhook。
-  :::
+
+:::

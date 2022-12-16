@@ -21,7 +21,7 @@ import Image from '@theme/IdealImage'
 
 ### 第一步：安装依赖
 
-进入`/web`目录，通过以下命令安装此包：
+进入 `/web` 目录，通过以下命令安装此包：
 
 ```bash npm2yarn
 npm install @ones-op/event
@@ -29,7 +29,7 @@ npm install @ones-op/event
 
 ### 第二步：自定义监听器
 
-添加自定义监听器，当指定事件类型被`dispatch`时，会执行监听回调。**无法跨插件使用**
+添加自定义监听器，当指定事件类型被 `dispatch` 时，会执行监听回调。**无法跨插件使用**
 
 ```tsx
 import { OPPluginListener } from '@ones-op/event'
@@ -51,7 +51,7 @@ useEffect(() => {
 
 ### 第三步：派发事件
 
-派发指定类型的事件，并返回`OPPluginListener`处理函数返回的 Promise 对象。**无法跨插件使用**
+派发指定类型的事件，并返回 `OPPluginListener` 处理函数返回的 Promise 对象。**无法跨插件使用**
 
 ```tsx
 import { OPPluginDispatch } from '@ones-op/event'
@@ -69,7 +69,7 @@ OPPluginDispatch('onChange', { value: 0 }).then((result) => {
 
 #### 第一步：添加一个插槽
 
-以【我的工作台】-【概览】为例，执行以下指令选择`ones:workspace:overview`
+以【我的工作台】-【概览】为例，执行以下指令选择 `ones:workspace:overview`
 
 ```bash
 npx op add module
@@ -82,19 +82,14 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { ConfigProvider, Button } from '@ones-design/core'
 import { OPDispatch } from '@ones-op/event'
-import { resourceMap } from './language'
 import './index.css'
 
 function App() {
-  /** 多语言部分 */
-  const locale = (window as any).__ones_op_locale__?.locale || 'zh-CN'
-  const langResource = resourceMap[locale]
-
   const handleClick = () => {
     OPDispatch('invoke:ones:global:progressManager')
   }
 
-  return <Button onClick={handleClick}>{langResource.text}</Button>
+  return <Button onClick={handleClick}>激活进度管理器</Button>
 }
 
 ReactDOM.render(
@@ -107,7 +102,7 @@ ReactDOM.render(
 
 #### 第三步：在 ONES 触发
 
-登陆 ONES 系统，【我的工作台】-【概览】已被插件替换，点击按钮**进度管理器**被触发。如图：
+登录 ONES 系统，【我的工作台】-【概览】已被插件替换，点击按钮**进度管理器**被触发。如图：
 
 <Image img={require('./images/progress-manager-zh.png')} />
 
@@ -136,18 +131,14 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { ConfigProvider, Button } from '@ones-design/core'
 import { OPDispatch } from '@ones-op/event'
-import { resourceMap } from './language'
 import './index.css'
 
 function App() {
-  const locale = (window as any).__ones_op_locale__?.locale || 'zh-CN'
-  const langResource = resourceMap[locale]
-
   const handleClick = () => {
     OPDispatch('ones:event:memberList:refresh')
   }
 
-  return <Button onClick={handleClick}>{langResource.text}</Button>
+  return <Button onClick={handleClick}>刷新成员列表</Button>
 }
 
 ReactDOM.render(
@@ -160,6 +151,6 @@ ReactDOM.render(
 
 #### 第三步：在 ONES 系统触发
 
-登陆 ONES，进入【项目管理】-【成员】顶栏操作区域，点击按钮**刷新成员列表**，发现成员列表数据已被更新。如图：
+登录 ONES，进入【项目管理】-【成员】顶栏操作区域，点击按钮**刷新成员列表**，发现成员列表数据已被更新。如图：
 
 <Image img={require('./images/member-zh.png')} />

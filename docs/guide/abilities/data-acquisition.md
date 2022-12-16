@@ -36,7 +36,7 @@ npm install @ones-op/store
 For example, get the current team information
 
 ```tsx
-import { useTeamInfo } = '@ones-op/store'
+import { useTeamInfo } from '@ones-op/store'
 
 const { uuid, name } = useTeamInfo()
 ```

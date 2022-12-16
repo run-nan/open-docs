@@ -7,22 +7,22 @@ sidebar_position: 6
 
 ## 概述
 
-创建好插件工程之后，你需要登陆上 ONES 来对你的插件进行调试。搭建好调试环境后，就可以在 ONES 中实时体验到插件能力了。
+创建好插件工程之后，你需要登录上 ONES 来对你的插件进行调试。搭建好调试环境后，就可以在 ONES 中实时体验到插件能力了。
 
 在安装 ONES CLI 的时候，我们已经为你内置了插件开发脚手架工具 `op`。但想实时看到插件的能力，那你还需要指定一个调试环境来承载你的插件。
 
 ### 名词解释
 
-- **op :** 插件开发脚手架工具，内置了贯穿插件开发生命周期中所需要的所有指令，指令释义可以参见：
-- **baseURL :** 远端调试环境 URL
-- **hostURL :** 插件运行时 URL
+- **op :** 插件开发脚手架工具，内置了贯穿插件开发生命周期中所需要的所有指令，指令释义可以参见：[ONES OP](../tools/cli/op-cli.md)
+- **baseURL :** 远端调试环境 URL (实例端口)
+- **hostURL :** 插件运行时 URL （平台 host 端口）
 - **instance_uuid：** 插件实例的唯一标识，当插件安装到具体环境上时会生成此实例 uuid。并非固定值。
 
 ## 使用
 
 ### 第一步：指定调试环境信息
 
-在插件工程根目录中执行 `npx op login` 指令进行登陆操作，按照提示依次输入调试环境信息。
+在插件工程根目录中执行 `npx op login` 指令进行登录操作，按照提示依次输入调试环境信息。
 
 ```raw
 ➜ npx op login
@@ -44,16 +44,19 @@ sidebar_position: 6
 
 :::note
 
-- 完成团队选择后，那么平台就会在对应的远端调试环境的对应团队下帮你安装一个“开发中”的插件
+- 完成团队选择后，那么平台就会在对应的远端调试环境的对应团队下帮你安装一个“开发中”的插件。
 - 如果是组织级别插件，那么平台就会将这个插件安装在【组织级别】-【插件管理】中，也意味着该插件对每一个团队都生效。
-  :::
+
+:::
 
 ### 第二步：启动本地调试
 
-完成登录和团队的选择后，你可以在工程根目录下执行 `npm op invoke run` 启动本地调试
+完成登录和团队的选择后，你可以在工程根目录下执行 `npx op invoke run` 启动本地调试
 
 ```bash
 ➜ npx op invoke run
+  ✔ Validating command options
+  ✔ Validating config/local.yaml fields
   ✔ Building plugin project Back-End dist files
   ✔ Initializing the plugin project front-end development server
   ✔ Initializing the node-host params
@@ -61,69 +64,78 @@ sidebar_position: 6
 Now starting dev server and node-host...
 <i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: http://localhost:3000/
-<i> [webpack-dev-server] On Your Network (IPv4): http://10.15.2.242:3000/
+<i> [webpack-dev-server] On Your Network (IPv4): http://10.15.3.38:3000/
 <i> [webpack-dev-server] On Your Network (IPv6): http://[fe80::1]:3000/
 <i> [webpack-dev-server] Content not from webpack is served from '/Users/dev/ONES/open-platform/public' directory
-asset logo.svg 489 bytes [emitted] [from: public/logo.svg] [copied]
-orphan modules 161 KiB [orphan] 22 modules
-webpack 5.72.1 compiled successfully in 217 ms
-连接成功!
+开始连接!
 {
   action: 'run',
-  email: 'test1@ones.cn',
-  password: 'ibJDTEf7PET1',
+  email: 'idatest3@ones.ai',
+  password: 'BULWzBk6ixRM',
   reinstall: false,
-  instance_uuid: '',
-  hostID: undefined,
-  webIp: '10.15.2.242',
+  webIp: '10.15.3.38',
   webPort: '3000',
-  orgUUID: '5N6W3noj',
-  teamUUID: 'RPWfqknE',
-  user_uuid: 'SMS8ciyv',
-  token: undefined,
-  webServiceUrl: '10.15.2.242:3000'
+  orgUUID: 'KuLvwHJz',
+  teamUUID: 'RWqwp2L8',
+  user_uuid: 'SFBs7BHh',
+  webServiceUrl: '10.15.3.38:3000'
 }
+本地调试返回值: {"instance_uuid":"1d99926e"}
 [Plugin] Install
 插件 Install 钩子函数运行成功!
 [Plugin] Enable
 插件 Enable 钩子函数运行成功!
-success!
-本地调试返回值: {"instance_uuid":"763ce3cf","token":"1KTaxtFcNCpEVLLUS6qb2sVkBtzcHGXfd7Bni6bKyww4000lV1epdsYwL5pUoAO3","user_uuid":"SMS8ciyv"}
+收到消息:  all done
 ```
 
 #### 调试前端
 
-op 工具的 invoke 指令会为插件工程前端部分（/web）启动一个开发服务器（基于 webpack-dev-server）并提供开箱即用的模块热更新。
+op 工具的 invoke 指令会为插件工程前端部分（/web）启动一个开发服务器（基于 webpack-dev-server）并提供开箱即用的模块热更新。只需要保存你的修改，就可以实时反应到你的调试环境上。
 
-#### 调试后端
+#### 调试接口
 
 op 工具的 invoke 指令会为后端启动一个开发服务，第一次启动后，控制台会返回一些可供本地调试的内容。
 
 ```bash
-本地调试返回值: {
-  "instance_uuid": "763ce3cf",
-  "token": "1KTaxtFcNCpEVLLUS6qb2sVkBtzcHGXfd7Bni6bKyww4000lV1epdsYwL5pUoAO3",
-  "user_uuid": "SMS8ciyv",
-}
+本地调试返回值: {"instance_uuid":"1d99926e"}
 ```
 
-**user_uuid:** 当前登录用户 UUID
+插件接口我们大致分为了两种：[**接口注册**](#)和[**接口劫持**](../abilities/business/ONES-API/ONES-API-interception.md)。你在使用 [Postman](https://learning.postman.com/docs/getting-started/introduction/) 对这些接口进行调试的时候，需要按照这两种类型加入不同的请求头。
 
-#### 调试接口
+##### 接口注册
 
-需要在请求头中加入 `Ones-Check-Point`、`Ones-Plugin-Id`、`Ones-Plugin-Token` 三个参数
-
-```ts title="Header"
+```json title="Headers"
 {
-  "Ones-Check-Point": "team",
-  "Ones-Plugin-Id": "5a21a6d7", // instance_uuid
-  "Ones-Plugin-Token": "lNMOIa9VUhX72Ym0ZrP0eSo98OiXifz8W4CSVG1T03i8RFmUuS0EWGMhekzi6Mqz", // token
+  "Ones-Plugin-Id": "1d99926e", // instance_uuid
+  "Ones-Check-Point": "team"
 }
 ```
 
-**Ones-Check-Point：**对应权限检查点，判断注册的接口是团队下还是组织下  
-**Ones-Plugin-Id：** instance_uuid  
-**Ones-Plugin-Token：** token
+:::tip
+
+- **Ones-Plugin-Id：**启动调试环境之后在控制台打印出来的“本地调试返回值”中对应的 instance_uuid 的值
+- **Ones-Check-Point：**  
+   团队插件：team  
+   组织插件：organization
+
+:::
+
+##### 接口劫持
+
+```json title="Headers"
+{
+  "Ones-User-Id": "SFBs7BHh",
+  "Ones-Auth-Token": "Z46E1Xe6mm91Q4lrFt7AJvKh4idcNNy54Cls2qwQDrFz6EGVD7XBd9GmgrVXu18A"
+}
+```
+
+:::tip
+
+- **Ones-User-Id：** 当前登录用户 uuid
+- **Ones-Auth-Token：** 对应环境的 token
+
+这两个请求头的值你都可以在 [ONES API](../api/auth/auth.md#获取登录信息) 中找到。
+:::
 
 ### 第三步：清除调试状态
 

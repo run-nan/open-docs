@@ -25,7 +25,7 @@ description: 平台提供一套灵活的数据获取机制，方便在插件中�
 
 ### 第一步：安装依赖
 
-进入`/web`目录，通过以下命令安装此包：
+进入 `/web` 目录，通过以下命令安装此包：
 
 ```bash npm2yarn
 npm install @ones-op/store
@@ -36,7 +36,7 @@ npm install @ones-op/store
 如获取当前团队信息
 
 ```tsx
-import { useTeamInfo } = '@ones-op/store'
+import { useTeamInfo } from '@ones-op/store'
 
 const { uuid, name } = useTeamInfo()
 ```

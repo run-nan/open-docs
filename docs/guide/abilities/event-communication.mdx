@@ -82,19 +82,14 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { ConfigProvider, Button } from '@ones-design/core'
 import { OPDispatch } from '@ones-op/event'
-import { resourceMap } from './language'
 import './index.css'
 
 function App() {
-  /** Multilingual part */
-  const locale = (window as any).__ones_op_locale__?.locale || 'zh-CN'
-  const langResource = resourceMap[locale]
-
   const handleClick = () => {
     OPDispatch('invoke:ones:global:progressManager')
   }
 
-  return <Button onClick={handleClick}>{langResource.text}</Button>
+  return <Button onClick={handleClick}>Activate Progress Manager</Button>
 }
 
 ReactDOM.render(
@@ -136,18 +131,14 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { ConfigProvider, Button } from '@ones-design/core'
 import { OPDispatch } from '@ones-op/event'
-import { resourceMap } from './language'
 import './index.css'
 
 function App() {
-  const locale = (window as any).__ones_op_locale__?.locale || 'zh-CN'
-  const langResource = resourceMap[locale]
-
   const handleClick = () => {
     OPDispatch('ones:event:memberList:refresh')
   }
 
-  return <Button onClick={handleClick}>{langResource.text}</Button>
+  return <Button onClick={handleClick}>Refresh member list</Button>
 }
 
 ReactDOM.render(

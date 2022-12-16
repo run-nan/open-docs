@@ -12,7 +12,7 @@ description: 多样的能力提供，轻松制定你的 ONES。
 ## 能力
 
 - [基础能力](../../abilities/basic/basic.md)
-- [业务能力](../../abilities//business/business.md)
+- [业务能力](../../abilities//business/business.mdx)
 
 ## 使用
 
@@ -46,9 +46,9 @@ task-event-handler@1.0.0
 
 ## 示例
 
-**简单登陆校验**
+**简单登录校验**
 
-- **添加简单登陆校验能力**
+- **添加简单登录校验能力**
   执行下方指令，并选择： `SimpleAuth`
 
   ```bash
@@ -57,7 +57,7 @@ task-event-handler@1.0.0
 
 - **在 `/config/plugin.yaml` 中**
 
-  在`/config/plugin.yaml` 文件的 abilities 字段中新增了一段内容
+  在`plugin.yaml` 文件的 abilities 字段中新增了一段内容
 
   ```yaml title="/config/plugin.yaml"
   abilities:
@@ -78,4 +78,5 @@ task-event-handler@1.0.0
 
 - 不会在 `backend/src` 下重复生成模版
 - 每次都会在 `config/plugin.yaml` 中生成配置
-  :::
+
+:::

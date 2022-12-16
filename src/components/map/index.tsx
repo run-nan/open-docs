@@ -20,10 +20,10 @@ export function Steps() {
               <div className={styles.contentContainer}>
                 <span className={styles.description}>{description}</span>
                 <div className={styles.docs}>
-                  {docsList?.map((list) => {
+                  {docsList?.map((list, docsListIndex) => {
                     const { itemTitle, docList } = list
                     return (
-                      <div className={styles.docList}>
+                      <div className={styles.docList} key={docsListIndex}>
                         <div className={styles.itemTitle}>{itemTitle}</div>
                         <div className={styles.itemList}>
                           {docList.map((doc, index) => {

@@ -9,9 +9,9 @@ import Image from '@theme/IdealImage'
 
 ## Requirements
 
-| ONES |
-| ---- |
-| 3.6+ |
+| ONES    |
+| ------- |
+| v3.6.0+ |
 
 ## Overview
 
@@ -51,7 +51,7 @@ PluginDescription: The plugin is used to test Mult-Language abilities
 
 #### Step 2: Using key values to occupy placeholder
 
-Then we use `{{.key}}` to occupy places in the configuration file where we need to use multiple languages. For example, implement multiple languages in: `config/plugin.yaml` file.
+Then we use `{{.key}}` to occupy places in the configuration file where we need to use multiple languages. For example, implement multiple languages in: `plugin.yaml` file.
 
 ```yaml title="/config/plugin.yaml"
 service:
@@ -69,7 +69,7 @@ Add **zh.yaml** and **en.yaml** files under `/workspace/language`.
 
 ```yaml title="/workspace/language/zh.yaml"
 PluginName: 多能力插件Demo
-PluginDescription: Node.js 插件的 demo，提供了所有能力和工具标准使用方式
+PluginDescription: Node.js 插件的 demo, 提供了所有能力和工具标准使用方式
 ```
 
 ```yaml title="/workspace/language/en.yaml"
@@ -88,6 +88,8 @@ npm install @ones-op/node-ability
 #### Step 3: Usage
 
 ```tsx
+import { Language } from '@ones-op/node-ability'
+
 export async function multiple_language(request: PluginRequest): Promise<PluginResponse> {
   const { body, headers } = request
   const userUUID = headers['Ones-User-Id']

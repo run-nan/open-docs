@@ -116,7 +116,7 @@ export const features: {
             url: '#',
           },
           {
-            /** 登陆 */
+            /** 登录 */
             label: <Translate>Login</Translate>,
             url: `${baseUrl}abilities/slot/module/login`,
           },
@@ -151,11 +151,11 @@ export const features: {
             label: <Translate>Error handling</Translate>,
             url: `${baseUrl}abilities/basic/error-handling`,
           },
-          {
-            /** 多语言-国际化 */
-            label: <Translate>Internationalization</Translate>,
-            url: `${baseUrl}abilities/basic/multiple-languages`,
-          },
+          // {
+          //   /** 多语言-国际化 */
+          //   label: <Translate>Internationalization</Translate>,
+          //   url: `${baseUrl}guide/abilities/multilingual`,
+          // },
           {
             /** 通知 */
             label: <Translate>Notifications</Translate>,

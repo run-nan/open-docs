@@ -219,4 +219,5 @@ For the method of using webhook to obtain code repository commit and pull reques
 
 - For the scenario where the code repository is removed from the ONES system, developers can add the logic of deleting webhooks in the `removeRepo` method added by the ability;
 - For the plugin enable and disable scenarios, since the interface defined by the plugin will not be accessible at this time, and the SDK methods for the new code repository commit and pull request will not be called, developers can enable the plugin when the plugin is enabled Restore the webhook of the code repository, and delete the webhook of the code repository when the plugin is disabled.
-  :::
+
+:::

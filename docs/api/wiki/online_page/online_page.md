@@ -121,7 +121,7 @@ https://your-host-name/wiki/api/wiki/team/:teamUUID/online_page/:pageUUID/token?
 
 GET
 
-#### 是否需要登陆
+#### 是否需要登录
 
 是
 
@@ -153,7 +153,7 @@ https://your-host-name/wiki/api/wiki/team/:teamUUID/online_page/:pageUUID/conten
 
 GET
 
-#### 是否需要登陆
+#### 是否需要登录
 
 是
 
@@ -178,7 +178,7 @@ https://your-host-name/wiki/api/wiki/team/:teamUUID/online_page/:pageUUID/publis
 
 POST
 
-#### 是否需要登陆
+#### 是否需要登录
 
 是
 
@@ -222,7 +222,7 @@ https://your-host-name/wiki/api/wiki/team/:teamUUID/online_page/:pageUUID/update
 
 POST
 
-#### 是否需要登陆
+#### 是否需要登录
 
 是
 
@@ -260,7 +260,7 @@ https://your-host-name/wiki/api/wiki/team/:teamUUID/online_page/:pageUUID/revert
 
 POST
 
-#### 是否需要登陆
+#### 是否需要登录
 
 是
 

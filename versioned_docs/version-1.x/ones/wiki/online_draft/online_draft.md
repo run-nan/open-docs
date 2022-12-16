@@ -116,7 +116,7 @@ https://your-host-name/wiki/api/wiki/team/:teamUUID/online_draft/:draftUUID/toke
 
 GET
 
-#### 是否需要登陆
+#### 是否需要登录
 
 是
 
@@ -148,7 +148,7 @@ https://your-host-name/wiki/api/wiki/team/:teamUUID/online_draft/:draftUUID/cont
 
 GET
 
-#### 是否需要登陆
+#### 是否需要登录
 
 是
 
@@ -173,7 +173,7 @@ https://your-host-name/wiki/api/wiki/team/:teamUUID/online_draft/:draftUUID/publ
 
 POST
 
-#### 是否需要登陆
+#### 是否需要登录
 
 是
 
@@ -221,7 +221,7 @@ https://your-host-name/wiki/api/wiki/team/:teamUUID/online_draft/:draftUUID/upda
 
 POST
 
-#### 是否需要登陆
+#### 是否需要登录
 
 是
 

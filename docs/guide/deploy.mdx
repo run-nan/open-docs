@@ -9,13 +9,26 @@ import Image from '@theme/IdealImage'
 
 ## Overview
 
-During the initialization of the plugin project, ONES CLI initializes `git` for you in advance. We recommend that you use GitLab to host your engineering code and use GitLab CI/CD to build a continuous integration solution for your plugin project. So the following documentation tutorials are based on the `GitLab plugin continuous integration solution'.
+During the initialization of the plugin project, ONES CLI initializes `git` for you in advance. We recommend that you use GitLab to host your engineering code and use GitLab CI/CD to build a continuous integration solution for your plugin project. So the following documentation tutorials are based on the `GitLab plugin continuous integration solution`.
+
+We prefer to recommend continuous integration to you rather than packaging with the `npx op packup` command.
+
+### Advantage
+
+- **reduced repetitive movements**  
+  Automated deployment frees repetitive work such as package release and installation, and the efficiency of automatic integration is much higher than that of manual work.
+- **reduce manual errors**  
+  One of the biggest differences between people and machines is that people are prone to make mistakes in repetitive actions, while the record of machines making mistakes is almost zero.
+- **faster delivery**  
+  Quick submission and quick release. If you find an error in the current version after deployment, you can also fall back to the previous version as soon as possible.
+- **higher product quality**  
+  Integration server provides workflows such as Code review, automated testing, and so on. This can greatly enhance the quality of the product.
 
 ## Usage
 
 ### Precondition
 
-- The pipeline project has been configured on Gitlab.
+- The pipeline project has been configured on GitLab.
 - You have the maintainer or owner role of the project.
 
 ### Initialization
@@ -55,20 +68,20 @@ Now you can commit your changes to the remote repository and deploy your project
 
 **Input parameter definition:**
 
-- **branch name (master):** Select the name of the branch and select the default master.
+- **branch name (current branch name):** for the selected branch name, enter master or main
 - **base URL:** ONES address
 - **username:** ONES user name
 - **password:** ONES password
 
-After the parameter input is completed and the verification is successful, you will be asked if you need to execute the `pickteam` command to select a team. Of course, you can also manually execute `pickteam` later to select a team.
+After the parameter input is completed and the verification is successful, you will be asked if you need to execute the `pickteam` command to select a team. Of course, you can also manually execute `npx op pickteam ci` later to select a team.
 
 :::caution notice
-After executing `default`, you will need to enter a branchName, and then you can select `default`.
+After executing `npx op pickteam ci`, you will need to enter a branchName, and then you can select `default`.
 :::
 
-After the above operations are completed, the op tool will write back some configurations to the `config/ci-deploy.yaml` file under the project. **do not modify the configuration manually**. The configuration is as follows:
+After the above operations are completed, the op tool will write back some configurations to the `ci-deploy.yaml` file under the project. **do not modify the configuration manually**. The configuration is as follows:
 
-```yaml title="ci-deploy.yaml"
+```yaml title="/config/ci-deploy.yaml"
 default:
   host: https://ones.cn
   username: test@ones.cn
@@ -83,19 +96,21 @@ At this point, the connection ONES is complete.
 
 ### Step 2: Credential information desensitization
 
-User credentials are stored in plaintext in the `/config/ci- deploy.yaml` file. When you do not want to store credentials in clear text, you can add user credentials to [CI/CD variable](https://gitlab.plugins.myones.net/help/ci/variables/index.md#add-a-cicd-variable-to-a-project).
+User credentials are stored in plaintext in the `/config/ci-deploy.yaml` file. When you do not want to store credentials in clear text, you can add user credentials to [CI/CD variable](https://gitlab.plugins.myones.net/help/ci/variables/index.md#add-a-cicd-variable-to-a-project).
 
 Go to [Settings] of GitLab and select [CI/CD], then find [Variables] on the page to configure the credential information.
 
-<Image img={require('./images/variable.png')} />
+<p>
+  <Image img={require('./images/variable.png')} />
+</p>
 
 :::caution notice
 The Key configured by Gitlab CI/CD Variable must be consistent with the configuration file
 :::
 
-Then replace the corresponding fields in `config/ci-deploy.yaml` in the plugin project, such as the username and password fields.
+Then replace the corresponding fields in `ci-deploy.yaml` in the plugin project, such as the username and password fields.
 
-```yaml title="ci-deploy.yaml"
+```yaml title="config/ci-deploy.yaml"
 default:
   host: https://ones.cn
   username: ${username}

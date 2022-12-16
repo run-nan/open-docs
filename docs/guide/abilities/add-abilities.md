@@ -12,7 +12,7 @@ If you want to customize some of the behaviors in ONES business module, we also 
 ## Abilities
 
 - [Basic ability](../../abilities/basic/basic.md)
-- [Business ability](../../abilities//business/business.md)
+- [Business ability](../../abilities/business/business.mdx)
 
 ## Usage
 
@@ -57,7 +57,7 @@ In the list, you can search for and select interface-related abilities or busine
 
 - **In the `/config/plugin.yaml`**
 
-  A new paragraph has been added to the abilities field of the `/config/plugin.yaml` file
+  A new paragraph has been added to the abilities field of the `plugin.yaml` file
 
   ```yaml title="/config/plugin.yaml"
   abilities:
@@ -77,4 +77,5 @@ The same abilities can be repeatedly added to the plug-in project when the abili
 
 - Templates will not be generated repeatedly under `backend/src`
 - The configuration is generated in `config/plugin.yaml` every time
-  :::
+
+:::

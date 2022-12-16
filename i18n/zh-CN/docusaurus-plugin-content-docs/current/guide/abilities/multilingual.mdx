@@ -9,9 +9,9 @@ import Image from '@theme/IdealImage'
 
 ## 要求
 
-| ONES |
-| ---- |
-| 3.6+ |
+| ONES    |
+| ------- |
+| v3.6.0+ |
 
 ## 概述
 
@@ -33,7 +33,7 @@ ONES 系统为英文时，如下图所示：
 
 #### 第一步：多语言申明
 
-你需要在插件工程根目录下的`workspace`文件夹中创建一个`language`文件夹，在该文件夹下，新建`en.yaml`与`zh.yaml`两个文件，按照如下所示进行语言配置：
+你需要在插件工程根目录下的 `workspace` 文件夹中创建一个 `language` 文件夹，在该文件夹下，新建 `en.yaml` 与 `zh.yaml` 两个文件，按照如下所示进行语言配置：
 
 **中文配置**
 
@@ -51,7 +51,7 @@ PluginDescription: The plugin is used to test Mult-Language abilities
 
 #### 第二步：使用 key 值占位
 
-然后我们在配置文件中需要使用多语言的地方使用`{{.key}}`来进行占位。如在: `config/plugin.yaml` 文件中实现多语言。
+然后我们在配置文件中需要使用多语言的地方使用 `{{.key}}` 来进行占位。如在: `plugin.yaml` 文件中实现多语言。
 
 ```yaml title="/config/plugin.yaml"
 service:
@@ -79,7 +79,7 @@ PluginDescription: The demo of Node.js, providing  all the ability and standard 
 
 #### 第二步：安装依赖
 
-进入插件工程的`/backend`目录，执行以下命令进行依赖安装：
+进入插件工程的 `/backend` 目录，执行以下命令进行依赖安装：
 
 ```bash npm2yarn
 npm install @ones-op/node-ability
@@ -88,6 +88,8 @@ npm install @ones-op/node-ability
 #### 第三步：在代码中使用
 
 ```tsx
+import { Language } from '@ones-op/node-ability'
+
 export async function multiple_language(request: PluginRequest): Promise<PluginResponse> {
   const { body, headers } = request
   const userUUID = headers['Ones-User-Id']
@@ -109,7 +111,7 @@ export async function multiple_language(request: PluginRequest): Promise<PluginR
 
 ### 插件前端中使用多语言
 
-在插件中，你可以使用`window`访问我们在插件执行环境注入的全局变量。
+在插件中，你可以使用 `window` 访问我们在插件执行环境注入的全局变量。
 
 #### 第一步：了解当前支持的语言标识
 

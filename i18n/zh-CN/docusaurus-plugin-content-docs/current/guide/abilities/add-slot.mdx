@@ -19,7 +19,7 @@ import Image from '@theme/IdealImage'
 
 ### 第一步：添加插槽模块
 
-在插件工程根目录下执行`npx op add module`， 可以向插件中新增插槽模块。
+在插件工程根目录下执行 `npx op add module`， 可以向插件中新增插槽模块。
 
 ```
 ➜ npx op add module
@@ -43,13 +43,13 @@ ones:wiki
 
 在列表中可以通过选择方向键或输入字符串搜索并选择插槽模块
 
-:::note
+:::tip
 如果你选择的插槽是包含子模块的，那将会继续询问你是否需要添加子模块。你可以一起添加，也可以选择后面手动添加。
 :::
 
 ### 第二步：添加插槽子模块
 
-在插件工程目录下执行`npx op add sub-module`， 可以向插槽模块中添加子模块
+在插件工程目录下执行 `npx op add sub-module`， 可以向插槽模块中添加子模块
 
 ```
 ➜ npx op add sub-module
@@ -77,7 +77,7 @@ Pre-require tasks run successfully
 
 我们为插件提供 [TypeScript](https://www.typescriptlang.org/zh/) 的天然支持，默认支持引入 .ts 和 .tsx 文件。
 
-插件打包时，我们仅执行 .ts 和 .tsx 文件的转译工作，并 不 执行任何的类型检查，它只为在你编码时提供友好的类型提示，帮助你减少问题的产生。
+插件打包时，我们仅执行 .ts 和 .tsx 文件的转译工作，并不执行任何的类型检查，它只为在你编码时提供友好的类型提示，帮助你减少问题的产生。
 
 :::caution 注意
 对于每个插件模块的打包，我们都是以模块内的 `index.tsx` 文件为入口，请不要删掉这个入口文件，不然你的打包过程可能会出现异常。
@@ -105,7 +105,7 @@ Pre-require tasks run successfully
 
 ### 添加插槽示例
 
-这里我们以 `ones:global:banner` 全局插槽为例，当选择添加这个模块后，可以看到在 `/config/plugin.yaml` 文件的`modules` 字段中新增了一项内容：
+这里我们以 `ones:global:banner` 全局插槽为例，当选择添加这个模块后，可以看到在 `plugin.yaml` 文件的 `modules` 字段中新增了一项内容：
 
 ```yaml title="/config/plugin.yaml"
 modules:
@@ -119,4 +119,4 @@ modules:
 
 <Image img={require('./images/plugin-directory.png')} />
 
-在插件工程根目录下执行`npx op invoke run`，这样你就能在远端调试环境中插槽对应的位置看到你的插件了。
+在插件工程根目录下执行 `npx op invoke run`，这样你就能在远端调试环境中插槽对应的位置看到你的插件了。
