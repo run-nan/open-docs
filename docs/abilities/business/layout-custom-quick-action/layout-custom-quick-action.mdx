@@ -161,6 +161,12 @@ $ npm install @ones-op/store
 
 Define the behavior of the shortcut button in the module, the following is an example of the plugin front end.
 
+:::caution notice
+
+After executing the custom shortcut button logic, the slot must be destroyed by calling the `destroyCurrentModule()` method.
+
+:::
+
 #### 1. Popup type
 
 ```tsx
@@ -269,4 +275,4 @@ The configuration parameters `quickActionMenu` of the file `plugin.yaml`, used t
 
 **What should I do if I need to add multiple plugin shortcut?**
 
-Custom layout shortcut ability and module are one-to-one relationship. At the same time, based on the principle of functional independence, it is recommended that developers a plugin only define one custom plugin shortcut ability.
+There is a one-to-one relationship between custom layout shortcut abilities and modules. Multiple abilities are not allowed to be associated with the same module, nor is it allowed for one ability to be associated with multiple modules. At the same time, based on the principle of functional independence, it is recommended that developers define only one custom layout shortcut operation ability per plugin.
