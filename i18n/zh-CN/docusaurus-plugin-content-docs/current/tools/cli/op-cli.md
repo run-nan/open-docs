@@ -301,7 +301,7 @@ npx op invoke [options] <target>
 - `disable`
 - `uninstall`
 
-关于生命周期，开发者可在[「入门指引 - 插件生命周期」](../guide/../../guide/lifecycle/lifecycle.md)一节中了解详情。
+关于生命周期，开发者可在[「入门指引 - 插件生命周期」](../../guide/lifecycle.mdx)一节中了解详情。
 
 ### 可调用的「流程」名称
 

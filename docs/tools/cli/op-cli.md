@@ -299,7 +299,7 @@ npx op invoke [options] <target>
 - `disable`
 - `uninstall`
 
-Developer can learn more about [available life-cycle](../guide/../../guide/lifecycle/lifecycle.md) in the guide section.
+Developer can learn more about [available life-cycle](../../guide/lifecycle.mdx) in the guide section.
 
 ### Available processes
 
