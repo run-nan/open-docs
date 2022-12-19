@@ -49,8 +49,8 @@ modules:
 
 **Supported config options：**
 
-- [preload](../../../reference/config/plugin#preload)
-- [manual(required)](../../../reference/config/plugin#manual)
+- [preload](../../../reference/config/plugin.yaml#preload)
+- [manual(required)](../../../reference/config/plugin.yaml#manual)
 - events
 
 #### ones:global:modal

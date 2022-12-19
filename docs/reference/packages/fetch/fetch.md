@@ -207,7 +207,7 @@ const request = OPFetch.create(config, inheritableInterceptors)
 
 #### <Instance\>.<other\>
 
-`@ones-op/fetch` is ultimately inherited from the [axios](https://axios-http.com/) library. The remaining APIs that have not been listed do not involve or affect. You can directly refer to the [axios](<(https://github.com/axios/axios/tree/v0.x#axios-api)>) reference version of the API documentation.
+`@ones-op/fetch` is ultimately inherited from the [axios](https://axios-http.com/) library. The remaining APIs that have not been listed do not involve or affect. You can directly refer to the [axios](https://github.com/axios/axios/tree/v0.x#axios-api) reference version of the API documentation.
 
 ## Types
 

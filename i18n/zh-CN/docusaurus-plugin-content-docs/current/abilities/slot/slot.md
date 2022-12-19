@@ -17,9 +17,9 @@
 
 - ONES CLI 自动添加的配置项
 
-  - [id](../../reference/config/plugin#moduleId)
-  - [title](../../reference/config/plugin#title)
-  - [entry](../../reference/config/plugin#entry)
+  - [id](../../reference/config/plugin.yaml#moduleId)
+  - [title](../../reference/config/plugin.yaml#title)
+  - [entry](../../reference/config/plugin.yaml#entry)
 
 - 默认所有的插槽都支持的配置项（不支持的插槽，会在插槽页面特殊说明）
-  - [permission](../../reference/config/plugin#modulePermission)
+  - [permission](../../reference/config/plugin.yaml#modulePermission)

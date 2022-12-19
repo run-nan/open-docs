@@ -17,9 +17,9 @@ The supported configuration options by a slot will only list the configuration t
 
 - The configuration added by the ONES CLI automatically:
 
-  - [id](../../reference/config/plugin#moduleId)
-  - [title](../../reference/config/plugin#title)
-  - [entry](../../reference/config/plugin#entry)
+  - [id](../../reference/config/plugin.yaml#moduleId)
+  - [title](../../reference/config/plugin.yaml#title)
+  - [entry](../../reference/config/plugin.yaml#entry)
 
 - The configuration supported by all the slots by default (that are not supported will be noted on the slot page):
-  - [permission](../../reference/config/plugin#modulePermission)
+  - [permission](../../reference/config/plugin.yaml#modulePermission)
