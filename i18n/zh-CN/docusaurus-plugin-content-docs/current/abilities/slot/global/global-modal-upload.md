@@ -49,8 +49,8 @@ modules:
 
 **支持的配置项：**
 
-- [preload](../../../reference/config/plugin.md#preload)
-- [manual（必填）](../../../reference/config/plugin.md#manual)
+- [preload](../../../reference/config/plugin.yaml#preload)
+- [manual（必填）](../../../reference/config/plugin.yaml#manual)
 - events
 
 #### ones:global:modal
@@ -81,6 +81,6 @@ modules:
 
 **支持的配置项：**
 
-- [preload（必填）](../../../reference/config/plugin.md#preload)
-- [manual（必填）](../../../reference/config/plugin.md#manual)
-- [icon](../../../reference/config/plugin.md#icon)
+- [preload（必填）](../../../reference/config/plugin.yaml#preload)
+- [manual（必填）](../../../reference/config/plugin.yaml#manual)
+- [icon](../../../reference/config/plugin.yaml#icon)

@@ -1,0 +1,458 @@
+---
+sidebar_position: 1
+---
+
+import Image from '@theme/IdealImage'
+
+# plugin.yaml
+
+插件配置文件，描述了插件所使用到的能力、模块以及其他相关信息，开放平台将会插件安装与启用时消费该文件内容。
+
+文件位置与结构：
+
+```yaml title="/config/plugin.yaml"
+service:
+  app_id: '********'
+  version: 1.0.0
+  name: MyPluginName
+  description: MyPluginDescription
+  language: nodejs
+  language_version: 16.13.0
+  host_version: 1.0.0
+  host_sub_version: 1.0.0
+  min_system_version: 3.5.0
+  contact: MyContactInformation
+  config:
+    - key: MyCustomConfigKey
+      type: Input
+abilities:
+  - id: Simple-login-SXgh
+    name: SimpleLoginVerification
+    abilityType: SimpleAuth
+    function:
+      validateFunc: SimpleAuthValidate
+apis:
+  - type: addition
+    methods:
+      - GET
+    url: /hello
+    function: HelloWorld
+modules:
+  - id: ones-global-banner-GXvd
+    title: example banner title
+    moduleType: ones:global:banner
+    entry: modules/ones-global-banner-GXvd/index.html
+```
+
+## service
+
+插件的基本信息配置，参数如下：
+
+### app_id
+
+- **类型：**`string`
+
+插件的唯一身份标识，由脚手架自动生成，一般不建议修改。
+
+两个插件，即便名称一样，若 `app_id` 不一样，它们会被识别为不同的插件；反之，若 `app_id` 一致，无论名称是否一样，它们也会被识别为同一个插件。
+
+若一个插件需要升级，则必须保证新旧版本的 `app_id` 一致，否则开放平台将视为新插件进行安装。
+
+### version
+
+- **类型：**`string`
+
+插件的版本号，建议遵循 [Semantic Versioning 2.0.0](http://semver.org/lang/zh-CN/) 语义化版本规范。
+
+### name
+
+- **类型：**`string`
+
+插件名称，将会在插件管理与详情页展示。
+
+### description
+
+- **类型：**`string`
+
+插件的描述信息，将会在插件管理与详情页展示。
+
+### scope
+
+- **类型：**`1 | 2`
+
+声明插件的作用域。
+
+| 类型 | 说明                                                                           |
+| ---- | :----------------------------------------------------------------------------- |
+| 1    | 团队级别插件，只能在「配置中心」=>「插件管理」下进行安装，只能对当前团队生效   |
+| 2    | 组织级别插件，只能在「组织管理」=>「插件管理」下进行安装，对组织下所有团队生效 |
+
+### language
+
+- **类型：**`'nodejs'`
+
+插件的开发语言，目前仅支持 `nodejs`，一般无需修改。
+
+### host_version
+
+- **类型：**`string`
+
+开放平台 HOST 最低版本号，一般无需修改。
+
+插件启用时，将会运行在最高位 patch 版本的 HOST 上，这与 [npm](https://docs.npmjs.com/about-semantic-versioning) 的 `~version` 效果类似。
+
+**举例：**
+
+如果你当前的 `host_version` 版本是 `1.0.4`。
+
+服务器存在如下 HOST 版本：
+
+- `1.0.3`
+- `1.0.4`
+- `1.0.5`
+- `1.1.0`
+- `2.0.0`
+
+那么你的插件将运行在 `1.0.5` 版本的 HOST 上。
+
+### contact
+
+- **类型：**`string`
+- **最大长度：**`255`
+- **示例：**`"email: support@ones.com\nCall: 400-188-1518"`
+
+插件日志页显示的联系方式展示（支持使用 `\n` 进行换行）。
+
+<Image img={require('./images/contact-us.png')} />
+
+### config
+
+- **类型：**`Config[]`
+
+插件自定义配置的配置项数组，你可以通过声明此配置快速提供一些插件自定义配置项，具体使用文档请查阅 [插件自定义配置项](../../abilities/basic/custom-config)。
+
+:::note
+配置只能在插件停用状态进行修改。
+:::
+
+**`Config` 参数：**
+
+|   属性   | 说明     |               类型                | 必填 | 默认值  |
+| :------: | :------- | :-------------------------------: | :--: | :-----: |
+|   key    | 唯一标识 |             `string`              |  是  |         |
+|   type   | 类型     | `'Input'｜'TextArea'｜'Password'` |  是  |         |
+| required | 是否必填 |             `boolean`             |  否  | `false` |
+|  label   | 别名     |             `string`              |  否  |  `key`  |
+|  value   | 默认值   |             `string`              |  否  |         |
+
+**示例：**
+
+```yaml title="/config/plugin.yaml"
+service:
+  config:
+    - key: exampleConfigKey
+      label: my example key
+      type: Input
+```
+
+**效果：**
+
+<Image img={require('./images/function-config.png')} />
+
+### permission
+
+- **类型：**`Permission[]`
+
+插件自定义的标准权限点配置项数组，你可以通过此配置快速搭建自己的插件权限体系，具体使用文档请查阅 [插件自定义权限点](../../abilities/basic/customPermission)。
+
+**`Permission` 参数：**
+
+| 属性  | 说明         |   类型   | 必填 | 默认值 |
+| :---: | :----------- | :------: | :--: | :----: |
+| name  | 权限名称     | `string` |  是  |        |
+| field | 权限唯一标识 | `string` |  是  |        |
+| desc  | 权限描述     | `string` |  否  |        |
+
+**示例：**
+
+```yaml title="/config/plugin.yaml"
+service:
+  permission:
+    - name: My custom read permission
+      field: my-custom-read-permission-key
+      desc: This is an example of custom read permission
+    - name: My custom write permission
+      field: my-custom-write-permission-key
+```
+
+配置入口（插件启用后）：
+
+<Image img={require('./images/custom-permission.png')} />
+
+### language_version
+
+- **类型：**`string`
+- **保留字段**
+
+插件开发后端语言的版本号。
+
+### host_sub_version
+
+- **类型：**`string`
+- **保留字段**
+
+开放平台 HOST 子版本号。
+
+### min_system_version
+
+- **类型：**`string`
+- **保留字段**
+
+最低兼容的 ONES 系统版本。
+
+### mode
+
+- **类型：**`string`
+- **已废弃**
+
+插件的模式。
+
+### logo
+
+- **类型：**`string`
+- **已废弃**
+
+声明插件的 Logo，已废弃。
+
+如需要修改插件 Logo，请修改 [插件目录](../../guide/structure) 下的 `web/public/logo.svg` 文件。
+
+### auth
+
+- **类型：**`string`
+- **已废弃**
+
+插件授权声明。
+
+## abilities
+
+插件能力配置项 **数组**，单个能力的配置参数如下：
+
+### id {#abilitiesId}
+
+- **类型：**`string`
+
+插件的能力的唯一标识。
+
+### name
+
+- **类型：**`string`
+
+插件的能力名称。
+
+### label
+
+- **类型：**`string`
+- **保留字段**
+
+插件能力别名。
+
+### relateModule
+
+- **类型：**`string`
+
+与当前能力绑定使用的 [插件模块 ID](#moduleId)，根据特定能力需求配置，一般无需修改。
+
+### version
+
+- **类型：**`string`
+
+添加能力时所选择插件能力版本，由脚手架自动生成，一般无需修改。
+
+### abilityType
+
+- **类型：**`string`
+
+插件的能力类型，由脚手架自动生成，一般无需修改。
+
+### function
+
+- **类型：**`Record<string, string>`
+
+插件的能力的调用入口方法名，由脚手架自动生成，如果同一个能力添加多次，你需要手动修改指定新的方法名。
+
+### config {#abilitiesConfig}
+
+- **类型：**`AbilityConfig[]`
+
+插件能力配置项，由脚手架自动生成。
+
+**`AbilityConfig` 参数：**
+
+|   属性    | 说明                     |    类型     | 必填 | 默认值  |
+| :-------: | :----------------------- | :---------: | :--: | :-----: |
+|    key    | 唯一标识                 |  `string`   |  是  |         |
+| fieldType | 类型                     | `FieldType` |  是  |         |
+| required  | 是否必填                 |  `boolean`  |  否  | `false` |
+|   label   | 别名                     |  `string`   |  否  |  `key`  |
+|   value   | 默认值                   |  `string`   |  否  |         |
+|   show    | 插件详情页是否展示此配置 |  `boolean`  |  否  | `true`  |
+
+**`FieldType` 类型：**
+
+- `'Input'`：单行文本
+- `'TextArea'`：多行文本
+- `'Password'`：密码输入框
+- `'Number'`：数字输入框
+- `'Select'`：单选
+- `'MultiSelect'`：多选
+- `'DatePicker'`：日期选择器
+- `'DateTimePicker'`：时间日期选择器
+- `'TimePicker'`：时间选择器
+- `'Switch'`：开关
+
+## apis
+
+插件的接口配置项 **数组**，单个接口的配置参数如下：
+
+### type
+
+- **类型：**`'external' ｜ 'addition' | 'replace' | 'prefix' | 'suffix'`
+
+接口的类型，具体使用详见 [接口注册](../../abilities/basic/interface-registration)。
+
+- `'external'`：团队级别新增接口（会对登录进行校验，并且 URL 需要带上 `team/{teamUUID}` 前缀）
+- `'addition'`：插件级别新增接口
+- `'replace'`：替换 ONES 标品接口（待废弃）
+- `'prefix'`：ONES 标品接口前置拦截（待废弃）
+- `'suffix'`：ONES 标品接口后置拦截（待废弃）
+
+### methods
+
+- **类型：**`('GET' | 'POST')[]`
+
+接口支持的请求方式，可同时设置多种类型。
+
+### url
+
+- **类型：**`string`
+- **示例：**`/hello`
+
+接口访问地址。
+
+### function
+
+- **类型：**`string`
+
+接口访问时的调用入口方法名（此方法必须 `export` 导出才能够被开放平台调用）。
+
+### scope
+
+- **类型：**`'project' | 'wiki'`
+- **默认值（含未定义）：**`'project'`
+
+当前接口是对 ONES 标品接口修改时（即 [`type`](#type) 是 `'replace' | 'prefix' | 'suffix'`），需要声明你当前修改的时 `project` 接口还是 `wiki` 接口。
+
+:::note
+如果是插件新增的接口，此字段无意义。
+:::
+
+## modules
+
+插件的模块配置项 **数组**，单个模块配置参数如下：
+
+### id {#moduleId}
+
+- **类型：**`string`
+
+插件内唯一的模块标识，由脚手架自动生成，一般无需修改。
+
+### title
+
+- **类型：**`string`
+
+模块标题。
+
+### description
+
+- **类型：**`string`
+
+模块描述。
+
+### icon
+
+- **类型：**`string`
+- **示例：**`./logo.svg`
+
+模块图标地址，开放平台会在插件 `/web/public` 目录下通过相对路径查询 `svg` 图标资源。
+
+### link
+
+- **类型：**`string`
+
+模块的跳转链接，与 `entry` 互斥。
+
+### entry
+
+- **类型：**`string`
+
+模块的入口文件路径，与 `link` 互斥，由脚手架自动生成，一般无需修改。
+
+### disabled
+
+- **类型：**`boolean`
+
+模块是否禁用，通常用于禁用 ONES 标品的一些模块。
+
+:::caution
+新增类型的插槽不支持设置 `disabled`，如果你需要移除已添加的插件模块，你可以将 `modules` 下对应的模块声明注释或删除掉即可。
+:::
+
+### manual
+
+- **类型：**`boolean`
+
+模块是否由用户的特定操作触发，根据特定能力需求配置，一般无需修改。
+
+### preload
+
+- **类型：**`boolean`
+
+模块是否需要预加载，这通常与 `manual` 配合使用，根据特定能力需求配置，一般无需修改。
+
+### moduleType
+
+- **类型：**`string`
+
+模块类型，可选值详见 [插槽模块列表](../../abilities/slot/slot.md)，由脚手架自动生成，一般无需修改。
+
+### permission {#modulePermission}
+
+- **类型：**`string`
+
+权限标识，与插件 [自定义的标准权限点配置](#permission) 或插件自定义权限点能力配合使用，详情见 [插件自定义权限点](../../abilities/business/permission/customPermission/)。
+
+**示例：**
+
+配合 [自定义的标准权限点配置](#permission) 控制当前模块生效权限，管理员可以在插件权限配置页通过配置「Effective Permission」权限，控制「ones-global-banner-GXvd」模块的生效用户范围。
+
+```yaml title="/config/plugin.yaml"
+service:
+  permission:
+    - name: Effective Permission
+      field: my-example-effective-permission-key
+      desc: This is an example of custom effective permission
+modules:
+  - id: ones-global-banner-GXvd
+    title: example banner title
+    moduleType: ones:global:banner
+    entry: modules/ones-global-banner-GXvd/index.html
+    permisson: my-example-effective-permission-key
+```
+
+### modules {#subModule}
+
+- **类型：**[`modules`](#modules)
+
+插件子模块，由脚手架自动生成，一般无需修改，添加方法详见 [添加插槽子模块](../../guide/abilities/add-slot#step-2-add-slot-submodule)。
+
+对于比较复杂的需要层级的插槽，可以使用此字段来表示层级关系，比如：`我的工作台` 应用插槽，可能包括多个顶栏。

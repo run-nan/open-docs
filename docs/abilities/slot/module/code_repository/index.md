@@ -46,8 +46,8 @@ modules:
 
 **Supported config options：**
 
-- [manual(required)](../../../../reference/config/plugin.md#manual)
-- [preload](../../../../reference/config/plugin.md#preload)
+- [manual(required)](../../../../reference/config/plugin.yaml#manual)
+- [preload](../../../../reference/config/plugin.yaml#preload)
 
 ### Available Hook API
 

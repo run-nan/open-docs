@@ -1,27 +1,17 @@
 ---
 sidebar_position: 3
+notice: 按版本发布顺序从上往下添加包；对于类型的定义，与代码相反，先用后定义。
 ---
-
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
 
 # @ones-op/store
 
 [![](https://npm.partner.ones.cn/badge/v/@ones-op/store.svg)](https://npm.partner.ones.cn/package/@ones-op/store)
 
-我们提供了一套数据获取库，可以帮你在插件内获取标品数据。为了保证数据的只读性，对象和数组数据将会使用 Proxy 代理。
-
-## 兼容性
-
-### 环境依赖
-
-|   ONES   |
-| :------: |
-| v3.6.25+ |
+我们提供了一套插件**前端**数据获取库，可以帮你在插件内获取 ONES 标品数据。为了保证数据的只读性，对象和数组数据将会使用 `Proxy` 代理，你不能也不应该修改从标品获取的数据。
 
 ## 安装
 
-进入 `/web` 目录，通过以下命令安装此包：
+在插件 `/web` 目录，通过以下命令安装此包：
 
 ```bash npm2yarn
 npm install @ones-op/store
@@ -30,27 +20,133 @@ npm install @ones-op/store
 ## 使用
 
 ```tsx
-import { useTestCaseLibraryInfo } from '@ones-op/store'
+import { useTeamInfo } from '@ones-op/store'
 
 function App() {
-  const { uuid, name } = useTestCaseLibraryInfo()
-  return <div>{name}</div>
+  const teamInfo = useTeamInfo()
+  return <div>{teamInfo?.uuid ?? 'unknown'}</div>
 }
 ```
 
+## 索引
+
+| API                                               | 描述                                                   |
+| :------------------------------------------------ | :----------------------------------------------------- |
+| [useTeamInfo](#useTeamInfo)                       | 获取当前团队信息                                       |
+| [useOrganizationInfo](#useOrganizationInfo)       | 获取当前组织信息                                       |
+| [useProductInfo](#useProductInfo)                 | 获取当前产品信息                                       |
+| [useDashboardInfo](#useDashboardInfo)             | 获取当前访问的仪表盘信息                               |
+| [useFilterInfo](#useFilterInfo)                   | 获取当前访问的筛选器视图信息                           |
+| [usePipelineInfo](#usePipelineInfo)               | 获取当前流水线信息                                     |
+| [usePluginInfo](#usePluginInfo)                   | 获取当前的插件信息                                     |
+| [useProgramInfo](#useProgramInfo)                 | 获取当前项目集信息                                     |
+| [useProjectInfo](#useProjectInfo)                 | 获取当前项目信息                                       |
+| [useProjectRoleInfo](#useProjectRoleInfo)         | 获取当前项目成员组件中，所选项目角色的信息             |
+| [useTestCaseLibraryInfo](#useTestCaseLibraryInfo) | 获取当前访问的用例库的信息                             |
+| [useTestCaseListInfo](#useTestCaseListInfo)       | 获取当前访问的用例库的用例列表信息                     |
+| [useTestPlanInfo](#useTestPlanInfo)               | 获取当前测试计划信息                                   |
+| [useUserInfo](#useUserInfo)                       | 获取当前用户信息                                       |
+| [useAction](#useAction)                           | 系统内操作（Action）拦截方法                           |
+| [useProgressJobInfo](#useProgressJobInfo)         | 在进度管理器任务详情弹窗中，获取当前任务的信息         |
+| [useDocumentInfo](#useDocumentInfo)               | 在 wiki 编辑器的自定义宏中，获取当前宏的数据和操作方法 |
+| [useTaskInfo](#useTaskInfo)                       | 获取当前工作项信息                                     |
+
 ## Hooks
+
+导出的标准 [React Hooks](https://reactjs.org/docs/hooks-custom.html#gatsby-focus-wrapper) 用法 API，具体参数详见下述：
+
+### useTeamInfo {#useTeamInfo}
+
+获取当前团队信息。
+
+#### 要求
+
+|  **ONES**  | **@ones-op/store** |
+| :--------: | :----------------: |
+| `v3.6.25+` |     `v0.1.0+`      |
+
+#### 返回
+
+| 说明         |      类型      |
+| :----------- | :------------: |
+| 当前团队信息 | `TeamInfoType` |
+
+#### 类型
+
+```tsx
+interface TeamInfoType {
+  uuid: string // 当前团队的 UUID
+  name: string // 当前团队的名称
+}
+```
+
+### useOrganizationInfo {#useOrganizationInfo}
+
+获取当前组织信息。
+
+#### 要求
+
+|  **ONES**  | **@ones-op/store** |
+| :--------: | :----------------: |
+| `v3.6.25+` |     `v0.1.0+`      |
+
+#### 返回
+
+| 说明         |          类型          |
+| :----------- | :--------------------: |
+| 当前组织信息 | `OrganizationInfoType` |
+
+#### 类型
+
+```tsx
+interface OrganizationInfoType {
+  uuid: string // 当前组织的 UUID
+  name: string // 当前组织的名称
+}
+```
+
+### useProductInfo {#useProductInfo}
+
+获取当前产品信息。
+
+#### 要求
+
+|  **ONES**  | **@ones-op/store** |
+| :--------: | :----------------: |
+| `v3.6.25+` |     `v0.1.0+`      |
+
+#### 返回
+
+| 说明         |       类型        |
+| :----------- | :---------------: |
+| 当前产品信息 | `ProductInfoType` |
+
+#### 类型
+
+```tsx
+interface ProductInfoType {
+  uuid: string // 当前产品的 UUID
+  name: string // 当前产品的名称
+}
+```
 
 ### useDashboardInfo {#useDashboardInfo}
 
-获取当前访问的仪表盘信息
+获取当前访问的仪表盘信息。
 
-#### Returns
+#### 要求
+
+|  **ONES**  | **@ones-op/store** |
+| :--------: | :----------------: |
+| `v3.6.25+` |     `v0.3.0+`      |
+
+#### 返回
 
 | 说明                 |        类型         |
 | :------------------- | :-----------------: |
 | 当前访问的仪表盘信息 | `DashboardInfoType` |
 
-#### Types
+#### 类型
 
 ```tsx
 interface DashboardInfoType {
@@ -61,18 +157,21 @@ interface DashboardInfoType {
 
 ### useFilterInfo {#useFilterInfo}
 
-- 可用：`v0.3.0`
-- ONES 要求：`v3.10.26+`
+获取当前访问的筛选器视图信息。
 
-获取当前访问的筛选器视图信息
+#### 要求
 
-#### Returns
+|  **ONES**   | **@ones-op/store** |
+| :---------: | :----------------: |
+| `v3.10.26+` |     `v0.3.0+`      |
+
+#### 返回
 
 | 说明                     |       类型       |
 | :----------------------- | :--------------: |
 | 当前访问的筛选器视图信息 | `FilterInfoType` |
 
-#### Types
+#### 类型
 
 ```tsx
 interface FilterInfoType {
@@ -81,36 +180,23 @@ interface FilterInfoType {
 }
 ```
 
-### useOrganizationInfo {#useOrganizationInfo}
-
-获取当前组织信息
-
-#### Returns
-
-| 说明         |          类型          |
-| :----------- | :--------------------: |
-| 当前组织信息 | `OrganizationInfoType` |
-
-#### Types
-
-```tsx
-interface OrganizationInfoType {
-  uuid: string // 当前组织的 UUID
-  name: string // 当前组织的名称
-}
-```
-
 ### usePipelineInfo {#usePipelineInfo}
 
-获取当前流水线信息
+获取当前流水线信息。
 
-#### Returns
+#### 要求
+
+|  **ONES**   | **@ones-op/store** |
+| :---------: | :----------------: |
+| `v3.10.26+` |     `v0.3.0+`      |
+
+#### 返回
 
 | 说明           |        类型        |
 | :------------- | :----------------: |
 | 当前流水线信息 | `PipelineInfoType` |
 
-#### Types
+#### 类型
 
 ```tsx
 interface PipelineInfoType {
@@ -121,18 +207,21 @@ interface PipelineInfoType {
 
 ### usePluginInfo {#usePluginInfo}
 
-- 可用: `v0.3.0`
-- ONES 要求: `v3.10.26+`
+获取当前的插件信息。
 
-获取当前的插件信息
+#### 要求
 
-#### Returns
+|  **ONES**   | **@ones-op/store** |
+| :---------: | :----------------: |
+| `v3.10.26+` |     `v0.3.0+`      |
+
+#### 返回
 
 | 说明               |       类型       |
 | :----------------- | :--------------: |
 | 获取当前的插件信息 | `PluginInfoType` |
 
-#### Types
+#### 类型
 
 ```tsx
 interface PluginInfoType {
@@ -150,36 +239,23 @@ interface PluginInfoType {
 }
 ```
 
-### useProductInfo {#useProductInfo}
-
-获取当前产品信息
-
-#### Returns
-
-| 说明         |       类型        |
-| :----------- | :---------------: |
-| 当前产品信息 | `ProductInfoType` |
-
-#### Types
-
-```tsx
-interface ProductInfoType {
-  uuid: string // 当前产品的 UUID
-  name: string // 当前产品的名称
-}
-```
-
 ### useProgramInfo {#useProgramInfo}
 
-获取当前项目集信息
+获取当前项目集信息。
 
-#### Returns
+#### 要求
+
+|  **ONES**   | **@ones-op/store** |
+| :---------: | :----------------: |
+| `v3.10.26+` |     `v0.3.0+`      |
+
+#### 返回
 
 | 说明           |       类型        |
 | :------------- | :---------------: |
 | 当前项目集信息 | `ProgramInfoType` |
 
-#### Types
+#### 类型
 
 ```tsx
 interface ProgramInfoType {
@@ -190,15 +266,21 @@ interface ProgramInfoType {
 
 ### useProjectInfo {#useProjectInfo}
 
-获取当前项目信息
+获取当前项目信息。
 
-#### Returns
+#### 要求
+
+|  **ONES**   | **@ones-op/store** |
+| :---------: | :----------------: |
+| `v3.10.26+` |     `v0.3.0+`      |
+
+#### 返回
 
 | 说明         |       类型        |
 | :----------- | :---------------: |
 | 当前项目信息 | `ProjectInfoType` |
 
-#### Types
+#### 类型
 
 ```tsx
 interface ProjectInfoType {
@@ -209,18 +291,21 @@ interface ProjectInfoType {
 
 ### useProjectRoleInfo {#useProjectRoleInfo}
 
-- 可用：`v0.3.0`
-- ONES 要求：`v3.10.14+`
+获取当前项目成员组件中，所选项目角色的信息。
 
-获取当前项目成员组件中，所选项目角色的信息
+#### 要求
 
-#### Returns
+|  **ONES**   | **@ones-op/store** |
+| :---------: | :----------------: |
+| `v3.10.26+` |     `v0.3.0+`      |
+
+#### 返回
 
 | 说明             |         类型          |
 | :--------------- | :-------------------: |
 | 所选项目角色信息 | `ProjectRoleInfoType` |
 
-#### Types
+#### 类型
 
 ```tsx
 interface ProjectRoleInfoType {
@@ -229,36 +314,23 @@ interface ProjectRoleInfoType {
 }
 ```
 
-### useTeamInfo {#useTeamInfo}
-
-获取当前团队信息
-
-#### Returns
-
-| 说明         |      类型      |
-| :----------- | :------------: |
-| 当前团队信息 | `TeamInfoType` |
-
-#### Types
-
-```tsx
-interface TeamInfoType {
-  uuid: string // 当前团队的 UUID
-  name: string // 当前团队的名称
-}
-```
-
 ### useTestCaseLibraryInfo {#useTestCaseLibraryInfo}
 
-获取当前访问的用例库的信息
+获取当前访问的用例库的信息。
 
-#### Returns
+#### 要求
+
+|  **ONES**   | **@ones-op/store** |
+| :---------: | :----------------: |
+| `v3.10.26+` |     `v0.3.0+`      |
+
+#### 返回
 
 | 说明                   |           类型            |
 | :--------------------- | :-----------------------: |
 | 当前访问的用例库的信息 | `testCaseLibraryInfoType` |
 
-#### Types
+#### 类型
 
 ```tsx
 interface TestCaseLibraryInfoType {
@@ -269,18 +341,21 @@ interface TestCaseLibraryInfoType {
 
 ### useTestCaseListInfo {#useTestCaseListInfo}
 
-- 可用：`v0.3.0`
-- ONES 要求：`v3.10.0+`
+获取当前访问的用例库的用例列表信息。
 
-获取当前访问的用例库的用例列表信息
+#### 要求
 
-#### Returns
+|  **ONES**   | **@ones-op/store** |
+| :---------: | :----------------: |
+| `v3.10.26+` |     `v0.3.0+`      |
+
+#### 返回
 
 | 说明                   |          类型          |
 | :--------------------- | :--------------------: |
 | 当前访问的用例库的信息 | `TestCaseListInfoType` |
 
-#### Types
+#### 类型
 
 ```tsx
 interface TestCaseListInfoType {
@@ -292,15 +367,21 @@ interface TestCaseListInfoType {
 
 ### useTestPlanInfo {#useTestPlanInfo}
 
-获取当前测试计划信息
+获取当前测试计划信息。
 
-#### Returns
+#### 要求
+
+|  **ONES**   | **@ones-op/store** |
+| :---------: | :----------------: |
+| `v3.10.26+` |     `v0.3.0+`      |
+
+#### 返回
 
 | 说明             |        类型        |
 | :--------------- | :----------------: |
 | 当前测试计划信息 | `TestPlanInfoType` |
 
-#### Types
+#### 类型
 
 ```tsx
 interface TestPlanInfoType {
@@ -311,15 +392,21 @@ interface TestPlanInfoType {
 
 ### useUserInfo {#useUserInfo}
 
-获取当前用户信息
+获取当前用户信息。
 
-#### Returns
+#### 要求
+
+|  **ONES**   | **@ones-op/store** |
+| :---------: | :----------------: |
+| `v3.10.26+` |     `v0.3.0+`      |
+
+#### 返回
 
 | 说明         |      类型      |
 | :----------- | :------------: |
 | 当前用户信息 | `UserInfoType` |
 
-#### Types
+#### 类型
 
 ```tsx
 interface UserInfoType {
@@ -328,20 +415,64 @@ interface UserInfoType {
 }
 ```
 
+### useAction {#useAction}
+
+通过调用此 hook 方法，可以对系统内的一些操作（Action）进行拦截处理，具体用法与配置请参阅 [Trigger 插槽](../../../abilities/slot/global/trigger)。
+
+#### 要求
+
+|  **ONES**   | **@ones-op/store** |
+| :---------: | :----------------: |
+| `v3.10.26+` |     `v0.3.0+`      |
+
+#### 参数
+
+|  参数   | 说明               |                            类型                             | 必填 | 默认值 |
+| :-----: | :----------------- | :---------------------------------------------------------: | :--: | :----: |
+|  type   | trigger 类型字符串 | [`ActionEnum`](../../../abilities/slot/global/trigger/list) |  是  |        |
+| handler | 操作拦截处理方法   |             `(payload: ActionPayload) => void`              |  是  |        |
+
+#### 类型
+
+```ts
+interface ActionPayload<T = unknown> {
+  /** 会话 id，同一类的 action，每一次操作，pre 与 post 取得的值相同 */
+  sessionID: string
+  /** 操作的数据 */
+  data: T
+  /** 继续往下执行操作，并销毁插件！ */
+  next: (data: T) => void
+  /** 取消当前操作，并销毁插件！ */
+  cancel: (message?: string) => void
+}
+```
+
+:::warning
+代码里 `useAction` 用到的类型必须与 `plugin.yaml` 相应模块下的 `actions` 声明保持一致，否则将会导致系统无法调起插件，或者系统操作（Action）永久陷入 pending 状态。
+:::
+
+:::caution
+当调用 `next` 或 `cancel` 方法后，插件将会被销毁，此时你将无法进行一些包含 [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) 操作，如 `toast` 提示等。
+如果你有页面提示需求，你应该在提示完成后，再调用 `next` 或 `cancel` 方法。
+:::
+
 ### useProgressJobInfo {#useProgressJobInfo}
 
-- 可用：`v0.3.1`
-- ONES 要求：`v3.11.0+`
+在进度管理器任务详情弹窗中，获取当前任务的信息。
 
-在进度管理器任务详情弹窗中，获取当前任务的信息
+#### 要求
 
-#### Returns
+|  **ONES**  | **@ones-op/store** |
+| :--------: | :----------------: |
+| `v3.11.0+` |     `v0.3.1+`      |
+
+#### 返回
 
 | 说明           |            类型            |
 | :------------- | :------------------------: |
 | 当前任务的信息 | `ProgressJobInfoStateType` |
 
-#### Types
+#### 类型
 
 ```tsx
 enum ProgressJobType {
@@ -371,20 +502,59 @@ interface ProgressJobInfoStateType {
 
 ### useDocumentInfo {#useDocumentInfo}
 
-- 可用：`v0.4.0+`
-- ONES 要求：`v3.11.30+`
+在 wiki 编辑器的自定义宏中，获取当前宏的数据和操作方法。
 
-在 wiki 编辑器的自定义宏中，获取当前宏的数据
+#### 要求
 
-#### Returns
+|  **ONES**   | **@ones-op/store** |
+| :---------: | :----------------: |
+| `v3.11.30+` |     `v0.4.0+`      |
 
-| 说明                         |     类型      |
-| :--------------------------- | :-----------: |
-| 当前宏的数据已经对数据的操作 | `PluginState` |
+#### 返回
 
-#### Types
+| 说明                           |     类型      |
+| :----------------------------- | :-----------: |
+| 当前宏的数据和对数据的操作方法 | `PluginState` |
+
+#### 类型
 
 ```tsx
+interface PluginState<DocumentCustomData, Toolbar> {
+  // 是否是当前用户触发的，如果文档刷新后，就会变成`false`。
+  isTriggerByUser: boolean | undefined
+  // 当前是否在编辑页面
+  editable: boolean | undefined
+  toolbarState: ToolbarState<Toolbar> | undefined
+
+  saveData: (
+    data: DocumentCustomData,
+    config: {
+      exportSpec: ExportSpec[]
+    }
+  ) => void
+  // 跳转到 toolbar，获取关闭 toolbar
+  goToState: (state: ToolbarState<Toolbar>) => void
+  // 删除文档的自定义宏
+  destroy: () => void
+  data: DocumentCustomData | undefined
+  id: string
+
+  exportSpec: ExportSpec[] | undefined
+  // 上传资源到 wiz 服务器，因为导出 word/PDF 时，如果使用图片格式，图片必须先上传到 wiz 服务器。
+  uploadResource:
+    | ((
+        file: File,
+        onProgress: (error: Error | null, percentage: number) => void
+      ) => Promise<string>)
+    | undefined
+  // 获取 wiz 服务器资源的地址，用来获取服务器上的资源。
+  getApiService: () => Promise<string | undefined>
+
+  // 插件运行时状态，比如，插件数据有问题，插件开发者可以展示公共的错误模板。
+  status: EmbedPluginRuntimeStatus | undefined
+  setStatus: (status: EmbedPluginRuntimeStatus) => void
+}
+
 interface ExportText {
   type: 'text'
   data: string
@@ -446,89 +616,49 @@ interface CustomToolbarState<T> {
 }
 
 type ToolbarState<T> = BuiltInToolbarState<T> | CustomToolbarState<T>
-
-interface PluginState<DocumentCustomData, Toolbar> {
-  // 是否是当前用户触发的，如果文档刷新后，就会变成`false`。
-  isTriggerByUser: boolean | undefined
-  // 当前是否在编辑页面
-  editable: boolean | undefined
-  toolbarState: ToolbarState<Toolbar> | undefined
-
-  saveData: (
-    data: DocumentCustomData,
-    config: {
-      exportSpec: ExportSpec[]
-    }
-  ) => void
-  // 跳转到 toolbar，获取关闭 toolbar
-  goToState: (state: ToolbarState<Toolbar>) => void
-  // 删除文档的自定义宏
-  destroy: () => void
-  data: DocumentCustomData | undefined
-  id: string
-
-  exportSpec: ExportSpec[] | undefined
-  // 上传资源到 wiz 服务器，因为导出 word/PDF 时，如果使用图片格式，图片必须先上传到 wiz 服务器。
-  uploadResource:
-    | ((
-        file: File,
-        onProgress: (error: Error | null, percentage: number) => void
-      ) => Promise<string>)
-    | undefined
-  // 获取 wiz 服务器资源的地址，用来获取服务器上的资源。
-  getApiService: () => Promise<string | undefined>
-
-  // 插件运行时状态，比如，插件数据有问题，插件开发者可以展示公共的错误模板。
-  status: EmbedPluginRuntimeStatus | undefined
-  setStatus: (status: EmbedPluginRuntimeStatus) => void
-}
 ```
 
-### useAction {#useAction}
+### useTaskInfo {#useTaskInfo}
 
-通过此 hook 方法，可以对系统内的一些操作（Action）进行拦截处理。
+获取当前工作项信息。
 
-#### Params
+#### 要求
 
-|  参数   | 说明                                                                                               |                类型                | 必填 | 默认值 |
-| :-----: | :------------------------------------------------------------------------------------------------- | :--------------------------------: | :--: | :----: |
-|  type   | trigger 类型字符串，完整的触发列表可以参考：[触发列表](../../../abilities/frontend/event/list.mdx) |            `ActionEnum`            |  是  |        |
-| handler | 操作拦截处理方法                                                                                   | `(payload: ActionPayload) => void` |  是  |        |
+|  **ONES**   | **@ones-op/store** |
+| :---------: | :----------------: |
+| `v3.11.40+` |     `v0.5.0+`      |
 
-#### Types
+#### 返回
 
-```ts
-interface ActionPayload<T = unknown> {
-  /** 会话 id，同一类的 action，每一次操作，pre 与 post 取得的值相同 */
-  sessionID: string
-  /** 操作的数据 */
-  data: T
-  /** 继续往下执行操作，并销毁插件！ */
-  next: (data: T) => void
-  /** 取消当前操作，并销毁插件！ */
-  cancel: (message?: string) => void
+| 说明           |      类型      |
+| :------------- | :------------: |
+| 当前工作项信息 | `TaskInfoType` |
+
+#### 类型
+
+```tsx
+interface TaskInfoType {
+  uuid: string // 当前工作项的 UUID
 }
 ```
-
-:::caution 注意
-当调用 `next` 或 `cancel` 方法后，插件将会被销毁，此时你将无法进行一些 DOM 操作，如 toast 提示等。  
-如果你有页面提示需求，你应该在提示完成后，再调用 `next` 或 `cancel` 方法。
-:::
 
 ### useCodeRepository {#useCodeRepository}
 
-- Added in: `v0.3.0`
-- ONES Requirement: `v3.10.0+`
+获取用户当前选择的代码仓信息。
 
-获取用户当前选择的代码仓信息
+#### 要求
 
-#### Returns
+| **ONES** | **@ones-op/store** |
+| :------: | :----------------: |
+|  `TODO`  |       `TODO`       |
+
+#### 返回
 
 | 说明                     |         类型         |
 | :----------------------- | :------------------: |
 | 用户当前选择的代码仓信息 | `CodeRepositoryInfo` |
 
-#### Types
+#### 类型
 
 > `CodeRepositoryInfo.uuid` 和能力方法 `addRepoCommits` 中的[`toolUUID`](../../../reference/packages/node-ability/node-ability.md#addrepocommits) 一致。
 
@@ -542,12 +672,15 @@ interface CodeRepositoryInfo {
 
 ### useTestReportComponentInfo {#useTestReportComponentInfo}
 
-- 可用：`TODO`
-- ONES 要求：`TODO`
+在插件自定义测试报告组件中，获取当前组件的数据以及对数据进行操作的方法。
 
-在插件自定义测试报告组件中，获取当前组件的数据以及对数据进行操作的方法
+#### 要求
 
-#### Returns
+| **ONES** | **@ones-op/store** |
+| :------: | :----------------: |
+|  `TODO`  |       `TODO`       |
+
+#### 返回
 
 | 说明                           |             类型              |
 | :----------------------------- | :---------------------------: |

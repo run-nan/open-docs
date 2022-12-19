@@ -36,13 +36,17 @@ modules:
 
 **Supported config options：**
 
-- [preload](../../../../reference/config/plugin.md#preload)
-- [manual(required)](../../../../reference/config/plugin.md#manual)
+- [preload](../../../../reference/config/plugin.yaml#preload)
+- [manual(required)](../../../../reference/config/plugin.yaml#manual)
 - actions(required)
 
   - type: `Array<string>`
 
-  Configure the [trigger event](./list.md) this module needs to be handle
+  Configure the [trigger event](./list.md) this module needs to be handle.
+
+  :::warning
+  The type used in `useAction` must be consistent with the `actions` declaration in the corresponding module of `plugin.yaml`, otherwise the plugin cannot be called up or the Action is permanently stuck in pending state.
+  :::
 
 ### Available Hook API
 

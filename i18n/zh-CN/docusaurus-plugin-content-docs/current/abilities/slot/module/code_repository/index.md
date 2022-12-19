@@ -46,8 +46,8 @@ modules:
 
 **支持的配置项：**
 
-- [manual（必填）](../../../../reference/config/plugin.md#manual)
-- [preload](../../../../reference/config/plugin.md#preload)
+- [manual（必填）](../../../../reference/config/plugin.yaml#manual)
+- [preload](../../../../reference/config/plugin.yaml#preload)
 
 ### 可访问的上下文数据：
 

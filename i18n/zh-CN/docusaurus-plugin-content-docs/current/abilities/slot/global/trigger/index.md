@@ -36,13 +36,17 @@ modules:
 
 **支持的配置项：**
 
-- [preload](../../../../reference/config/plugin.md#preload)
-- [manual（必填）](../../../../reference/config/plugin.md#manual)
+- [preload](../../../../reference/config/plugin.yaml#preload)
+- [manual（必填）](../../../../reference/config/plugin.yaml#manual)
 - actions（必填）
 
   - 类型：`Array<string>`
 
-  配置本模块需要处理的[触发事件](./list.md)
+  配置本模块需要处理的[触发事件](./list)
+
+  :::warning
+  代码里 `useAction` 用到的类型必须与 `plugin.yaml` 相应模块下的 `actions` 声明保持一致，否则将会导致系统无法调起插件，或者系统操作（Action）永久陷入 pending 状态。
+  :::
 
 ### 可访问的上下文数据
 

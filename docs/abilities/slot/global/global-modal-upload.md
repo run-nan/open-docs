@@ -81,6 +81,6 @@ modules:
 
 **Supported config options：**
 
-- [preload(required)](../../../reference/config/plugin.md#preload)
-- [manual(required)](../../../reference/config/plugin.md#manual)
-- [icon](../../../reference/config/plugin.md#icon)
+- [preload(required)](../../../reference/config/plugin.yaml#preload)
+- [manual(required)](../../../reference/config/plugin.yaml#manual)
+- [icon](../../../reference/config/plugin.yaml#icon)

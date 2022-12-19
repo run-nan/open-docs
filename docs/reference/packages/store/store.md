@@ -1,345 +1,478 @@
 ---
 sidebar_position: 3
+notice: 按版本发布顺序从上往下添加包；对于类型的定义，与代码相反，先用后定义。
 ---
-
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
 
 # @ones-op/store
 
 [![](https://npm.partner.ones.cn/badge/v/@ones-op/store.svg)](https://npm.partner.ones.cn/package/@ones-op/store)
 
-我们提供了一套数据获取库，可以帮你在插件内获取标品数据。为了保证数据的只读性，对象和数组数据将会使用 Proxy 代理。
+We provide a set of plugin front-end data acquisition library that can help you get ONES standard data in the plugin. In order to ensure the readability of the data, objects and array data will use `Proxy`. You cannot and should not modify the data obtained from the standard.
 
-## 兼容性
+## Installation
 
-### 环境依赖
-
-|   ONES   |
-| :------: |
-| v3.6.25+ |
-
-## 安装
-
-进入 `/web` 目录，通过以下命令安装此包：
+Install the package in the plugin `/web` directory using the following command:
 
 ```bash npm2yarn
 npm install @ones-op/store
 ```
 
-## 使用
+## Usage
 
 ```tsx
-import { useTestCaseLibraryInfo } from '@ones-op/store'
+import { useTeamInfo } from '@ones-op/store'
 
 function App() {
-  const { uuid, name } = useTestCaseLibraryInfo()
-  return <div>{name}</div>
+  const teamInfo = useTeamInfo()
+  return <div>{teamInfo?.uuid ?? 'unknown'}</div>
 }
 ```
+
+## Index
+
+| API                                               | Description                                                                              |
+| :------------------------------------------------ | :--------------------------------------------------------------------------------------- |
+| [useTeamInfo](#useTeamInfo)                       | Get current team information                                                             |
+| [useOrganizationInfo](#useOrganizationInfo)       | Get the current organization information                                                 |
+| [useProductInfo](#useProductInfo)                 | Get current product information                                                          |
+| [useDashboardInfo](#useDashboardInfo)             | Get current dashboard information                                                        |
+| [useFilterInfo](#useFilterInfo)                   | Get information about the currently accessed filter view                                 |
+| [usePipelineInfo](#usePipelineInfo)               | Get current pipeline information                                                         |
+| [usePluginInfo](#usePluginInfo)                   | Get current plugin information                                                           |
+| [useProgramInfo](#useProgramInfo)                 | Get the current program information                                                      |
+| [useProjectInfo](#useProjectInfo)                 | Get current project information                                                          |
+| [useProjectRoleInfo](#useProjectRoleInfo)         | Get the information of the selected project role in the current project member component |
+| [useTestCaseLibraryInfo](#useTestCaseLibraryInfo) | Get the information of the currently access testcase library                             |
+| [useTestCaseListInfo](#useTestCaseListInfo)       | Get the information of the currently access testcase library list                        |
+| [useTestPlanInfo](#useTestPlanInfo)               | Get the current test plan information                                                    |
+| [useUserInfo](#useUserInfo)                       | Get the current user information                                                         |
+| [useAction](#useAction)                           | Action interception method in the system                                                 |
+| [useProgressJobInfo](#useProgressJobInfo)         | Get the information of the current task in details of the progress manager task          |
+| [useDocumentInfo](#useDocumentInfo)               | Get the data of the custom macro in the wiki editor                                      |
+| [useTaskInfo](#useTaskInfo)                       | Get current task information                                                             |
 
 ## Hooks
 
-### useDashboardInfo {#useDashboardInfo}
-
-获取当前访问的仪表盘信息
-
-#### Returns
-
-| 说明                 |        类型         |
-| :------------------- | :-----------------: |
-| 当前访问的仪表盘信息 | `DashboardInfoType` |
-
-#### Types
-
-```tsx
-interface DashboardInfoType {
-  uuid: string // 当前仪表盘的 UUID
-  name: string // 当前仪表盘的名称
-}
-```
-
-### useFilterInfo {#useFilterInfo}
-
-- Added in: `v0.3.0`
-- ONES Requirement: `v3.10.26+`
-
-获取当前访问的筛选器视图信息
-
-#### Returns
-
-| 说明                     |       类型       |
-| :----------------------- | :--------------: |
-| 当前访问的筛选器视图信息 | `FilterInfoType` |
-
-#### Types
-
-```tsx
-interface FilterInfoType {
-  uuid: string // 当前筛选器视图的 UUID
-  name: string // 当前筛选器视图的名称
-}
-```
-
-### useOrganizationInfo {#useOrganizationInfo}
-
-获取当前组织信息
-
-#### Returns
-
-| 说明         |          类型          |
-| :----------- | :--------------------: |
-| 当前组织信息 | `OrganizationInfoType` |
-
-#### Types
-
-```tsx
-interface OrganizationInfoType {
-  uuid: string // 当前组织的 UUID
-  name: string // 当前组织的名称
-}
-```
-
-### usePipelineInfo {#usePipelineInfo}
-
-获取当前流水线信息
-
-#### Returns
-
-| 说明           |        类型        |
-| :------------- | :----------------: |
-| 当前流水线信息 | `PipelineInfoType` |
-
-#### Types
-
-```tsx
-interface PipelineInfoType {
-  uuid: string // 当前流水线的 UUID
-  name: string // 当前流水线的名称
-}
-```
-
-### usePluginInfo {#usePluginInfo}
-
-- Added in: `v0.3.0`
-- ONES Requirement: `v3.10.26+`
-
-获取当前的插件信息
-
-#### Returns
-
-| 说明               |       类型       |
-| :----------------- | :--------------: |
-| 获取当前的插件信息 | `PluginInfoType` |
-
-#### Types
-
-```tsx
-interface PluginInfoType {
-  appID: string // 插件 ID
-  name: string // 插件名称
-  description: string // 插件描述
-  version: string // 插件版本
-  /**
-   * 插件状态
-   * 1：启用
-   * 2：禁用
-   */
-  status: 1 | 2
-  instanceID: string // 实例 ID
-}
-```
-
-### useProductInfo {#useProductInfo}
-
-获取当前产品信息
-
-#### Returns
-
-| 说明         |       类型        |
-| :----------- | :---------------: |
-| 当前产品信息 | `ProductInfoType` |
-
-#### Types
-
-```tsx
-interface ProductInfoType {
-  uuid: string // 当前产品的 UUID
-  name: string // 当前产品的名称
-}
-```
-
-### useProgramInfo {#useProgramInfo}
-
-获取当前项目集信息
-
-#### Returns
-
-| 说明           |       类型        |
-| :------------- | :---------------: |
-| 当前项目集信息 | `ProgramInfoType` |
-
-#### Types
-
-```tsx
-interface ProgramInfoType {
-  uuid: string // 当前项目集的 UUID
-  name: string // 当前项目集的名称
-}
-```
-
-### useProjectInfo {#useProjectInfo}
-
-获取当前项目信息
-
-#### Returns
-
-| 说明         |       类型        |
-| :----------- | :---------------: |
-| 当前项目信息 | `ProjectInfoType` |
-
-#### Types
-
-```tsx
-interface ProjectInfoType {
-  uuid: string // 当前项目的 UUID
-  name: string // 当前项目的名称
-}
-```
-
-### useProjectRoleInfo {#useProjectRoleInfo}
-
-- Added in: `v0.3.0`
-- ONES Requirement: `v3.10.14+`
-
-获取当前项目成员组件中，所选项目角色的信息
-
-#### Returns
-
-| 说明             |         类型          |
-| :--------------- | :-------------------: |
-| 所选项目角色信息 | `ProjectRoleInfoType` |
-
-#### Types
-
-```tsx
-interface ProjectRoleInfoType {
-  uuid: string // 当前选中角色的 UUID
-  name: string // 当前选中角色的名称
-}
-```
+The exported standard [React Hooks](https://reactjs.org/docs/hooks-custom.html#gatsby-focus-wrapper) usage API, the specific parameters are shown in the following:
 
 ### useTeamInfo {#useTeamInfo}
 
-获取当前团队信息
+Get current team information.
+
+#### Requirements
+
+|  **ONES**  | **@ones-op/store** |
+| :--------: | :----------------: |
+| `v3.6.25+` |     `v0.1.0+`      |
 
 #### Returns
 
-| 说明         |      类型      |
-| :----------- | :------------: |
-| 当前团队信息 | `TeamInfoType` |
+| Description              |      Type      |
+| :----------------------- | :------------: |
+| Current team information | `TeamInfoType` |
 
 #### Types
 
 ```tsx
 interface TeamInfoType {
-  uuid: string // 当前团队的 UUID
-  name: string // 当前团队的名称
+  uuid: string // Current team UUID
+  name: string // Current team name
+}
+```
+
+### useOrganizationInfo {#useOrganizationInfo}
+
+Get the current organization information.
+
+#### Requirements
+
+|  **ONES**  | **@ones-op/store** |
+| :--------: | :----------------: |
+| `v3.6.25+` |     `v0.1.0+`      |
+
+#### Returns
+
+| Description                      |          Type          |
+| :------------------------------- | :--------------------: |
+| Current organization information | `OrganizationInfoType` |
+
+#### Types
+
+```tsx
+interface OrganizationInfoType {
+  uuid: string // Current organization UUID
+  name: string // Current organization name
+}
+```
+
+### useProductInfo {#useProductInfo}
+
+Get current product information.
+
+#### Requirements
+
+|  **ONES**  | **@ones-op/store** |
+| :--------: | :----------------: |
+| `v3.6.25+` |     `v0.1.0+`      |
+
+#### Returns
+
+| Description                 |       Type        |
+| :-------------------------- | :---------------: |
+| Current product information | `ProductInfoType` |
+
+#### Types
+
+```tsx
+interface ProductInfoType {
+  uuid: string // Current product UUID
+  name: string // Current product name
+}
+```
+
+### useDashboardInfo {#useDashboardInfo}
+
+Get current dashboard information.
+
+#### Requirements
+
+|  **ONES**  | **@ones-op/store** |
+| :--------: | :----------------: |
+| `v3.6.25+` |     `v0.3.0+`      |
+
+#### Returns
+
+| Description                   |        Type         |
+| :---------------------------- | :-----------------: |
+| Current dashboard information | `DashboardInfoType` |
+
+#### Types
+
+```tsx
+interface DashboardInfoType {
+  uuid: string // Current dashboard UUID
+  name: string // Current dashboard name
+}
+```
+
+### useFilterInfo {#useFilterInfo}
+
+Get information about the currently accessed filter view.
+
+#### Requirements
+
+|  **ONES**   | **@ones-op/store** |
+| :---------: | :----------------: |
+| `v3.10.26+` |     `v0.3.0+`      |
+
+#### Returns
+
+| Description                                    |       Type       |
+| :--------------------------------------------- | :--------------: |
+| The currently accessed filter view information | `FilterInfoType` |
+
+#### Types
+
+```tsx
+interface FilterInfoType {
+  uuid: string // The currently accessed filter view UUID
+  name: string // The currently accessed filter view name
+}
+```
+
+### usePipelineInfo {#usePipelineInfo}
+
+Get current pipeline information.
+
+#### Requirements
+
+|  **ONES**   | **@ones-op/store** |
+| :---------: | :----------------: |
+| `v3.10.26+` |     `v0.3.0+`      |
+
+#### Returns
+
+| Description                  |        Type        |
+| :--------------------------- | :----------------: |
+| Current pipeline information | `PipelineInfoType` |
+
+#### Types
+
+```tsx
+interface PipelineInfoType {
+  uuid: string // Current pipeline information UUID
+  name: string // Current pipeline information name
+}
+```
+
+### usePluginInfo {#usePluginInfo}
+
+Get current plugin information.
+
+#### Requirements
+
+|  **ONES**   | **@ones-op/store** |
+| :---------: | :----------------: |
+| `v3.10.26+` |     `v0.3.0+`      |
+
+#### Returns
+
+| Description                |       Type       |
+| :------------------------- | :--------------: |
+| Current plugin information | `PluginInfoType` |
+
+#### Types
+
+```tsx
+interface PluginInfoType {
+  appID: string // Current plugin ID
+  name: string // Current plugin name
+  description: string // Current plugin description
+  version: string // Current plugin version
+  /**
+   * Plugin status
+   * 1：Enabled
+   * 2：Disabled
+   */
+  status: 1 | 2
+  instanceID: string // Current plugin instance ID
+}
+```
+
+### useProgramInfo {#useProgramInfo}
+
+Get the current program information.
+
+#### Requirements
+
+|  **ONES**   | **@ones-op/store** |
+| :---------: | :----------------: |
+| `v3.10.26+` |     `v0.3.0+`      |
+
+#### Returns
+
+| Description                 |       Type        |
+| :-------------------------- | :---------------: |
+| Current program information | `ProgramInfoType` |
+
+#### Types
+
+```tsx
+interface ProgramInfoType {
+  uuid: string // Current program UUID
+  name: string // Current program name
+}
+```
+
+### useProjectInfo {#useProjectInfo}
+
+Get current project information.
+
+#### Requirements
+
+|  **ONES**   | **@ones-op/store** |
+| :---------: | :----------------: |
+| `v3.10.26+` |     `v0.3.0+`      |
+
+#### Returns
+
+| Description                 |       Type        |
+| :-------------------------- | :---------------: |
+| Current project information | `ProjectInfoType` |
+
+#### Types
+
+```tsx
+interface ProjectInfoType {
+  uuid: string // Current project information UUID
+  name: string // Current project information name
+}
+```
+
+### useProjectRoleInfo {#useProjectRoleInfo}
+
+Get the information of the selected project role in the current project member component.
+
+#### Requirements
+
+|  **ONES**   | **@ones-op/store** |
+| :---------: | :----------------: |
+| `v3.10.26+` |     `v0.3.0+`      |
+
+#### Returns
+
+| Description                           |         Type          |
+| :------------------------------------ | :-------------------: |
+| The selected project role information | `ProjectRoleInfoType` |
+
+#### Types
+
+```tsx
+interface ProjectRoleInfoType {
+  uuid: string // The selected project role UUID
+  name: string // The selected project role name
 }
 ```
 
 ### useTestCaseLibraryInfo {#useTestCaseLibraryInfo}
 
-获取当前访问的用例库的信息
+Get the information of the currently access testcase library.
+
+#### Requirements
+
+|  **ONES**   | **@ones-op/store** |
+| :---------: | :----------------: |
+| `v3.10.26+` |     `v0.3.0+`      |
 
 #### Returns
 
-| 说明                   |           类型            |
-| :--------------------- | :-----------------------: |
-| 当前访问的用例库的信息 | `testCaseLibraryInfoType` |
+| Description                                          |           Type            |
+| :--------------------------------------------------- | :-----------------------: |
+| Information of the currently access testcase library | `testCaseLibraryInfoType` |
 
 #### Types
 
 ```tsx
 interface TestCaseLibraryInfoType {
-  uuid: string // 当前用例库的 UUID
-  name: string // 当前用例库的名称
+  uuid: string // UUID of the currently access testcase library
+  name: string // Name of the currently access testcase library
 }
 ```
 
 ### useTestCaseListInfo {#useTestCaseListInfo}
 
-- Added in: `v0.3.0`
-- ONES Requirement: `v3.10.0+`
+Get the information of the currently access testcase library list.
 
-获取当前访问的用例库的用例列表信息
+#### Requirements
+
+|  **ONES**   | **@ones-op/store** |
+| :---------: | :----------------: |
+| `v3.10.26+` |     `v0.3.0+`      |
 
 #### Returns
 
-| 说明                   |          类型          |
-| :--------------------- | :--------------------: |
-| 当前访问的用例库的信息 | `TestCaseListInfoType` |
+| Description                                               |          Type          |
+| :-------------------------------------------------------- | :--------------------: |
+| Information of the currently access testcase library list | `TestCaseListInfoType` |
 
 #### Types
 
 ```tsx
 interface TestCaseListInfoType {
-  selectedUUIDs: Array<string> // 当前选中的用例信息
-  isFullSelected?: boolean // 当前用例是否全选
-  fullSelectedParams?: { [key: string]: any } // 全选场景下的查询条件以及标识
+  selectedUUIDs: Array<string> // The current selected testcase information
+  isFullSelected?: boolean // Whether to full selected
+  fullSelectedParams?: { [key: string]: any } // Search parameters and identifiers in full selected
 }
 ```
 
 ### useTestPlanInfo {#useTestPlanInfo}
 
-获取当前测试计划信息
+Get the current test plan information.
+
+#### Requirements
+
+|  **ONES**   | **@ones-op/store** |
+| :---------: | :----------------: |
+| `v3.10.26+` |     `v0.3.0+`      |
 
 #### Returns
 
-| 说明             |        类型        |
-| :--------------- | :----------------: |
-| 当前测试计划信息 | `TestPlanInfoType` |
+| Description                   |        Type        |
+| :---------------------------- | :----------------: |
+| Current test plan information | `TestPlanInfoType` |
 
 #### Types
 
 ```tsx
 interface TestPlanInfoType {
-  uuid: string // 当前测试计划的 UUID
-  name: string // 当前测试计划的名称
+  uuid: string // Current test plan UUID
+  name: string // Current test plan name
 }
 ```
 
 ### useUserInfo {#useUserInfo}
 
-获取当前用户信息
+Get the current user information.
+
+#### Requirements
+
+|  **ONES**   | **@ones-op/store** |
+| :---------: | :----------------: |
+| `v3.10.26+` |     `v0.3.0+`      |
 
 #### Returns
 
-| 说明         |      类型      |
-| :----------- | :------------: |
-| 当前用户信息 | `UserInfoType` |
+| Description              |      Type      |
+| :----------------------- | :------------: |
+| Current user information | `UserInfoType` |
 
 #### Types
 
 ```tsx
 interface UserInfoType {
-  uuid: string // 当前用户的 UUID
-  name: string // 当前用户的名称
+  uuid: string // Current user UUID
+  name: string // Current user name
 }
 ```
 
+### useAction {#useAction}
+
+By calling this hook method, some action in the system can be intercepted. For details about usage and configuration, see [Trigger Slot](../../../abilities/slot/global/trigger)。
+
+#### Requirements
+
+|  **ONES**   | **@ones-op/store** |
+| :---------: | :----------------: |
+| `v3.10.26+` |     `v0.3.0+`      |
+
+#### Params
+
+| Params  | Description                              |                            Type                             | Required | Default |
+| :-----: | :--------------------------------------- | :---------------------------------------------------------: | :------: | :-----: |
+|  type   | Trigger type                             | [`ActionEnum`](../../../abilities/slot/global/trigger/list) |   Yes    |         |
+| handler | Operation interception processing method |             `(payload: ActionPayload) => void`              |   Yes    |         |
+
+#### Types
+
+```ts
+function useAction(type: ActionEnum, handler: (payload: ActionPayload) => void): void
+
+interface ActionPayload<T = unknown> {
+  /** Session id，the `pre` and `post` values are the same for each action of the same category */
+  sessionID: string
+  /** Operating data */
+  data: T
+  /** Go ahead and destroy the plugin! */
+  next: (data: T) => void
+  /** Cancel the current action and destroy the plugin! */
+  cancel: (message?: string) => void
+}
+```
+
+:::warning
+The type used in `useAction` must be consistent with the `actions` declaration in the corresponding module of `plugin.yaml`, otherwise the plugin cannot be called up or the Action is permanently stuck in pending state.
+:::
+
+:::caution
+When the `next` or `cancel` method is called, the plugin will be destroyed. At this time, you will not be able to perform some [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) operations, such as the prompt of `toast`.
+If you have a page prompt, you should call the `next` or `cancel` method after the prompt is completed.
+:::
+
 ### useProgressJobInfo {#useProgressJobInfo}
 
-- Added in: `v0.3.1`
-- ONES Requirement: `v3.11.0+`
+Get the information of the current task in details of the progress manager task.
 
-在进度管理器任务详情弹窗中，获取当前任务的信息
+#### Requirements
+
+|  **ONES**  | **@ones-op/store** |
+| :--------: | :----------------: |
+| `v3.11.0+` |     `v0.3.1+`      |
 
 #### Returns
 
-| 说明           |            类型            |
-| :------------- | :------------------------: |
-| 当前任务的信息 | `ProgressJobInfoStateType` |
+| Description          |            Type            |
+| :------------------- | :------------------------: |
+| Current task details | `ProgressJobInfoStateType` |
 
 #### Types
 
@@ -354,14 +487,14 @@ enum ProgressJobStatus {
 }
 
 interface ProgressJobInfoStateType {
-  appID: string // 当前插件的appID
-  moduleID: string // 当前任务绑定的插槽模块id
-  jobType: ProgressJobType // 当前任务的类型
-  jobStatus: ProgressJobStatus // 任务的状态
-  successfulCount: number // 任务执行成功的个数
-  unprocessedCount: number // 任务执行中的个数
-  unsuccessfulCount: number // 任务执行失败的个数
-  // 能力使用done时传入的payload参数
+  appID: string // Current plugin appID
+  moduleID: string // The slot module ID of the current task binding
+  jobType: ProgressJobType // Current job type
+  jobStatus: ProgressJobStatus // Current job status
+  successfulCount: number // Number of tasks successfully executed
+  unprocessedCount: number // Number of tasks in execution
+  unsuccessfulCount: number // Number of task execution failures
+  // Ability payload parameter passed in when using Done
   payload: {
     data: string
     filePath: string
@@ -371,25 +504,60 @@ interface ProgressJobInfoStateType {
 
 ### useDocumentInfo {#useDocumentInfo}
 
-- Version Requirements：`v0.4.0+`
-- ONES Environment Requirements：`v3.11.30+`
-
 Get the data of the custom macro in the wiki editor.
+
+#### Requirements
+
+|  **ONES**   | **@ones-op/store** |
+| :---------: | :----------------: |
+| `v3.11.30+` |     `v0.4.0+`      |
 
 #### Returns
 
-| explaination                             |     type      |
+| Description                              |     Type      |
 | :--------------------------------------- | :-----------: |
 | The data and the operation for the macro | `PluginState` |
 
 #### Types
 
 ```tsx
+interface PluginState<DocumentCustomData, Toolbar> {
+  // Whether it is triggered by the user, if the document is refreshed, it will become `false`.
+  isTriggerByUser: boolean | undefined
+  // Whether the user is in the edit interface
+  editable: boolean | undefined
+  toolbarState: ToolbarState<Toolbar> | undefined
+  saveData: (
+    data: DocumentCustomData,
+    config: {
+      exportSpec: ExportSpec[]
+    }
+  ) => void
+  // Open or close the toolbar slot
+  goToState: (state: ToolbarState<Toolbar>) => void
+  // Delete the current custom macro
+  destroy: () => void
+  data: DocumentCustomData | undefined
+  id: string
+  exportSpec: ExportSpec[] | undefined
+  // Upload the resource to the wiki server, because when exporting to word or PDF, and the data needs to be rendered as an image, the image must be uploaded to the wiki server first.
+  uploadResource:
+    | ((
+        file: File,
+        onProgress: (error: Error | null, percentage: number) => void
+      ) => Promise<string>)
+    | undefined
+  // Get the URL of the wiki resource which is used to get the resource from the wiki server.
+  getApiService: () => Promise<string | undefined>
+  // The plugin runtime status, for example, if the plugin data is not expected, the developers can show the public error templates.
+  status: EmbedPluginRuntimeStatus | undefined
+  setStatus: (status: EmbedPluginRuntimeStatus) => void
+}
+
 interface ExportText {
   type: 'text'
   data: string
 }
-
 interface ExportLink {
   type: 'link'
   data: {
@@ -397,15 +565,12 @@ interface ExportLink {
     title: string
   }
 }
-
 interface ExportImage {
   type: 'image'
   // The name of the image in the wiki server
   data: string
 }
-
 type ExportSpec = ExportImage | ExportLink | ExportText
-
 enum EmbedPluginRuntimeStatus {
   /**
    * The plugin works fine
@@ -420,9 +585,7 @@ enum EmbedPluginRuntimeStatus {
    */
   PLUGIN_RESOURCE_INVALID = 'PLUGIN_RESOURCE_INVALID',
 }
-
 type BuiltInToolbarStep = 'init'
-
 // Initialization state, all toolbars are closed by default
 interface BuiltInToolbarState<T> {
   builtIn: true
@@ -433,7 +596,6 @@ interface BuiltInToolbarState<T> {
    */
   customData?: T
 }
-
 // Open the toolbar defined by the developer
 interface CustomToolbarState<T> {
   builtIn: false
@@ -444,89 +606,48 @@ interface CustomToolbarState<T> {
   }
   customData?: T
 }
-
 type ToolbarState<T> = BuiltInToolbarState<T> | CustomToolbarState<T>
-
-interface PluginState<DocumentCustomData, Toolbar> {
-  // Whether it is triggered by the user, if the document is refreshed, it will become `false`.
-  isTriggerByUser: boolean | undefined
-  // Whether the user is in the edit interface
-  editable: boolean | undefined
-  toolbarState: ToolbarState<Toolbar> | undefined
-
-  saveData: (
-    data: DocumentCustomData,
-    config: {
-      exportSpec: ExportSpec[]
-    }
-  ) => void
-  // Open or close the toolbar slot
-  goToState: (state: ToolbarState<Toolbar>) => void
-  // delete the current custom macro
-  destroy: () => void
-  data: DocumentCustomData | undefined
-  id: string
-
-  exportSpec: ExportSpec[] | undefined
-  // Upload the resource to the wiki server, because when exporting to word or PDF, and the data needs to be rendered as an image, the image must be uploaded to the wiki server first.
-  uploadResource:
-    | ((
-        file: File,
-        onProgress: (error: Error | null, percentage: number) => void
-      ) => Promise<string>)
-    | undefined
-  // Get the URL of the wiki resource which is used to get the resource from the wiki server.
-  getApiService: () => Promise<string | undefined>
-
-  // The plugin runtime status, for example, if the plugin data is not expected, the developers can show the public error templates.
-  status: EmbedPluginRuntimeStatus | undefined
-  setStatus: (status: EmbedPluginRuntimeStatus) => void
-}
 ```
 
-### useAction {#useAction}
+### useTaskInfo {#useTaskInfo}
 
-通过此 hook 方法，可以对系统内的一些操作（Action）进行拦截处理。
+Get current task information.
 
-#### Params
+#### Requirements
 
-|  参数   | 说明                                                                                               |                类型                | 必填 | 默认值 |
-| :-----: | :------------------------------------------------------------------------------------------------- | :--------------------------------: | :--: | :----: |
-|  type   | trigger 类型字符串，完整的触发列表可以参考：[触发列表](../../../abilities/frontend/event/list.mdx) |            `ActionEnum`            |  是  |        |
-| handler | 操作拦截处理方法                                                                                   | `(payload: ActionPayload) => void` |  是  |        |
-
-#### Types
-
-```ts
-interface ActionPayload<T = unknown> {
-  /** 会话 id，同一类的 action，每一次操作，pre 与 post 取得的值相同 */
-  sessionID: string
-  /** 操作的数据 */
-  data: T
-  /** 继续往下执行操作，并销毁插件！ */
-  next: (data: T) => void
-  /** 取消当前操作，并销毁插件！ */
-  cancel: (message?: string) => void
-}
-```
-
-:::caution 注意
-当调用 `next` 或 `cancel` 方法后，插件将会被销毁，此时你将无法进行一些 DOM 操作，如 toast 提示等。  
-如果你有页面提示需求，你应该在提示完成后，再调用 `next` 或 `cancel` 方法。
-:::
-
-### useCodeRepository {#useCodeRepository}
-
-- Added in: `v0.3.0`
-- ONES Requirement: `v3.10.0+`
-
-Get the code repository info that the current user selected.
+|  **ONES**   | **@ones-op/store** |
+| :---------: | :----------------: |
+| `v3.11.40+` |     `v0.5.0+`      |
 
 #### Returns
 
-| Description                                              |         Type         |
-| :------------------------------------------------------- | :------------------: |
-| the code repository info that the current user selected. | `CodeRepositoryInfo` |
+| Description              |      Type      |
+| :----------------------- | :------------: |
+| Current task information | `TaskInfoType` |
+
+#### Types
+
+```tsx
+interface TaskInfoType {
+  uuid: string // Current task UUID
+}
+```
+
+### useCodeRepository {#useCodeRepository}
+
+Get the code repository info that the current user selected.
+
+#### Requirements
+
+| **ONES** | **@ones-op/store** |
+| :------: | :----------------: |
+|  `TODO`  |       `TODO`       |
+
+#### Returns
+
+| Description                                             |         Type         |
+| :------------------------------------------------------ | :------------------: |
+| The code repository info that the current user selected | `CodeRepositoryInfo` |
 
 #### Types
 
@@ -543,10 +664,13 @@ interface CodeRepositoryInfo {
 
 ### useTestReportComponentInfo {#useTestReportComponentInfo}
 
-- Added in: `TODO`
-- ONES Requirement: `TODO`
+In the plugin custom test report component, get the data of the current component and the method of operating the data.
 
-In the plug-in custom test report component, get the data of the current component and the method of operating the data
+#### Requirements
+
+| **ONES** | **@ones-op/store** |
+| :------: | :----------------: |
+|  `TODO`  |       `TODO`       |
 
 #### Returns
 

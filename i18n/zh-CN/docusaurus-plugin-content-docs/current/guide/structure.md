@@ -46,15 +46,15 @@ sidebar_position: 5
 
 ### 目录介绍
 
-| File/Directory                                                   | Description                                                              |
-| ---------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| backend                                                          | 后端资源目录                                                             |
-| backend / package.json                                           | 插件工程后端的元数据文件，包括你使用包管理器安装的依赖或脚本             |
-| [config / ci-deploy.yaml](../reference/config/ci-deploy.yaml.md) | 插件工程持续集成配置                                                     |
-| [config / local.yaml](../reference/config/local.yaml.md)         | 本地调试配置（不会被 git 记录）                                          |
-| [config / upgrade.yaml](../reference/config/upgrade.yaml.md)     | 插件升级配置文件                                                         |
-| [config / plugin.yaml](../reference/config/plugin.yaml.md)       | 插件的配置信息                                                           |
-| web                                                              | 前端资源目录                                                             |
-| web / package.json                                               | 插件工程前端的元数据文件，包括你使用包管理器安装的依赖或脚本             |
-| web / public / logo.svg                                          | 插件的 Logo（只会读取 logo.svg）                                         |
-| workspace                                                        | 插件的物理存储空间，可以在这里存放一些插件的配置或内容，共插件运行时消费 |
+| File/Directory                                                | Description                                                              |
+| ------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| backend                                                       | 后端资源目录                                                             |
+| backend / package.json                                        | 插件工程后端的元数据文件，包括你使用包管理器安装的依赖或脚本             |
+| [config / ci-deploy.yaml](../reference/config/ci-deploy.yaml) | 插件工程持续集成配置                                                     |
+| [config / local.yaml](../reference/config/local.yaml)         | 本地调试配置（不会被 git 记录）                                          |
+| [config / upgrade.yaml](../reference/config/upgrade.yaml)     | 插件升级配置文件                                                         |
+| [config / plugin.yaml](../reference/config/plugin.yaml)       | 插件的配置信息                                                           |
+| web                                                           | 前端资源目录                                                             |
+| web / package.json                                            | 插件工程前端的元数据文件，包括你使用包管理器安装的依赖或脚本             |
+| web / public / logo.svg                                       | 插件的 Logo（只会读取 logo.svg）                                         |
+| workspace                                                     | 插件的物理存储空间，可以在这里存放一些插件的配置或内容，共插件运行时消费 |
