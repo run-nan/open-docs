@@ -73,7 +73,7 @@ task-event-handler@1.0.0
 
   会生成 `index.ts` 和 `simple-auth.ts`，这个就是我们提供给你的能力模版。
 
-:::caution notice
+:::caution 注意
 相同的能力可以重复被添加到插件工程中，当能力被重复添加时：
 
 - 不会在 `backend/src` 下重复生成模版
