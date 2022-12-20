@@ -2,41 +2,41 @@
 sidebar_position: 2
 ---
 
-# CLI 使用
+# CLI Usage
 
-开放平台命令行界面诊断工具，它能够根据你设置的配置，连接 ONES 开放平台，查看平台与插件的日志与状态，以便于你排查问题，或者将当前数据导出，交给他人联合排查。
+ONES Open Platform command line diagnostic tools, it can connect to the ONES Open Platform according to the configuration you set, view the logs and status of the platform and plug in, so that you can troubleshoot problems, or export the current data, to others joint troubleshooting.
 
 :::note
-其主要功能与桌面端相同。
+Its main features are the same as Desktop.
 :::
 
-## 要求
+## Requirements
 
 | **ONES** |
 | -------- |
-| 3.11.xx+ |
+| v3.12.0+ |
 
-## 安装
+## Installation
 
-请参见 [下载与安装](./install#命令行界面工具)。
+See [Download and Installation](./install#desktop-tools).
 
-## 帮助信息
+## Help Information
 
-CLI 提供了多种方式的帮助信息输出方式，你可以在每个命令的后面添加 `--help` 输出当前命令的帮助信息，也可以使用 [`help`](./cli-commands#help) 命令查看帮助信息。
+CLI provides a variety of ways to help information output, you can add `--help` at the end of each command to output the help information of the current command, or use the [`help`](./cli-commands#help) command to view the help information.
 
 ```bash
 diagtools help
 ```
 
-同时也支持命令的 Tab 键自动补全功能，你可以使用 [`autocomplete`](./cli-commands#autocomplete) 命令输出当前环境自动补全功能的安装。
+At the same time, the TAB key to automatically complete the command. You can use the [`autocomplete`](./cli-commands#autocomplete) command to output the current automatic completion function installation.
 
 ```bash
 diagtools autocomplete
 ```
 
-## 更新配置 (config)
+## Update Config (config)
 
-CLI 提供了 [`config`](./cli-commands#config-set) 子命令，你可以使用以下命令对当前使用的配置进行管理。
+CLI provides [`config`](./cli-commands#config-set) sub-command, you can use the following command to manage the profile currently in use.
 
 - `config get`
 - `config set`
@@ -44,25 +44,25 @@ CLI 提供了 [`config`](./cli-commands#config-set) 子命令，你可以使用�
 - `config delete`
 
 :::note
-CLI 初始行为与桌面端稍有不同，默认会为你自动创建一个名为 default 的配置。
+The initial behavior of the CLI is slightly different from that of the desktop. By default, a profile named default is automatically created for you.
 
-如果你只有一份配置（只有一个可以连接的开放平台），你可以直接使用 `config` 子命令，而不需要使用任何 `profile` 子命令。
+If you only have one profile (There's only one open platform that you can connect to)，You can use the `config` subcommand without using any of the `profile` subcommands.
 :::
 
 ```bash
 diagtools config set address tcp://127.0.0.1:9006
 ```
 
-## 添加与切换配置 (profile)
+## Add and Switch Profile (profile)
 
-CLI 提供了 [`profile`](./cli-commands#profile-new) 子命令，如果你有多个需要连接的服务器配置，你使用以下命令对每个配置文件进行管理。
+CLI provides [`profile`](./cli-commands#profile-new) sub-command, if you have multiple server profile that you need to connect to, you can use the following command to manage each profile.
 
 - `profile new`
 - `profile use`
 - `profile delete`
 - `profile list`
 
-下面是新增第二份配置文件并使用的示例：
+The following is an example of the second profile and used:
 
 ```bash
 $ diagtools profile add secondProfileName
@@ -72,67 +72,67 @@ $ diagtools profile use secondProfileName
 $ diagtools config set address tcp://127.0.0.1:9007
 ```
 
-## 查看日志 (log)
+## View Logs (log)
 
-在你的配置正确或者临时指定了必填配置的情况下，你可以使用 [`log`](./cli-commands#log) 命令查看各个组件的日志。
+CLI provides [`log`](./cli-commands#log) command, you can use the [`log`](./cli-commands#log) command to view the logs of each component if your profile is correct or if you temporarily specify a required configuration.
 
-交互式选择查看某个插件的日志：
+Interactive selection to view the log of a plugin：
 
 ```bash
 diagtools log plugin
 ```
 
-非交互式指定查看某个插件的日志（id 为 instanceID，如果 id 不存在，则无信息输出）：
+Non-interactive Specifies that logs for a plugin are viewed (the id is instanceID; if the id does not exist, no information is output):
 
 ```bash
 diagtools log plugin --id ce1f55d2
 ```
 
-交互式选择查看某个宿主机实例的日志（非交互式命令同上）：
+Interactive selection to view logs for a host instance (non-interactive command as above):
 
 ```bash
 diagtools log host
 ```
 
-交互式选择查看某个平台实例的日志（非交互式命令同上）：
+Interactive selection to view logs for a platform instance (non-interactive command as above):
 
 ```bash
 diagtools log platform
 ```
 
-## 查看组件状态 (list)
+## View Status (list)
 
-在你的配置正确或者临时指定了必填配置的情况下，你可以使用 [`list`](./cli-commands#list) 命令查看各个组件的状态。
+CLI provides [`list`](./cli-commands#list) command, you can use the [`list`](./cli-commands#list) command to see the status of each component if your profile is correct or if you have temporarily specified a required configuration.
 
-查看能力状态：
+View abilities status:
 
 ```bash
 diagtools list abilities
 ```
 
-查看插件状态：
+View plugins status:
 
 ```bash
 diagtools list plugins
 ```
 
-查看组件状态：
+View components status:
 
 ```bash
 diagtools list components
 ```
 
-## 转存数据 (dump)
+## Dump Data (dump)
 
-CLI 提供了 [`dump`](./cli-commands#dump) 命令，在服务器上不方便查看的时，你可以使用 `dump` 命令导出，并导入到桌面端查看。
+CLI provides [`dump`](./cli-commands#dump) command, when it is inconvenient to view on the server, you can use the `dump` command to export and import it to the desktop to view.
 
-导出到当前目录（默认文件名后缀为当前 UTC 时间的年月日时分秒）：
+Export to the current directory (default file suffix is the year month day hour minute second of the current UTC time):
 
 ```bash
 diagtools dump .
 ```
 
-导出到当前目录并指定名称：
+Export to the current directory and specify the name:
 
 ```bash
 diagtools dump ./data.json

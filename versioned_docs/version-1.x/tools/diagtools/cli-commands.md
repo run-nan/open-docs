@@ -2,55 +2,55 @@
 sidebar_position: 3
 ---
 
-# CLI 命令
+# CLI Commands
 
-开发平台诊断工具 CLI 命令。
+ONES Open Platform Diagtools CLI Commands.
 
 :::note
-开发者调用 CLI 的指令模版：`diagtools [command] [arguments] [options]`
+The developer invokes the CLI command template: `diagtools [command] [arguments] [options]`
 :::
 
-## 概览
+## Overview
 
-| 指令名称                          | 指令描述                       |
-| --------------------------------- | ------------------------------ |
-| [help](#help)                     | 展示 Diagtools CLI 的帮助信息  |
-| [autocomplete](#autocomplete)     | 显示命令行「自动完成」安装说明 |
-| [config set](#config-set)         | 设置当前配置文件的配置         |
-| [config get](#config-get)         | 获取当前配置文件的配置         |
-| [config delete](#config-delete)   | 删除当前配置文件的配置         |
-| [config list](#config-list)       | 列出当前配置文件的所有配置     |
-| [profile new](#profile-new)       | 创建一个配置文件               |
-| [profile use](#profile-use)       | 切换使用指定配置文件           |
-| [profile delete](#profile-delete) | 删除指定配置文件               |
-| [profile list](#profile-list)     | 列出所有配置文件               |
-| [log](#log)                       | 打印组件日志                   |
-| [list](#list)                     | 列出组件状态                   |
-| [dump](#dump)                     | 转储当前时刻数据               |
+| Command                           | Description                                    |
+| --------------------------------- | ---------------------------------------------- |
+| [help](#help)                     | Display help for Diagtools CLI                 |
+| [autocomplete](#autocomplete)     | Display autocomplete installation instructions |
+| [config set](#config-set)         | Set the current profile variable               |
+| [config get](#config-get)         | Get the current profile variable               |
+| [config delete](#config-delete)   | Delete the current profile variable            |
+| [config list](#config-list)       | List the current profile variables             |
+| [profile create](#profile-create) | Create a new profile                           |
+| [profile use](#profile-use)       | Switch a specified profile                     |
+| [profile delete](#profile-delete) | Delete a specified profile                     |
+| [profile list](#profile-list)     | List all profiles                              |
+| [log](#log)                       | Print a component logs                         |
+| [list](#list)                     | List the component status                      |
+| [dump](#dump)                     | Dump current time data                         |
 
-## 命令
+## Command
 
 ### help
 
-展示 Diagtools CLI 的帮助信息。
+Display help for Diagtools CLI.
 
 ```shell
 diagtools help [COMMAND]
 ```
 
-#### 参数
+#### Arguments
 
-| 参数名称  | 参数描述                                                  |
-| --------- | --------------------------------------------------------- |
-| `COMMAND` | 需要显示帮助信息的 Diagtools CLI 提供的任意 [命令](#命令) |
+| Argument  | Description                           |
+| --------- | ------------------------------------- |
+| `COMMAND` | [Command](#command) to show help for. |
 
-#### 选项
+#### Options
 
-| 选项名称            | 选项别名 | 选项描述           |
-| ------------------- | -------- | ------------------ |
-| `--nested-commands` | `-n`     | 输出是否包含子命令 |
+| Option              | Alias | Description                                |
+| ------------------- | ----- | ------------------------------------------ |
+| `--nested-commands` | `-n`  | Include all nested commands in the output. |
 
-#### 示例
+#### Examples
 
 ```bash
 $ diagtools help autocomplete
@@ -80,25 +80,25 @@ EXAMPLES
 
 ### autocomplete
 
-显示命令行「自动完成」安装说明。
+Display autocomplete installation instructions.
 
 ```shell
 diagtools autocomplete [SHELL]
 ```
 
-#### 参数
+#### Arguments
 
-| 参数名称 | 参数描述 |
-| -------- | -------- |
-| `SHELL`  | 终端类型 |
+| Argument | Description |
+| -------- | ----------- |
+| `SHELL`  | shell type  |
 
-#### 选项
+#### Options
 
-| 选项名称          | 选项别名 | 选项描述                   |
-| ----------------- | -------- | -------------------------- |
-| `--refresh-cache` | `-r`     | 刷新缓存（忽略显示的指令） |
+| Option            | Alias | Description                                     |
+| ----------------- | ----- | ----------------------------------------------- |
+| `--refresh-cache` | `-r`  | Refresh cache (ignores displaying instructions) |
 
-#### 示例
+#### Examples
 
 ```bash
 $ diagtools autocomplete
@@ -118,14 +118,14 @@ $ diagtools command --<TAB>       # Flag completion
 Enjoy!
 ```
 
-根据提示，运行提示命令
+Run the prompt command as prompted.
 
 ```bash
 $ printf "eval $(diagtools autocomplete:script zsh)" >> ~/.zshrc
 $ source ~/.zshrc
 ```
 
-尝试使用补全功能
+Try using the completion feature.
 
 ```
 $ diagtools l <TAB>
@@ -135,26 +135,26 @@ log   -- print a component logs
 
 ### config set
 
-设置当前配置文件的配置。
+Set the current profile variable.
 
 ```bash
 diagtools config set KEY VALUE
 ```
 
-#### 参数
+#### Arguments
 
-| 参数名称 | 参数描述   |
-| -------- | ---------- |
-| `KEY`    | 配置变量名 |
-| `VALUE`  | 配置变量值 |
+| Argument | Description                  |
+| -------- | ---------------------------- |
+| `KEY`    | Configuration variable name  |
+| `VALUE`  | Configuration variable value |
 
-#### 选项
+#### Options
 
-| 选项名称    | 选项描述 |
-| ----------- | -------- |
-| `--verbose` | 详细输出 |
+| Option      | Description    |
+| ----------- | -------------- |
+| `--verbose` | Verbose output |
 
-#### 示例
+#### Examples
 
 ```bash
 $ diagtools config set address tcp://127.0.0.1:9006
@@ -163,25 +163,25 @@ config set successfully
 
 ### config get
 
-获取当前配置文件的配置。
+Get the current profile variable.
 
 ```bash
 diagtools config get KEY
 ```
 
-#### 参数
+#### Arguments
 
-| 参数名称 | 参数描述   |
-| -------- | ---------- |
-| `KEY`    | 配置变量名 |
+| Argument | Description                 |
+| -------- | --------------------------- |
+| `KEY`    | Configuration variable name |
 
-#### 选项
+#### Options
 
-| 选项名称    | 选项描述 |
-| ----------- | -------- |
-| `--verbose` | 详细输出 |
+| Option      | Description    |
+| ----------- | -------------- |
+| `--verbose` | Verbose output |
 
-#### 示例
+#### Examples
 
 ```bash
 $ diagtools config get address
@@ -190,25 +190,25 @@ tcp://127.0.0.1:9006
 
 ### config delete
 
-删除当前配置文件的配置。
+Delete the current profile variable.
 
 ```bash
 diagtools config delete KEY
 ```
 
-#### 参数
+#### Arguments
 
-| 参数名称 | 参数描述   |
-| -------- | ---------- |
-| `KEY`    | 配置变量名 |
+| Argument | Description                 |
+| -------- | --------------------------- |
+| `KEY`    | Configuration variable name |
 
-#### 选项
+#### Options
 
-| 选项名称    | 选项描述 |
-| ----------- | -------- |
-| `--verbose` | 详细输出 |
+| Option      | Description    |
+| ----------- | -------------- |
+| `--verbose` | Verbose output |
 
-#### 示例
+#### Examples
 
 ```bash
 $ diagtools config delete address
@@ -217,77 +217,77 @@ config delete successfully
 
 ### config list
 
-列出当前配置文件的所有配置。
+List the current profile variables.
 
 ```bash
 diagtools config list
 ```
 
-#### 选项
+#### Options
 
-| 选项名称    | 选项描述 |
-| ----------- | -------- |
-| `--verbose` | 详细输出 |
+| Option      | Description    |
+| ----------- | -------------- |
+| `--verbose` | Verbose output |
 
-#### 示例
+#### Examples
 
 ```bash
 $ diagtools config list
 address = tcp://127.0.0.1:9006
 ```
 
-### profile new
+### profile create
 
-创建一个配置文件。
+Create a new profile.
 
 :::caution
-此命令并不会帮你切换使用新配置，你需要使用 `profile use` 手动切换。
+This command does not help you switch to the new profile, you need to use the [`profile use`](#profile-use) manual switch.
 :::
 
 ```bash
-diagtools profile new NAME
+diagtools profile create NAME
 ```
 
-#### 参数
+#### Arguments
 
-| 参数名称 | 参数描述     |
-| -------- | ------------ |
-| `NAME`   | 新配置文件名 |
+| Argument | Description      |
+| -------- | ---------------- |
+| `NAME`   | New profile name |
 
-#### 选项
+#### Options
 
-| 选项名称    | 选项描述 |
-| ----------- | -------- |
-| `--verbose` | 详细输出 |
+| Option      | Description    |
+| ----------- | -------------- |
+| `--verbose` | Verbose output |
 
-#### 示例
+#### Examples
 
 ```bash
-diagtools profile new example
+diagtools profile create example
 The example profile successfully created
 ```
 
 ### profile use
 
-切换使用指定配置文件。
+Switch a specified profile.
 
 ```bash
 diagtools profile use NAME
 ```
 
-#### 参数
+#### Arguments
 
-| 参数名称 | 参数描述   |
-| -------- | ---------- |
-| `NAME`   | 配置文件名 |
+| Argument | Description  |
+| -------- | ------------ |
+| `NAME`   | Profile name |
 
-#### 选项
+#### Options
 
-| 选项名称    | 选项描述 |
-| ----------- | -------- |
-| `--verbose` | 详细输出 |
+| Option      | Description    |
+| ----------- | -------------- |
+| `--verbose` | Verbose output |
 
-#### 示例
+#### Examples
 
 ```bash
 $ diagtools profile use example
@@ -296,25 +296,25 @@ The example profile successfully switched
 
 ### profile delete
 
-删除指定配置文件。
+Delete a specified profile.
 
 ```bash
 diagtools profile delete NAME
 ```
 
-#### 参数
+#### Arguments
 
-| 参数名称 | 参数描述   |
-| -------- | ---------- |
-| `NAME`   | 配置文件名 |
+| Argument | Description  |
+| -------- | ------------ |
+| `NAME`   | Profile name |
 
-#### 选项
+#### Options
 
-| 选项名称    | 选项描述 |
-| ----------- | -------- |
-| `--verbose` | 详细输出 |
+| Option      | Description    |
+| ----------- | -------------- |
+| `--verbose` | Verbose output |
 
-#### 示例
+#### Examples
 
 ```bash
 $ diagtools profile delete example
@@ -323,19 +323,19 @@ The example profile successfully deleted
 
 ### profile list
 
-列出所有配置文件。
+List all profiles.
 
 ```bash
 diagtools profile list
 ```
 
-#### 选项
+#### Options
 
-| 选项名称    | 选项描述 |
-| ----------- | -------- |
-| `--verbose` | 详细输出 |
+| Option      | Description    |
+| ----------- | -------------- |
+| `--verbose` | Verbose output |
 
-#### 示例
+#### Examples
 
 ```bash
 $ diagtools profile list
@@ -344,32 +344,32 @@ example
 
 ### log
 
-打印组件日志。
+Print a component logs.
 
 ```bash
 diagtools log TYPE
 ```
 
-#### 参数
+#### Arguments
 
-| 参数名称 | 参数描述                                       |
-| -------- | ---------------------------------------------- |
-| `TYPE`   | 组件类型，选项：(`platform`, `host`, `plugin`) |
+| Argument | Description                                                 |
+| -------- | ----------------------------------------------------------- |
+| `TYPE`   | The component type, options: (`platform`, `host`, `plugin`) |
 
-#### 选项
+#### Options
 
-| 选项名称                     | 选项别名 | 选项描述                                     |
-| ---------------------------- | -------- | -------------------------------------------- |
-| `--verbose`                  |          | 详细输出                                     |
-| `--address <value>`          |          | 覆盖配置中 `address` 属性执行                |
-| `--organizationUUID <value>` |          | 覆盖配置中 `organizationUUID` 属性执行       |
-| `--teamUUID <value>`         |          | 覆盖配置中 `teamUUID` 属性执行               |
-| `--extended`                 | `-x`     | 展示额外的列                                 |
-| `--columns <value>`          |          | 仅显示提供的列（逗号分隔）                   |
-| `--filter <value>`           |          | 通过字符串匹配过滤属性，例如:name=foo        |
-| `--from <value>`             |          | 读取本地文件（该值可以是相对路径或绝对路径） |
+| Option                       | Alias | Description                                                                     |
+| ---------------------------- | ----- | ------------------------------------------------------------------------------- |
+| `--verbose`                  |       | Verbose output                                                                  |
+| `--address <value>`          |       | Override the execution of the `address` attribute in the profile                |
+| `--organizationUUID <value>` |       | Override the execution of the `organizationUUID` attribute in the profile       |
+| `--teamUUID <value>`         |       | Override the execution of the `teamUUID` attribute in the profile               |
+| `--extended`                 | `-x`  | show extra columns                                                              |
+| `--columns <value>`          |       | only show provided columns (comma-separated)                                    |
+| `--filter <value>`           |       | filter property by partial string matching, ex: name=foo                        |
+| `--from <value>`             |       | load the local data file (the value can be a relative path or an absolute path) |
 
-#### 示例
+#### Examples
 
 ```bash
 $ diagtools log plugin --id ce1f55d2
@@ -379,37 +379,37 @@ $ diagtools log plugin --id ce1f55d2
 
 ### list
 
-列出组件状态。
+List the component status.
 
 ```bash
 diagtools list TYPE
 ```
 
-#### 参数
+#### Arguments
 
-| 参数名称 | 参数描述                                               |
+| Argument | Description                                            |
 | -------- | ------------------------------------------------------ |
 | `TYPE`   | 组件类型，选项：(`plugins`, `abilities`, `components`) |
 
-#### 选项
+#### Options
 
-| 选项名称                     | 选项别名       | 选项描述                                                 |
-| ---------------------------- | -------------- | -------------------------------------------------------- |
-| `--verbose`                  |                | 详细输出                                                 |
-| `--address <value>`          |                | 覆盖配置中 `address` 属性执行                            |
-| `--organizationUUID <value>` |                | 覆盖配置中 `organizationUUID` 属性执行                   |
-| `--teamUUID <value>`         |                | 覆盖配置中 `teamUUID` 属性执行                           |
-| `--extended`                 | `-x`           | 展示额外的列                                             |
-| `--csv`                      | `--output=csv` | csv 格式输出                                             |
-| `--output <option>`          |                | 以更加计算机友好的格式输出 (选项：`csv`, `json`, `yaml`) |
-| `--columns <value>`          |                | 仅显示提供的列（逗号分隔）                               |
-| `--filter <value>`           |                | 通过字符串匹配过滤属性，例如:name=foo                    |
-| `--from <value>`             |                | 读取本地文件（该值可以是相对路径或绝对路径）             |
-| `--no-header`                |                | 隐藏表头输出                                             |
-| `--no-truncate`              |                | 不要截断输出以适合屏幕                                   |
-| `--sort <value>`             |                | 根据标题属性排序(以'-'开头为降序)                        |
+| Option                       | Alias          | Description                                                                     |
+| ---------------------------- | -------------- | ------------------------------------------------------------------------------- |
+| `--verbose`                  |                | Verbose output                                                                  |
+| `--address <value>`          |                | Override the execution of the `address` attribute in the profile                |
+| `--organizationUUID <value>` |                | Override the execution of the `organizationUUID` attribute in the profile       |
+| `--teamUUID <value>`         |                | Override the execution of the `teamUUID` attribute in the profile               |
+| `--extended`                 | `-x`           | Show extra columns                                                              |
+| `--csv`                      | `--output=csv` | Output is csv format [alias: --output=csv]                                      |
+| `--output <option>`          |                | Output in a more machine friendly format,options: (`csv`,`json`,`yaml`)         |
+| `--columns <value>`          |                | Only show provided columns (comma-separated)                                    |
+| `--filter <value>`           |                | Filter property by partial string matching, ex: name=foo                        |
+| `--from <value>`             |                | Load the local data file (the value can be a relative path or an absolute path) |
+| `--no-header`                |                | Hide table header from output                                                   |
+| `--no-truncate`              |                | Do not truncate output to fit screen                                            |
+| `--sort <value>`             |                | Property to sort by (prepend '-' for descending)                                |
 
-#### 示例
+#### Examples
 
 ```bash
 $ diagtools list plugins
@@ -420,28 +420,28 @@ $ diagtools list plugins
 
 ### dump
 
-转储当前时刻数据。
+Dump current time data.
 
 ```bash
 diagtools dump PATH
 ```
 
-#### 参数
+#### Arguments
 
-| 参数名称 | 参数描述                               |
-| -------- | -------------------------------------- |
-| `PATH`   | 转储路径，该值可以是相对路径或绝对路径 |
+| Argument | Description                                                     |
+| -------- | --------------------------------------------------------------- |
+| `PATH`   | dump path, the value can be a relative path or an absolute path |
 
-#### 选项
+#### Options
 
-| 选项名称                     | 选项描述                               |
-| ---------------------------- | -------------------------------------- |
-| `--verbose`                  | 详细输出                               |
-| `--address <value>`          | 覆盖配置中 `address` 属性执行          |
-| `--organizationUUID <value>` | 覆盖配置中 `organizationUUID` 属性执行 |
-| `--teamUUID <value>`         | 覆盖配置中 `teamUUID` 属性执行         |
+| Option                       | Description                                                               |
+| ---------------------------- | ------------------------------------------------------------------------- |
+| `--verbose`                  | Verbose output                                                            |
+| `--address <value>`          | Override the execution of the `address` attribute in the profile          |
+| `--organizationUUID <value>` | Override the execution of the `organizationUUID` attribute in the profile |
+| `--teamUUID <value>`         | Override the execution of the `teamUUID` attribute in the profile         |
 
-#### 示例
+#### Examples
 
 ```bash
 $ diagtools dump .

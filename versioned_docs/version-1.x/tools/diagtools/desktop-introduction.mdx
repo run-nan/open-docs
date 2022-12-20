@@ -4,52 +4,60 @@ sidebar_position: 1
 
 import Image from '@theme/IdealImage'
 
-# 桌面端使用
+# Desktop Usage
 
-开放平台桌面端诊断工具，它能够根据你设置的配置，连接 ONES 开放平台，查看平台与插件的日志与状态，以便于你排查问题，或者将当前数据导出，交给他人联合排查。
+ONES Open Platform Desktop diagnostic tools, it can connect to the ONES Open Platform according to the configuration you set, view the logs and status of the platform and plug in, so that you can troubleshoot problems, or export the current data, to others joint troubleshooting.
 
 :::note
-其主要功能与 CLI 相同。
+Its main features are the same as CLI.
 :::
 
-## 要求
+## Requirements
 
 | **ONES** |
 | -------- |
-| 3.11.xx+ |
+| v3.12.0+ |
 
-## 安装
+## Installation
 
-请参见 [下载与安装](./install#桌面端工具)。
+See [Download and Installation](./install#desktop-tools).
 
-## 添加与切换配置
+## Add and Switch Profile
 
-桌面端工具的配置与 CLI 配置互通，如果你未通过 CLI 初始化，首次打开时你需要点击「Add Profile」添加配置。
+The profile of the Desktop Tools can communicate with the CLI profile. If you do not initialized through the CLI, click Add Profile to add the configuration when you open the tool for the first time.
 
 <Image img={require('./images/empty.png')} />
 
-如果你的电脑已经存在至少一份数据，则应用自动会跳过空界面，进入主界面。你可以通过左上角的菜单，进行配置的切换、新增、更新、删除等操作。
+If your computer already has at least one piece of profile, the app will automatically skip the empty screen and enter the main screen. You can switch profiles, add, update, delete and other operations through the menu in the upper left corner.
 
 <Image img={require('./images/profile-menu.png')} />
 
-## 更新数据
+When you add a profile, the application will verify the format of the Open Platform address you fill in. Only if you fill in the protocol address and port can you submit the profile successfully through verification.
 
-因为诊断工具的特殊性，我们不会默认帮你获取或更新数据，你需要再添加配置完后，点击右上角的「Refresh」以获取当前时刻的信息。
+:::note
+CLI does not verify your profile input format, and you need to ensure that the profile is correct.
+:::
+
+<Image img={require('./images/profile-form.png')} />
+
+## Refresh Data
+
+Because of the particularity of the diagnostic tools, we do not get or update the data for you by default. After you need to add the profile, click "Refresh" in the upper right corner to obtain the information at the current moment.
 
 :::caution
-「Refresh」将会覆盖掉上一份数据，如果你期望保留获取数据前的信息，请提前点击「Export」进行导出。
+"Refresh" will cover a piece of data. If you expect the information before obtaining the data, please click "Export" to export in advance.
 :::
 
 <Image img={require('./images/empty-data.png')} />
 
-## 查看日志
+## View Logs
 
-「Refresh」获取数据后，你可以通过日志模块右上侧的选择器进行组件日志的筛选。
+After the "Refresh" retrieves the data, you can filter the component logs through the selector on the upper right of the logging module.
 
 <Image img={require('./images/logs.png')} />
 
-## 查看组件状态
+## View Status
 
-「Refresh」获取数据后，你可以通过标签页切换，查看能力、插件、组件的信息。
+After the "Refresh" retrieves the data, you can switch through the tab, viewing abilities, plugins, components information.
 
 <Image img={require('./images/status.png')} />
