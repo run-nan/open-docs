@@ -1,0 +1,45 @@
+# Download file
+
+## Requirements
+
+| **ONES** |
+| :------- |
+| v3.11.0+ |
+
+## Overview
+
+This ability enables streaming downloading of files in the plugin storage space `workspace`
+
+## Usage
+
+### Step 1: Installation dependency
+
+Enter the `/backend` directory of the plugin project, and execute the following command for dependent installation:
+
+```shell
+npm i @ones-op/node-ability
+```
+
+### Step 2：Ability to use
+
+Use the `downloadFile` method to specify the download path of the file. The `downloadFile` method returns a url of the file download address. You can download the file directly by accessing it through a browser or directly requesting the url.
+
+:::caution
+
+The file must be in the `workspace` directory, and the default validity time of the generated download link is 5 minutes.
+
+:::
+
+```tsx
+import { downloadFile } from '@ones-op/node-ability'
+
+export async function downloadUrl() {
+  const url = await downloadFile('plugin.sql')
+
+  return url
+}
+```
+
+## SDK
+
+Parameters reference：[@ones-op/node-ability](../../reference/packages/node-ability/node-ability.md)

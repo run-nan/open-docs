@@ -1,0 +1,71 @@
+import Image from '@theme/IdealImage'
+import auditLog1 from './images/audit-log1.png'
+
+# 审计日志
+
+## 要求
+
+| **ONES** |
+| -------- |
+| v3.6.0+  |
+
+## 概述
+
+插件可以向 ONES 写入审计日志，在`配置中心 -> 系统安全 -> 操作日志`页面，可以看到审计日志内容。
+
+插件使用该能力产生的审计日志的操作类型为**插件日志**。
+
+<Image img={auditLog1} />
+
+## 使用
+
+### 第一步：添加依赖
+
+在插件根目录下运行以下指令安装依赖。（注意，默认该能力是后端使用，并且使用目录在 backend 下）
+
+```shell
+cd backend
+npm i @ones-op/node-ability
+```
+
+### 第二步：插件中调用 `createLog` 方法，向 ONES 写入审计日志
+
+> `createLog`方法需要 2 个入参，一个包含了`X-Real-Ip`和`Ones-User-Id`字段的结构体，以及要记录的审计信息`message`。`Ones-User-Id`为审计日志操作人的**uuid**，`X-Real-Ip`为审计日志操作人的 IP 地址。
+
+如以下代码所示，构造一个拥有`Ones-User-Id`和`Ones-User-Id`字段的结构体`auditData`作为第一个入参，并且带上想要记录的审计信息`message`作为第二个入参，调用`createLog`方法写入插件的审计日志
+
+```typescript
+import { AuditLog } from '@ones-op/node-ability'
+
+export async function hello(request: PluginRequest): Promise<PluginResponse> {
+  const body = request.body || {}
+  let auditData = {
+    'Ones-User-Id': 'icNcsEpo', //该参数为用户uuid
+    'X-Real-Ip': '127.0.0.1', //IP地址
+  }
+  await AuditLog.createLog(auditData, '插件方法B') //写入审计信息
+  return {
+    body: {
+      res: 'audit log',
+      requestBody: body,
+    },
+  }
+}
+```
+
+在`request`的请求头中含有`createLog`方法需要的所有参数，因此可以直接使用`request`的请求头作为参数，这种情况下，审计日记的操作人为访问该接口的用户，审计日志的 IP 地址为访问该接口的用户的 IP 地址，如下所示
+
+```typescript
+import { AuditLog } from '@ones-op/node-ability'
+
+export async function hello(request: PluginRequest): Promise<PluginResponse> {
+  const body = request.body || {}
+  await AuditLog.createLog(request.headers, '插件方法A') //写入审计信息
+  return {
+    body: {
+      res: 'audit log',
+      requestBody: body,
+    },
+  }
+}
+```

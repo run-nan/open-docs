@@ -1,0 +1,69 @@
+import Image from '@theme/IdealImage'
+import uploadFile1 from './images/uploadFile1.png'
+
+# 上传文件
+
+## 要求
+
+| **ONES**  |
+| :-------- |
+| v3.11.40+ |
+
+## 概述
+
+用户可以通过该能力上传文件（允许大于 10M）到插件存储空间`workspace`下
+
+## 使用
+
+### 第一步：安装依赖
+
+进入插件工程的`/backend`目录，执行以下命令进行依赖安装：
+
+```shell
+npm i @ones-op/node-ability
+```
+
+### 第二步：使用能力
+
+#### 1. 调用 SDK 获取上传文件链接
+
+使用`uploadFile`方法指定插件存储空间`workspace`下的路径，`uploadFile`方法会返回一个文件上传的`url`
+
+```typescript
+import { uploadFile } from '@ones-op/node-ability'
+
+export async function uploadFileToPlugin(request: PluginRequest): Promise<PluginResponse> {
+  const url = await uploadFile()
+
+  return {
+    body: {
+      res: url,
+    },
+  }
+}
+```
+
+#### 2. 通过链接上传文件
+
+使用该`url`即可选择想要的文件进行上传
+
+:::caution
+
+文件上传链接默认的有效时间为 60 分钟
+
+:::
+
+上传方式参考
+
+```shell
+# 请将{{URL}}替换成第一步获取的URL,并在form中替换自己的上传文件路径
+curl --location --request POST {{URL}} \
+--header 'Cookie: language=zh' \
+--form 'file=@"/Users/hosea/Downloads/plugin(3).sql"'
+```
+
+<Image img={uploadFile1} />
+
+## 相关 SDK
+
+具体参数释义请参考：[@ones-op/node-ability](../../reference/packages/node-ability/node-ability.md)

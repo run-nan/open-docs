@@ -1,0 +1,45 @@
+# 下载文件
+
+## 要求
+
+| **ONES** |
+| :------- |
+| v3.11.0+ |
+
+## 概述
+
+该能力实现了对于插件存储空间`workspace`内的文件进行流式下载
+
+## 使用
+
+### 第一步：安装依赖
+
+进入插件工程的`/backend`目录，执行以下命令进行依赖安装：
+
+```shell
+npm i @ones-op/node-ability
+```
+
+### 第二步：使用能力
+
+使用`downloadFile`方法指定下载文件路径，`downloadFile`方法会返回一个文件下载地址的 url，通过浏览器访问或者直接请求该 url 均能直接下载文件
+
+:::caution
+
+文件必须在`workspace`目录下，且生成的下载链接默认的有效时间为 5 分钟
+
+:::
+
+```tsx
+import { downloadFile } from '@ones-op/node-ability'
+
+export async function downloadUrl() {
+  const url = await downloadFile('plugin.sql')
+
+  return url
+}
+```
+
+## 相关 SDK
+
+具体参数释义请参考：[@ones-op/node-ability](../../reference/packages/node-ability/node-ability.md)

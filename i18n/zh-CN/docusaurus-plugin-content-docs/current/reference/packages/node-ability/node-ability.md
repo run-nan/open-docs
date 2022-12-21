@@ -5,7 +5,7 @@
 ## 要求
 
 | **ONES** |
-| -------- |
+| :------- |
 | v3.6.0+  |
 
 ## API
@@ -60,6 +60,80 @@ import { Language } from '@ones-op/node-ability'
 
 export async function multiple_language() {
   const description = await Language.getLanguageString(language, 'PluginDescription')
+}
+```
+
+### downloadFile
+
+下载插件存储空间`workspace`内的文件
+
+#### 要求
+
+| **ONES** |
+| :------- |
+| v3.11.0+ |
+
+#### Params
+
+| 参数           | 说明     | 类型   | 必填 | 默认值  |
+| :------------- | :------- | :----- | :--- | :------ |
+| filePath       | 文件路径 | string | 是   | -       |
+| timeoutSeconds | 有效时间 | number | 否   | 300(秒) |
+
+#### Returns
+
+| 参数 | 说明         | 类型   |
+| :--- | :----------- | :----- |
+| url  | 文件下载链接 | string |
+
+#### Example
+
+```typescript
+import { downloadFile } from '@ones-op/node-ability'
+
+export async function downloadUrl() {
+  const url = await downloadFile('plugin.sql')
+
+  return url
+}
+```
+
+### uploadFile
+
+上传文件至插件存储空间`workspace`
+
+#### 要求
+
+| **ONES**  |
+| :-------- |
+| v3.11.40+ |
+
+#### Params
+
+| 参数           | 说明                         | 类型   | 必填 | 默认值   |
+| :------------- | :--------------------------- | :----- | :--- | :------- |
+| filePath       | 想要上传到的插件存储空间目录 | string | 否   | .        |
+| timeoutSeconds | 有效时间                     | number | 否   | 3600(秒) |
+
+#### Returns
+
+| 参数 | 说明         | 类型   |
+| :--- | :----------- | :----- |
+| url  | 文件上传链接 | string |
+
+#### Example
+
+```typescript
+import { uploadFile } from '@ones-op/node-ability'
+
+export async function uploadFileToPlugin(request: PluginRequest): Promise<PluginResponse> {
+  const url = await uploadFile()
+
+  return {
+    body: {
+      res: url,
+    },
+  }
 }
 ```
 

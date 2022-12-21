@@ -5,7 +5,7 @@ We provide a set of interface request libraries that allow plugin developers to 
 ## Compatibility Requirements
 
 | **ONES** |
-| -------- |
+| :------- |
 | v3.6.0+  |
 
 ## API
@@ -60,6 +60,80 @@ import { Language } from '@ones-op/node-ability'
 
 export async function multiple_language() {
   const language = await Language.getLanguage(user_uuid)
+}
+```
+
+### downloadFile
+
+Download the file in the plugin storage space `workspace`
+
+#### Requirements
+
+| **ONES** |
+| :------- |
+| v3.11.0+ |
+
+#### Params
+
+| parameters     | explain        | type   | required | default value |
+| :------------- | :------------- | :----- | :------- | :------------ |
+| filePath       | path of file   | string | Y        | -             |
+| timeoutSeconds | effective time | number | N        | 300(s)        |
+
+#### Returns
+
+| parameters | explain           | type   |
+| :--------- | :---------------- | :----- |
+| url        | file download URL | string |
+
+#### Example
+
+```javascript
+import { downloadFile } from '@ones-op/node-ability'
+
+export async function downloadUrl() {
+  const url = await downloadFile('plugin.sql')
+
+  return url
+}
+```
+
+### uploadFile
+
+Upload file to plugin storage space `workspace`
+
+#### Requirements
+
+| **ONES**  |
+| :-------- |
+| v3.11.40+ |
+
+#### Params
+
+| parameters     | explain                                                         | type   | required | default value |
+| :------------- | :-------------------------------------------------------------- | :----- | :------- | :------------ |
+| filePath       | The directory of the plugin storage space you want to upload to | string | N        | .             |
+| timeoutSeconds | effective time                                                  | number | N        | 3600(s)       |
+
+#### Returns
+
+| parameters | explain          | type   |
+| :--------- | :--------------- | :----- |
+| url        | file upload link | string |
+
+#### Example
+
+```typescript
+import { uploadFile } from '@ones-op/node-ability'
+
+export async function uploadFileToPlugin(request: PluginRequest): Promise<PluginResponse> {
+  const url = await uploadFile()
+
+  return {
+    body: {
+      res: url,
+    },
+  }
 }
 ```
 
