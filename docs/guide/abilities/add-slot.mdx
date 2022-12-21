@@ -1,6 +1,7 @@
 ---
 sidebar_position: 1
 description: Rich slots provide customized pages at will.
+toc_max_heading_level: 4
 ---
 
 import Image from '@theme/IdealImage'
@@ -98,10 +99,72 @@ The element of `id="ones-mf-root"`is the root element of the slot module, so you
 
 We also provide natural support for [PostCSS](https://postcss.org/) preprocessors for plugin, and enable the following functions by default.
 
-- [autoprefixer](https://github.com/postcss/autoprefixer)
-- [cssnano](https://cssnano.co/)
-- [postcss-import](https://github.com/postcss/postcss-import)
-- [postcss-nested](https://github.com/postcss/postcss-nested)
+- ##### autoprefixer {#autoprefixer}
+
+  Because we enabled [autoprefixer](https://github.com/postcss/autoprefixer) by default, you only need to write plugin styles using unprefixed CSS rules, without worrying about browser compatibility.
+
+- ##### cssnano {#css-nano}
+
+  We use [cssnano](https://cssnano.co/) to compress the plugin style code to reduce the plugin size and improve the plugin performance.
+
+- ##### postcss-import {#postcss-import}
+
+  We support CSS @import inline through [postcss-import](https://github.com/postcss/postcss-import) preconfiguration so that you can split the CSS module.
+
+  For example, you can create a separate style file `banner.css` for the banner component:
+
+  ```css title="/web/src/modules/ones-global-banner-3QC4/banner.css"
+  .banner {
+    width: 100%;
+  }
+  ```
+
+  Then introduce it in `index.css`
+
+  ```css title="/web/src/modules/ones-global-banner-3QC4/index.css"
+  @import 'banner.css';
+
+  #ones-mf-root {
+  }
+  ```
+
+- ##### postcss-nested {#postcss-nested}
+
+  We use [postcss-nested](https://github.com/postcss/postcss-nested) to allow you to write CSS selectors in a nested manner, just as you are familiar with the Sass syntax:
+
+  ```css
+  .mf-bar-banner {
+    width: 100%;
+    height: 0;
+    &--active {
+      height: 40px;
+    }
+  }
+  ```
+
+### Step 5: Use ONES Design
+
+We provide a complete set of UI components library that can help you quickly build a standard plugin user interface, which has been introduced by default when the plugin project is initialized.
+
+The `index.tsx` file of each slot module looks like:
+
+```tsx title="index.tsx"
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { ConfigProvider } from '@ones-design/core'
+import './index.css'
+
+ReactDOM.render(
+  <ConfigProvider>you module title</ConfigProvider>,
+  document.getElementById('ones-mf-root')
+)
+```
+
+:::caution
+You must keep the `<ConfigProvider>` component in index.tsx, or the plugin will not run the way you expect it to. For more information, please see ONES Design [ConfigProvider Global configuration](https://bangwork.github.io/ones-design/?path=/docs/core-configprovider--config-provider%E5%85%A8%E5%B1%80%E5%8C%96%E9%85%8D%E7%BD%AE) document.
+:::
+
+For more information about the specific use of component libraries, please refer to: [ONES Design](https://bangwork.github.io/ones-design/?path=/story/ones-design--page).
 
 ### Add slot example
 
