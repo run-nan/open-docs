@@ -366,6 +366,46 @@ Each option value of a **single-selectionion/multiple-selection** script-field h
   | Value      | string | option value                                                                   |
   | ObjectType | int    | Entity type, optional values are as follows:<br />- 1: project<br />- 2: issue |
 
+### Sequence diagrams
+
+After adding script-field and FieldGroups, the complete field modification process is as follows:
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor u as User
+    participant o as ONES
+    participant p as Plugin
+    u->>+o: Click on script-field
+    o-->>-u: FieldGroup modification box
+    rect rgb(129,216,207,0.3)
+    note left of u: Get options
+    u->>+o: Edit field
+    o->>+p: Call /scriptFieldSearch
+    p-->>-o: Return optional
+    o-->>-u: Return optional
+    end
+    rect rgb(129,216,207,0.3)
+    note left of u: Autofill field value
+    u->>+o: Select an option
+    o->>+p: Call /groupFieldOnChange
+    p-->>-o: Return backfill data
+    o-->>-u: Automatic backfill
+    end
+    u->>+o: Query option value
+    o->>+p: Call /scriptFieldSearch
+    p-->>-o: Return option value
+    o-->>-u: Return option value
+    rect rgb(129,216,207,0.3)
+    note left of u: Check field value
+    u->>+o: Submit FieldGroup Modifications
+    o->>+p: Call /groupFieldValidate
+    p-->>-o: Return verification result
+    o-->>o: If the verification is successful, the data will be modified
+    o-->>-u: Return verification result
+    end
+```
+
 ## Examples
 
 [Location FieldGroup](./location-fieldgroup.md)

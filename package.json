@@ -6,7 +6,7 @@
     "prepare": "husky install",
     "docusaurus": "docusaurus",
     "start": "docusaurus start --port=4000 --no-minify",
-    "start:zh": "docusaurus start --port=4000 --no-minify --locale zh-CN",
+    "start:zh": "docusaurus start --host 0.0.0.0 --port=4000 --no-minify --locale zh-CN",
     "build": "docusaurus build --out-dir dist",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",

@@ -8,7 +8,7 @@
 
 ## Overview
 
-The ONES API access ability provides a method for plugins to access the ONES API. ONES API is all the API open to the outside world of ONES , such as viewing the details of an issue, adding issue and other API, which can be accessed to interact with ONES. Each plugin will generate a [super admin](../../basic/super-admin.md) in the ONES, and the superuser will have access to all data when accessing ONES API.
+The ONES API access ability provides a method for plugins to access the ONES API. ONES API is all the API open to the outside world of ONES , such as viewing the details of an issue, adding issue and other API, which can be accessed to interact with ONES. Each plugin will generate a [super-admin](../../basic/super-admin.md) in the ONES, and the superuser will have access to all data when accessing ONES API.
 
 ## Usage
 

@@ -159,17 +159,12 @@ export const features: {
           {
             /** 通知 */
             label: <Translate>Notifications</Translate>,
-            url: '#',
-          },
-          {
-            /** 网络请求 */
-            label: <Translate>Request</Translate>,
-            url: `${baseUrl}abilities/basic/network-request`,
+            url: `${baseUrl}abilities/basic/notifications`,
           },
           {
             /** 定时器 */
             label: <Translate>Timer</Translate>,
-            url: '#',
+            url: `${baseUrl}abilities/basic/timer`,
           },
           {
             /** 自定义配置 */
@@ -208,9 +203,9 @@ export const features: {
             url: `${baseUrl}abilities/business/account`,
           },
           {
-            /** issue 处理器 */
-            label: <Translate>Issue processor</Translate>,
-            url: '#',
+            /** item 处理器 */
+            label: <Translate>ItemHandler</Translate>,
+            url: `${baseUrl}abilities/business/item-handler`,
           },
           {
             /** 托管独立应用 */

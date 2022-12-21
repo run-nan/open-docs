@@ -1,3 +1,8 @@
+---
+id: error-handling
+sidebar_position: 3
+---
+
 # 错误处理
 
 ## 要求

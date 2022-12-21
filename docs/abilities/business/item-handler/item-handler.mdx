@@ -1,0 +1,255 @@
+import Image from '@theme/IdealImage'
+
+# ItemHandler
+
+## Requirements
+
+| **ONES**  |
+| :-------- |
+| v3.11.17+ |
+
+## Overview
+
+When you want to do some custom processing and validation when each module changes, you can use the ItemHandler to implement the requirements. This ability can pre-process and post-notify the event when the system generates a change event. When a plugin using this ability is installed, the change event will be pre-processed by the plugin before it actually takes effect. The plugin can ignore, reject, and modify this event according to requirements; A notification will be received, and some post-processing can be performed at this time.
+
+### Scope of application
+
+The modules that currently support intercepting change events are: `Manhour`（Time spent）、`RemainingHour`（Time remaining）、`ActivityRelease`（snapshot）、`Activity`（Milestone）、`ActivityRelationLink`(Predecessor and Successor relation)、`Deliverable`（Deliverable）、`Project`（Project）、`Task`（Issue）
+
+Event interception is triggered in the following situations:
+
+- `add`, `update`, `delete` related operations of Graphql mutation.
+
+  The `Project` and `Task` modules only support `add` and `update` type events
+
+- Create new and batch new projects, and modify project field.
+
+- Modify the time remaining and time estimated in **Worklog mode-Simple mode**.
+
+- Issue（Scope Reference [TaskEventHandle](../issue/task-event-handler/task-event-handler.mdx#scope)）
+
+:::note
+
+Unless otherwise specified, all operations related to man-hours are in the Simple mode of worklog mode.
+
+:::
+
+### Performance
+
+Use the ItemHandler ability to verify the time estimated, and report an error if the time estimated are modified illegally
+
+<Image img={require('./images/item01.png')} />
+
+## Usage
+
+When ONES enables the plugin that uses the ItemHandler ability, the execution flow of the module change event is shown in the following figure:
+
+<Image img={require('./images/item02.png')} />
+
+### Step 1：Add ability
+
+Use `npx op add ability` to add the ability of `item-handler` type, add a `backend/src/itemHandler.ts` file and generate the ability configuration in the plugin configuration file.
+
+### Step 2：Modify configuration
+
+In the generated ability configuration, we only need to pay attention to the values of `itemType` and `action` fields.
+
+- itemType
+
+  The module type concerned by this ability is written in camelCase. For example: `project, remainingHour, activityRelease`
+
+- action
+
+  The change event type concerned by this ability, the optional values are `add`, `update` and `delete`
+
+**Example**: Watch for change events of type `update` and `add` for `manhour`, `remainingHour` and `task` modules.
+
+```yaml title="config/plugin.yaml"
+abilities:
+  - id: g0chW1Oh
+    name: Item处理器
+    version: 1.0.0
+    abilityType: ItemHandler
+    function:
+      itemPreActionFunc: itemPreAction
+      itemActionDoneFunc: itemActionDone
+    config:
+      - key: itemType
+        value: remainingHour,task,manhour #lower camel case
+        fieldType: Input
+        label: Item类型
+        show: true
+      - key: action
+        value: add,update
+        fieldType: Input
+        label: 操作
+        show: true
+```
+
+### Step 3：Add pre-processing
+
+`backend/src/item-handler.ts` file will automatically generate `itemPreAction` function, which is a pre-processing function, which will be called before the event takes effect. It supports modifying the content of this change, and according to the returned content Take a different tack.
+
+- **Params**
+
+  Include the following in the `body` of `request`
+
+  | Param         | Type                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Required | Description                        |
+  | :------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------- | :--------------------------------- |
+  | user_uuid     | string                                                                                                                                                                                                                                                                                                                                                                                                                                               | Y        | User's `uuid`                      |
+  | item_type     | string                                                                                                                                                                                                                                                                                                                                                                                                                                               | Y        | module type                        |
+  | action        | string                                                                                                                                                                                                                                                                                                                                                                                                                                               | Y        | action type: `add/update/delete `  |
+  | lang          | string                                                                                                                                                                                                                                                                                                                                                                                                                                               | Y        | system language                    |
+  | graphql_query | graphql.Query                                                                                                                                                                                                                                                                                                                                                                                                                                        | N        | Graphql data of this change event  |
+  | args          | Depending on the way the event is triggered, there are the following types: <br />Add project: [add_project](#add_project) <br />Modify project field: [update_project](#update_project) <br />time estimated: [estimated_manhour](#estimated_manhour) <br />time remaining: [remain_manhour](#remain_manhour) <br />TaskEvent: [TaskEvent](../issue/task-event-handler/task-event-handler.mdx#TaskEvent) <br />Graphql method: map[string]interface | Y        | Change the parameters of the event |
+
+  #### add_project {#add_project}
+
+  | Param        | Type     | Description                 |
+  | :----------- | :------- | :-------------------------- |
+  | uuid         | string   | The `uuid` of the project   |
+  | name         | string   | project name                |
+  | members      | []string | List of `uuid`s for members |
+  | template_id  | string   | Template `id`               |
+  | program_uuid | string   | The `uuid` of the itemset   |
+
+  #### update_project {#update_project}
+
+  | Param        | Type   | Description                                                                           |
+  | :----------- | :----- | :------------------------------------------------------------------------------------ |
+  | key          | string | `key` value, generated by `project_uuid`                                              |
+  | item_type    | string | The value is `project`                                                                |
+  | Other `keys` | any    | The modified item properties will have different numbers and types of key-value pairs |
+
+  #### estimated_manhour {#estimated_manhour}
+
+  | Param | Type   | Description                                 |
+  | :---- | :----- | :------------------------------------------ |
+  | task  | string | The `uuid` of the issue to which it belongs |
+  | hours | int64  | time estimated                              |
+  | type  | string | `estimated`                                 |
+
+  #### remain_manhour {#remain_manhour}
+
+  | Param | Type   | Description                       |
+  | :---- | :----- | :-------------------------------- |
+  | key   | string | `manhour-{task_uuid}-{user_uuid}` |
+  | hours | int64  | time remaining                    |
+
+- **Return**
+
+  The structure of the content returned by the `itemPreAction` function is as follows, and different strategies are adopted according to the values of the `is_follow` and `is_reject` fields:
+
+  - Ignore: Set the returned `is_follow = false`, indicating that the plugin does not do additional processing, and the update event is executed according to the normal process.
+  - Reject: Set the returned `is_follow = true && is_reject = true`, which means that the update event will not be executed and will end directly.
+  - Accept: Set the returned `is_follow = true && is_reject = false`, which means accepting the event, but not modifying the update content, and only notifying the plugin after the event is completed.
+  - Modification: Set the returned `is_follow = true && is_reject = false`, and modify the parameter value in the input parameter `args`. Indicates acceptance of the event and modification of the update content, and notifies the plugin after the event is completed.
+
+  :::caution NOTICE
+
+  Even if the plugin logic does not modify the content of this change event, it needs to return the `args` object in the original input parameter, otherwise it may cause this change event to fail.
+
+  :::
+
+  Returned structure:
+
+  ```typescript
+  type itemPreResponse = {
+    statusCode: number
+    body: {
+      code: number
+      body: {
+        is_follow: boolean
+        is_reject: boolean
+        reject_reason: string
+        args: any
+        other_data: string
+      }
+    }
+  }
+  ```
+
+  | Param         | Type                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Required | Description                                               |
+  | :------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------- | :-------------------------------------------------------- |
+  | is_follow     | string                                                                                                                                                                                                                                                                                                                                                                                                                                               | Y        | Express concern                                           |
+  | is_reject     | string                                                                                                                                                                                                                                                                                                                                                                                                                                               | Y        | Whether to refuse                                         |
+  | reject_reason | string                                                                                                                                                                                                                                                                                                                                                                                                                                               | N        | Reject reason                                             |
+  | args          | Depending on the way the event is triggered, there are the following types: <br />Add project: [add_project](#add_project) <br />Modify project field: [update_project](#update_project) <br />time estimated: [estimated_manhour](#estimated_manhour) <br />time remaining: [remain_manhour](#remain_manhour) <br />TaskEvent: [TaskEvent](../issue/task-event-handler/task-event-handler.mdx#TaskEvent) <br />Graphql method: map[string]interface | Y        | Change the parameters of the event                        |
+  | other_data    | any                                                                                                                                                                                                                                                                                                                                                                                                                                                  | N        | Other data (this data will be passed to `itemActionDone`) |
+
+- **Example**: The time estimated must be a multiple of 8, the upper limit of the time remaining is 72, and only 72 hours are reserved if the upper limit is exceeded.
+
+  ```typescript title="backend/src/item-handler.ts"
+  export async function itemPreAction(request: PluginRequest): Promise<PluginResponse> {
+    //The default multiple of the value, for example, 10 defaults to 1000000
+    const multiple = 100000
+    const body = request?.body as any
+    const args = body.args
+    const itemType = body.item_type
+    const action = body.action
+    const isFollow = true
+    let isReject = false
+    let reject_reason = ''
+    if (itemType == 'remainingHour' && action == 'update') {
+      const hours = args.hours
+      if (hours > 72 * multiple) {
+        args.hours = 72 * multiple
+      }
+    } else if (itemType == 'manhour' && action == 'update') {
+      const type = args.type
+      if (type == 'estimated') {
+        const hours = args.hours
+        if (hours % (8 * multiple) != 0) {
+          isReject = true
+          reject_reason = 'Estimated hours must be a multiple of 8'
+        }
+      }
+    }
+    return {
+      statusCode: 200,
+      body: {
+        code: 200,
+        body: {
+          is_follow: isFollow,
+          is_reject: isReject,
+          reject_reason: reject_reason,
+          args: args,
+          other_data: '',
+        },
+      },
+    }
+
+  ```
+
+### Step 4：Add post-processing
+
+The `itemActionDone` function is automatically generated in the `backend/src/item-handler.ts` file. This function is post-processing and will be called first after the event takes effect.
+
+- **Params**
+
+  | Param         | Type                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Required | Description                            |
+  | :------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------- | :------------------------------------- |
+  | user_uuid     | string                                                                                                                                                                                                                                                                                                                                                                                                                                               | Y        | User's `uuid`                          |
+  | item_type     | string                                                                                                                                                                                                                                                                                                                                                                                                                                               | Y        | module type                            |
+  | action        | string                                                                                                                                                                                                                                                                                                                                                                                                                                               | Y        | action type: `add/update/delete`       |
+  | lang          | string                                                                                                                                                                                                                                                                                                                                                                                                                                               | Y        | system language                        |
+  | graphql_query | graphql.Query                                                                                                                                                                                                                                                                                                                                                                                                                                        | N        | Graphql data of this change event      |
+  | args          | Depending on the way the event is triggered, there are the following types: <br />Add project: [add_project](#add_project) <br />Modify project field: [update_project](#update_project) <br />time estimated: [estimated_manhour](#estimated_manhour) <br />time remaining: [remain_manhour](#remain_manhour) <br />TaskEvent: [TaskEvent](../issue/task-event-handler/task-event-handler.mdx#TaskEvent) <br />Graphql method: map[string]interface | Y        | Change the parameters of the event     |
+  | other_data    | any                                                                                                                                                                                                                                                                                                                                                                                                                                                  | N        | Additional data (from `itemPreAction`) |
+
+- **Example**
+
+  ```typescript title="backend/src/item-handler.ts"
+  export async function itemActionDone(request: PluginRequest): Promise<PluginResponse> {
+    const body = request?.body as any
+    Logger.info('itemActionDone', JSON.stringify(body, undefined, 2))
+
+    return {
+      statusCode: 200,
+      body: {
+        code: 200,
+        body: {},
+      },
+    }
+  }
+  ```

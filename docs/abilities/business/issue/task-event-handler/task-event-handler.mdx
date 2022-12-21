@@ -17,7 +17,7 @@ When you want to do some processing and validation when issue field change, you 
 1. A certain field or state of a issue has restrictions when changing, for example, it is not allowed to change the title of a issue of a requirement type.
 2. Post operations are performed after issue field changes are complete. For example, after updating the person in charge of the issue of the requirement type, send an email to the corresponding person.
 
-### Scope of application
+### Scope of application {#scope}
 
 - **Covered**
 
@@ -43,7 +43,7 @@ When you want to do some processing and validation when issue field change, you 
 - Modify field field in batches
 - Batch change issue type
 
-### Ability performance
+### Performance
 
 Using the issue processor ability configuration does not allow modification of the person in charge of the requirement, and an error is reported when modifying the person in charge of the requirement
 
@@ -100,52 +100,56 @@ The `backend/src/task-event-handler.ts` file will automatically generate the `ta
   - Accept: Set the returned `is_follow = true && is_reject = false`, which means accepting the event, but not modifying the update content, and only notifying the plugin after the event is completed.
   - Modification: Set the returned `is_follow = true && is_reject = false` and add field modification by returning the `task_events` object to indicate acceptance of this event, modify the update content this time and notify the plugin after the event is completed.
 
-  ```typescript
-  type taskPreResponse = {
-    statusCode: number
+:::caution NOTICE
+Even if there is no need to add new modifications in the plugin logic, the data in the original `task_events` field needs to be returned, otherwise the change event may fail
+:::
+
+```typescript
+type taskPreResponse = {
+  statusCode: number
+  body: {
+    code: number
     body: {
-      code: number
-      body: {
-        is_follow: boolean
-        is_reject: boolean
-        reject_reason: string
-        task_events: any
-        other_data: string
-      }
+      is_follow: boolean
+      is_reject: boolean
+      reject_reason: string
+      task_events: any
+      other_data: string
     }
   }
-  ```
+}
+```
 
-  | Param         | Type                                 | Required | Description                                                          |
-  | :------------ | :----------------------------------- | :------- | :------------------------------------------------------------------- |
-  | is_follow     | string                               | Y        | Express concern                                                      |
-  | is_reject     | string                               | Y        | Whether to refuse                                                    |
-  | reject_reason | string                               | N        | Reject reason                                                        |
-  | task_events   | []<a href="#TaskEvent">TaskEvent</a> | Y        | Changed data (plugins can add changed field values)                  |
-  | other_data    | interface                            | N        | Other data (this data will be passed to the `taskActionDone` method) |
+| Param         | Type                      | Required | Description                                                          |
+| :------------ | :------------------------ | :------- | :------------------------------------------------------------------- |
+| is_follow     | string                    | Y        | Express concern                                                      |
+| is_reject     | string                    | Y        | Whether to refuse                                                    |
+| reject_reason | string                    | N        | Reject reason                                                        |
+| task_events   | [[]TaskEvent](#TaskEvent) | Y        | Changed data (plugins can add changed field values)                  |
+| other_data    | interface                 | N        | Other data (this data will be passed to the `taskActionDone` method) |
 
 - **Params**
 
   Include the following content in the request body of the function input parameter:
 
-  | Param       | Type                                 | Required | Description           |
-  | ----------- | ------------------------------------ | -------- | --------------------- |
-  | user_uuid   | string                               | Y        | User's `uuid`         |
-  | lang        | string                               | Y        | Current user language |
-  | task_events | []<a href="#TaskEvent">TaskEvent</a> | Y        | Changed data          |
+  | Param       | Type                      | Required | Description           |
+  | ----------- | ------------------------- | -------- | --------------------- |
+  | user_uuid   | string                    | Y        | User's `uuid`         |
+  | lang        | string                    | Y        | Current user language |
+  | task_events | [[]TaskEvent](#TaskEvent) | Y        | Changed data          |
 
-  **TaskEvent**<span id="TaskEvent"></span>
+  #### TaskEvent {#TaskEvent}
 
-  | Param                     | Type                                           | Required | Description                                                                                                                                                                                 |
-  | ------------------------- | ---------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-  | task_fields               | []<a href="#TaskEventField">TaskEventField</a> | Y        | Change field list                                                                                                                                                                           |
-  | task_uuid                 | string                                         | Y        | The `uuid` of the issue                                                                                                                                                                     |
-  | action                    | string                                         | Y        | `update`: general field<br />`transit`: status change (with step field)<br />`change_issue_type`: issue type change<br />`publish_version`: version release<br />`add `: create a new issue |
-  | issue_type_scope_uuid     | string                                         | Y        | Issue type `UUID` under the project to which it belongs                                                                                                                                     |
-  | issue_type_scope_name     | string                                         | Y        | The name of the issue type under the project                                                                                                                                                |
-  | issue_type_scope_name_map | map[string]string                              | Y        | The name of `issue_type_scope` in each language version                                                                                                                                     |
+  | Param                     | Type                                | Required | Description                                                                                                                                                                                 |
+  | ------------------------- | ----------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | task_fields               | [[]TaskEventField](#TaskEventField) | Y        | Change field list                                                                                                                                                                           |
+  | task_uuid                 | string                              | Y        | The `uuid` of the issue                                                                                                                                                                     |
+  | action                    | string                              | Y        | `update`: general field<br />`transit`: status change (with step field)<br />`change_issue_type`: issue type change<br />`publish_version`: version release<br />`add `: create a new issue |
+  | issue_type_scope_uuid     | string                              | Y        | Issue type `UUID` under the project to which it belongs                                                                                                                                     |
+  | issue_type_scope_name     | string                              | Y        | The name of the issue type under the project                                                                                                                                                |
+  | issue_type_scope_name_map | map[string]string                   | Y        | The name of `issue_type_scope` in each language version                                                                                                                                     |
 
-  **TaskEventField**<span id="TaskEventField"></span>
+  #### TaskEventField {#TaskEventField}
 
   | Param            | Type              | Required | Description                                                                                                                             |
   | :--------------- | :---------------- | :------- | :-------------------------------------------------------------------------------------------------------------------------------------- |
@@ -199,12 +203,12 @@ The `taskActionDone` function is automatically generated in the `backend/src/tas
 
 - Params
 
-  | Param       | Type                                 | Required | Description                                                      |
-  | :---------- | :----------------------------------- | :------- | :--------------------------------------------------------------- |
-  | user_uuid   | string                               | Y        | User `uuid`                                                      |
-  | lang        | string                               | Y        | Current user language                                            |
-  | task_events | []<a href="#TaskEvent">TaskEvent</a> | Y        | Changed data                                                     |
-  | other_data  | interface                            | N        | Other data (this data will come from the `taskPreAction` method) |
+  | Param       | Type                      | Required | Description                                                      |
+  | :---------- | :------------------------ | :------- | :--------------------------------------------------------------- |
+  | user_uuid   | string                    | Y        | User `uuid`                                                      |
+  | lang        | string                    | Y        | Current user language                                            |
+  | task_events | [[]TaskEvent](#TaskEvent) | Y        | Changed data                                                     |
+  | other_data  | interface                 | N        | Other data (this data will come from the `taskPreAction` method) |
 
 - **Example**
 

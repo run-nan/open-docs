@@ -1,3 +1,8 @@
+---
+id: super-admin
+sidebar_position: 6
+---
+
 # Super admin
 
 ## Requirements

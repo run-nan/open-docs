@@ -1,0 +1,89 @@
+---
+id: notifications
+sidebar_position: 4
+---
+
+import Image from '@theme/IdealImage'
+
+# 通知
+
+## 要求
+
+| **ONES** |
+| :------- |
+| v3.6.0+  |
+
+## 概述
+
+插件具备向用户发送消息通知的能力，支持的通知渠道有微信、钉钉、有度、飞书和邮件。
+
+:::tip
+
+若需要向三方系统发送通知，需先接入对应的** [三方系统](../business/account/synchronize-with-third-party-system/synchronize-with-third-party-system.mdx) **才能正常发送通知。
+
+:::
+
+## 使用
+
+### 第一步：安装依赖
+
+进入插件工程的`/backend`目录，执行以下命令进行依赖安装：
+
+```shell
+npm i @ones-op/node-ability
+```
+
+### 第二步：发送通知
+
+使用`Notify`方法向用户发送通知。
+
+示例：使用 ONES 接口注册能力注册接口，在调用接口是传入用户`uuid`，向指定的用户发送测试邮件。
+
+```typescript
+import { Notify, NotifyWay } from '@ones-op/node-ability'
+
+export async function sendEmail(request: PluginRequest): Promise<PluginResponse> {
+  const { user_uuid } = request?.body as any
+  if (!user_uuid) {
+    return {
+      body: {
+        error: 'Missing parameters user_uuid',
+      },
+    }
+  }
+  const NotifyRes = await Notify({
+    Title: 'Test',
+    ToUsers: [user_uuid],
+    NotifyWay: NotifyWay.Email,
+    MessageBody: [
+      {
+        Body: 'Email sending test',
+        Url: 'https://ones.cn/',
+      },
+    ],
+    Ext: 'ext string',
+    Source: 'source string',
+  })
+  return {
+    body: {
+      NotifyRes: NotifyRes,
+      data: 'success',
+    },
+  }
+}
+```
+
+- 入参
+
+  | **参数**    | **类型**       | **说明**                                                                                                                                                               | **必填** | **默认值** |
+  | :---------- | :------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------- | :--------- |
+  | Title       | string         | 信息标题                                                                                                                                                               | 是       | -          |
+  | ToUsers     | string[]       | 接收通知的用户数组                                                                                                                                                     | 是       | -          |
+  | NotifyWay   | NotifyWay      | 通知类型，可选值：<br />- 邮件: NotifyWay.Email<br />- 飞书: NotifyWay.Lark<br />- 有度: NotifyWay.YouDu<br />- 微信: NotifyWay.WeChat<br />- 钉钉: NotifyWay.DingDing | 是       | -          |
+  | MessageBody | IMessageBody[] | 消息体数组，每个消息体中包含：<br />- Body: 通知内容<br />- url：通知的跳转链接                                                                                        | 是       | -          |
+  | Ext         | string         | 拓展字段                                                                                                                                                               | 是       | -          |
+  | Source      | string         | 消息来源，供记录使用                                                                                                                                                   | 是       | -          |
+
+发送邮件效果如图所示：
+
+<Image img={require('./images/notify-01.png')} />

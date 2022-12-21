@@ -52,7 +52,7 @@ service:
 
   排除列表，支持正则表达式匹配文件，命中的文件不应用 `rule` 的规则。
 
-示例配置：该配置表示当新旧插件 `workspace` 目录下的文件发生冲突时，保留新插件中的文件。 `exclude`匹配的文件，即 a.txt 以及 temp 目录下的文件除外
+示例配置：该配置表示当新旧插件 `workspace` 目录下的文件发生冲突时，保留新插件中的文件。 `exclude`匹配的文件，即 `a.txt` 以及 `temp` 目录下的文件除外
 
 ```yaml title="config/upgrade.yaml"
 workspace:

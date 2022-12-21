@@ -437,6 +437,9 @@
   "文件解析": {
     "message": "文件解析"
   },
+  "ItemHandler": {
+    "message": "Item 处理器"
+  },
   "ONES Project 自定义组件": {
     "message": "ONES Project 自定义组件"
   },

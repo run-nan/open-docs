@@ -368,6 +368,46 @@ export async function GetOptions(request: PluginRequest): Promise<PluginResponse
   | Value      | string | 选项值                                                 |
   | ObjectType | int    | 实体类型，可选值如下：<br />- 1: 项目<br />- 2: 工作项 |
 
+### 时序图
+
+在完成脚本属性以及属性组的添加之后，完整的属性修改流程如下所示：
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor u as User
+    participant o as ONES
+    participant p as Plugin
+    u->>+o: 点击脚本属性
+    o-->>-u: 属性组修改框
+    rect rgb(129,216,207,0.3)
+    note left of u: 获取选项值
+    u->>+o: 编辑单选属性
+    o->>+p: 调用 /scriptFieldSearch
+    p-->>-o: 返回可选项
+    o-->>-u: 返回可选项
+    end
+    rect rgb(129,216,207,0.3)
+    note left of u: 属性值自动填充
+    u->>+o: 选择某一选项
+    o->>+p: 调用 /groupFieldOnChange
+    p-->>-o: 返回回填数据
+    o-->>-u: 自动回填
+    end
+    u->>+o: 查询选项值
+    o->>+p: 调用 /scriptFieldSearch
+    p-->>-o: 返回选项值
+    o-->>-u: 返回选项值
+    rect rgb(129,216,207,0.3)
+    note left of u: 属性值校验
+    u->>+o: 提交属性组修改
+    o->>+p: 调用 /groupFieldValidate
+    p-->>-o: 返回校验结果
+    o-->>o: 如果验证成功，则修改数据
+    o-->>-u: 返回校验结果
+    end
+```
+
 ## 示例
 
 [位置信息属性组](./location-fieldgroup.md)

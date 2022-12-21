@@ -23,7 +23,7 @@ import Image from '@theme/IdealImage'
 
 **方法模版：**
 
-```typescript
+```typescript title="backend/src/index.ts"
 // Method called when the team level plugin is being installed.
 export async function Install() {
   Logger.info('[Plugin] Install')
@@ -81,7 +81,6 @@ export function OrgDisable(
 export function OrgUnInstall(request: PluginRequest, teamUUIDList: string[]) {
   Logger.info('[Plugin] OrgUnInstall')
 }
-s
 
 // Method called when the organization level plugin is being upgraded.
 export function OrgUpgrade(request: PluginRequest, teamUUIDList: string[]) {
