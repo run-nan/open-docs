@@ -1,6 +1,5 @@
 import React from 'react'
 import Translate from '@docusaurus/Translate'
-import type { ContentEnum } from './components/homepage/features'
 
 const baseUrl = '/docs/next/'
 
@@ -8,218 +7,217 @@ const baseUrl = '/docs/next/'
 export const features: {
   /** 分类标题 */
   title: React.ReactNode
-  /** features 类型：开放能力 ｜ 工具与资源 */
-  type: ContentEnum
   /** 卡片信息 */
   cards: {
     /** 卡片标题 */
-    cardTitle: React.ReactNode
+    label: React.ReactNode
+    /** 工具类型卡片的地址 */
+    url?: string
     /** 卡片中每一项 */
-    cardList: {
-      /** 卡片中每一项的标题 */
-      label: React.ReactNode
-      /** 卡片中每一项指向的地址 */
-      url: string
-    }[]
+    content?:
+      | React.ReactNode
+      | {
+          title: React.ReactNode
+          url?: string
+        }[]
   }[]
 }[] = [
   {
     title: <Translate>Open Abilities</Translate>,
-    type: 0,
     cards: [
       {
-        cardTitle: <Translate>Slots</Translate>,
-        cardList: [
+        label: <Translate>Slots</Translate>,
+        content: [
           {
             /** 应用插槽 */
-            label: <Translate>App slot</Translate>,
+            title: <Translate>App slot</Translate>,
             url: `${baseUrl}abilities/slot/app`,
           },
           {
             /** 全局插槽 */
-            label: <Translate>Global slot</Translate>,
+            title: <Translate>Global slot</Translate>,
             url: `${baseUrl}abilities/slot/global`,
           },
           {
             /** 我的工作台 */
-            label: <Translate>My work</Translate>,
+            title: <Translate>My work</Translate>,
             url: `${baseUrl}abilities/slot/module/my-work`,
           },
           {
             /** 项目管理 */
-            label: <Translate>ONES Project</Translate>,
+            title: <Translate>ONES Project</Translate>,
             url: `${baseUrl}abilities/slot/module/project`,
           },
           {
             /** 知识库管理 */
-            label: <Translate>ONES Wiki</Translate>,
+            title: <Translate>ONES Wiki</Translate>,
             url: '#',
           },
           {
             /** 项目集管理 */
-            label: <Translate>ONES Plan</Translate>,
+            title: <Translate>ONES Plan</Translate>,
             url: `${baseUrl}abilities/slot/module/plan`,
           },
           {
             /** 测试管理 */
-            label: <Translate>ONES TestCase</Translate>,
+            title: <Translate>ONES TestCase</Translate>,
             url: `${baseUrl}abilities/slot/module/testcase`,
           },
           {
             /** 流水线管理 */
-            label: <Translate>ONES Pipeline</Translate>,
+            title: <Translate>ONES Pipeline</Translate>,
             url: `${baseUrl}abilities/slot/module/pipeline`,
           },
           {
             /** 工单管理 */
-            label: <Translate>ONES Desk</Translate>,
+            title: <Translate>ONES Desk</Translate>,
             url: `${baseUrl}abilities/slot/module/desk`,
           },
           {
             /** 工单门户 */
-            label: <Translate>ONES DeskHome</Translate>,
+            title: <Translate>ONES DeskHome</Translate>,
             url: `${baseUrl}abilities/slot/module/desk-home`,
           },
           {
             /** 效能管理 */
-            label: <Translate>ONES Performance</Translate>,
+            title: <Translate>ONES Performance</Translate>,
             url: `${baseUrl}abilities/slot/module/performance`,
           },
           {
             /** 产品管理 */
-            label: <Translate>Product Management</Translate>,
+            title: <Translate>Product Management</Translate>,
             url: `${baseUrl}abilities/slot/module/product`,
           },
           {
             /** 工时管理 */
-            label: <Translate>Worklog Management</Translate>,
+            title: <Translate>Worklog Management</Translate>,
             url: `${baseUrl}abilities/slot/module/worklog`,
           },
           {
             /** 版本管理 */
-            label: <Translate>Version Management</Translate>,
+            title: <Translate>Version Management</Translate>,
             url: `${baseUrl}abilities/slot/module/version`,
           },
           {
             /** 配置中心 */
-            label: <Translate>Configuration</Translate>,
+            title: <Translate>Configuration</Translate>,
             url: '#',
           },
           {
             /** 个人中心 */
-            label: <Translate>Account</Translate>,
+            title: <Translate>Account</Translate>,
             url: `${baseUrl}abilities/slot/module/account`,
           },
           {
             /** 组织管理 */
-            label: <Translate>Organization settings</Translate>,
+            title: <Translate>Organization settings</Translate>,
             url: '#',
           },
           {
             /** 登录 */
-            label: <Translate>Login</Translate>,
+            title: <Translate>Login</Translate>,
             url: `${baseUrl}abilities/slot/module/login`,
           },
         ],
       },
       {
-        cardTitle: <Translate>Basic</Translate>,
-        cardList: [
+        label: <Translate>Basic</Translate>,
+        content: [
           {
             /** 日志 */
-            label: <Translate>Log</Translate>,
+            title: <Translate>Log</Translate>,
             url: `${baseUrl}abilities/basic/openAbility-pluginLog`,
           },
           {
             /** 超级用户 */
-            label: <Translate>Super admin</Translate>,
+            title: <Translate>Super admin</Translate>,
             url: `${baseUrl}abilities/basic/super-admin`,
           },
           {
             /**  文件操作 */
-            label: <Translate>File Operation</Translate>,
+            title: <Translate>File Operation</Translate>,
             url: '#',
           },
           {
             /** 数据库 */
-            label: <Translate>Database</Translate>,
+            title: <Translate>Database</Translate>,
             url: `${baseUrl}abilities/basic/database`,
           },
 
           {
             /** 错误处理 */
-            label: <Translate>Error handling</Translate>,
+            title: <Translate>Error handling</Translate>,
             url: `${baseUrl}abilities/basic/error-handling`,
           },
           // {
           //   /** 多语言-国际化 */
-          //   label: <Translate>Internationalization</Translate>,
+          //   title: <Translate>Internationalization</Translate>,
           //   url: `${baseUrl}guide/abilities/multilingual`,
           // },
           {
             /** 通知 */
-            label: <Translate>Notifications</Translate>,
-            url: `${baseUrl}abilities/basic/notifications`,
+            title: <Translate>Notifications</Translate>,
+            url: '#',
           },
           {
             /** 定时器 */
-            label: <Translate>Timer</Translate>,
-            url: `${baseUrl}abilities/basic/timer`,
+            title: <Translate>Timer</Translate>,
+            url: '#',
           },
           {
             /** 自定义配置 */
-            label: <Translate>Custom configuration</Translate>,
+            title: <Translate>Custom configuration</Translate>,
             url: `${baseUrl}abilities/basic/custom-config`,
           },
         ],
       },
       {
-        cardTitle: <Translate>Business</Translate>,
-        cardList: [
+        label: <Translate>Business</Translate>,
+        content: [
           {
             /** ONES 接口 */
-            label: <Translate>ONES interface</Translate>,
+            title: <Translate>ONES interface</Translate>,
             url: `${baseUrl}abilities/business/ONES-API`,
           },
           {
             /** 属性 */
-            label: <Translate>Field</Translate>,
+            title: <Translate>Field</Translate>,
             url: `${baseUrl}abilities/business/field`,
           },
           {
             /** 工作项 */
-            label: <Translate>Issue</Translate>,
+            title: <Translate>Issue</Translate>,
             url: `${baseUrl}abilities/business/issue`,
           },
           {
             /** 权限点 */
-            label: <Translate>Permission</Translate>,
+            title: <Translate>Permission</Translate>,
             url: '#',
           },
 
           {
             /** Account */
-            label: 'Account',
+            title: 'Account',
             url: `${baseUrl}abilities/business/account`,
           },
           {
-            /** item 处理器 */
-            label: <Translate>ItemHandler</Translate>,
-            url: `${baseUrl}abilities/business/item-handler`,
+            /** issue 处理器 */
+            title: <Translate>Issue processor</Translate>,
+            url: '#',
           },
           {
             /** 托管独立应用 */
-            label: <Translate>Independent hosting service</Translate>,
+            title: <Translate>Independent hosting service</Translate>,
             url: `${baseUrl}abilities/business/Independent-hosting-service`,
           },
           {
             /** 文件解析 */
-            label: <Translate>File parsing</Translate>,
+            title: <Translate>File parsing</Translate>,
             url: '#',
           },
           {
             /** ONES project 自定义组件 */
-            label: <Translate>ONES project Custom component</Translate>,
+            title: <Translate>ONES project Custom component</Translate>,
             url: '#',
           },
         ],
@@ -228,54 +226,41 @@ export const features: {
   },
   {
     title: <Translate>Tools and Resources</Translate>,
-    type: 1,
     cards: [
       {
-        cardTitle: <Translate>ONES CLI</Translate>,
-        cardList: [
-          {
-            label: (
-              <Translate>
-                ONES CLI is a command line interface tool that helps developers build ONES open
-                platform plugin.
-              </Translate>
-            ),
-            url: `${baseUrl}tools/cli`,
-          },
-        ],
+        label: <Translate>ONES CLI</Translate>,
+        url: `${baseUrl}tools/cli`,
+        content: (
+          <Translate>
+            ONES CLI is a command line interface tool that helps developers build ONES open platform
+            plugin.
+          </Translate>
+        ),
       },
       {
-        cardTitle: <Translate>ONES Diagtools</Translate>,
-        cardList: [
-          {
-            label: (
-              <Translate>
-                ONES Diagtools CLI and ONES Diagtools Desktop are diagnostic tools for open
-                platforms.
-              </Translate>
-            ),
-            url: '#',
-          },
-        ],
+        label: <Translate>ONES Diagtools</Translate>,
+        url: '#',
+        content: (
+          <Translate>
+            ONES Diagtools CLI and ONES Diagtools Desktop are diagnostic tools for open platforms.
+          </Translate>
+        ),
       },
       {
-        cardTitle: <Translate>ONES Design</Translate>,
-        cardList: [
-          {
-            label: (
-              <Translate>
-                ONES Design is an Ant Design based React UI component library, which is mainly used
-                for the research and development of enterprise level R & D management tools.
-              </Translate>
-            ),
-            url: 'https://bangwork.github.io/ones-design/?path=/story/ones-design--page',
-          },
-        ],
+        label: <Translate>ONES Design</Translate>,
+        url: 'https://bangwork.github.io/ones-design/?path=/story/ones-design--page',
+        content: (
+          <Translate>
+            ONES Design is an Ant Design based React UI component library, which is mainly used for
+            the research and development of enterprise level R & D management tools.
+          </Translate>
+        ),
       },
     ],
   },
 ]
 
+/** 学习路径 */
 export const learnings: {
   /** 步骤标题 */
   stepTitle: React.ReactNode

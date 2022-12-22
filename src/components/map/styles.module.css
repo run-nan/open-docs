@@ -31,6 +31,10 @@
   color: #303030;
 }
 
+html[data-theme='dark'] .stepTitle {
+  color: rgb(255, 254, 226);
+}
+
 .splitContainer {
   display: flex;
   flex-direction: column;
@@ -64,6 +68,10 @@
   line-height: 22px;
 }
 
+html[data-theme='dark'] .description {
+  color: rgb(255, 244, 198);
+}
+
 .docs {
   display: flex;
   flex-direction: column;
@@ -91,6 +99,10 @@
   padding: 3px 18px;
   text-align: center;
   background-color: #f5f9fd;
+}
+
+html[data-theme='dark'] .itemTitle {
+  background-color: rgb(25, 27, 25);
 }
 
 .itemList {

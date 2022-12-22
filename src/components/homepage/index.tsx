@@ -1,2 +1,2 @@
-export * from './features'
 export * from './header'
+export * from './main'
