@@ -26,8 +26,9 @@ jobs:
       - name: cache node_modules/.cache
         uses: actions/cache@v3
         with:
-          key: ${{ hashFiles('package-lock.json') }}
+          key: ${{ hashFiles('package-lock.json') }}-${{ github.run_id }}
           path: node_modules/.cache
+          restore-keys: ${{ hashFiles('package-lock.json') }}-
       - run: npm run build
       - uses: appleboy/scp-action@v0.1.2
         with:
