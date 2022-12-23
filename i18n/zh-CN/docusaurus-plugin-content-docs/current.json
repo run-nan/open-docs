@@ -202,5 +202,9 @@
   "sidebar.abilities.category.测试计划组件": {
     "message": "测试计划组件",
     "description": "The label for category 测试计划组件 in sidebar abilities"
+  },
+  "sidebar.guide.category.Advanced Guide": {
+    "message": "进阶指南",
+    "description": "The label for category Advanced Guide in sidebar guide"
   }
 }

@@ -417,7 +417,7 @@ interface UserInfoType {
 
 ### useAction {#useAction}
 
-通过调用此 hook 方法，可以对系统内的一些操作（Action）进行拦截处理，具体用法与配置请参阅 [Trigger 插槽](../../../abilities/slot/global/trigger)。
+通过调用此 hook 方法，可以对系统内的一些操作（Action）进行拦截处理，具体用法与配置请参阅 [Trigger 插槽](../../../abilities/slot/global/trigger/index.md)。
 
 #### 要求
 
@@ -427,10 +427,10 @@ interface UserInfoType {
 
 #### 参数
 
-|  参数   | 说明               |                            类型                             | 必填 | 默认值 |
-| :-----: | :----------------- | :---------------------------------------------------------: | :--: | :----: |
-|  type   | trigger 类型字符串 | [`ActionEnum`](../../../abilities/slot/global/trigger/list) |  是  |        |
-| handler | 操作拦截处理方法   |             `(payload: ActionPayload) => void`              |  是  |        |
+|  参数   | 说明               |                              类型                              | 必填 | 默认值 |
+| :-----: | :----------------- | :------------------------------------------------------------: | :--: | :----: |
+|  type   | trigger 类型字符串 | [`ActionEnum`](../../../abilities/slot/global/trigger/list.md) |  是  |        |
+| handler | 操作拦截处理方法   |               `(payload: ActionPayload) => void`               |  是  |        |
 
 #### 类型
 
@@ -660,7 +660,7 @@ interface TaskInfoType {
 
 #### 类型
 
-> `CodeRepositoryInfo.uuid` 和能力方法 `addRepoCommits` 中的[`toolUUID`](../../../reference/packages/node-ability/node-ability.md#addrepocommits) 一致。
+> `CodeRepositoryInfo.uuid` 和能力方法 `addRepoCommits` 中的 [`toolUUID`](../../../reference/packages/node-ability/node-ability.md#addrepocommits) 一致。
 
 ```tsx
 interface CodeRepositoryInfo {

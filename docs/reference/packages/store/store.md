@@ -417,7 +417,7 @@ interface UserInfoType {
 
 ### useAction {#useAction}
 
-By calling this hook method, some action in the system can be intercepted. For details about usage and configuration, see [Trigger Slot](../../../abilities/slot/global/trigger)。
+By calling this hook method, some action in the system can be intercepted. For details about usage and configuration, see [Trigger Slot](../../../abilities/slot/global/trigger/index.md)。
 
 #### Requirements
 
@@ -427,10 +427,10 @@ By calling this hook method, some action in the system can be intercepted. For d
 
 #### Params
 
-| Params  | Description                              |                            Type                             | Required | Default |
-| :-----: | :--------------------------------------- | :---------------------------------------------------------: | :------: | :-----: |
-|  type   | Trigger type                             | [`ActionEnum`](../../../abilities/slot/global/trigger/list) |   Yes    |         |
-| handler | Operation interception processing method |             `(payload: ActionPayload) => void`              |   Yes    |         |
+| Params  | Description                              |                              Type                              | Required | Default |
+| :-----: | :--------------------------------------- | :------------------------------------------------------------: | :------: | :-----: |
+|  type   | Trigger type                             | [`ActionEnum`](../../../abilities/slot/global/trigger/list.md) |   Yes    |         |
+| handler | Operation interception processing method |               `(payload: ActionPayload) => void`               |   Yes    |         |
 
 #### Types
 

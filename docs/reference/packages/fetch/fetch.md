@@ -4,6 +4,12 @@
 
 We provide a set of interface request library that can help you request interfaces exposed to the backend of the plugin in the frontend of the plugin, or request external interfaces.
 
+## Requirements
+
+| **@ones-op/fetch** |
+| :----------------: |
+|     `v0.4.0+`      |
+
 ## Installation
 
 Install the package in the plugin `/web` directory using the following command:
@@ -38,7 +44,7 @@ function fetchData() {
 | [isOPError](#isOPError)           | Determine whether it is an open platform or plugin interface error |
 | [OPErrorHandler](#OPErrorHandler) | Open platform or plugin standard interface error processing method |
 
-## API
+## APIs
 
 ### OPFetch {#OPFetch}
 
