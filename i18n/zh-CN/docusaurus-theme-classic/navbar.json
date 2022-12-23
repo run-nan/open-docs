@@ -20,7 +20,7 @@
     "description": "Navbar item with label API"
   },
   "item.label.Tools": {
-    "message": "开发工具",
+    "message": "工具",
     "description": "Navbar item with label Tools"
   },
   "item.label.FAQ": {

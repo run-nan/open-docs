@@ -157,12 +157,12 @@ export const features: {
           {
             /** 通知 */
             title: <Translate>Notifications</Translate>,
-            url: '#',
+            url: `${baseUrl}abilities/basic/notifications`,
           },
           {
             /** 定时器 */
             title: <Translate>Timer</Translate>,
-            url: '#',
+            url: `${baseUrl}abilities/basic/timer`,
           },
           {
             /** 自定义配置 */
@@ -201,9 +201,9 @@ export const features: {
             url: `${baseUrl}abilities/business/account`,
           },
           {
-            /** issue 处理器 */
-            title: <Translate>Issue processor</Translate>,
-            url: '#',
+            /** item 处理器 */
+            title: <Translate>ItemHandler</Translate>,
+            url: `${baseUrl}abilities/business/item-handler`,
           },
           {
             /** 托管独立应用 */
