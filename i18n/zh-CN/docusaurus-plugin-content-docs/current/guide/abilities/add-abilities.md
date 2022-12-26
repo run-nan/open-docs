@@ -11,7 +11,7 @@ description: 多样的能力提供，轻松制定你的 ONES。
 
 ## 能力
 
-- [基础能力](../../abilities/basic/basic.md)
+- [基础能力](../../abilities/basic/basic.mdx)
 - [业务能力](../../abilities/business/business.mdx)
 
 ## 使用
