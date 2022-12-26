@@ -215,6 +215,11 @@ export const features: {
             title: <Translate>ONES project Custom component</Translate>,
             url: `${baseUrl}abilities/business/project-custom-component`,
           },
+          {
+            /** ONES project 自定义组件 */
+            title: <Translate>Sidebar Menu</Translate>,
+            url: `${baseUrl}abilities/business/sidebar-menu`,
+          },
         ],
       },
     ],
