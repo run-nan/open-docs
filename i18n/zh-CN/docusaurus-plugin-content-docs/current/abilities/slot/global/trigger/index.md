@@ -37,7 +37,13 @@ modules:
 **支持的配置项：**
 
 - [preload](../../../../reference/config/plugin.yaml#preload)
+
+  此选项建议设置为 `true`。
+
 - [manual（必填）](../../../../reference/config/plugin.yaml#manual)
+
+  此选项必须设置为 `true`。
+
 - actions（必填）
 
   - 类型：`Array<string>`

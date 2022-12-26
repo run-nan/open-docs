@@ -37,7 +37,13 @@ modules:
 **Supported config options：**
 
 - [preload](../../../../reference/config/plugin.yaml#preload)
+
+  This option is recommended to be set to `true`.
+
 - [manual(required)](../../../../reference/config/plugin.yaml#manual)
+
+  This option must be set to `true`.
+
 - actions(required)
 
   - type: `Array<string>`
