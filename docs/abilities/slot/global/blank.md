@@ -10,8 +10,16 @@
 
 This is a blank module, that runs outside of the system. The build rule of the page's URL is as follows:
 
+If it's a team level plugin.
+
 ```
 ${location.protocol}://${location.host}/plugin/${organization_id}/${team_id}/${service.app_id}/${service.version}/modules/${module_id}/index.html
+```
+
+If it's an organization level plugin.
+
+```
+${location.protocol}://${location.host}/plugin/${organization_id}/${service.app_id}/${service.version}/modules/${module_id}/index.html
 ```
 
 :::caution
