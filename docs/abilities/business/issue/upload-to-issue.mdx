@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 import Image from '@theme/IdealImage'
 
 # Upload issue attachment
@@ -10,50 +14,50 @@ import Image from '@theme/IdealImage'
 
 ## Overview
 
-通过使用该能力，插件能够将文件上传至工作项的附件中。
+Using this ability, plugins can upload files as attachments to issue.
 
 ### Performance
 
-通过能力上传文件之后，工作项中新增文件附件：
+After the file is uploaded through the ability, a new file attachment is added to the issue:
 
 <Image img={require('./images/upload0.png')} />
 
-## 使用
+## Usage
 
-### 第一步：安装依赖
+### Step 1: Installation dependency
 
-进入插件工程的`/backend`目录，执行以下命令进行依赖安装：
+Enter the `/backend` directory of the plugin project, and execute the following command for dependent installation:
 
 ```shell
 npm i @ones-op/node-ability
 ```
 
-### 第二步：上传附件
+### Step 2: Upload Attachments
 
-调用`uploadFile`方法将文件上传至某一工作项的附件中
+Call the [uploadFile](../../../reference/packages/node-ability/node-ability.md#PluginFile_uploadFile) method to upload a file to an attachment of a issue
 
 ```typescript
 const file = await PluginFile.uploadFile('files/test.txt', 'taskuuid', 'desc')
 ```
 
-- 参数介绍
+- Params
 
-  | **参数**    | **类型** | **说明**                                                             | **必填** | **默认值** |
-  | :---------- | :------- | :------------------------------------------------------------------- | :------- | :--------- |
-  | filePath    | string   | 文件地址，`workspace`目录下的路径                                    | 是       | -          |
-  | referenceID | string   | 工作项的`uuid`                                                       | 是       | -          |
-  | desc        | string   | 文件描述                                                             | 是       | -          |
-  | teamUUID    | string   | 团队`uuid`，组织级别的插件必须带上该参数，团队级别的插件可不带该参数 | 是       | -          |
+  | **Param**   | **Type** | **Description**                                                                                                         | **Required** | **Default** |
+  | :---------- | :------- | :---------------------------------------------------------------------------------------------------------------------- | :----------- | :---------- |
+  | filePath    | string   | file address, the path under the `workspace` directory                                                                  | Y            | -           |
+  | referenceID | string   | `uuid` of the issue                                                                                                     | Y            | -           |
+  | desc        | string   | file description                                                                                                        | Y            | -           |
+  | teamUUID    | string   | `uuid` of the team, organization-level plugins must have this parameter, team-level plugins may not have this parameter | N            | -           |
 
-- 返回内容
+- Return
 
-  方法返回的结构体中包含本次上传文件的相关信息。
+  The structure returned by the method contains information about the uploaded file.
 
-  | 参数    | 类型   | 说明            |
-  | ------- | ------ | --------------- |
-  | hash    | string | 文件的`hash`值  |
-  | url     | string | 文件的下载`url` |
-  | name    | string | 文件名称        |
-  | size    | int    | 文件大小        |
-  | mime    | string | 文件类型        |
-  | version | int    | 文件版本        |
+  | Param   | Type   | Description              |
+  | :------ | :----- | :----------------------- |
+  | hash    | string | `hash` value of the file |
+  | url     | string | file download `url`      |
+  | name    | string | file name                |
+  | size    | int    | file size                |
+  | mime    | string | file type                |
+  | version | int    | file version             |

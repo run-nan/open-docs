@@ -41,6 +41,8 @@ const response = await fetchHttp({
 })
 ```
 
+---
+
 ### fetchONES
 
 Used to access ONES system standard interface
@@ -94,3 +96,5 @@ const response = await fetchONES({
   root: false, //Default is true
 })
 ```
+
+---

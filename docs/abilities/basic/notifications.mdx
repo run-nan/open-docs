@@ -1,43 +1,44 @@
 ---
 id: notifications
 sidebar_position: 4
+description: Various notification methods.
 ---
 
 import Image from '@theme/IdealImage'
 
 # Notifications
 
-## 要求
+## Requirements
 
 | **ONES** |
 | :------- |
 | v3.6.0+  |
 
-## 概述
+## Overview
 
-插件具备向用户发送消息通知的能力，支持的通知渠道有微信、钉钉、有度、飞书和邮件。
+The plugin has the ability to send message notifications to users. The supported notification channels include WeChat, DingDing, Youdu, Lark and email.
 
 :::tip
 
-若需要向三方系统发送通知，需先接入对应的** [三方系统](../business/account/synchronize-with-third-party-system/synchronize-with-third-party-system.mdx) **才能正常发送通知。
+If you need to send a notification to a third-party system, you need to access the corresponding** [Three-Party System](../business/account/synchronize-with-third-party-system/synchronize-with-third-party-system.mdx) ** To send notifications normally.
 
 :::
 
-## 使用
+## Usage
 
-### 第一步：安装依赖
+### Step 1: Installation dependency
 
-进入插件工程的`/backend`目录，执行以下命令进行依赖安装：
+Enter the `/backend` directory of the plugin project, and execute the following command for dependent installation:
 
 ```shell
 npm i @ones-op/node-ability
 ```
 
-### 第二步：发送通知
+### Step 2: Send notification
 
-使用`Notify`方法向用户发送通知。
+Use the [Notify](../../reference/packages/node-ability/node-ability.md#Notify) method to send a notification to the user.
 
-示例：使用 ONES 接口注册能力注册接口，在调用接口是传入用户`uuid`，向指定的用户发送测试邮件。
+Example: use the [ONES API registration] the ability registration API, and pass in the user `uuid` when calling the interface, and send a test email to the specified user.
 
 ```typescript
 import { Notify, NotifyWay } from '@ones-op/node-ability'
@@ -73,17 +74,17 @@ export async function sendEmail(request: PluginRequest): Promise<PluginResponse>
 }
 ```
 
-- 入参
+**Param**
 
-| **参数**    | **类型**       | **说明**                                                                                                                                                               | **必填** | **默认值** |
-| :---------- | :------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------- | :--------- |
-| Title       | string         | 信息标题                                                                                                                                                               | 是       | -          |
-| ToUsers     | string[]       | 接收通知的用户数组                                                                                                                                                     | 是       | -          |
-| NotifyWay   | NotifyWay      | 通知类型，可选值：<br />- 邮件: NotifyWay.Email<br />- 飞书: NotifyWay.Lark<br />- 有度: NotifyWay.YouDu<br />- 微信: NotifyWay.WeChat<br />- 钉钉: NotifyWay.DingDing | 是       | -          |
-| MessageBody | IMessageBody[] | 消息体数组，每个消息体中包含：<br />- Body: 通知内容<br />- url：通知的跳转链接                                                                                        | 是       | -          |
-| Ext         | string         | 拓展字段                                                                                                                                                               | 是       | -          |
-| Source      | string         | 消息来源，供记录使用                                                                                                                                                   | 是       | -          |
+| **Param**   | **Type**       | **Description**                                                                                                                                                                                 | **Required** | **Default** |
+| :---------- | :------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------- | :---------- |
+| Title       | string         | information title                                                                                                                                                                               | Y            | -           |
+| ToUsers     | string[]       | Array of users to receive notifications                                                                                                                                                         | Y            | -           |
+| NotifyWay   | NotifyWay      | Notification type, optional values:<br />- Email: NotifyWay.Email<br />- Lark: NotifyWay.Lark<br />- YouDu: NotifyWay.YouDu<br />- WeChat: NotifyWay.WeChat<br />- DingDing: NotifyWay.DingDing | Y            | -           |
+| MessageBody | IMessageBody[] | Array of message bodies, each message body contains:<br />- Body: notification content<br />- url：notification jump link                                                                       | Y            | -           |
+| Ext         | string         | Extension field                                                                                                                                                                                 | Y            | -           |
+| Source      | string         | Source, for the record                                                                                                                                                                          | Y            | -           |
 
-发送邮件效果如图所示：
+The effect of sending mail is as shown in the figure:
 
 <Image img={require('./images/notify-01.png')} />

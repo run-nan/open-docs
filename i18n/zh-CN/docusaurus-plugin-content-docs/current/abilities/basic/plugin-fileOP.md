@@ -1,3 +1,8 @@
+---
+sidebar_position: 11
+description: 插件本身的文件存储。
+---
+
 # 插件文件操作
 
 ## 要求

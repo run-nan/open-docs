@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 # ONES API registration
 
 ## Requirements

@@ -1,3 +1,7 @@
+---
+toc_max_heading_level: 4
+---
+
 # @ones-op/node-ability（业务能力库，对业务能力、请求的封装）
 
 我们提供了一套接口请求库，允许插件开发者调用插件的基础能力。
@@ -36,6 +40,8 @@ export async function multiple_language() {
 }
 ```
 
+---
+
 ### getLanguageString
 
 获取指定语言的对应内容
@@ -62,6 +68,8 @@ export async function multiple_language() {
   const description = await Language.getLanguageString(language, 'PluginDescription')
 }
 ```
+
+---
 
 ### downloadFile
 
@@ -97,6 +105,8 @@ export async function downloadUrl() {
   return url
 }
 ```
+
+---
 
 ### uploadFile
 
@@ -137,19 +147,21 @@ export async function uploadFileToPlugin(request: PluginRequest): Promise<Plugin
 }
 ```
 
+---
+
 ### addRepos
 
 新增代码仓
 
 #### Params
 
-| 参数     | 说明                                              | 类型       | 必填 | 取值范围     |
-| :------- | :------------------------------------------------ | :--------- | :--- | :----------- |
-| toolUUID | 关联代码仓方式 UUID                               | string     | 是   | len=8        |
-| teamUUID | 团队 UUID（组织级别插件必填，团队级别插件非必填） | string     | 否   | len=8        |
-| list     | 新增关联代码仓列表                                | RepoInfo[] | 是   | 0<=size<=100 |
+| 参数     | 说明                                              | 类型                    | 必填 | 取值范围     |
+| :------- | :------------------------------------------------ | :---------------------- | :--- | :----------- |
+| toolUUID | 关联代码仓方式 UUID                               | string                  | 是   | len=8        |
+| teamUUID | 团队 UUID（组织级别插件必填，团队级别插件非必填） | string                  | 否   | len=8        |
+| list     | 新增关联代码仓列表                                | [RepoInfo](#RepoInfo)[] | 是   | 0<=size<=100 |
 
-> RepoInfo
+##### RepoInfo {#RepoInfo}
 
 | 参数              | 说明                                                                              | 类型   | 必填 | 取值范围 |
 | :---------------- | :-------------------------------------------------------------------------------- | :----- | :--- | :------- |
@@ -161,15 +173,15 @@ export async function uploadFileToPlugin(request: PluginRequest): Promise<Plugin
 
 #### Returns
 
-> BatchRepoResponse
+##### BatchRepoResponse
 
-| 参数         | 类型           | 说明                   | 必填 |
-| :----------- | :------------- | :--------------------- | :--- |
-| successCount | int            | 关联代码仓成功数量     | 是   |
-| failureCount | int            | 关联代码仓失败数量     | 是   |
-| Responses    | RepoResponse[] | 关联代码仓详细信息列表 | 是   |
+| 参数         | 类型                            | 说明                   | 必填 |
+| :----------- | :------------------------------ | :--------------------- | :--- |
+| successCount | int                             | 关联代码仓成功数量     | 是   |
+| failureCount | int                             | 关联代码仓失败数量     | 是   |
+| Responses    | [RepoResponse](#RepoResponse)[] | 关联代码仓详细信息列表 | 是   |
 
-> RepoResponse
+##### RepoResponse {#RepoResponse}
 
 | 参数      | 类型    | 说明               | 必填 |
 | :-------- | :------ | :----------------- | :--- |
@@ -189,6 +201,8 @@ const toolUUID: string = 'xxx';
 const list: AddRepoInfo[] = [...];
 const batchResponse = await addRepos(toolUUID, list);
 ```
+
+---
 
 ### queryRepo
 
@@ -227,6 +241,8 @@ const name = 'xxx'
 const repoInfo = await queryRepo(toolUUID, uri, namespace, name)
 ```
 
+---
+
 ### queryRepos
 
 查询已关联的所有代码仓
@@ -240,7 +256,7 @@ const repoInfo = await queryRepo(toolUUID, uri, namespace, name)
 
 #### Returns
 
-> RepoInfo[]
+##### RepoInfo[]
 
 | 参数              | 说明                                                    | 类型   | 必填 |
 | :---------------- | :------------------------------------------------------ | :----- | :--- |
@@ -260,20 +276,22 @@ const toolUUID = 'xxx'
 const repoInfos = await queryRepos(toolUUID)
 ```
 
+---
+
 ### addRepoCommits
 
 新增代码仓提交 commit
 
 #### Params
 
-| 参数     | 说明                                          | 类型         | 必填 | 取值范围     |
-| :------- | :-------------------------------------------- | :----------- | :--- | :----------- |
-| toolUUID | 关联代码仓方式 UUID                           | string       | 是   | len=8        |
-| repoUUID | 代码仓 UUID                                   | string       | 是   | len=8        |
-| teamUUID | 团队 UUID（组织级别插件必填，团队级别插必填） | string       | 否   | len=8        |
-| list     | 代码仓 commit 列表                            | RepoCommit[] | 是   | 0<=size<=100 |
+| 参数     | 说明                                          | 类型                        | 必填 | 取值范围     |
+| :------- | :-------------------------------------------- | :-------------------------- | :--- | :----------- |
+| toolUUID | 关联代码仓方式 UUID                           | string                      | 是   | len=8        |
+| repoUUID | 代码仓 UUID                                   | string                      | 是   | len=8        |
+| teamUUID | 团队 UUID（组织级别插件必填，团队级别插必填） | string                      | 否   | len=8        |
+| list     | 代码仓 commit 列表                            | [RepoCommit](#RepoCommit)[] | 是   | 0<=size<=100 |
 
-> RepoCommit
+##### RepoCommit {#RepoCommit}
 
 | 参数           | 说明                      | 类型   | 必填 | 取值范围       |
 | :------------- | :------------------------ | :----- | :--- | :------------- |
@@ -298,20 +316,22 @@ const list: AddRepoInfo[] = [...];
 await addRepoCommits(toolUUID, repoUUID, list)
 ```
 
+---
+
 ### addRepoPullRequest
 
 新增代码仓合并请求 pull request（支持新增和更新）
 
 #### Params
 
-| 参数     | 说明                                              | 类型            | 必填 | 取值范围 |
-| :------- | :------------------------------------------------ | :-------------- | :--- | :------- |
-| toolUUID | 关联代码仓方式 UUID                               | string          | 是   | len=8    |
-| repoUUID | 代码仓 UUID                                       | string          | 是   | len=8    |
-| teamUUID | 团队 UUID（组织级别插件必填，团队级别插件非必填） | string          | 否   | len=8    |
-| pr       | 代码仓 pull request 信息                          | RepoPullRequest | 是   | -        |
+| 参数     | 说明                                              | 类型                                | 必填 | 取值范围 |
+| :------- | :------------------------------------------------ | :---------------------------------- | :--- | :------- |
+| toolUUID | 关联代码仓方式 UUID                               | string                              | 是   | len=8    |
+| repoUUID | 代码仓 UUID                                       | string                              | 是   | len=8    |
+| teamUUID | 团队 UUID（组织级别插件必填，团队级别插件非必填） | string                              | 否   | len=8    |
+| pr       | 代码仓 pull request 信息                          | [RepoPullRequest](#RepoPullRequest) | 是   | -        |
 
-> RepoPullRequest
+##### RepoPullRequest {#RepoPullRequest}
 
 | 参数       | 说明                                                 | 类型         | 必填 | 取值范围       |
 | :--------- | :--------------------------------------------------- | :----------- | :--- | :------------- |
@@ -338,3 +358,242 @@ const repoUUID: string = 'xxx'
 const pullRequest: RepoPullRequest = '{...}'
 await addRepoPullRequest(toolUUID, repoUUID, pullRequest)
 ```
+
+---
+
+### Notify {#Notify}
+
+向特定用户发送第三方的通知信息。
+
+#### Params
+
+| **参数**    | **类型**       | **说明**                                                                                                                                                               | **必填** | **默认值** |
+| :---------- | :------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------- | :--------- |
+| Title       | string         | 信息标题                                                                                                                                                               | 是       | -          |
+| ToUsers     | string[]       | 接收通知的用户数组                                                                                                                                                     | 是       | -          |
+| NotifyWay   | NotifyWay      | 通知类型，可选值：<br />- 邮件: NotifyWay.Email<br />- 飞书: NotifyWay.Lark<br />- 有度: NotifyWay.YouDu<br />- 微信: NotifyWay.WeChat<br />- 钉钉: NotifyWay.DingDing | 是       | -          |
+| MessageBody | IMessageBody[] | 消息体数组，每个消息体中包含：<br />- Body: 通知内容<br />- url：通知的跳转链接                                                                                        | 是       | -          |
+| Ext         | string         | 拓展字段                                                                                                                                                               | 是       | -          |
+| Source      | string         | 消息来源，供记录使用                                                                                                                                                   | 是       | -          |
+
+#### Example
+
+```typescript
+import { Notify, NotifyWay } from '@ones-op/node-ability'
+
+export async function sendEmail(request: PluginRequest): Promise<PluginResponse> {
+  const { user_uuid } = request?.body as any
+  if (!user_uuid) {
+    return {
+      body: {
+        error: 'Missing parameters user_uuid',
+      },
+    }
+  }
+  const NotifyRes = await Notify({
+    Title: 'Test',
+    ToUsers: [user_uuid],
+    NotifyWay: NotifyWay.Email,
+    MessageBody: [
+      {
+        Body: 'Email sending test',
+        Url: 'https://ones.cn/',
+      },
+    ],
+    Ext: 'ext string',
+    Source: 'source string',
+  })
+  return {
+    body: {
+      NotifyRes: NotifyRes,
+      data: 'success',
+    },
+  }
+}
+```
+
+---
+
+### Plugin.getPluginUser {#getPluginUser}
+
+获取插件超级用户的信息
+
+#### Params
+
+| **参数** | **类型** | **说明**     | **必填** | **默认值** |
+| :------- | :------- | :----------- | :------- | :--------- |
+| teamUUID | string   | 团队的`uuid` | 否       | -          |
+
+#### Returns
+
+| 参数          | 类型   | 说明                 |
+| :------------ | :----- | :------------------- |
+| user_uuid     | string | 用户的`uuid`         |
+| org_uuid      | string | 插件所属组织的`uuid` |
+| team_uuid     | string | 插件所属团队的`uuid` |
+| app_uuid      | string | 插件的`app_id`       |
+| instance_uuid | string | 插件实例的`id`       |
+| name          | string | 用户名称             |
+| email         | string | 用户邮箱             |
+
+#### Example
+
+```typescript
+import { Plugin } from '@ones-op/node-ability'
+
+const user = await Plugin.getPluginUser()
+```
+
+---
+
+### Field.FieldsAdd {#FieldsAdd}
+
+添加工作项的脚本属性
+
+#### Params
+
+| 参数 | 类型   | 说明                                            | **必填** | **默认值** |
+| :--- | :----- | :---------------------------------------------- | :------- | :--------- |
+| Name | string | 属性名称                                        | 是       | -          |
+| Type | int    | 脚本属性类型<br />- 1001：单选<br/>- 1002：多选 | 是       | -          |
+
+#### Returns
+
+| 参数 | 类型   | 说明             |
+| :--- | :----- | :--------------- |
+| UUID | string | 脚本属性的`uuid` |
+
+#### Example
+
+```typescript
+const FieldsAddRes = await Field.FieldsAdd({
+  Name: 'task_field',
+  Type: 1001, //表示添加单选类型脚本属性
+})
+if (FieldsAddRes.Error) {
+  throw new Error('Failed to create field')
+}
+const { UUID: fieldUUID } = FieldsAddRes //获取属性uuid
+```
+
+---
+
+### Field.ItemsAdd {#ItemsAdd}
+
+添加项目脚本属性
+
+#### Params
+
+| 参数        | 类型   | 说明                                                                                            | **必填** | **默认值** |
+| :---------- | :----- | :---------------------------------------------------------------------------------------------- | :------- | :--------- |
+| FieldType   | string | 脚本属性类型：<br />- `FieldTypeEnum.SingleLabel`: 单选<br />- `FieldTypeEnum.MultiLabel`: 多选 | 是       | -          |
+| Name        | string | 属性名称                                                                                        | 是       | -          |
+| ItemType    | string | 固定值：`field`                                                                                 | 是       | -          |
+| Pool        | string | 可选值: `PoolEnum.Project` 和 `PoolEnum.Product`                                                | 是       | -          |
+| ContextType | string | 上下文类型                                                                                      | 是       | -          |
+| required    | bool   | 是否必填                                                                                        | 是       | -          |
+
+#### Returns
+
+| 参数 | 类型   | 说明             |
+| :--- | :----- | :--------------- |
+| UUID | string | 脚本属性的`uuid` |
+
+#### Example
+
+```typescript
+const ItemsAddProjectRes = await Field.ItemsAdd({
+  FieldType: FieldTypeEnum.SingleLabel, //表示添加单选类型脚本属性
+  Name: 'project_field',
+  ItemType: 'field',
+  Pool: PoolEnum.Project, //实体类型为项目
+  ContextType: 'team',
+  required: false,
+})
+if (ItemsAddProjectRes.Error) {
+  throw new Error('Failed to create field')
+}
+const { UUID: fieldUUID } = ItemsAddProjectRes //获取属性`uuid`
+```
+
+---
+
+### Field.AddGroupField {#AddGroupField}
+
+添加属性组至实体
+
+#### Params
+
+| 参数       | 类型                                    | 说明                                                                                      | **必填** | **默认值** |
+| :--------- | :-------------------------------------- | :---------------------------------------------------------------------------------------- | :------- | :--------- |
+| ObjectType | string                                  | 属性组的实体类型，可选值：<br />- `PoolEnum.Project`: 项目<br />- `PoolEnum.Task`: 工作项 | 是       | -          |
+| Name       | string                                  | 属性组名称                                                                                | 是       | -          |
+| Relations  | [IRelationMessage](#IRelationMessage)[] | 关系信息数组                                                                              | 是       | -          |
+
+##### IRelationMessage {#IRelationMessage}
+
+| 参数            | 类型   | 说明                                   |
+| :-------------- | :----- | :------------------------------------- |
+| FieldUUID       | string | 属性的`fieldUUID`                      |
+| FieldParentUUID | string | 父属性`UUID`，表示和该属性形成层级关系 |
+| Position        | string | `Position`:在属性组中的位置            |
+
+#### Returns
+
+| 参数      | 类型     | 说明             |
+| :-------- | :------- | :--------------- |
+| GroupUUID | string[] | 脚本属性组`uuid` |
+
+#### Example
+
+```typescript
+const relateionsTask: any[] = []
+// `fieldUUIDs` 数组为添加的脚本属性的`uuid`数组
+fieldUUIDs.forEach((fieldUUID, index) => {
+  const relation = {
+    FieldUUID: fieldUUID,
+    FieldParentUUID: '',
+    Position: index,
+  }
+  relateionsTask.push(relation)
+})
+const AddGroupFieldRes = await Field.AddGroupField({
+  ObjectType: PoolEnum.Task,
+  Name: 'issueFieldGroup',
+  Relations: relateionsTask,
+})
+```
+
+---
+
+### PluginFile.uploadFile {#PluginFile_uploadFile}
+
+上传文件至工作项附件
+
+#### Params
+
+| **参数**    | **类型** | **说明**                                                             | **必填** | **默认值** |
+| :---------- | :------- | :------------------------------------------------------------------- | :------- | :--------- |
+| filePath    | string   | 文件地址，`workspace`目录下的路径                                    | 是       | -          |
+| referenceID | string   | 工作项的`uuid`                                                       | 是       | -          |
+| desc        | string   | 文件描述                                                             | 是       | -          |
+| teamUUID    | string   | 团队`uuid`，组织级别的插件必须带上该参数，团队级别的插件可不带该参数 | 是       | -          |
+
+#### Returns
+
+| 参数    | 类型   | 说明            |
+| :------ | :----- | :-------------- |
+| hash    | string | 文件的`hash`值  |
+| url     | string | 文件的下载`url` |
+| name    | string | 文件名称        |
+| size    | int    | 文件大小        |
+| mime    | string | 文件类型        |
+| version | int    | 文件版本        |
+
+#### Example
+
+```typescript
+const file = await PluginFile.uploadFile('files/test.txt', 'taskuuid', 'desc')
+```
+
+---
