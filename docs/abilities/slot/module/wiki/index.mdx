@@ -1,0 +1,57 @@
+# ONES Wiki
+
+import Image from '@theme/IdealImage'
+
+## Requirements
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## Overview
+
+<Image img={require('./images/wiki.png')} />
+
+We have provided slots for "ONES Wiki" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:wiki:new](#oneswikinew)
+- [ones:wiki:group](#oneswikigroup)
+- [ones:wiki:share](#oneswikishare)
+
+## Slots
+
+#### ones:wiki:new
+
+**Module path：** ONES Wiki / new module
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+#### ones:wiki:group
+
+**ONES Requirement:** v3.11.15+
+
+**Module path：** ONES Wiki / Spaces
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:wiki:share
+
+**Module path：** ONES Wiki / Shared with me
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-wiki-group-YjhC
+    title: Spaces
+    moduleType: ones:wiki:group
+    entry: modules/ones-wiki-group-YjhC/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../reference/config/plugin.yaml#disabled)

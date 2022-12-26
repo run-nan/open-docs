@@ -1,0 +1,53 @@
+import Image from '@theme/IdealImage'
+
+# System preference settings
+
+## Requirements
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## Overview
+
+<Image img={require('./images/system-preference.png')} />
+
+We have provided slots for "Configuration" - "System preference settings" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:settings:appearance:new](#onessettingsappearancenew)
+- [ones:settings:appearance:default](#onessettingsappearancedefault)
+
+## Slots
+
+#### ones:settings:appearance:new
+
+**Module path：** Configuration / System preference settings / [new module](../index.mdx#slot-hierarchy)
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+#### ones:settings:appearance:default
+
+**Module path：** Configuration / System preference settings / [Default group](../index.mdx#slot-hierarchy)
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-settings-appearance-default-TxZS
+    title: System preference
+    moduleType: ones:settings:appearance:default
+    modules:
+      - id: ones-settings-appearance-default-cq77
+        title: Sidebar color
+        entry: >-
+          modules/ones-settings-appearance-default-TxZS/ones-settings-appearance-default-cq77/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../../reference/config/plugin.yaml#disabled)
+- [modules(required)](../../../../../reference/config/plugin.yaml#subModule)

@@ -1,0 +1,78 @@
+import Image from '@theme/IdealImage'
+
+# Issue
+
+## Requirements
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## Overview
+
+<Image img={require('./images/issue.png')} />
+
+We have provided slots for "Configuration" - "Project settings" - "Issue" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:settings:project:issue:new](#onessettingsprojectissuenew)
+- [ones:settings:project:issue:type](#onessettingsprojectissuetype)
+- [ones:settings:project:issue:field](#onessettingsprojectissuefield)
+- [ones:settings:project:issue:status](#onessettingsprojectissuestatus)
+- [ones:settings:project:issue:priority](#onessettingsprojectissuepriority)
+- [ones:settings:project:issue:relate](#onessettingsprojectissuerelate)
+
+## Slots
+
+#### ones:settings:project:issue:new
+
+**ONES Requirement:** v3.11.15+
+
+**Module path：** Configuration / Project settings / Issue / new module
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+#### ones:settings:project:issue:type
+
+**Module path：** Configuration / Project settings / Issue / Issue type
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:settings:project:issue:field
+
+**Module path：** Configuration / Project settings / Issue / Issue field
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:settings:project:issue:status
+
+**Module path：** Configuration / Project settings / Issue / Issue status
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:settings:project:issue:priority
+
+**Module path：** Configuration / Project settings / Issue / Priority
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:settings:project:issue:relate
+
+**Module path：** Configuration / Project settings / Issue / Link type
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-settings-project-issue-type-5PXx
+    title: Issue type
+    moduleType: ones:settings:project:issue:type
+    entry: modules/ones-settings-project-issue-type-5PXx/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../../../reference/config/plugin.yaml#disabled)

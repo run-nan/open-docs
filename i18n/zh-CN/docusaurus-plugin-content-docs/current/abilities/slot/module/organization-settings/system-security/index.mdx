@@ -1,0 +1,62 @@
+import Image from '@theme/IdealImage'
+
+# 系统安全
+
+## 要求
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## 概述
+
+<Image img={require('./images/system-security.png')} />
+
+我们为「组织管理」-「系统安全」提供了一些插槽，以便于为该应用定制化页面模块。
+
+当前支持的插槽：
+
+- [ones:settings:organization:safe:new](#onessettingsorganizationsafenew)
+- [ones:settings:organization:safe:log](#onessettingsorganizationsafelog)
+- [ones:settings:organization:safe:policy](#onessettingsorganizationsafepolicy)
+- [ones:settings:organization:safe:watermark](#onessettingsorganizationsafewatermark)
+
+## 插槽
+
+#### ones:settings:organization:safe:new
+
+**模块路径：** 组织管理 / 系统安全 / 新模块
+
+**个数限制：** 一个插件中最多可声明 **10 **个该插槽，系统中最多同时存在 **100 **个该插槽
+
+#### ones:settings:organization:safe:log
+
+**模块路径：** 组织管理 / 系统安全 / 操作日志
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:settings:organization:safe:policy
+
+**模块路径：** 组织管理 / 系统安全 / 网络访问安全策略
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:settings:organization:safe:watermark
+
+**模块路径：** 组织管理 / 系统安全 / 安全水印
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+## 使用
+
+```yaml
+modules:
+  - id: ones-settings-organization-safe-log-1KjM
+    title: Audit Log
+    moduleType: ones:settings:organization:safe:log
+    entry: modules/ones-settings-organization-safe-log-1KjM/index.html
+```
+
+**支持的配置项：**
+
+- [disabled](../../../../../reference/config/plugin.yaml#disabled)

@@ -1,0 +1,76 @@
+import Image from '@theme/IdealImage'
+
+# 默认分组
+
+## 要求
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## 概述
+
+<Image img={require('./images/default.png')} />
+
+我们为「配置中心」-「账号与成员」-「[默认分组](../../index.mdx#slot-hierarchy)」提供了一些插槽，以便于为该应用定制化页面模块。
+
+当前支持的插槽：
+
+- [ones:settings:account:default:new](#onessettingsaccountdefaultnew)
+- [ones:settings:account:default:member](#onessettingsaccountdefaultmember)
+- [ones:settings:account:default:group](#onessettingsaccountdefaultgroup)
+- [ones:settings:account:default:login](#onessettingsaccountdefaultlogin)
+- [ones:settings:account:default:connect](#onessettingsaccountdefaultconnect)
+- [ones:settings:account:default:safe](#onessettingsaccountdefaultsafe)
+
+## 插槽
+
+#### ones:settings:account:default:new
+
+**模块路径：** 配置中心 / 账号与成员 / [默认分组](../../index.mdx#slot-hierarchy) / 新模块
+
+**个数限制：** 一个插件中最多可声明 **10 **个该插槽，系统中最多同时存在 **100 **个该插槽
+
+#### ones:settings:account:default:member
+
+**模块路径：** 配置中心 / 账号与成员 / [默认分组](../../index.mdx#slot-hierarchy) / 成员管理
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:settings:account:default:group
+
+**模块路径：** 配置中心 / 账号与成员 / [默认分组](../../index.mdx#slot-hierarchy) / 用户组
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:settings:account:default:login
+
+**模块路径：** 配置中心 / 账号与成员 / [默认分组](../../index.mdx#slot-hierarchy) / 登录登出设置
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:settings:account:default:connect
+
+**模块路径：** 配置中心 / 账号与成员 / [默认分组](../../index.mdx#slot-hierarchy) / 账号集成
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:settings:account:default:safe
+
+**模块路径：** 配置中心 / 账号与成员 / [默认分组](../../index.mdx#slot-hierarchy) / 成员安全设置
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+## 使用
+
+```yaml
+modules:
+  - id: ones-settings-account-default-member-6QCI
+    title: Member
+    moduleType: ones:settings:account:default:member
+    entry: modules/ones-settings-account-default-member-6QCI/index.html
+```
+
+**支持的配置项：**
+
+- [disabled](../../../../../../reference/config/plugin.yaml#disabled)

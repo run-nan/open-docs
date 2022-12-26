@@ -1,0 +1,50 @@
+import Image from '@theme/IdealImage'
+
+# Global configuration
+
+## Requirements
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## Overview
+
+<Image img={require('./images/configuration.png')} />
+
+We have provided slots for "Configuration" - "Project settings" - "Global configuration" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:settings:project:config:new](#onessettingsprojectconfignew)
+- [ones:settings:project:config:view](#onessettingsprojectconfigview)
+
+## Slots
+
+#### ones:settings:project:config:new
+
+**ONES Requirement:** v3.11.15+
+
+**Module path：** Configuration / Project settings / Global configuration / new module
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+#### ones:settings:project:config:view
+
+**Module path：** Configuration / Project settings / Global configuration / Layout configuration
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-settings-project-config-view-V-wD
+    title: Layout configuration
+    moduleType: ones:settings:project:config:view
+    entry: modules/ones-settings-project-config-view-V-wD/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../../../reference/config/plugin.yaml#disabled)

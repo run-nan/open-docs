@@ -1,0 +1,48 @@
+import Image from '@theme/IdealImage'
+
+# Default group
+
+## Requirements
+
+| **ONES**  |
+| :-------: |
+| v3.11.15+ |
+
+## Overview
+
+<Image img={require('./images/default.png')} />
+
+We have provided slots for "Configuration" - "Plan settings" - "[Default group](../../index.mdx#slot-hierarchy)" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:settings:plan:default:new](#onessettingsplandefaultnew)
+- [ones:settings:plan:default:permission](#onessettingsplandefaultpermission)
+
+## Slots
+
+#### ones:settings:plan:default:new
+
+**Module path：** Configuration / Plan settings / [Default group](../../index.mdx#slot-hierarchy) / new module
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+#### ones:settings:plan:default:permission
+
+**Module path：** Configuration / Plan settings / [Default group](../../index.mdx#slot-hierarchy) / Permission
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-settings-plan-default-permission-VLxW
+    title: Permission
+    moduleType: ones:settings:plan:default:permission
+    entry: modules/ones-settings-plan-default-permission-VLxW/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../../../reference/config/plugin.yaml#disabled)

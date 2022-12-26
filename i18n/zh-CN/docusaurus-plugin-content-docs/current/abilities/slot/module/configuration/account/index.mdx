@@ -1,0 +1,53 @@
+import Image from '@theme/IdealImage'
+
+# 账号与成员
+
+## 要求
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## 概述
+
+<Image img={require('./images/account.png')} />
+
+我们为「配置中心」-「账号与成员」提供了一些插槽，以便于为该应用定制化页面模块。
+
+当前支持的插槽：
+
+- [ones:settings:account:new](#onessettingsaccountnew)
+- [ones:settings:account:default](#onessettingsaccountdefault)
+
+## 插槽
+
+#### ones:settings:account:new
+
+**模块路径：** 配置中心 / 账号与成员 / [新模块](../index.mdx#slot-hierarchy)
+
+**个数限制：** 一个插件中最多可声明 **10 **个该插槽，系统中最多同时存在 **100 **个该插槽
+
+#### ones:settings:account:default
+
+**模块路径：** 配置中心 / 账号与成员 / [默认分组](../index.mdx#slot-hierarchy)
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+## 使用
+
+```yaml
+modules:
+  - id: ones-settings-account-default-jK9p
+    title: Member
+    moduleType: ones:settings:account:default
+    modules:
+      - id: ones-settings-account-default-VFkW
+        title: Member
+        entry: >-
+          modules/ones-settings-account-default-jK9p/ones-settings-account-default-VFkW/index.html
+```
+
+**支持的配置项：**
+
+- [disabled](../../../../../reference/config/plugin.yaml#disabled)
+- [modules（必填）](../../../../../reference/config/plugin.yaml#subModule)

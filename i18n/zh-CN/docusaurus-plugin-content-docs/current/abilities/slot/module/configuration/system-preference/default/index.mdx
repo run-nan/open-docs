@@ -1,0 +1,116 @@
+import Image from '@theme/IdealImage'
+
+# 默认分组
+
+## 要求
+
+| **ONES**  |
+| :-------: |
+| v3.11.15+ |
+
+## 概述
+
+<Image img={require('./images/default.png')} />
+
+我们为「配置中心」-「系统偏好设置」-「[默认分组](../../index.mdx#slot-hierarchy)」提供了一些插槽，以便于为该应用定制化页面模块。
+
+当前支持的插槽：
+
+- [ones:settings:appearance:default:new](#onessettingsappearancedefaultnew)
+- [ones:settings:appearance:default:sidebar](#onessettingsappearancedefaultsidebar)
+- [ones:settings:appearance:default:menu](#onessettingsappearancedefaultmenu)
+- [ones:settings:appearance:default:favicon](#onessettingsappearancedefaultfavicon)
+- [ones:settings:appearance:default:topbar](#onessettingsappearancedefaulttopbar)
+- [ones:settings:appearance:default:workday](#onessettingsappearancedefaultworkday)
+- [ones:settings:appearance:default:email](#onessettingsappearancedefaultemail)
+- [ones:settings:appearance:default:message](#onessettingsappearancedefaultmessage)
+
+## 插槽
+
+#### ones:settings:appearance:default:new
+
+**模块路径：** 配置中心 / 系统偏好设置 / [默认分组](../../index.mdx#slot-hierarchy) / 新模块
+
+**个数限制：** 一个插件中最多可声明 **10 **个该插槽，系统中最多同时存在 **100 **个该插槽
+
+#### ones:settings:appearance:default:sidebar
+
+**模块路径：** 配置中心 / 系统偏好设置 / [默认分组](../../index.mdx#slot-hierarchy) / 侧边栏颜色
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:settings:appearance:default:menu
+
+**模块路径：** 配置中心 / 系统偏好设置 / [默认分组](../../index.mdx#slot-hierarchy) / 侧边栏菜单
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:settings:appearance:default:favicon
+
+**模块路径：** 配置中心 / 系统偏好设置 / [默认分组](../../index.mdx#slot-hierarchy) / 浏览器 Favicon
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:settings:appearance:default:topbar
+
+**模块路径：** 配置中心 / 系统偏好设置 / [默认分组](../../index.mdx#slot-hierarchy) / 顶栏菜单设置
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:settings:appearance:default:workday
+
+**模块路径：** 配置中心 / 系统偏好设置 / [默认分组](../../index.mdx#slot-hierarchy) / 工作日设置
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:settings:appearance:default:email
+
+**模块路径：** 配置中心 / 系统偏好设置 / [默认分组](../../index.mdx#slot-hierarchy) / 邮件设置
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:settings:appearance:default:message
+
+**模块路径：** 配置中心 / 系统偏好设置 / [默认分组](../../index.mdx#slot-hierarchy) / 手机号与短信服务设置
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+## 使用
+
+```yaml
+modules:
+  - id: ones-settings-appearance-default-sidebar-NEnD
+    title: Sidebar color
+    moduleType: ones:settings:appearance:default:sidebar
+    entry: modules/ones-settings-appearance-default-sidebar-NEnD/index.html
+```
+
+**支持的配置项：**
+
+- [disabled](../../../../../../reference/config/plugin.yaml#disabled)
+- displayConditions
+
+  - **类型：**`DisplayConditions`
+
+  该配置只对插槽[`ones:settings:appearance:default:message`](#onessettingsappearancedefaultmessage)有效，对于需要在特定团队规模才生效时配置。
+
+  **`DisplayConditions` 参数：**
+
+  |   属性   | 说明     |            类型            | 必填 | 默认值 |
+  | :------: | :------- | :------------------------: | :--: | :----: |
+  | teamSize | 团队规模 | `('single'｜'multiple')[]` |  否  |        |
+
+  **示例：**
+
+  仅多团队情况下当前模块才生效：
+
+  ```yaml title="/config/plugin.yaml"
+  modules:
+    - id: ones-settings-appearance-default-message-zqmC
+      title: Mobile number and SMS settings
+      moduleType: ones:settings:appearance:default:message
+      entry: modules/ones-settings-appearance-default-message-zqmC/index.html
+      displayConditions:
+        teamSize:
+          - multiple
+  ```

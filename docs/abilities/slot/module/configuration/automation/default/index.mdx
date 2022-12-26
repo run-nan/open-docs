@@ -1,0 +1,55 @@
+import Image from '@theme/IdealImage'
+
+# Default group
+
+## Requirements
+
+| **ONES**  |
+| :-------: |
+| v3.11.15+ |
+
+## Overview
+
+<Image img={require('./images/default.png')} />
+
+We have provided slots for "Configuration" - "Automation settings" - "[Default group](../../index.mdx#slot-hierarchy)" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:settings:automation:default:new](#onessettingsautomationdefaultnew)
+- [ones:settings:automation:default:rule](#onessettingsautomationdefaultrule)
+- [ones:settings:automation:default:history](#onessettingsautomationdefaulthistory)
+
+## Slots
+
+#### ones:settings:automation:default:new
+
+**Module path：** Configuration / Automation settings / [Default group](../../index.mdx#slot-hierarchy) / new module
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+#### ones:settings:automation:default:rule
+
+**Module path：** Configuration / Automation settings / [Default group](../../index.mdx#slot-hierarchy) / Automation rule
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:settings:automation:default:history
+
+**Module path：** Configuration / Automation settings / [Default group](../../index.mdx#slot-hierarchy) / Running history
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-settings-automation-default-rule-JsqM
+    title: Automation rule
+    moduleType: ones:settings:automation:default:rule
+    entry: modules/ones-settings-automation-default-rule-JsqM/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../../../reference/config/plugin.yaml#disabled)

@@ -1,0 +1,48 @@
+import Image from '@theme/IdealImage'
+
+# Default group
+
+## Requirements
+
+| **ONES**  |
+| :-------: |
+| v3.11.15+ |
+
+## Overview
+
+<Image img={require('./images/default.png')} />
+
+We have provided slots for "Configuration" - "Performance settings" - "[Default group](../../index.mdx#slot-hierarchy)" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:settings:performance:default:new](#onessettingsperformancedefaultnew)
+- [ones:settings:performance:default:permission](#onessettingsperformancedefaultpermission)
+
+## Slots
+
+#### ones:settings:performance:default:new
+
+**Module path：** Configuration / Performance settings / [Default group](../../index.mdx#slot-hierarchy) / new module
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+#### ones:settings:performance:default:permission
+
+**Module path：** Configuration / Performance settings / [Default group](../../index.mdx#slot-hierarchy) / Permission
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-settings-performance-default-permission-62a4
+    title: Permission
+    moduleType: ones:settings:performance:default:permission
+    entry: modules/ones-settings-performance-default-permission-62a4/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../../../reference/config/plugin.yaml#disabled)
