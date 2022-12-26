@@ -167,7 +167,7 @@ export async function uploadFileToPlugin(request: PluginRequest): Promise<Plugin
 | :---------------- | :-------------------------------------------------------------------------------- | :----- | :--- | :------- |
 | userUUID          | 关联代码仓操作人员 UUID（可以从插槽提供的获取用户方法获取）                       | string | 是   | len=8    |
 | uri               | 关联代码仓 URI（举例https://github.com/nodejs/node为https://github.com)           | string | 是   | len<=100 |
-| namespace         | 命名空间（举例https://github.com/nodejs/node为nodejs)                             | string | 是   | len<=256 |
+| namespace         | 命名空间（举例https://github.com/nodejs/node为Node.js)                            | string | 是   | len<=256 |
 | name              | 仓库名称（举例https://github.com/nodejs/node为node)                               | string | 是   | len<=256 |
 | certificationType | 认证方式，只用于代码仓列表页面展示（枚举值：OAUTH、PASSWORD、TOKEN、NONE、OTHER） | enum   | 是   | -        |
 

@@ -373,7 +373,7 @@ type FetchInheritableInterceptor<T = FetchConfig, D = any> =
     // Do whatever you want with the native progress event
   },
 
-  // `maxContentLength` defines the max size of the http response content in bytes allowed in node.js
+  // `maxContentLength` defines the max size of the http response content in bytes allowed in Node.js
   maxContentLength: 2000,
 
   // `maxBodyLength` (Node only option) defines the max size of the http request content in bytes allowed

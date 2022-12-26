@@ -8,7 +8,7 @@ sidebar_position: 6
 
 &emsp;&emsp;开放平台提供通过部署独立应用的能力，以插件的形式部署独立的 webservice，满足更定制的功能。 使用这个能力，你能通过插件部署管理一个自己的 webservice , 并通过特定的 URL 访问它。
 
-&emsp;&emsp;💡**只能在 nodejs 插件中使用这个能力**
+&emsp;&emsp;💡**只能在 Node.js 插件中使用这个能力**
 
 ## 能力使用
 

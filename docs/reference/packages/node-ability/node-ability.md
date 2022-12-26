@@ -167,7 +167,7 @@ Add linked repositories
 | :---------------- | :--------------------------------------------------------------------------------------------------------------------- | :----- | :------- | :---------- |
 | userUUID          | add repository user UUID                                                                                               | string | Y        | len=8       |
 | uri               | add repository URI（https://github.com/nodejs/node is https://github.com)                                              | string | Y        | len<=100    |
-| namespace         | add repository namespace（https://github.com/nodejs/node is nodejs)                                                    | string | Y        | len<=256    |
+| namespace         | add repository namespace（https://github.com/nodejs/node is Node.js)                                                   | string | Y        | len<=256    |
 | name              | add repository name（https://github.com/nodejs/node is node)                                                           | string | Y        | len<=256    |
 | certificationtype | authentication type, it is only used for code repository list page display (enum: OAUTH、PASSWORD、TOKEN、NONE、OTHER) | enum   | Y        | -           |
 
