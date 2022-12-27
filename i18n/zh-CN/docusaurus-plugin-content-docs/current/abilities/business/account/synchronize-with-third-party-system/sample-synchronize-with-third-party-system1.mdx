@@ -20,9 +20,9 @@ import account6 from './images/account6.png'
 
 ### 能力声明
 
-在 plugin.yaml 插件配置文件中添加如下代码
+在插件配置文件`plugin.yaml`中添加如下代码
 
-```yaml
+```yaml title="config/plugin.yaml"
 service: ...
 abilities:
   - id: ...
@@ -71,7 +71,7 @@ abilities:
 
 ### 第三方系统接入
 
-#### **前提条件**
+#### 前提条件
 
 1. 注册钉钉
 
@@ -91,14 +91,6 @@ abilities:
 
 <Image img={redirectUrl} />
 
-插件安装并启用后，在`配置中心 -> 账号与成员 -> 第三方集成`中点击"添加第三方集成"，选择对应插件并添加
-
-<Image img={account5} />
-
-开启用户目录同步，登录验证功能
-
-<Image img={account6} />
-
 #### 用户登录
 
 第三方用户登录时序图如下，
@@ -109,19 +101,13 @@ abilities:
 
 <Image img={ONESLoginInterface} />
 
-使用钉钉扫码登录，
-
-<Image img={QRcode} />
-
-在手机上确认授权登录，
-
-<Image img={QRCodeLogin} />
+使用钉钉扫码登录，并在手机上确认授权登录即可完成登录
 
 通过前面的操作步骤，开发者已经完成了时序图中第一步到第四步的操作步骤，而这些的操作步骤的具体实现是在插件代码中的`CreateLoginUrl()`方法内，
 
 :::caution 注意
 
-- 每次点击插件提供的钉钉扫码登录入口，都会先进入到`CreateLoginUrl()`方法内部，该方法的主要作用是创建第三方登录的 URL，URL 的构建格式可以参考[钉钉扫码登录](https://open.dingtalk.com/document/orgapp-server/scan-qr-code-to-log-on-to-third-party-websites)。
+- 每次点击插件提供的钉钉扫码登录入口，都会先进入到`CreateLoginUrl()`方法内部，该方法的主要作用是创建第三方登录的 URL，URL 的构建格式可以参考 **[钉钉扫码登录](https://open.dingtalk.com/document/orgapp-server/scan-qr-code-to-log-on-to-third-party-websites)**。
 - `CreateLoginUrl()`方法中的请求头 Request 已经包含重定向 ONES 的 URL，使用以下代码可以对重定向 URL 进行 urlencode 编码。
 
 :::
@@ -143,7 +129,7 @@ export async function CreateLoginUrl(request: PluginRequest): Promise<PluginResp
     let redirectUrl: string = request?.body.redirect_url
     Logger.info('redirectUrl:', redirectUrl)
     // 登录url
-    let loginUrl = new URL(DindDing_LoginURL)
+    let loginUrl = new URL('https://api.dingtalk.com/connect/qrconnect')
     loginUrl.searchParams.append('response_type', 'code')
     loginUrl.searchParams.append('scope', 'snsapi_login')
     loginUrl.searchParams.append('state', 'STATE')
@@ -157,11 +143,31 @@ export async function CreateLoginUrl(request: PluginRequest): Promise<PluginResp
   }
   return CreateLoginUrlRespData(500, '', '', '', '', response)
 }
+
+function CreateLoginUrlRespData(
+  code: number,
+  errcode,
+  model,
+  reason,
+  type: Object,
+  body: CreateLoginUrlResponse
+): PluginResponse {
+  return {
+    body: {
+      code,
+      errcode,
+      model,
+      reason,
+      type,
+      body,
+    },
+  }
+}
 ```
 
 :::caution 注意
 
-- 经过扫码获得临时授权后，页面会回调到 ONES 的登录界面，接下来需要开发者在`DoExchangeUser()`方法中实现根据临时授权票据获取用户信息、调用接口获取授权用户信息和返回登录用户信息等操作步骤，调用的相关接口信息可以参考——[根据 sns 临时授权码获取用户信息](https://open.dingtalk.com/document/orgapp-server/obtain-the-user-information-based-on-the-sns-temporary-authorization)。
+- 经过扫码获得临时授权后，页面会回调到 ONES 的登录界面，接下来需要开发者在`DoExchangeUser()`方法中实现根据临时授权票据获取用户信息、调用接口获取授权用户信息和返回登录用户信息等操作步骤，调用的相关接口信息可以参考——**[根据 sns 临时授权码获取用户信息](https://open.dingtalk.com/document/orgapp-server/obtain-the-user-information-based-on-the-sns-temporary-authorization)**。
 - 在钉钉回调到 ONES 登录界面后时，临时授权 code 可以在`DoExchangeUser()`方法的请求头 Request 里得到，当用户信息按照代码中的`DoExchangeUserResponse`的格式返回后，第三方系统用户即可成功登录 ONES。
 
 :::
@@ -218,6 +224,65 @@ export async function DoExchangeUser(request: PluginRequest): Promise<PluginResp
 
   // 返回登录用户信息
   return DoExchangeUserRespData(200, '', '', '', '', resp)
+}
+
+export function getCode(request: PluginRequest) {
+  // Logger.info(request)
+  if (typeof request?.body == 'object' && !Array.isArray(request?.body)) {
+    let authInfo = request.body.auth_info
+    let obj = JSON.parse(authInfo)
+    return obj.code
+  }
+  return ''
+}
+
+// 获取企业 token
+export async function getToken(): Promise<string> {
+  Logger.info('正在获取企业应用token...')
+  try {
+    // 登录url
+    const url = 'https://oapi.dingtalk.com/gettoken' + `?appkey=${Appsecret}&appsecret=${Secret}`
+    Logger.info('request =====', url)
+    const response = await fetchHttp({
+      url: url,
+      method: 'GET',
+    })
+    let body = (response?.body as Record<string, any>) || ''
+    const AccessToken = body?.access_token || ''
+    const ExpiresIn = body?.expires_in || 0
+    if (AccessToken == '') {
+      Logger.info('token获取失败::', body)
+      return ''
+    }
+    Logger.info('token:', AccessToken)
+    Logger.info('expires_in', ExpiresIn)
+    Logger.info('insert_sql sql:', insert_sql)
+    Logger.info('token-获取成功')
+    return AccessToken
+  } catch (error) {
+    Logger.info('token异常错误error::', error)
+    return ''
+  }
+}
+
+function DoExchangeUserRespData(
+  code: number,
+  errcode,
+  model,
+  reason,
+  type: Object,
+  body: DoExchangeUserResponse
+): PluginResponse {
+  return {
+    body: {
+      code,
+      errcode,
+      model,
+      reason,
+      type,
+      body,
+    },
+  }
 }
 ```
 
@@ -318,12 +383,57 @@ export async function DoPullData(request: PluginRequest): Promise<PluginResponse
   resp.users = userInfos
   return DoPullDataRespData(200, '', '', '', '', resp)
 }
+
+// 获取企业 token
+export async function getToken(): Promise<string> {
+  Logger.info('正在获取企业应用token...')
+  try {
+    // 登录url
+    const url = 'https://oapi.dingtalk.com/gettoken' + `?appkey=${Appsecret}&appsecret=${Secret}`
+    Logger.info('request =====', url)
+    const response = await fetchHttp({
+      url: url,
+      method: 'GET',
+    })
+    let body = (response?.body as Record<string, any>) || ''
+    const AccessToken = body?.access_token || ''
+    const ExpiresIn = body?.expires_in || 0
+    if (AccessToken == '') {
+      Logger.info('token获取失败::', body)
+      return ''
+    }
+    Logger.info('token:', AccessToken)
+    Logger.info('expires_in', ExpiresIn)
+    Logger.info('insert_sql sql:', insert_sql)
+    Logger.info('token-获取成功')
+    return AccessToken
+  } catch (error) {
+    Logger.info('token异常错误error::', error)
+    return ''
+  }
+}
+
+function DoPullDataRespData(
+  code: number,
+  errcode,
+  model,
+  reason,
+  type: Object,
+  body: DoPullDataResponse
+): PluginResponse {
+  return {
+    body: {
+      code,
+      errcode,
+      model,
+      reason,
+      type,
+      body,
+    },
+  }
+}
 ```
 
 在成员管理界面中，手动添加同步好的用户到指定部门，使用第三方集成同步的用户，后缀会有插件的标识。
 
 <Image img={addDepartment} />
-
-## 完整示例代码
-
-[Account-SSO](https://gitlab.partner.ones.ai/example/account-sso)
