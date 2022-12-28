@@ -86,11 +86,12 @@ Usage: op invoke [options] <target>
 start the plugin project locally and invoke one or several life-cycles of the plugin
 
 Arguments:
-  target                     specify the process (run, clear) or life-cycle (install, start, enable, disable, stop, uninstall) you want to invoke
+  target                           specify the process (run, clear) or life-cycle (install, start, enable, disable, stop, uninstall) you want to invoke
 
 Options:
-  --webpack-logging <level>  specify the webpack logging level, default is 'error', support: 'none', 'error', 'warn', 'info', 'verbose'
-  -h, --help                 display help for command
+  --mode <type>                    specify the mode, support: 'all', 'backend', 'frontend' (default: "all")
+  --webpack-stats-preset <level>   specify the webpack logging level, support: 'errors-only', 'errors-warnings', 'minimal', 'none','normal','verbose','detailed','summary'
+  -h, --help                       display help for command
 
 The target can point to the process or the life-cycles, the difference between them is that the process will contain multiple life-cycles
 
@@ -153,6 +154,12 @@ success!
 `OP` 工具的 `invoke` 指令会为插件工程前端部分启动一个开发服务器（基于 [webpack-dev-server](https://github.com/webpack/webpack-dev-server)）并提供开箱即用的模块热重载。
 
 ### 调试后端
+
+:::tip
+
+若无需调试前端，可直接使用 `npx op invoke run --mode backend` 命令
+
+:::
 
 `OP` 工具的 `invoke` 指令会为后端启动一个开发服务，第一次启动后，控制台会返回一些可供本地调试的内容：
 
