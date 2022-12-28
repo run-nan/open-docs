@@ -4,15 +4,15 @@ toc_max_heading_level: 4
 
 # @ones-op/node-third-import
 
-## 要求
+## Require
 
 | **ONES**  |
 | :-------- |
 | v3.11.39+ |
 
-## 安装
+## Install
 
-进入插件工程的`/backend`目录，执行以下命令进行依赖安装：
+Enter the `/backend` directory of the plugin project, and execute the following command to install dependencies:
 
 ```shell
 npm i @ones-op/node-third-import
@@ -22,17 +22,17 @@ npm i @ones-op/node-third-import
 
 ### startImport
 
-开始三方数据导入
+Start third-party data import
 
 #### Params
 
-| **参数**  | **类型** | **说明**                                                   | **必填** | **默认值** |
-| :-------- | :------- | :--------------------------------------------------------- | :------- | :--------- |
-| userUUID  | string   | 信息标题                                                   | 是       | -          |
-| abilityId | string   | 插件能力配置中的能力 id                                    | 是       | -          |
-| password  | string   | 首次登录时导入用户的默认密码（默认密码需要是字母数字组合） | 是       | -          |
-| serverId  | string   | 如果导入的是同一批数据需要保证有相同的 `server_id`         | 是       | -          |
-| teamUUID  | string   | 团队唯一标识，仅为组织插件时需要                           | 否       | -          |
+| **Param** | **Type** | **Description**                                                                                                                     | **Required** | **Default** |
+| :-------- | :------- | :---------------------------------------------------------------------------------------------------------------------------------- | :----------- | :---------- |
+| userUUID  | string   | message title                                                                                                                       | Y            | -           |
+| abilityId | string   | ability id in the plugin ability configuration                                                                                      | Y            | -           |
+| password  | string   | Import user's default password when logging in for the first time (the default password needs to be a combination of alphanumerics) | Y            | -           |
+| serverId  | string   | If you import the same batch of data, you need to ensure the same `server_id`                                                       | Y            | -           |
+| teamUUID  | string   | The unique ID of the team, only required for organization plugins                                                                   | N            | -           |
 
 #### Example
 
@@ -46,692 +46,692 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 
 ### ThirdNotification
 
-| 参数        | 说明     | 类型                                                                  | 必填 |
-| ----------- | -------- | --------------------------------------------------------------------- | ---- |
-| project_id  | 项目 ID  | `string`                                                              | 是   |
-| value_type  | 值类型   | [`ThirdNotificationValueTypeEnum`](#ThirdNotificationValueTypeEnum)   | 是   |
-| value       | 值       | `string`                                                              | 是   |
-| config_type | 配置类型 | [`ThirdNotificationConfigTypeEnum`](#ThirdNotificationConfigTypeEnum) | 是   |
+| Param       | Description        | Type                                                                  | Required |
+| :---------- | :----------------- | :-------------------------------------------------------------------- | :------- |
+| project_id  | project ID         | `string`                                                              | Y        |
+| value_type  | value type         | [`ThirdNotificationValueTypeEnum`](#ThirdNotificationValueTypeEnum)   | Y        |
+| value       | value              | `string`                                                              | Y        |
+| config_type | configuration type | [`ThirdNotificationConfigTypeEnum`](#ThirdNotificationConfigTypeEnum) | Y        |
 
 ### ThirdTaskWorkLog
 
-| 参数        | 说明      | 类型                                                    | 必填 |
-| ----------- | --------- | ------------------------------------------------------- | ---- |
-| resource_id | 资源 ID   | `string`                                                | 是   |
-| task_id     | 工作项 ID | `string`                                                | 是   |
-| user_id     | 用户 ID   | `string`                                                | 是   |
-| start_time  | 创建时间  | `number`                                                | 是   |
-| hours       | 工时      | `number`                                                | 是   |
-| type        | 类型      | [`ThirdTaskWorkLogTypeEnum`](#ThirdTaskWorkLogTypeEnum) | 是   |
-| create_time | 创建时间  | `number`                                                | 是   |
+| Param       | Description   | Type                                                    | Required |
+| :---------- | :------------ | :------------------------------------------------------ | :------- |
+| resource_id | resource ID   | `string`                                                | Y        |
+| task_id     | issue ID      | `string`                                                | Y        |
+| user_id     | user ID       | `string`                                                | Y        |
+| start_time  | creation time | `number`                                                | Y        |
+| hours       | hours of work | `number`                                                | Y        |
+| type        | type          | [`ThirdTaskWorkLogTypeEnum`](#ThirdTaskWorkLogTypeEnum) | Y        |
+| create_time | creation time | `number`                                                | Y        |
 
 ### ThirdTaskAttachment
 
-| 参数           | 说明         | 类型     | 必填 |
-| -------------- | ------------ | -------- | ---- |
-| resource_id    | 资源 ID      | `string` | 是   |
-| task_id        | 工作项 ID    | `string` | 是   |
-| full_file_path | 附件文件地址 | `string` | 是   |
+| Param          | Description             | Type     | Required |
+| :------------- | :---------------------- | :------- | :------- |
+| resource_id    | resource ID             | `string` | Y        |
+| task_id        | issue ID                | `string` | Y        |
+| full_file_path | attachment file address | `string` | Y        |
 
 ### ThirdTaskLink
 
-| 参数           | 说明              | 类型     | 必填 |
-| -------------- | ----------------- | -------- | ---- |
-| resource_id    | 关联类型          | `string` | 是   |
-| link_type_id   | 工作项关联类型 ID | `string` | 是   |
-| source_task_id | 源工作项 ID       | `string` | 是   |
-| target_task_id | 目标工作项 ID     | `string` | 是   |
+| Param          | Description        | Type     | Required |
+| :------------- | :----------------- | :------- | :------- |
+| resource_id    | association type   | `string` | Y        |
+| link_type_id   | issue link type ID | `string` | Y        |
+| source_task_id | source issue ID    | `string` | Y        |
+| target_task_id | target issue ID    | `string` | Y        |
 
 ### ThirdTaskComment
 
-| 参数        | 说明      | 类型     | 必填 |
-| ----------- | --------- | -------- | ---- |
-| resource_id | 资源 ID   | `string` | 是   |
-| task_id     | 工作项 ID | `string` | 是   |
-| user_id     | 用户 ID   | `string` | 是   |
-| body        | 内容      | `string` | 是   |
-| create_time | 创建时间  | `number` | 是   |
+| Param       | Description   | Type     | Required |
+| :---------- | :------------ | :------- | :------- |
+| resource_id | resource ID   | `string` | Y        |
+| task_id     | issue ID      | `string` | Y        |
+| user_id     | user ID       | `string` | Y        |
+| body        | content       | `string` | Y        |
+| create_time | creation time | `number` | Y        |
 
 ### ThirdGlobalPermission
 
-| 参数        | 说明      | 类型                                                      | 必填 |
-| ----------- | --------- | --------------------------------------------------------- | ---- |
-| resource_id | 资源 ID   | `string`                                                  | 是   |
-| permission  | 权限点    | [`ThirdGlobalPermissionEnum`](#ThirdGlobalPermissionEnum) | 是   |
-| group_id    | 用户组 ID | `string`                                                  | 是   |
+| Param       | Description      | Type                                                      | Required |
+| :---------- | :--------------- | :-------------------------------------------------------- | :------- |
+| resource_id | resource ID      | `string`                                                  | Y        |
+| permission  | permission point | [`ThirdGlobalPermissionEnum`](#ThirdGlobalPermissionEnum) | Y        |
+| group_id    | user group ID    | `string`                                                  | Y        |
 
 ### ThirdProjectPermission
 
-| 参数              | 说明         | 类型                                                                                    | 必填 |
-| ----------------- | ------------ | --------------------------------------------------------------------------------------- | ---- |
-| resource_id       | 资源 ID      | `string`                                                                                | 是   |
-| project_id        | 项目 ID      | `string`                                                                                | 是   |
-| user_domain_type  | 用户域类型   | [`ThirdProjectPermissionUserDomainTypeEnum`](#ThirdProjectPermissionUserDomainTypeEnum) | 是   |
-| context_type      | Context 类型 | [`ThirdProjectPermissionContextTypeEnum`](#ThirdProjectPermissionContextTypeEnum)       | 是   |
-| permission        | 权限点       | [`ThirdProjectPermissionPermissionEnum`](#ThirdProjectPermissionPermissionEnum)         | 是   |
-| user_domain_param | 用户域参数   | `string`                                                                                | 是   |
+| Param             | Description           | Type                                                                                    | Required |
+| :---------------- | :-------------------- | :-------------------------------------------------------------------------------------- | :------- |
+| resource_id       | resource ID           | `string`                                                                                | Y        |
+| project_id        | project ID            | `string`                                                                                | Y        |
+| user_domain_type  | user domain type      | [`ThirdProjectPermissionUserDomainTypeEnum`](#ThirdProjectPermissionUserDomainTypeEnum) | Y        |
+| context_type      | Context type          | [`ThirdProjectPermissionContextTypeEnum`](#ThirdProjectPermissionContextTypeEnum)       | Y        |
+| permission        | permission point      | [`ThirdProjectPermissionPermissionEnum`](#ThirdProjectPermissionPermissionEnum)         | Y        |
+| user_domain_param | user domain parameter | `string`                                                                                | Y        |
 
 ### ThirdTaskWatcher
 
-| 参数        | 说明      | 类型     | 必填 |
-| ----------- | --------- | -------- | ---- |
-| resource_id | 资源 ID   | `string` | 是   |
-| task_id     | 工作项 ID | `string` | 是   |
-| user_id     | 用户 ID   | `string` | 是   |
+| Param       | Description | Type     | Required |
+| :---------- | :---------- | :------- | :------- |
+| resource_id | resource ID | `string` | Y        |
+| task_id     | issue ID    | `string` | Y        |
+| user_id     | user ID     | `string` | Y        |
 
 ### ThirdSprint
 
-| 参数        | 说明      | 类型                                              | 必填 |
-| ----------- | --------- | ------------------------------------------------- | ---- |
-| resource_id | 资源 ID   | `string`                                          | 是   |
-| name        | 名称      | `string`                                          | 是   |
-| status      | 状态      | [`ThirdSprintStatusEnum`](#ThirdSprintStatusEnum) | 是   |
-| project_id  | 项目 ID   | `string`                                          | 是   |
-| start_time  | 开始时间  | `number`                                          | 是   |
-| end_time    | 结束时间  | `number`                                          | 是   |
-| assign_id   | 负责人 ID | `string`                                          | 是   |
-| owner_id    | 所属人 ID | `string`                                          | 是   |
+| Param       | Description    | Type                                              | Required |
+| :---------- | :------------- | :------------------------------------------------ | :------- |
+| resource_id | resource ID    | `string`                                          | Y        |
+| name        | name           | `string`                                          | Y        |
+| status      | status         | [`ThirdSprintStatusEnum`](#ThirdSprintStatusEnum) | Y        |
+| project_id  | project ID     | `string`                                          | Y        |
+| start_time  | start time     | `number`                                          | Y        |
+| end_time    | end time       | `number`                                          | Y        |
+| assign_id   | Responsible ID | `string`                                          | Y        |
+| owner_id    | owner ID       | `string`                                          | Y        |
 
 ### ThirdProjectIssueTypeLayout
 
-| 参数          | 说明     | 类型                                    | 必填 |
-| ------------- | -------- | --------------------------------------- | ---- |
-| project_id    | 项目 ID  | `string`                                | 是   |
-| scope_configs | 视图配置 | [`ScopeConfigItem[]`](#ScopeConfigItem) | 是   |
+| Param         | Description        | Type                                    | Required |
+| :------------ | :----------------- | :-------------------------------------- | :------- |
+| project_id    | project ID         | `string`                                | Y        |
+| scope_configs | view configuration | [`ScopeConfigItem[]`](#ScopeConfigItem) | Y        |
 
 ##### ScopeConfigItem {#ScopeConfigItem}
 
-| 参数             | 说明        | 类型     | 必填 |
-| ---------------- | ----------- | -------- | ---- |
-| issue_type_id    | 工作项 ID   | `string` | 是   |
-| field_config_id  | 字段配置 ID | `string` | 是   |
-| screen_scheme_id | 视图 ID     | `string` | 是   |
+| Param            | Description            | Type     | Required |
+| :--------------- | :--------------------- | :------- | :------- |
+| issue_type_id    | issue ID               | `string` | Y        |
+| field_config_id  | field configuration id | `string` | Y        |
+| screen_scheme_id | view ID                | `string` | Y        |
 
 ### ThirdProjectIssueTypeWithFields
 
-| 参数                   | 说明     | 类型                                            | 必填 |
-| ---------------------- | -------- | ----------------------------------------------- | ---- |
-| project_id             | 项目 ID  | `string`                                        | 是   |
-| issue_type_with_fields | 属性配置 | [`IssueTypeWithFields[]`](#IssueTypeWithFields) | 是   |
+| Param                  | Description         | Type                                            | Required |
+| :--------------------- | :------------------ | :---------------------------------------------- | :------- |
+| project_id             | project ID          | `string`                                        | Y        |
+| issue_type_with_fields | field configuration | [`IssueTypeWithFields[]`](#IssueTypeWithFields) | Y        |
 
 ##### IssueTypeWithFields {#IssueTypeWithFields}
 
-| 参数          | 说明      | 类型                | 必填 |
-| ------------- | --------- | ------------------- | ---- |
-| issue_type_id | 工作项 ID | `string`            | 是   |
-| fields        | 属性列表  | [`Field[]`](#Field) | 是   |
+| Param         | Description | Type                | Required |
+| :------------ | :---------- | :------------------ | :------- |
+| issue_type_id | issue ID    | `string`            | Y        |
+| fields        | field list  | [`Field[]`](#Field) | Y        |
 
 ##### Field {#Field}
 
-| 参数             | 说明             | 类型      | 必填 |
-| ---------------- | ---------------- | --------- | ---- |
-| field_identifier | 字段标识         | `string`  | 是   |
-| required         | 是否必填         | `boolean` | 是   |
-| is_customized    | 是否是自定义属性 | `boolean` | 是   |
+| Param            | Description                      | Type      | Required |
+| :--------------- | :------------------------------- | :-------- | :------- |
+| field_identifier | field identifier                 | `string`  | Y        |
+| required         | Y required                       | `boolean` | Y        |
+| is_customized    | Whether it is a custom attribute | `boolean` | Y        |
 
 ### ThirdIssueTypeField
 
-| 参数          | 说明      | 类型     | 必填 |
-| ------------- | --------- | -------- | ---- |
-| resource_id   | 资源 ID   | `string` | 是   |
-| issue_type_id | 工作项 ID | `string` | 是   |
-| field_id      | 属性 ID   | `string` | 是   |
+| Param         | Description  | Type     | Required |
+| :------------ | :----------- | :------- | :------- |
+| resource_id   | resource ID  | `string` | Y        |
+| issue_type_id | issue ID     | `string` | Y        |
+| field_id      | attribute ID | `string` | Y        |
 
 ### ThirdChangeItem
 
-| 参数        | 说明      | 类型                                                    | 必填 |
-| ----------- | --------- | ------------------------------------------------------- | ---- |
-| resource_id | 资源 ID   | `string`                                                | 是   |
-| task_id     | 工作项 ID | `string`                                                | 是   |
-| field_type  | 属性类型  | `string`                                                | 是   |
-| field       | 属性      | [`ThirdChangeItemFieldEnum`](#ThirdChangeItemFieldEnum) | 是   |
-| old_value   | 旧值      | `string`                                                | 是   |
-| new_value   | 新值      | `string`                                                | 是   |
-| old_string  | 旧字符串  | `string`                                                | 是   |
-| new_string  | 新字符串  | `string`                                                | 是   |
-| user_id     | 用户 ID   | `string`                                                | 是   |
-| create_time | 创建时间  | `number`                                                | 是   |
+| Param       | Description    | Type                                                    | Required |
+| :---------- | :------------- | :------------------------------------------------------ | :------- |
+| resource_id | resource ID    | `string`                                                | Y        |
+| task_id     | issue ID       | `string`                                                | Y        |
+| field_type  | attribute type | `string`                                                | Y        |
+| field       | field          | [`ThirdChangeItemFieldEnum`](#ThirdChangeItemFieldEnum) | Y        |
+| old_value   | old value      | `string`                                                | Y        |
+| new_value   | new value      | `string`                                                | Y        |
+| old_string  | old string     | `string`                                                | Y        |
+| new_string  | new string     | `string`                                                | Y        |
+| user_id     | user ID        | `string`                                                | Y        |
+| create_time | creation time  | `number`                                                | Y        |
 
 ### ThirdIssueTypeLayout
 
-| 参数                | 说明           | 类型                | 必填 |
-| ------------------- | -------------- | ------------------- | ---- |
-| issue_type_id       | 工作项类型 ID  | `string`            | 是   |
-| field_config_id     | 属性配置 ID    | `string`            | 是   |
-| field_config_name   | 属性配置名称   | `string`            | 是   |
-| screen_scheme_id    | 视图 ID        | `string`            | 是   |
-| screen_scheme_name  | 视图名称       | `string`            | 是   |
-| create_issue_config | 创建工作项视图 | [`Field[]`](#Field) | 是   |
-| view_issue_config   | 查看工作项视图 | [`Field[]`](#Field) | 是   |
+| Param               | Description              | Type                | Required |
+| :------------------ | :----------------------- | :------------------ | :------- |
+| issue_type_id       | issue type ID            | `string`            | Y        |
+| field_config_id     | field configuration ID   | `string`            | Y        |
+| field_config_name   | field configuration name | `string`            | Y        |
+| screen_scheme_id    | view ID                  | `string`            | Y        |
+| screen_scheme_name  | view name                | `string`            | Y        |
+| create_issue_config | Create issue view        | [`Field[]`](#Field) | Y        |
+| view_issue_config   | View issue View          | [`Field[]`](#Field) | Y        |
 
 ### ThirdProjectFieldValue
 
-| 参数             | 说明        | 类型                                                                | 必填 |
-| ---------------- | ----------- | ------------------------------------------------------------------- | ---- |
-| resource_id      | 资源 ID     | `string`                                                            | 是   |
-| project_id       | 项目 ID     | `string`                                                            | 是   |
-| project_field_id | 项目属性 ID | `string`                                                            | 是   |
-| type             | 类型        | [`ThirdProjectFieldValueTypeEnum`](#ThirdProjectFieldValueTypeEnum) | 是   |
-| value            | 类型值      | `any`                                                               | 是   |
+| Param            | Description      | Type                                                                | Required |
+| :--------------- | :--------------- | :------------------------------------------------------------------ | :------- |
+| resource_id      | resource ID      | `string`                                                            | Y        |
+| project_id       | project ID       | `string`                                                            | Y        |
+| project_field_id | project field ID | `string`                                                            | Y        |
+| type             | type             | [`ThirdProjectFieldValueTypeEnum`](#ThirdProjectFieldValueTypeEnum) | Y        |
+| value            | type value       | `any`                                                               | Y        |
 
 ### ThirdGlobalProjectFieldOption {#ThirdGlobalProjectFieldOption}
 
-| 参数             | 说明    | 类型     | 必填 |
-| ---------------- | ------- | -------- | ---- |
-| resource_id      | 资源 ID | `string` | 是   |
-| value            | 属性值  | `string` | 是   |
-| desc             | 描述    | `string` | 是   |
-| color            | 颜色    | `string` | 是   |
-| background_color | 背景色  | `string` | 是   |
+| Param            | Description      | Type     | Required |
+| :--------------- | :--------------- | :------- | :------- |
+| resource_id      | resource ID      | `string` | Y        |
+| value            | attribute value  | `string` | Y        |
+| desc             | description      | `string` | Y        |
+| color            | color            | `string` | Y        |
+| background_color | background color | `string` | Y        |
 
 ### ThirdGlobalProjectField
 
-| 参数        | 说明       | 类型                                                                  | 必填 |
-| ----------- | ---------- | --------------------------------------------------------------------- | ---- |
-| resource_id | 资源 ID    | `string`                                                              | 是   |
-| name        | 名称       | `string`                                                              | 是   |
-| type        | 属性类型   | [`ThirdGlobalProjectFieldTypeEnum`](#ThirdGlobalProjectFieldTypeEnum) | 是   |
-| options     | 属性选项值 | [`ThirdGlobalProjectFieldOption[]`](#ThirdGlobalProjectFieldOption)   | 是   |
+| Param       | Description        | Type                                                                  | Required |
+| :---------- | :----------------- | :-------------------------------------------------------------------- | :------- |
+| resource_id | resource ID        | `string`                                                              | Y        |
+| name        | name               | `string`                                                              | Y        |
+| type        | attribute type     | [`ThirdGlobalProjectFieldTypeEnum`](#ThirdGlobalProjectFieldTypeEnum) | Y        |
+| options     | field option value | [`ThirdGlobalProjectFieldOption[]`](#ThirdGlobalProjectFieldOption)   | Y        |
 
 ### ThirdProject
 
-| 参数         | 说明      | 类型                                                        | 必填 |
-| ------------ | --------- | ----------------------------------------------------------- | ---- |
-| resource_id  | 资源 ID   | `string`                                                    | 是   |
-| name         | 名称      | `string`                                                    | 是   |
-| assign_id    | 负责人 ID | `string`                                                    | 是   |
-| create_time  | 创建时间  | `number`                                                    | 是   |
-| type         | 类型      | [`ThirdProjectTypeEnum`](#ThirdProjectTypeEnum)             | 是   |
-| status       | 项目状态  | [`ThirdProjectStatusEnum`](#ThirdProjectStatusEnum)         | 是   |
-| status_uuid  | 状态描述  | [`ThirdProjectStatusUUIDEnum`](#ThirdProjectStatusUUIDEnum) | 是   |
-| announcement | 公告      | `string`                                                    | 是   |
+| Param        | Description        | Type                                                        | Required |
+| :----------- | :----------------- | :---------------------------------------------------------- | :------- |
+| resource_id  | resource ID        | `string`                                                    | Y        |
+| name         | name               | `string`                                                    | Y        |
+| assign_id    | Responsible ID     | `string`                                                    | Y        |
+| create_time  | creation time      | `number`                                                    | Y        |
+| type         | type               | [`ThirdProjectTypeEnum`](#ThirdProjectTypeEnum)             | Y        |
+| status       | project status     | [`ThirdProjectStatusEnum`](#ThirdProjectStatusEnum)         | Y        |
+| status_uuid  | status description | [`ThirdProjectStatusUUIDEnum`](#ThirdProjectStatusUUIDEnum) | Y        |
+| announcement | announcement       | `string`                                                    | Y        |
 
 ### ThirdUserGroupMember
 
-| 参数              | 说明      | 类型     | 必填 |
-| ----------------- | --------- | -------- | ---- |
-| resource_id       | 资源 ID   | `string` | 是   |
-| resource_group_id | 用户组 ID | `string` | 是   |
-| resource_user_id  | 用户 ID   | `string` | 是   |
+| Param             | Description   | Type     | Required |
+| :---------------- | :------------ | :------- | :------- |
+| resource_id       | resource ID   | `string` | Y        |
+| resource_group_id | user group ID | `string` | Y        |
+| resource_user_id  | user ID       | `string` | Y        |
 
 ### ThirdProjectCategory
 
-| 参数        | 说明    | 类型     | 必填 |
-| ----------- | ------- | -------- | ---- |
-| resource_id | 资源 ID | `string` | 是   |
-| name        | 名称    | `string` | 是   |
+| Param       | Description | Type     | Required |
+| :---------- | :---------- | :------- | :------- |
+| resource_id | resource ID | `string` | Y        |
+| name        | name        | `string` | Y        |
 
 ### ThirdProjectRoleMember
 
-| 参数                | 说明    | 类型     | 必填 |
-| ------------------- | ------- | -------- | ---- |
-| resource_id         | 资源 ID | `string` | 是   |
-| resource_role_id    | 角色 ID | `string` | 是   |
-| resource_project_id | 项目 ID | `string` | 是   |
-| resource_user_id    | 用户 ID | `string` | 是   |
+| Param               | Description | Type     | Required |
+| :------------------ | :---------- | :------- | :------- |
+| resource_id         | resource ID | `string` | Y        |
+| resource_role_id    | role id     | `string` | Y        |
+| resource_project_id | project ID  | `string` | Y        |
+| resource_user_id    | user ID     | `string` | Y        |
 
 ### ThirdProjectRole
 
-| 参数                | 说明     | 类型     | 必填 |
-| ------------------- | -------- | -------- | ---- |
-| resource_id         | 资源 ID  | `string` | 是   |
-| resource_role_id    | 角色 ID  | `string` | 是   |
-| resource_project_id | 项目 ID  | `string` | 是   |
-| create_time         | 创建时间 | `number` | 是   |
+| Param               | Description   | Type     | Required |
+| ------------------- | ------------- | -------- | -------- |
+| resource_id         | resource ID   | `string` | Y        |
+| resource_role_id    | role id       | `string` | Y        |
+| resource_project_id | project ID    | `string` | Y        |
+| create_time         | creation time | `number` | Y        |
 
 ### ThirdGlobalProjectRole
 
-| 参数        | 说明     | 类型                                                                    | 必填 |
-| ----------- | -------- | ----------------------------------------------------------------------- | ---- |
-| resource_id | 资源 ID  | `string`                                                                | 是   |
-| name        | 名称     | `string`                                                                | 是   |
-| create_time | 创建时间 | `number`                                                                | 是   |
-| status      | 状态     | [`ThirdGlobalProjectRoleStatusEnum`](#ThirdGlobalProjectRoleStatusEnum) | 是   |
+| Param       | Description   | Type                                                                    | Required |
+| ----------- | ------------- | ----------------------------------------------------------------------- | -------- |
+| resource_id | resource ID   | `string`                                                                | Y        |
+| name        | name          | `string`                                                                | Y        |
+| create_time | creation time | `number`                                                                | Y        |
+| status      | status        | [`ThirdGlobalProjectRoleStatusEnum`](#ThirdGlobalProjectRoleStatusEnum) | Y        |
 
 ### ThirdProjectIssueType
 
-| 参数          | 说明          | 类型     | 必填 |
-| ------------- | ------------- | -------- | ---- |
-| resource_id   | 资源 ID       | `string` | 是   |
-| project_id    | 项目 ID       | `string` | 是   |
-| issue_type_id | 工作项类型 ID | `string` | 是   |
+| Param         | Description   | Type     | Required |
+| ------------- | ------------- | -------- | -------- |
+| resource_id   | resource ID   | `string` | Y        |
+| project_id    | project ID    | `string` | Y        |
+| issue_type_id | issue type ID | `string` | Y        |
 
 ### ThirdIssueType
 
-| 参数        | 说明     | 类型                                                    | 必填 |
-| ----------- | -------- | ------------------------------------------------------- | ---- |
-| resource_id | 资源 ID  | `string`                                                | 是   |
-| name        | 名称     | `string`                                                | 是   |
-| status      | 状态     | [`ThirdIssueTypeStatusEnum`](#ThirdIssueTypeStatusEnum) | 是   |
-| type        | 类型     | [`ThirdIssueTypeEnum`](#ThirdIssueTypeEnum)             | 是   |
-| create_time | 创建时间 | `number`                                                | 是   |
-| icon        | 图标     | [`ThirdTaskIconEnum`](#ThirdTaskIconEnum)               | 是   |
+| Param       | Description   | Type                                                    | Required |
+| ----------- | ------------- | ------------------------------------------------------- | -------- |
+| resource_id | resource ID   | `string`                                                | Y        |
+| name        | name          | `string`                                                | Y        |
+| status      | status        | [`ThirdIssueTypeStatusEnum`](#ThirdIssueTypeStatusEnum) | Y        |
+| type        | type          | [`ThirdIssueTypeEnum`](#ThirdIssueTypeEnum)             | Y        |
+| create_time | creation time | `number`                                                | Y        |
+| icon        | icon          | [`ThirdTaskIconEnum`](#ThirdTaskIconEnum)               | Y        |
 
 ### ThirdUserGroup
 
-| 参数        | 说明     | 类型     | 必填 |
-| ----------- | -------- | -------- | ---- |
-| resource_id | 资源 ID  | `string` | 是   |
-| name        | 名称     | `string` | 是   |
-| desc        | 描述     | `string` | 是   |
-| create_time | 创建时间 | `number` | 是   |
-| status      | 状态     | `number` | 是   |
+| Param       | Description   | Type     | Required |
+| ----------- | ------------- | -------- | -------- |
+| resource_id | resource ID   | `string` | Y        |
+| name        | name          | `string` | Y        |
+| desc        | description   | `string` | Y        |
+| create_time | creation time | `number` | Y        |
+| status      | status        | `number` | Y        |
 
 ### ThirdUser
 
-| 参数        | 说明     | 类型                                          | 必填 |
-| ----------- | -------- | --------------------------------------------- | ---- |
-| resource_id | 资源 ID  | `string`                                      | 是   |
-| name        | 名称     | `string`                                      | 是   |
-| email       | 邮箱     | `string`                                      | 是   |
-| phone       | 手机     | `string`                                      | 是   |
-| title       | 头衔     | `string`                                      | 是   |
-| company     | 公司     | `string`                                      | 是   |
-| create_time | 创建时间 | `number`                                      | 是   |
-| modify_time | 更新时间 | `number`                                      | 是   |
-| status      | 状态     | [`ThirdUserStatusEnum`](#ThirdUserStatusEnum) | 是   |
+| Param       | Description   | Type                                          | Required |
+| :---------- | :------------ | :-------------------------------------------- | :------- |
+| resource_id | resource ID   | `string`                                      | Y        |
+| name        | name          | `string`                                      | Y        |
+| email       | email         | `string`                                      | Y        |
+| phone       | phone         | `string`                                      | Y        |
+| title       | title         | `string`                                      | Y        |
+| company     | company       | `string`                                      | Y        |
+| create_time | creation time | `number`                                      | Y        |
+| modify_time | update time   | `number`                                      | Y        |
+| status      | status        | [`ThirdUserStatusEnum`](#ThirdUserStatusEnum) | Y        |
 
 ### ThirdTaskLinkType
 
-| 参数        | 说明     | 类型                                              | 必填 |
-| ----------- | -------- | ------------------------------------------------- | ---- |
-| resource_id | 资源 ID  | `string`                                          | 是   |
-| name        | 名称     | `string`                                          | 是   |
-| desc_out    | 链出描述 | `string`                                          | 是   |
-| desc_in     | 链入描述 | `string`                                          | 是   |
-| type        | 类型     | [`ThirdTaskLinkTypeEnum`](#ThirdTaskLinkTypeEnum) | 是   |
+| Param       | Description          | Type                                              | Required |
+| :---------- | :------------------- | :------------------------------------------------ | :------- |
+| resource_id | resource ID          | `string`                                          | Y        |
+| name        | name                 | `string`                                          | Y        |
+| desc_out    | link out description | `string`                                          | Y        |
+| desc_in     | link-in description  | `string`                                          | Y        |
+| type        | type                 | [`ThirdTaskLinkTypeEnum`](#ThirdTaskLinkTypeEnum) | Y        |
 
 ### ThirdConfig
 
-| 参数                  | 说明                   | 类型                            | 必填 |
-| --------------------- | ---------------------- | ------------------------------- | ---- |
-| workdays              | 工作日                 | [`WorkdayEnum[]`](#WorkdayEnum) | 是   |
-| work_hours            | 每日工时               | `number`                        | 是   |
-| fixed_fields_mapping  | 第三方字段映射系统字段 | `map`                           | 是   |
-| custom_fields_mapping | 属性映射               | `map`                           | 是   |
-| custom_fields         | 属性                   | `string[]`                      | 是   |
-| tab_fields            | tab 属性               | `tab_fields`                    | 是   |
+| Param                 | Description                             | Type                            | Required |
+| :-------------------- | :-------------------------------------- | :------------------------------ | :------- |
+| workdays              | workdays                                | [`WorkdayEnum[]`](#WorkdayEnum) | Y        |
+| work_hours            | daily working hours                     | `number`                        | Y        |
+| fixed_fields_mapping  | third-party field mapping system fields | `map`                           | Y        |
+| custom_fields_mapping | attribute mapping                       | `map`                           | Y        |
+| custom_fields         | properties                              | `string[]`                      | Y        |
+| tab_fields            | tab attribute                           | `tab_fields`                    | Y        |
 
 ### ThirdPriority
 
-| 参数             | 说明     | 类型     | 必填 |
-| ---------------- | -------- | -------- | ---- |
-| resource_id      | 资源 ID  | `string` | 是   |
-| name             | 名称     | `string` | 是   |
-| desc             | 描述     | `string` | 是   |
-| color            | 颜色     | `string` | 是   |
-| background_color | 背景颜色 | `string` | 是   |
+| Param            | Description      | Type     | Required |
+| :--------------- | :--------------- | :------- | :------- |
+| resource_id      | resource ID      | `string` | Y        |
+| name             | name             | `string` | Y        |
+| desc             | description      | `string` | Y        |
+| color            | color            | `string` | Y        |
+| background_color | background color | `string` | Y        |
 
 ### ThirdTaskFieldOption
 
-| 参数                   | 说明                | 类型     | 必填 |
-| ---------------------- | ------------------- | -------- | ---- |
-| resource_id            | 资源 ID             | `string` | 是   |
-| resource_task_field_id | 第三方工作项属性 ID | `string` | 是   |
-| name                   | 名称                | `string` | 是   |
-| desc                   | 描述                | `string` | 是   |
-| color                  | 颜色                | `string` | 是   |
-| background_color       | 背景颜色            | `string` | 是   |
+| Param                  | Description                  | Type     | Required |
+| :--------------------- | :--------------------------- | :------- | :------- |
+| resource_id            | resource ID                  | `string` | Y        |
+| resource_task_field_id | 3rd party issue attribute ID | `string` | Y        |
+| name                   | name                         | `string` | Y        |
+| desc                   | description                  | `string` | Y        |
+| color                  | color                        | `string` | Y        |
+| background_color       | background color             | `string` | Y        |
 
 ### ThirdTaskField
 
-| 参数        | 说明     | 类型                                                | 必填 |
-| ----------- | -------- | --------------------------------------------------- | ---- |
-| resource_id | 资源 ID  | `string`                                            | 是   |
-| name        | 属性名称 | `string`                                            | 是   |
-| type        | 属性类型 | [`ThirdTaskFieldTypeEnum`](#ThirdTaskFieldTypeEnum) | 是   |
+| Param       | Description    | Type                                                | Required |
+| :---------- | :------------- | :-------------------------------------------------- | :------- |
+| resource_id | resource ID    | `string`                                            | Y        |
+| name        | field name     | `string`                                            | Y        |
+| type        | attribute type | [`ThirdTaskFieldTypeEnum`](#ThirdTaskFieldTypeEnum) | Y        |
 
 ### ThirdUserDomain {#ThirdUserDomain}
 
-| 参数              | 说明       | 类型                                                  | 必填 |
-| ----------------- | ---------- | ----------------------------------------------------- | ---- |
-| user_domain_type  | 用户域类型 | [`ThirdUserDomainTypeEnum`](#ThirdUserDomainTypeEnum) | 是   |
-| user_domain_param | 用户域参数 | `string`                                              | 是   |
+| Param             | Description           | Type                                                  | Required |
+| :---------------- | :-------------------- | :---------------------------------------------------- | :------- |
+| user_domain_type  | user domain type      | [`ThirdUserDomainTypeEnum`](#ThirdUserDomainTypeEnum) | Y        |
+| user_domain_param | user domain parameter | `string`                                              | Y        |
 
 ### ThirdTransition
 
-| 参数            | 说明          | 类型                                    | 必填 |
-| --------------- | ------------- | --------------------------------------- | ---- |
-| project_id      | 项目 ID       | `string`                                | 是   |
-| issue_type_id   | 工作项类型 ID | `string`                                | 是   |
-| start_status_id | 开始的状态 ID | `string`                                | 是   |
-| name            | 名称          | `string`                                | 是   |
-| end_status_id   | 结束的状态 ID | `string`                                | 是   |
-| user_domains    | 用户域列表    | [`ThirdUserDomain[]`](#ThirdUserDomain) | 是   |
+| Param           | Description          | Type                                    | Required |
+| :-------------- | :------------------- | :-------------------------------------- | :------- |
+| project_id      | project ID           | `string`                                | Y        |
+| issue_type_id   | issue type ID        | `string`                                | Y        |
+| start_status_id | start status id      | `string`                                | Y        |
+| name            | name                 | `string`                                | Y        |
+| end_status_id   | end status id        | `string`                                | Y        |
+| user_domains    | list of user domains | [`ThirdUserDomain[]`](#ThirdUserDomain) | Y        |
 
 ### ThirdWorkflow
 
-| 参数                | 说明               | 类型                                                | 必填 |
-| ------------------- | ------------------ | --------------------------------------------------- | ---- |
-| project_id          | 项目 ID            | `string`                                            | 是   |
-| issue_type_statuses | 工作项类型状态配置 | [`ThirdTaskStatusConfig[]`](#ThirdTaskStatusConfig) | 是   |
-| transitions         | 工作流配置         | `ThirdTransition[]`                                 | 是   |
+| Param               | Description                     | Type                                                | Required |
+| :------------------ | :------------------------------ | :-------------------------------------------------- | :------- |
+| project_id          | project ID                      | `string`                                            | Y        |
+| issue_type_statuses | issue Type Status Configuration | [`ThirdTaskStatusConfig[]`](#ThirdTaskStatusConfig) | Y        |
+| transitions         | workflow configuration          | `ThirdTransition[]`                                 | Y        |
 
 ### ThirdTaskStatusConfig {#ThirdTaskStatusConfig}
 
-| 参数           | 说明           | 类型       | 必填 |
-| -------------- | -------------- | ---------- | ---- |
-| issue_type_id  | 工作项类型 ID  | `string`   | 是   |
-| status_ids     | 工作项状态 IDs | `string[]` | 是   |
-| init_status_id | 初始状态 ID    | `string`   | 是   |
-| workflow_name  | 工作流名称     | `string`   | 是   |
+| Param          | Description       | Type       | Required |
+| :------------- | :---------------- | :--------- | :------- |
+| issue_type_id  | issue type ID     | `string`   | Y        |
+| status_ids     | issue status IDs  | `string[]` | Y        |
+| init_status_id | initial status id | `string`   | Y        |
+| workflow_name  | workflow name     | `string`   | Y        |
 
 ### ThirdTaskStatus
 
-| 参数        | 说明           | 类型                                                          | 必填 |
-| ----------- | -------------- | ------------------------------------------------------------- | ---- |
-| resource_id | 资源 ID        | `string`                                                      | 是   |
-| name        | 名称           | `string`                                                      | 是   |
-| category    | 工作项状态分类 | [`ThirdTaskStatusCategoryEnum`](#ThirdTaskStatusCategoryEnum) | 是   |
+| Param       | Description           | Type                                                          | Required |
+| :---------- | :-------------------- | :------------------------------------------------------------ | :------- |
+| resource_id | resource ID           | `string`                                                      | Y        |
+| name        | name                  | `string`                                                      | Y        |
+| category    | issue status category | [`ThirdTaskStatusCategoryEnum`](#ThirdTaskStatusCategoryEnum) | Y        |
 
 ### ThirdTaskFieldValue
 
-| 参数        | 说明      | 类型                                                                    | 必填 |
-| ----------- | --------- | ----------------------------------------------------------------------- | ---- |
-| resource_id | 资源 ID   | `string`                                                                | 是   |
-| task_id     | 工作项 ID | `string`                                                                | 是   |
-| field_id    | 属性 ID   | `string`                                                                | 是   |
-| field_type  | 属性类型  | [`ThirdTaskFieldValueFieldTypeEnum`](#ThirdTaskFieldValueFieldTypeEnum) | 是   |
-| value       | 属性值    | `any`                                                                   | 是   |
+| Param       | Description     | Type                                                                    | Required |
+| :---------- | :-------------- | :---------------------------------------------------------------------- | :------- |
+| resource_id | resource ID     | `string`                                                                | Y        |
+| task_id     | issue ID        | `string`                                                                | Y        |
+| field_id    | attribute ID    | `string`                                                                | Y        |
+| field_type  | attribute type  | [`ThirdTaskFieldValueFieldTypeEnum`](#ThirdTaskFieldValueFieldTypeEnum) | Y        |
+| value       | attribute value | `any`                                                                   | Y        |
 
 ### ThirdTask
 
-| 参数          | 说明          | 类型     | 必填 |
-| ------------- | ------------- | -------- | ---- |
-| resource_id   | 资源 ID       | `string` | 是   |
-| summary       | 标题          | `string` | 是   |
-| desc          | 描述          | `string` | 是   |
-| owner_id      | 创建者 ID     | `string` | 是   |
-| assign_id     | 负责人 ID     | `string` | 是   |
-| deadline      | 最后完成日期  | `number` | 是   |
-| priority_id   | 优先级 ID     | `string` | 是   |
-| status_id     | 状态 ID       | `string` | 是   |
-| project_id    | 项目 ID       | `string` | 是   |
-| issue_type_id | 工作项类型 ID | `string` | 是   |
-| sprint_id     | 迭代 ID       | `string` | 是   |
-| parent_id     | 父工作项 ID   | `string` | 是   |
-| created_time  | 创建时间      | `number` | 是   |
-| updated_time  | 更新时间      | `number` | 是   |
+| Param         | Description           | Type     | Required |
+| :------------ | :-------------------- | :------- | :------- |
+| resource_id   | resource ID           | `string` | Y        |
+| summary       | title                 | `string` | Y        |
+| desc          | description           | `string` | Y        |
+| owner_id      | Creator ID            | `string` | Y        |
+| assign_id     | Responsible ID        | `string` | Y        |
+| deadline      | final completion date | `number` | Y        |
+| priority_id   | priority ID           | `string` | Y        |
+| status_id     | status id             | `string` | Y        |
+| project_id    | project ID            | `string` | Y        |
+| issue_type_id | issue type ID         | `string` | Y        |
+| sprint_id     | iteration ID          | `string` | Y        |
+| parent_id     | parent issue ID       | `string` | Y        |
+| created_time  | creation time         | `number` | Y        |
+| updated_time  | updated time          | `number` | Y        |
 
 ## Enum
 
 ### WorkdayEnum {#WorkdayEnum}
 
-工作日
+working day
 
-| 可选值          | 说明 |
-| :-------------- | :--- |
-| WorkdayEnum.Mon | 周一 |
-| WorkdayEnum.Tue | 周二 |
-| WorkdayEnum.Wed | 周三 |
-| WorkdayEnum.Thu | 周四 |
-| WorkdayEnum.Fri | 周五 |
-| WorkdayEnum.Sat | 周六 |
-| WorkdayEnum.Sun | 周日 |
+| optional value  | description |
+| :-------------- | :---------- |
+| WorkdayEnum.Mon | Monday      |
+| WorkdayEnum.Tue | Tuesday     |
+| WorkdayEnum.Wed | Wednesday   |
+| WorkdayEnum.Thu | Thursday    |
+| WorkdayEnum.Fri | Friday      |
+| WorkdayEnum.Sat | Saturday    |
+| WorkdayEnum.Sun | Sunday      |
 
 ### ThirdProjectFieldValueTypeEnum {#ThirdProjectFieldValueTypeEnum}
 
-项目属性类型
+item field type
 
-| 可选值                                         | 说明     |
-| :--------------------------------------------- | :------- |
-| ThirdProjectFieldValueTypeEnum.FieldTypeOption | 单选     |
-| ThirdProjectFieldValueTypeEnum.FieldTypeText   | 单行文本 |
+| optional value                                 | description         |
+| :--------------------------------------------- | :------------------ |
+| ThirdProjectFieldValueTypeEnum.FieldTypeOption | Single              |
+| ThirdProjectFieldValueTypeEnum.FieldTypeText   | Single line of text |
 
 ### ThirdTaskFieldTypeEnum {#ThirdTaskFieldTypeEnum}
 
-工作项属性类型枚举
+issue field type enumeration
 
-| 可选值                                        | 说明     |
-| :-------------------------------------------- | :------- |
-| ThirdTaskFieldTypeEnum.FieldTypeOption        | 单选     |
-| ThirdTaskFieldTypeEnum.FieldTypeMultiOption   | 多选     |
-| ThirdTaskFieldTypeEnum.FieldTypeText          | 单行文本 |
-| ThirdTaskFieldTypeEnum.FieldTypeMultiLineText | 多行文本 |
-| ThirdTaskFieldTypeEnum.FieldTypeUser          | 单选用户 |
-| ThirdTaskFieldTypeEnum.FieldTypeUserList      | 多选用户 |
-| ThirdTaskFieldTypeEnum.FieldTypeFloat         | 浮点数   |
-| ThirdTaskFieldTypeEnum.FieldTypeDate          | 日期     |
-| ThirdTaskFieldTypeEnum.FieldTypeTime          | 时间     |
+| optional value                                | description             |
+| :-------------------------------------------- | :---------------------- |
+| ThirdTaskFieldTypeEnum.FieldTypeOption        | Single Choice           |
+| ThirdTaskFieldTypeEnum.FieldTypeMultiOption   | Multiple choice         |
+| ThirdTaskFieldTypeEnum.FieldTypeText          | Single line of text     |
+| ThirdTaskFieldTypeEnum.FieldTypeMultiLineText | Multi-line text         |
+| ThirdTaskFieldTypeEnum.FieldTypeUser          | Single user             |
+| ThirdTaskFieldTypeEnum.FieldTypeUserList      | Multiple user selection |
+| ThirdTaskFieldTypeEnum.FieldTypeFloat         | Float                   |
+| ThirdTaskFieldTypeEnum.FieldTypeDate          | date                    |
+| ThirdTaskFieldTypeEnum.FieldTypeTime          | Time                    |
 
 ### ThirdTaskLinkTypeEnum {#ThirdTaskLinkTypeEnum}
 
-工作项链接类型
+issue link type
 
-| 可选值                                    | 说明                 |
-| :---------------------------------------- | :------------------- |
-| ThirdTaskLinkTypeEnum.LinkModelTwoWayMany | 相互关联，双向多对多 |
-| ThirdTaskLinkTypeEnum.LinkModelManyToMany | 单向多对多           |
+| optional value                            | description                        |
+| :---------------------------------------- | :--------------------------------- |
+| ThirdTaskLinkTypeEnum.LinkModelTwoWayMany | Interrelated, two-way many-to-many |
+| ThirdTaskLinkTypeEnum.LinkModelManyToMany | One-way many-to-many               |
 
 ### ThirdGlobalProjectFieldTypeEnum {#ThirdGlobalProjectFieldTypeEnum}
 
-全局项目属性类型
+Global Project field Type
 
-| 可选值                                                 | 说明     |
-| :----------------------------------------------------- | :------- |
-| ThirdGlobalProjectFieldTypeEnum.FieldTypeOption        | 单选     |
-| ThirdGlobalProjectFieldTypeEnum.FieldTypeText          | 单行文本 |
-| ThirdGlobalProjectFieldTypeEnum.FieldTypeMultiLineText | 多行文本 |
+| optional value                                         | description         |
+| :----------------------------------------------------- | :------------------ |
+| ThirdGlobalProjectFieldTypeEnum.FieldTypeOption        | Single              |
+| ThirdGlobalProjectFieldTypeEnum.FieldTypeText          | Single line of text |
+| ThirdGlobalProjectFieldTypeEnum.FieldTypeMultiLineText | Multiline Text      |
 
 ### ThirdGlobalPermissionEnum {#ThirdGlobalPermissionEnum}
 
-全局权限
+global permissions
 
-| 可选值                                      | 说明         |
-| :------------------------------------------ | :----------- |
-| ThirdGlobalPermissionEnum.AdministerTeam    | 团队管理     |
-| ThirdGlobalPermissionEnum.AdministerProject | 项目管理     |
-| ThirdGlobalPermissionEnum.AdministerWiki    | 知识库管理   |
-| ThirdGlobalPermissionEnum.InviteMember      | 邀请团队成员 |
+| optional value                              | description                   |
+| :------------------------------------------ | :---------------------------- |
+| ThirdGlobalPermissionEnum.AdministerTeam    | Team Administration           |
+| ThirdGlobalPermissionEnum.AdministerProject | Project Administration        |
+| ThirdGlobalPermissionEnum.AdministerWiki    | Knowledge Base Administration |
+| ThirdGlobalPermissionEnum.InviteMember      | Invite team members           |
 
 ### ThirdIssueTypeEnum {#ThirdIssueTypeEnum}
 
-工作项类型
+issue type
 
-| 可选值                                       | 说明         |
-| :------------------------------------------- | :----------- |
-| ThirdIssueTypeEnum.IssueTypeStandardTaskType | 标准任务类型 |
-| ThirdIssueTypeEnum.IssueTypeSubTaskType      | 子任务类型   |
+| optional value                               | description        |
+| :------------------------------------------- | :----------------- |
+| ThirdIssueTypeEnum.IssueTypeStandardTaskType | Standard task type |
+| ThirdIssueTypeEnum.IssueTypeSubTaskType      | Subtask type       |
 
 ### ThirdTaskIconEnum {#ThirdTaskIconEnum}
 
-工作项图标
+issue icon
 
-| 可选值                             | 说明           |
-| :--------------------------------- | :------------- |
-| ThirdTaskIconEnum.StandardTaskIcon | 标准工作项图标 |
-| ThirdTaskIconEnum.SubTaskIcon      | 子工作项图标   |
+| optional value                     | description             |
+| :--------------------------------- | :---------------------- |
+| ThirdTaskIconEnum.StandardTaskIcon | Standard task item icon |
+| ThirdTaskIconEnum.SubTaskIcon      | sub task item icon      |
 
 ### ThirdUserStatusEnum {#ThirdTaskStatusConfig}
 
-用户状态
+user status
 
-| 可选值                                | 说明     |
-| :------------------------------------ | :------- |
-| ThirdUserStatusEnum.UserStatusNormal  | 正常     |
-| ThirdUserStatusEnum.UserStatusDeleted | 已删除   |
-| ThirdUserStatusEnum.UserStatusPending | 未激活   |
-| ThirdUserStatusEnum.UserStatusDisable | 已经禁用 |
+| optional value                        | description |
+| :------------------------------------ | :---------- |
+| ThirdUserStatusEnum.UserStatusNormal  | Normal      |
+| ThirdUserStatusEnum.UserStatusDeleted | Deleted     |
+| ThirdUserStatusEnum.UserStatusPending | Inactive    |
+| ThirdUserStatusEnum.UserStatusDisable | Disabled    |
 
 ### UserGroupStatusEnum
 
-用户组状态
+user group status
 
-| 可选值                                     | 说明     |
-| :----------------------------------------- | :------- |
-| UserGroupStatusEnum.UserGroupStatusNormal  | 正常     |
-| UserGroupStatusEnum.UserGroupStatusDeleted | 已经删除 |
+| optional value                             | description |
+| :----------------------------------------- | :---------- |
+| UserGroupStatusEnum.UserGroupStatusNormal  | Normal      |
+| UserGroupStatusEnum.UserGroupStatusDeleted | Deleted     |
 
 ### ThirdProjectTypeEnum {#ThirdProjectTypeEnum}
 
-项目类型
+project type
 
-| 可选值                                    | 说明     |
-| :---------------------------------------- | :------- |
-| ThirdProjectTypeEnum.ProjectTypeNoneEnum  | 普通类型 |
-| ThirdProjectTypeEnum.ProjectTypeAgileEnum | 敏捷类型 |
+| optional value                            | description |
+| :---------------------------------------- | :---------- |
+| ThirdProjectTypeEnum.ProjectTypeNoneEnum  | Normal type |
+| ThirdProjectTypeEnum.ProjectTypeAgileEnum | Agile type  |
 
 ### ThirdProjectStatusEnum {#ThirdProjectStatusEnum}
 
-项目状态
+project status
 
-| 可选值                                      | 说明 |
-| :------------------------------------------ | :--- |
-| ThirdProjectStatusEnum.ProjectStatusNormal  | 正常 |
-| ThirdProjectStatusEnum.ProjectStatusDeleted | 删除 |
+| optional value                              | description |
+| :------------------------------------------ | :---------- |
+| ThirdProjectStatusEnum.ProjectStatusNormal  | Normal      |
+| ThirdProjectStatusEnum.ProjectStatusDeleted | Deleted     |
 
 ### ThirdProjectStatusUUIDEnum {#ThirdProjectStatusUUIDEnum}
 
-项目状态类型
+item status type
 
-| 可选值                                                     | 说明   |
-| :--------------------------------------------------------- | :----- |
-| ThirdProjectStatusUUIDEnum.ProjectStatusCategoryTodo       | 未开始 |
-| ThirdProjectStatusUUIDEnum.ProjectStatusCategoryInProgress | 进行中 |
-| ThirdProjectStatusUUIDEnum.ProjectStatusCategoryDone       | 已完成 |
+| optional value                                             | description |
+| :--------------------------------------------------------- | :---------- |
+| ThirdProjectStatusUUIDEnum.ProjectStatusCategoryTodo       | Not started |
+| ThirdProjectStatusUUIDEnum.ProjectStatusCategoryInProgress | In Progress |
+| ThirdProjectStatusUUIDEnum.ProjectStatusCategoryDone       | Completed   |
 
 ### ThirdUserDomainTypeEnum {#ThirdUserDomainTypeEnum}
 
-用户域类型
+user domain type
 
-| 可选值                             | 说明         |
-| :--------------------------------- | :----------- |
-| ThirdUserDomainTypeEnum.TaskOwner  | 工作项创建人 |
-| ThirdUserDomainTypeEnum.TaskAssign | 工作项负责人 |
-| ThirdUserDomainTypeEnum.Role       | 用户角色 ID  |
-| ThirdUserDomainTypeEnum.Group      | 用户组 ID    |
+| optional value                     | description   |
+| :--------------------------------- | :------------ |
+| ThirdUserDomainTypeEnum.TaskOwner  | issue creator |
+| ThirdUserDomainTypeEnum.TaskAssign | TaskAssign    |
+| ThirdUserDomainTypeEnum.Role       | User role ID  |
+| ThirdUserDomainTypeEnum.Group      | User Group ID |
 
 ### ThirdSprintStatusEnum {#ThirdSprintStatusEnum}
 
-迭代状态
+iteration status
 
-| 可选值                                               | 说明   |
-| :--------------------------------------------------- | :----- |
-| ThirdSprintStatusEnum.SprintStatusCategoryToDo       | 未开始 |
-| ThirdSprintStatusEnum.SprintStatusCategoryInProgress | 进行中 |
-| ThirdSprintStatusEnum.SprintStatusCategoryDone       | 已完成 |
+| optional value                                       | description |
+| :--------------------------------------------------- | :---------- |
+| ThirdSprintStatusEnum.SprintStatusCategoryToDo       | Not started |
+| ThirdSprintStatusEnum.SprintStatusCategoryInProgress | In Progress |
+| ThirdSprintStatusEnum.SprintStatusCategoryDone       | Completed   |
 
 ### ThirdTaskStatusCategoryEnum {#ThirdTaskStatusCategoryEnum}
 
-工作项分类
+issue Classification
 
-| 可选值                                                      | 说明   |
-| :---------------------------------------------------------- | :----- |
-| ThirdTaskStatusCategoryEnum.ProjectStatusCategoryTodo       | 未开始 |
-| ThirdTaskStatusCategoryEnum.ProjectStatusCategoryInProgress | 进行中 |
-| ThirdTaskStatusCategoryEnum.ProjectStatusCategoryDone       | 已完成 |
+| optional value                                              | description |
+| :---------------------------------------------------------- | :---------- |
+| ThirdTaskStatusCategoryEnum.ProjectStatusCategoryTodo       | Not started |
+| ThirdTaskStatusCategoryEnum.ProjectStatusCategoryInProgress | In Progress |
+| ThirdTaskStatusCategoryEnum.ProjectStatusCategoryDone       | Completed   |
 
 ### ThirdTaskWorkLogTypeEnum {#ThirdTaskWorkLogTypeEnum}
 
-工时类型
+type of hours
 
-| 可选值                                                 | 说明     |
-| :----------------------------------------------------- | :------- |
-| ThirdTaskWorkLogTypeEnum.ThirdTaskWorkLogTypeEstimate  | 预估工时 |
-| ThirdTaskWorkLogTypeEnum.ThirdTaskWorkLogTypeRemaining | 剩余工时 |
-| ThirdTaskWorkLogTypeEnum.ThirdTaskWorkLogTypeLog       | 登记工时 |
+| optional value                                         | description            |
+| :----------------------------------------------------- | :--------------------- |
+| ThirdTaskWorkLogTypeEnum.ThirdTaskWorkLogTypeEstimate  | Estimated Work         |
+| ThirdTaskWorkLogTypeEnum.ThirdTaskWorkLogTypeRemaining | Remaining Work         |
+| ThirdTaskWorkLogTypeEnum.ThirdTaskWorkLogTypeLog       | Register working hours |
 
 ### ThirdTaskFieldValueFieldTypeEnum {#ThirdTaskFieldValueFieldTypeEnum}
 
-工作项属性值类型
+issue field value type
 
-| 可选值                                           | 说明     |
-| :----------------------------------------------- | :------- |
-| ThirdTaskFieldValueFieldTypeEnum.FieldTypeOption | 单选     |
-| ThirdTaskFieldValueFieldTypeEnum.FieldTypeText   | 单行文本 |
+| optional value                                   | description         |
+| :----------------------------------------------- | :------------------ |
+| ThirdTaskFieldValueFieldTypeEnum.FieldTypeOption | Single              |
+| ThirdTaskFieldValueFieldTypeEnum.FieldTypeText   | Single line of text |
 
 ### ThirdNotificationValueTypeEnum {#ThirdNotificationValueTypeEnum}
 
-通知值类型
+notification value type
 
-| 可选值                                                                  | 说明            |
-| :---------------------------------------------------------------------- | :-------------- |
-| ThirdNotificationValueTypeEnum.NotificationValueTypeUserID              | 用户 ID         |
-| ThirdNotificationValueTypeEnum.NotificationValueTypeUserGroupID         | 用户组          |
-| ThirdNotificationValueTypeEnum.NotificationValueTypeGlobalProjectRoleID | 全局项目角色 ID |
-| ThirdNotificationValueTypeEnum.NotificationValueTypeRole                | 角色            |
+| optional value                                                          | description            |
+| :---------------------------------------------------------------------- | :--------------------- |
+| ThirdNotificationValueTypeEnum.NotificationValueTypeUserID              | User ID                |
+| ThirdNotificationValueTypeEnum.NotificationValueTypeUserGroupID         | User Group             |
+| ThirdNotificationValueTypeEnum.NotificationValueTypeGlobalProjectRoleID | Global Project Role ID |
+| ThirdNotificationValueTypeEnum.NotificationValueTypeRole                | Role                   |
 
 ### ThirdNotificationConfigTypeEnum {#ThirdNotificationConfigTypeEnum}
 
-通知配置类型
+notification configuration type
 
-| 可选值                                                     | 说明           |
-| :--------------------------------------------------------- | :------------- |
-| ThirdNotificationConfigTypeEnum.NoticeTypeCreateTask       | 创建工作项     |
-| ThirdNotificationConfigTypeEnum.NoticeTypeUpdateTaskAssign | 更新工作项分配 |
-| ThirdNotificationConfigTypeEnum.NoticeTypeUpdateTaskStatus | 更新工作项状态 |
+| optional value                                             | description             |
+| :--------------------------------------------------------- | :---------------------- |
+| ThirdNotificationConfigTypeEnum.NoticeTypeCreateTask       | Create issue            |
+| ThirdNotificationConfigTypeEnum.NoticeTypeUpdateTaskAssign | Update issue assignment |
+| ThirdNotificationConfigTypeEnum.NoticeTypeUpdateTaskStatus | Update issue status     |
 
 ### ThirdProjectPermissionUserDomainTypeEnum {#ThirdProjectPermissionUserDomainTypeEnum}
 
-权限用户域类型
+authorized user domain type
 
-| 可选值                                                   | 说明   |
-| :------------------------------------------------------- | :----- |
-| ThirdProjectPermissionUserDomainTypeEnum.SingleUserLabel | 用户   |
-| ThirdProjectPermissionUserDomainTypeEnum.GroupLabel      | 用户组 |
-| ThirdProjectPermissionUserDomainTypeEnum.RoleLabel       | 角色   |
+| optional value                                           | description |
+| :------------------------------------------------------- | :---------- |
+| ThirdProjectPermissionUserDomainTypeEnum.SingleUserLabel | User        |
+| ThirdProjectPermissionUserDomainTypeEnum.GroupLabel      | User Group  |
+| ThirdProjectPermissionUserDomainTypeEnum.RoleLabel       | Role        |
 
 ### ThirdProjectPermissionPermissionEnum {#ThirdProjectPermissionPermissionEnum}
 
-权限点名称
+permission point name
 
-| 可选值                                                  | 说明              |
-| :------------------------------------------------------ | :---------------- |
-| ThirdProjectPermissionPermissionEnum.ManageSprints      | 管理迭代          |
-| ThirdProjectPermissionPermissionEnum.BeAssignedToSprint | 成为迭代负责人    |
-| ThirdProjectPermissionPermissionEnum.ManageProject      | 管理项目          |
-| ThirdProjectPermissionPermissionEnum.BrowseProject      | 查看项目          |
-| ThirdProjectPermissionPermissionEnum.ViewProjectReports | 查看项目报表      |
-| ThirdProjectPermissionPermissionEnum.ManagePipelines    | 管理项目 Pipeline |
-| ThirdProjectPermissionPermissionEnum.ViewTasks          | 查看工作项        |
-| ThirdProjectPermissionPermissionEnum.ExportTasks        | 导出工作项列表    |
-| ThirdProjectPermissionPermissionEnum.CreateTasks        | 创建工作项        |
-| ThirdProjectPermissionPermissionEnum.DeleteTasks        | 删除工作项        |
-| ThirdProjectPermissionPermissionEnum.UpdateTasks        | 编辑工作项        |
-| ThirdProjectPermissionPermissionEnum.BeAssigned         | 成为负责人        |
-| ThirdProjectPermissionPermissionEnum.TransitTasks       | 更新工作项状态    |
-| ThirdProjectPermissionPermissionEnum.UpdateTaskWatchers | 编辑关注者        |
+| optional value                                          | description              |
+| :------------------------------------------------------ | :----------------------- |
+| ThirdProjectPermissionPermissionEnum.ManageSprints      | Manage Sprints           |
+| ThirdProjectPermissionPermissionEnum.BeAssignedToSprint | Become Sprint Owner      |
+| ThirdProjectPermissionPermissionEnum.ManageProject      | Manage Projects          |
+| ThirdProjectPermissionPermissionEnum.BrowseProject      | View Project             |
+| ThirdProjectPermissionPermissionEnum.ViewProjectReports | View Project Reports     |
+| ThirdProjectPermissionPermissionEnum.ManagePipelines    | Manage Project Pipelines |
+| ThirdProjectPermissionPermissionEnum.ViewTasks          | View issues              |
+| ThirdProjectPermissionPermissionEnum.ExportTasks        | Export issue list        |
+| ThirdProjectPermissionPermissionEnum.CreateTasks        | Create issues            |
+| ThirdProjectPermissionPermissionEnum.DeleteTasks        | Delete issues            |
+| ThirdProjectPermissionPermissionEnum.UpdateTasks        | Editing issues           |
+| ThirdProjectPermissionPermissionEnum.BeAssigned         | Become Responsible       |
+| ThirdProjectPermissionPermissionEnum.TransitTasks       | Update issue status      |
+| ThirdProjectPermissionPermissionEnum.UpdateTaskWatchers | Edit Followers           |
 
 ### ThirdProjectPermissionContextTypeEnum {#ThirdProjectPermissionContextTypeEnum}
 
-权限上下文类型
+permission context type
 
-| 可选值                                                 | 说明       |
-| :----------------------------------------------------- | :--------- |
-| ThirdProjectPermissionContextTypeEnum.ProjectContext   | 项目       |
-| ThirdProjectPermissionContextTypeEnum.IssueTypeContext | 工作项类型 |
+| optional value                                         | description |
+| :----------------------------------------------------- | :---------- |
+| ThirdProjectPermissionContextTypeEnum.ProjectContext   | Project     |
+| ThirdProjectPermissionContextTypeEnum.IssueTypeContext | issue Type  |
 
 ### ThirdChangeItemFieldEnum {#ThirdChangeItemFieldEnum}
 
-工作项动态类型
+issue dynamic type
 
-| 可选值                                                       | 说明       |
-| :----------------------------------------------------------- | :--------- |
-| ThirdChangeItemFieldEnum.ChangeItemFieldAttachment           | 附件       |
-| ThirdChangeItemFieldEnum.ChangeItemFieldDescription          | 描述       |
-| ThirdChangeItemFieldEnum.ChangeItemFieldPriority             | 优先级     |
-| ThirdChangeItemFieldEnum.ChangeItemFieldStatus               | 状态       |
-| ThirdChangeItemFieldEnum.ChangeItemFieldIssueType            | 工作项类型 |
-| ThirdChangeItemFieldEnum.ChangeItemFieldAssignee             | 负责人     |
-| ThirdChangeItemFieldEnum.ChangeItemFieldSprint               | 迭代       |
-| ThirdChangeItemFieldEnum.ChangeItemFieldLink                 | 关联       |
-| ThirdChangeItemFieldEnum.ChangeItemFieldEpicChild            |            |
-| ThirdChangeItemFieldEnum.ChangeItemFieldTimeOriginalEstimate | 预估工时   |
-| ThirdChangeItemFieldEnum.ChangeItemFieldTimeEstimate         | 剩余工时   |
-| ThirdChangeItemFieldEnum.ChangeItemFieldTimeSpent            | 登记工时   |
+| optional value                                               | description             |
+| :----------------------------------------------------------- | :---------------------- |
+| ThirdChangeItemFieldEnum.ChangeItemFieldAttachment           | Attachment              |
+| ThirdChangeItemFieldEnum.ChangeItemFieldDescription          | Description             |
+| ThirdChangeItemFieldEnum.ChangeItemFieldPriority             | Priority                |
+| ThirdChangeItemFieldEnum.ChangeItemFieldStatus               | Status                  |
+| ThirdChangeItemFieldEnum.ChangeItemFieldIssueType            | issue type              |
+| ThirdChangeItemFieldEnum.ChangeItemFieldAssignee             | Responsible             |
+| ThirdChangeItemFieldEnum.ChangeItemFieldSprint               | Iterations              |
+| ThirdChangeItemFieldEnum.ChangeItemFieldLink                 | Link                    |
+| ThirdChangeItemFieldEnum.ChangeItemFieldEpicChild            |                         |
+| ThirdChangeItemFieldEnum.ChangeItemFieldTimeOriginalEstimate | Estimated working hours |
+| ThirdChangeItemFieldEnum.ChangeItemFieldTimeEstimate         | Remaining Work Hours    |
+| ThirdChangeItemFieldEnum.ChangeItemFieldTimeSpent            | Register working hours  |
 
 ### ThirdGlobalProjectRoleStatusEnum {#ThirdGlobalProjectRoleStatusEnum}
 
-项目角色状态
+project role status
 
-| 可选值                                            | 说明 |
-| :------------------------------------------------ | :--- |
-| ThirdGlobalProjectRoleStatusEnum.RoleStatusNormal | 正常 |
+| optional value                                    | description |
+| :------------------------------------------------ | :---------- |
+| ThirdGlobalProjectRoleStatusEnum.RoleStatusNormal | Normal      |
 
 ### ThirdIssueTypeStatusEnum {#ThirdIssueTypeStatusEnum}
 
-工作项状态
+issue status
 
-| 可选值                                         | 说明 |
-| :--------------------------------------------- | :--- |
-| ThirdIssueTypeStatusEnum.IssueTypeStatusNormal | 正常 |
+| optional value                                 | description |
+| :--------------------------------------------- | :---------- |
+| ThirdIssueTypeStatusEnum.IssueTypeStatusNormal | Normal      |
