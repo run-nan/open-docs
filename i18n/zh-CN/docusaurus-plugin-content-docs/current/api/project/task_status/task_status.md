@@ -7,10 +7,10 @@
   - [工作项状态分类列表](#工作项状态分类列表)
   - [工作项状态配置](#工作项状态配置)
 - [API 说明](#api-说明)
-  - [1. 创建工作项状态](#1-创建工作项状态)
-  - [2. 修改工作项状态](#2-修改工作项状态)
-  - [3. 删除工作项状态](#3-删除工作项状态)
-  - [4. 获取工作项状态列表](#4-获取工作项状态列表)
+  - [创建工作项状态](#创建工作项状态)
+  - [修改工作项状态](#修改工作项状态)
+  - [删除工作项状态](#删除工作项状态)
+  - [获取工作项状态列表](#获取工作项状态列表)
 
 <!-- /TOC -->
 
@@ -57,7 +57,7 @@ task_status_config
 
 ## API 说明
 
-### 1. 创建工作项状态
+### 创建工作项状态
 
 创建一个工作项状态
 
@@ -69,6 +69,10 @@ https://your-host-name/project/api/project/team/:teamUUID/task_statuses/add
 
 POST
 
+#### 是否需要登录
+
+是
+
 #### 调用权限
 
 administer_do
@@ -77,7 +81,7 @@ administer_do
 
 JSON
 
-#### 参数列表
+#### 请求参数列表
 
 | 参数名      | 值类型 | 允许空值 | 取值范围 | 说明                                                  |
 | :---------- | :----- | :------- | :------- | :---------------------------------------------------- |
@@ -90,9 +94,9 @@ JSON
 | task_status         | object | F        |          | 参考顶端的工作项状态模型       |
 | server_update_stamp | int64  | F        |          | task_status 类型的数据更新时间 |
 
-### 请求体示例
+#### 请求示例
 
-```curl
+```shell
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/task_statuses/add \
   -H 'Content-Type: application/json' \
@@ -103,7 +107,7 @@ curl -X POST \
   -d '{"task_status":{"name":"task_status_test","category":"to_do"}}'
 ```
 
-### 返回体示例
+#### 返回示例
 
 ```json
 {
@@ -117,7 +121,7 @@ curl -X POST \
 }
 ```
 
-### 2. 修改工作项状态
+### 修改工作项状态
 
 修改一个工作项状态
 
@@ -129,6 +133,10 @@ https://your-host-name/project/api/project/team/:teamUUID/task_status/:taskStatu
 
 POST
 
+#### 是否需要登录
+
+是
+
 #### 调用权限
 
 administer_do
@@ -137,7 +145,7 @@ administer_do
 
 JSON
 
-#### 参数列表
+#### 请求参数列表
 
 | 参数名      | 值类型 | 允许空值 | 取值范围 | 说明                                                  |
 | :---------- | :----- | :------- | :------- | :---------------------------------------------------- |
@@ -150,9 +158,9 @@ JSON
 | task_status         | object | F        |          | 参考顶端的工作项状态模型       |
 | server_update_stamp | int64  | F        |          | task_status 类型的数据更新时间 |
 
-### 请求体示例
+#### 请求示例
 
-```curl
+```shell
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/task_status/KXPq1Ez8/update \
   -H 'Content-Type: application/json' \
@@ -163,7 +171,7 @@ curl -X POST \
   -d '{"task_status":{"name":"update_task_status","category":"to_do"}}'
 ```
 
-### 返回体示例
+#### 返回示例
 
 ```json
 {
@@ -177,7 +185,7 @@ curl -X POST \
 }
 ```
 
-### 3. 删除工作项状态
+### 删除工作项状态
 
 删除一个工作项状态
 
@@ -189,17 +197,24 @@ https://your-host-name/project/api/project/team/:teamUUID/task_status/:taskStatu
 
 administer_do
 
+#### 是否需要登录
+
+是
+
 #### HTTP Method
 
 POST
 
 #### 传值方式
 
-JSON
+URL
 
-#### 参数列表
+#### 请求参数列表
 
-无
+| 参数名         | 值类型 | 允许空值 | 取值范围 | 说明      |
+| :------------- | :----- | :------- | :------- | :-------- |
+| teamUUID       | string | F        | len=8    | 团队 UUID |
+| taskStatusUUID | string | F        | len=8    | 状态 UUID |
 
 #### 返回参数列表
 
@@ -207,20 +222,19 @@ JSON
 | :------------------ | :----- | :------- | :------- | :----------------------------- |
 | server_update_stamp | int64  | F        |          | task_status 类型的数据更新时间 |
 
-### 请求体示例
+#### 请求示例
 
-```curl
+```shell
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/task_status/KXPq1Ez8/delete \
   -H 'Content-Type: application/json' \
   -H 'Ones-Auth-Token: CUVZQSUJwRLfcVGSQoHEzI14LumPflYxJasP8MZHOLLgcjV5Rlnxy3YOjRN4z75w' \
   -H 'Ones-User-Id: DU6krHBN' \
   -H 'Referer: https://your-host-name' \
-  -H 'cache-control: no-cache' \
-  -d '{"task_status":{"name":"update_task_status","category":"to_do"}}'
+  -H 'cache-control: no-cache'
 ```
 
-### 返回体示例
+#### 返回示例
 
 ```json
 {
@@ -228,7 +242,7 @@ curl -X POST \
 }
 ```
 
-### 4. 获取工作项状态列表
+### 获取工作项状态列表
 
 列出当前团队下的所有工作项状态
 
@@ -240,15 +254,19 @@ https://your-host-name/project/api/project/team/:teamUUID/task_statuses
 
 GET
 
-#### 调用权限
+#### 是否需要登录
+
+是
 
 #### 传值方式
 
 URL
 
-#### 参数列表
+#### 请求参数列表
 
-无
+| 参数名   | 值类型 | 允许空值 | 取值范围 | 说明      |
+| :------- | :----- | :------- | :------- | :-------- |
+| teamUUID | string | F        | len=8    | 团队 UUID |
 
 #### 返回参数列表
 
@@ -257,9 +275,9 @@ URL
 | task_statuses       | array  |          | 工作项状态列表，参考顶端的工作项状态模型 |
 | server_update_stamp | int64  |          | task_status 类型的数据更新时间           |
 
-### 请求体示例
+#### 请求示例
 
-```curl
+```shell
 curl -X GET \
   https://your-host-name/project/api/project/team/3pDzCwAe/task_statuses \
   -H 'Content-Type: application/json' \
@@ -269,7 +287,7 @@ curl -X GET \
   -H 'cache-control: no-cache'
 ```
 
-### 返回体示例
+#### 返回示例
 
 ```json
 {
@@ -282,7 +300,6 @@ curl -X GET \
       "built_in": false,
       "create_time": 1564741783
     }
-    //
   ],
   "server_update_stamp": 1564741783420976
 }

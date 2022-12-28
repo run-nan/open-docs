@@ -122,9 +122,35 @@
 | position       | integer                | T        | F         | [位置]      |
 | is_show        | boolean                | T        | F         | [是否隐藏]  |
 
+---
+
 ## 查询产品详细信息
 
-[调用 graphql 接口](../graphql/graphql.md#call_ones_graphql)
+### URL
+
+https://your-host-name/project/api/project/team/:teamUUID/items/graphql
+
+### 功能描述
+
+[调用 graphql 接口](../graphql/graphql.md#call_ones_graphql) , 查询产品详细信息
+
+### HTTP Method
+
+POST
+
+### 是否需要登录
+
+需要
+
+### 传值方式
+
+json
+
+### 请求参数列表
+
+可根据 graphql 查询条件变化，可用字段请参考 [#product](#product)
+
+### 请求体示例
 
 ```graphql
 {
@@ -181,11 +207,37 @@
 }
 ```
 
+### 返回参数列表
+
+请参考 [graphql 查询 item 返回参数](../graphql/graphql.md#call_ones_graphql)
+
+---
+
 ## 新建产品
 
-[调用方式](../item/item.md#添加item)
+### 功能描述
 
-[参数列表](#product)
+[调用 item 接口](../item/item.md#添加item) , 新建产品
+
+### URL
+
+https://your-host-name/project/api/project/team/:teamUUID/items/add
+
+### HTTP Method
+
+POST
+
+### 是否需要登录
+
+需要
+
+### 传值方式
+
+json
+
+### 请求参数列表
+
+可根据 graphql 查询条件变化，可用字段请参考 [#product](#product)
 
 ### 请求体参考
 
@@ -198,6 +250,10 @@
   }
 }
 ```
+
+### 返回参数列表
+
+请参考 [graphql 添加 item 返回参数](../item/item.md#添加item)
 
 ### 返回值参考
 
@@ -216,11 +272,39 @@
 }
 ```
 
+---
+
 ## 更新产品
 
-[调用方式](../item/item.md#更新item)
+### 功能描述
 
-[参数列表](#product)
+[调用 item 接口](../item/item.md#添加item) , 更新产品
+
+### URL
+
+https://your-host-name/project/api/project/team/:teamUUID/items/:itemkey/update
+
+### HTTP Method
+
+POST
+
+### 是否需要登录
+
+需要
+
+### 传值方式
+
+URL / JSON
+
+### 请求参数列表
+
+#### URL 参数
+
+itemkey: 产品的 key, 例如: `product-6ZpgEzkkQ7PkhGTv`
+
+#### json 参数
+
+可根据 graphql 查询条件变化，可用字段请参考 [#product](#product)
 
 ### 请求体参考
 
@@ -232,6 +316,10 @@
   }
 }
 ```
+
+### 返回参数列表
+
+请参考 [graphql 更新 item 返回参数](../item/item.md#更新item)
 
 ### 返回值参考
 
@@ -250,9 +338,43 @@
 }
 ```
 
+---
+
 ### 删除产品
 
-[调用方式](../item/item.md#删除item)
+### 功能描述
+
+[调用 item 接口](../item/item.md#删除item) , 删除产品
+
+### URL
+
+https://your-host-name/project/api/project/team/:teamUUID/items/:itemkey/delete
+
+### HTTP Method
+
+POST
+
+### 是否需要登录
+
+需要
+
+### 传值方式
+
+URL
+
+### 请求参数列表
+
+itemkey: 产品的 key, 例如: `product-6ZpgEzkkQ7PkhGTv`
+
+### 请求体参考
+
+```json
+{}
+```
+
+### 返回参数列表
+
+请参考 [graphql 删除 item 返回参数](../item/item.md#删除item)
 
 ### 返回值参考
 
@@ -264,9 +386,35 @@
 }
 ```
 
+---
+
 ## 查询产品下模块列表
 
-[调用 graphql 接口](../graphql/graphql.md#call_ones_graphql)
+### URL
+
+https://your-host-name/project/api/project/team/:teamUUID/items/graphql
+
+### 功能描述
+
+[调用 graphql 接口](../graphql/graphql.md#call_ones_graphql) , 查询产品下的模块列表
+
+### HTTP Method
+
+POST
+
+### 是否需要登录
+
+需要
+
+### 传值方式
+
+JSON
+
+### 请求参数列表
+
+可根据 graphql 查询条件变化，可用字段请参考 [#product](#product) 和 [#product_module](#product_module)
+
+### 请求体参考
 
 ```graphql
 {
@@ -304,11 +452,37 @@
 }
 ```
 
+### 返回参数列表
+
+请参考 [graphql 删除 item 返回参数](../item/item.md#删除item)
+
+---
+
 ## 新建模块
 
-[调用方式](../item/item.md#添加item)
+### URL
 
-[参数列表](#productmodule)
+https://your-host-name/project/api/project/team/:teamUUID/items/add
+
+### 功能描述
+
+[调用 item 接口](../item/item.md#添加item) , 新建产品模块
+
+### HTTP Method
+
+POST
+
+### 是否需要登录
+
+需要
+
+### 传值方式
+
+JSON
+
+### 请求参数列表
+
+可根据 graphql 查询条件变化，可用字段请参考 [#product_module](#product_module)
 
 ### 请求体参考
 
@@ -322,6 +496,10 @@
   }
 }
 ```
+
+### 返回参数列表
+
+请参考 [graphql 查询 item 返回参数](../graphql/graphql.md#call_ones_graphql)
 
 ### 返回值参考
 
@@ -343,11 +521,33 @@
 }
 ```
 
+---
+
 ### 新建子模块
 
-[调用方式](../item/item.md#添加item)
+### URL
 
-[参数列表](#productmodule)
+https://your-host-name/project/api/project/team/:teamUUID/items/add
+
+### 功能描述
+
+[调用 item 接口](../item/item.md#添加item) , 新建子产品模块, 和新建模块类似，需要通过 parent 参数指定父节点
+
+### HTTP Method
+
+POST
+
+### 是否需要登录
+
+需要
+
+### 传值方式
+
+JSON
+
+### 请求参数列表
+
+可根据 graphql 查询条件变化，可用字段请参考 [#product_module](#product_module)
 
 ### 请求体参考
 
@@ -361,6 +561,10 @@
   }
 }
 ```
+
+### 返回参数列表
+
+请参考 [graphql 添加 item 返回参数](../item/item.md#添加item)
 
 ### 返回值参考
 
@@ -382,11 +586,39 @@
 }
 ```
 
+---
+
 ### 更新模块
 
-[调用方式](../item/item.md#更新item)
+### 功能描述
 
-[参数列表](#productmodule)
+[调用 item 接口](../item/item.md#添加item) , 更新产品模块
+
+### URL
+
+https://your-host-name/project/api/project/team/:teamUUID/items/:itemkey/update
+
+### HTTP Method
+
+POST
+
+### 是否需要登录
+
+需要
+
+### 传值方式
+
+URL / JSON
+
+### 请求参数列表
+
+#### URL 参数
+
+itemkey: 产品的 key, 例如: `product_module-6ZpgEzkkQ7PkhGTv`
+
+#### json 参数
+
+可根据 graphql 查询条件变化，可用字段请参考 [#product_module](#product_module)
 
 ### 请求体参考
 
@@ -397,6 +629,10 @@
   }
 }
 ```
+
+### 返回参数列表
+
+请参考 [graphql 更新 item 返回参数](../item/item.md#更新item)
 
 ### 返回值参考
 
@@ -418,9 +654,37 @@
 }
 ```
 
+---
+
 ### 删除模块
 
-[调用方式](../item/item.md#删除item)
+### 功能描述
+
+[调用 item 接口](../item/item.md#删除item) , 删除产品模块
+
+### URL
+
+https://your-host-name/project/api/project/team/:teamUUID/items/:itemkey/delete
+
+### HTTP Method
+
+POST
+
+### 是否需要登录
+
+需要
+
+### 传值方式
+
+URL
+
+### 请求参数列表
+
+itemkey: 产品的 key, 例如: `product_module-6ZpgEzkkQ7PkhGTv`
+
+### 返回参数列表
+
+请参考 [graphql 删除 item 返回参数](../item/item.md#删除item)
 
 ### 返回值参考
 

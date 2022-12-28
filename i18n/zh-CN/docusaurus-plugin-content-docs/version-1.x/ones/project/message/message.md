@@ -1,16 +1,15 @@
-<!-- TOC depthTo:3 -->
+# 消息通知
 
-# 目录
+- [通用说明](#通用说明)
+  - [message 参数说明](#message-参数说明)
+  - [ext 参数说明](#ext-参数说明)
+  - [必要 header](#必要header)
+- [API 说明](#api-说明)
+  - [获取任务讨论消息](#获取任务讨论消息)
+  - [任务讨论发送消息](#任务讨论发送消息)
+  - [~~筛选项目消息通知信息~~](#筛选项目消息通知信息)
 
-- [API 说明](#api说明)
-  - [1. 任务讨论发送消息](#1-任务讨论发送消息)
-  - [2. 获取任务讨论消息](#2-获取任务讨论消息)
-  - [~~3. 根据团队获取消息通知列表~~](#3-根据团队获取消息通知列表)
-  - [~~4. 筛选项目消息通知信息~~](#4-筛选项目消息通知信息)
-
-<!-- /TOC -->
-
-## API 说明
+# 通用说明
 
 ## message 参数说明
 
@@ -37,81 +36,24 @@
 
 ## ext 参数说明
 
-```desc
-"ext": {
-                "field_name": "描述",
-                "field_type": 2,
-                "field_uuid": "field002",
-                "new_value": "123456",
-                "old_value": ""
-            }
-```
+| 字段名     | 类型   | 说明      |
+| :--------- | :----- | :-------- |
+| field_name | string | 属性名称  |
+| field_type | int    | 属性类型  |
+| field_uuid | string | 属性 UUID |
+| new_value  | object | 新的值    |
+| old_value  | object | 旧的值    |
 
-### 1. 任务讨论发送消息
+## 必要 header
 
-发送消息到项目讨论中
+| 参数名          | 值类型 | 允许空值 | 取值范围 | 说明                         |
+| :-------------- | :----- | :------- | :------- | :--------------------------- |
+| Ones-User-Id    | string | F        | len=8    | 用户 id，可在登录接口获取    |
+| Ones-Auth-Token | string | F        | len=32   | 用户 token，可在登录接口获取 |
 
-#### URL
+# API 说明
 
-https://your-host-name/project/api/project/team/:teamUUID/task/:taskUUID/send_message
-
-#### 请求类型
-
-POST
-
-#### 请求体示例
-
-```json
-{
-  "uuid": "2VmirTDd",
-  "text": "Hello world"
-}
-```
-
-```json
-{
-  "uuid": "2VmirTDd",
-  "resource_uuid": "6cLx85AV"
-}
-```
-
-### HTTP status code 说明
-
-| 状态码 | 说明                         |
-| :----- | :--------------------------- |
-| 200    | 成功                         |
-| 400    | 请求参数错误                 |
-| 403    | 没有在此任务中发送消息的权限 |
-| 404    | 任务不存在                   |
-| 500    | 服务器内部错误               |
-
-#### 请求体示例
-
-```curl
-curl -X POST \
-  https://your-host-name/project/api/project/team/3pDzCwAe/task/DU6krHBNrewAoGDF/send_message \
-  -H 'Content-Type: application/json' \
-  -H 'Ones-Auth-Token: Vu5L6yfEf8iZ2rWxTyh2fSovKVb42jGv6vlq1aYaMC09hK13usIYgv45ih119Z9B' \
-  -H 'Ones-User-Id: DU6krHBN' \
-  -H 'Referer: https://your-host-name' \
-  -H 'cache-control: no-cache' \
-  -d '{
-    "uuid": "bSGaDSX8",
-    "text": "hello world"
-}'
-```
-
-#### 返回值示例
-
-```json
-{
-  "code": 200,
-  "errcode": "OK",
-  "type": "OK"
-}
-```
-
-### 2. 获取任务讨论消息
+## 获取任务讨论消息
 
 按照时间戳分页获取任务讨论中的消息，服务端保证每条消息的时间戳是唯一的
 
@@ -119,35 +61,43 @@ curl -X POST \
 
 https://your-host-name/project/api/project/team/:teamUUID/task/:taskUUID/messages
 
-#### 请求类型
+### HTTP Method
 
 GET
 
-#### URL 参数
+### 是否需要登录
 
-```desc
-since=1460543624049663&max=1460543328295374&count=100
-```
+是
+
+### 调用权限
+
+ViewTasks
+
+### 传值方式
+
+URL
+
+### 请求参数列表
+
+| 字段名 | 类型  | 说明     |
+| :----- | :---- | :------- |
+| since  | int64 | 开始时间 |
+| max    | int64 | 结束时间 |
+| count  | int64 | 消息个数 |
 
 since 表示需要获取的消息的最小时间戳，max 表示最大时间戳，两者均不包含自身，即获取 send_time > since && send_time < max 的消息
 
 count 表示返回消息的最大数量，最大值为 100
 
-#### 参数列表
+### 返回参数列表
 
-无
+| JSON 键名 | 值类型  | 取值范围 | 说明                                                  |
+| :-------- | :------ | :------- | :---------------------------------------------------- |
+| count     | int64   |          | 消息条数                                              |
+| has_next  | boolean |          | 是否还有消息                                          |
+| messages  | array   |          | 参考通用说明中的[message 参数说明](#message-参数说明) |
 
-#### HTTP status code 说明
-
-| 状态码 | 说明                 |
-| :----- | :------------------- |
-| 200    | 成功                 |
-| 400    | 请求参数错误         |
-| 403    | 没有访问此任务的权限 |
-| 404    | 任务不存在           |
-| 500    | 服务器内部错误       |
-
-#### 请求体示例
+### 请求示例
 
 ```curl
 curl -X GET \
@@ -159,7 +109,7 @@ curl -X GET \
   -H 'cache-control: no-cache'
 ```
 
-#### 返回值示例
+### 返回示例
 
 ```json
 {
@@ -201,123 +151,99 @@ curl -X GET \
 
 返回的消息按照 send_time 从晚到早逆序排列，如果 has_next 为 true，则表示符合条件的消息数超过了最大数量，需要用最后一条消息的 send_time 继续往前取
 
-### ~~3. 根据团队获取消息通知列表~~
+## 任务讨论发送消息
 
-根据团队 team_uuid 获取 message 通知列表
+发送消息到项目讨论中
 
-#### URL
+### URL
 
-https://your-host-name/project/api/project/organization/:orgUUID/list_notice
+https://your-host-name/project/api/project/team/:teamUUID/task/:taskUUID/send_message
 
-#### 请求类型
+### HTTP Method
 
 POST
 
-#### 参数列表
+### 是否需要登录
 
-|   字段名   | 类型  | 是否必填 |         说明         |
-| :--------: | :---: | :------: | :------------------: |
-| team_uuids | array |    是    |    团队 uuid 列表    |
-|   since    | int64 |    是    | 开始时间（单位：秒） |
+是
 
-#### 返回参数列表
+### 调用权限
 
-##### list_notice 返回参数
+ViewTasks
 
-| 字段名  | 类型   | 说明                                |
-| :------ | :----- | :---------------------------------- |
-| notices | notice | [notice 参数说明](#notice-参数说明) |
+### 传值方式
 
-##### notice 参数说明
+json
 
-| 字段名              | 类型    | 说明                                  |
-| :------------------ | :------ | :------------------------------------ |
-| task_uuid           | string  | 工作项 uuid                           |
-| is_read             | bool    | 是否已经阅览过                        |
-| server_update_stamp | int64   | 更新时间（单位：纳秒）                |
-| message             | message | [message 参数说明](#message-参数说明) |
+### 请求参数列表
 
-## 请求体示例
+| 字段名        | 类型   | 说明                         |
+| :------------ | :----- | :--------------------------- |
+| uuid          | string | message UUID                 |
+| text          | string | 文本内容，发送文本内容时传递 |
+| resource_uuid | string | 附件内容，发送附件内容时传递 |
+
+### 返回参数列表
+
+| 字段名  | 类型   | 说明        |
+| :------ | :----- | :---------- |
+| code    | int    | http 状态码 |
+| errcode | string | 错误码      |
+| type    | string | 错误类型    |
+
+### HTTP status code 说明
+
+| 状态码 | 说明                         |
+| :----- | :--------------------------- |
+| 200    | 成功                         |
+| 400    | 请求参数错误                 |
+| 403    | 没有在此任务中发送消息的权限 |
+| 404    | 任务不存在                   |
+| 500    | 服务器内部错误               |
+
+### 请求示例
 
 ```curl
 curl -X POST \
- https://your-host-name/project/api/project/organization/XzZSjSVd/list_notice \
+  https://your-host-name/project/api/project/team/3pDzCwAe/task/DU6krHBNrewAoGDF/send_message \
   -H 'Content-Type: application/json' \
-  -H 'Ones-Auth-Token: DaYq37tqczRvGjuexuT0kXJ5j8JkHIaWR3dqCNXv2IkaX4Wn5qVxJlBT8btNYCUN' \
-  -H 'Ones-User-Id: KKt3AotA' \
+  -H 'Ones-Auth-Token: Vu5L6yfEf8iZ2rWxTyh2fSovKVb42jGv6vlq1aYaMC09hK13usIYgv45ih119Z9B' \
+  -H 'Ones-User-Id: DU6krHBN' \
   -H 'Referer: https://your-host-name' \
   -H 'cache-control: no-cache' \
   -d '{
-    "team_uuids": [
-        "Pxizacww"
-    ],
-    "since": 1575009200
+    "uuid": "bSGaDSX8",
+    "text": "hello world"
 }'
 ```
 
-## 返回体示例
+### 返回示例
 
 ```json
 {
-  "notices": [
-    {
-      "task_uuid": "KKt3AotAniBAKhKn",
-      "is_read": false,
-      "server_update_stamp": 1575602264876688,
-      "message": {
-        "uuid": "PJ6fK12M",
-        "team_uuid": "Pxizacww",
-        "ref_type": "project",
-        "ref_id": "KKt3AotAEnFQ48hP",
-        "type": "system",
-        "from": "BOT",
-        "to": "KKt3AotAEnFQ48hP",
-        "send_time": 1575602264876688,
-        "subject_type": "user",
-        "subject_id": "KKt3AotA",
-        "action": "update",
-        "object_type": "task",
-        "object_id": "KKt3AotAniBAKhKn",
-        "object_name": "test",
-        "object_attr": "field",
-        "old_value": "7XTdci4G",
-        "new_value": "4WDnCnfc",
-        "ext": {
-          "field_name": "状态",
-          "field_type": 12,
-          "field_uuid": "field005",
-          "new_option": {
-            "name": "测试中",
-            "uuid": "4WDnCnfc"
-          },
-          "new_value": "",
-          "old_option": {
-            "name": "研发中",
-            "uuid": "7XTdci4G"
-          },
-          "old_value": ""
-        },
-        "is_can_show_richtext_diff": false
-      }
-    }
-    ///
-  ]
+  "code": 200,
+  "errcode": "OK",
+  "type": "OK"
 }
 ```
 
-### ~~4. 筛选项目消息通知信息~~
+## ~~筛选项目消息通知信息~~
 
 筛选项目 message 通知信息
 
-#### URL
+### URL
 
 https://your-host-name/project/api/project/team/:teamUUID/filter_message
 
-#### 请求类型
+### HTTP Method
 
 POST
 
-#### 参数列表
+### 是否需要登录
+
+是
+
+### 参数列表
 
 | 字段名  | 类型   | 是否必填 | 说明                                                          |
 | :------ | :----- | :------- | :------------------------------------------------------------ |
@@ -326,7 +252,7 @@ POST
 | begin   | int64  | 是       | 开始时间（单位：纳秒）                                        |
 | end     | int64  | 是       | 结束时间（单位：纳秒）（开始时间与结束时间间隔不能大于 7 天） |
 
-#### 返回参数列表
+### 返回参数列表
 
 | 字段名   | 类型    | 说明                                  |
 | :------- | :------ | :------------------------------------ |
@@ -334,7 +260,7 @@ POST
 | count    | int     | 数量                                  |
 | has_next | bool    | 是否还有，此接口默认没有              |
 
-## 请求体示例
+### 请求体示例
 
 ```curl
 curl -X POST \
@@ -352,7 +278,7 @@ curl -X POST \
 }'
 ```
 
-## 返回体示例
+### 返回体示例
 
 ```json
 {
@@ -369,7 +295,6 @@ curl -X POST \
       "text": "123",
       "is_can_show_richtext_diff": false
     },
-    ///
     {
       "uuid": "3GrhxETT",
       "team_uuid": "U66S45tG",

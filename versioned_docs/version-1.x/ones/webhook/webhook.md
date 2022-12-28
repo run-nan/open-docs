@@ -1,15 +1,18 @@
 # Webhook 用户指南
 
 - [概述](#概述)
-- [使用 webhook](#使用webhook)
-  - [1 前提条件](#1-前提条件)
+- [使用 webhook](#使用-webhook)
+  - [前提条件](#前提条件)
   - <a href="#mymy">如何在 ONES 中启用 Webhook</a>
-  - <a href="#3">3 配置 Webhook</a>
-  - [4 场景示例](#4-场景示例)
+  - <a href="#3">配置 Webhook</a>
+  - [场景示例](#场景示例)
 - [消息重传机制](#消息重传机制)
-- [消息类型与消息体格式](#消息类型与消息体格式)
-  - [1 消息交互方式](#1-消息交互方式)
-  - [2 消息字段说明](#2-消息字段说明)
+- [消息类型](#消息类型)
+- [消息体格式](#消息体格式)
+- [消息示例](#消息示例)
+  - [事件通知消息](#事件通知消息)
+  - [心跳消息](#心跳消息)
+  - [应答消息](#应答消息)
 
 ## 概述
 
@@ -17,20 +20,20 @@ Webhook 是 ONES 系统的外部事件通知机制的实现。用户提供 Webho
 
 ## 使用 webhook
 
-### 1 前提条件
+### 前提条件
 
 要使用我们的 Webhook 通知，需要提供一个 http 服务并实现一个 post 接口。此接口需要在收到消息后返回一个确认消息。若收不到返回的确认消息，我们的 Webhook 将尝试进行重发。在一定时间内若收不到任何确认，
 则不再发送通知消息，并将自己的状态设置为未启用。此时，需要在配置页面手动重新启用后，Webhook 才能正常工作。
 
-关于消息格式与确认消息的格式，请参考[消息类型与消息体格式](#消息类型与消息体格式)。
+关于消息格式与确认消息的格式，请参考[消息体格式](#消息体格式)。
 
 关于消息重传与停止/重新发送的技术细节，请参考[消息重传机制](#消息重传机制)。
 
-### 2 如何在 ONES 中启用 Webhook
+### 如何在 ONES 中启用 Webhook
 
 <div id="mymy">请联系我们的服务人员，我们会对您的部署实例进行升级、配置。</div>
 
-### 3 配置 Webhook
+### 配置 Webhook
 
 <div id="3"> Webhook 的配置非常简单，用户只需要在配置页面中新建 Webhook 钩子，并指定自己实现的web接口地址就可以了。</div>
 
@@ -44,7 +47,7 @@ Webhook 是 ONES 系统的外部事件通知机制的实现。用户提供 Webho
 
 配置完成后，可以点击“保存并启用”来启动 Webhook 通知。
 
-### 4 场景示例
+### 场景示例
 
 打通项目管理平台 ONES 与内部通讯平台
 您的公司使用一个统一的通讯平台，希望能够在平台上接入我们的通知消息。当 ONES 系统中发生您觉得需要通知给干系人的事件以后，将事件通知到有关的人员。
@@ -60,21 +63,101 @@ Webhook 是 ONES 系统的外部事件通知机制的实现。用户提供 Webho
 若 Webhook 在一定的时间（30 分钟）内，未能收到任意一笔消息的应答（系统没有产生通知时，我们会每 5 分钟发送一次心跳消息），我们认为对端的 web 服务已经失效，将停止发送通知。一旦发生这种情况，
 则需要用户手动的在配置页面重新启用此 Webhook。
 
-## 消息类型与消息体格式
-
-### 1 消息交互方式
+## 消息类型
 
 我们将发送两种消息:
 
-系统产生的通知；
-用于定时检测接口有效性的心跳消息；
+&emsp;&emsp;系统产生的通知；
+
+&emsp;&emsp;用于定时检测接口有效性的心跳消息；
+
 用户无论是收到的系统通知，还是心跳消息，都需要返回其 ID。如果未收到返回消息，则判定当前消息发送失败。
 
 接收通知消息的服务可以按照需要继续处理，心跳消息可以直接应答后抛弃。通知消息和心跳消息都是 json 标准的字符串。
 
 我们在消息中提供了部分描述信息，以便于用户的使用。根据这些描述信息，用户可以直接得到一个可读性高的消息（与我们在微信或者 ONES 网页右上角收到的通知一样），而不需要根据某些 ID 去查询其对应的值。
 
-事件通知消息示例如下：
+## 消息体格式
+
+| 字段名   | 类型      | 说明                                       |
+| :------- | :-------- | :----------------------------------------- |
+| id       | string    | 消息体唯一标识 16 位                       |
+| messages | []message | 消息体数组(目前消息推送只支持推送单条消息) |
+
+`message`
+
+| 字段名          | 类型   | 说明                                |
+| :-------------- | :----- | :---------------------------------- |
+| from_user       | user   | 消息来源                            |
+| to_users        | []user | ONES 系统内的配置的消息通知列表     |
+| title           | string | 消息标题：格式 [团队名称]工作项名称 |
+| desc            | string | 消息描述 格式：`who [do_what]`      |
+| url             | string | 工作项 url 地址                     |
+| task_uuid       | string | 工作项 UUID                         |
+| issue_type_uuid | string | 工作项类型 UUID                     |
+| issue_type_name | string | 作项类型名称                        |
+| event_type      | string | 事件类型                            |
+| event_name      | string | 事件名称                            |
+| raw_message     | raw    | ONES 系统中消息体                   |
+
+`user`
+
+| 字段名 | 类型   | 说明      |
+| :----- | :----- | :-------- |
+| uuid   | string | 用户 UUID |
+| name   | string | 用户名称  |
+
+`raw`
+
+| 字段名                    | 类型   | 说明                                                                                                                                                   |
+| :------------------------ | :----- | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| uuid                      | string | message uuid                                                                                                                                           |
+| team_uuid                 | string | 团队 uuid                                                                                                                                              |
+| ref_type                  | string | 消息引用类型：<br/>task：工作项<br/>project：项目                                                                                                      |
+| ref_id                    | string | 消息引用类型的 uuid：<br/>如果"ref_type"是"task"的话，那么"ref_id"的值就是工作项 uuid<br/>如果"ref_type"是"project"的话，那么"ref_id"的值就是项目 uuid |
+| type                      | string | 消息类型：<br/>discussion：评论类型动态<br/>system：系统类型动态                                                                                       |
+| from                      | string | 谁发送的消息：<br/>BOT：代表系统                                                                                                                       |
+| to                        | string | 操作的实体：某个工作项或者某个项目                                                                                                                     |
+| send_time                 | int64  | 发送时间                                                                                                                                               |
+| text                      | string | 当"type"为"discussion"才有，评论的内容                                                                                                                 |
+| is_can_show_richtext_diff | bool   | 是否能查看工作项描述的 diff                                                                                                                            |
+| subject_type              | string | 一般值为"user"                                                                                                                                         |
+| subject_id                | string | 操作人 uuid                                                                                                                                            |
+| action                    | string | 操作类型：<br/>add：新增<br/>update：更新<br/>delete:删除<br/>move:移动<br/>copy:复制                                                                  |
+| object_type               | string | 消息实体 uuid                                                                                                                                          |
+| object_name               | string | 消息实体名称                                                                                                                                           |
+| object_attr               | string | 消息实体属性                                                                                                                                           |
+| new_value                 | string | 更新后的值                                                                                                                                             |
+| ext                       | ext    | 修改数据说明                                                                                                                                           |
+
+`ext`
+
+| 字段名              | 类型   | 说明                    |
+| :------------------ | :----- | :---------------------- |
+| field_uuid          | string | 属性 UUID               |
+| field_name          | string | 属性名称，omitempty     |
+| field_type          | int    | 属性类型                |
+| old_value           | string | 属性旧值                |
+| new_value           | string | 属性新值                |
+| old_option          | desc   | 旧属性项，omitempty     |
+| new_option          | desc   | 新属性项，omitempty     |
+| new_multi_option    | []desc | 旧属性项列表，omitempty |
+| old_multi_option    | []desc | 新属性项列表，omitempty |
+| batch_action        | string | 批处理动作              |
+| parent_message_uuid | string | 主消息 UUID             |
+| trigger_task_uuid   | string | 触发工作项 UUID         |
+| trigger_task_title  | string | 触发工作项标题          |
+
+`desc`
+
+| 字段名 | 类型   | 说明 |
+| :----- | :----- | :--- |
+| uuid   | string | UUID |
+| name   | string | 名称 |
+
+## 消息示例
+
+### 事件通知消息
 
 ```json
 {
@@ -135,7 +218,7 @@ Webhook 是 ONES 系统的外部事件通知机制的实现。用户提供 Webho
 }
 ```
 
-心跳消息如下：
+### 心跳消息
 
 ```json
 {
@@ -143,7 +226,7 @@ Webhook 是 ONES 系统的外部事件通知机制的实现。用户提供 Webho
 }
 ```
 
-应答消息如下：
+### 应答消息
 
 直接以字符串写入应答的消息体
 
@@ -152,7 +235,3 @@ hhqS4Wa3UQYJeHZv
 ```
 
 在使用时应尽量关注心跳答复，如遇到 webhook 没有发送消息时，可以先查看心跳是否正常。
-
-### 2 消息字段说明
-
-[消息体字段说明](./webhook_desc/webhook_desc.md)

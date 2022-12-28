@@ -87,7 +87,7 @@
 | zooming          | integer | F        | T         | T          | 缩放             |
 | create_time      | time    | F        | F         | F          | 创建时间         |
 
-## gantt_chart_import_config
+## gantt_chart_import_config 请求示例
 
 关联的 project
 
@@ -99,11 +99,31 @@
 
 ## 新建甘特图
 
-[调用方式](../item.md#item-add)
+### URL
 
-[参数列表](#gantt_chart)
+https://your-host-name/project/api/project/team/:teamUUID/items/add
 
-### 请求体示例
+### 功能描述
+
+[调用 item 接口](../item.md#添加item) , 新建甘特图
+
+### HTTP Method
+
+POST
+
+### 是否需要登录
+
+需要
+
+### 传值方式
+
+json
+
+### 请求参数列表
+
+可根据 graphql 查询条件变化， 可用字段参考 [参数列表](#gantt_chart)
+
+### 请求示例
 
 ```json
 {
@@ -120,6 +140,10 @@
   }
 }
 ```
+
+### 返回参数列表
+
+请参考 [graphql 新增 item 返回参数](../item.md#添加item)
 
 ### 返回体示例
 
@@ -147,11 +171,37 @@
 
 ## 更新甘特图
 
-[调用方式](../item.md#更新item)
+### URL
 
-[参数列表](#gantt_chart)
+https://your-host-name/project/api/project/team/:teamUUID/items/:itemkey/update
 
-### 请求体示例
+### 功能描述
+
+[调用 item 接口](../item.md#更新item) , 更新甘特图
+
+### HTTP Method
+
+POST
+
+### 是否需要登录
+
+需要
+
+### 传值方式
+
+URL / JSON
+
+### 请求参数列表
+
+#### URL 参数
+
+itemkey: 甘特图的 key, 例如: `gantt_chart-6ZpgEzkkQ7PkhGTv`
+
+#### json 参数
+
+可根据 graphql 查询条件变化，可用字段请参考 [参数列表](#gantt_chart)
+
+### 请求示例
 
 ```json
 {
@@ -166,6 +216,10 @@
   }
 }
 ```
+
+### 返回参数列表
+
+请参考 [graphql 更新 item 返回参数](../item.md#更新item)
 
 ### 返回体示例
 
@@ -193,14 +247,37 @@
 
 ### 删除甘特图
 
-- itemKey: gantt_chart-{gantt_chart.uuid}
-  [调用方式](../item.md#删除item)
+### 删除甘特图
 
-### 参数列表参考
+### URL
+
+https://your-host-name/project/api/project/team/:teamUUID/items/:itemkey/delete
+
+### 功能描述
+
+[调用 item 接口](../item.md#删除item) , 删除甘特图
+
+### HTTP Method
+
+POST
+
+### 是否需要登录
+
+需要
+
+### 传值方式
+
+URL
+
+### 请求参数列表
+
+itemkey: 项目集的 key, 例如: `gantt_chart-6ZpgEzkkQ7PkhGTv`
+
+### 返回参数列表
 
 none
 
-### 返回参数参考
+### 返回体数示例
 
 ```json
 {
@@ -214,11 +291,31 @@ none
 
 ## 甘特图中新建任务
 
-[调用方式](../item.md#item-add)
+### URL
 
-[参数列表](#ganttdata)
+https://your-host-name/project/api/project/team/:teamUUID/items/add
 
-### 请求体示例
+### 功能描述
+
+[调用 item 接口](../item.md#添加item) , 在甘特图中新建任务
+
+### HTTP Method
+
+POST
+
+### 是否需要登录
+
+需要
+
+### 传值方式
+
+json
+
+### 请求参数列表
+
+可根据 graphql 查询条件变化，可用字段请参考 [参数列表](#ganttdata)
+
+### 请求示例
 
 ```json
 {
@@ -235,6 +332,10 @@ none
   }
 }
 ```
+
+### 返回参数列表
+
+请参考 [graphql 添加 item 返回参数](../item.md#添加item)
 
 ### 返回体示例
 
@@ -265,11 +366,33 @@ none
 
 ## 甘特图中新建分组
 
-[调用方式](../item.md#item-add)
+## 甘特图中新建分组
 
-[参数列表](#ganttdata)
+### URL
 
-### 请求体示例
+https://your-host-name/project/api/project/team/:teamUUID/items/add
+
+### 功能描述
+
+[调用 item 接口](../item.md#添加item) , 在甘特图中新建分组
+
+### HTTP Method
+
+POST
+
+### 是否需要登录
+
+需要
+
+### 传值方式
+
+json
+
+### 请求参数列表
+
+可根据 graphql 查询条件变化，可用字段请参考 [参数列表](#ganttdata)
+
+### 请求示例
 
 ```json
 {
@@ -286,6 +409,10 @@ none
   }
 }
 ```
+
+### 返回参数列表
+
+请参考 [graphql 添加 item 返回参数](../item.md#添加item)
 
 ### 返回体示例
 
@@ -316,11 +443,31 @@ none
 
 ## 甘特图中新建里程碑
 
-[调用方式](../item.md#item-add)
+### URL
 
-[参数列表](#ganttdata)
+https://your-host-name/project/api/project/team/:teamUUID/items/add
 
-### 请求体示例
+### 功能描述
+
+[调用 item 接口](../item.md#添加item) , 在甘特图中新建里程碑
+
+### HTTP Method
+
+POST
+
+### 是否需要登录
+
+需要
+
+### 传值方式
+
+json
+
+### 请求参数列表
+
+可根据 graphql 查询条件变化，可用字段请参考 [参数列表](#ganttdata)
+
+### 请求示例
 
 ```json
 {
@@ -338,6 +485,10 @@ none
   }
 }
 ```
+
+### 返回参数列表
+
+请参考 [graphql 添加 item 返回参数](../item.md#添加item)
 
 ### 返回体示例
 
@@ -368,9 +519,35 @@ none
 
 ## 更新甘特图中数据信息
 
-[调用方式](../item.md#更新item)
+### URL
 
-[参数列表](#ganttdata)
+https://your-host-name/project/api/project/team/:teamUUID/items/:itemkey/update
+
+### 功能描述
+
+[调用 item 接口](../item.md#更新item) , 更新甘特图中数据信息
+
+### HTTP Method
+
+POST
+
+### 是否需要登录
+
+需要
+
+### 传值方式
+
+URL / JSON
+
+### 请求参数列表
+
+#### URL 参数
+
+itemkey: 甘特图的 key, 例如: `gantt_data-6ZpgEzkkQ7PkhGTv`
+
+#### json 参数
+
+可根据 graphql 查询条件变化，可用字段请参考 [参数列表](#ganttdata)
 
 ### 请求体参考
 
@@ -388,6 +565,10 @@ none
   }
 }
 ```
+
+### 返回参数列表
+
+请参考 [graphql 更新 item 返回参数](../item.md#更新item)
 
 ### 返回体参考
 
@@ -414,14 +595,37 @@ none
 }
 ```
 
+---
+
 ### 删除甘特图中的数据
 
-- itemKey: gantt_data-{gantt_data.uuid}
-  [调用方式](../item.md#删除item)
+### URL
 
-### 参数列表参考
+https://your-host-name/project/api/project/team/:teamUUID/items/:itemkey/delete
 
-none
+### 功能描述
+
+[调用 item 接口](../item.md#删除item) , 删除甘特图中的数据
+
+### HTTP Method
+
+POST
+
+### 是否需要登录
+
+需要
+
+### 传值方式
+
+URL
+
+### 请求参数列表
+
+itemkey: 项目集的 key, 例如: `gantt_chart-6ZpgEzkkQ7PkhGTv`
+
+### 返回参数列表
+
+请参考 [graphql 删除 item 返回参数](../item.md#删除item)
 
 ### 返回参数参考
 
@@ -437,7 +641,29 @@ none
 
 ## 获取甘特图列表
 
-[调用 graphql 接口](../../graphql/graphql.md#call_ones_graphql)
+### URL
+
+https://your-host-name/project/api/project/team/:teamUUID/items/graphql
+
+### 功能描述
+
+[调用 graphql 接口](../../graphql/graphql.md#call_ones_graphql) , 获取甘特图列表
+
+### HTTP Method
+
+POST
+
+### 是否需要登录
+
+需要
+
+### 传值方式
+
+json
+
+### 请求参数列表
+
+可根据 graphql 查询条件变化，可用字段参考 [gantt_chart](#gantt_chart)
 
 ### 查询参数
 
@@ -490,6 +716,10 @@ query LIST_GANTT_CHARTS($filter: Filter, $orderBy: OrderBy) {
   "query": "query LIST_GANTT_CHARTS($filter: Filter, $orderBy: OrderBy) {\n  ganttCharts(filter: $filter, orderBy: $orderBy) {\n    key\n    uuid\n    name\n    shared\n    sharedTo {\n      param\n      type\n      __typename\n    }\n    owner {\n      key\n      uuid\n      __typename\n    }\n    personalConfig {\n      key\n      expand\n      zooming\n      __typename\n    }\n    importConfig {\n      projects\n      __typename\n    }\n    syncFromProject\n    syncToProject\n    createTime\n    __typename\n  }\n}\n"
 }
 ```
+
+### 返回参数列表
+
+请参考 [graphql 查询 item 返回参数](../../graphql/graphql.md#call_ones_graphql)
 
 ### 返回体参考
 
@@ -565,11 +795,35 @@ query LIST_GANTT_CHARTS($filter: Filter, $orderBy: OrderBy) {
 }
 ```
 
+---
+
 ## 获取甘特图中数据
 
-[调用 graphql 接口](../../graphql/graphql.md#call_ones_graphql)
+### URL
 
-### 查询参数
+https://your-host-name/project/api/project/team/:teamUUID/items/graphql
+
+### 功能描述
+
+[调用 graphql 接口](../../graphql/graphql.md#call_ones_graphql) , 获取甘特图中数据
+
+### HTTP Method
+
+POST
+
+### 是否需要登录
+
+需要
+
+### 传值方式
+
+json
+
+### 请求参数列表
+
+可根据 graphql 查询条件变化，可用字段参考 [gantt_chart](#gantt_chart)
+
+### 查询参数示例
 
 ```graphql
 query LIST_GANTT_DATAS($filter: Filter, $orderBy: OrderBy) {
@@ -626,6 +880,10 @@ query LIST_GANTT_DATAS($filter: Filter, $orderBy: OrderBy) {
   "query": "query LIST_GANTT_DATAS($filter: Filter, $orderBy: OrderBy) {\n  ganttDatas(filter: $filter, orderBy: $orderBy) {\n    key\n    uuid\n    name\n    planStartTime\n    planEndTime\n    parent\n    position\n    progress\n    ganttChartUUID\n    ganttDataType\n    createTime\n    assign {\n      uuid\n      name\n      avatar\n      __typename\n    }\n    relatedType\n    sprint {\n      uuid\n      project {\n        uuid\n        __typename\n      }\n      __typename\n    }\n    project {\n      uuid\n      __typename\n    }\n    needSync\n    __typename\n  }\n}\n"
 }
 ```
+
+### 返回参数列表
+
+请参考 [graphql 查询 item 返回参数](../../graphql/graphql.md#call_ones_graphql)
 
 ### 返回体参考
 
