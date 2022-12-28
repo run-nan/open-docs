@@ -16,20 +16,20 @@ Used to access external services
 
 #### Params:
 
-| **Param** | **Type**                 | Description     | **Required** | **Default** |
-| :-------- | :----------------------- | :-------------- | :----------- | :---------- |
-| url       | string                   | Request address | Y            | -           |
-| method    | string                   | Request type    | Y            | -           |
-| body      | object/Uint8Array/string | Request body    | N            | -           |
-| headers   | Record<string, string[]> | Request header  | N            | -           |
+| **Param** | Description     | **Type**                 | **Required** | **Default** |
+| :-------- | :-------------- | :----------------------- | :----------- | :---------- |
+| url       | Request address | string                   | Y            | -           |
+| method    | Request type    | string                   | Y            | -           |
+| body      | Request body    | object/Uint8Array/string | N            | -           |
+| headers   | Request header  | Record<string, string[]> | N            | -           |
 
 #### Returns:
 
-| **Param**  | **Type**                     | Description | **Required** | **Default** |
-| :--------- | :--------------------------- | :---------- | :----------- | :---------- |
-| statusCode | number / string / undefined  | Status code | -            | -           |
-| body       | object / Uint8Array / string | Return body | -            | -           |
-| headers    | Record<string, string[]>     | Turn back   | -            | -           |
+| **Param**  | Description | **Type**                     | **Required** | **Default** |
+| :--------- | :---------- | :--------------------------- | :----------- | :---------- |
+| statusCode | Status code | number / string / undefined  | Y            | -           |
+| body       | Return body | object / Uint8Array / string | Y            | -           |
+| headers    | Turn back   | Record<string, string[]>     | Y            | -           |
 
 #### Example:
 
@@ -49,21 +49,21 @@ Used to access ONES system standard interface
 
 #### Params:
 
-| **Param** | **Type**                 | Description                                                                     | **Required** | **Default** |
-| :-------- | :----------------------- | :------------------------------------------------------------------------------ | :----------- | :---------- |
-| path      | string                   | Request address. For wiki interface, you need to add'/ wiki' before parameters. | Y            | -           |
-| method    | string                   | Request type                                                                    | Y            | -           |
-| body      | object/Uint8Array/string | Request body                                                                    | N            | -           |
-| headers   | Record<string, string[]> | Request header                                                                  | N            | -           |
-| root      | bool                     | Whether to use the plugin superuser                                             | N            | true        |
+| **Param** | Description                                                                     | **Type**                 | **Required** | **Default** |
+| :-------- | :------------------------------------------------------------------------------ | :----------------------- | :----------- | :---------- |
+| path      | Request address. For wiki interface, you need to add'/ wiki' before parameters. | string                   | Y            | -           |
+| method    | Request type                                                                    | string                   | Y            | -           |
+| body      | Request body                                                                    | object/Uint8Array/string | N            | -           |
+| headers   | Request header                                                                  | Record<string, string[]> | N            | -           |
+| root      | Whether to use the plugin superuser                                             | bool                     | N            | true        |
 
 #### Returns:
 
-| **Param**  | **Type**                     | Description | **Required** | **Default** |
-| :--------- | :--------------------------- | :---------- | :----------- | :---------- |
-| statusCode | number / string / undefined  | Status code | -            | -           |
-| body       | object / Uint8Array / string | Return body | -            | -           |
-| headers    | Record<string, string[]>     | Turn back   | -            | -           |
+| **Param**  | Description | **Type**                     | **Required** | **Default** |
+| :--------- | :---------- | :--------------------------- | :----------- | :---------- |
+| statusCode | Status code | number / string / undefined  | Y            | -           |
+| body       | Return body | object / Uint8Array / string | Y            | -           |
+| headers    | Turn back   | Record<string, string[]>     | Y            | -           |
 
 #### Example：
 
