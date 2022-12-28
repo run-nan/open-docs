@@ -13,13 +13,11 @@ import exportImg from './images/export.png'
 
 ## 要求
 
-| ONES | @ones/cli-ability-template | @ones/cli-plugin |
-| ---- | -------------------------- | ---------------- |
-| TODO | TODO                       | TODO             |
+| **ONES** |
+| :------- |
+| TODO     |
 
 ## 概述
-
-### 能力描述
 
 开发平台提供了自定义测试报告组件的能力，当标品提供的测试报告组件不能满足需求时，使用该能力可以在测试报告和测试报告模板编辑页面中添加自定义的组件卡片。
 使用该能力时，用户可以自定义的内容包括：
@@ -46,15 +44,15 @@ import exportImg from './images/export.png'
 
 <Image img={exportImg} />
 
-### 能力使用
+## 使用
 
-#### 安装前置依赖
+### 安装前置依赖
 
 ```shell
 npm install @ones-op/store
 ```
 
-#### 添加模块
+### 添加模块
 
 1. 执行`npx op add module`命令，选中`ones:testcase:report:component:new` ，添加一个模块
 2. 执行`npx op add sub-module` 命令，在刚刚添加的`ones:testcase:report:component:new` 模块下添加子模块
@@ -86,7 +84,7 @@ modules:
 - 组件卡片：`scene` 为`render`，用来渲染自定义组件在测试报告中的卡片内容，必须添加
 - 配置弹窗：`scene` 为`setting` ，用来渲染自定义组件的配置弹窗内容，如果组件不支持配置，可以不添加
 
-#### 添加能力
+### 添加能力
 
 1. 执行`npx op add ability`命令，选中`testcase-report-custom-component@1.0.0`
 2. 在 `/config/plugin.yaml` 中对能力进行手动配置
@@ -125,7 +123,7 @@ abilities:
           show: false
 ```
 
-#### 自定义组件卡片内容
+### 自定义组件卡片内容
 
 在`scene` 为`render` 的模块中，通过`useTestReportComponentInfo` 获取组件配置，然后根据组件配置渲染对应的 UI 即可
 
@@ -145,7 +143,7 @@ export const CustomComponentCard = () => {
 }
 ```
 
-#### 自定义组件导出内容
+### 自定义组件导出内容
 
 在`scene` 为`render` 的模块中，通过`useTestReportComponentInfo` 获取保存导出内容的方法，然后根据组件配置更新导出内容即可
 
@@ -169,7 +167,7 @@ export const CustomComponentCard = () => {
 }
 ```
 
-#### 自定义组件配置弹窗
+### 自定义组件配置弹窗
 
 如果自定义组件需要支持配置，那么开发者需要添加`scene` 为`setting` 的模块，在该模块中，通过`useTestReportComponentInfo` 获取组件配置，更新组件配置的方法，以及监听弹窗提交事件的方法，然后渲染编辑配置的表单 UI 即可。
 
@@ -219,7 +217,7 @@ export const Setting = () => {
 
 ## 常见问题
 
-### 测试报告组件名称如何实现多语言？
+**测试报告组件名称如何实现多语言？**
 
 参考[插件多语言支持](../../../guide/abilities/multilingual.mdx)
 
@@ -243,7 +241,7 @@ abilities:
 
 ```
 
-### 如何更新测试报告组件名称?
+**如何更新测试报告组件名称?**
 
 参考[插件升级](../../../guide/upgrade.md)
 

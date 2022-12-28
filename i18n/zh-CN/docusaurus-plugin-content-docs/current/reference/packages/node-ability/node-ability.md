@@ -599,3 +599,148 @@ const file = await PluginFile.uploadFile('files/test.txt', 'taskuuid', 'desc')
 ```
 
 ---
+
+### Process.create
+
+#### Params
+
+| 参数           | 说明                                                                                                                         | 类型                        | 必填 | 默认值 |
+| :------------- | :--------------------------------------------------------------------------------------------------------------------------- | :-------------------------- | :--- | :----- |
+| processType    | 进度管理器类型,可选值: <br /> **下载进度管理器**:ProcessType.DownloadFile <br /> **数据同步进度管理器**:ProcessType.DataSync | string                      | 是   | -      |
+| userUUID       | 用户 uuid                                                                                                                    | string                      | 是   | -      |
+| title          | 进度标题                                                                                                                     | [LanguagePkg](#LanguagePkg) | 是   | -      |
+| timeoutSeconds | 超时时间，进度管理器在时间内未完成则失败                                                                                     | number                      | 否   | 60(秒) |
+| moduleID       | 进度管理器插槽 ID（仅适用于数据同步进度管理器）                                                                              | string                      | 否   | -      |
+| teamUUID       | 进度管理器所属团队 uuid，仅当插件为组织级别下使用                                                                            | string                      | 否   | -      |
+
+##### LanguagePkg {#LanguagePkg}
+
+| 参数 | 说明     | 类型   | 必填 | 默认值 |
+| :--- | :------- | :----- | :--- | :----- |
+| zh   | 中文内容 | string | 是   | -      |
+| en   | 英文内容 | string | 是   | -      |
+
+#### Returns
+
+| 参数        | 说明            | 类型   |
+| :---------- | :-------------- | :----- |
+| processUUID | 进度管理器 UUID | string |
+
+#### Example
+
+```typescript
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+import { Process, LanguagePkg, ProcessType, ProcessResult } from '@ones-op/node-ability'
+
+export async function createProcess(request: PluginRequest): Promise<PluginResponse> {
+  //从请求中获取参数
+  const { user_uuid, title, timeout } = request?.body as any
+  //进度管理器多语言标题
+  const titlePkg: LanguagePkg = {
+    en: 'process',
+    zh: title,
+  }
+  //创建进度管理器，获取返回值processUUID
+  const processUUID = await Process.create(ProcessType.DownloadFile, user_uuid, titlePkg, timeout)
+
+  return {
+    body: {
+      process_uuid: processUUID,
+    },
+  }
+}
+```
+
+---
+
+### Process.update
+
+#### Params
+
+| 参数                   | 说明            | 类型   | 必填 | 默认值 |
+| :--------------------- | :-------------- | :----- | :--- | :----- |
+| processUUID            | 进度管理器 uuid | string | 是   | -      |
+| currentSuccessfulCount | 当前完成数      | number | 是   | -      |
+| currentFailedCount     | 当前失败数      | number | 是   | -      |
+| currentRemainingCount  | 当前剩余数      | number | 是   | -      |
+
+#### Example
+
+```typescript
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+import { Process, LanguagePkg, ProcessType, ProcessResult } from '@ones-op/node-ability'
+
+export async function updateProgress(request: PluginRequest): Promise<PluginResponse> {
+  //从请求中获取参数
+  const { process_uuid: processUUID } = request?.body as any
+  const currentSuccessfulCount = 10
+  const currentFailedCount = 5
+  const currentRemainingCount = 30
+  //进度管理器更新
+  await Process.update(
+    processUUID,
+    currentSuccessfulCount,
+    currentFailedCount,
+    currentRemainingCount
+  )
+  return {
+    body: {
+      status: 'ok',
+    },
+  }
+}
+```
+
+---
+
+### Process.done
+
+#### Params
+
+| 参数        | 说明            | 类型                            | 必填 | 默认值 |
+| :---------- | :-------------- | :------------------------------ | :--- | :----- |
+| processUUID | 进度管理器 uuid | string                          | 是   | -      |
+| isSuccess   | 成功或失败      | bool                            | 是   | -      |
+| resultText  | 详情内容        | [LanguagePkg](#LanguagePkg)     | 是   | -      |
+| payload     | 完成动作        | [ProcessResult](#ProcessResult) | 是   | -      |
+
+#### Returns {#ProcessResult}
+
+| 参数     | 说明                                         | 类型   | 必填 | 默认值 |
+| :------- | :------------------------------------------- | :----- | :--- | :----- |
+| filePath | 文件路径，类型为**下载进度管理器**时可用     | string | 否   | -      |
+| data     | 额外内容，类型为**数据同步进度管理器**时可用 | string | 否   | -      |
+
+#### Example
+
+```typescript
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+import { Process, LanguagePkg, ProcessType, ProcessResult } from '@ones-op/node-ability'
+
+export async function doneProcess(request: PluginRequest): Promise<PluginResponse> {
+  //从请求中获取参数
+  const { process_uuid: processUUID } = request?.body as any
+  //多语言详情内容
+  const resultText: LanguagePkg = {
+    en: 'content',
+    zh: '详情内容',
+  }
+  //进度管理器完成时的动作，下载进度管理器下载指定的文件，数据同步进度管理器可以展示额外的内容
+  const payload: ProcessResult = {
+    filePath: './plugin.sql',
+  }
+
+  const isSuccess = true
+  //完成进度
+  await Process.done(processUUID, isSuccess, resultText, payload)
+
+  return {
+    body: {
+      status: 'ok',
+      process_uuid: processUUID,
+    },
+  }
+}
+```
+
+---

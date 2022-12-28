@@ -599,3 +599,148 @@ const file = await PluginFile.uploadFile('files/test.txt', 'taskuuid', 'desc')
 ```
 
 ---
+
+### Process.create
+
+#### Params
+
+| Param          | Description                                                                                                                                                       | Type                        | Required | Default |
+| :------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------- | :------- | :------ |
+| processType    | type of Progress Manager,Optional values: <br /> **Download Progress Manager**:ProcessType.DownloadFile <br /> **Datasync Progress Manager**:ProcessType.DataSync | string                      | Y        | -       |
+| userUUID       | uuid of user                                                                                                                                                      | string                      | Y        | -       |
+| title          | title of progress                                                                                                                                                 | [LanguagePkg](#LanguagePkg) | Y        | -       |
+| timeoutSeconds | Timeout limit, if the Progress Manager is not completed within the time limit, it fails.                                                                          | number                      | N        | 60(s)   |
+| moduleID       | moduleID of Progress Manager（only applicable to **Datasync Progress Manager**）                                                                                  | string                      | N        | -       |
+| teamUUID       | uuid of the team which the Progress Manager belongs，only if the plugin is used at the organizational level                                                       | string                      | N        | -       |
+
+##### LanguagePkg {#LanguagePkg}
+
+| Param | Description   | Type   | Required | Default |
+| :---- | :------------ | :----- | :------- | :------ |
+| zh    | Chinese title | string | Y        | -       |
+| en    | English title | string | Y        | -       |
+
+#### Returns
+
+| Param       | Description                  | Type   |
+| :---------- | :--------------------------- | :----- |
+| processUUID | the uuid of Progress Manager | string |
+
+#### Example
+
+```typescript
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+import { Process, LanguagePkg, ProcessType, ProcessResult } from '@ones-op/node-ability'
+
+export async function createProcess(request: PluginRequest): Promise<PluginResponse> {
+  //Get parameters from request
+  const { user_uuid, title, timeout } = request?.body as any
+  //Progress Manager Multilingual Titles
+  const titlePkg: LanguagePkg = {
+    en: 'file',
+    zh: title,
+  }
+  //Create a progress manager and get the return value processUUID
+  const processUUID = await Process.create(ProcessType.DownloadFile, user_uuid, titlePkg, timeout)
+
+  return {
+    body: {
+      process_uuid: processUUID,
+    },
+  }
+}
+```
+
+---
+
+### Process.update
+
+#### Params
+
+| Param                  | Description                   | Type   | Required | Default |
+| :--------------------- | :---------------------------- | :----- | :------- | :------ |
+| processUUID            | uuid of Process Manager       | string | Y        | -       |
+| currentSuccessfulCount | current number of completions | number | Y        | -       |
+| currentFailedCount     | current number of failures    | number | Y        | -       |
+| currentRemainingCount  | current remaining number      | number | Y        | -       |
+
+#### Example
+
+```typescript
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+import { Process, LanguagePkg, ProcessType, ProcessResult } from '@ones-op/node-ability'
+
+export async function updateProgress(request: PluginRequest): Promise<PluginResponse> {
+  //Get parameters from request
+  const { process_uuid: processUUID } = request?.body as any
+  const currentSuccessfulCount = 10
+  const currentFailedCount = 5
+  const currentRemainingCount = 30
+  //Progress Manager Update
+  await Process.update(
+    processUUID,
+    currentSuccessfulCount,
+    currentFailedCount,
+    currentRemainingCount
+  )
+  return {
+    body: {
+      status: 'ok',
+    },
+  }
+}
+```
+
+---
+
+### Process.done
+
+#### Params
+
+| Param       | Description              | Type                            | Required | Default |
+| :---------- | :----------------------- | :------------------------------ | :------- | :------ |
+| processUUID | uuid of Process Manager  | string                          | Y        | -       |
+| isSuccess   | Success or failure       | bool                            | Y        | -       |
+| resultText  | Details                  | [LanguagePkg](#LanguagePkg)     | Y        | -       |
+| payload     | The action at completion | [ProcessResult](#ProcessResult) | Y        | -       |
+
+#### Returns {#ProcessResult}
+
+| Param    | Description                                                | Type   | Required | Default |
+| :------- | :--------------------------------------------------------- | :----- | :------- | :------ |
+| filePath | File path,available when **Download Progress Manager**     | string | N        | -       |
+| data     | Extra content,available when **Datasync Progress Manager** | string | N        | -       |
+
+#### Example
+
+```typescript
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+import { Process, LanguagePkg, ProcessType, ProcessResult } from '@ones-op/node-ability'
+
+export async function doneProcess(request: PluginRequest): Promise<PluginResponse> {
+  //Get parameters from request
+  const { process_uuid: processUUID } = request?.body as any
+  //Multilingual details
+  const resultText: LanguagePkg = {
+    en: 'content',
+    zh: '详情内容',
+  }
+  //The action when the progress manager is completed, the download progress manager downloads the specified file, and the data synchronization progress manager can display additional content
+  const payload: ProcessResult = {
+    filePath: './plugin.sql',
+  }
+
+  const isSuccess = true
+  //Complete schedule
+  await Process.done(processUUID, isSuccess, resultText, payload)
+
+  return {
+    body: {
+      status: 'ok',
+      process_uuid: processUUID,
+    },
+  }
+}
+```
+
+---
