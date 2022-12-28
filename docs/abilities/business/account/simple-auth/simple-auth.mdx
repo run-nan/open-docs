@@ -13,7 +13,7 @@ import simpleAuth3 from './images/simple-auth3.png'
 
 | **ONES** |
 | :------- |
-| 3.6+     |
+| v3.6.0+  |
 
 ## Overview
 
@@ -41,9 +41,9 @@ Select and add `simple-auth@1.0.0`
 
 The OP tool add the following to the plugin
 
-- The OP tool adds abilitiy field related paragraphs in `{{plugin root directory}}/config/plugin.yaml`
+- The OP tool adds abilitiy field related paragraphs in `config/plugin.yaml`
 
-  ```yaml
+```yaml title="config/plugin.yaml"
   service:
     app_id: ...
     name: ability-scriptFloat
@@ -57,13 +57,13 @@ The OP tool add the following to the plugin
       abilityType: SimpleAuth
       function:
         validateFunc: SimpleAuthValidate
-  ```
+```
 
-  In the `abilities` field of the `config/plugin.yaml` file, the value of `id` can be customized, the value of `name` can be customized, and the value of `function.validateFunc` can be replaced with the name of your implementation method. Of course, you can keep it by default.
+In the `abilities` field of the `config/plugin.yaml` file, the value of `id` can be customized, the value of `name` can be customized, and the value of `function.validateFunc` can be replaced with the name of your implementation method. Of course, you can keep it by default.
 
-- The OP tool adds files to the plugin in `{{plugin root directory}}/backend/src/simple-auth.ts`
+- The OP tool adds files to the plugin in `backend/src/simple-auth.ts`
 
-```typescript
+```typescript title="backend/src/simple-auth.ts"
 import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 
 // Example Function
@@ -94,9 +94,7 @@ When a user logs in with Simple Auth, ONES calls the `SimpleAuthValidate` method
 
 Here, the rule we implement is that only `user_uuid` starting with `W` is allowed for simple login.
 
-`{{plugin root directory}}/backend/src/simple-auth.ts`
-
-```typescript
+```typescript title="backend/src/simple-auth.ts"
 import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 
 // Example function SimpleAuth
@@ -131,11 +129,15 @@ export async function SimpleAuthValidate(request: PluginRequest): Promise<Plugin
 
 ### Step 3: Request a simple login API to log in to ONES
 
-Install and enable plugin,try different `user_uuid` to vvrify the results.
+Install and enable plugin,try different `user_uuid` to verify the results.
 
 The url of the simple login API is `{{ ONES IpAddress}}/project/api/project/ability/simple_auth_login`, where {{ONES IpAddress}} is your ONES instance address.
 
-> Replace the corresponding parameters（required for all places where `{{}}` parentheses are used）
+:::note
+
+Replace the corresponding parameters（required for all places where `{{}}` parentheses are used）
+
+:::
 
 ```
 #  The value of Ones-Plugin-Id is plugin's instance_uuid, which can be obtained by viewing the plugin log.

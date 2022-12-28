@@ -23,7 +23,7 @@ Users want to synchronize the organizational structure and personnel information
 Add the following code to the plugin configuration file
 `config/plugin.yaml`
 
-```yaml
+```yaml title="config/plugin.yaml"
 service: ...
 abilities:
   - id: ...
@@ -72,7 +72,7 @@ abilities:
 
 ### Third-party system access
 
-#### **prerequisite**
+#### prerequisite
 
 1. Register Ding Talk account
 
@@ -92,14 +92,6 @@ Find `应用功能 -> 登录与分享 -> 接入登录` at the bottom of the appl
 
 <Image img={redirectUrl} />
 
-After the plugin is installed and enabled,click "Add integrations" in `Configuration -> User management -> Integration`,select the corresponding plugin and add it.
-
-<Image img={account5} />
-
-Enable user directory synchronization and login verification function.
-
-<Image img={account6} />
-
 #### Third party login
 
 The log-in sequence of third-party users is as follows
@@ -110,13 +102,7 @@ After entering the login page of ONES, click the Ding Talk login entry provided 
 
 <Image img={ONESLoginInterface} />
 
-Log in using the Ding Talk scan QR code
-
-<Image img={QRcode} />
-
-Confirm the authorization to log in on the mobile phone
-
-<Image img={QRCodeLogin} />
+Log in using the Ding Talk scan QR code and confirm the authorization to log in on the mobile phone
 
 Through the previous operation steps, the developer has completed the operation steps from step 1 to step 4 in the sequence diagram, and the specific implementation of these steps is in the `CreateLoginUrl()` method in the plugin code.
 
@@ -157,6 +143,26 @@ export async function CreateLoginUrl(request: PluginRequest): Promise<PluginResp
     return CreateLoginUrlRespData(200, '200', '', '', '', response)
   }
   return CreateLoginUrlRespData(500, '', '', '', '', response)
+}
+
+function CreateLoginUrlRespData(
+  code: number,
+  errcode,
+  model,
+  reason,
+  type: Object,
+  body: CreateLoginUrlResponse
+): PluginResponse {
+  return {
+    body: {
+      code,
+      errcode,
+      model,
+      reason,
+      type,
+      body,
+    },
+  }
 }
 ```
 
@@ -219,6 +225,65 @@ export async function DoExchangeUser(request: PluginRequest): Promise<PluginResp
 
   // 返回登录用户信息
   return DoExchangeUserRespData(200, '', '', '', '', resp)
+}
+
+export function getCode(request: PluginRequest) {
+  // Logger.info(request)
+  if (typeof request?.body == 'object' && !Array.isArray(request?.body)) {
+    let authInfo = request.body.auth_info
+    let obj = JSON.parse(authInfo)
+    return obj.code
+  }
+  return ''
+}
+
+// 获取企业 token
+export async function getToken(): Promise<string> {
+  Logger.info('正在获取企业应用token...')
+  try {
+    // 登录url
+    const url = 'https://oapi.dingtalk.com/gettoken' + `?appkey=${Appsecret}&appsecret=${Secret}`
+    Logger.info('request =====', url)
+    const response = await fetchHttp({
+      url: url,
+      method: 'GET',
+    })
+    let body = (response?.body as Record<string, any>) || ''
+    const AccessToken = body?.access_token || ''
+    const ExpiresIn = body?.expires_in || 0
+    if (AccessToken == '') {
+      Logger.info('token获取失败::', body)
+      return ''
+    }
+    Logger.info('token:', AccessToken)
+    Logger.info('expires_in', ExpiresIn)
+    Logger.info('insert_sql sql:', insert_sql)
+    Logger.info('token-获取成功')
+    return AccessToken
+  } catch (error) {
+    Logger.info('token异常错误error::', error)
+    return ''
+  }
+}
+
+function DoExchangeUserRespData(
+  code: number,
+  errcode,
+  model,
+  reason,
+  type: Object,
+  body: DoExchangeUserResponse
+): PluginResponse {
+  return {
+    body: {
+      code,
+      errcode,
+      model,
+      reason,
+      type,
+      body,
+    },
+  }
 }
 ```
 
@@ -316,6 +381,55 @@ export async function DoPullData(request: PluginRequest): Promise<PluginResponse
   resp.departments = departments
   resp.users = userInfos
   return DoPullDataRespData(200, '', '', '', '', resp)
+}
+
+// 获取企业 token
+export async function getToken(): Promise<string> {
+  Logger.info('正在获取企业应用token...')
+  try {
+    // 登录url
+    const url = 'https://oapi.dingtalk.com/gettoken' + `?appkey=${Appsecret}&appsecret=${Secret}`
+    Logger.info('request =====', url)
+    const response = await fetchHttp({
+      url: url,
+      method: 'GET',
+    })
+    let body = (response?.body as Record<string, any>) || ''
+    const AccessToken = body?.access_token || ''
+    const ExpiresIn = body?.expires_in || 0
+    if (AccessToken == '') {
+      Logger.info('token获取失败::', body)
+      return ''
+    }
+    Logger.info('token:', AccessToken)
+    Logger.info('expires_in', ExpiresIn)
+    Logger.info('insert_sql sql:', insert_sql)
+    Logger.info('token-获取成功')
+    return AccessToken
+  } catch (error) {
+    Logger.info('token异常错误error::', error)
+    return ''
+  }
+}
+
+function DoPullDataRespData(
+  code: number,
+  errcode,
+  model,
+  reason,
+  type: Object,
+  body: DoPullDataResponse
+): PluginResponse {
+  return {
+    body: {
+      code,
+      errcode,
+      model,
+      reason,
+      type,
+      body,
+    },
+  }
 }
 ```
 

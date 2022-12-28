@@ -16,7 +16,7 @@ import account6 from './images/account6.png'
 
 | **ONES** |
 | :------- |
-| 3.6+     |
+| v3.6.0+  |
 
 ## 概述
 
@@ -64,9 +64,9 @@ npx op add ability
 
 OP 工具会为插件添加如下内容
 
-- `{{插件根目录}}/config/plugin.yaml`中 abilities 字段新增相关段落。
+- 插件配置文件`config/plugin.yaml`中 abilities 字段新增相关段落。
 
-```yaml
+```yaml title="config/plugin.yaml"
     service:
     ...
     ...
@@ -115,27 +115,41 @@ OP 工具会为插件添加如下内容
             show: false
 ```
 
-- OP 工具在插件中新增文件`{{插件根目录}}/backend/src/account.ts`
+- OP 工具在插件中新增文件`backend/src/account.ts`
+
+### 第二步: 实现该能力各功能点对应的方法
+
+#### 实现第三方登录
+
+实现第三方登录 ONES 功能，只需实现`CreateLoginUrl`方法即可。而如果希望将第三方系统的用户信息（包括姓名，邮箱等）同步到 ONES ，并自动创建 ONES 账号，则还需要完成`DoExchangeUser`方法。
+
+`CreateLoginUrl`需要返回第三方系统登录时调用的 url，在该方法的 request 中包含了重定向到 ONES 的 URL，插件开发者可以将其拼接入需要返回的 respUrl 中。
 
 ```typescript
-import { Logger } from '@ones-op/node-logger'
-import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
-import { select, importSQL, count, exec } from '@ones-op/node-database'
-import { readLines } from '@ones-op/node-file'
-import { fetchHttp } from '@ones-op/node-fetch'
-import { URL } from 'url'
-const axios = require('axios')
-
-// login
+//在url中填入第三方系统登录时调用的url
 export async function CreateLoginUrl(request: PluginRequest): Promise<PluginResponse> {
-  const respUrl = ''
+  //调用完第三方登录之后，会把返回的信息重定向到该地址，有时需要使用该地址拼接respUrl
+  //@ts-ignore
+  const redirectUrl: string = request?.body.redirect_url
   const response: CreateLoginUrlResponse = {
     url: '',
   }
   return CreateLoginUrlRespData(200, '200', '', '', '', response)
 }
+```
 
+`DoExchangeUser`方法中，插件开发者需要返回用户的信息数据，从而在 ONES 进行用户的账号创建以及信息同步。在该方法的 request 中，有关键的 code 信息，插件开发者可以通过该 code 去第三方系统获取用户信息，然后在`DoExchangeUser`方法中返回用户信息。
+
+```typescript
 export async function DoExchangeUser(request: PluginRequest): Promise<PluginResponse> {
+  let code1 = ''
+  if (typeof request?.body == 'object' && !Array.isArray(request?.body)) {
+    const authInfo = request.body.auth_info
+    const obj = JSON.parse(authInfo)
+    //获取登录后的code，通过该code去第三方系统获取用户信息
+    code1 = obj.code
+  }
+  //返回信息resp的格式
   const resp: DoExchangeUserResponse = {
     third_party_id: '',
     name: '',
@@ -144,11 +158,18 @@ export async function DoExchangeUser(request: PluginRequest): Promise<PluginResp
     email: '',
     phone: '',
   }
-
+  //通过调用第三方API，获取用户信息并组合数据到resp中
   return DoExchangeUserRespData(200, '', '', '', '', resp)
 }
+```
 
-// 同步信息
+#### 实现组织人员同步
+
+实现第三方的组织人员同步到 ONES 的功能只需要实现`DoPullData`方法即可，插件开发者需要在该方法中返回第三方部门和人员的信息，从而在 ONES 中进行部门和人员同步。
+
+插件开发者需要先去第三方系统获取部门信息和人员信息，然后将数据重构成`DoPullData`方法中指定的返回结构。
+
+```typescript
 export async function DoPullData(request: PluginRequest): Promise<PluginResponse> {
   const resp: DoPullDataResponse = {
     departments: [],
@@ -182,210 +203,9 @@ export async function DoPullData(request: PluginRequest): Promise<PluginResponse
 
   return DoPullDataRespData(200, '', '', '', '', resp)
 }
-
-// 发送消息
-export async function SendMessage(request: PluginRequest): Promise<PluginResponse> {
-  const body = request.body || {}
-  Logger.info('[Plugin] hello ======= 请求成功')
-  return sendMessageRespData(200, '', '', '', '')
-}
-
-interface CreateLoginUrlResponse {
-  url: string
-}
-
-function CreateLoginUrlRespData(
-  code: number,
-  errcode,
-  model,
-  reason,
-  type: Object,
-  body: CreateLoginUrlResponse
-): PluginResponse {
-  return {
-    body: {
-      code,
-      errcode,
-      model,
-      reason,
-      type,
-      body,
-    },
-  }
-}
-
-interface DoExchangeUserResponse {
-  third_party_id: string
-  name: string
-  title: string
-  avatar: string
-  email: string
-  phone: string
-}
-
-function DoExchangeUserRespData(
-  code: number,
-  errcode,
-  model,
-  reason,
-  type: Object,
-  body: DoExchangeUserResponse
-): PluginResponse {
-  return {
-    body: {
-      code,
-      errcode,
-      model,
-      reason,
-      type,
-      body,
-    },
-  }
-}
-
-interface UserInfo {
-  third_party_id: string
-  name: string
-  email: string
-  title: string
-  department_ids: string[]
-  company: string
-}
-
-interface DepartmentInfo {
-  third_party_id: string
-  name: string
-  parent_id: string
-  next_id: string
-}
-
-interface DoPullDataResponse {
-  departments: DepartmentInfo[]
-  users: UserInfo[]
-}
-
-function DoPullDataRespData(
-  code: number,
-  errcode,
-  model,
-  reason,
-  type: Object,
-  body: DoPullDataResponse
-): PluginResponse {
-  return {
-    body: {
-      code,
-      errcode,
-      model,
-      reason,
-      type,
-      body,
-    },
-  }
-}
-
-function sendMessageRespData(code: number, errcode, model, reason, type): PluginResponse {
-  return {
-    body: {
-      code,
-      errcode,
-      model,
-      reason,
-      type,
-    },
-  }
-}
 ```
 
-### 第二步: 实现该能力各功能点对应的方法
-
-- **实现第三方登录**
-
-实现第三方登录 ONES 功能，只需实现`CreateLoginUrl`方法即可。而如果希望将第三方系统的用户信息（包括姓名，邮箱等）同步到 ONES ，并自动创建 ONES 账号，则还需要完成`DoExchangeUser`方法。
-
-`CreateLoginUrl`需要返回第三方系统登录时调用的 url，在该方法的 request 中包含了重定向到 ONES 的 URL，插件开发者可以将其拼接入需要返回的 respUrl 中。
-
-```typescript
-//在url中填入第三方系统登录时调用的url
-export async function CreateLoginUrl(request: PluginRequest): Promise<PluginResponse> {
-    //调用完第三方登录之后，会把返回的信息重定向到该地址，有时需要使用该地址拼接respUrl
-    let redirectUrl: string = request?.body.redirect_url;
-    Logger.info("redirectUrl:", redirectUrl)
-    return respData(200, "200", "", "", "",{
-      url: respUrl
-    }
-}
-```
-
-`DoExchangeUser`方法中，插件开发者需要返回用户的信息数据，从而在 ONES 进行用户的账号创建以及信息同步。在该方法的 request 中，有关键的 code 信息，插件开发者可以通过该 code 去第三方系统获取用户信息，然后在`DoExchangeUser`方法中返回用户信息。
-
-```typescript
-export async function DoExchangeUser(request: PluginRequest): Promise<PluginResponse> {
-  Logger.info('Request:', request?.body)
-  let code1: string = ''
-  if (typeof request?.body == 'object' && !Array.isArray(request?.body)) {
-    let authInfo = request.body.auth_info
-    let obj = JSON.parse(authInfo)
-    //获取登录后的code，通过该code去第三方系统获取用户信息
-    code1 = obj.code
-  }
-  //返回信息resp的格式
-  const resp: DoExchangeUserResponse = {
-    third_party_id: '',
-    name: '',
-    title: '',
-    avatar: '',
-    email: '',
-    phone: '',
-  }
-  //通过调用第三方API，获取用户信息并组合数据到resp中
-  return DoExchangeUserRespData(200, '', '', '', '', resp)
-}
-```
-
----
-
-- **实现组织人员同步**
-
-实现第三方的组织人员同步到 ONES 的功能只需要实现`DoPullData`方法即可，插件开发者需要在该方法中返回第三方部门和人员的信息，从而在 ONES 中进行部门和人员同步。
-
-插件开发者需要先去第三方系统获取部门信息和人员信息，然后将数据重构成`DoPullData`方法中指定的返回结构。
-
-```typescript
-export async function DoPullData(request: PluginRequest): Promise<PluginResponse> {
-  //插件开发者获取第三方系统部门和人员数据信息
-  return respData(200, '', '', '', '', {
-    departments: [
-      // 返回一个部门列表,必须有一个部门id为-1的部门，该部门为根部门
-      {
-        third_party_id: '-1', // 部门唯一id
-        name: '根部门', // 部门名称
-        parent_id: '', // 父部门id
-        next_id: '', // 在同级部门中，下一个部门的id
-      },
-      {
-        third_party_id: '1', // 部门唯一id
-        name: '部门1', // 部门名称
-        parent_id: '-1', // 父部门id
-        next_id: '', // 在同级部门中，下一个部门的id
-      },
-    ],
-    users: [
-      {
-        third_party_id: userid, // 用户id
-        name: userInfo?.name, // 用户名称
-        email: userInfo?.email, // 用户email
-        title: userInfo?.position, // 职位
-        department_ids: ['-1'], // 所属部门id
-      },
-    ],
-  })
-}
-```
-
----
-
-- **实现消息推送**
+#### 实现消息推送
 
 实现消息推送至第三方系统功能，需要插件开发者在`SendMessage`方法中实现自己的发送逻辑，每次 ONES 需要发送消息至第三方系统时，都会调用`SendMessage`方法，而消息的确切内容都会放至`SendMessage`方法的 request 中。
 
