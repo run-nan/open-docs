@@ -1,6 +1,6 @@
 <!-- TOC depthFrom:1 depthTo:2 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-# 目录
+## 目录
 
 - [通用说明](#通用说明)
   - [筛选器](#筛选器)
@@ -10,16 +10,16 @@
   - [排序](#排序)
   - [分组](#分组)
 - [API 说明](#api-说明)
-  - [1. 获取全局筛选器列表](#1-获取全局筛选器列表)
-  - [2. 获取某个过滤条件下的任务列表](#2-获取某个过滤条件下的任务列表)
-  - [3. 任务列表任务导出](#3-任务列表任务导出)
-  - [4. 获取项目筛选器列表](#4-获取项目筛选器列表)
+  - [获取全局筛选器列表](#获取全局筛选器列表)
+  - [获取某个过滤条件下的任务列表](#获取某个过滤条件下的任务列表)
+  - [任务列表任务导出](#任务列表任务导出)
+  - [获取项目筛选器列表](#获取项目筛选器列表)
 
 <!-- /TOC -->
 
-# 通用说明
+## 通用说明
 
-## 筛选器
+### 筛选器
 
 filter
 
@@ -126,7 +126,7 @@ filter
 }
 ```
 
-## 运算符
+### 运算符
 
 query
 
@@ -200,7 +200,7 @@ date_range
 today+1d  today-1d
 ```
 
-## 条件属性
+### 条件属性
 
 condition 可查询字段
 
@@ -218,7 +218,7 @@ condition 可查询字段
 | deadline                  | int64        | 截止日期，秒           |
 | field_values.{field_uuid} | string,int64 | 自定义属性或者固有属性 |
 
-## 排序
+### 排序
 
 和 SQL 语句类似，按照 `sort` 数组里的顺序依次进行排序，`asc` 表示升序，`desc` 表示
 降序，默认使用的顺序如下
@@ -262,7 +262,7 @@ condition 可查询字段
 | field_values.{field_uuid} | 单选，迭代或者文本类型的自定义属性，以上固有属性也可以用这个方式表示      |
 | kanban                    | 其实就是根据 status_uuid 来分组。不同的是，看板模式下，分组间有自定义排序 |
 
-## 任务列表分组
+### 任务列表分组
 
 task_view_group
 
@@ -283,7 +283,7 @@ task_view_group
 | s-no-field | 分组下任务没有该属性，在全局筛选器中比较常见 |
 | s-no-group | 没有填写 group_by，当前分组是唯一分组        |
 
-## 任务列表看板分组
+### 任务列表看板分组
 
 task_view_group_for_board
 
@@ -297,7 +297,7 @@ task_view_group_for_board
 
 其中 key 的规则 与 task_view_group 相同
 
-## 任务列表看板
+### 任务列表看板
 
 task_view_board
 
@@ -309,7 +309,7 @@ task_view_board
 | count   | int64  |          | 看板下的任务总数     |
 | entries | array  |          | task_view_entry 列表 |
 
-## 任务列表项
+### 任务列表项
 
 task_view_entry
 
@@ -318,37 +318,43 @@ task_view_entry
 | uuid                | string | len=16   | 任务 uuid  |
 | server_update_stamp | int64  |          | 任务更新戳 |
 
-# API 说明
+## API 说明
 
-## 1. 获取全局筛选器列表
+### 获取全局筛选器列表
 
 列出用户在当前团队下能使用的所有筛选器
 
-### URL
+#### URL
 
 https://your-host-name/project/api/project/team/:teamUUID/filters
 
-### HTTP Method
+#### HTTP Method
 
 GET
 
-### 传值方式
+#### 是否需要登录
+
+是
+
+#### 传值方式
 
 URL
 
-### 参数列表
+#### 请求参数列表
 
-无
+| 参数名   | 值类型 | 允许空值 | 说明              |
+| :------- | :----- | :------- | :---------------- |
+| teamUUID | string | F        | 要查询的团队 UUID |
 
-### 返回参数列表
+#### 返回参数列表
 
 | 参数名  | 值类型 | 取值范围 | 说明                      |
 | :------ | :----- | :------- | :------------------------ |
 | filters | Array  |          | Filter 列表, 参考通用说明 |
 
-### 请求体示例
+#### 请求示例
 
-```curl
+```shell
 curl -X GET \
   https://your-host-name/project/api/project/team/3pDzCwAe/filters \
   -H 'Content-Type: application/json' \
@@ -358,7 +364,7 @@ curl -X GET \
   -H 'cache-control: no-cache'
 ```
 
-### 返回体示例
+#### 返回示例
 
 ```json
 {
@@ -405,34 +411,38 @@ curl -X GET \
 }
 ```
 
-## 2. 获取某个过滤条件下的任务列表
+### 获取某个过滤条件下的任务列表
 
-### URL
+#### URL
 
 https://your-host-name/project/api/project/team/:teamUUID/filters/peek
 
-### HTTP Method
+#### HTTP Method
 
 POST
 
-### 是否需要登录
+#### 是否需要登录
 
 是
 
-### 传值方式
+#### 传值方式
 
 JSON
 
-### 参数列表
+#### 请求参数列表
 
-| 参数名           | 值类型 | 取值范围 | 是否必填 | 说明                             |
-| ---------------- | ------ | -------- | -------- | -------------------------------- |
-| query            | object |          | T        | 使用的过滤条件，参考通用说明     |
-| sort             | array  |          | F        | 使用的排序方式，参考通用说明     |
-| group_by         | string |          | F        | 是否按某个字段分组，参考通用说明 |
-| include_subtasks | bool   |          | F        | 是否包含子任务                   |
+| 参数名               | 值类型 | 取值范围 | 是否必填 | 说明                             |
+| -------------------- | ------ | -------- | -------- | -------------------------------- |
+| query                | object |          | T        | 使用的过滤条件，参考通用说明     |
+| sort                 | array  |          | F        | 使用的排序方式，参考通用说明     |
+| group_by             | string |          | F        | 是否按某个字段分组，参考通用说明 |
+| include_subtasks     | bool   |          | F        | 是否包含子任务                   |
+| include_status_uuid  | bool   |          | F        | 是否包含状态                     |
+| include_issue_type   | bool   |          | F        | 是否包含工作项类型               |
+| include_project_uuid | bool   |          | F        | 是否包含项目                     |
+| is_show_derive       | bool   |          | F        | 是否显示派生                     |
 
-### 返回参数列表
+#### 返回参数列表
 
 | 参数名 | 值类型 | 取值范围 | 说明                                                                |
 | ------ | ------ | -------- | ------------------------------------------------------------------- |
@@ -440,11 +450,11 @@ JSON
 | total  | int    |          | 符合过滤条件的所有任务数量                                          |
 | count  | int    |          | 本次取出的任务数量                                                  |
 
-### 请求体示例
+#### 请求示例
 
 查找项目 [DU6krHBNJEEeoG8G] 下、工作项类型为：[GLLfcQxq]， 或者负责人为：[RGzJnspW, DU6krHBN] 的工作项。
 
-```curl
+```shell
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/filters/peek \
   -H 'Content-Type: application/json' \
@@ -509,7 +519,7 @@ curl -X POST \
 }'
 ```
 
-### 返回体示例
+#### 返回示例
 
 ```json
 {
@@ -534,25 +544,25 @@ curl -X POST \
 }
 ```
 
-## 3. 任务列表任务导出
+### 任务列表任务导出
 
-### URL
+#### URL
 
 https://your-host-name/project/api/project/team/:teamUUID/filters/export
 
-### HTTP Method
+#### HTTP Method
 
 POST
 
-### 是否需要登录
+#### 是否需要登录
 
 是
 
-### 传值方式
+#### 传值方式
 
 JSON
 
-### 参数列表
+#### 请求参数列表
 
 | 参数名           | 值类型 | 允许空值 | 取值范围 | 说明                                |
 | :--------------- | :----- | :------- | :------- | :---------------------------------- |
@@ -562,9 +572,13 @@ JSON
 | group_by         | string | T        |          | 是否按某个字段分组，参考通用说明    |
 | include_subtasks | string | T        |          | 是否包含子任务                      |
 
-### 请求体参考
+#### 返回参数列表
 
-```curl
+无
+
+#### 请求示例
+
+```shell
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/filters/export \
   -H 'Content-Type: application/json' \
@@ -623,42 +637,49 @@ curl -X POST \
 }'
 ```
 
-### 返回体示例
+#### 返回示例
 
 ```text
 任务ID,任务标题,任务类型,任务所属项目,任务负责人,任务创建者,任务状态,任务描述,任务关注者,所属迭代,创建时间,最后更新时间,优先级,截止日期,是否子任务,父任务,预估工时,已登记工时,剩余工时
 #47,test_task,任务,test,会飞的犀牛长,会飞的犀牛长,未开始,test task,会飞的犀牛长,,2019-08-19 16:26:57,2019-08-19 16:26:57,普通,,否,,,0,
 ```
 
-## 4. 获取项目筛选器列表
+### 获取项目筛选器列表
 
 列出项目下能使用的所有 filter
 
-### URL
+#### URL
 
 https://your-host-name/project/api/project/team/:teamUUID/project/:projectUUID/filters
 
-### HTTP Method
+#### 是否需要登录
+
+是
+
+#### HTTP Method
 
 GET
 
-### 传值方式
+#### 传值方式
 
 URL
 
-### 参数列表
+#### 请求参数列表
 
-无
+| 参数名      | 值类型 | 允许空值 | 说明          |
+| :---------- | :----- | :------- | :------------ |
+| teamUUID    | string | F        | 所属团队 UUID |
+| projectUUID | string | F        | 项目 UUID     |
 
-### 返回参数列表
+#### 返回参数列表
 
 | 参数名  | 值类型 | 取值范围 | 说明                      |
 | :------ | :----- | :------- | :------------------------ |
 | filters | Array  |          | Filter 列表, 参考通用说明 |
 
-### 请求体示例
+#### 请求示例
 
-```curl
+```shell
 curl -X GET \
   https://your-host-name/project/api/project/team/3pDzCwAe/project/DU6krHBNJEEeoG8G/filters \
   -H 'Content-Type: application/json' \
@@ -668,7 +689,7 @@ curl -X GET \
   -H 'cache-control: no-cache'
 ```
 
-### 返回体示例
+#### 返回示例
 
 ```json
 {

@@ -1,12 +1,15 @@
-# 关联关系类型
+## 目录
 
-- [task_link_type](#task_link_type)
-- [添加关联关系类型](#添加关联关系类型)
-- [查询关联关系类型列表](#查询关联关系类型列表)
-- [删除关联关系类型](#删除关联关系类型)
-- [更新关联关联类型](#更新关联关联类型)
+- [通用说明](#通用说明)
+  - [task_link_type](#task_link_type)
+- [API 说明](#api-说明)
+  - [添加关联关系类型](#添加关联关系类型)
+  - [查询关联关系类型列表](#查询关联关系类型列表)
+  - [更新关联关联类型](#更新关联关系类型)
 
-## task_link_type
+## 通用说明
+
+### task_link_type
 
 工作项关联关系类型
 
@@ -25,162 +28,305 @@
 | create_time          | time    | F        | F         | F          | 创建时间                   |
 | link_count           | integer | F        | F         | F          | [关联数]                   |
 
-## 添加关联关系类型
+## API 说明
 
-[调用方式](../item.md#添加item)
+### 添加关联关系类型
 
-[参数列表](#task_link_type)
+添加关联关系类型
 
-### 请求体参考
+#### URL
 
-```json
-{
-  "item": {
-    "item_type": "task_link_type",
-    "name": "test_task_link_type",
-    "link_out_desc": "test_link_out",
-    "link_in_desc": "test_link_in"
-  }
-}
+https://your-host-name/project/api/project/team/:teamUUID/items/graphql?t=object-link-types
+
+#### HTTP Method
+
+POST
+
+#### 是否需要登录
+
+是
+
+#### 传值方式
+
+JSON
+
+#### 请求参数列表
+
+| 参数名    | 值类型 | 说明                                                                         |
+| :-------- | :----- | :--------------------------------------------------------------------------- |
+| query     | string | graphql 查询语句，参考下方请求示例和 [调用方式](../item.md#添加item)         |
+| variables | object | graphql 查询变量，参考顶部 [task_link_type](##task_link_type) 和下方请求示例 |
+
+#### 返回参数列表
+
+| 参数名 | 值类型 | 说明             |
+| :----- | :----- | :--------------- |
+| data   | object | 返回的 item 数据 |
+
+data 结构
+
+| 参数名            | 值类型 | 说明                       |
+| :---------------- | :----- | :------------------------- |
+| addObjectLinkType | object | 对应添加时的 mutation 名称 |
+
+addObjectLinkType 结构
+
+| 参数名 | 值类型 | 说明                 |
+| :----- | :----- | :------------------- |
+| key    | string | 新添加的 item 的 key |
+
+#### 请求示例
+
+```shell
+curl -X POST \
+  https://your-host-name/project/api/project/team/3pDzCwAe/items/graphql?t=object-link-types \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: CUVZQSUJwRLfcVGSQoHEzI14LumPflYxJasP8MZHOLLgcjV5Rlnxy3YOjRN4z75w' \
+  -H 'Ones-User-Id: DU6krHBN' \
+  -H 'Referer: https://your-host-name' \
+  -H 'cache-control: no-cache' \
+  -d '{
+    "query": "\n    mutation AddObjectLinkType {\n      addObjectLinkType (link_indesc: $link_indesc link_outdesc: $link_outdesc name: $name source_condition: $source_condition source_type: $source_type target_condition: $target_condition target_type: $target_type link_in_desc: $link_in_desc link_out_desc: $link_out_desc link_model: $link_model) {\n        key\n      }\n    }\n  ",
+    "variables": {
+        "link_indesc": "",
+        "link_outdesc": "",
+        "name": "B",
+        "source_condition": "{}",
+        "source_type": "task",
+        "target_condition": "{}",
+        "target_type": "task",
+        "link_in_desc": "啊啊啊",
+        "link_out_desc": "BBB",
+        "link_model": 102
+    }
+}'
 ```
 
-### 返回体参考
+#### 返回示例
 
 ```json
 {
-  "item": {
-    "built_in": false,
-    "create_time": 1589801466,
-    "item_type": "task_link_type",
-    "key": "task_link_type-5NDAfTqk",
-    "link_in_desc": "test_link_in",
-    "link_in_desc_pinyin": "test_link_in",
-    "link_out_desc": "test_link_out",
-    "link_out_desc_pinyin": "test_link_out",
-    "name": "test_task_link_type",
-    "name_pinyin": "test_task_link_type",
-    "uuid": "5NDAfTqk"
-  }
-}
-```
-
-## 查询关联关系类型列表
-
-[调用 graphql 接口](../../graphql/graphql.md#call_ones_graphql)
-
-### 请求体参考
-
-```json
-{
-  "query": "query TASK_RELATED_TYPES($filter: Filter, $orderBy: OrderBy) {\n    taskLinkTypes(filter: $filter, orderBy: $orderBy) {\n      key\n      uuid\n      name\n      builtIn\n      createTime\n      linkOutDesc\n      linkInDesc\n      linkCount\n    }\n  }",
-  "variables": {
-    "orderBy": {
-      "createTime": "ASC"
+  "data": {
+    "addObjectLinkType": {
+      "key": "object_link_type-LTeH9rst"
     }
   }
 }
 ```
 
-## 返回体参考
+### 查询关联关系类型列表
+
+查询关联关系类型列表
+
+#### URL
+
+https://your-host-name/project/api/project/team/:teamUUID/items/graphql?t=object-link-types
+
+#### HTTP Method
+
+POST
+
+#### 是否需要登录
+
+是
+
+#### 传值方式
+
+JSON
+
+#### 请求参数列表
+
+| 参数名    | 值类型 | 说明                                                                                   |
+| :-------- | :----- | :------------------------------------------------------------------------------------- |
+| query     | string | graphql 查询语句，参考下方请求示例和 [调用方式](../item.md#添加item)                   |
+| variables | object | graphql 查询变量，参考 [调用 graphql 接口](../../graphql/graphql.md#call_ones_graphql) |
+
+#### 返回参数列表
+
+| 参数名 | 值类型 | 说明             |
+| :----- | :----- | :--------------- |
+| data   | object | 返回的 item 数据 |
+
+data 结构
+
+| 参数名          | 值类型 | 说明                                                                               |
+| :-------------- | :----- | :--------------------------------------------------------------------------------- |
+| objectLinkTypes | object | 查询的关联关系类型列表，参考顶部 [task_link_type](##task_link_type) 和下方返回示例 |
+
+#### 请求示例
+
+```shell
+curl -X POST \
+  https://your-host-name/project/api/project/team/3pDzCwAe/items/graphql?t=object-link-types \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: CUVZQSUJwRLfcVGSQoHEzI14LumPflYxJasP8MZHOLLgcjV5Rlnxy3YOjRN4z75w' \
+  -H 'Ones-User-Id: DU6krHBN' \
+  -H 'Referer: https://your-host-name' \
+  -H 'cache-control: no-cache' \
+  -d '{
+    "query": "query OBJECT_LINK_TYPES($filter: Filter, $orderBy: OrderBy) {\n      objectLinkTypes (filter: $filter, orderBy: $orderBy) {\n        uuid\n        name\n        namePinyin\n        builtIn\n        sourceType\n        sourceCondition\n        linkOutDesc\n        targetType\n        targetCondition\n        linkInDesc\n        linkModel\n        key\n        createTime\n      }\n    }",
+    "variables": {
+        "orderBy": {
+            "createTime": "DESC"
+        }
+    }
+}'
+```
+
+#### 返回示例
 
 ```json
 {
   "data": {
-    "taskLinkTypes": [
+    "objectLinkTypes": [
       {
         "builtIn": true,
-        "createTime": 1568207736,
-        "key": "task_link_type-GPdpmkRX",
-        "linkCount": 19,
+        "createTime": 0,
+        "key": "object_link_type-UUID0005",
+        "linkInDesc": "任务的来源需求",
+        "linkModel": 102,
+        "linkOutDesc": "需求拆解的任务",
+        "name": "需求拆解任务",
+        "namePinyin": "xu1qiu2chai1jie3ren4wu4",
+        "sourceCondition": "{\"lock_filter\":[{\"field\":\"issueType\",\"operator\":\"in\",\"operand\":[\"5P91KaHg\"]}]}",
+        "sourceType": "task",
+        "targetCondition": "{\"lock_filter\":[{\"field\":\"issueType\",\"operator\":\"in\",\"operand\":[\"FF78d8EL\"]}]}",
+        "targetType": "task",
+        "uuid": "UUID0005"
+      },
+      {
+        "builtIn": true,
+        "createTime": 0,
+        "key": "object_link_type-UUID0001",
         "linkInDesc": "关联",
+        "linkModel": 212,
         "linkOutDesc": "关联",
         "name": "关联",
-        "uuid": "GPdpmkRX"
+        "namePinyin": "guan1lian2",
+        "sourceCondition": "{}",
+        "sourceType": "task",
+        "targetCondition": "{}",
+        "targetType": "task",
+        "uuid": "UUID0001"
       },
       {
-        "builtIn": false,
-        "createTime": 1589796898,
-        "key": "task_link_type-PWEJei8M",
-        "linkCount": 0,
-        "linkInDesc": "link_desc",
-        "linkOutDesc": "link_out",
-        "name": "link_type",
-        "uuid": "PWEJei8M"
+        "builtIn": true,
+        "createTime": 0,
+        "key": "object_link_type-UUID0002",
+        "linkInDesc": "需求来源缺陷",
+        "linkModel": 202,
+        "linkOutDesc": "缺陷转需求",
+        "name": "缺陷转需求",
+        "namePinyin": "que1xian4zhuan3xu1qiu2",
+        "sourceCondition": "{\"lock_filter\":[{\"field\":\"issueType\",\"operator\":\"in\",\"operand\":[\"Gp41jFwa\"]}]}",
+        "sourceType": "task",
+        "targetCondition": "{\"lock_filter\":[{\"field\":\"issueType\",\"operator\":\"in\",\"operand\":[\"5P91KaHg\"]}]}",
+        "targetType": "task",
+        "uuid": "UUID0002"
       },
       {
-        "builtIn": false,
-        "createTime": 1589801466,
-        "key": "task_link_type-5NDAfTqk",
-        "linkCount": 0,
-        "linkInDesc": "test_link_in",
-        "linkOutDesc": "test_link_out",
-        "name": "test_task_link_type",
-        "uuid": "5NDAfTqk"
+        "builtIn": true,
+        "createTime": 0,
+        "key": "object_link_type-UUID0003",
+        "linkInDesc": "合并",
+        "linkModel": 212,
+        "linkOutDesc": "合并",
+        "name": "合并",
+        "namePinyin": "he2bing4",
+        "sourceCondition": "{\"lock_filter\":[{\"field\":\"issueType\",\"operator\":\"in\",\"operand\":[\"Gp41jFwa\"]}]}",
+        "sourceType": "task",
+        "targetCondition": "{\"lock_filter\":[{\"field\":\"issueType\",\"operator\":\"in\",\"operand\":[\"Gp41jFwa\"]}]}",
+        "targetType": "task",
+        "uuid": "UUID0003"
       }
     ]
   }
 }
 ```
 
-## 删除关联关系类型
+### 更新关联关系类型
 
-### URL
+通过 graphql 更新关联关系类型
 
-https://your-host-name/project/api/project/team/:teamUUID/task_link_type/:taskLinkTypeUUID/delete
+#### URL
 
-### HTTP Method
+https://your-host-name/project/api/project/team/:teamUUID/items/graphql?t=object-link-types
+
+#### HTTP Method
 
 POST
 
-### 请求参数
+#### 是否需要登录
 
-none
+是
 
-### 返回参数参考
+#### 传值方式
 
-```json
-{
-  "code": 200,
-  "errcode": "OK",
-  "type": "OK"
-}
+JSON
+
+#### 请求参数列表
+
+| 参数名    | 值类型 | 说明                                                                         |
+| :-------- | :----- | :--------------------------------------------------------------------------- |
+| query     | string | graphql 查询语句，参考下方请求示例和 [调用方式](../item.md#更新item)         |
+| variables | object | graphql 查询变量，参考顶部 [task_link_type](##task_link_type) 和下方请求示例 |
+
+#### 返回参数列表
+
+| 参数名 | 值类型 | 说明             |
+| :----- | :----- | :--------------- |
+| data   | object | 返回的 item 数据 |
+
+data 结构
+
+| 参数名               | 值类型 | 说明                       |
+| :------------------- | :----- | :------------------------- |
+| updateObjectLinkType | object | 对应添加时的 mutation 名称 |
+
+updateObjectLinkType 结构
+
+| 参数名 | 值类型 | 说明               |
+| :----- | :----- | :----------------- |
+| key    | string | 被更新 item 的 key |
+
+#### 请求示例
+
+```shell
+curl -X POST \
+  https://your-host-name/project/api/project/team/3pDzCwAe/items/graphql?t=object-link-types \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: CUVZQSUJwRLfcVGSQoHEzI14LumPflYxJasP8MZHOLLgcjV5Rlnxy3YOjRN4z75w' \
+  -H 'Ones-User-Id: DU6krHBN' \
+  -H 'Referer: https://your-host-name' \
+  -H 'cache-control: no-cache' \
+  -d '{
+    "query": "\n    mutation UpdateObjectLinkType {\n      updateObjectLinkType (link_indesc: $link_indesc link_outdesc: $link_outdesc name: $name source_condition: $source_condition source_type: $source_type target_condition: $target_condition target_type: $target_type built_in: $built_in create_time: $create_time key: $key link_in_desc: $link_in_desc link_model: $link_model link_out_desc: $link_out_desc name_pinyin: $name_pinyin uuid: $uuid) {\n        key\n      }\n    }\n  ",
+    "variables": {
+        "link_indesc": "",
+        "link_outdesc": "",
+        "name": "111",
+        "source_condition": "{}",
+        "source_type": "task",
+        "target_condition": "{}",
+        "target_type": "task",
+        "built_in": false,
+        "create_time": 1671435529,
+        "key": "object_link_type-R7Ubay8h",
+        "link_in_desc": "a",
+        "link_model": 102,
+        "link_out_desc": "c",
+        "name_pinyin": "111",
+        "uuid": "R7Ubay8h"
+    }
+}'
 ```
 
-## 更新关联关联类型
-
-[调用方式](../item.md#更新item)
-
-[参数列表](#task_link_type)
-
-### 请求体示例
+#### 返回示例
 
 ```json
 {
-  "item": {
-    "item_type": "task_link_type",
-    "name": "link_type1",
-    "link_out_desc": "link_out",
-    "link_in_desc": "link_desc"
-  }
-}
-```
-
-### 返回体示例
-
-```json
-{
-  "item": {
-    "built_in": false,
-    "create_time": 1589796898,
-    "item_type": "task_link_type",
-    "key": "task_link_type-PWEJei8M",
-    "link_in_desc": "link_desc",
-    "link_in_desc_pinyin": "link_desc",
-    "link_out_desc": "link_out",
-    "link_out_desc_pinyin": "link_out",
-    "name": "link_type1",
-    "name_pinyin": "link_type1",
-    "uuid": "PWEJei8M"
+  "updateObjectLinkType": {
+    "key": "object_link_type-R7Ubay8h"
   }
 }
 ```

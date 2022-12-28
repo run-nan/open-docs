@@ -1,25 +1,51 @@
-\_# wiki 权限
+# wiki 权限
 
-说明： ONES 系统采用了一致性的权限模型，wiki 权限模型参考 [ONES 权限模型](../permission/permission.md#权限规则)
+说明： ONES 系统采用了一致性的权限模型，wiki 权限模型参考 [ONES 权限模型](../../permission/permission.md#权限规则)
 
-- [1. 获取 wiki 权限](#1-获取wiki权限)
-- [2. 添加 wiki 权限](#2-添加wiki权限)
-- [3. 删除 wiki 权限](#3-删除wiki权限)
-- [4. 获取 wiki 有效权限](#4-获取wiki有效权限)
-- [5. 设置单页面权限](#5-设置单页面权限)
-- [6. 获取单页面权限](#6-获取单页面权限)
-- [7. 设置页面分享权限](#7-设置页面分享权限)
-- [8. 获取页面分享权限](#8-获取页面分享权限)
+- [通用说明](#通用说明)
+  - [rule](#rule)
+  - [permission](#permission)
+  - [状态码说明](#状态码说明)
+- [API 说明](#api-说明)
+  - [获取 wiki 权限](#获取wiki权限)
+  - [添加 wiki 权限](#添加wiki权限)
+  - [删除 wiki 权限](#删除wiki权限)
+  - [获取 wiki 有效权限](#获取wiki有效权限)
+  - [设置单页面权限](#设置单页面权限)
+  - [获取单页面权限](#获取单页面权限)
+  - [设置页面分享权限](#设置页面分享权限)
+  - [获取页面分享权限](#获取页面分享权限)
+
+## 通用说明
+
+wiki 权限相关接口。
+
+### rule
+
+[permission_rule](../../permission/permission.md#权限规则)
+
+### permission
+
+[evaluated_permission](../../permission/permission.md#权限计算结果)
+
+### 状态码说明
+
+| 状态码 | 说明             |
+| :----- | :--------------- |
+| 200    | 成功             |
+| 403    | 没有权限         |
+| 404    | 已删除的返回 404 |
+| 500    | 服务端异常       |
 
 ## API 说明
 
-### 1. 获取 wiki 权限
+### 获取 wiki 权限
 
 #### URL
 
 https://your-host-name/wiki/api/wiki/team/:teamUUID/permission_rules
 
-#### HTTP Method
+#### Http Method
 
 GET
 
@@ -31,13 +57,29 @@ GET
 
 无
 
-#### 参数列表
+#### 请求参数列表
 
-| 参数名  | 是否必须 | 值类型 | 取值范围 | 默认值 | 取值例子 | 说明                                 |
-| :------ | :------- | :----- | :------- | :----- | :------- | :----------------------------------- |
-| version | F        | int    | [0,n)    |        | 0        | 根据版本号获取 page,默认获取最近版本 |
+无
 
-#### 返回值示例
+#### 响应参数列表
+
+| 参数名              | 值类型 | 取值范围      | 说明     |
+| :------------------ | :----- | :------------ | :------- |
+| server_update_stamp | int    |               |          |
+| permission_rules    | array  | [rule](#rule) | 权限列表 |
+
+#### 请求示例
+
+```curl
+curl -X GET \
+  https://your-host-name/wiki/api/wiki/team/:teamUUID/permission_rules \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
+  -H 'Ones-User-Id: 6ZpgEzkk' \
+  -H 'cache-control: no-cache'
+```
+
+#### 响应示例
 
 ```json
 {
@@ -80,13 +122,13 @@ GET
 }
 ```
 
-### 2. 添加 wiki 权限
+### 添加 wiki 权限
 
 #### URL
 
 https://your-host-name/wiki/api/wiki/team/:teamUUID/permission_rules/add
 
-#### HTTP Method
+#### Http Method
 
 POST
 
@@ -98,33 +140,42 @@ POST
 
 json
 
-#### 参数列表
+#### 请求参数列表
 
-| 参数名            | 是否必须 | 值类型 | 取值范围 | 默认值 | 取值例子 | 说明                                                                                              |
-| ----------------- | -------- | ------ | -------- | ------ | -------- | ------------------------------------------------------------------------------------------------- |
-| space_uuid        | 是       | string |          |        |          | 页面组 UUID                                                                                       |
-| context_type      | 是       | string |          |        |          | 权限规则适用的[上下文类型](https://docs.partner.ones.cn/docs/ones/permission/context/#上下文类型) |
-| permission        | 是       | string |          |        |          | 权限规则                                                                                          |
-| user_domain_param | 是       | string |          |        |          | 用户域参数                                                                                        |
-| user_domain_type  | 是       | string |          |        |          | 用户域类型                                                                                        |
+| 参数名          | 是否必须 | 值类型 | 取值范围      | 默认值 | 取值例子 | 说明             |
+| --------------- | -------- | ------ | ------------- | ------ | -------- | ---------------- |
+| permission_rule | 是       | struct | [rule](#rule) | 无     |          | 要添加的权限规则 |
 
-#### 请求参数
+#### 响应参数列表
 
-```json
-{
-  "permission_rule": {
-    "context_type": "space",
-    "context_param": {
-      "space_uuid": "DV1NU3Ab"
-    },
-    "permission": "view_page",
-    "user_domain_type": "single_user",
-    "user_domain_param": "3rzKDAtx"
-  }
-}
+| 参数名              | 值类型 | 取值范围      | 说明     |
+| :------------------ | :----- | :------------ | :------- |
+| server_update_stamp | int    |               | 更新时间 |
+| permission_rule     | struct | [rule](#rule) | 权限列表 |
+
+#### 请求示例
+
+```curl
+curl -X POST \
+  https://your-host-name/wiki/api/wiki/team/:teamUUID/permission_rules/add \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
+  -H 'Ones-User-Id: 6ZpgEzkk' \
+  -H 'cache-control: no-cache' \
+  -d '{
+      "permission_rule": {
+        "context_type": "space",
+        "context_param": {
+          "space_uuid": "DV1NU3Ab",
+        },
+        "permission": "view_page",
+        "user_domain_type": "single_user",
+        "user_domain_param": "3rzKDAtx"
+      }
+    }'
 ```
 
-#### 返回值示例
+#### 响应示例
 
 ```json
 {
@@ -145,13 +196,13 @@ json
 }
 ```
 
-### 3. 删除 wiki 权限
+### 删除 wiki 权限
 
 #### URL
 
 https://your-host-name/wiki/api/wiki/team/:teamUUID/permission_rule/:ruleUUID/delete
 
-#### HTTP Method
+#### Http Method
 
 POST
 
@@ -163,11 +214,28 @@ POST
 
 无
 
-#### 参数列表
+#### 请求参数列表
 
 无
 
-#### 返回体示例
+#### 响应参数列表
+
+| 参数名              | 值类型 | 取值范围 | 说明 |
+| :------------------ | :----- | :------- | :--- |
+| server_update_stamp | int    |          |      |
+
+#### 请求示例
+
+```curl
+curl -X POST \
+  https://your-host-name/wiki/api/wiki/team/:teamUUID/permission_rule/:ruleUUID/delete \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
+  -H 'Ones-User-Id: 6ZpgEzkk' \
+  -H 'cache-control: no-cache' \
+```
+
+#### 响应示例
 
 ```json
 {
@@ -175,13 +243,13 @@ POST
 }
 ```
 
-### 4. 获取 wiki 有效权限
+### 获取 wiki 有效权限
 
 #### URL
 
 https://your-host-name/wiki/api/wiki/team/:teamUUID/evaluated_permissions
 
-#### HTTP Method
+#### Http Method
 
 GET
 
@@ -193,11 +261,29 @@ GET
 
 无
 
-#### 请求参数
+#### 请求参数列表
 
 无
 
-#### 返回值示例
+#### 响应参数列表
+
+| 参数名                | 值类型 | 取值范围                  | 说明     |
+| :-------------------- | :----- | :------------------------ | :------- |
+| server_update_stamp   | int    |                           |          |
+| evaluated_permissions | array  | [permission](#permission) | 权限列表 |
+
+#### 请求示例
+
+```curl
+curl -X GET \
+  https://your-host-name/wiki/api/wiki/team/:teamUUID/evaluated_permissions \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
+  -H 'Ones-User-Id: 6ZpgEzkk' \
+  -H 'cache-control: no-cache' \
+```
+
+#### 响应示例
 
 ```json
 {
@@ -221,13 +307,13 @@ GET
 }
 ```
 
-### 5. 设置单页面权限
+### 设置单页面权限
 
 #### URL
 
 https://your-host-name/wiki/api/wiki/team/:teamUUID/space/:spaceUUID/page/:pageUUID/set_permissions
 
-#### HTTP Method
+#### Http Method
 
 POST
 
@@ -239,48 +325,53 @@ POST
 
 json
 
-#### 参数列表
+#### 请求参数列表
 
-| 参数名              | 是否必须 | 值类型 | 取值范围 | 默认值 | 取值例子 | 说明                                                                                                                                  |
-| ------------------- | -------- | ------ | -------- | ------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| page_encrypt_status | 是       | int    |          |        |          | 页面加密状态，<br />1：所有人都能查看与编辑；<br />2：仅查看，所有人都能查看，特定用户可编辑；<br />3：加密，只有特定用户能查看或编辑 |
-| permission_rules    | 是       | object |          |        |          | 权限规则                                                                                                                              |
+| 参数名              | 值类型 | 取值范围      | 说明                     |
+| :------------------ | :----- | :------------ | :----------------------- |
+| page_encrypt_status | int    | 1,2,3         | 1:不加密，2:只读，3:加密 |
+| permission_rules    | array  | [rule](#rule) | 规则列表                 |
 
-#### 请求参数示例
+#### 响应参数列表
 
-```json
-{
-  "page_encrypt_status": 3,
-  "permission_rules": [
-    {
-      "context_type": "page",
-      "context_param": {
-        "page_uuid": "UyZkFDM5"
-      },
-      "permission": "page_edit",
-      "user_domain_type": "single_user",
-      "user_domain_param": "6ZpgEzkk"
-    },
-    {
-      "context_type": "page",
-      "context_param": {
-        "page_uuid": "UyZkFDM5"
-      },
-      "permission": "page_edit",
-      "user_domain_type": "single_user",
-      "user_domain_param": "3rzKDAtx"
-    }
-  ]
-}
+无
+
+#### 请求示例
+
+```curl
+curl -X POST \
+  https://your-host-name/wiki/api/wiki/team/:teamUUID/space/:spaceUUID/page/:pageUUID/set_permissions \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
+  -H 'Ones-User-Id: 6ZpgEzkk' \
+  -H 'cache-control: no-cache' \
+  -d '{
+      "page_encrypt_status": 3,
+      "permission_rules": {
+        "context_type": "space",
+        "context_param": {
+          "space_uuid": "DV1NU3Ab",
+        },
+        "permission": "page_edit",
+        "user_domain_type": "single_user",
+        "user_domain_param": "6ZpgEzkk"
+      }
+    }'
 ```
 
-### 6. 获取单页面权限
+#### 响应示例
+
+```json
+
+```
+
+### 获取单页面权限
 
 #### URL
 
 https://your-host-name/wiki/api/wiki/team/:teamUUID/space/:spaceUUID/page/:pageUUID/get_permissions
 
-#### HTTP Method
+#### Http Method
 
 GET
 
@@ -292,11 +383,29 @@ GET
 
 无
 
-#### 请求参数
+#### 请求参数列表
 
 无
 
-#### 返回 JSON
+#### 响应参数列表
+
+| 参数名                | 值类型 | 取值范围                  | 说明                     |
+| :-------------------- | :----- | :------------------------ | :----------------------- |
+| page_encrypt_status   | int    | 1,2,3                     | 1:不加密，2:只读，3:加密 |
+| evaluated_permissions | array  | [permission](#permission) | 权限列表                 |
+
+#### 请求示例
+
+```curl
+curl -X GET \
+  https://your-host-name/wiki/api/wiki/team/:teamUUID/space/:spaceUUID/page/:pageUUID/get_permissions \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
+  -H 'Ones-User-Id: 6ZpgEzkk' \
+  -H 'cache-control: no-cache' \
+```
+
+#### 响应示例
 
 ```json
 {
@@ -326,13 +435,13 @@ GET
 }
 ```
 
-### 7. 设置页面分享权限
+### 设置页面分享权限
 
 #### URL
 
 https://your-host-name/wiki/api/wiki/team/:teamUUID/space/:spaceUUID/page/:pageUUID/set_share_permissions
 
-#### HTTP Method
+#### Http Method
 
 POST
 
@@ -344,35 +453,51 @@ POST
 
 json
 
-#### 参数列表
+#### 请求参数列表
 
-| 参数名                     | 是否必须 | 值类型 | 取值范围 | 默认值 | 取值例子 | 说明                                                                                                               |
-| -------------------------- | -------- | ------ | -------- | ------ | -------- | ------------------------------------------------------------------------------------------------------------------ |
-| page_share_permission_type | 是       | int    |          |        |          | 页面共享类型，<br />0：不共享；<br />1：共享给所有人看；<br />2：共享给所有人编辑；<br />3：指定成员可以查看或编辑 |
-| is_share_sub_page          | 是       | bool   |          | false  |          | 是否共享子页面：<br />默认：不共享子页面                                                                           |
-| permission_rules           | 是       | object |          |        |          | 权限规则                                                                                                           |
+| 参数名                     | 值类型 | 取值范围      | 说明                                                                       |
+| :------------------------- | :----- | :------------ | :------------------------------------------------------------------------- |
+| page_share_permission_type | int    | 0,1,2,3       | 0:不共享，1:共享给所有人看，2:共享给所有人编辑，3:指定成员可以查看或者编辑 |
+| is_share_sub_page          | bool   |               | 是否共享子页面                                                             |
+| permission_rules           | array  | [rule](#rule) | 规则列表                                                                   |
 
-请求体示例
+#### 响应参数列表
 
-```json
-{
-  "page_share_permission_type": 3,
-  "is_share_sub_page": false,
-  "permission_rules": [
-    {
-      "context_type": "page",
-      "context_param": {
-        "page_uuid": "UyZkFDM5"
-      },
-      "permission": "page_share_edit",
-      "user_domain_type": "group",
-      "user_domain_param": "PDzSPeAM"
-    }
-  ]
-}
+| 参数名                     | 值类型 | 取值范围 | 说明           |
+| :------------------------- | :----- | :------- | :------------- |
+| team_uuid                  | string |          | 团队 uuid      |
+| space_uuid                 | string |          | 页面组 uuid    |
+| page_uuid                  | string |          | 页面 uuid      |
+| user_uuid                  | string |          | 用户 uuid      |
+| page_share_permission_type | int    | 0,1,2,3  | 共享类型       |
+| is_share_sub_page          | bool   |          | 是否共享子页面 |
+| share_uuid                 | string |          | 共享 uuid      |
+
+#### 请求示例
+
+```curl
+curl -X POST \
+  https://your-host-name/wiki/api/wiki/team/:teamUUID/space/:spaceUUID/page/:pageUUID/set_share_permissions \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
+  -H 'Ones-User-Id: 6ZpgEzkk' \
+  -H 'cache-control: no-cache' \
+  -d '{
+      "page_share_permission_type": 3,
+      "is_share_sub_page": false,
+      "permission_rules": {
+        "context_type": "page",
+        "context_param": {
+          "page_uuid": "UyZkFDM5",
+        },
+        "permission": "page_share_edit",
+        "user_domain_type": "single_user",
+        "user_domain_param": "6ZpgEzkk"
+      }
+    }'
 ```
 
-#### 返回值示例
+#### 响应示例
 
 ```json
 {
@@ -386,13 +511,13 @@ json
 }
 ```
 
-### 8. 获取页面分享权限
+### 获取页面分享权限
 
 #### URL
 
 https://your-host-name/wiki/api/wiki/team/:teamUUID/space/:spaceUUID/page/:pageUUID/get_share_permissions
 
-#### HTTP Method
+#### Http Method
 
 GET
 
@@ -404,15 +529,37 @@ GET
 
 无
 
-#### 参数列表
+#### 请求参数列表
 
 无
 
-#### 返回值示例
+#### 响应参数列表
+
+| 参数名                     | 值类型 | 取值范围                  | 说明           |
+| :------------------------- | :----- | :------------------------ | :------------- |
+| page_share_permission_type | int    | 0,1,2,3                   | 共享类型       |
+| is_share_sub_page          | bool   |                           | 是否共享子页面 |
+| share_uuid                 | string |                           | 共享 uuid      |
+| evaluated_permissions      | array  | [permission](#permission) | 权限列表       |
+
+#### 请求示例
+
+```curl
+curl -X GET \
+  https://your-host-name/wiki/api/wiki/team/:teamUUID/space/:spaceUUID/page/:pageUUID/get_share_permissions \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
+  -H 'Ones-User-Id: 6ZpgEzkk' \
+  -H 'cache-control: no-cache' \
+```
+
+#### 响应示例
 
 ````json
 {
-  "page_encrypt_status": 3,
+  "page_share_permission_type": 3,
+  "is_share_sub_page": false,
+  "share_uuid": "3zrN7jQY",
   "evaluated_permissions": [
     {
       "key": "1103-UyZkFDM5-:2004",
@@ -420,21 +567,11 @@ GET
       "context_param": {
         "page_uuid": "UyZkFDM5"
       },
-      "permission": "page_edit",
+      "permission": "page_share_edit",
       "user_domain_type": "single_user",
       "user_domain_param": "6ZpgEzkk"
-    },
-    {
-      "key": "1103-UyZkFDM5-:2004",
-      "context_type": "page",
-      "context_param": {
-        "page_uuid": "UyZkFDM5"
-      },
-      "permission": "page_edit",
-      "user_domain_type": "single_user",
-      "user_domain_param": "3rzKDAtx"
     }
   ]
 }
-```_
+```
 ````

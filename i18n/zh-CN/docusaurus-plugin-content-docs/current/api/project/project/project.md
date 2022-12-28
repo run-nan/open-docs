@@ -1,5 +1,3 @@
-<!-- TOC depthFrom:1 depthTo:3 -->
-
 # 目录
 
 - [project model 说明](#project-model-说明)
@@ -9,9 +7,8 @@
   - [更新项目](#更新项目)
   - [删除项目](#删除项目)
   - [根据项目 id 获取项目列表](#根据项目-id-获取项目列表)
-  - [获取当前用户 Project 列表](#获取当前用户-Project-列表)
+  - [获取当前用户 Project 列表](#获取当前用户项目列表)
   - [获取团队的项目列表](#获取团队的项目列表)
-  - [获取项目下的角色成员](../role/role.md#11-获取项目下的角色成员)
 
 <!-- /TOC -->
 
@@ -19,7 +16,7 @@
 
 | 参数名               | 值类型 | 取值范围 | 说明                                                                    |
 | :------------------- | :----- | :------- | :---------------------------------------------------------------------- |
-| uuid                 | string | len=16   | 由创建者 uuid+随机 8 位字符组成                                         |
+| uuid                 | string | len=16   | 由创建者 uuid+随机 8 位字符组成，需要客户端生成                         |
 | name                 | string | len<=128 | 项目名称                                                                |
 | assign               | string | len=8    | 项目负责人                                                              |
 | owner                | string | len=8    | 项目创建者                                                              |
@@ -64,6 +61,8 @@
 
 ## 添加项目
 
+添加项目
+
 ### URL
 
 https://your-host-name/project/api/project/team/:teamUUID/projects/add
@@ -72,38 +71,58 @@ https://your-host-name/project/api/project/team/:teamUUID/projects/add
 
 POST
 
-### 调用权限
+### 是否需要登录
 
-administer_do
+是
 
 ### 传值方式
 
 JSON
 
-### 请求体示例
+### 请求参数列表
 
-```json
-{
+| 参数名      | 是否必须 | 值类型   | 取值范围                   | 说明                                      |
+| :---------- | :------- | :------- | :------------------------- | :---------------------------------------- |
+| project     | T        | project  |                            | [项目对象](#project-model-说明)           |
+| template_id | F        | string   | [参考 template](#template) | 项目模板, 默认为：project-t1 敏捷项目管理 |
+| members     | F        | []string |                            | 项目成员 uuid 数组                        |
+
+### 返回参数列表
+
+| 参数名              | 值类型  | 取值范围 | 取值例子         | 说明                            |
+| :------------------ | :------ | :------- | :--------------- | :------------------------------ |
+| project             | project |          |                  | [项目对象](#project-model-说明) |
+| server_update_stamp | int64   |          | 1671084606858692 | 项目更新时间，单位微秒          |
+
+### 请求示例
+
+```bash
+curl --location --request POST 'https://your-host-name/project/api/project/team/T8Zbied7/projects/add' \
+--header 'Ones-User-ID: XPvprKLy' \
+--header 'Ones-Auth-Token: fa34FWMz74bsXyvcZP7wvzL79obaX7atFszLnSS9hrAqAuFsMH5zHotgxfp3s8Bb' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: language=zh' \
+-d '{
   "project": {
-    "uuid": "6ZpgEzkk12345678", // 需要客户端生成
-    "assign": "6ZpgEzkk",
-    "name": "test111"
-  },
-  "template_id": "project-t1", // 项目模板 （可选), 默认为：project-t1 敏捷项目管理
-  "members": [
-    "6ZpgEzkk" // 项目成员 （可选）
-  ]
-}
+      "uuid": "XPvprKLykkkkkk45",
+      "owner": "XPvprKLy",
+      "name": "new_project",
+      "status": 1,
+      "members": []
+   },
+   "template_id": "project-t1",
+   "members": []
+}'
 ```
 
-### 返回值示例
+### 返回示例
 
 ```json
 {
   "project": {
-    "uuid": "6ZpgEzkk12345678",
-    "name": "test111",
-    "assign": "6ZpgEzkk",
+    "uuid": "XPvprKLykkkkkk45",
+    "name": "new_project",
+    "assign": "XPvprKLy",
     "status_uuid": "to_do",
     "status_category": "to_do",
     "announcement": "",
@@ -112,31 +131,38 @@ JSON
     "status": 1,
     "is_open_email_notify": false,
     "task_update_time": 0,
-    "program_uuid": ""
+    "program_uuid": "",
+    "type": "agile",
+    "is_sample": false,
+    "is_archive": false,
+    "archive_user": "",
+    "archive_time": 0
   },
-  "server_update_stamp": 1588063781987072
+  "server_update_stamp": 1671084606858692
 }
 ```
 
-### 复制项目
+## 复制项目
 
-#### URL
+复制项目
+
+### URL
 
 https://your-host-name/project/api/project/team/:teamUUID/projects/copy2
 
-#### HTTP Method
+### HTTP Method
 
 POST
 
-#### 调用权限
+### 是否需要登录
 
-manage_project
+是
 
-#### 传值方式
+### 传值方式
 
 JSON
 
-#### 参数列表
+### 请求参数列表
 
 | 参数名       | 值类型   | 是否可以空 | 说明                                                                                                                                                                |
 | ------------ | -------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -144,30 +170,43 @@ JSON
 | project_name | string   | 否         | 新项目名                                                                                                                                                            |
 | issue_types  | string   | 是         | 工作项类型 uuid                                                                                                                                                     |
 | options      | []string | 是         | 项目其他组件，可传值：<br/>sprint：迭代<br/>member：成员<br/>plan：项目计划<br/>attachment：文件<br/>milestone：里程碑<br/>report：项目报表<br/>deliverable：交付物 |
-| members      | string   | 是         | 项目成员                                                                                                                                                            |
+| members      | string   | 是         | 项目成员，当 options 中有 members 时，此处的 members 可以不写                                                                                                       |
 
-#### 返回参数说明
+### 返回参数列表
 
-| 参数名              | 值类型 | 说明                               |
-| ------------------- | ------ | ---------------------------------- |
-| project             | object | 复制成功 project,见上方 model 说明 |
-| server_update_stamp | int64  | 更新时间                           |
+| 参数名              | 值类型 | 说明                                                     |
+| ------------------- | ------ | -------------------------------------------------------- |
+| project             | object | 复制成功 project,见上方 [model](#project-model-说明)说明 |
+| server_update_stamp | int64  | 更新时间，单位微秒                                       |
 
-### 请求体参考
+### 请求示例
 
-```json
-{
-  "project_uuid": "M3AdEeqE97KA7cKl",
-  "project_name": "12314212",
-  "issue_types": ["BQDVWbQK", "5fgXqE3E"],
-  "options": ["sprint", "member", "plan", "attachment", "milestone", "report", "deliverable"],
-  "members": [
-    "M3AdEeqE" // 当options中有members时，此处的members可以不写
+```bash
+curl -L -X POST 'https://your-host-name/project/api/project/team/T8Zbied7/projects/copy2' \
+-H 'Ones-User-ID: XPvprKLy' \
+-H 'Ones-Auth-Token: fa34FWMz74bsXyvcZP7wvzL79obaX7atFszLnSS9hrAqAuFsMH5zHotgxfp3s8Bb' \
+-H 'Content-Type: application/json' \
+-H 'Cookie: language=zh' \
+-d '{
+  "project_uuid": "XPvprKLyVUmf7QPq",
+  "project_name": "测试项目1",
+  "issue_types": [
+    "D63PEwbg"
+  ],
+  "component_template_uuid": [],
+  "options": [
+    "sprint",
+    "member",
+    "plan",
+    "attachment",
+    "milestone",
+    "report",
+    "deliverable"
   ]
-}
+}'
 ```
 
-### 返回值参考
+### 返回示例
 
 ```json
 {
@@ -202,9 +241,9 @@ https://your-host-name/project/api/project/team/:teamUUID/item/:itemKey/update
 
 POST
 
-### 调用权限
+### 是否需要登录
 
-administer_do
+是
 
 ### 传值方式
 
@@ -224,15 +263,21 @@ JSON
 | status          | int    |          | 项目状态，1：正常；2：删除 (兼容移动端，目前接口只返回 status=1 的数据) |
 | announcement    | string | len<=512 | 项目公告                                                                |
 
-### 请求体示例
+### 返回参数列表
 
-```curl
+| 参数名 | 值类型         | 取值范围 | 取值例子 | 说明                                                             |
+| :----- | :------------- | :------- | :------- | :--------------------------------------------------------------- |
+| item   | project object |          |          | 和[项目对象](#project-model-说明)基本一样，多了 item_type 和 key |
+
+### 请求示例
+
+```bash
 curl --location --request POST 'https://your-host-name/project/api/project/team/BDfDqJU7/item/project-6ZpgEzkk12345678/update' \
 --header 'Content-Type: application/json' \
 --header 'Ones-User-Id: 6ZpgEzkk' \
 --header 'Ones-Auth-Token: rZHTPygZHOIE2EACzbQVA0diQ69vMBF9lDarUXluG43vMvqye1xqGSQIdFVVSiPT' \
 --header 'Content-Type: application/json' \
---data-raw '{
+-d '{
     "item": {
         "assign": "6ZpgEzkk",
         "description": "2335tbdgh",
@@ -247,7 +292,7 @@ curl --location --request POST 'https://your-host-name/project/api/project/team/
 }'
 ```
 
-### 返回值示例
+### 返回示例
 
 ```json
 {
@@ -273,6 +318,8 @@ curl --location --request POST 'https://your-host-name/project/api/project/team/
 
 ## 删除项目
 
+删除项目
+
 ### URL
 
 https://your-host-name/project/api/project/team/:teamUUID/project/:projectUUID/delete
@@ -281,27 +328,27 @@ https://your-host-name/project/api/project/team/:teamUUID/project/:projectUUID/d
 
 POST
 
-### 调用权限
+### 是否需要登录
 
-administer_do
+是
 
 ### 传值方式
 
-JSON
+无
 
-### 参数列表
+### 请求参数列表
 
 无
 
 ### 返回参数列表
 
-| 参数名              | 值类型 | 说明       |
-| :------------------ | :----- | :--------- |
-| server_udpate_stamp | int64  | 更新时间戳 |
+| 参数名              | 值类型 | 说明               |
+| :------------------ | :----- | :----------------- |
+| server_udpate_stamp | int64  | 更新时间，单位微秒 |
 
-### 请求体示例
+### 请求示例
 
-```curl
+```bash
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/project/DU6krHBNRJ8sVGyN/delete \
   -H 'Content-Type: application/json' \
@@ -311,7 +358,7 @@ curl -X POST \
   -H 'cache-control: no-cache'
 ```
 
-### 返回体示例
+### 返回示例
 
 ```json
 {
@@ -321,7 +368,9 @@ curl -X POST \
 
 ## 根据项目 id 获取项目列表
 
-#### URL
+根据项目 id 获取项目列表，可传多个 id
+
+### URL
 
 https://your-host-name/project/api/project/team/:teamUUID/projects/info
 
@@ -329,29 +378,33 @@ https://your-host-name/project/api/project/team/:teamUUID/projects/info
 
 GET
 
-### 调用权限
+### 是否需要登录
 
-需要 `查看团队项目列表` 权限
+是
 
-### 参数列表
+### 传值方式
 
-| 参数名 | 是否必须 | 值类型 | 说明                                                             |
-| :----- | :------- | :----- | :--------------------------------------------------------------- |
-| ids    | T        | string | 多个 id 使用逗号隔开，并且 uuid 不能重复，传参方式：query params |
+query params
+
+### 请求参数列表
+
+| 参数名 | 是否必须 | 值类型 | 说明                                     |
+| :----- | :------- | :----- | :--------------------------------------- |
+| ids    | T        | string | 多个 id 使用逗号隔开，并且 uuid 不能重复 |
 
 ### 返回参数列表
 
-| 参数名           | 值类型 | 说明                             |
-| :--------------- | :----- | :------------------------------- |
-| projects         | array  | 项目数组，参考上面 project model |
-| errors           | array  | 获取失败的项目列表               |
-| &emsp;&emsp;uuid | string | 项目 uuid                        |
-| &emsp;&emsp;code | int    | 错误码                           |
-| &emsp;&emsp;desc | string | 错误描述                         |
+| 参数名   | 值类型 | 说明                             |
+| :------- | :----- | :------------------------------- |
+| projects | array  | 项目数组，参考上面 project model |
+| errors   | array  | 获取失败的项目列表               |
+| uuid     | string | 项目 uuid                        |
+| code     | int    | 错误码                           |
+| desc     | string | 错误描述                         |
 
-### 请求体示例
+### 请求示例
 
-```curl
+```bash
 curl -X GET \
   'https://your-host-name/project/api/project/team/3pDzCwAe/projects/info?ids=RGzJnspW7PFk7mZk,DU6krHBNJEEeoG8G' \
   -H 'Content-Type: application/json' \
@@ -361,7 +414,7 @@ curl -X GET \
   -H 'cache-control: no-cache'
 ```
 
-### 返回体示例
+### 返回示例
 
 ```json
 {
@@ -399,7 +452,9 @@ curl -X GET \
 }
 ```
 
-## 获取当前用户 Project 列表
+## 获取当前用户项目列表
+
+获取当前用户项目列表
 
 ### URL
 
@@ -409,19 +464,25 @@ https://your-host-name/project/api/project/team/:teamUUID/projects/my_project
 
 GET
 
-### 参数列表
+### 是否需要登录
 
-### 返回 JSON
+是
 
-| JSON 键名           | 值类型 | 说明                                      |
-| :------------------ | :----- | :---------------------------------------- |
-| projects            | Array  | 项目数组，参考上面 project model          |
-| archive_projects    | Array  | 归档 Project 数组，参考上面 project model |
-| server_update_stamp | int64  | 项目数据的更新时间                        |
+### 请求参数列表
 
-### 请求体示例
+无
 
-```curl
+### 返回参数列表
+
+| 参数名              | 值类型    | 说明                                                                 |
+| :------------------ | :-------- | :------------------------------------------------------------------- |
+| projects            | []project | 项目数组，参考上面 [project model 说明](#project-model-说明)         |
+| archive_projects    | []project | 归档 Project 数组，参考上面[project model 说明](#project-model-说明) |
+| server_update_stamp | int64     | 项目数据的更新时间，单位微秒                                         |
+
+### 请求示例
+
+```bash
 curl -X GET \
   https://your-host-name/project/api/project/team/3pDzCwAe/projects/my_project \
   -H 'Content-Type: application/json' \
@@ -431,7 +492,7 @@ curl -X GET \
   -H 'cache-control: no-cache'
 ```
 
-### 返回体示例
+### 返回示例
 
 ```json
 {
@@ -450,7 +511,6 @@ curl -X GET \
       "task_update_time": 1565863546,
       "program_uuid": ""
     }
-    //
   ],
   "archive_projects": [],
   "server_update_stamp": 1566200426835856
@@ -458,6 +518,8 @@ curl -X GET \
 ```
 
 ## 获取团队的项目列表
+
+获取团队的项目列表
 
 ### URL
 
@@ -467,32 +529,32 @@ https://your-host-name/project/api/project/team/:teamUUID/projects/all
 
 GET
 
+### 是否需要登录
+
+是
+
 ### 传值方式
 
-JSON
+query params
 
-### 需要权限
+### 请求参数列表
 
-administer_do
-
-### 参数列表
-
-| 参数名 | 是否必须 | 值类型 | 取值范围            | 说明                                                                       |
-| :----- | :------- | :----- | :------------------ | :------------------------------------------------------------------------- |
-| type   | F        | string | all/general/archive | 返回进行中和归档项目(默认)/返回进行中/归档项目类型，传参方式：query params |
-| limit  | F        | int    | >0                  | 返回项目数，传参方式：query params                                         |
+| 参数名 | 是否必须 | 值类型 | 取值范围            | 说明                                               |
+| :----- | :------- | :----- | :------------------ | :------------------------------------------------- |
+| type   | F        | string | all/general/archive | 返回进行中和归档项目(默认)/返回进行中/归档项目类型 |
+| limit  | F        | int    | >0                  | 返回项目数                                         |
 
 ### 返回参数列表
 
-| JSON 键名           | 值类型 | 说明                                      |
-| :------------------ | :----- | :---------------------------------------- |
-| projects            | Array  | 项目数组，参考上面 project model          |
-| archive_projects    | Array  | 归档 Project 数组，参考上面 project model |
-| server_update_stamp | int64  | 项目数据的更新时间                        |
+| JSON 键名           | 值类型    | 说明                                                                 |
+| :------------------ | :-------- | :------------------------------------------------------------------- |
+| projects            | []project | 项目数组，参考上面 [project model 说明](#project-model-说明)         |
+| archive_projects    | []project | 归档 Project 数组，参考上面[project model 说明](#project-model-说明) |
+| server_update_stamp | int64     | 项目数据的更新时间，单位微秒                                         |
 
-### 请求体示例
+### 请求示例
 
-```curl
+```bash
 curl -X GET \
   https://your-host-name/project/api/project/team/3pDzCwAe/projects/all \
   -H 'Content-Type: application/json' \
@@ -502,7 +564,7 @@ curl -X GET \
   -H 'cache-control: no-cache'
 ```
 
-### 返回体示例
+### 返回示例
 
 ```json
 {
@@ -521,7 +583,6 @@ curl -X GET \
       "task_update_time": 1565580444,
       "program_uuid": ""
     }
-    //
   ],
   "archive_projects": [],
   "server_update_stamp": 1566200797728400

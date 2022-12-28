@@ -26,7 +26,7 @@ https://your-host-name/project/api/project/team/:teamUUID/projects/info
 
 所有请求都是基于 `http` 或者 `https`。 `{your-host-name}`为 ONES 部署机器的` 域名` 或者 `ip:port`。
 
-### 通过授权
+## 通过授权
 
 如果您需要调用 ONES API 接口, 通常用户登录是必须的。您可以通过调用 ONES [用户登录](../auth/auth.md#1-用户登录)接口完成用户登录。 如果您是合法用户，登录接口返回值会包含 `user.uuid` 和 `user.token`, 此二值用于 ONES 用户登录凭证。
 
@@ -38,9 +38,7 @@ ONES API 接口登录凭证作为 HTTP Header 为接口调用提供身份校验:
 | Ones-Auth-Token | HTTP Headers | string | 登录成功的 token                            |
 | Referer         | HTTP Headers | string | 请求地址 url,示例：`https://your-host-name` |
 
-#### 接口调用示例 - 通过授权
-
-通过授权，调用获取当前用户信息接口。
+通过授权，调用获取当前用户信息接口，示例如下。
 
 ```curl
 curl -X GET \
@@ -51,7 +49,7 @@ curl -X GET \
     -H 'cache-control: no-cache'
 ```
 
-#### 状态码说明
+## 状态码说明
 
 | 状态码 | 说明                                                                                        |
 | :----- | :------------------------------------------------------------------------------------------ |

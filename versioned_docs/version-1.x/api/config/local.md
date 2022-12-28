@@ -34,6 +34,7 @@ local:
   web_service_ip: 192.168.1.77
   user_uuid: WhFspqKJ
   log_in_local: false
+  log_level: info
   file_in_local: false
   mysql_in_local: false
   mysql_user_name: ''
@@ -131,6 +132,12 @@ id 由 op 工具随机生成
 - 类型: `string`
 
 日志是否记录在本地
+
+### local.log_level
+
+- Type: `'fatal' | 'error' | 'warning' | 'info' | 'debug'`
+
+Adjust console output verbosity. Default is 'info'.
 
 ### local.file_in_local
 

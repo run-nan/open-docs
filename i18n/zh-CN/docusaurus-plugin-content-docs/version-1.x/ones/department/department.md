@@ -1,16 +1,18 @@
-## ONES Department API
+# ONES Department API
 
-- [model](#model)
-  - [1. 获取团队部门列表](#1-获取团队部门列表)
-  - [2. 添加部门](#2-添加部门)
-  - [3. 修改部门信息](#3-修改部门信息)
-  - [4. 删除部门](#4-删除部门)
-  - [5. 批量修改成员所属部门](#5-批量修改成员所属部门)
-  - [6. 通过 JSON 文件同步团队部门架构](#6-通过json文件同步团队部门架构)
+- [通用说明](#通用说明)
+  - [model](#model)
+- [API 说明](#api-说明)
+  - [获取团队部门列表](#获取团队部门列表)
+  - [添加部门](#添加部门)
+  - [修改部门信息](#修改部门信息)
+  - [删除部门](#删除部门)
+  - [批量修改成员所属部门](#批量修改成员所属部门)
+  - [同步团队部门架构](#同步团队部门架构)
+
+## 通用说明
 
 ### model
-
-#### 字段
 
 | 参数名      | 值类型 | 允许空值 | 取值范围 | 说明                                                 |
 | :---------- | :----- | :------- | :------- | :--------------------------------------------------- |
@@ -20,9 +22,13 @@
 | name        | string | 否       | len<=16  | 部门名称                                             |
 | name_pinyin | string | 是       |          | 名称拼音                                             |
 | next_uuid   | string | 是       |          | 下一个兄弟节点 id                                    |
-| sync_type   | int    | 否       |          | 0: ONES 部门<br/>1: wechat 部门<br/>2: dingding 部门 |
+| sync_type   | int    | 否       | 0        | 0: ONES 部门<br/>1: wechat 部门<br/>2: dingding 部门 |
 
-### 1. 获取团队部门列表
+## API 说明
+
+### 获取团队部门列表
+
+获取团队部门列表信息
 
 #### URL
 
@@ -40,25 +46,29 @@ GET
 
 无
 
-### 请求体参考
+#### 请求参数列表
 
-```curl
-curl -X GET \
-  https://devapi.myones.net/project/master/team/BDfDqJU7/departments \
-  -H 'Content-Type: application/json' \
-  -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
-  -H 'Ones-User-Id: 6ZpgEzkk' \
-  -H 'cache-control: no-cache'
-```
+无
 
 #### 返回参数列表
 
 | 参数名              | 值类型 | 取值范围 | 说明                         |
 | :------------------ | :----- | :------- | :--------------------------- |
 | departments         | array  | >=0      | 部门数据数组 [model](#model) |
-| server_update_stamp | int64  |          | 团队部门信息更新时间         |
+| server_update_stamp | int64  |          | 服务器更新时间戳，单位微秒   |
 
-### 返回值参考
+#### 请求示例
+
+```curl
+curl -X GET \
+  https://your-host-name/project/api/project/team/BDfDqJU7/departments \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
+  -H 'Ones-User-Id: 6ZpgEzkk' \
+  -H 'cache-control: no-cache'
+```
+
+#### 返回示例
 
 ```json
 {
@@ -100,7 +110,9 @@ curl -X GET \
 }
 ```
 
-### 2. 添加部门
+### 添加部门
+
+添加新部门
 
 #### URL
 
@@ -118,7 +130,7 @@ POST
 
 JSON
 
-#### 参数列表
+#### 请求参数列表
 
 | 参数名      | 是否必须 | 值类型 | 取值范围 | 说明              |
 | :---------- | :------- | :----- | :------- | :---------------- |
@@ -128,22 +140,28 @@ JSON
 
 #### 返回参数列表
 
-| 参数名              | 值类型          | 取值范围 | 说明                 |
-| :------------------ | :-------------- | :------- | :------------------- |
-| add_department      | [model](#model) |          | 添加的部门数据       |
-| server_update_stamp | int64           |          | 团队部门信息更新时间 |
+| 参数名              | 值类型          | 取值范围 | 说明                       |
+| :------------------ | :-------------- | :------- | :------------------------- |
+| add_department      | [model](#model) |          | 添加的部门数据             |
+| server_update_stamp | int64           |          | 服务器更新时间戳，单位微秒 |
 
-### 请求体参考
+#### 请求示例
 
-```json
-{
-  "next_uuid": "StM3ZoDJ",
-  "parent_uuid": "",
-  "name": "海军分部G5"
-}
+```curl
+curl -X POST \
+  https://your-host-name/project/api/project/team/3pDzCwAe/departments/add \
+  -H 'Ones-Auth-Token: ILg1uaO9d8MOG6rqQoe6Ozqkv27sTbgiKeDDgapEtIYnkyu8m6d51nq7og0koETZ' \
+  -H 'Ones-User-Id: DU6krHBN' \
+  -H 'Referer: https://your-host-name' \
+  -H 'cache-control: no-cache' \
+  -d '{
+    "next_uuid": "StM3ZoDJ",
+    "parent_uuid": "",
+    "name": "海军分部G5"
+  }'
 ```
 
-### 返回值参考
+#### 返回示例
 
 ```json
 {
@@ -159,7 +177,9 @@ JSON
 }
 ```
 
-### 3. 修改部门信息
+### 修改部门信息
+
+更新部门信息
 
 #### URL
 
@@ -177,7 +197,7 @@ POST
 
 JSON
 
-#### 参数列表
+#### 请求参数列表
 
 | 参数名      | 是否必须 | 值类型 | 取值范围 | 说明              |
 | :---------- | :------- | :----- | :------- | :---------------- |
@@ -187,21 +207,27 @@ JSON
 
 #### 返回参数列表
 
-| 参数名              | 值类型 | 取值范围 | 说明                 |
-| :------------------ | :----- | :------- | :------------------- |
-| server_update_stamp | int64  |          | 团队部门信息更新时间 |
+| 参数名              | 值类型 | 取值范围 | 说明                       |
+| :------------------ | :----- | :------- | :------------------------- |
+| server_update_stamp | int64  |          | 服务器更新时间戳，单位微秒 |
 
-### 请求体参考
+#### 请求示例
 
-```json
-{
+```curl
+curl -X POST \
+  https://your-host-name/project/api/project/team/3pDzCwAe/department/update/StM3ZoDJ \
+  -H 'Ones-Auth-Token: ILg1uaO9d8MOG6rqQoe6Ozqkv27sTbgiKeDDgapEtIYnkyu8m6d51nq7og0koETZ' \
+  -H 'Ones-User-Id: DU6krHBN' \
+  -H 'Referer: https://your-host-name' \
+  -H 'cache-control: no-cache' \
+  -d '{
   "parent_uuid": "",
   "name": "海军分部G5->G2",
   "next_uuid": "StM3ZoDJ"
-}
+}'
 ```
 
-### 返回值参考
+#### 返回示例
 
 ```json
 {
@@ -209,7 +235,7 @@ JSON
 }
 ```
 
-### 4. 删除部门
+### 删除部门
 
 部门删除规则：移除部门时不会将成员移除，如果该部门下有子部门，则子部门会被同时移除。
 
@@ -229,17 +255,28 @@ POST
 
 JSON
 
-#### 参数列表
+#### 请求参数列表
 
 无
 
 #### 返回参数列表
 
-| 参数名              | 值类型 | 取值范围 | 说明                 |
-| :------------------ | :----- | :------- | :------------------- |
-| server_update_stamp | int64  |          | 团队部门信息更新时间 |
+| 参数名              | 值类型 | 取值范围 | 说明                       |
+| :------------------ | :----- | :------- | :------------------------- |
+| server_update_stamp | int64  |          | 服务器更新时间戳，单位微秒 |
 
-### 返回值参考
+#### 请求示例
+
+```curl
+curl -X POST \
+  https://your-host-name/project/api/project/team/3pDzCwAe/department/delete/StM3ZoDJ \
+  -H 'Ones-Auth-Token: ILg1uaO9d8MOG6rqQoe6Ozqkv27sTbgiKeDDgapEtIYnkyu8m6d51nq7og0koETZ' \
+  -H 'Ones-User-Id: DU6krHBN' \
+  -H 'Referer: https://your-host-name' \
+  -H 'cache-control: no-cache' \
+```
+
+#### 返回示例
 
 ```json
 {
@@ -247,7 +284,7 @@ JSON
 }
 ```
 
-### 5. 批量修改成员所属部门
+### 批量修改成员所属部门
 
 接口支持同时对多个用户进行修改。更新规则：针对提交修改的成员，属于全量更新，即用户所在的部门需要全部请求上传，如果用户之前所在部门在当前请求中未上传，接口调用成功后，会自动将用户移出此部门。
 
@@ -263,13 +300,17 @@ POST
 
 是
 
-#### 参数列表
+#### 传值方式
+
+JSON
+
+#### 请求参数列表
 
 | 参数名           | 是否必须 | 值类型 | 取值范围 | 说明         |
 | :--------------- | :------- | :----- | :------- | :----------- |
 | user_departments | T        | array  | 下方说明 | 批量操作数据 |
 
-`user_departments`
+user_department 对象
 
 | 参数名           | 是否必须 | 值类型 | 取值范围 | 说明               |
 | :--------------- | :------- | :----- | :------- | :----------------- |
@@ -278,28 +319,42 @@ POST
 
 #### 返回参数列表
 
-| JSON 键名           | 值类型 | 说明                 |
-| :------------------ | :----- | :------------------- |
-| server_update_stamp | int64  | 团队部门信息更新时间 |
+| JSON 键名           | 值类型 | 说明                       |
+| :------------------ | :----- | :------------------------- |
+| server_update_stamp | int64  | 服务器更新时间戳，单位微秒 |
 
-### 请求体参考
+#### 请求示例
+
+```curl
+curl -X POST \
+  https://your-host-name/project/api/project/team/3pDzCwAe/users/update/department \
+  -H 'Ones-Auth-Token: ILg1uaO9d8MOG6rqQoe6Ozqkv27sTbgiKeDDgapEtIYnkyu8m6d51nq7og0koETZ' \
+  -H 'Ones-User-Id: DU6krHBN' \
+  -H 'Referer: https://your-host-name' \
+  -H 'cache-control: no-cache' \
+  -d '{
+    "user_departments": [
+      {
+        "user_uuid": "FzG7j6Do",
+        "department_uuids": ["6Mh4DVYE"]
+      },
+      {
+        "user_uuid": "DKunKQR2",
+        "department_uuids": ["6Mh4DVYE"]
+      }
+    ]
+  }'
+```
+
+#### 返回示例
 
 ```json
 {
-  "user_departments": [
-    {
-      "user_uuid": "FzG7j6Do",
-      "department_uuids": ["6Mh4DVYE"]
-    },
-    {
-      "user_uuid": "DKunKQR2",
-      "department_uuids": ["6Mh4DVYE"]
-    }
-  ]
+  "server_update_stamp": 1584069144209639
 }
 ```
 
-### 6. 通过 JSON 文件同步团队部门架构
+### 同步团队部门架构
 
 我们系统提供了通过 JSON 文件同步团队部门和人员信息的方式。用户只需要在指定的位置维护一个 JSON 文件（文件位置可配置），系统便可以自动同步您的部门和人员信息。
 
@@ -307,7 +362,7 @@ POST
 
 如果需要支持自动同步更新，需要用户自行维护并更新该文件，并且该文件需要满足以下的格式。
 
-### JSON 配置文件格式参考
+#### JSON 配置文件格式参考
 
 ```json
 {

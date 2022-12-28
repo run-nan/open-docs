@@ -61,10 +61,11 @@ Options:
   -h, --help                           display help for command
 
 Commands:
-  init                                 initialize project dependencies and project settings, please run this command in project root directory
+  init                                 initialize project settings, please run this command in project root directory
   login [options] [baseURL] [hostURL]  store the parameters used to obtain user credentials in a specific environment into 'config/local.yaml'
   ci [options] [url]                   store the parameters used to obtain user credentials in a specific branch for (gitlab) CI into 'config/ci-deploy.yaml'
   pickteam [options] [target]          fetch the team list with the user credentials stored in the config file and update the config file with the team information from the team list for local debugging or CI deployment
+  update <target-type>                 update template for the project
   add <target-type>                    add a ability or module for the project
   packup [filename]                    pack up the plugin project and build .opk file in the root directory
   invoke [options] <target>            start the plugin project locally and invoke one or several life-cycles of the plugin

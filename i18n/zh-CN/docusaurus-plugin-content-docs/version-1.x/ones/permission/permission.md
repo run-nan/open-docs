@@ -37,7 +37,7 @@ UserDomain：用户域，若干用户的集合。
 权限在 API 中有两个关键要素：
 
 - 权限点：定义一个全局唯一的权限，这个权限适用的 UserDomain 类型和 Context 类型，以及需要拥有哪些上游权限才能修改这个权限。
-- # 权限规则：描述团队内某个 UserDomain 下的用户，在某个 Context 下拥有某个权限。
+- 权限规则：描述团队内某个 UserDomain 下的用户，在某个 Context 下拥有某个权限。
 <!-- TOC depthFrom:1 depthTo:2 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 # 目录
@@ -51,56 +51,27 @@ UserDomain：用户域，若干用户的集合。
       - [organization 权限](#organization-权限)
       - [team 权限](#team-权限)
       - [project 权限](#project-权限)
-      - [<p id="issue_type">issue_type 权限</p>](#issue_type-权限)
+      - [issue_type 权限](#issue_type-权限)
       - [wiki space 权限](#wiki-space-权限)
       - [testcase 权限](#testcase-权限)
-      - [<p id="testcase_library">testcase_library 权限</p>](#testcase_library-权限)
-      - [<p id="testcase_plan">testcase_plan 权限</p>](#testcase_plan-权限)
+      - [testcase_library 权限](#testcase_library-权限)
+      - [testcase_plan 权限](#testcase_plan-权限)
       - [component 权限](#component-权限)
       - [program 权限](#program-权限)
+  - [必要 header](#必要header)
 - [API 说明](#api-说明)
-  - [1. 添加权限规则](#1-添加权限规则)
-    - [URL](#url)
-    - [HTTP Method](#http-method)
-    - [调用权限](#调用权限)
-    - [传值方式](#传值方式)
-    - [参数列表](#参数列表)
-    - [请求体示例](#请求体示例)
-    - [返回值示例](#返回值示例)
-  - [2. 删除权限规则](#2-删除权限规则)
-    - [URL](#url-1)
-    - [调用权限](#调用权限-1)
-    - [HTTP Method](#http-method-1)
-    - [传值方式](#传值方式-1)
-    - [参数列表](#参数列表-1)
-    - [请求体示例](#请求体示例-1)
-    - [返回值示例](#返回值示例-1)
-  - [3. 获取权限规则列表](#3-获取权限规则列表)
-    - [URL](#url-2)
-    - [HTTP Method](#http-method-2)
-    - [调用权限](#调用权限-2)
-    - [传值方式](#传值方式-2)
-    - [参数列表](#参数列表-2)
-    - [返回 JSON](#返回json)
-    - [请求体示例](#请求体示例-2)
-    - [返回值示例](#返回值示例-2)
-  - [4. 获取当前用户拥有的所有权限](#4-获取当前用户拥有的所有权限)
-    - [URL](#url-3)
-    - [HTTP Method](#http-method-3)
-    - [调用权限](#调用权限-3)
-    - [传值方式](#传值方式-3)
-    - [参数列表](#参数列表-3)
-    - [返回参数列表](#返回参数列表)
-    - [请求体示例](#请求体示例-3)
-    - [返回值示例](#返回值示例-3)
+  - [获取权限规则列表](#获取权限规则列表)
+  - [获取当前用户拥有的所有权限](#获取当前用户拥有的所有权限)
+  - [添加权限规则](#添加权限规则)
+  - [删除权限规则](#删除权限规则)
 
 <!-- /TOC -->
 
-# 通用说明
+## 通用说明
 
-## 模型
+### 模型
 
-### 权限规则
+#### 权限规则
 
 permission_rule
 
@@ -115,7 +86,7 @@ permission_rule
 | create_time       | int    | T        |          | 权限规则创建时间，秒，添加和修改时无需提供                  |
 | read_only         | bool   | F        |          | 是否只读，添加和修改时无需提供                              |
 
-### 权限计算结果
+#### 权限计算结果
 
 evaluated_permission
 
@@ -160,18 +131,20 @@ evaluated_permission
 }
 ```
 
-### 权限列表
+#### 权限列表
 
 permission: 权限点列表
 
-#### organization 权限
+##### organization 权限
 
 | 权限名                     | 修改规则所需权限        | 允许使用的用户域类型 | 说明                         |
 | :------------------------- | :---------------------- | :------------------- | :--------------------------- |
 | administer_organization    | administer_organization | single_user          | 组织管理员                   |
 | manage_organization_member | administer_organization | single_user          | 管理组织成员（邀请、删除等） |
+| org_view_audit_log         | administer_organization | single_user          | 查看审计日志权限             |
+| org_plugin_administrator   | administer_organization | single_user          | 管理插件                     |
 
-#### team 权限
+##### team 权限
 
 | 权限名              | 修改规则所需权限 | 允许使用的用户域类型                                 | 说明                 |
 | :------------------ | :--------------- | :--------------------------------------------------- | :------------------- |
@@ -185,7 +158,7 @@ permission: 权限点列表
 | batch_move_tasks    | administer_team  | single_user, group, everyone, department, team_owner | 批量移动任务权限     |
 | administer_plan     | administer_team  | single_user, group, everyone, department, team_owner | plan 管理员权限      |
 
-#### project 权限
+##### project 权限
 
 | 权限名                | 修改规则所需权限 | 允许使用的用户域类型                                                   | 说明                                     |
 | :-------------------- | :--------------- | :--------------------------------------------------------------------- | :--------------------------------------- |
@@ -197,7 +170,7 @@ permission: 权限点列表
 | export_tasks          | manage_project   | single_user, group, everyone                                           | 导出任务权限                             |
 | be_assigned_to_sprint | manage_project   | single_user, group, everyone, department, project_administrators, role | 成为迭代负责人                           |
 
-#### <p id="issue_type">issue_type 权限</p>
+##### issue_type 权限
 
 | 权限名               | 修改规则所需权限 | 允许使用的用户域类型                                                                                           | 说明               |
 | :------------------- | :--------------- | :------------------------------------------------------------------------------------------------------------- | :----------------- |
@@ -210,7 +183,7 @@ permission: 权限点列表
 | export_tasks         | manage_project   | single_user, group, everyone, department, project_administrators, role, task_owner, task_assign                | 导出任务           |
 | update_task_watchers | manage_project   | single_user, group, everyone, department, project_administrators, role, task_owner, task_assign, task_watchers | 编辑任务关注者     |
 
-#### wiki space 权限
+##### wiki space 权限
 
 | 权限名       | 修改规则所需权限             | 允许使用的用户域类型                                 | 说明         |
 | :----------- | :--------------------------- | :--------------------------------------------------- | :----------- |
@@ -220,32 +193,32 @@ permission: 权限点列表
 | create_space | administer_wiki              | single_user, group, everyone, department, team_owner | 创建页面组   |
 | export_page  | manage_space                 | single_user, group, everyone, department, team_owner | 导出页面权限 |
 
-#### testcase 权限
+##### testcase 权限
 
 | 权限名         | 修改规则所需权限    | 允许使用的用户域类型                     | 说明                                     |
 | :------------- | :------------------ | :--------------------------------------- | :--------------------------------------- |
 | manage_plans   | administer_testcase | single_user, group, everyone, department | 创建／删除测试计划，但不包括查看测试计划 |
 | manage_library | administer_testcase | single_user, group, everyone, department | 创建、配置、删除用例库                   |
 
-#### <p id="testcase_library">testcase_library 权限</p>
+##### testcase_library 权限
 
 | 权限名               | 修改规则所需权限                         | 允许使用的用户域类型                          | 说明                                     |
 | :------------------- | :--------------------------------------- | :-------------------------------------------- | :--------------------------------------- |
 | manage_library_cases | administer_testcase,manage_library_cases | single_user, group, everyone, department,role | 查看此用例库，查看和编辑此用例库里的用例 |
 
-#### <p id="testcase_plan">testcase_plan 权限</p>
+##### testcase_plan 权限
 
 | 权限名            | 修改规则所需权限                 | 允许使用的用户域类型                          | 说明                                         |
 | :---------------- | :------------------------------- | :-------------------------------------------- | :------------------------------------------- |
 | manage_plan_cases | administer_testcase,manage_plans | single_user, group, everyone, department,role | 查看此测试计划，查看和编辑此测试计划里的用例 |
 
-#### component 权限
+##### component 权限
 
 | 权限名         | 修改规则所需权限              | 允许使用的用户域类型                                                   | 说明                       |
 | :------------- | :---------------------------- | :--------------------------------------------------------------------- | :------------------------- |
 | view_component | administer_do, manage_project | single_user, group, everyone, department, project_administrators, role | 允许在顶部导航栏中查看组件 |
 
-#### program 权限
+##### program 权限
 
 (不支持添加修改)
 
@@ -258,157 +231,51 @@ permission: 权限点列表
 | browse_program_projects | administer_team  | single_user, group, everyone, department, role, administer_plan | 查看项目集下的项目                                                                                             |
 | administer_plan         | administer_team  | single_user, group, everyone, department, team_owner            | (在后续迭代会拆分)plan 管理员权限:创建项目集、删除项目集、添加项目、新建项目、移动项目、移动项目集、移出项目集 |
 
-# API 说明
+### 必要 header
 
-## 1. 添加权限规则
+| 参数名          | 值类型 | 允许空值 | 取值范围 | 说明                         |
+| :-------------- | :----- | :------- | :------- | :--------------------------- |
+| Ones-User-Id    | string | F        | len=8    | 用户 id，可在登录接口获取    |
+| Ones-Auth-Token | string | F        | len=32   | 用户 token，可在登录接口获取 |
 
-添加一条权限规则
+## API 说明
 
-### URL
-
-https://your-host-name/project/api/project/team/:teamUUID/permission_rules/add
-
-### HTTP Method
-
-POST
-
-### 调用权限
-
-administer_do
-
-### 传值方式
-
-JSON
-
-### 参数列表
-
-| 参数名              | 值类型 | 允许空值 | 取值范围 | 说明                                          |
-| :------------------ | :----- | :------- | :------- | :-------------------------------------------- |
-| permission_rule     | object | F        |          | 参考顶端的用户权限规则模型，但不需要提供 uuid |
-| server_update_stamp | int64  | F        |          | permission 类型数据的更新时间                 |
-
-### 请求体示例
-
-```curl
-curl -X POST \
-  https://your-host-name/project/api/project/team/3pDzCwAe/permission_rules/add \
-  -H 'Content-Type: application/json' \
-  -H 'Ones-Auth-Token: Vu5L6yfEf8iZ2rWxTyh2fSovKVb42jGv6vlq1aYaMC09hK13usIYgv45ih119Z9B' \
-  -H 'Ones-User-Id: DU6krHBN' \
-  -H 'Referer: https://your-host-name' \
-  -H 'cache-control: no-cache' \
-  -d '{
-    "permission_rule": {
-        "context_type": "project",
-        "context_param": {
-            "project_uuid": "DU6krHBNXuPAbpv8"
-        },
-        "permission": "manage_sprints",
-        "user_domain_type": "single_user",
-        "user_domain_param": "DU6krHBN"
-    }
-}'
-```
-
-### 返回值示例
-
-```json
-{
-  "permission_rule": {
-    "uuid": "5WiuzwDJ",
-    "context_type": "project",
-    "context_param": {
-      "project_uuid": "DU6krHBNXuPAbpv8"
-    },
-    "user_domain_type": "single_user",
-    "user_domain_param": "DU6krHBN",
-    "permission": "manage_sprints",
-    "read_only": false,
-    "create_time": 1565936141,
-    "position": 4
-  },
-  "server_update_stamp": 1565936141874384
-}
-```
-
-## 2. 删除权限规则
-
-删除一条权限规则
-
-### URL
-
-https://your-host-name/project/api/project/team/:teamUUID/permission_rule/:ruleUUID/delete
-
-### 调用权限
-
-administer_do
-
-### HTTP Method
-
-POST
-
-### 传值方式
-
-JSON
-
-### 参数列表
-
-| 参数名              | 值类型 | 允许空值 | 取值范围 | 说明                          |
-| :------------------ | :----- | :------- | :------- | :---------------------------- |
-| server_update_stamp | int64  | F        |          | permission 类型数据的更新时间 |
-
-### 请求体示例
-
-```curl
-curl -X POST \
-  https://your-host-name/project/api/project/team/3pDzCwAe/permission_rule/5WiuzwDJ/delete \
-  -H 'Content-Type: application/json' \
-  -H 'Ones-Auth-Token: Vu5L6yfEf8iZ2rWxTyh2fSovKVb42jGv6vlq1aYaMC09hK13usIYgv45ih119Z9B' \
-  -H 'Ones-User-Id: DU6krHBN' \
-  -H 'Referer: https://your-host-name' \
-  -H 'cache-control: no-cache'
-```
-
-### 返回值示例
-
-```json
-{
-  "server_update_stamp": 1565936341035344
-}
-```
-
-## 3. 获取权限规则列表
+### 获取权限规则列表
 
 列出当前团队下的所有权限规则列表
 
-### URL
+##### URL
 
 https://your-host-name/project/api/project/team/:teamUUID/permission_rules
 
-### HTTP Method
+##### HTTP Method
 
 GET
 
-### 调用权限
+#### 是否需要登录
+
+是
+
+#### 调用权限
 
 无
 
-### 传值方式
+#### 传值方式
 
 URL
 
-### 参数列表
+#### 请求参数列表
 
 无
 
-### 返回 JSON
+#### 返回参数列表
 
-| JSON 键名           | 值类型 | 取值范围 | 说明                                 |
-| :------------------ | :----- | :------- | :----------------------------------- |
-| permission_rules    | array  |          | 权限规则列表，参考顶端的权限规则模型 |
-| server_update_stamp | int64  |          | permission_rule 类型数据的更新时间   |
+| JSON 键名           | 值类型 | 取值范围 | 说明                                              |
+| :------------------ | :----- | :------- | :------------------------------------------------ |
+| permission_rules    | array  |          | 权限规则列表，参考顶端的[权限规则模型](#权限规则) |
+| server_update_stamp | int64  |          | permission_rule 类型数据的更新时间                |
 
-### 请求体示例
+#### 请求示例
 
 ```curl
 curl -X GET \
@@ -420,7 +287,7 @@ curl -X GET \
   -H 'cache-control: no-cache'
 ```
 
-### 返回值示例
+#### 返回示例
 
 ```json
 {
@@ -450,44 +317,47 @@ curl -X GET \
       "create_time": 1564741783,
       "position": 0
     }
-    //
   ],
   "server_update_stamp": 1565936389373664
 }
 ```
 
-## 4. 获取当前用户拥有的所有权限
+### 获取当前用户拥有的所有权限
 
 获取当前用户拥有的所有权限
 
-### URL
+#### URL
 
 https://your-host-name/project/api/project/team/:teamUUID/evaluated_permissions
 
-### HTTP Method
+#### HTTP Method
 
 GET
 
-### 调用权限
+#### 是否需要登录
+
+是
+
+#### 调用权限
 
 无
 
-### 传值方式
+#### 传值方式
 
 URL
 
-### 参数列表
+#### 请求参数列表
 
 无
 
-### 返回参数列表
+#### 返回参数列表
 
-| 参数名                | 值类型 | 取值范围 | 说明                                    |
-| :-------------------- | :----- | :------- | :-------------------------------------- |
-| evaluated_permissions | array  |          | 权限计算结果列表，参考顶端模型          |
-| server_update_stamp   | int64  |          | evaluated_permission 类型数据的更新时间 |
+| 参数名                | 值类型 | 取值范围 | 说明                                                        |
+| :-------------------- | :----- | :------- | :---------------------------------------------------------- |
+| evaluated_permissions | array  |          | 权限计算结果列表，参考顶端模型[权限计算结果](#权限计算结果) |
+| server_update_stamp   | int64  |          | evaluated_permission 类型数据的更新时间                     |
 
-### 请求体示例
+#### 请求示例
 
 ```curl
 curl -X GET \
@@ -499,7 +369,7 @@ curl -X GET \
   -H 'cache-control: no-cache'
 ```
 
-### 返回值示例
+#### 返回示例
 
 ```json
 {
@@ -516,8 +386,143 @@ curl -X GET \
       "context_param": {},
       "permission": "invite_member"
     }
-    //
   ],
   "server_update_stamp": 1565936389460960
+}
+```
+
+### 添加权限规则
+
+添加一条权限规则
+
+#### URL
+
+https://your-host-name/project/api/project/team/:teamUUID/permission_rules/add
+
+#### HTTP Method
+
+POST
+
+#### 是否需要登录
+
+是
+
+#### 调用权限
+
+administer_do
+
+#### 传值方式
+
+JSON
+
+#### 请求参数列表
+
+| 参数名              | 值类型 | 允许空值 | 取值范围 | 说明                                                       |
+| :------------------ | :----- | :------- | :------- | :--------------------------------------------------------- |
+| permission_rule     | object | F        |          | 参考顶端的用户[权限规则模型](#权限规则)，但不需要提供 uuid |
+| server_update_stamp | int64  | F        |          | permission 类型数据的更新时间                              |
+
+#### 返回参数列表
+
+| 参数名              | 值类型 | 允许空值 | 取值范围 | 说明                                                       |
+| :------------------ | :----- | :------- | :------- | :--------------------------------------------------------- |
+| permission_rule     | object | F        |          | 参考顶端的用户[权限规则模型](#权限规则)，但不需要提供 uuid |
+| server_update_stamp | int64  | F        |          | permission 类型数据的更新时间                              |
+
+#### 请求示例
+
+```curl
+curl -X POST \
+  https://your-host-name/project/api/project/team/3pDzCwAe/permission_rules/add \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: Vu5L6yfEf8iZ2rWxTyh2fSovKVb42jGv6vlq1aYaMC09hK13usIYgv45ih119Z9B' \
+  -H 'Ones-User-Id: DU6krHBN' \
+  -H 'Referer: https://your-host-name' \
+  -H 'cache-control: no-cache' \
+  -d '{
+    "permission_rule": {
+        "context_type": "project",
+        "context_param": {
+            "project_uuid": "DU6krHBNXuPAbpv8"
+        },
+        "permission": "manage_sprints",
+        "user_domain_type": "single_user",
+        "user_domain_param": "DU6krHBN"
+    }
+}'
+```
+
+#### 返回示例
+
+```json
+{
+  "permission_rule": {
+    "uuid": "5WiuzwDJ",
+    "context_type": "project",
+    "context_param": {
+      "project_uuid": "DU6krHBNXuPAbpv8"
+    },
+    "user_domain_type": "single_user",
+    "user_domain_param": "DU6krHBN",
+    "permission": "manage_sprints",
+    "read_only": false,
+    "create_time": 1565936141,
+    "position": 4
+  },
+  "server_update_stamp": 1565936141874384
+}
+```
+
+### 删除权限规则
+
+删除一条权限规则
+
+#### URL
+
+https://your-host-name/project/api/project/team/:teamUUID/permission_rule/:ruleUUID/delete
+
+#### 调用权限
+
+administer_do
+
+#### HTTP Method
+
+POST
+
+#### 是否需要登录
+
+是
+
+#### 传值方式
+
+JSON
+
+#### 请求参数列表
+
+无
+
+#### 返回参数列表
+
+| 参数名              | 值类型 | 允许空值 | 取值范围 | 说明                          |
+| :------------------ | :----- | :------- | :------- | :---------------------------- |
+| server_update_stamp | int64  | F        |          | permission 类型数据的更新时间 |
+
+#### 请求示例
+
+```curl
+curl -X POST \
+  https://your-host-name/project/api/project/team/3pDzCwAe/permission_rule/5WiuzwDJ/delete \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: Vu5L6yfEf8iZ2rWxTyh2fSovKVb42jGv6vlq1aYaMC09hK13usIYgv45ih119Z9B' \
+  -H 'Ones-User-Id: DU6krHBN' \
+  -H 'Referer: https://your-host-name' \
+  -H 'cache-control: no-cache'
+```
+
+#### 返回示例
+
+```json
+{
+  "server_update_stamp": 1565936341035344
 }
 ```

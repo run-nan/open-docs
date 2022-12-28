@@ -1,12 +1,17 @@
 # wiki 回收站
 
-- [1. 获取回收站内的页面详情](#1-获取回收站内的页面详情)
-- [2. 删除回收站内的页面](#2-删除回收站内的页面)
-- [3. 获取回收站内的页面列表](#3-获取回收站内的页面列表)
-- [4. 恢复回收站内的页面](#4-恢复回收站内的页面)
-- [5. 清空回收站](#5-清空回收站)
+- [通用说明](#通用说明)
+  - [状态码说明](#状态码说明)
+- [API 说明](#api-说明)
+  - [获取回收站内的页面详情](#获取回收站内的页面详情)
+  - [删除回收站内的页面](#删除回收站内的页面)
+  - [获取回收站内的页面列表](#获取回收站内的页面列表)
+  - [恢复回收站内的页面](#恢复回收站内的页面)
+  - [清空回收站](#清空回收站)
 
-## errcode 说明
+## 通用说明
+
+### 状态码说明
 
 | code | errcode                                | 说明                             |
 | :--- | :------------------------------------- | :------------------------------- |
@@ -18,7 +23,7 @@
 
 ## API 说明
 
-### 1. 获取回收站内的页面详情
+### 获取回收站内的页面详情
 
 #### URL
 
@@ -36,11 +41,36 @@ GET
 
 无
 
-#### 参数列表
+#### 请求参数列表
 
 无
 
-#### 返回 JSON
+#### 响应参数列表
+
+| 参数名        | 值类型 | 取值范围 | 说明                                                                                                      |
+| :------------ | :----- | :------- | :-------------------------------------------------------------------------------------------------------- |
+| uuid          | string | len=8    | 页面 uuid                                                                                                 |
+| space_uuid    | string | len=8    | 页面组 uuid                                                                                               |
+| owner_uuid    | string | len=8    | 作者 uuid                                                                                                 |
+| title         | string | len<=64  | 标题                                                                                                      |
+| operator_uuid | string | len=8    | 操作者 uuid                                                                                               |
+| operate_time  | int    |          | 操作时间                                                                                                  |
+| ref_type      | int    |          | 关联类型，1：传统页面，2：wps word，3：wps excel，4：wps ppt，5：confluence 导入后的传统页面，6：协同页面 |
+| ref_uuid      | string | len=8    | 关联 uuid                                                                                                 |
+| content       | string |          | 页面内容                                                                                                  |
+
+#### 请求示例
+
+```curl
+curl -X GET \
+  https://your-host-name/wiki/api/wiki/team/:teamUUID/space/:spaceUUID/deleted_page/:pageUUID \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
+  -H 'Ones-User-Id: 6ZpgEzkk' \
+  -H 'cache-control: no-cache'
+```
+
+#### 响应示例
 
 ```json
 {
@@ -56,7 +86,7 @@ GET
 }
 ```
 
-### 2. 删除回收站内的页面
+### 删除回收站内的页面
 
 #### URL
 
@@ -74,11 +104,26 @@ POST
 
 JSON
 
-#### 参数列表
+#### 请求参数列表
 
 无
 
-#### 返回 JSON
+#### 响应参数列表
+
+无
+
+#### 请求示例
+
+```curl
+curl -X POST \
+  https://your-host-name/wiki/api/wiki/team/:teamUUID/space/:spaceUUID/deleted_page/:pageUUID/delete \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
+  -H 'Ones-User-Id: 6ZpgEzkk' \
+  -H 'cache-control: no-cache'
+```
+
+#### 响应示例
 
 ```json
 {
@@ -88,7 +133,7 @@ JSON
 }
 ```
 
-### 3. 获取回收站内的页面列表
+### 获取回收站内的页面列表
 
 #### URL
 
@@ -106,15 +151,37 @@ GET
 
 无
 
-#### 参数列表
+#### 请求参数列表
 
-无
+#### 响应参数列表
 
-#### 返回 JSON
+| 参数名 | 值类型 | 取值范围      | 说明     |
+| :----- | :----- | :------------ | :------- |
+| pages  | array  | [item](#item) | 页面列表 |
 
-| JSON 键名     | 值类型 | 取值范围 | 取值例子 | 说明          |
-| :------------ | :----- | :------- | :------- | :------------ |
-| deleted_pages | array  |          |          | deleted_pages |
+##### item
+
+| 参数名      | 值类型 | 取值范围 | 说明                                                                                                      |
+| :---------- | :----- | :------- | :-------------------------------------------------------------------------------------------------------- |
+| uuid        | string | len=8    | 页面 uuid                                                                                                 |
+| space_uuid  | string | len=8    | 页面组 uuid                                                                                               |
+| parent_uuid | string | len=8    | 父页面 uuid                                                                                               |
+| title       | string | len<=64  | 标题                                                                                                      |
+| ref_type    | int    |          | 关联类型，1：传统页面，2：wps word，3：wps excel，4：wps ppt，5：confluence 导入后的传统页面，6：协同页面 |
+| ref_uuid    | string | len=8    | 关联 uuid                                                                                                 |
+
+#### 请求示例
+
+```curl
+curl -X GET \
+  https://your-host-name/wiki/api/wiki/team/:teamUUID/space/:spaceUUID/deleted_pages \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
+  -H 'Ones-User-Id: 6ZpgEzkk' \
+  -H 'cache-control: no-cache'
+```
+
+#### 响应示例
 
 ```json
 {
@@ -124,20 +191,6 @@ GET
       "space_uuid": "ReNYACb3",
       "title": "进去回收站",
       "parent_uuid": "2FEdnsbk",
-      "encrypt_status": 0,
-      "evaluated_permissions": null,
-      "is_can_edit": false,
-      "ref_type": 1,
-      "ref_uuid": ""
-    },
-    {
-      "uuid": "2FEdnsbk",
-      "space_uuid": "ReNYACb3",
-      "title": "回收站",
-      "parent_uuid": "",
-      "encrypt_status": 0,
-      "evaluated_permissions": null,
-      "is_can_edit": false,
       "ref_type": 1,
       "ref_uuid": ""
     }
@@ -145,7 +198,7 @@ GET
 }
 ```
 
-### 4. 恢复回收站内的页面
+### 恢复回收站内的页面
 
 #### URL
 
@@ -163,23 +216,33 @@ POST
 
 JSON
 
-#### 参数列表
+#### 请求参数列表
 
 | 参数名          | 是否必须 | 值类型 | 取值范围 | 默认值 | 取值例子 | 说明                         |
 | :-------------- | :------- | :----- | :------- | :----- | :------- | :--------------------------- |
 | new_space_uuid  | F        | string |          |        |          | 恢复至新的 space 的 uuid     |
 | new_parent_uuid | F        | string |          |        |          | 恢复至新的页面的 parent_uuid |
 
-#### body 示例
+#### 响应参数列表
 
-```json
-{
-  "new_space_uuid": "",
-  "new_parent_uuid": ""
-}
+无
+
+#### 请求示例
+
+```curl
+curl -X POST \
+  https://your-host-name/wiki/api/wiki/team/:teamUUID/space/:spaceUUID/deleted_page/:pageUUID/restore \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
+  -H 'Ones-User-Id: 6ZpgEzkk' \
+  -H 'cache-control: no-cache' \
+  -d '{
+    "new_space_uuid": "",
+    "new_parent_uuid": ""
+  }'
 ```
 
-#### 返回 JSON
+#### 响应示例
 
 ```json
 {
@@ -189,7 +252,7 @@ JSON
 }
 ```
 
-### 5. 清空回收站
+### 清空回收站
 
 #### URL
 
@@ -207,11 +270,26 @@ POST
 
 JSON
 
-#### 参数列表
+#### 请求参数列表
 
 无
 
-#### 返回 JSON
+#### 响应参数列表
+
+无
+
+#### 请求示例
+
+```curl
+curl -X POST \
+ https://your-host-name/wiki/api/wiki/team/:teamUUID/space/:spaceUUID/delete_all_pages \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
+  -H 'Ones-User-Id: 6ZpgEzkk' \
+  -H 'cache-control: no-cache'
+```
+
+#### 响应示例
 
 ```json
 {

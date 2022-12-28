@@ -4,6 +4,12 @@ sidebar_position: 2
 
 # 添加开放能力
 
+:::tip
+
+如需拉取最新能力模版，需先执行 `npx op update template`
+
+:::
+
 在插件工程根目录执行 `op` 的 `add ability` 指令，可以向插件新增开放能力：
 
 ```
@@ -15,7 +21,7 @@ sidebar_position: 2
 
 Pre-require tasks run successfully
 ? Please select the ability you want to add: …
-account@1.0.0
+account@1.0.0 Ability does not match current system version
 api-register-jack@1.0.0
 api-register-jack@2.0.0
 configuration-page@1.0.0
@@ -28,6 +34,21 @@ web-service@1.0.0
 ```
 
 在列表中可以通过方向键或输入能力名称搜索并选择接口相关能力或业务开放能力
+
+:::tip
+
+在已登录的情况下，工具会根据所连环境，提示哪些能力不可用
+
+:::
+
+选定能力版本后，如能力版本存在多模版还需选择模版
+
+```
+? Please select a template: …
+cron
+interval
+
+```
 
 ## 开放能力列表
 
