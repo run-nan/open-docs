@@ -369,14 +369,14 @@ Send third-party notification information to specific users.
 
 #### Params
 
-| **Param**   | **Type**       | **Description**                                                                                                                                                                                 | **Required** | **Default** |
-| :---------- | :------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------- | :---------- |
-| Title       | string         | information title                                                                                                                                                                               | Y            | -           |
-| ToUsers     | string[]       | Array of users to receive notifications                                                                                                                                                         | Y            | -           |
-| NotifyWay   | NotifyWay      | Notification type, optional values:<br />- Email: NotifyWay.Email<br />- Lark: NotifyWay.Lark<br />- YouDu: NotifyWay.YouDu<br />- WeChat: NotifyWay.WeChat<br />- DingDing: NotifyWay.DingDing | Y            | -           |
-| MessageBody | IMessageBody[] | Array of message bodies, each message body contains:<br />- Body: notification content<br />- url：notification jump link                                                                       | Y            | -           |
-| Ext         | string         | Extension field                                                                                                                                                                                 | Y            | -           |
-| Source      | string         | Source, for the record                                                                                                                                                                          | Y            | -           |
+| **Param**   | **Description**                                                                                                                                                                                             | **Type**       | **Required** | **Default** |
+| :---------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------- | :----------- | :---------- |
+| Title       | information title                                                                                                                                                                                           | string         | Y            | -           |
+| ToUsers     | Array of users to receive notifications                                                                                                                                                                     | string[]       | Y            | -           |
+| NotifyWay   | Notification type, optional values:<br />- Email: NotifyWay. Email<br />- Lark: NotifyWay. Lark<br />- YouDu: NotifyWay. YouDu<br />- WeChat: NotifyWay. WeChat<br />- DingDing: NotifyWay. DingD NotifyWay | ing            | Y            | -           |
+| MessageBody | Array of message bodies, each message body contains:<br />- Body: notification content<br />- url：notification jump link                                                                                   | IMessageBody[] | Y            | -           |
+| Ext         | Extension field                                                                                                                                                                                             | string         | Y            | -           |
+| Source      | Source, for the record                                                                                                                                                                                      | string         | Y            | -           |
 
 #### Example
 
@@ -422,21 +422,21 @@ Get information about the plugin super admin
 
 #### Params
 
-| Param    | Type   | Description            | Required | Default |
-| :------- | :----- | :--------------------- | :------- | :------ |
-| teamUUID | string | The `uuid` of the team | N        | -       |
+| Param    | Description            | Type   | Required | Default |
+| :------- | :--------------------- | :----- | :------- | :------ |
+| teamUUID | The `uuid` of the team | string | N        | -       |
 
 #### Returns
 
-| Param         | Type   | Description                                          | Required | Default |
-| :------------ | :----- | :--------------------------------------------------- | -------- | ------- |
-| user_uuid     | string | User's `uuid`                                        |
-| org_uuid      | string | The `uuid` of the organization the plugin belongs to |
-| team_uuid     | string | The `uuid` of the team the plugin belongs to         |
-| app_uuid      | string | The `app_id` of the plugin                           |
-| instance_uuid | string | The `id` of the plugin instance                      |
-| name          | string | Username                                             |
-| email         | string | User email                                           |
+| Param         | Description                                          |
+| :------------ | :--------------------------------------------------- |
+| user_uuid     | User's `uuid`                                        |
+| org_uuid      | The `uuid` of the organization the plugin belongs to |
+| team_uuid     | The `uuid` of the team the plugin belongs to         |
+| app_uuid      | The `app_id` of the plugin                           |
+| instance_uuid | The `id` of the plugin instance                      |
+| name          | Username                                             |
+| email         | User email                                           |
 
 #### Example
 
@@ -448,22 +448,22 @@ const user = await Plugin.getPluginUser()
 
 ---
 
-### Field.FieldsAdd {#FieldsAdd}
+### Field. FieldsAdd {#FieldsAdd}
 
 Add script-field to issue
 
 #### Params
 
-| Param | Type   | Description                                                                       | Required | Default |
-| :---- | :----- | :-------------------------------------------------------------------------------- | :------- | :------ |
-| Name  | string | field name                                                                        | Y        | -       |
-| Type  | int    | script-field type<br />- 1001: single-selectionion<br/>- 1002: multiple-selection | Y        | -       |
+| Param | Description                                                                       | Type   | Required | Default |
+| :---- | :-------------------------------------------------------------------------------- | :----- | :------- | :------ |
+| Name  | field name                                                                        | string | Y        | -       |
+| Type  | script-field type<br />- 1001: single-selectionion<br/>- 1002: multiple-selection | int    | Y        | -       |
 
 #### Returns
 
-| Param | Type   | Description             |
-| :---- | :----- | :---------------------- |
-| UUID  | string | `uuid` for script-field |
+| Param | Description             | Type   |
+| :---- | :---------------------- | :----- |
+| UUID  | `uuid` for script-field | string |
 
 #### Example
 
@@ -480,26 +480,26 @@ const { UUID: fieldUUID } = FieldsAddRes
 
 ---
 
-### Field.ItemsAdd {#ItemsAdd}
+### Field. ItemsAdd {#ItemsAdd}
 
 Add project script-field
 
 #### Params
 
-| Param       | Type   | Description                                                                                                                     | Required | Default |
-| :---------- | :----- | :------------------------------------------------------------------------------------------------------------------------------ | :------- | :------ |
-| FieldType   | string | script-field type<br />- `FieldTypeEnum.SingleLabel`: single-selectionion<br />- `FieldTypeEnum.MultiLabel`: multiple-selection | Y        | -       |
-| Name        | string | Field name                                                                                                                      | Y        | -       |
-| ItemType    | string | Fixed value：`field`                                                                                                            | Y        | -       |
-| Pool        | string | Fixed value：`PoolEnum.Project`: project                                                                                        | Y        | -       |
-| ContextType | string | context type                                                                                                                    | Y        | -       |
-| required    | bool   | Is it required                                                                                                                  | Y        | -       |
+| Param       | Description                                                                                                                       | Type   | Required | Default |
+| :---------- | :-------------------------------------------------------------------------------------------------------------------------------- | :----- | :------- | :------ |
+| FieldType   | script-field type<br />- `FieldTypeEnum.SingleLabel` : single-selectionion<br />- `FieldTypeEnum.MultiLabel` : multiple-selection | string | Y        | -       |
+| Name        | Field name                                                                                                                        | string | Y        | -       |
+| ItemType    | Fixed value： `field`                                                                                                             | string | Y        | -       |
+| Pool        | Fixed value： `PoolEnum.Project` : project                                                                                        | string | Y        | -       |
+| ContextType | context type                                                                                                                      | string | Y        | -       |
+| required    | Is it required                                                                                                                    | bool   | Y        | -       |
 
 #### Returns
 
-| Param | Type   | Description             |
-| :---- | :----- | :---------------------- |
-| UUID  | string | `uuid` for script-field |
+| Param | Description             | Type   |
+| :---- | :---------------------- | :----- |
+| UUID  | `uuid` for script-field | string |
 
 #### Example
 
@@ -520,31 +520,31 @@ const { UUID: fieldUUID } = ItemsAddProjectRes
 
 ---
 
-### Field.AddGroupField {#AddGroupField}
+### Field. AddGroupField {#AddGroupField}
 
 Add field group to entity
 
 #### Params
 
-| Param      | Type                                    | Description                                                                                                         | Required | Default |
-| :--------- | :-------------------------------------- | :------------------------------------------------------------------------------------------------------------------ | :------- | :------ |
-| ObjectType | string                                  | The entity type of the FieldGroup, optional value:<br />- `PoolEnum.Project`: project<br />- `PoolEnum.Task`: issue | Y        | -       |
-| Name       | string                                  | FieldGroup name                                                                                                     | Y        | -       |
-| Relations  | [IRelationMessage](#IRelationMessage)[] | Relationship information array                                                                                      | Y        | -       |
+| Param      | Description                                                                                                           | Type                                    | Required | Default |
+| :--------- | :-------------------------------------------------------------------------------------------------------------------- | :-------------------------------------- | :------- | :------ |
+| ObjectType | The entity type of the FieldGroup, optional value:<br />- `PoolEnum.Project` : project<br />- `PoolEnum.Task` : issue | string                                  | Y        | -       |
+| Name       | FieldGroup name                                                                                                       | string                                  | Y        | -       |
+| Relations  | Relationship information array                                                                                        | [IRelationMessage](#IRelationMessage)[] | Y        | -       |
 
 ##### IRelationMessage {#IRelationMessage}
 
-| Param           | Type   | Description                                                                                   |
-| :-------------- | :----- | :-------------------------------------------------------------------------------------------- |
-| FieldUUID       | string | The `fieldUUID` of the field                                                                  |
-| FieldParentUUID | string | The parent field `UUID`, indicating that it forms a hierarchical relationship with this field |
-| Position        | string | `Position`: the position in the fieldgroup                                                    |
+| Param           | Description                                                                                    | Type   |
+| :-------------- | :--------------------------------------------------------------------------------------------- | :----- |
+| FieldUUID       | The `fieldUUID` of the field                                                                   | string |
+| FieldParentUUID | The parent field `UUID` , indicating that it forms a hierarchical relationship with this field | string |
+| Position        | `Position` : the position in the fieldgroup                                                    | string |
 
 #### Returns
 
-| Param     | Type     | Description               |
-| :-------- | :------- | :------------------------ |
-| GroupUUID | string[] | script-field group `uuid` |
+| Param     | Description               | Type     |
+| :-------- | :------------------------ | :------- |
+| GroupUUID | script-field group `uuid` | string[] |
 
 #### Example
 
@@ -574,28 +574,173 @@ Upload files to issue attachments
 
 #### Params
 
-| Param       | Type   | Description                                                                                                             | Required | Default |
-| :---------- | :----- | :---------------------------------------------------------------------------------------------------------------------- | :------- | :------ |
-| filePath    | string | file address, the path under the `workspace` directory                                                                  | Y        | -       |
-| referenceID | string | `uuid` of the issue                                                                                                     | Y        | -       |
-| desc        | string | file description                                                                                                        | Y        | -       |
-| teamUUID    | string | `uuid` of the team, organization-level plugins must have this parameter, team-level plugins may not have this parameter | N        | -       |
+| Param       | Description                                                                                                             | Type   | Required | Default |
+| :---------- | :---------------------------------------------------------------------------------------------------------------------- | :----- | :------- | :------ |
+| filePath    | file address, the path under the `workspace` directory                                                                  | string | Y        | -       |
+| referenceID | `uuid` of the issue                                                                                                     | string | Y        | -       |
+| desc        | file description                                                                                                        | string | Y        | -       |
+| teamUUID    | `uuid` of the team, organization-level plugins must have this parameter, team-level plugins may not have this parameter | string | N        | -       |
 
 #### Returns
 
-| Param   | Type   | Description              |
-| :------ | :----- | :----------------------- |
-| hash    | string | `hash` value of the file |
-| url     | string | file download `url`      |
-| name    | string | file name                |
-| size    | int    | file size                |
-| mime    | string | file type                |
-| version | int    | file version             |
+| Param   | Description              | Type   |
+| :------ | :----------------------- | :----- |
+| hash    | `hash` value of the file | string |
+| url     | file download `url`      | string |
+| name    | file name                | string |
+| size    | file size                | int    |
+| mime    | file type                | string |
+| version | file version             | int    |
 
 #### Example
 
 ```typescript
 const file = await PluginFile.uploadFile('files/test.txt', 'taskuuid', 'desc')
+```
+
+---
+
+### Process.create
+
+#### Params
+
+| Param          | Description                                                                                                                                                       | Type                        | Required | Default |
+| :------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------- | :------- | :------ |
+| processType    | type of Progress Manager,Optional values: <br /> **Download Progress Manager**:ProcessType.DownloadFile <br /> **Datasync Progress Manager**:ProcessType.DataSync | string                      | Y        | -       |
+| userUUID       | uuid of user                                                                                                                                                      | string                      | Y        | -       |
+| title          | title of progress                                                                                                                                                 | [LanguagePkg](#LanguagePkg) | Y        | -       |
+| timeoutSeconds | Timeout limit, if the Progress Manager is not completed within the time limit, it fails.                                                                          | number                      | N        | 60(s)   |
+| moduleID       | moduleID of Progress Manager（only applicable to **Datasync Progress Manager**）                                                                                  | string                      | N        | -       |
+| teamUUID       | uuid of the team which the Progress Manager belongs，only if the plugin is used at the organizational level                                                       | string                      | N        | -       |
+
+##### LanguagePkg {#LanguagePkg}
+
+| Param | Description   | Type   | Required | Default |
+| :---- | :------------ | :----- | :------- | :------ |
+| zh    | Chinese title | string | Y        | -       |
+| en    | English title | string | Y        | -       |
+
+#### Returns
+
+| Param       | Description                  | Type   |
+| :---------- | :--------------------------- | :----- |
+| processUUID | the uuid of Progress Manager | string |
+
+#### Example
+
+```typescript
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+import { Process, LanguagePkg, ProcessType, ProcessResult } from '@ones-op/node-ability'
+
+export async function createProcess(request: PluginRequest): Promise<PluginResponse> {
+  //Get parameters from request
+  const { user_uuid, title, timeout } = request?.body as any
+  //Progress Manager Multilingual Titles
+  const titlePkg: LanguagePkg = {
+    en: 'file',
+    zh: title,
+  }
+  //Create a progress manager and get the return value processUUID
+  const processUUID = await Process.create(ProcessType.DownloadFile, user_uuid, titlePkg, timeout)
+
+  return {
+    body: {
+      process_uuid: processUUID,
+    },
+  }
+}
+```
+
+---
+
+### Process.update
+
+#### Params
+
+| Param                  | Description                   | Type   | Required | Default |
+| :--------------------- | :---------------------------- | :----- | :------- | :------ |
+| processUUID            | uuid of Process Manager       | string | Y        | -       |
+| currentSuccessfulCount | current number of completions | number | Y        | -       |
+| currentFailedCount     | current number of failures    | number | Y        | -       |
+| currentRemainingCount  | current remaining number      | number | Y        | -       |
+
+#### Example
+
+```typescript
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+import { Process, LanguagePkg, ProcessType, ProcessResult } from '@ones-op/node-ability'
+
+export async function updateProgress(request: PluginRequest): Promise<PluginResponse> {
+  //Get parameters from request
+  const { process_uuid: processUUID } = request?.body as any
+  const currentSuccessfulCount = 10
+  const currentFailedCount = 5
+  const currentRemainingCount = 30
+  //Progress Manager Update
+  await Process.update(
+    processUUID,
+    currentSuccessfulCount,
+    currentFailedCount,
+    currentRemainingCount
+  )
+  return {
+    body: {
+      status: 'ok',
+    },
+  }
+}
+```
+
+---
+
+### Process.done
+
+#### Params
+
+| Param       | Description              | Type                            | Required | Default |
+| :---------- | :----------------------- | :------------------------------ | :------- | :------ |
+| processUUID | uuid of Process Manager  | string                          | Y        | -       |
+| isSuccess   | Success or failure       | bool                            | Y        | -       |
+| resultText  | Details                  | [LanguagePkg](#LanguagePkg)     | Y        | -       |
+| payload     | The action at completion | [ProcessResult](#ProcessResult) | Y        | -       |
+
+#### Returns {#ProcessResult}
+
+| Param    | Description                                                | Type   | Required | Default |
+| :------- | :--------------------------------------------------------- | :----- | :------- | :------ |
+| filePath | File path,available when **Download Progress Manager**     | string | N        | -       |
+| data     | Extra content,available when **Datasync Progress Manager** | string | N        | -       |
+
+#### Example
+
+```typescript
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+import { Process, LanguagePkg, ProcessType, ProcessResult } from '@ones-op/node-ability'
+
+export async function doneProcess(request: PluginRequest): Promise<PluginResponse> {
+  //Get parameters from request
+  const { process_uuid: processUUID } = request?.body as any
+  //Multilingual details
+  const resultText: LanguagePkg = {
+    en: 'content',
+    zh: '详情内容',
+  }
+  //The action when the progress manager is completed, the download progress manager downloads the specified file, and the data synchronization progress manager can display additional content
+  const payload: ProcessResult = {
+    filePath: './plugin.sql',
+  }
+
+  const isSuccess = true
+  //Complete schedule
+  await Process.done(processUUID, isSuccess, resultText, payload)
+
+  return {
+    body: {
+      status: 'ok',
+      process_uuid: processUUID,
+    },
+  }
+}
 ```
 
 ---

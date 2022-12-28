@@ -44,9 +44,9 @@ Receives the sql statement related to the query and returns the query result, wh
 
 #### Returns
 
-| Param  | Description      | Type                 |
-| :----- | :--------------- | :------------------- |
-| result | sql query result | Record<string,any>[] |
+| Param  | Description      | Type                  |
+| :----- | :--------------- | :-------------------- |
+| result | sql query result | Record<string, any>[] |
 
 #### Example
 
@@ -96,7 +96,7 @@ export async function exec_database() {
 
 ### count
 
-Count related sql interface.If the sql execution is a failure, it will throw error.
+Count related sql interface. If the sql execution is a failure, it will throw error.
 
 #### Params
 

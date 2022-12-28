@@ -19,25 +19,20 @@ When you want to do some custom processing and validation when each module chang
 
 ### Scope of application
 
-The modules that currently support intercepting change events are: `Manhour`（Time spent）、`RemainingHour`（Time remaining）、`ActivityRelease`（snapshot）、`Activity`（Milestone）、`ActivityRelationLink`(Predecessor and Successor relation)、`Deliverable`（Deliverable）、`Project`（Project）、`Task`（Issue）
+When we make changes through Graphql mutation or common API, the events that support triggering interception in each module are shown in the following table:
 
-Event interception is triggered in the following situations:
-
-- `add`, `update`, `delete` related operations of Graphql mutation.
-
-  The `Project` and `Task` modules only support `add` and `update` type events
-
-- Create new and batch new projects, and modify project field.
-
-- Modify the time remaining and time estimated in **Worklog mode-Simple mode**.
-
-- Issue（Scope Reference [TaskEventHandle](../issue/task-event-handler/task-event-handler.mdx#scope)）
-
-:::note
-
-Unless otherwise specified, all operations related to man-hours are in the Simple mode of worklog mode.
-
-:::
+| Module                      | Module name                        | Graphql mutation    | Common API                                                                                  |
+| :-------------------------- | :--------------------------------- | :------------------ | :------------------------------------------------------------------------------------------ |
+| Project                     | Project                            | -                   | Create project、Batch create project、Update project field                                  |
+| Manhour(Simple mode)        | Time spent                         | -                   | Modify time estimated                                                                       |
+| Manhour(Summary mode)       | Time spent                         | add、update、delete | -                                                                                           |
+| RemainingHour(Simple mode)  | Time remaining                     | -                   | Modify time remaining                                                                       |
+| RemainingHour(Summary mode) | Time remaining                     | add、update、delete | -                                                                                           |
+| Activity                    | Milestone                          | add、update、delete | -                                                                                           |
+| ActivityRelease             | snapshot                           | add、update、delete | -                                                                                           |
+| ActivityRelationLink        | Predecessor and Successor relation | add、update、delete | -                                                                                           |
+| Deliverable                 | Deliverable                        | add、update、delete | -                                                                                           |
+| Task                        | Issue                              |                     | Scope Reference [TaskEventHandle](../issue/task-event-handler/task-event-handler.mdx#scope) |
 
 ### Performance
 
