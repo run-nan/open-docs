@@ -54,7 +54,7 @@ default_configs 结构
 | notice_time         | object   | F        |          | 提醒时间配置，具体结构见下方表格                                                 |
 | notice_types        | []string | F        |          | 通知类型                                                                         |
 | notice_user_domains | array    | F        |          | 通知对象用户域，参考 [](../../permission/user_domain/user_domain.md##用户域模型) |
-| filter_condition    | object   | T        |          | 筛选条件，具体结构见响应示例，以及参考 [运算符](../../filter/#运算符)            |
+| filter_condition    | object   | T        |          | 筛选条件，具体结构见响应示例，以及参考 [运算符](../filter/#运算符)               |
 | condition           | object   | T        |          | 触发条件，具体结构见下方表格                                                     |
 
 notice_time 结构
@@ -68,9 +68,9 @@ notice_time 结构
 
 condition 结构
 
-| 参数名           | 值类型                            | 允许空值 | 取值范围 | 说明       |
-| ---------------- | :-------------------------------- | :------- | :------- | :--------- |
-| condition_groups | [] [运算符](../../filter/#运算符) | T        |          | 触发条件组 |
+| 参数名           | 值类型                         | 允许空值 | 取值范围 | 说明       |
+| ---------------- | :----------------------------- | :------- | :------- | :--------- |
+| condition_groups | [] [运算符](../filter/#运算符) | T        |          | 触发条件组 |
 
 #### 工作项类型配置
 
