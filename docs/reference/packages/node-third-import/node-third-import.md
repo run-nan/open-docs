@@ -273,7 +273,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdProjectRole
 
 | Param               | Description   | Type     | Required |
-| ------------------- | ------------- | -------- | -------- |
+| :------------------ | :------------ | :------- | :------- |
 | resource_id         | resource ID   | `string` | Y        |
 | resource_role_id    | role id       | `string` | Y        |
 | resource_project_id | project ID    | `string` | Y        |
@@ -282,7 +282,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdGlobalProjectRole
 
 | Param       | Description   | Type                                                                    | Required |
-| ----------- | ------------- | ----------------------------------------------------------------------- | -------- |
+| :---------- | :------------ | :---------------------------------------------------------------------- | :------- |
 | resource_id | resource ID   | `string`                                                                | Y        |
 | name        | name          | `string`                                                                | Y        |
 | create_time | creation time | `number`                                                                | Y        |
@@ -291,7 +291,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdProjectIssueType
 
 | Param         | Description   | Type     | Required |
-| ------------- | ------------- | -------- | -------- |
+| :------------ | :------------ | :------- | :------- |
 | resource_id   | resource ID   | `string` | Y        |
 | project_id    | project ID    | `string` | Y        |
 | issue_type_id | issue type ID | `string` | Y        |
@@ -299,7 +299,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdIssueType
 
 | Param       | Description   | Type                                                    | Required |
-| ----------- | ------------- | ------------------------------------------------------- | -------- |
+| :---------- | :------------ | :------------------------------------------------------ | :------- |
 | resource_id | resource ID   | `string`                                                | Y        |
 | name        | name          | `string`                                                | Y        |
 | status      | status        | [`ThirdIssueTypeStatusEnum`](#ThirdIssueTypeStatusEnum) | Y        |
@@ -310,7 +310,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdUserGroup
 
 | Param       | Description   | Type     | Required |
-| ----------- | ------------- | -------- | -------- |
+| :---------- | :------------ | :------- | :------- |
 | resource_id | resource ID   | `string` | Y        |
 | name        | name          | `string` | Y        |
 | desc        | description   | `string` | Y        |
@@ -459,7 +459,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 
 working day
 
-| optional value  | description |
+| Enum            | Description |
 | :-------------- | :---------- |
 | WorkdayEnum.Mon | Monday      |
 | WorkdayEnum.Tue | Tuesday     |
@@ -473,7 +473,7 @@ working day
 
 item field type
 
-| optional value                                 | description         |
+| Enum                                           | Description         |
 | :--------------------------------------------- | :------------------ |
 | ThirdProjectFieldValueTypeEnum.FieldTypeOption | Single              |
 | ThirdProjectFieldValueTypeEnum.FieldTypeText   | Single line of text |
@@ -482,7 +482,7 @@ item field type
 
 issue field type enumeration
 
-| optional value                                | description             |
+| Enum                                          | Description             |
 | :-------------------------------------------- | :---------------------- |
 | ThirdTaskFieldTypeEnum.FieldTypeOption        | Single Choice           |
 | ThirdTaskFieldTypeEnum.FieldTypeMultiOption   | Multiple choice         |
@@ -498,7 +498,7 @@ issue field type enumeration
 
 issue link type
 
-| optional value                            | description                        |
+| Enum                                      | Description                        |
 | :---------------------------------------- | :--------------------------------- |
 | ThirdTaskLinkTypeEnum.LinkModelTwoWayMany | Interrelated, two-way many-to-many |
 | ThirdTaskLinkTypeEnum.LinkModelManyToMany | One-way many-to-many               |
@@ -507,7 +507,7 @@ issue link type
 
 Global Project field Type
 
-| optional value                                         | description         |
+| Enum                                                   | Description         |
 | :----------------------------------------------------- | :------------------ |
 | ThirdGlobalProjectFieldTypeEnum.FieldTypeOption        | Single              |
 | ThirdGlobalProjectFieldTypeEnum.FieldTypeText          | Single line of text |
@@ -517,7 +517,7 @@ Global Project field Type
 
 global permissions
 
-| optional value                              | description                   |
+| Enum                                        | Description                   |
 | :------------------------------------------ | :---------------------------- |
 | ThirdGlobalPermissionEnum.AdministerTeam    | Team Administration           |
 | ThirdGlobalPermissionEnum.AdministerProject | Project Administration        |
@@ -528,7 +528,7 @@ global permissions
 
 issue type
 
-| optional value                               | description        |
+| Enum                                         | Description        |
 | :------------------------------------------- | :----------------- |
 | ThirdIssueTypeEnum.IssueTypeStandardTaskType | Standard task type |
 | ThirdIssueTypeEnum.IssueTypeSubTaskType      | Subtask type       |
@@ -537,7 +537,7 @@ issue type
 
 issue icon
 
-| optional value                     | description             |
+| Enum                               | Description             |
 | :--------------------------------- | :---------------------- |
 | ThirdTaskIconEnum.StandardTaskIcon | Standard task item icon |
 | ThirdTaskIconEnum.SubTaskIcon      | sub task item icon      |
@@ -546,7 +546,7 @@ issue icon
 
 user status
 
-| optional value                        | description |
+| Enum                                  | Description |
 | :------------------------------------ | :---------- |
 | ThirdUserStatusEnum.UserStatusNormal  | Normal      |
 | ThirdUserStatusEnum.UserStatusDeleted | Deleted     |
@@ -557,7 +557,7 @@ user status
 
 user group status
 
-| optional value                             | description |
+| Enum                                       | Description |
 | :----------------------------------------- | :---------- |
 | UserGroupStatusEnum.UserGroupStatusNormal  | Normal      |
 | UserGroupStatusEnum.UserGroupStatusDeleted | Deleted     |
@@ -566,7 +566,7 @@ user group status
 
 project type
 
-| optional value                            | description |
+| Enum                                      | Description |
 | :---------------------------------------- | :---------- |
 | ThirdProjectTypeEnum.ProjectTypeNoneEnum  | Normal type |
 | ThirdProjectTypeEnum.ProjectTypeAgileEnum | Agile type  |
@@ -575,7 +575,7 @@ project type
 
 project status
 
-| optional value                              | description |
+| Enum                                        | Description |
 | :------------------------------------------ | :---------- |
 | ThirdProjectStatusEnum.ProjectStatusNormal  | Normal      |
 | ThirdProjectStatusEnum.ProjectStatusDeleted | Deleted     |
@@ -584,7 +584,7 @@ project status
 
 item status type
 
-| optional value                                             | description |
+| Enum                                                       | Description |
 | :--------------------------------------------------------- | :---------- |
 | ThirdProjectStatusUUIDEnum.ProjectStatusCategoryTodo       | Not started |
 | ThirdProjectStatusUUIDEnum.ProjectStatusCategoryInProgress | In Progress |
@@ -594,7 +594,7 @@ item status type
 
 user domain type
 
-| optional value                     | description   |
+| Enum                               | Description   |
 | :--------------------------------- | :------------ |
 | ThirdUserDomainTypeEnum.TaskOwner  | issue creator |
 | ThirdUserDomainTypeEnum.TaskAssign | TaskAssign    |
@@ -605,7 +605,7 @@ user domain type
 
 iteration status
 
-| optional value                                       | description |
+| Enum                                                 | Description |
 | :--------------------------------------------------- | :---------- |
 | ThirdSprintStatusEnum.SprintStatusCategoryToDo       | Not started |
 | ThirdSprintStatusEnum.SprintStatusCategoryInProgress | In Progress |
@@ -615,7 +615,7 @@ iteration status
 
 issue Classification
 
-| optional value                                              | description |
+| Enum                                                        | Description |
 | :---------------------------------------------------------- | :---------- |
 | ThirdTaskStatusCategoryEnum.ProjectStatusCategoryTodo       | Not started |
 | ThirdTaskStatusCategoryEnum.ProjectStatusCategoryInProgress | In Progress |
@@ -625,7 +625,7 @@ issue Classification
 
 type of hours
 
-| optional value                                         | description            |
+| Enum                                                   | Description            |
 | :----------------------------------------------------- | :--------------------- |
 | ThirdTaskWorkLogTypeEnum.ThirdTaskWorkLogTypeEstimate  | Estimated Work         |
 | ThirdTaskWorkLogTypeEnum.ThirdTaskWorkLogTypeRemaining | Remaining Work         |
@@ -635,7 +635,7 @@ type of hours
 
 issue field value type
 
-| optional value                                   | description         |
+| Enum                                             | Description         |
 | :----------------------------------------------- | :------------------ |
 | ThirdTaskFieldValueFieldTypeEnum.FieldTypeOption | Single              |
 | ThirdTaskFieldValueFieldTypeEnum.FieldTypeText   | Single line of text |
@@ -644,7 +644,7 @@ issue field value type
 
 notification value type
 
-| optional value                                                          | description            |
+| Enum                                                                    | Description            |
 | :---------------------------------------------------------------------- | :--------------------- |
 | ThirdNotificationValueTypeEnum.NotificationValueTypeUserID              | User ID                |
 | ThirdNotificationValueTypeEnum.NotificationValueTypeUserGroupID         | User Group             |
@@ -655,7 +655,7 @@ notification value type
 
 notification configuration type
 
-| optional value                                             | description             |
+| Enum                                                       | Description             |
 | :--------------------------------------------------------- | :---------------------- |
 | ThirdNotificationConfigTypeEnum.NoticeTypeCreateTask       | Create issue            |
 | ThirdNotificationConfigTypeEnum.NoticeTypeUpdateTaskAssign | Update issue assignment |
@@ -665,7 +665,7 @@ notification configuration type
 
 authorized user domain type
 
-| optional value                                           | description |
+| Enum                                                     | Description |
 | :------------------------------------------------------- | :---------- |
 | ThirdProjectPermissionUserDomainTypeEnum.SingleUserLabel | User        |
 | ThirdProjectPermissionUserDomainTypeEnum.GroupLabel      | User Group  |
@@ -675,7 +675,7 @@ authorized user domain type
 
 permission point name
 
-| optional value                                          | description              |
+| Enum                                                    | Description              |
 | :------------------------------------------------------ | :----------------------- |
 | ThirdProjectPermissionPermissionEnum.ManageSprints      | Manage Sprints           |
 | ThirdProjectPermissionPermissionEnum.BeAssignedToSprint | Become Sprint Owner      |
@@ -696,7 +696,7 @@ permission point name
 
 permission context type
 
-| optional value                                         | description |
+| Enum                                                   | Description |
 | :----------------------------------------------------- | :---------- |
 | ThirdProjectPermissionContextTypeEnum.ProjectContext   | Project     |
 | ThirdProjectPermissionContextTypeEnum.IssueTypeContext | issue Type  |
@@ -705,7 +705,7 @@ permission context type
 
 issue dynamic type
 
-| optional value                                               | description             |
+| Enum                                                         | Description             |
 | :----------------------------------------------------------- | :---------------------- |
 | ThirdChangeItemFieldEnum.ChangeItemFieldAttachment           | Attachment              |
 | ThirdChangeItemFieldEnum.ChangeItemFieldDescription          | Description             |
@@ -724,7 +724,7 @@ issue dynamic type
 
 project role status
 
-| optional value                                    | description |
+| Enum                                              | Description |
 | :------------------------------------------------ | :---------- |
 | ThirdGlobalProjectRoleStatusEnum.RoleStatusNormal | Normal      |
 
@@ -732,6 +732,6 @@ project role status
 
 issue status
 
-| optional value                                 | description |
+| Enum                                           | Description |
 | :--------------------------------------------- | :---------- |
 | ThirdIssueTypeStatusEnum.IssueTypeStatusNormal | Normal      |

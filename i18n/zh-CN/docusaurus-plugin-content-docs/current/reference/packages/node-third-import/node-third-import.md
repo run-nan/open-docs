@@ -47,7 +47,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdNotification
 
 | 参数        | 说明     | 类型                                                                  | 必填 |
-| ----------- | -------- | --------------------------------------------------------------------- | ---- |
+| :---------- | :------- | :-------------------------------------------------------------------- | :--- |
 | project_id  | 项目 ID  | `string`                                                              | 是   |
 | value_type  | 值类型   | [`ThirdNotificationValueTypeEnum`](#ThirdNotificationValueTypeEnum)   | 是   |
 | value       | 值       | `string`                                                              | 是   |
@@ -56,7 +56,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdTaskWorkLog
 
 | 参数        | 说明      | 类型                                                    | 必填 |
-| ----------- | --------- | ------------------------------------------------------- | ---- |
+| :---------- | :-------- | :------------------------------------------------------ | :--- |
 | resource_id | 资源 ID   | `string`                                                | 是   |
 | task_id     | 工作项 ID | `string`                                                | 是   |
 | user_id     | 用户 ID   | `string`                                                | 是   |
@@ -68,7 +68,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdTaskAttachment
 
 | 参数           | 说明         | 类型     | 必填 |
-| -------------- | ------------ | -------- | ---- |
+| :------------- | :----------- | :------- | :--- |
 | resource_id    | 资源 ID      | `string` | 是   |
 | task_id        | 工作项 ID    | `string` | 是   |
 | full_file_path | 附件文件地址 | `string` | 是   |
@@ -76,7 +76,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdTaskLink
 
 | 参数           | 说明              | 类型     | 必填 |
-| -------------- | ----------------- | -------- | ---- |
+| :------------- | :---------------- | :------- | :--- |
 | resource_id    | 关联类型          | `string` | 是   |
 | link_type_id   | 工作项关联类型 ID | `string` | 是   |
 | source_task_id | 源工作项 ID       | `string` | 是   |
@@ -85,7 +85,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdTaskComment
 
 | 参数        | 说明      | 类型     | 必填 |
-| ----------- | --------- | -------- | ---- |
+| :---------- | :-------- | :------- | :--- |
 | resource_id | 资源 ID   | `string` | 是   |
 | task_id     | 工作项 ID | `string` | 是   |
 | user_id     | 用户 ID   | `string` | 是   |
@@ -95,7 +95,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdGlobalPermission
 
 | 参数        | 说明      | 类型                                                      | 必填 |
-| ----------- | --------- | --------------------------------------------------------- | ---- |
+| :---------- | :-------- | :-------------------------------------------------------- | :--- |
 | resource_id | 资源 ID   | `string`                                                  | 是   |
 | permission  | 权限点    | [`ThirdGlobalPermissionEnum`](#ThirdGlobalPermissionEnum) | 是   |
 | group_id    | 用户组 ID | `string`                                                  | 是   |
@@ -103,7 +103,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdProjectPermission
 
 | 参数              | 说明         | 类型                                                                                    | 必填 |
-| ----------------- | ------------ | --------------------------------------------------------------------------------------- | ---- |
+| :---------------- | :----------- | :-------------------------------------------------------------------------------------- | :--- |
 | resource_id       | 资源 ID      | `string`                                                                                | 是   |
 | project_id        | 项目 ID      | `string`                                                                                | 是   |
 | user_domain_type  | 用户域类型   | [`ThirdProjectPermissionUserDomainTypeEnum`](#ThirdProjectPermissionUserDomainTypeEnum) | 是   |
@@ -114,7 +114,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdTaskWatcher
 
 | 参数        | 说明      | 类型     | 必填 |
-| ----------- | --------- | -------- | ---- |
+| :---------- | :-------- | :------- | :--- |
 | resource_id | 资源 ID   | `string` | 是   |
 | task_id     | 工作项 ID | `string` | 是   |
 | user_id     | 用户 ID   | `string` | 是   |
@@ -122,7 +122,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdSprint
 
 | 参数        | 说明      | 类型                                              | 必填 |
-| ----------- | --------- | ------------------------------------------------- | ---- |
+| :---------- | :-------- | :------------------------------------------------ | :--- |
 | resource_id | 资源 ID   | `string`                                          | 是   |
 | name        | 名称      | `string`                                          | 是   |
 | status      | 状态      | [`ThirdSprintStatusEnum`](#ThirdSprintStatusEnum) | 是   |
@@ -135,14 +135,14 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdProjectIssueTypeLayout
 
 | 参数          | 说明     | 类型                                    | 必填 |
-| ------------- | -------- | --------------------------------------- | ---- |
+| :------------ | :------- | :-------------------------------------- | :--- |
 | project_id    | 项目 ID  | `string`                                | 是   |
 | scope_configs | 视图配置 | [`ScopeConfigItem[]`](#ScopeConfigItem) | 是   |
 
 ##### ScopeConfigItem {#ScopeConfigItem}
 
 | 参数             | 说明        | 类型     | 必填 |
-| ---------------- | ----------- | -------- | ---- |
+| :--------------- | :---------- | :------- | :--- |
 | issue_type_id    | 工作项 ID   | `string` | 是   |
 | field_config_id  | 字段配置 ID | `string` | 是   |
 | screen_scheme_id | 视图 ID     | `string` | 是   |
@@ -150,21 +150,21 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdProjectIssueTypeWithFields
 
 | 参数                   | 说明     | 类型                                            | 必填 |
-| ---------------------- | -------- | ----------------------------------------------- | ---- |
+| :--------------------- | :------- | :---------------------------------------------- | :--- |
 | project_id             | 项目 ID  | `string`                                        | 是   |
 | issue_type_with_fields | 属性配置 | [`IssueTypeWithFields[]`](#IssueTypeWithFields) | 是   |
 
 ##### IssueTypeWithFields {#IssueTypeWithFields}
 
 | 参数          | 说明      | 类型                | 必填 |
-| ------------- | --------- | ------------------- | ---- |
+| :------------ | :-------- | :------------------ | :--- |
 | issue_type_id | 工作项 ID | `string`            | 是   |
 | fields        | 属性列表  | [`Field[]`](#Field) | 是   |
 
 ##### Field {#Field}
 
 | 参数             | 说明             | 类型      | 必填 |
-| ---------------- | ---------------- | --------- | ---- |
+| :--------------- | :--------------- | :-------- | :--- |
 | field_identifier | 字段标识         | `string`  | 是   |
 | required         | 是否必填         | `boolean` | 是   |
 | is_customized    | 是否是自定义属性 | `boolean` | 是   |
@@ -172,7 +172,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdIssueTypeField
 
 | 参数          | 说明      | 类型     | 必填 |
-| ------------- | --------- | -------- | ---- |
+| :------------ | :-------- | :------- | :--- |
 | resource_id   | 资源 ID   | `string` | 是   |
 | issue_type_id | 工作项 ID | `string` | 是   |
 | field_id      | 属性 ID   | `string` | 是   |
@@ -180,7 +180,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdChangeItem
 
 | 参数        | 说明      | 类型                                                    | 必填 |
-| ----------- | --------- | ------------------------------------------------------- | ---- |
+| :---------- | :-------- | :------------------------------------------------------ | :--- |
 | resource_id | 资源 ID   | `string`                                                | 是   |
 | task_id     | 工作项 ID | `string`                                                | 是   |
 | field_type  | 属性类型  | `string`                                                | 是   |
@@ -195,7 +195,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdIssueTypeLayout
 
 | 参数                | 说明           | 类型                | 必填 |
-| ------------------- | -------------- | ------------------- | ---- |
+| :------------------ | :------------- | :------------------ | :--- |
 | issue_type_id       | 工作项类型 ID  | `string`            | 是   |
 | field_config_id     | 属性配置 ID    | `string`            | 是   |
 | field_config_name   | 属性配置名称   | `string`            | 是   |
@@ -207,7 +207,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdProjectFieldValue
 
 | 参数             | 说明        | 类型                                                                | 必填 |
-| ---------------- | ----------- | ------------------------------------------------------------------- | ---- |
+| :--------------- | :---------- | :------------------------------------------------------------------ | :--- |
 | resource_id      | 资源 ID     | `string`                                                            | 是   |
 | project_id       | 项目 ID     | `string`                                                            | 是   |
 | project_field_id | 项目属性 ID | `string`                                                            | 是   |
@@ -217,7 +217,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdGlobalProjectFieldOption {#ThirdGlobalProjectFieldOption}
 
 | 参数             | 说明    | 类型     | 必填 |
-| ---------------- | ------- | -------- | ---- |
+| :--------------- | :------ | :------- | :--- |
 | resource_id      | 资源 ID | `string` | 是   |
 | value            | 属性值  | `string` | 是   |
 | desc             | 描述    | `string` | 是   |
@@ -227,7 +227,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdGlobalProjectField
 
 | 参数        | 说明       | 类型                                                                  | 必填 |
-| ----------- | ---------- | --------------------------------------------------------------------- | ---- |
+| :---------- | :--------- | :-------------------------------------------------------------------- | :--- |
 | resource_id | 资源 ID    | `string`                                                              | 是   |
 | name        | 名称       | `string`                                                              | 是   |
 | type        | 属性类型   | [`ThirdGlobalProjectFieldTypeEnum`](#ThirdGlobalProjectFieldTypeEnum) | 是   |
@@ -236,7 +236,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdProject
 
 | 参数         | 说明      | 类型                                                        | 必填 |
-| ------------ | --------- | ----------------------------------------------------------- | ---- |
+| :----------- | :-------- | :---------------------------------------------------------- | :--- |
 | resource_id  | 资源 ID   | `string`                                                    | 是   |
 | name         | 名称      | `string`                                                    | 是   |
 | assign_id    | 负责人 ID | `string`                                                    | 是   |
@@ -249,7 +249,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdUserGroupMember
 
 | 参数              | 说明      | 类型     | 必填 |
-| ----------------- | --------- | -------- | ---- |
+| :---------------- | :-------- | :------- | :--- |
 | resource_id       | 资源 ID   | `string` | 是   |
 | resource_group_id | 用户组 ID | `string` | 是   |
 | resource_user_id  | 用户 ID   | `string` | 是   |
@@ -257,14 +257,14 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdProjectCategory
 
 | 参数        | 说明    | 类型     | 必填 |
-| ----------- | ------- | -------- | ---- |
+| :---------- | :------ | :------- | :--- |
 | resource_id | 资源 ID | `string` | 是   |
 | name        | 名称    | `string` | 是   |
 
 ### ThirdProjectRoleMember
 
 | 参数                | 说明    | 类型     | 必填 |
-| ------------------- | ------- | -------- | ---- |
+| :------------------ | :------ | :------- | :--- |
 | resource_id         | 资源 ID | `string` | 是   |
 | resource_role_id    | 角色 ID | `string` | 是   |
 | resource_project_id | 项目 ID | `string` | 是   |
@@ -273,7 +273,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdProjectRole
 
 | 参数                | 说明     | 类型     | 必填 |
-| ------------------- | -------- | -------- | ---- |
+| :------------------ | :------- | :------- | :--- |
 | resource_id         | 资源 ID  | `string` | 是   |
 | resource_role_id    | 角色 ID  | `string` | 是   |
 | resource_project_id | 项目 ID  | `string` | 是   |
@@ -282,7 +282,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdGlobalProjectRole
 
 | 参数        | 说明     | 类型                                                                    | 必填 |
-| ----------- | -------- | ----------------------------------------------------------------------- | ---- |
+| :---------- | :------- | :---------------------------------------------------------------------- | :--- |
 | resource_id | 资源 ID  | `string`                                                                | 是   |
 | name        | 名称     | `string`                                                                | 是   |
 | create_time | 创建时间 | `number`                                                                | 是   |
@@ -291,7 +291,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdProjectIssueType
 
 | 参数          | 说明          | 类型     | 必填 |
-| ------------- | ------------- | -------- | ---- |
+| :------------ | :------------ | :------- | :--- |
 | resource_id   | 资源 ID       | `string` | 是   |
 | project_id    | 项目 ID       | `string` | 是   |
 | issue_type_id | 工作项类型 ID | `string` | 是   |
@@ -299,7 +299,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdIssueType
 
 | 参数        | 说明     | 类型                                                    | 必填 |
-| ----------- | -------- | ------------------------------------------------------- | ---- |
+| :---------- | :------- | :------------------------------------------------------ | :--- |
 | resource_id | 资源 ID  | `string`                                                | 是   |
 | name        | 名称     | `string`                                                | 是   |
 | status      | 状态     | [`ThirdIssueTypeStatusEnum`](#ThirdIssueTypeStatusEnum) | 是   |
@@ -310,7 +310,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdUserGroup
 
 | 参数        | 说明     | 类型     | 必填 |
-| ----------- | -------- | -------- | ---- |
+| :---------- | :------- | :------- | :--- |
 | resource_id | 资源 ID  | `string` | 是   |
 | name        | 名称     | `string` | 是   |
 | desc        | 描述     | `string` | 是   |
@@ -320,7 +320,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdUser
 
 | 参数        | 说明     | 类型                                          | 必填 |
-| ----------- | -------- | --------------------------------------------- | ---- |
+| :---------- | :------- | :-------------------------------------------- | :--- |
 | resource_id | 资源 ID  | `string`                                      | 是   |
 | name        | 名称     | `string`                                      | 是   |
 | email       | 邮箱     | `string`                                      | 是   |
@@ -334,7 +334,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdTaskLinkType
 
 | 参数        | 说明     | 类型                                              | 必填 |
-| ----------- | -------- | ------------------------------------------------- | ---- |
+| :---------- | :------- | :------------------------------------------------ | :--- |
 | resource_id | 资源 ID  | `string`                                          | 是   |
 | name        | 名称     | `string`                                          | 是   |
 | desc_out    | 链出描述 | `string`                                          | 是   |
@@ -344,7 +344,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdConfig
 
 | 参数                  | 说明                   | 类型                            | 必填 |
-| --------------------- | ---------------------- | ------------------------------- | ---- |
+| :-------------------- | :--------------------- | :------------------------------ | :--- |
 | workdays              | 工作日                 | [`WorkdayEnum[]`](#WorkdayEnum) | 是   |
 | work_hours            | 每日工时               | `number`                        | 是   |
 | fixed_fields_mapping  | 第三方字段映射系统字段 | `map`                           | 是   |
@@ -355,7 +355,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdPriority
 
 | 参数             | 说明     | 类型     | 必填 |
-| ---------------- | -------- | -------- | ---- |
+| :--------------- | :------- | :------- | :--- |
 | resource_id      | 资源 ID  | `string` | 是   |
 | name             | 名称     | `string` | 是   |
 | desc             | 描述     | `string` | 是   |
@@ -365,7 +365,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdTaskFieldOption
 
 | 参数                   | 说明                | 类型     | 必填 |
-| ---------------------- | ------------------- | -------- | ---- |
+| :--------------------- | :------------------ | :------- | :--- |
 | resource_id            | 资源 ID             | `string` | 是   |
 | resource_task_field_id | 第三方工作项属性 ID | `string` | 是   |
 | name                   | 名称                | `string` | 是   |
@@ -376,7 +376,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdTaskField
 
 | 参数        | 说明     | 类型                                                | 必填 |
-| ----------- | -------- | --------------------------------------------------- | ---- |
+| :---------- | :------- | :-------------------------------------------------- | :--- |
 | resource_id | 资源 ID  | `string`                                            | 是   |
 | name        | 属性名称 | `string`                                            | 是   |
 | type        | 属性类型 | [`ThirdTaskFieldTypeEnum`](#ThirdTaskFieldTypeEnum) | 是   |
@@ -384,14 +384,14 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdUserDomain {#ThirdUserDomain}
 
 | 参数              | 说明       | 类型                                                  | 必填 |
-| ----------------- | ---------- | ----------------------------------------------------- | ---- |
+| :---------------- | :--------- | :---------------------------------------------------- | :--- |
 | user_domain_type  | 用户域类型 | [`ThirdUserDomainTypeEnum`](#ThirdUserDomainTypeEnum) | 是   |
 | user_domain_param | 用户域参数 | `string`                                              | 是   |
 
 ### ThirdTransition
 
 | 参数            | 说明          | 类型                                    | 必填 |
-| --------------- | ------------- | --------------------------------------- | ---- |
+| :-------------- | :------------ | :-------------------------------------- | :--- |
 | project_id      | 项目 ID       | `string`                                | 是   |
 | issue_type_id   | 工作项类型 ID | `string`                                | 是   |
 | start_status_id | 开始的状态 ID | `string`                                | 是   |
@@ -402,7 +402,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdWorkflow
 
 | 参数                | 说明               | 类型                                                | 必填 |
-| ------------------- | ------------------ | --------------------------------------------------- | ---- |
+| :------------------ | :----------------- | :-------------------------------------------------- | :--- |
 | project_id          | 项目 ID            | `string`                                            | 是   |
 | issue_type_statuses | 工作项类型状态配置 | [`ThirdTaskStatusConfig[]`](#ThirdTaskStatusConfig) | 是   |
 | transitions         | 工作流配置         | `ThirdTransition[]`                                 | 是   |
@@ -410,7 +410,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdTaskStatusConfig {#ThirdTaskStatusConfig}
 
 | 参数           | 说明           | 类型       | 必填 |
-| -------------- | -------------- | ---------- | ---- |
+| :------------- | :------------- | :--------- | :--- |
 | issue_type_id  | 工作项类型 ID  | `string`   | 是   |
 | status_ids     | 工作项状态 IDs | `string[]` | 是   |
 | init_status_id | 初始状态 ID    | `string`   | 是   |
@@ -419,7 +419,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdTaskStatus
 
 | 参数        | 说明           | 类型                                                          | 必填 |
-| ----------- | -------------- | ------------------------------------------------------------- | ---- |
+| :---------- | :------------- | :------------------------------------------------------------ | :--- |
 | resource_id | 资源 ID        | `string`                                                      | 是   |
 | name        | 名称           | `string`                                                      | 是   |
 | category    | 工作项状态分类 | [`ThirdTaskStatusCategoryEnum`](#ThirdTaskStatusCategoryEnum) | 是   |
@@ -427,7 +427,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdTaskFieldValue
 
 | 参数        | 说明      | 类型                                                                    | 必填 |
-| ----------- | --------- | ----------------------------------------------------------------------- | ---- |
+| :---------- | :-------- | :---------------------------------------------------------------------- | :--- |
 | resource_id | 资源 ID   | `string`                                                                | 是   |
 | task_id     | 工作项 ID | `string`                                                                | 是   |
 | field_id    | 属性 ID   | `string`                                                                | 是   |
@@ -437,7 +437,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 ### ThirdTask
 
 | 参数          | 说明          | 类型     | 必填 |
-| ------------- | ------------- | -------- | ---- |
+| :------------ | :------------ | :------- | :--- |
 | resource_id   | 资源 ID       | `string` | 是   |
 | summary       | 标题          | `string` | 是   |
 | desc          | 描述          | `string` | 是   |
