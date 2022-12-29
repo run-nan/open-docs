@@ -20,13 +20,28 @@
 | :---------- | :----------- | :----- | :--- | :----- |
 | sqlFileName | sql 文件路径 | string | 是   | -      |
 
+#### Error
+
+| errcode                     | reason                                                           | level | statusCode |
+| --------------------------- | ---------------------------------------------------------------- | ----- | ---------- |
+| DB.SqlFileNameFormatInvalid | SQL filename format invaild.（sql 文件名格式不对）               | error | 400        |
+| DB.SqlFileFetchingFailed    | SQL file fetching failed. （无法找到 sql 文件）                  | error | 400        |
+| DB.CannotFindTable          | Cannot find table content in SQL file.（文件内没有表内容）       | error | 400        |
+| DB.ImportSqlErr             | 执行 import 方法时发生了未知错误，具体错误场景给出具体错误原因。 | error | 500        |
+
 #### Example
 
 ```javascript
-import { importSQL } from '@ones-op/node-database'
+import { importSQL, DBError } from '@ones-op/node-database'
 
-export async function multiple_language() {
-  const language = await Language.getLanguage(user_uuid)
+export async function testImportSQL() {
+  try {
+    await importSQL('plugin.sql')
+  } catch (error) {
+    if (error instanceof DBError) {
+      Logger.error('error:', error.errcode, error.statusCode, error.level, error.reason)
+    }
+  }
 }
 ```
 
@@ -48,16 +63,25 @@ export async function multiple_language() {
 | :----- | :----------- | :------------------- |
 | result | sql 查询结果 | Record<string,any>[] |
 
+#### Error
+
+| errcode         | reason                                                           | level | statusCode |
+| --------------- | ---------------------------------------------------------------- | ----- | ---------- |
+| DB.QuerySqlErr  | 执行 select 方法时发生了未知错误，具体错误场景给出具体错误原因。 | error | 500        |
+| DB.SqlSyntaxErr | sql 不符合语法规范，具体错误场景给出具体错误原因。               | error | 400        |
+
 #### Example
 
 ```javascript
-import { select } from '@ones-op/node-database'
+import { select, DBError } from '@ones-op/node-database'
 
 export async function select_database() {
   try {
     const result = await select('select * from email_id_map limit 10;')
   } catch (error) {
-    Logger.error('ERROR: ', error)
+    if (error instanceof DBError) {
+      Logger.error('error:', error.errcode, error.statusCode, error.level, error.reason)
+    }
   }
 }
 ```
@@ -75,6 +99,13 @@ export async function select_database() {
 | operate | 操作类型，'insert' 、'update' 、 'delete' 、'create' 、'alter' 、 'drop' | string | 是   | -      |
 | sql     | sql 语句                                                                 | string | 是   | -      |
 
+#### Error
+
+| errcode         | reason                                                         | level | statusCode |
+| --------------- | -------------------------------------------------------------- | ----- | ---------- |
+| DB.ExecSqlErr   | 执行 exec 方法时发生了未知错误，具体错误场景给出具体错误原因。 | error | 500        |
+| DB.SqlSyntaxErr | sql 不符合语法规范，具体错误场景给出具体错误原因。             | error | 400        |
+
 #### Example
 
 ```javascript
@@ -87,7 +118,9 @@ export async function exec_database() {
       `INSERT INTO email_id_map VALUES ("plugin@ones.cn", "001");`
     )
   } catch (error) {
-    Logger.error('ERROR: ', error)
+    if (error instanceof DBError) {
+      Logger.error('error:', error.errcode, error.statusCode, error.level, error.reason)
+    }
   }
 }
 ```
@@ -110,16 +143,25 @@ export async function exec_database() {
 | :----- | :------- | :----- |
 | result | 统计结果 | number |
 
+#### Error
+
+| errcode         | reason                                                          | level | statusCode |
+| --------------- | --------------------------------------------------------------- | ----- | ---------- |
+| DB.QuerySqlErr  | 执行 count 方法时发生了未知错误，具体错误场景给出具体错误原因。 | error | 500        |
+| DB.SqlSyntaxErr | sql 不符合语法规范，具体错误场景给出具体错误原因。              | error | 400        |
+
 #### Example
 
 ```javascript
-import { count } from '@ones-op/node-database'
+import { count,DBError } from '@ones-op/node-database'
 
 export async function count_database() {
   try {
-    const c = await count('select count(*) from email_id_map;')
+    const result = await count('select count(*) from email_id_map;')
   } catch (error) {
-    Logger.error('ERROR: ', error)
+    if (error insteadof DBError){
+       Logger.error("error:", error.errcode, error.statusCode, error.level, error.reason)
+    }
   }
 }
 ```
