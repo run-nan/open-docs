@@ -27,7 +27,7 @@ During the plugin upgrade process, the files in the plugin `/workspace` director
 File replacement rule, the optional value is as follows:
 
 | Rule       | Description                                                      |
-| ---------- | :--------------------------------------------------------------- |
+| ---------- | ---------------------------------------------------------------- |
 | `save_new` | When the new file conflicts with the old file, keep the new file |
 | `save_old` | When the new file conflicts with the old file, keep the old file |
 

@@ -31,7 +31,7 @@ function App() {
 ## Index
 
 | API                                               | Description                                                                              |
-| :------------------------------------------------ | :--------------------------------------------------------------------------------------- |
+| ------------------------------------------------- | ---------------------------------------------------------------------------------------- |
 | [useTeamInfo](#useTeamInfo)                       | Get current team information                                                             |
 | [useOrganizationInfo](#useOrganizationInfo)       | Get the current organization information                                                 |
 | [useProductInfo](#useProductInfo)                 | Get current product information                                                          |
@@ -61,14 +61,14 @@ Get current team information.
 
 #### Requirements
 
-|  **ONES**  | **@ones-op/store** |
-| :--------: | :----------------: |
-| `v3.6.25+` |     `v0.1.0+`      |
+| **ONES**   | **@ones-op/store** |
+| ---------- | ------------------ |
+| `v3.6.25+` | `v0.1.0+`          |
 
 #### Returns
 
-| Description              |      Type      |
-| :----------------------- | :------------: |
+| Description              | Type           |
+| ------------------------ | -------------- |
 | Current team information | `TeamInfoType` |
 
 #### Types
@@ -86,14 +86,14 @@ Get the current organization information.
 
 #### Requirements
 
-|  **ONES**  | **@ones-op/store** |
-| :--------: | :----------------: |
-| `v3.6.25+` |     `v0.1.0+`      |
+| **ONES**   | **@ones-op/store** |
+| ---------- | ------------------ |
+| `v3.6.25+` | `v0.1.0+`          |
 
 #### Returns
 
-| Description                      |          Type          |
-| :------------------------------- | :--------------------: |
+| Description                      | Type                   |
+| -------------------------------- | ---------------------- |
 | Current organization information | `OrganizationInfoType` |
 
 #### Types
@@ -111,14 +111,14 @@ Get current product information.
 
 #### Requirements
 
-|  **ONES**  | **@ones-op/store** |
-| :--------: | :----------------: |
-| `v3.6.25+` |     `v0.1.0+`      |
+| **ONES**   | **@ones-op/store** |
+| ---------- | ------------------ |
+| `v3.6.25+` | `v0.1.0+`          |
 
 #### Returns
 
-| Description                 |       Type        |
-| :-------------------------- | :---------------: |
+| Description                 | Type              |
+| --------------------------- | ----------------- |
 | Current product information | `ProductInfoType` |
 
 #### Types
@@ -136,14 +136,14 @@ Get current dashboard information.
 
 #### Requirements
 
-|  **ONES**  | **@ones-op/store** |
-| :--------: | :----------------: |
-| `v3.6.25+` |     `v0.3.0+`      |
+| **ONES**   | **@ones-op/store** |
+| ---------- | ------------------ |
+| `v3.6.25+` | `v0.3.0+`          |
 
 #### Returns
 
-| Description                   |        Type         |
-| :---------------------------- | :-----------------: |
+| Description                   | Type                |
+| ----------------------------- | ------------------- |
 | Current dashboard information | `DashboardInfoType` |
 
 #### Types
@@ -161,14 +161,14 @@ Get information about the currently accessed filter view.
 
 #### Requirements
 
-|  **ONES**   | **@ones-op/store** |
-| :---------: | :----------------: |
-| `v3.10.26+` |     `v0.3.0+`      |
+| **ONES**    | **@ones-op/store** |
+| ----------- | ------------------ |
+| `v3.10.26+` | `v0.3.0+`          |
 
 #### Returns
 
-| Description                                    |       Type       |
-| :--------------------------------------------- | :--------------: |
+| Description                                    | Type             |
+| ---------------------------------------------- | ---------------- |
 | The currently accessed filter view information | `FilterInfoType` |
 
 #### Types
@@ -186,14 +186,14 @@ Get current pipeline information.
 
 #### Requirements
 
-|  **ONES**   | **@ones-op/store** |
-| :---------: | :----------------: |
-| `v3.10.26+` |     `v0.3.0+`      |
+| **ONES**    | **@ones-op/store** |
+| ----------- | ------------------ |
+| `v3.10.26+` | `v0.3.0+`          |
 
 #### Returns
 
-| Description                  |        Type        |
-| :--------------------------- | :----------------: |
+| Description                  | Type               |
+| ---------------------------- | ------------------ |
 | Current pipeline information | `PipelineInfoType` |
 
 #### Types
@@ -211,14 +211,14 @@ Get current plugin information.
 
 #### Requirements
 
-|  **ONES**   | **@ones-op/store** |
-| :---------: | :----------------: |
-| `v3.10.26+` |     `v0.3.0+`      |
+| **ONES**    | **@ones-op/store** |
+| ----------- | ------------------ |
+| `v3.10.26+` | `v0.3.0+`          |
 
 #### Returns
 
-| Description                |       Type       |
-| :------------------------- | :--------------: |
+| Description                | Type             |
+| -------------------------- | ---------------- |
 | Current plugin information | `PluginInfoType` |
 
 #### Types
@@ -245,14 +245,14 @@ Get the current program information.
 
 #### Requirements
 
-|  **ONES**   | **@ones-op/store** |
-| :---------: | :----------------: |
-| `v3.10.26+` |     `v0.3.0+`      |
+| **ONES**    | **@ones-op/store** |
+| ----------- | ------------------ |
+| `v3.10.26+` | `v0.3.0+`          |
 
 #### Returns
 
-| Description                 |       Type        |
-| :-------------------------- | :---------------: |
+| Description                 | Type              |
+| --------------------------- | ----------------- |
 | Current program information | `ProgramInfoType` |
 
 #### Types
@@ -270,14 +270,14 @@ Get current project information.
 
 #### Requirements
 
-|  **ONES**   | **@ones-op/store** |
-| :---------: | :----------------: |
-| `v3.10.26+` |     `v0.3.0+`      |
+| **ONES**    | **@ones-op/store** |
+| ----------- | ------------------ |
+| `v3.10.26+` | `v0.3.0+`          |
 
 #### Returns
 
-| Description                 |       Type        |
-| :-------------------------- | :---------------: |
+| Description                 | Type              |
+| --------------------------- | ----------------- |
 | Current project information | `ProjectInfoType` |
 
 #### Types
@@ -295,14 +295,14 @@ Get the information of the selected project role in the current project member c
 
 #### Requirements
 
-|  **ONES**   | **@ones-op/store** |
-| :---------: | :----------------: |
-| `v3.10.26+` |     `v0.3.0+`      |
+| **ONES**    | **@ones-op/store** |
+| ----------- | ------------------ |
+| `v3.10.26+` | `v0.3.0+`          |
 
 #### Returns
 
-| Description                           |         Type          |
-| :------------------------------------ | :-------------------: |
+| Description                           | Type                  |
+| ------------------------------------- | --------------------- |
 | The selected project role information | `ProjectRoleInfoType` |
 
 #### Types
@@ -320,14 +320,14 @@ Get the information of the currently access testcase library.
 
 #### Requirements
 
-|  **ONES**   | **@ones-op/store** |
-| :---------: | :----------------: |
-| `v3.10.26+` |     `v0.3.0+`      |
+| **ONES**    | **@ones-op/store** |
+| ----------- | ------------------ |
+| `v3.10.26+` | `v0.3.0+`          |
 
 #### Returns
 
-| Description                                          |           Type            |
-| :--------------------------------------------------- | :-----------------------: |
+| Description                                          | Type                      |
+| ---------------------------------------------------- | ------------------------- |
 | Information of the currently access testcase library | `testCaseLibraryInfoType` |
 
 #### Types
@@ -345,14 +345,14 @@ Get the information of the currently access testcase library list.
 
 #### Requirements
 
-|  **ONES**   | **@ones-op/store** |
-| :---------: | :----------------: |
-| `v3.10.26+` |     `v0.3.0+`      |
+| **ONES**    | **@ones-op/store** |
+| ----------- | ------------------ |
+| `v3.10.26+` | `v0.3.0+`          |
 
 #### Returns
 
-| Description                                               |          Type          |
-| :-------------------------------------------------------- | :--------------------: |
+| Description                                               | Type                   |
+| --------------------------------------------------------- | ---------------------- |
 | Information of the currently access testcase library list | `TestCaseListInfoType` |
 
 #### Types
@@ -371,14 +371,14 @@ Get the current test plan information.
 
 #### Requirements
 
-|  **ONES**   | **@ones-op/store** |
-| :---------: | :----------------: |
-| `v3.10.26+` |     `v0.3.0+`      |
+| **ONES**    | **@ones-op/store** |
+| ----------- | ------------------ |
+| `v3.10.26+` | `v0.3.0+`          |
 
 #### Returns
 
-| Description                   |        Type        |
-| :---------------------------- | :----------------: |
+| Description                   | Type               |
+| ----------------------------- | ------------------ |
 | Current test plan information | `TestPlanInfoType` |
 
 #### Types
@@ -396,14 +396,14 @@ Get the current user information.
 
 #### Requirements
 
-|  **ONES**   | **@ones-op/store** |
-| :---------: | :----------------: |
-| `v3.10.26+` |     `v0.3.0+`      |
+| **ONES**    | **@ones-op/store** |
+| ----------- | ------------------ |
+| `v3.10.26+` | `v0.3.0+`          |
 
 #### Returns
 
-| Description              |      Type      |
-| :----------------------- | :------------: |
+| Description              | Type           |
+| ------------------------ | -------------- |
 | Current user information | `UserInfoType` |
 
 #### Types
@@ -421,16 +421,16 @@ By calling this hook method, some action in the system can be intercepted. For d
 
 #### Requirements
 
-|  **ONES**   | **@ones-op/store** |
-| :---------: | :----------------: |
-| `v3.10.26+` |     `v0.3.0+`      |
+| **ONES**    | **@ones-op/store** |
+| ----------- | ------------------ |
+| `v3.10.26+` | `v0.3.0+`          |
 
 #### Params
 
-| Params  | Description                              |                              Type                              | Required | Default |
-| :-----: | :--------------------------------------- | :------------------------------------------------------------: | :------: | :-----: |
-|  type   | Trigger type                             | [`ActionEnum`](../../../abilities/slot/global/trigger/list.md) |   Yes    |         |
-| handler | Operation interception processing method |               `(payload: ActionPayload) => void`               |   Yes    |         |
+| Params  | Description                              | Type                                                           | Required | Default |
+| ------- | ---------------------------------------- | -------------------------------------------------------------- | -------- | ------- |
+| type    | Trigger type                             | [`ActionEnum`](../../../abilities/slot/global/trigger/list.md) | Y        |         |
+| handler | Operation interception processing method | `(payload: ActionPayload) => void`                             | Y        |         |
 
 #### Types
 
@@ -464,14 +464,14 @@ Get the information of the current task in details of the progress manager task.
 
 #### Requirements
 
-|  **ONES**  | **@ones-op/store** |
-| :--------: | :----------------: |
-| `v3.11.0+` |     `v0.3.1+`      |
+| **ONES**   | **@ones-op/store** |
+| ---------- | ------------------ |
+| `v3.11.0+` | `v0.3.1+`          |
 
 #### Returns
 
-| Description          |            Type            |
-| :------------------- | :------------------------: |
+| Description          | Type                       |
+| -------------------- | -------------------------- |
 | Current task details | `ProgressJobInfoStateType` |
 
 #### Types
@@ -508,14 +508,14 @@ Get the data of the custom macro in the wiki editor.
 
 #### Requirements
 
-|  **ONES**   | **@ones-op/store** |
-| :---------: | :----------------: |
-| `v3.11.30+` |     `v0.4.0+`      |
+| **ONES**    | **@ones-op/store** |
+| ----------- | ------------------ |
+| `v3.11.30+` | `v0.4.0+`          |
 
 #### Returns
 
-| Description                              |     Type      |
-| :--------------------------------------- | :-----------: |
+| Description                              | Type          |
+| ---------------------------------------- | ------------- |
 | The data and the operation for the macro | `PluginState` |
 
 #### Types
@@ -615,14 +615,14 @@ Get current task information.
 
 #### Requirements
 
-|  **ONES**   | **@ones-op/store** |
-| :---------: | :----------------: |
-| `v3.11.40+` |     `v0.5.0+`      |
+| **ONES**    | **@ones-op/store** |
+| ----------- | ------------------ |
+| `v3.11.40+` | `v0.5.0+`          |
 
 #### Returns
 
-| Description              |      Type      |
-| :----------------------- | :------------: |
+| Description              | Type           |
+| ------------------------ | -------------- |
 | Current task information | `TaskInfoType` |
 
 #### Types
@@ -640,13 +640,13 @@ Get the code repository info that the current user selected.
 #### Requirements
 
 | **ONES** | **@ones-op/store** |
-| :------: | :----------------: |
-|  `TODO`  |       `TODO`       |
+| -------- | ------------------ |
+| `TODO`   | `TODO`             |
 
 #### Returns
 
-| Description                                             |         Type         |
-| :------------------------------------------------------ | :------------------: |
+| Description                                             | Type                 |
+| ------------------------------------------------------- | -------------------- |
 | The code repository info that the current user selected | `CodeRepositoryInfo` |
 
 #### Types
@@ -669,13 +669,13 @@ In the plugin custom test report component, get the data of the current componen
 #### Requirements
 
 | **ONES** | **@ones-op/store** |
-| :------: | :----------------: |
-|  `TODO`  |       `TODO`       |
+| -------- | ------------------ |
+| `TODO`   | `TODO`             |
 
 #### Returns
 
-| Description                                                  |             Type              |
-| :----------------------------------------------------------- | :---------------------------: |
+| Description                                                  | Type                          |
+| ------------------------------------------------------------ | ----------------------------- |
 | Data of the current component and the operations on the data | `TestcaseReportComponentInfo` |
 
 #### Types

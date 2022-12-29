@@ -56,12 +56,12 @@ If your current plugin scope at the organization level, change this UUID to the 
 
 ### ones-check-point
 
-- **Type:** `'team' | 'org'`
+- **Type:** `'team' | 'organization'`
 
 ONES Continuous Integration environment `ones-check-id` type.
 
 :::caution
-If your current plugin scope at the organization level, change this type to `org`.
+If your current plugin scope at the organization level, change this type to `organization`.
 :::
 
 ### ones-plugin-id

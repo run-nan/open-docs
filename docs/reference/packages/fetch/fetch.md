@@ -7,8 +7,8 @@ We provide a set of interface request library that can help you request interfac
 ## Requirements
 
 | **@ones-op/fetch** |
-| :----------------: |
-|     `v0.4.0+`      |
+| ------------------ |
+| `v0.4.0+`          |
 
 ## Installation
 
@@ -38,7 +38,7 @@ function fetchData() {
 ## Index
 
 | API                               | Description                                                        |
-| :-------------------------------- | :----------------------------------------------------------------- |
+| --------------------------------- | ------------------------------------------------------------------ |
 | [OPFetch](#OPFetch)               | Default ONES and plugin request instance                           |
 | [Fetch](#Fetch)                   | Default request instance                                           |
 | [isOPError](#isOPError)           | Determine whether it is an open platform or plugin interface error |
@@ -56,11 +56,11 @@ The default request instance of **ONES standard and plugin**, inherits from [`Fe
 
 Built-in request header information.
 
-|       Key        |     Value      | Description                                |
-| :--------------: | :------------: | :----------------------------------------- |
-|  ones-check-id   |   `teamUUID`   | Current team UUID                          |
-| ones-check-point |    `'team'`    | `ones-check-id` type, fixed value `'team'` |
-|  ones-plugin-id  | `instanceUUID` | Current plugin instance UUID               |
+| Key              | Value          | Description                                |
+| ---------------- | -------------- | ------------------------------------------ |
+| ones-check-id    | `teamUUID`     | Current team UUID                          |
+| ones-check-point | `'team'`       | `ones-check-id` type, fixed value `'team'` |
+| ones-plugin-id   | `instanceUUID` | Current plugin instance UUID               |
 
 ### Fetch {#Fetch}
 
@@ -93,14 +93,14 @@ Reference for judging: `/^(plugin|platform)\./i.test(response.model)`。
 
 #### Params
 
-|  Params  | Description                          |            Type             | Required | Default |
-| :------: | :----------------------------------- | :-------------------------: | :------: | :-----: |
-| response | Error data returned by the interface | [`OPError`](#Types.OPError) |   Yes    |         |
+| Params   | Description                          | Type                        | Required | Default |
+| -------- | ------------------------------------ | --------------------------- | -------- | ------- |
+| response | Error data returned by the interface | [`OPError`](#Types.OPError) | Y        |         |
 
 #### Returns
 
-| Description                                              |   Type    |
-| :------------------------------------------------------- | :-------: |
+| Description                                              | Type      |
+| -------------------------------------------------------- | --------- |
 | Whether it is an Open Platform or plugin interface error | `Boolean` |
 
 #### Types
@@ -117,9 +117,9 @@ Based on the content of the `type` and `reason` of the standard error data, `toa
 
 #### Params
 
-|  Params  | Description                   |            Type             | Required | Default |
-| :------: | :---------------------------- | :-------------------------: | :------: | :-----: |
-| response | Interface standard error data | [`OPError`](#Types.OPError) |   Yes    |         |
+| Params   | Description                   | Type                        | Required | Default |
+| -------- | ----------------------------- | --------------------------- | -------- | ------- |
+| response | Interface standard error data | [`OPError`](#Types.OPError) | Y        |         |
 
 #### Types
 
@@ -149,15 +149,15 @@ Create a request sub-instance, the second parameter supports the **inherited** i
 
 ##### Params
 
-|         Params          | Description            |                              Type                               | Required | Default |
-| :---------------------: | :--------------------- | :-------------------------------------------------------------: | :------: | :-----: |
-|         config          | Request configuration  |                  [`FetchConfig`](#fetchconfig)                  |    No    |         |
-| inheritableInterceptors | Inherited interceptors | [`FetchInheritableInterceptors`](#fetchinheritableinterceptors) |    No    |         |
+| Params                  | Description            | Type                                                            | Required | Default |
+| ----------------------- | ---------------------- | --------------------------------------------------------------- | -------- | ------- |
+| config                  | Request configuration  | [`FetchConfig`](#fetchconfig)                                   | N        |         |
+| inheritableInterceptors | Inherited interceptors | [`FetchInheritableInterceptors`](#fetchinheritableinterceptors) | N        |         |
 
 ##### Returns
 
-| Description          |             Type             |
-| :------------------- | :--------------------------: |
+| Description          | Type                         |
+| -------------------- | ---------------------------- |
 | New Request instance | [`FetchInstance`](#Instance) |
 
 ##### Types
