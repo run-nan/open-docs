@@ -26,7 +26,7 @@ After using the ability to add permissions, there are related permission configu
 
 ## Usage
 
-The custom permission ability supports the use of custom permission points in three ways: **Configuration**, **API** and **Capability**. Currently, custom permission points can only be used with front-end slots. For specific usage methods, please refer to: [permission](../../../../reference/config/plugin.yaml#modulePermission)
+The custom permission ability supports the use of custom permission points in three ways: **customized standard permission configuration**, **custom permission API** and **custom permission point ability**. Currently, custom permission points can only be used with front-end slots. For specific usage methods, please refer to: [permission](../../../../reference/config/plugin.yaml#modulePermission)
 
 :::caution NOTICE
 
@@ -38,15 +38,15 @@ Only the permission points added through the ability can be customized by the pl
 
 Add a custom array of standard permission point configuration items in the plugin's configuration file
 
-**Param：**
+**Param:**
 
-| Param | Type   | Description                  | Required | Default |
-| :---- | :----- | :--------------------------- | :------- | :------ |
-| name  | string | permission name              | Y        | -       |
-| field | string | permission unique identifier | Y        | -       |
-| desc  | string | permission description       | N        | -       |
+| Param | Description                  | Type   | Required | Default |
+| :---- | :--------------------------- | :----- | :------- | :------ |
+| name  | permission name              | string | Y        | -       |
+| field | permission unique identifier | string | Y        | -       |
+| desc  | permission description       | string | N        | -       |
 
-**Example：**
+**Example:**
 
 ```yaml title="config/plugin.yaml"
 service:
@@ -58,7 +58,7 @@ service:
 
 ### Custom Permission API
 
-Provide non-declarative permission point definition and configuration methods, and these APIs can be used in the plugin backend to manage custom permissions.
+Provides non-declarative permission point definition and configuration methods, these APIs can be used in the plugin backend to manage custom permissions.
 
 :::note
 
@@ -68,44 +68,44 @@ In the examples, the `addition` interface is added through the [ONES API registr
 
 #### Add permission point
 
-**Param：**
+**Param:**
 
-| Param   | Type   | Description                                                                         | Required |
-| :------ | :----- | :---------------------------------------------------------------------------------- | :------- |
-| path    | string | Routing, fixed value: `AddPermissionInfo`                                           | Y        |
-| headers | any    | Request header, fixed value:<br />{<br/> "AbilityName":["AddPermissionInfo"]<br/> } | Y        |
-| method  | string | Request method, fixed value:`POST`                                                  | Y        |
-| body    | any    | The request body contains permission point information.                             | Y        |
+| Param   | Description                                                                         | Type   | Required |
+| :------ | :---------------------------------------------------------------------------------- | :----- | :------- |
+| path    | Routing, fixed value: `AddPermissionInfo`                                           | string | Y        |
+| headers | Request header, fixed value:<br />{<br/> "AbilityName":["AddPermissionInfo"]<br/> } | any    | Y        |
+| method  | Request method, fixed value:`POST`                                                  | string | Y        |
+| body    | The request body contains permission point information.                             | any    | Y        |
 
 **body**
 
-| Param            | Type   | Description                  | Required |
-| :--------------- | :----- | :--------------------------- | :------- |
-| permission_name  | string | permission point name        | Y        |
-| permission_field | string | permission unique identifier | Y        |
-| permission_desc  | string | permission point description | Y        |
+| Param            | Description                  | Type   | Required |
+| :--------------- | :--------------------------- | :----- | :------- |
+| permission_name  | permission point name        | string | Y        |
+| permission_field | permission unique identifier | string | Y        |
+| permission_desc  | permission point description | string | Y        |
 
 **Return:** Contents in `response.body['data']`
 
 - Normal
 
-  | Param             | Type   | Description                  |
-  | :---------------- | :----- | :--------------------------- |
-  | organization_uuid | string | organization uuid            |
-  | team_uuid         | string | team uuid                    |
-  | instance_uuid     | string | plugin instance id           |
-  | permission_name   | string | permission point name        |
-  | permission_desc   | string | permission point description |
-  | permission_field  | string | permission unique identifier |
-  | permission_id     | string | permission point id          |
-  | check_mode        | string | check type                   |
-  | ability_id        | string | ability id                   |
+  | Param             | Description                  | Type   |
+  | :---------------- | :--------------------------- | :----- |
+  | organization_uuid | organization uuid            | string |
+  | team_uuid         | team uuid                    | string |
+  | instance_uuid     | plugin instance id           | string |
+  | permission_name   | permission point name        | string |
+  | permission_desc   | permission point description | string |
+  | permission_field  | permission unique identifier | string |
+  | permission_id     | permission point id          | string |
+  | check_mode        | check type                   | string |
+  | ability_id        | ability id                   | string |
 
 - Error
 
   Return when the added permission point already exists: permission_field of plugin already exists
 
-**Example：**
+**Example:**
 
 ```typescript
 export async function addPermission(request: PluginRequest): Promise<PluginResponse> {
@@ -134,27 +134,27 @@ export async function addPermission(request: PluginRequest): Promise<PluginRespo
 
 #### Get permission point
 
-**Param：**
+**Param:**
 
-| Param   | Type   | Description                                                                          | Required |
-| :------ | :----- | :----------------------------------------------------------------------------------- | :------- |
-| path    | string | Routing, fixed value: `PermissionInfoList`                                           | Y        |
-| headers | any    | Request header, fixed value:<br />{<br/> "AbilityName":["PermissionInfoList"]<br/> } | Y        |
-| method  | string | Request method, fixed value:`POST`                                                   | Y        |
+| Param   | Description                                                                          | Type   | Required |
+| :------ | :----------------------------------------------------------------------------------- | :----- | :------- |
+| path    | Routing, fixed value: `PermissionInfoList`                                           | string | Y        |
+| headers | Request header, fixed value:<br />{<br/> "AbilityName":["PermissionInfoList"]<br/> } | any    | Y        |
+| method  | Request method, fixed value:`POST`                                                   | string | Y        |
 
 **Return:** Contents in `response.body['data']`, contains an array of permission point information, and each permission point contains the following content
 
-| Param            | Type   | Description                        |
-| :--------------- | :----- | :--------------------------------- |
-| instance_uuid    | string | plugin instance id                 |
-| permission_name  | string | permission point name              |
-| permission_desc  | string | permission point description       |
-| permission_field | string | permission unique identifier       |
-| permission_id    | string | permission point id                |
-| check_mode       | string | check type                         |
-| rule_info        | []rule | information about configured rules |
+| Param            | Description                        | Type   |
+| :--------------- | :--------------------------------- | :----- |
+| instance_uuid    | plugin instance id                 | string |
+| permission_name  | permission point name              | string |
+| permission_desc  | permission point description       | string |
+| permission_field | permission unique identifier       | string |
+| permission_id    | permission point id                | string |
+| check_mode       | check type                         | string |
+| rule_info        | information about configured rules | []rule |
 
-**Example：**
+**Example:**
 
 ```typescript
 export async function listPermission(request: PluginRequest): Promise<PluginResponse> {
@@ -179,22 +179,22 @@ export async function listPermission(request: PluginRequest): Promise<PluginResp
 
 #### Delete permission point
 
-**Param：**
+**Param:**
 
-| Param   | Type   | Description                                                                            | Required |
-| :------ | :----- | :------------------------------------------------------------------------------------- | :------- |
-| path    | string | Routing, fixed value: `DeletePermissionInfo`                                           | Y        |
-| headers | any    | Request header, fixed value:<br />{<br/> "AbilityName":["DeletePermissionInfo"]<br/> } | Y        |
-| method  | string | Request method, fixed value:`POST`                                                     | Y        |
-| body    | any    | Request body, including permission unique identifier                                   | Y        |
+| Param   | Description                                                                            | Type   | Required |
+| :------ | :------------------------------------------------------------------------------------- | :----- | :------- |
+| path    | Routing, fixed value: `DeletePermissionInfo`                                           | string | Y        |
+| headers | Request header, fixed value:<br />{<br/> "AbilityName":["DeletePermissionInfo"]<br/> } | any    | Y        |
+| method  | Request method, fixed value:`POST`                                                     | string | Y        |
+| body    | Request body, including permission unique identifier                                   | any    | Y        |
 
 **body**
 
-| Param            | Type   | Description                  | Required |
-| :--------------- | :----- | :--------------------------- | :------- |
-| permission_field | string | permission unique identifier | Y        |
+| Param            | Description                  | Type   | Required |
+| :--------------- | :--------------------------- | :----- | :------- |
+| permission_field | permission unique identifier | string | Y        |
 
-**Example：**
+**Example:**
 
 ```typescript
 export async function deletePermission(request: PluginRequest): Promise<PluginResponse> {
@@ -221,22 +221,22 @@ export async function deletePermission(request: PluginRequest): Promise<PluginRe
 
 #### Add permission rule
 
-**Param：**
+**Param:**
 
-| Param   | Type   | Description                                                                         | Required |
-| :------ | :----- | :---------------------------------------------------------------------------------- | -------- |
-| path    | string | Routing, fixed value: `AddPermissionRule`                                           | Y        |
-| headers | any    | Request header, fixed value:<br />{<br/> "AbilityName":["AddPermissionRule"]<br/> } | Y        |
-| method  | string | Request method, fixed value:`POST`                                                  | Y        |
-| body    | any    | Request body, including permission point rule information                           | Y        |
+| Param   | Description                                                                         | Type   | Required |
+| :------ | :---------------------------------------------------------------------------------- | :----- | -------- |
+| path    | Routing, fixed value: `AddPermissionRule`                                           | string | Y        |
+| headers | Request header, fixed value:<br />{<br/> "AbilityName":["AddPermissionRule"]<br/> } | any    | Y        |
+| method  | Request method, fixed value:`POST`                                                  | string | Y        |
+| body    | Request body, including permission point rule information                           | any    | Y        |
 
 **body**
 
-| Param             | Type   | Description                                                                                                                                                              | Required |
-| :---------------- | :----- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------- |
-| permission_id     | string | permission point id                                                                                                                                                      | Y        |
-| user_domain_type  | string | User domain type, optional values:<br />Everyone-`everyone`<br />User-`single_user`<br />Department-`department`<br />User group-`group`<br /> Team Owner - `team_owner` | Y        |
-| user_domain_param | string | The unique identifier of the user domain, for example, when the user domain is `single_user`, the value of this parameter indicates `user_uuid`                          | Y        |
+| Param             | Description                                                                                                                                                              | Type   | Required |
+| :---------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----- | :------- |
+| permission_id     | permission point id                                                                                                                                                      | string | Y        |
+| user_domain_type  | User domain type, optional values:<br />Everyone-`everyone`<br />User-`single_user`<br />Department-`department`<br />User group-`group`<br /> Team Owner - `team_owner` | string | Y        |
+| user_domain_param | The unique identifier of the user domain, for example, when the user domain is `single_user`, the value of this parameter indicates `user_uuid`                          | string | Y        |
 
 **Return:** Contents in `response.body['data']`
 
@@ -244,25 +244,25 @@ export async function deletePermission(request: PluginRequest): Promise<PluginRe
 
   Contains information about adding permission rules this time
 
-  | Param             | Type   | Description         |
-  | :---------------- | :----- | :------------------ |
-  | org_uuid          | string | organization uuid   |
-  | team_uuid         | string | team uuid           |
-  | id                | string | permission rule id  |
-  | deleted           | Bool   | delete or not       |
-  | permission_id     | string | permission point id |
-  | context_type      | string | context type        |
-  | context_param_1   | string | context param 1     |
-  | context_param_2   | string | context param 2     |
-  | user_domain_type  | string | user domain type    |
-  | user_domain_param | string | user domain param   |
-  | position          | string | location            |
+  | Param             | Description         | Type   |
+  | :---------------- | :------------------ | :----- |
+  | org_uuid          | organization uuid   | string |
+  | team_uuid         | team uuid           | string |
+  | id                | permission rule id  | string |
+  | deleted           | delete or not       | Bool   |
+  | permission_id     | permission point id | string |
+  | context_type      | context type        | string |
+  | context_param_1   | context param 1     | string |
+  | context_param_2   | context param 2     | string |
+  | user_domain_type  | user domain type    | string |
+  | user_domain_param | user domain param   | string |
+  | position          | location            | string |
 
 - Error
 
   When the user domain type of the added permission point rule is wrong, return: `<UserDomainNotExist> UserDomainNotExist`
 
-**Example：**
+**Example:**
 
 ```typescript
 export async function addRule(request: PluginRequest): Promise<PluginResponse> {
@@ -292,22 +292,22 @@ export async function addRule(request: PluginRequest): Promise<PluginResponse> {
 
 #### Delete permission rule
 
-**Param：**
+**Param:**
 
-| Param   | Type   | Description                                                                            | Required |
-| :------ | :----- | :------------------------------------------------------------------------------------- | :------- |
-| path    | string | Routing, fixed value: `DeletePermissionRule`                                           | Y        |
-| headers | any    | Request header, fixed value:<br />{<br/> "AbilityName":["DeletePermissionRule"]<br/> } | Y        |
-| method  | string | Request method, fixed value:`POST`                                                     | Y        |
-| body    | any    | Request body, including the unique identifier of the permission rule                   | Y        |
+| Param   | Description                                                                            | Type   | Required |
+| :------ | :------------------------------------------------------------------------------------- | :----- | :------- |
+| path    | Routing, fixed value: `DeletePermissionRule`                                           | string | Y        |
+| headers | Request header, fixed value:<br />{<br/> "AbilityName":["DeletePermissionRule"]<br/> } | any    | Y        |
+| method  | Request method, fixed value:`POST`                                                     | string | Y        |
+| body    | Request body, including the unique identifier of the permission rule                   | any    | Y        |
 
 **body**
 
-| Param | Type   | Description        | Required |
-| :---- | :----- | :----------------- | :------- |
-| id    | string | permission rule id | Y        |
+| Param | Description        | Type   | Required |
+| :---- | :----------------- | :----- | :------- |
+| id    | permission rule id | string | Y        |
 
-**Example：**
+**Example:**
 
 ```typescript
 export async function deleteR(request: PluginRequest): Promise<PluginResponse> {
@@ -335,29 +335,29 @@ export async function deleteR(request: PluginRequest): Promise<PluginResponse> {
 
 #### Check permission point
 
-**Param：**
+**Param:**
 
-| Param   | Type   | Description                                                                           | Required |
-| :------ | :----- | :------------------------------------------------------------------------------------ | :------- |
-| path    | string | Routing, fixed value: `CheckPermissionRule`                                           | Y        |
-| headers | any    | Request header, fixed value:<br />{<br/> "AbilityName":["CheckPermissionRule"]<br/> } | Y        |
-| method  | string | Request method, fixed value:`POST`                                                    | Y        |
-| body    | any    | Request body, containing information about inspection                                 | Y        |
+| Param   | Description                                                                           | Type   | Required |
+| :------ | :------------------------------------------------------------------------------------ | :----- | :------- |
+| path    | Routing, fixed value: `CheckPermissionRule`                                           | string | Y        |
+| headers | Request header, fixed value:<br />{<br/> "AbilityName":["CheckPermissionRule"]<br/> } | any    | Y        |
+| method  | Request method, fixed value:`POST`                                                    | string | Y        |
+| body    | Request body, containing information about inspection                                 | any    | Y        |
 
 **body**
 
-| Param            | Type   | Description                  | Required |
-| :--------------- | :----- | :--------------------------- | :------- |
-| permission_field | string | permission unique identifier | Y        |
-| user_uuid        | string | User's `uuid`                | Y        |
+| Param            | Description                  | Type   | Required |
+| :--------------- | :--------------------------- | :----- | :------- |
+| permission_field | permission unique identifier | string | Y        |
+| user_uuid        | User's `uuid`                | string | Y        |
 
 **Return:** Contents in `response.body['data']`
 
-| Param         | Type | Description         |
-| :------------ | :--- | :------------------ |
-| is_permission | bool | Is there permission |
+| Param         | Description         | Type |
+| :------------ | :------------------ | :--- |
+| is_permission | Is there permission | bool |
 
-**Example：**
+**Example:**
 
 ```typescript
 export async function checkPermission(request: PluginRequest): Promise<PluginResponse> {
@@ -386,32 +386,32 @@ export async function checkPermission(request: PluginRequest): Promise<PluginRes
 
 #### Batch permission point check
 
-**Param：**
+**Param:**
 
-| Param   | Type   | Description                                                                            | Required |
-| :------ | :----- | :------------------------------------------------------------------------------------- | :------- |
-| path    | string | Routing, fixed value: `BatchCheckPermission`                                           | Y        |
-| headers | any    | Request header, fixed value:<br />{<br/> "AbilityName":["BatchCheckPermission"]<br/> } | Y        |
-| method  | string | Request method, fixed value:`POST`                                                     | Y        |
-| body    | any    | Request body, including all verification information                                   | Y        |
+| Param   | Description                                                                            | Type   | Required |
+| :------ | :------------------------------------------------------------------------------------- | :----- | :------- |
+| path    | Routing, fixed value: `BatchCheckPermission`                                           | string | Y        |
+| headers | Request header, fixed value:<br />{<br/> "AbilityName":["BatchCheckPermission"]<br/> } | any    | Y        |
+| method  | Request method, fixed value:`POST`                                                     | string | Y        |
+| body    | Request body, including all verification information                                   | any    | Y        |
 
 **body**
 
-| Param             | Type   | Description                 | Required |
-| :---------------- | :----- | :-------------------------- | :------- |
-| organization_uuid | string | organization uuid           | Y        |
-| permission_field  | string | unique ID of the permission | Y        |
-| team_uuid         | string | team uuid                   | Y        |
-| instance_id       | string | plugin instance id          | Y        |
-| user_uuid         | string | User's `uuid`               | Y        |
+| Param             | Description                 | Type   | Required |
+| :---------------- | :-------------------------- | :----- | :------- |
+| organization_uuid | organization uuid           | string | Y        |
+| permission_field  | unique ID of the permission | string | Y        |
+| team_uuid         | team uuid                   | string | Y        |
+| instance_id       | plugin instance id          | string | Y        |
+| user_uuid         | User's `uuid`               | string | Y        |
 
 **Return:** Contents in `response.body['data']`
 
-| Param         | Type   | Description                         |
-| :------------ | :----- | :---------------------------------- |
-| is_permission | bool[] | The result of each permission check |
+| Param         | Description                         | Type   |
+| :------------ | :---------------------------------- | :----- |
+| is_permission | The result of each permission check | bool[] |
 
-**Example：**
+**Example:**
 
 ```typescript
 export async function checkBatch(request: PluginRequest): Promise<PluginResponse> {
@@ -460,14 +460,14 @@ Use `npx op add ability` to add `custom-permission@1.0.0` type ability, generate
 
 **The role of the parameters in the ability configuration:**
 
-| Param                  | Type   | Description                                          |
-| :--------------------- | :----- | :--------------------------------------------------- |
-| name                   | string | permission point name                                |
-| field                  | string | permission unique identifier                         |
-| desc                   | string | permission point description                         |
-| is_plugin_custom_check | bool   | whether to use plugin custom permission verification |
+| Param                  | Description                                          | Type   |
+| :--------------------- | :--------------------------------------------------- | :----- |
+| name                   | permission point name                                | string |
+| field                  | permission unique identifier                         | string |
+| desc                   | permission point description                         | string |
+| is_plugin_custom_check | whether to use plugin custom permission verification | bool   |
 
-**Example：**
+**Example:**
 
 ```yaml
 abilities:
@@ -502,11 +502,11 @@ According to the function name configured in `function.customPermissionCheckFunc
 
 **Param:**
 
-| Param            | Type   | Description                                                                                                               |
-| :--------------- | :----- | :------------------------------------------------------------------------------------------------------------------------ |
-| user_uuid        | string | User's `uuid`                                                                                                             |
-| permission_field | string | permission unique identifier                                                                                              |
-| context          | string | Additional parameters, when the plugin customizes the validation, additional parameters can be passed through this field. |
+| Param            | Description                                                                                                               | Type   |
+| :--------------- | :------------------------------------------------------------------------------------------------------------------------ | :----- |
+| user_uuid        | User's `uuid`                                                                                                             | string |
+| permission_field | permission unique identifier                                                                                              | string |
+| context          | Additional parameters, when the plugin customizes the validation, additional parameters can be passed through this field. | string |
 
 **Return: **Determine whether the permission check is passed by returning the value of the `is_permission` field in the body
 
