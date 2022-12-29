@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 import Image from '@theme/IdealImage'
 
 # 上传工作项附件
@@ -30,7 +34,7 @@ npm i @ones-op/node-ability
 
 ### 第二步：上传附件
 
-调用`uploadFile`方法将文件上传至某一工作项的附件中
+调用 [uploadFile](../../../reference/packages/node-ability/node-ability.md#PluginFile_uploadFile) 方法将文件上传至某一工作项的附件中
 
 ```typescript
 const file = await PluginFile.uploadFile('files/test.txt', 'taskuuid', 'desc')

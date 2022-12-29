@@ -1,0 +1,117 @@
+import Image from '@theme/IdealImage'
+
+# Default group
+
+## Requirements
+
+| **ONES**  |
+| :-------: |
+| v3.11.15+ |
+
+## Overview
+
+<Image img={require('./images/default.png')} />
+
+We have provided slots for "Configuration" - "System preference settings" - "[Default group](../../index.mdx#slot-hierarchy)" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:settings:appearance:default:new](#onessettingsappearancedefaultnew)
+- [ones:settings:appearance:default:sidebar](#onessettingsappearancedefaultsidebar)
+- [ones:settings:appearance:default:menu](#onessettingsappearancedefaultmenu)
+- [ones:settings:appearance:default:favicon](#onessettingsappearancedefaultfavicon)
+- [ones:settings:appearance:default:topbar](#onessettingsappearancedefaulttopbar)
+- [ones:settings:appearance:default:workday](#onessettingsappearancedefaultworkday)
+- [ones:settings:appearance:default:email](#onessettingsappearancedefaultemail)
+- [ones:settings:appearance:default:message](#onessettingsappearancedefaultmessage)
+
+## Slots
+
+#### ones:settings:appearance:default:new
+
+**Module path：** Configuration / System preference settings / [Default group](../../index.mdx#slot-hierarchy) / new module
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+#### ones:settings:appearance:default:sidebar
+
+**Module path：** Configuration / System preference settings / [Default group](../../index.mdx#slot-hierarchy) / Sidebar color
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:settings:appearance:default:menu
+
+**Module path：** Configuration / System preference settings / [Default group](../../index.mdx#slot-hierarchy) / Sidebar menu
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:settings:appearance:default:favicon
+
+**Module path：** Configuration / System preference settings / [Default group](../../index.mdx#slot-hierarchy) / Browser favicon
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:settings:appearance:default:topbar
+
+**Module path：** Configuration / System preference settings / [Default group](../../index.mdx#slot-hierarchy) / Topbar menu
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:settings:appearance:default:workday
+
+**Module path：** Configuration / System preference settings / [Default group](../../index.mdx#slot-hierarchy) / Workday settings
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:settings:appearance:default:email
+
+**Module path：** Configuration / System preference settings / [Default group](../../index.mdx#slot-hierarchy) / Email settings
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:settings:appearance:default:message
+
+**Module path：** Configuration / System preference settings / [Default group](../../index.mdx#slot-hierarchy) / Mobile number and SMS settings
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-settings-appearance-default-sidebar-NEnD
+    title: Sidebar color
+    moduleType: ones:settings:appearance:default:sidebar
+    entry: modules/ones-settings-appearance-default-sidebar-NEnD/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../../../reference/config/plugin.yaml#disabled)
+- displayConditions
+
+  - **type：**`DisplayConditions`
+
+  This configuration only works for the slot [`ones:settings:appearance:default:message`](#onessettingsappearancedefaultmessage),
+  It is only required when it takes effect under the scale of a specific team size.
+
+  **`DisplayConditions` Params:**
+
+  |   Key    | Description |            Type            | Required | Default |
+  | :------: | :---------- | :------------------------: | :------: | :-----: |
+  | teamSize | Team size   | `('single'｜'multiple')[]` |    No    |         |
+
+  **Example:**
+
+  The current module only works with multiple teams:
+
+  ```yaml title="/config/plugin.yaml"
+  modules:
+    - id: ones-settings-appearance-default-message-zqmC
+      title: Mobile number and SMS settings
+      moduleType: ones:settings:appearance:default:message
+      entry: modules/ones-settings-appearance-default-message-zqmC/index.html
+      displayConditions:
+        teamSize:
+          - multiple
+  ```

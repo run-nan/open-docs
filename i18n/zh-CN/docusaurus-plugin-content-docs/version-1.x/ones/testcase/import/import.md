@@ -1,25 +1,20 @@
-- [API 说明](#api-说明)
-  - [1. 下载导入模板](#1-下载导入模板)
-  - [2. 导入用例](#2-导入用例)
-  - [3. 上传导入文件](#3-上传导入文件)
+# ONES TestCase Import/Export API
+
+## model 说明
+
+### error
+
+| 参数名  | 值类型 | 取值范围 | 取值例子 | 说明             |
+| :------ | :----- | :------- | :------- | :--------------- |
+| code    | int    |          | 200      | 服务器更新时间戳 |
+| errcode | string |          | "OK"     | 错误消息         |
+| type    | string |          |          | 错误类型         |
 
 ## API 说明
 
-## HTTP status code 说明
+### 下载导入模板
 
-| 状态码 | errcode                      | 说明                         |
-| :----- | :--------------------------- | :--------------------------- |
-| 200    |                              | 操作成功                     |
-| 401    |                              | 无权限                       |
-| 500    |                              | 接口错误                     |
-| 801    |                              | 参数无效                     |
-| 400    | Malformed.XLSX               | 文件格式错误                 |
-| 403    | LimitExceeded.File           | 文件大小超限制               |
-| 403    | LimitExceeded.ImportTestCase | 超过 5000 行限制             |
-| 403    | LimitExceeded.TestCase       | 超过免费版 TestCase 数量限制 |
-| 403    | LimitExceeded.ImportTestCase | 超过 5000 行限制             |
-
-### 1. 下载导入模板
+下载导入模版，用户在填写用例导入文件时可以参考该模版
 
 #### URL
 
@@ -29,80 +24,44 @@ https://your-host-name/project/api/project/team/:teamUUID/testcase/library/:libr
 
 GET
 
-### 调用权限
+#### 是否需要登录
 
-manage_library_cases
+是
 
 #### 传值方式
 
 无
 
-#### 返回 JSON
+#### 请求参数列表
 
-无，下载 xlsx 模板文件
+无
 
-### 2. 导入用例
+#### 返回参数列表
 
-#### URL
+无
 
-https://your-host-name/project/api/project/team/:teamUUID/testcase/library/:libraryUUID/import
+#### 请求示例
 
-#### HTTP Method
-
-POST
-
-### 调用权限
-
-manage_library_cases
-
-#### 传值方式
-
-JSON
-
-### 参数列表
-
-| 参数名    | 值类型 | 说明               |
-| :-------- | :----- | :----------------- |
-| mapping   | 键值对 | 键值对             |
-| file_hash | string | 上传文件的 hash 值 |
-
-mapping 字段的内容如下：
-
-```json
-{
-  "name": "标题",
-  "module_name": "",
-  "condition": "",
-  "step": "",
-  "result": "",
-  "desc": ""
-}
+```bash
+curl -X GET \
+  'https://your-host-name/project/api/project/team/3QKyQ54X/testcase/library/G8f4GEWE/download_template' \
+  -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
+  -H 'Ones-User-Id: 6ZpgEzkk' \
+  -H 'cache-control: no-cache'
 ```
 
-键填以下值:
+#### 返回示例
 
-| 键名        | 是否必须 | 备注       |
-| :---------- | :------- | :--------- |
-| name        | 是       | 用例标题   |
-| module_name | 是       | 所属模块名 |
-| condition   | 否       | 前置条件   |
-| step_desc   | 否       | 操作步骤   |
-| step_result | 否       | 预期结果   |
-| desc        | 否       | 备注       |
-| priority    | 否       | 优先级     |
-| assign      | 否       | 维护人     |
-| type        | 否       | 用例类型   |
+```
+HTTP/1.1 200 OK
+Content-Disposition: attachment;filename="%E6%A8%A1%E6%9D%BF.xlsx";filename*=utf-8''%E6%A8%A1%E6%9D%BF.xlsx
+Content-Type: application/octet-stream
+...
+```
 
-#### 返回 JSON
+### 上传导入文件
 
-##### 成功
-
-| 参数名          | 值类型 | 说明           |
-| :-------------- | :----- | :------------- |
-| success_cases   | int    | 导入成功的用例 |
-| success_modules | int    | 导入成功的模块 |
-
-### 3. 上传导入文件
+上传用例 xlsx 文件，供后续导入接口使用
 
 #### URL
 
@@ -112,19 +71,126 @@ https://your-host-name/project/api/project/team/:teamUUID/testcase/library/:libr
 
 POST
 
-### 调用权限
+#### 是否需要登录
 
-manage_library_cases
+是
 
 #### 传值方式
 
-xxxx.xlsx 文件，最大 10M FormData key 为 file，content-type 为 application/x-xls
+multipart/form-data
 
-#### 返回 JSON
+#### 请求参数列表
 
-##### 成功
+| 参数名 | 值类型 | 是否必须 | 说明     |
+| :----- | :----- | -------- | :------- |
+| file   | file   | 是       | 上传文件 |
 
-| 参数名       | 值类型      | 说明               |
-| :----------- | :---------- | :----------------- |
-| column_names | string 数组 | 可用的列数据       |
-| file_hash    | string      | 上传文件的 hash 值 |
+#### 返回参数列表
+
+| 参数名       | 值类型   | 说明                                   |
+| :----------- | :------- | :------------------------------------- |
+| column_names | []string | 可用的列数据                           |
+| file_hash    | string   | 上传文件的 hash 值，供后续导入接口使用 |
+
+#### 请求示例
+
+```bash
+curl -X POST \
+  'https://your-host-name/project/api/project/team/3QKyQ54X/testcase/library/G8f4GEWE/upload' \
+  -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundaryxAKmbtaB0lzHERDG' \
+  -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
+  -H 'Ones-User-Id: 6ZpgEzkk' \
+  -H 'cache-control: no-cache' \
+  -d $'------WebKitFormBoundaryxAKmbtaB0lzHERDG\r\nContent-Disposition: form-data; name="file"; filename="订单系统.xlsx"\r\nContent-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\r\n\r\n\r\n------WebKitFormBoundaryxAKmbtaB0lzHERDG--\r\n'
+```
+
+#### 返回示例
+
+```json
+{
+  "column_names": [
+    "ID",
+    "一级模块",
+    "二级模块",
+    "用例名称",
+    "优先级",
+    "用例类型",
+    "前置条件",
+    "步骤描述",
+    "预期结果",
+    "备注",
+    "维护人"
+  ],
+  "file_hash": "Fr3tMrDQ2jHVSwlHqTWYWt4iiY5d"
+}
+```
+
+### 导入用例
+
+异步导入用例，通过进度管理器查询结果
+
+#### URL
+
+https://your-host-name/project/api/project/team/:teamUUID/testcase/library/:libraryUUID/import
+
+#### HTTP Method
+
+POST
+
+#### 是否需要登录
+
+是
+
+#### 传值方式
+
+JSON
+
+#### 请求参数列表
+
+| 参数名    | 值类型         | 是否必须 | 说明                                |
+| :-------- | :------------- | -------- | :---------------------------------- |
+| mapping   | MappingPayLoad | 是       | 映射配置                            |
+| file_hash | string         | 是       | 文件 hash，从之前的上传文件接口获取 |
+
+MappingPayLoad
+
+| 参数名         | 值类型 | 是否必须 | 说明               |
+| :------------- | :----- | -------- | :----------------- |
+| name           | string | 是       | 用例标题           |
+| module_name_1  | string | 否       | 所属一级模块名     |
+| module_name_2  | string | 否       | 所属二级模块名     |
+| ...            | ...    | ...      | ...                |
+| module_name_12 | string | 否       | 所属十二级级模块名 |
+| condition      | string | 否       | 前置条件           |
+| step_desc      | string | 否       | 操作步骤           |
+| step_result    | string | 否       | 预期结果           |
+| desc           | string | 否       | 备注               |
+| priority       | string | 否       | 优先级             |
+| assign         | string | 否       | 维护人             |
+| type           | string | 否       | 用例类型           |
+
+#### 返回参数列表
+
+[error](#error)
+
+#### 请求示例
+
+```bash
+curl -X POST \
+  'https://your-host-name/project/api/project/team/3QKyQ54X/testcase/library/G8f4GEWE/import' \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
+  -H 'Ones-User-Id: 6ZpgEzkk' \
+  -H 'cache-control: no-cache' \
+  -d '{"mapping":{"module_name_1":"一级模块","module_name_2":"二级模块","name":"用例名称","priority":"优先级","type":"用例类型","condition":"前置条件","step_desc":"步骤描述","step_result":"预期结果","desc":"备注","assign":"维护人"},"file_hash":"Fr3tMrDQ2jHVSwlHqTWYWt4iiY5d"}'
+```
+
+#### 返回示例
+
+```json
+{
+  "code": 200,
+  "errcode": "OK",
+  "type": "OK"
+}
+```

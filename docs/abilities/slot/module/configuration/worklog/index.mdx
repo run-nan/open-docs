@@ -1,0 +1,53 @@
+import Image from '@theme/IdealImage'
+
+# Worklog settings
+
+## Requirements
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## Overview
+
+<Image img={require('./images/worklog.png')} />
+
+We have provided slots for "Configuration" - "Worklog settings" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:settings:manhour:new](#onessettingsmanhournew)
+- [ones:settings:manhour:default](#onessettingsmanhourdefault)
+
+## Slots
+
+#### ones:settings:manhour:new
+
+**Module path：** Configuration / Worklog settings / [new module](../index.mdx#slot-hierarchy)
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+#### ones:settings:manhour:default
+
+**Module path：** Configuration / Worklog settings / [Default group](../index.mdx#slot-hierarchy)
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-settings-manhour-default-95j9
+    title: Worklog settings
+    moduleType: ones:settings:manhour:default
+    modules:
+      - id: ones-settings-manhour-default-vRxk
+        title: Worklog mode
+        entry: >-
+          modules/ones-settings-manhour-default-95j9/ones-settings-manhour-default-vRxk/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../../reference/config/plugin.yaml#disabled)
+- [modules(required)](../../../../../reference/config/plugin.yaml#subModule)

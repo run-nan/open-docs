@@ -1,6 +1,7 @@
 ---
 id: error-handling
 sidebar_position: 3
+description: 标准的错误处理规范。
 ---
 
 # 错误处理

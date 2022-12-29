@@ -28,6 +28,7 @@ import Image from '@theme/IdealImage'
 - [ones:plan](#onesplan)
 - [ones:pipeline](#onespipeline)
 - [ones:version](#onesversion)
+- [ones:app:new](#onesappnew)
 
 ## 插槽
 
@@ -108,6 +109,19 @@ ${location.protocol}://${location.host}/project/#/desk_home
 **模块路径：** 版本管理
 
 **个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:app:new
+
+**模块路径：** 系统左侧菜单栏
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽
+
+:::tip
+
+- 该插槽的名称支持通过 `plugin.yaml` 中的 modules 的 **title** 属性进行配置
+- 该插槽需配合能力一起使用，具体请参见[侧边栏选项](../../business/sidebar-menu.mdx)
+
+:::
 
 ## 使用
 

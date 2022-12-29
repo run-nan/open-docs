@@ -8,11 +8,11 @@
   - [属性配置信息](#属性配置信息)
   - [属性类型](#属性类型)
 - [API 说明](#api-说明)
-  - [1. 创建全局属性](#1-创建全局属性)
-  - [2. 修改全局属性](#2-修改全局属性)
-  - [3. 删除全局属性](#3-删除全局属性)
-  - [4. 获取全局属性列表](#4-获取全局属性列表)
-  - [5. 获取属性配置列表](#5-获取属性配置列表)
+  - [创建全局属性](#创建全局属性)
+  - [修改全局属性](#修改全局属性)
+  - [删除全局属性](#删除全局属性)
+  - [获取全局属性列表](#获取全局属性列表)
+  - [获取属性配置列表](#获取属性配置列表)
   <!-- /TOC -->
 
 ## 通用说明
@@ -62,30 +62,40 @@ field
 - built_in 和 fixed 目前仅用于系统内置属性，用户自定义的属性，这两个值永远为 false，调用 add 和 update 接口时也不需要提供这两个值
 - options 中如果是优先级，属性 value 长度为 12，desc 描述长度 128
 
-| 参数名                 | 值类型 | 允许空值 | 取值范围 | 说明                                               |
-| :--------------------- | :----- | :------- | :------- | :------------------------------------------------- |
-| uuid                   | string | F        | len=8    | 属性 uuid                                          |
-| name                   | string | F        | len<=32  | 属性名称                                           |
-| name_pinyin            | string | F        | len<=256 | 属性名称拼音                                       |
-| desc                   | text   | T        |          | 属性描述                                           |
-| type                   | int    | F        |          | 属性类型                                           |
-| default_value          | string | T        |          | 属性默认值                                         |
-| renderer               | int    | T        |          | 属性渲染方式                                       |
-| filter_option          | int    | T        | 0,1      | 属性过滤选项（比如是否能作为过滤条件）             |
-| search_option          | int    | T        | 0,1      | 属性搜索选项（比如是否能作为搜索关键字）           |
-| create_time            | int64  | F        |          | 属性创建时间，用于排序                             |
-| built_in               | bool   | T        |          | 是系统内置属性，内置属性无法修改或者删除           |
-| fixed                  | bool   | T        |          | 是固有属性，固有属性无法通过属性配置使其隐藏       |
-| options                | array  | T        |          | 属性选项                                           |
-| &emsp;uuid             | string | F        | len=8    | 属性选项 uuid                                      |
-| &emsp;value            | string | F        |          | 属性选项值                                         |
-| &emsp;selected         | bool   | T        | false    | 属性选项是否默认选中                               |
-| &nbsp;background_color | string | T        | len<=9   | 背景色                                             |
-| &emsp;color            | string | T        | len<=9   | 字体色                                             |
-| &emsp;desc             | string | T        | len<=128 | 描述                                               |
-| projects               | array  | T        |          | 目前在使用这个属性的项目，临时结果，不应该持久存储 |
-| &emsp;uuid             | string | F        |          | 项目 uuid                                          |
-| &emsp;name             | string | F        |          | 项目当前的名称                                     |
+| 参数名        | 值类型 | 允许空值 | 取值范围 | 说明                                               |
+| :------------ | :----- | :------- | :------- | :------------------------------------------------- |
+| uuid          | string | F        | len=8    | 属性 uuid                                          |
+| name          | string | F        | len<=32  | 属性名称                                           |
+| name_pinyin   | string | F        | len<=256 | 属性名称拼音                                       |
+| desc          | text   | T        |          | 属性描述                                           |
+| type          | int    | F        |          | 属性类型                                           |
+| default_value | string | T        |          | 属性默认值                                         |
+| renderer      | int    | T        |          | 属性渲染方式                                       |
+| filter_option | int    | T        | 0,1      | 属性过滤选项（比如是否能作为过滤条件）             |
+| search_option | int    | T        | 0,1      | 属性搜索选项（比如是否能作为搜索关键字）           |
+| create_time   | int64  | F        |          | 属性创建时间，用于排序                             |
+| built_in      | bool   | T        |          | 是系统内置属性，内置属性无法修改或者删除           |
+| fixed         | bool   | T        |          | 是固有属性，固有属性无法通过属性配置使其隐藏       |
+| options       | array  | T        |          | 属性选项，具体结构见下方表格                       |
+| projects      | array  | T        |          | 目前在使用这个属性的项目，临时结果，不应该持久存储 |
+
+options 结构
+
+| 参数名           | 值类型 | 允许空值 | 取值范围 | 说明                 |
+| :--------------- | :----- | :------- | :------- | :------------------- |
+| uuid             | string | F        | len=8    | 属性选项 uuid        |
+| value            | string | F        |          | 属性选项值           |
+| selected         | bool   | T        | false    | 属性选项是否默认选中 |
+| background_color | string | T        | len<=9   | 背景色               |
+| color            | string | T        | len<=9   | 字体色               |
+| desc             | string | T        | len<=128 | 描述                 |
+
+projects 结构
+
+| 参数名 | 值类型 | 允许空值 | 取值范围 | 说明           |
+| :----- | :----- | :------- | :------- | :------------- |
+| uuid   | string | F        |          | 项目 uuid      |
+| name   | string | F        |          | 项目当前的名称 |
 
 #### 属性配置信息
 
@@ -109,10 +119,15 @@ field_config
 | filter_option            | int    | F        | 0,1      | 属性过滤选项覆盖                                 |
 | search_option            | int    | F        | 0,1      | 属性搜索选项覆盖                                 |
 | position                 | int64  | T        |          | 屬性位置                                         |
-| option_configs           | object | F        |          | 属性选项覆盖                                     |
-| &emsp;uuid               | string | T        | len=8    | 全局属性选项 uuid                                |
-| &emsp;selected           | bool   | F        | false    | 属性选项默认选中覆盖                             |
+| option_configs           | object | F        |          | 属性选项覆盖，具体结构见下方表格                 |
 | generated                | bool   | F        |          | 属性的值是否是由系统生成的，生成的属性值无法修改 |
+
+option_configs 结构
+
+| 参数名   | 值类型 | 允许空值 | 取值范围 | 说明                 |
+| :------- | :----- | :------- | :------- | :------------------- |
+| uuid     | string | T        | len=8    | 全局属性选项 uuid    |
+| selected | bool   | F        | false    | 属性选项默认选中覆盖 |
 
 #### 属性类型
 
@@ -139,7 +154,7 @@ field_type
 
 ## API 说明
 
-### 1. 创建全局属性
+### 创建全局属性
 
 创建一个全局属性
 
@@ -151,6 +166,10 @@ https://your-host-name/project/api/project/team/:teamUUID/fields/add
 
 POST
 
+#### 是否需要登录
+
+是
+
 #### 调用权限
 
 administer_do
@@ -159,23 +178,30 @@ administer_do
 
 JSON
 
-#### 参数列表
+#### 请求参数列表
 
-| 参数名 | 值类型 | 允许空值 | 说明                                   |
-| :----- | :----- | :------- | :------------------------------------- |
-| field  | object | F        | [全局属性](#固有属性)但不需要提供 uuid |
+| 参数名 | 值类型 | 允许空值 | 说明                                           |
+| :----- | :----- | :------- | :--------------------------------------------- |
+| field  | object | F        | [属性详细信息](#属性详细信息)但不需要提供 uuid |
 
-#### 返回体参数列表
+#### 返回参数列表
 
 | 参数名              | 值类型 | 允许空值 | 说明                   |
 | :------------------ | :----- | :------- | :--------------------- |
 | field               | object | F        | [全局属性](#固有属性)  |
 | server_update_stamp | int64  | F        | 数据更新时间单位：微秒 |
 
-### 请求体参考
+#### 请求示例
 
-```json
-{
+```shell
+curl -X POST \
+  https://your-host-name/project/api/project/team/3pDzCwAe/fields/add \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: CUVZQSUJwRLfcVGSQoHEzI14LumPflYxJasP8MZHOLLgcjV5Rlnxy3YOjRN4z75w' \
+  -H 'Ones-User-Id: DU6krHBN' \
+  -H 'Referer: https://your-host-name' \
+  -H 'cache-control: no-cache' \
+  -d '{
   "field": {
     "name": "field_create",
     "type": 2,
@@ -183,10 +209,10 @@ JSON
     "filter_option": 0,
     "search_option": 1
   }
-}
+}'
 ```
 
-### 返回体参考
+#### 返回示例
 
 ```json
 {
@@ -209,7 +235,7 @@ JSON
 }
 ```
 
-### 2. 修改全局属性
+### 修改全局属性
 
 修改一个全局属性
 
@@ -221,6 +247,10 @@ https://your-host-name/project/api/project/team/:teamUUID/field/:fieldUUID/updat
 
 POST
 
+#### 是否需要登录
+
+是
+
 #### 调用权限
 
 administer_do
@@ -229,11 +259,11 @@ administer_do
 
 JSON
 
-#### 参数列表
+#### 请求参数列表
 
-| 参数名 | 值类型 | 允许空值 | 说明                                     |
-| :----- | :----- | :------- | :--------------------------------------- |
-| field  | object | F        | [全局属性](#固有属性)，但不需要提供 uuid |
+| 参数名 | 值类型 | 允许空值 | 说明                                             |
+| :----- | :----- | :------- | :----------------------------------------------- |
+| field  | object | F        | [属性详细信息](#属性详细信息)，但不需要提供 uuid |
 
 #### 返回参数列表
 
@@ -242,19 +272,25 @@ JSON
 | field               | object | F        | [全局属性](#固有属性)  |
 | server_update_stamp | int64  | F        | 数据更新时间单位：微秒 |
 
-### 请求体参考
+#### 请求示例
 
-```json
-{
+```shell
+curl -X POST \
+  https://your-host-name/project/api/project/team/3pDzCwAe/field/KXPq1Ez8/update \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: CUVZQSUJwRLfcVGSQoHEzI14LumPflYxJasP8MZHOLLgcjV5Rlnxy3YOjRN4z75w' \
+  -H 'Ones-User-Id: DU6krHBN' \
+  -H 'Referer: https://your-host-name' \
+  -H 'cache-control: no-cache' \
+  -d '{
   "field": {
-    "name": "update_field_nam",
-    "type": 2,
-    "uuid": "5QiY2jyp"
+    "name": "12",
+    "type": 2
   }
-}
+}'
 ```
 
-### 返回体参考
+#### 返回示例
 
 ```json
 {
@@ -277,7 +313,7 @@ JSON
 }
 ```
 
-### 3. 删除全局属性
+### 删除全局属性
 
 删除一个全局属性, 删除不可撤销
 
@@ -289,17 +325,24 @@ https://your-host-name/project/api/project/team/:teamUUID/field/:fieldUUID/delet
 
 administer_do
 
+#### 是否需要登录
+
+是
+
 #### HTTP Method
 
 POST
 
 #### 传值方式
 
-JSON
+URL
 
-#### 参数列表
+#### 请求参数列表
 
-无
+| 参数名    | 值类型 | 允许空值 | 说明              |
+| :-------- | :----- | :------- | :---------------- |
+| teamUUID  | string | F        | 所属团队 UUID     |
+| fieldUUID | string | F        | 要删除的属性 UUID |
 
 #### 返回参数列表
 
@@ -307,7 +350,19 @@ JSON
 | :------------------ | :----- | :------- | :--------------------- |
 | server_update_stamp | int64  | F        | 数据更新时间单位：微秒 |
 
-### 返回体参考
+#### 请求示例
+
+```shell
+curl -X POST \
+  https://your-host-name/project/api/project/team/3pDzCwAe/task_status/KXPq1Ez8/delete \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: CUVZQSUJwRLfcVGSQoHEzI14LumPflYxJasP8MZHOLLgcjV5Rlnxy3YOjRN4z75w' \
+  -H 'Ones-User-Id: DU6krHBN' \
+  -H 'Referer: https://your-host-name' \
+  -H 'cache-control: no-cache'
+```
+
+#### 返回示例
 
 ```json
 {
@@ -315,7 +370,7 @@ JSON
 }
 ```
 
-### 4. 获取全局属性列表
+### 获取全局属性列表
 
 列出当前团队下的所有全局属性
 
@@ -327,15 +382,19 @@ https://your-host-name/project/api/project/team/:teamUUID/fields
 
 GET
 
-#### 调用权限
+#### 是否需要登录
+
+是
 
 #### 传值方式
 
 URL
 
-#### 参数列表
+#### 请求参数列表
 
-无
+| 参数名   | 值类型 | 允许空值 | 说明          |
+| :------- | :----- | :------- | :------------ |
+| teamUUID | string | F        | 所属团队 UUID |
 
 #### 返回参数列表
 
@@ -344,122 +403,53 @@ URL
 | fields              | array  | F        | [全局属性](#固有属性)  |
 | server_update_stamp | int64  | F        | 数据更新时间单位：微秒 |
 
-### 返回值示例
+#### 请求示例
+
+```shell
+curl -X GET \
+  https://your-host-name/project/api/project/team/3pDzCwAe/fields \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: Vu5L6yfEf8iZ2rWxTyh2fSovKVb42jGv6vlq1aYaMC09hK13usIYgv45ih119Z9B' \
+  -H 'Ones-User-Id: DU6krHBN' \
+  -H 'Referer: https://your-host-name' \
+  -H 'cache-control: no-cache'
+```
+
+#### 返回示例
 
 ```json
 {
-    "fields": [
+  "fields": [
+    {
+      "uuid": "AajgmACP",
+      "name": "Android系统版本",
+      "name_pinyin": "Androidxi4tong3ban3ben3",
+      "desc": "",
+      "type": 1,
+      "default_value": null,
+      "renderer": 0,
+      "filter_option": 0,
+      "search_option": 0,
+      "create_time": 1564741783,
+      "built_in": false,
+      "fixed": false,
+      "options": [
         {
-            "uuid": "AajgmACP",
-            "name": "Android系统版本",
-            "name_pinyin": "Androidxi4tong3ban3ben3",
-            "desc": "",
-            "type": 1,
-            "default_value": null,
-            "renderer": 0,
-            "filter_option": 0,
-            "search_option": 0,
-            "create_time": 1564741783,
-            "built_in": false,
-            "fixed": false,
-            "options": [
-                {
-                    "uuid": "9kSD2ggy",
-                    "value": "V7.1",
-                    "selected": false,
-                    "background_color": "#307fe2",
-                    "color": "#fff",
-                    "desc": ""
-                },
-                {
-                    "uuid": "V2Frh8u1",
-                    "value": "V7.0",
-                    "selected": false,
-                    "background_color": "#00b388",
-                    "color": "#fff",
-                    "desc": ""
-                },
-                {
-                    "uuid": "LTsJc2JK",
-                    "value": "V6.0",
-                    "selected": false,
-                    "background_color": "#f1b300",
-                    "color": "#fff",
-                    "desc": ""
-                },
-                {
-                    "uuid": "U3xMHfVP",
-                    "value": "V5.1",
-                    "selected": false,
-                    "background_color": "#ff6a39",
-                    "color": "#fff",
-                    "desc": ""
-                },
-                {
-                    "uuid": "Q8HL8RNe",
-                    "value": "V5.0",
-                    "selected": false,
-                    "background_color": "#e63422",
-                    "color": "#fff",
-                    "desc": ""
-                },
-                {
-                    "uuid": "81PxAbiA",
-                    "value": "V4.4",
-                    "selected": false,
-                    "background_color": "#aa8066",
-                    "color": "#fff",
-                    "desc": ""
-                },
-                {
-                    "uuid": "CTKyFCEM",
-                    "value": "V4.3",
-                    "selected": false,
-                    "background_color": "#9678d3",
-                    "color": "#fff",
-                    "desc": ""
-                },
-                {
-                    "uuid": "AtmTFQUb",
-                    "value": "V4.2",
-                    "selected": false,
-                    "background_color": "#e0ecfb",
-                    "color": "#307fe2",
-                    "desc": ""
-                },
-                {
-                    "uuid": "8ey1fFmv",
-                    "value": "V4.1",
-                    "selected": false,
-                    "background_color": "#d9f4ed",
-                    "color": "#00b388",
-                    "desc": ""
-                },
-                {
-                    "uuid": "4ugD9y1E",
-                    "value": "V4.0",
-                    "selected": false,
-                    "background_color": "#fdf4d9",
-                    "color": "#f1b300",
-                    "desc": ""
-                },
-                {
-                    "uuid": "2u1zEyyX",
-                    "value": "V2.3",
-                    "selected": false,
-                    "background_color": "#ffe9e2",
-                    "color": "#ff6a39",
-                    "desc": ""
-                }
-            ]
-        },
-        ...
-    ],
-    "server_update_stamp": 1565838569015120
+          "uuid": "9kSD2ggy",
+          "value": "V7.1",
+          "selected": false,
+          "background_color": "#307fe2",
+          "color": "#fff",
+          "desc": ""
+        }
+      ]
+    }
+  ],
+  "server_update_stamp": 1565838569015120
 }
 ```
 
-### 5. 获取属性配置列表
+### 获取属性配置列表
 
 列出当前用户在当前团队下能访问到的所有属性配置
 
@@ -471,15 +461,19 @@ https://your-host-name/project/api/project/team/:teamUUID/field_configs
 
 GET
 
-#### 调用权限
+#### 是否需要登录
+
+是
 
 #### 传值方式
 
 URL
 
-#### 参数列表
+#### 请求参数列表
 
-无
+| 参数名   | 值类型 | 允许空值 | 说明          |
+| :------- | :----- | :------- | :------------ |
+| teamUUID | string | F        | 所属团队 UUID |
 
 #### 返回参数列表
 
@@ -488,116 +482,57 @@ URL
 | field_configs       | array  | F        | [全局属性](#固有属性)  |
 | server_update_stamp | int64  | F        | 数据更新时间单位：微秒 |
 
-### 返回值参考
+#### 请求示例
+
+```shell
+curl -X GET \
+  https://your-host-name/project/api/project/team/3pDzCwAe/field_configs \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: Vu5L6yfEf8iZ2rWxTyh2fSovKVb42jGv6vlq1aYaMC09hK13usIYgv45ih119Z9B' \
+  -H 'Ones-User-Id: DU6krHBN' \
+  -H 'Referer: https://your-host-name' \
+  -H 'cache-control: no-cache'
+```
+
+#### 返回示例
 
 ```json
 {
-    "field_configs": [
+  "field_configs": [
+    {
+      "project_uuid": "DU6krHBNXuPAbpv8",
+      "issue_type_uuid": "Ux99P1Vn",
+      "field_uuid": "LcznabZj",
+      "is_important_field": false,
+      "important_field_position": 0,
+      "default_value": null,
+      "renderer": 0,
+      "filter_option": 0,
+      "search_option": 0,
+      "required": false,
+      "can_delete": true,
+      "can_modify_required": true,
+      "generated": false,
+      "position": 0,
+      "option_configs": [
         {
-            "project_uuid": "DU6krHBNXuPAbpv8",
-            "issue_type_uuid": "Ux99P1Vn",
-            "field_uuid": "LcznabZj",
-            "is_important_field": false,
-            "important_field_position": 0,
-            "default_value": null,
-            "renderer": 0,
-            "filter_option": 0,
-            "search_option": 0,
-            "required": false,
-            "can_delete": true,
-            "can_modify_required": true,
-            "generated": false,
-            "position": 0,
-            "option_configs": [
-                {
-                    "uuid": "LXTuy9aE",
-                    "selected": false,
-                    "background_color": "",
-                    "color": "",
-                    "desc": ""
-                },
-                {
-                    "uuid": "Q3NY2D9J",
-                    "selected": false,
-                    "background_color": "",
-                    "color": "",
-                    "desc": ""
-                },
-                {
-                    "uuid": "7jMTeGwj",
-                    "selected": false,
-                    "background_color": "",
-                    "color": "",
-                    "desc": ""
-                },
-                {
-                    "uuid": "8ahn4Tyi",
-                    "selected": false,
-                    "background_color": "",
-                    "color": "",
-                    "desc": ""
-                },
-                {
-                    "uuid": "GUe933qk",
-                    "selected": false,
-                    "background_color": "",
-                    "color": "",
-                    "desc": ""
-                },
-                {
-                    "uuid": "6WW47upY",
-                    "selected": false,
-                    "background_color": "",
-                    "color": "",
-                    "desc": ""
-                },
-                {
-                    "uuid": "2jeRvDK9",
-                    "selected": false,
-                    "background_color": "",
-                    "color": "",
-                    "desc": ""
-                },
-                {
-                    "uuid": "2jG34HZP",
-                    "selected": false,
-                    "background_color": "",
-                    "color": "",
-                    "desc": ""
-                },
-                {
-                    "uuid": "F3Y2HuxM",
-                    "selected": false,
-                    "background_color": "",
-                    "color": "",
-                    "desc": ""
-                },
-                {
-                    "uuid": "KPwJsSEd",
-                    "selected": false,
-                    "background_color": "",
-                    "color": "",
-                    "desc": ""
-                },
-                {
-                    "uuid": "FEjkDkH2",
-                    "selected": false,
-                    "background_color": "",
-                    "color": "",
-                    "desc": ""
-                },
-                {
-                    "uuid": "HW8Fnxvi",
-                    "selected": false,
-                    "background_color": "",
-                    "color": "",
-                    "desc": ""
-                }
-            ],
-            "type": 1
+          "uuid": "LXTuy9aE",
+          "selected": false,
+          "background_color": "",
+          "color": "",
+          "desc": ""
         },
-        ...
-    ],
-    "server_update_stamp": 1565855548617888
+        {
+          "uuid": "HW8Fnxvi",
+          "selected": false,
+          "background_color": "",
+          "color": "",
+          "desc": ""
+        }
+      ],
+      "type": 1
+    }
+  ],
+  "server_update_stamp": 1565855548617888
 }
 ```

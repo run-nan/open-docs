@@ -16,9 +16,9 @@ Initialize the database
 
 #### Params
 
-| parameters  | explain       | type   | required | default value |
-| :---------- | :------------ | :----- | :------- | :------------ |
-| sqlFileName | sql file path | string | Y        | -             |
+| Param       | Description   | Type   | Required | Default |
+| :---------- | :------------ | :----- | :------- | :------ |
+| sqlFileName | sql file path | string | Y        | -       |
 
 #### Example
 
@@ -30,21 +30,23 @@ export async function multiple_language() {
 }
 ```
 
+---
+
 ### select
 
 Receives the sql statement related to the query and returns the query result, which will be throw error if the sql execution fails.
 
 #### Params
 
-| parameters | explain                            | type   | required | default value |
-| :--------- | :--------------------------------- | :----- | :------- | :------------ |
-| sql        | sql statement related to the query | string | Y        | -             |
+| Param | Description                        | Type   | Required | Default |
+| :---- | :--------------------------------- | :----- | :------- | :------ |
+| sql   | sql statement related to the query | string | Y        | -       |
 
 #### Returns
 
-| parameters | explain          | type                 |
-| :--------- | :--------------- | :------------------- |
-| result     | sql query result | Record<string,any>[] |
+| Param  | Description      | Type                  |
+| :----- | :--------------- | :-------------------- |
+| result | sql query result | Record<string, any>[] |
 
 #### Example
 
@@ -60,16 +62,18 @@ export async function select_database() {
 }
 ```
 
+---
+
 ### exec
 
 Execute the relevant sql statement and no result is returned. If sql execution fails, it will throw error.
 
 #### Params
 
-| parameters | explain                                                                        | type   | required | default value |
-| :--------- | :----------------------------------------------------------------------------- | :----- | :------- | :------------ |
-| operate    | operation type，'insert' 、'update' 、 'delete' 、'create' 、'alter' 、 'drop' | string | Y        | -             |
-| sql        | sql statement                                                                  | string | Y        | -             |
+| Param   | Description                                                                    | Type   | Required | Default |
+| :------ | :----------------------------------------------------------------------------- | :----- | :------- | :------ |
+| operate | operation type，'insert' 、'update' 、 'delete' 、'create' 、'alter' 、 'drop' | string | Y        | -       |
+| sql     | sql statement                                                                  | string | Y        | -       |
 
 #### Example
 
@@ -88,21 +92,23 @@ export async function exec_database() {
 }
 ```
 
+---
+
 ### count
 
-Count related sql interface.If the sql execution is a failure, it will throw error.
+Count related sql interface. If the sql execution is a failure, it will throw error.
 
 #### Params
 
-| parameters | explain       | type   | required | default value |
-| :--------- | :------------ | :----- | :------- | :------------ |
-| sql        | sql statement | string | Y        | -             |
+| Param | Description   | Type   | Required | Default |
+| :---- | :------------ | :----- | :------- | :------ |
+| sql   | sql statement | string | Y        | -       |
 
 #### Returns
 
-| parameters | explain             | type   |
-| :--------- | :------------------ | :----- |
-| result     | statistical results | number |
+| Param  | Description         | Type   |
+| :----- | :------------------ | :----- |
+| result | statistical results | number |
 
 #### Example
 
@@ -117,3 +123,5 @@ export async function count_database() {
   }
 }
 ```
+
+---

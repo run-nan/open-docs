@@ -1,0 +1,53 @@
+import Image from '@theme/IdealImage'
+
+# User management
+
+## Requirements
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## Overview
+
+<Image img={require('./images/account.png')} />
+
+We have provided slots for "Configuration" - "User management" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:settings:account:new](#onessettingsaccountnew)
+- [ones:settings:account:default](#onessettingsaccountdefault)
+
+## Slots
+
+#### ones:settings:account:new
+
+**Module path：** Configuration / User management / [new module](../index.mdx#slot-hierarchy)
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+#### ones:settings:account:default
+
+**Module path：** Configuration / User management / [Default group](../index.mdx#slot-hierarchy)
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-settings-account-default-jK9p
+    title: Member
+    moduleType: ones:settings:account:default
+    modules:
+      - id: ones-settings-account-default-VFkW
+        title: Member
+        entry: >-
+          modules/ones-settings-account-default-jK9p/ones-settings-account-default-VFkW/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../../reference/config/plugin.yaml#disabled)
+- [modules(required)](../../../../../reference/config/plugin.yaml#subModule)

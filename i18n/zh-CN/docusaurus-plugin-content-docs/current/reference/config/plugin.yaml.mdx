@@ -119,9 +119,17 @@ modules:
 
 - **类型：**`string`
 - **最大长度：**`255`
-- **示例：**`"email: support@ones.com\nCall: 400-188-1518"`
 
-插件日志页显示的联系方式展示（支持使用 `\n` 进行换行）。
+插件日志页显示的联系方式展示（支持多行文本）。
+
+**示例：**
+
+```yaml title="/config/plugin.yaml"
+service:
+  contact: |-
+    email: support@ones.com
+    Call: 400-188-1518
+```
 
 <Image img={require('./images/contact-us.png')} />
 
@@ -129,7 +137,7 @@ modules:
 
 - **类型：**`Config[]`
 
-插件自定义配置的配置项数组，你可以通过声明此配置快速提供一些插件自定义配置项，具体使用文档请查阅 [插件自定义配置项](../../abilities/basic/custom-config)。
+插件自定义配置的配置项数组，你可以通过声明此配置快速提供一些插件自定义配置项，具体使用文档请查阅 [插件自定义配置项](../../abilities/basic/custom-config.mdx)。
 
 :::note
 配置只能在插件停用状态进行修改。
@@ -163,7 +171,7 @@ service:
 
 - **类型：**`Permission[]`
 
-插件自定义的标准权限点配置项数组，你可以通过此配置快速搭建自己的插件权限体系，具体使用文档请查阅 [插件自定义权限点](../../abilities/business/permission/custom-permission/)。
+插件自定义的标准权限点配置项数组，你可以通过此配置快速搭建自己的插件权限体系，具体使用文档请查阅 [插件自定义权限点](../../abilities/business/permission/custom-permission/custom-permission.mdx)。
 
 **`Permission` 参数：**
 
@@ -224,7 +232,7 @@ service:
 
 声明插件的 Logo，已废弃。
 
-如需要修改插件 Logo，请修改 [插件目录](../../guide/structure) 下的 `web/public/logo.svg` 文件。
+如需要修改插件 Logo，请修改 [插件目录](../../guide/structure.md) 下的 `web/public/logo.svg` 文件。
 
 ### auth
 
@@ -372,7 +380,7 @@ service:
 
 模块标题。
 
-### description
+### description {#moduleDescription}
 
 - **类型：**`string`
 
@@ -429,7 +437,7 @@ service:
 
 - **类型：**`string`
 
-权限标识，与插件 [自定义的标准权限点配置](#permission) 或插件自定义权限点能力配合使用，详情见 [插件自定义权限点](../../abilities/business/permission/custom-permission/)。
+权限标识，与插件 [自定义的标准权限点配置](#permission) 或插件自定义权限点能力配合使用，详情见 [插件自定义权限点](../../abilities/business/permission/custom-permission/custom-permission.mdx)。
 
 **示例：**
 
@@ -453,6 +461,6 @@ modules:
 
 - **类型：**[`modules`](#modules)
 
-插件子模块，由脚手架自动生成，一般无需修改，添加方法详见 [添加插槽子模块](../../guide/abilities/add-slot#step-2-add-slot-submodule)。
+插件子模块，由脚手架自动生成，一般无需修改，添加方法详见 [添加插槽子模块](../../guide/abilities/add-slot.mdx#step-2-add-slot-submodule)。
 
 对于比较复杂的需要层级的插槽，可以使用此字段来表示层级关系，比如：`我的工作台` 应用插槽，可能包括多个顶栏。

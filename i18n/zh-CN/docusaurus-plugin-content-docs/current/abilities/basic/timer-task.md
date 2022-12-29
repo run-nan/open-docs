@@ -1,6 +1,7 @@
 ---
 id: timer
 sidebar_position: 7
+description: 提供简便的定时任务使用方法。
 ---
 
 # 定时器

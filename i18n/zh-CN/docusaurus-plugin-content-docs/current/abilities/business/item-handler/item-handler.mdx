@@ -1,3 +1,8 @@
+---
+sidebar_position: 7
+description: Item 变更事件拦截。
+---
+
 import Image from '@theme/IdealImage'
 
 # Item 处理器
@@ -14,25 +19,20 @@ import Image from '@theme/IdealImage'
 
 ### 能力范围
 
-目前支持拦截变更事件的模块有：`Manhour`（登记工时）、`RemainingHour`（剩余工时）、`ActivityRelease`（快照）、`Activity`（里程碑）、`ActivityRelationLink`(前后置依赖关系)、`Deliverable`（交付物）、`Project`（项目）、`Task`（工作项）
+在我们通过 Graphql mutation 或者普通接口进行变更时，各模块中支持触发拦截的事件如下表所示:
 
-在以下情况会触发事件拦截：
-
-- Graphql mutation 的 `add`、`update`、`delete` 相关操作。
-
-  其中`Project`和`Task`模块只支持`add`和`update`类型的事件
-
-- 新建和批量新建项目，以及项目属性修改。
-
-- 在 **工时模式-普通模式** 下修改剩余工时，预估工时。
-
-- 工作项（范围参考[TaskEventHandle](../issue/task-event-handler/task-event-handler.mdx#使用范围)）
-
-:::note
-
-如无特殊说明，所有与工时相关的操作均是在工时模式为普通模式下。
-
-:::
+| 模块                    | 模块名称         | Graphql mutation    | 普通接口                                                                             |
+| :---------------------- | :--------------- | :------------------ | :----------------------------------------------------------------------------------- |
+| Project                 |                  | -                   | 新建项目、项目属性修改                                                               |
+| Manhour(普通模式)       | 登记工时         | -                   | 修改预估工时                                                                         |
+| Manhour(汇总模式)       | 登记工时         | add、update、delete | -                                                                                    |
+| RemainingHour(普通模式) | 剩余工时         | -                   | 修改剩余工时                                                                         |
+| RemainingHour(汇总模式) | 剩余工时         | add、update、delete | -                                                                                    |
+| Activity                | 项目计划、里程碑 | add、update、delete | -                                                                                    |
+| ActivityRelease         | 快照             | add、update、delete | -                                                                                    |
+| ActivityRelationLink    | 前后置依赖关系   | add、update、delete | -                                                                                    |
+| Deliverable             | 交付物           | add、update、delete | -                                                                                    |
+| Task                    | 工作项           |                     | 具体参照[TaskEventHandler](../issue/task-event-handler/task-event-handler.mdx#scope) |
 
 ### 能力表现
 

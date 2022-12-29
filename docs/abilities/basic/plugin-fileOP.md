@@ -1,3 +1,8 @@
+---
+sidebar_position: 11
+description: File storage for the plugin itself.
+---
+
 # Plugin file operation
 
 ## Requirements

@@ -1,6 +1,7 @@
 ---
 id: super-admin
 sidebar_position: 6
+description: Plugin's virtual user in ONES.
 ---
 
 # Super admin
@@ -54,3 +55,7 @@ const user = await Plugin.getPluginUser(teamUUID)
   "email": "3JjYLsNk_3fcca29f@ones.ai"
 }
 ```
+
+## Other
+
+For the definition of specific parameters, please refer to: [@ones-op/node-ability](../../reference/packages/node-ability/node-ability.md#getPluginUser)

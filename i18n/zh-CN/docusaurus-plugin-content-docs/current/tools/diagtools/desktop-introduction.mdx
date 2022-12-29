@@ -1,0 +1,66 @@
+---
+sidebar_position: 1
+description: ONES 开放平台桌面端诊断工具。
+---
+
+import Image from '@theme/IdealImage'
+
+# 桌面端使用
+
+## 要求
+
+| **ONES** |
+| -------- |
+| v3.12.0+ |
+
+## 概览
+
+ONES 开放平台桌面端诊断工具，它能够根据你设置的配置，连接 ONES 开放平台，查看平台与插件的日志与状态，以便于你排查问题，或者将当前数据导出，交给他人联合排查。
+
+:::note
+其主要功能与 CLI 相同。
+:::
+
+## 安装
+
+请参见 [下载与安装](./install#桌面端工具)。
+
+## 添加与切换配置
+
+桌面端工具的配置与 CLI 配置互通，如果你未通过 CLI 初始化，首次打开时你需要点击「Add Profile」添加配置。
+
+<Image img={require('./images/empty.png')} />
+
+如果你的电脑已经存在至少一份配置，则应用自动会跳过空界面，进入主界面。你可以通过左上角的菜单，进行配置的切换、新增、更新、删除等操作。
+
+<Image img={require('./images/profile-menu.png')} />
+
+添加配置时，应用会对你填写的开放平台地址进行格式校验，只有在协议地址和端口号都填写的情况下，你才能通过通过校验提交成功。
+
+:::note
+CLI 不会对你的配置输入进行格式校验，你需要自行确保配置正确。
+:::
+
+<Image img={require('./images/profile-form.png')} />
+
+## 更新数据
+
+因为诊断工具的特殊性，我们不会默认帮你获取或更新数据，你需要再添加配置完后，点击右上角的「Refresh」以获取当前时刻的信息。
+
+:::caution
+「Refresh」将会覆盖掉上一份数据，如果你期望保留获取数据前的信息，请提前点击「Export」进行导出。
+:::
+
+<Image img={require('./images/empty-data.png')} />
+
+## 查看日志
+
+「Refresh」获取数据后，你可以通过日志模块右上侧的选择器进行组件日志的筛选。
+
+<Image img={require('./images/logs.png')} />
+
+## 查看状态
+
+「Refresh」获取数据后，你可以通过标签页切换，查看能力、插件、组件的信息。
+
+<Image img={require('./images/status.png')} />

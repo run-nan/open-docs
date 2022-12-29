@@ -12,7 +12,7 @@ import Image from '@theme/IdealImage'
 
 <Image img={require('./images/code-repo-example-connector.png')} style={{ maxWidth: 700 }} />
 
-开发者可以通过修改 [ones:settings:pipeline:default:repo:link](../../slot/module/code_repository/index.md#onessettingspipelinedefaultrepolink) 插槽，自定义如下关联代码仓页面，实现 Gitlab 认证逻辑和添加代码仓逻辑。
+开发者可以通过修改 [ones:settings:pipeline:default:repo:link](../../slot/module/configuration/pipeline/default/code-repository/index.md#onessettingspipelinedefaultrepolink) 插槽，自定义如下关联代码仓页面，实现 Gitlab 认证逻辑和添加代码仓逻辑。
 
 <Image img={require('./images/code-repo-example-add-repo.png')} style={{ maxWidth: 700 }} />
 
@@ -108,7 +108,7 @@ modules:
 - 团队级别插件：`{{host}}/plugin/{{org_UUID}}/{{team_UUID}}/{{app_ID}}/1.0.0/modules/about-blank-BE8t/index.html`
 - 组织级别插件: `{{host}}/plugin/{{org_UUID}}/{{app_ID}}/1.0.0/modules/about-blank-BE8t/index.html`
 
-然后在 [ones:settings:pipeline:default:repo:link](../../slot/module/code_repository/index.md#onessettingspipelinedefaultrepolink) 插槽页面，按上面规则拼接好 redirect url。
+然后在 [ones:settings:pipeline:default:repo:link](../../slot/module/configuration/pipeline/default/code-repository/index.md#onessettingspipelinedefaultrepolink) 插槽页面，按上面规则拼接好 redirect url。
 
 **2. Gitlab 创建应用**
 
@@ -138,7 +138,7 @@ sequenceDiagram
 - 插件认证页面：对应 `ones:settings:pipeline:default:repo:link` 插槽；
 - 插件重定向页面：对应 `about-blank` 插槽。
 
-`about-blank` 插槽接收授权码 code 并同步到 `ones:settings:pipeline:default:repo:link` 插槽的实现，可以参考 [代码仓管理-第三方认证](../../slot/module/code_repository/index.md#第三方认证)。
+`about-blank` 插槽接收授权码 code 并同步到 `ones:settings:pipeline:default:repo:link` 插槽的实现，可以参考 [代码仓管理-第三方认证](../../slot/module/configuration/pipeline/default/code-repository/index.md#第三方认证)。
 
 #### 第三步：新增关联代码仓
 

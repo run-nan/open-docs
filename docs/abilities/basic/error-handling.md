@@ -1,6 +1,7 @@
 ---
 id: error-handling
 sidebar_position: 3
+description: Standard error handling specification.
 ---
 
 # Error handling

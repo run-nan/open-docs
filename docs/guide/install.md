@@ -11,15 +11,15 @@ Before doing plugin development, you need to make some preparations for the envi
 
 ## Requirements
 
-| NodeJS    |
+| Node.js   |
 | :-------- |
 | v16.13.0+ |
 
 ## Installation
 
-### Step 1: Install NodeJS
+### Step 1: Install Node.js
 
-ONES plugin development requires [NodeJS](https://nodejs.org/en/) `v16.13.0` or higher, You can use [n](https://github.com/tj/n), [nvm](https://github.com/creationix/nvm) or [nvm-windows](https://github.com/coreybutler/nvm-windows) to manage multiple Node versions on the same computer.
+ONES plugin development requires [Node.js](https://nodejs.org/en/) `v16.13.0` or higher, You can use [n](https://github.com/tj/n), [nvm](https://github.com/creationix/nvm) or [nvm-windows](https://github.com/coreybutler/nvm-windows) to manage multiple Node versions on the same computer.
 
 #### Configure npm repository
 

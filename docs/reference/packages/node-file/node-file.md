@@ -16,9 +16,9 @@ Create a file
 
 #### Params
 
-| **Param** | **Type** | **Description** | **Default** | **Required** |
-| :-------- | :------- | :-------------- | :---------- | :----------- |
-| name      | string   | file name       | -           | Y            |
+| **Param** | **Description** | **Type** | **Default** | **Required** |
+| :-------- | :-------------- | :------- | :---------- | :----------- |
+| name      | file name       | string   | -           | Y            |
 
 #### Example
 
@@ -34,9 +34,9 @@ Create a folder
 
 #### Params
 
-| **Param** | **Type** | **Description** | **Default** | **Required** |
-| :-------- | :------- | :-------------- | :---------- | :----------- |
-| name      | string   | folder name     | -           | Y            |
+| **Param** | **Description** | **Type** | **Default** | **Required** |
+| :-------- | :-------------- | :------- | :---------- | :----------- |
+| name      | folder name     | string   | -           | Y            |
 
 #### Example
 
@@ -52,10 +52,10 @@ Modify file name
 
 #### Params
 
-| **Param**    | **Type** | **Description**           | **Default** | **Required** |
-| :----------- | :------- | :------------------------ | :---------- | :----------- |
-| originalPath | string   | Original file path (name) | -           | Y            |
-| newPath      | string   | New file path (name)      | -           | Y            |
+| **Param**    | **Description**           | **Type** | **Default** | **Required** |
+| :----------- | :------------------------ | :------- | :---------- | :----------- |
+| originalPath | Original file path (name) | string   | -           | Y            |
+| newPath      | New file path (name)      | string   | -           | Y            |
 
 #### Example
 
@@ -71,9 +71,9 @@ Remove File name
 
 #### Params
 
-| **Param** | **Type** | **Description** | **Default** | **Required** |
-| :-------- | :------- | :-------------- | :---------- | :----------- |
-| name      | string   | file name       | -           | Y            |
+| **Param** | **Description** | **Type** | **Default** | **Required** |
+| :-------- | :-------------- | :------- | :---------- | :----------- |
+| name      | file name       | string   | -           | Y            |
 
 #### Example
 
@@ -89,15 +89,15 @@ Determine whether the file or folder exists
 
 #### Params
 
-| **Param** | **Type** | **Description** | **Default** | **Required** |
-| :-------- | :------- | :-------------- | :---------- | :----------- |
-| name      | string   | name            | -           | Y            |
+| **Param** | **Description** | **Type** | **Default** | **Required** |
+| :-------- | :-------------- | :------- | :---------- | :----------- |
+| name      | name            | string   | -           | Y            |
 
 #### Returns
 
-| **Param** | **Type** | **Description**                       |
-| :-------- | :------- | :------------------------------------ |
-| exist     | bool     | Exist return true，empty return false |
+| **Param** | **Description**                       | **Type** |
+| :-------- | :------------------------------------ | :------- |
+| exist     | Exist return true，empty return false | bool     |
 
 #### Example
 
@@ -113,15 +113,15 @@ Determine whether it is a file or not
 
 #### Params
 
-| **Param** | **Type** | **Description** | **Default** | **Required** |
-| :-------- | :------- | :-------------- | :---------- | :----------- |
-| name      | string   | name            | -           | Y            |
+| **Param** | **Description** | **Type** | **Default** | **Required** |
+| :-------- | :-------------- | :------- | :---------- | :----------- |
+| name      | name            | string   | -           | Y            |
 
 #### Returns
 
-| **Param** | **Type** | **Description**                  |
-| :-------- | :------- | :------------------------------- |
-| fileExist | bool     | Yes return true，no return false |
+| **Param** | **Description**                  | **Type** |
+| :-------- | :------------------------------- | :------- |
+| fileExist | Yes return true，no return false | bool     |
 
 #### Example
 
@@ -137,15 +137,15 @@ Determine whether it is a folder
 
 #### Params
 
-| **Param** | **Type** | **Description** | **Default** | **Required** |
-| :-------- | :------- | :-------------- | :---------- | :----------- |
-| name      | string   | name            | -           | Y            |
+| **Param** | **Description** | **Type** | **Default** | **Required** |
+| :-------- | :-------------- | :------- | :---------- | :----------- |
+| name      | name            | string   | -           | Y            |
 
 #### Returns
 
-| **Param** | **Type** | **Description**                  |
-| :-------- | :------- | :------------------------------- |
-| isDir     | bool     | Yes return true，or return false |
+| **Param** | **Description**                  | **Type** |
+| :-------- | :------------------------------- | :------- |
+| isDir     | Yes return true，or return false | bool     |
 
 #### Example
 
@@ -161,10 +161,10 @@ Copy a file
 
 #### Params
 
-| **Param**    | **Type** | **Description**         | **Default** | **Required** |
-| :----------- | :------- | :---------------------- | :---------- | :----------- |
-| originalPath | string   | File path (name)        | -           | Y            |
-| newPath      | string   | Destination path (name) | -           | Y            |
+| **Param**    | **Description**         | **Type** | **Default** | **Required** |
+| :----------- | :---------------------- | :------- | :---------- | :----------- |
+| originalPath | File path (name)        | string   | -           | Y            |
+| newPath      | Destination path (name) | string   | -           | Y            |
 
 #### Example
 
@@ -180,15 +180,15 @@ Get a list of folder
 
 #### Params
 
-| **Param** | **Type** | **Description** | **Default** | **Required** |
-| :-------- | :------- | :-------------- | :---------- | :----------- |
-| name      | string   | folder name     | -           | Y            |
+| **Param** | **Description** | **Type** | **Default** | **Required** |
+| :-------- | :-------------- | :------- | :---------- | :----------- |
+| name      | folder name     | string   | -           | Y            |
 
 #### Returns
 
-| **Param**  | **Type** | **Description**       |
-| :--------- | :------- | :-------------------- |
-| folderList | string[] | folder directory list |
+| **Param**  | **Description**       | **Type** |
+| :--------- | :-------------------- | :------- |
+| folderList | folder directory list | string[] |
 
 #### Example
 
@@ -204,15 +204,15 @@ Read a file
 
 #### Params
 
-| **Param** | **Type** | **Description** | **Default** | **Required** |
-| :-------- | :------- | :-------------- | :---------- | :----------- |
-| name      | string   | file path       | -           | Y            |
+| **Param** | **Description** | **Type** | **Default** | **Required** |
+| :-------- | :-------------- | :------- | :---------- | :----------- |
+| name      | file path       | string   | -           | Y            |
 
 #### Returns
 
-| **Param**   | **Type**   | **Description** |
-| :---------- | :--------- | :-------------- |
-| fileContent | Uint8Array | file content    |
+| **Param**   | **Description** | **Type**   |
+| :---------- | :-------------- | :--------- |
+| fileContent | file content    | Uint8Array |
 
 #### Example
 
@@ -228,17 +228,17 @@ Read the specified line of the file
 
 #### Params
 
-| **Param** | **Type** | **Description**         | **Default** | **Required** |
-| :-------- | :------- | :---------------------- | :---------- | :----------- |
-| name      | string   | file path               | -           | Y            |
-| lineBegin | number   | number of lines started | -           | Y            |
-| lineEnd   | number   | number of lines ended   | -           | Y            |
+| **Param** | **Description**         | **Type** | **Default** | **Required** |
+| :-------- | :---------------------- | :------- | :---------- | :----------- |
+| name      | file path               | string   | -           | Y            |
+| lineBegin | number of lines started | number   | -           | Y            |
+| lineEnd   | number of lines ended   | number   | -           | Y            |
 
 #### Returns
 
-| **Param**   | **Type** | **Description**  |
-| :---------- | :------- | :--------------- |
-| lineContent | string   | file information |
+| **Param**   | **Description**  | **Type** |
+| :---------- | :--------------- | :------- |
+| lineContent | file information | string   |
 
 #### Example
 
@@ -254,10 +254,10 @@ Write a string to a file
 
 #### Params
 
-| **Param** | **Type** | **Description** | **Default** | **Required** |
-| :-------- | :------- | :-------------- | :---------- | :----------- |
-| name      | string   | file path       | -           | Y            |
-| content   | string[] | written content | -           | Y            |
+| **Param** | **Description** | **Type** | **Default** | **Required** |
+| :-------- | :-------------- | :------- | :---------- | :----------- |
+| name      | file path       | string   | -           | Y            |
+| content   | written content | string[] | -           | Y            |
 
 #### Example
 
@@ -273,10 +273,10 @@ Append string to file
 
 #### Params
 
-| **Param** | **Type** | **Description**         | **Default** | **Required** |
-| :-------- | :------- | :---------------------- | :---------- | :----------- |
-| name      | string   | file path               | -           | Y            |
-| content   | string[] | number of lines started | -           | Y            |
+| **Param** | **Description**         | **Type** | **Default** | **Required** |
+| :-------- | :---------------------- | :------- | :---------- | :----------- |
+| name      | file path               | string   | -           | Y            |
+| content   | number of lines started | string[] | -           | Y            |
 
 #### Example
 
@@ -292,10 +292,10 @@ Write byte stream to file
 
 #### Params
 
-| **Param** | **Type**   | **Description**     | **Default** | **Required** |
-| :-------- | :--------- | :------------------ | :---------- | :----------- |
-| name      | string     | file path           | -           | Y            |
-| byteSlice | Uint8Array | byte stream content | -           | Y            |
+| **Param** | **Description**     | **Type**   | **Default** | **Required** |
+| :-------- | :------------------ | :--------- | :---------- | :----------- |
+| name      | file path           | string     | -           | Y            |
+| byteSlice | byte stream content | Uint8Array | -           | Y            |
 
 #### Example
 
@@ -311,10 +311,10 @@ Append byte stream to file
 
 #### Params
 
-| **Param** | **Type**   | **Description**     | **Default** | **Required** |
-| :-------- | :--------- | :------------------ | :---------- | :----------- |
-| name      | string     | file path           | -           | Y            |
-| byteSlice | Uint8Array | byte stream content | -           | Y            |
+| **Param** | **Description**     | **Type**   | **Default** | **Required** |
+| :-------- | :------------------ | :--------- | :---------- | :----------- |
+| name      | file path           | string     | -           | Y            |
+| byteSlice | byte stream content | Uint8Array | -           | Y            |
 
 #### Example
 

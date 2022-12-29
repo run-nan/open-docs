@@ -18,7 +18,7 @@ import Image from '@theme/IdealImage'
 
 ## 使用
 
-### 第一步：添加插槽模块
+### 第一步：添加插槽模块 {#step-1-add-slot-module}
 
 在插件工程根目录下执行 `npx op add module`， 可以向插件中新增插槽模块。
 
@@ -48,7 +48,7 @@ ones:wiki
 如果你选择的插槽是包含子模块的，那将会继续询问你是否需要添加子模块。你可以一起添加，也可以选择后面手动添加。
 :::
 
-### 第二步：添加插槽子模块
+### 第二步：添加插槽子模块 {#step-2-add-slot-submodule}
 
 在插件工程目录下执行 `npx op add sub-module`， 可以向插槽模块中添加子模块
 
@@ -72,7 +72,7 @@ Pre-require tasks run successfully
 并不是所有插槽都存在**子模块**，如果你查阅[模块列表](../../abilities/slot/slot.md)之后发现你需要的模块不存在子模块则可跳过第二步。
 :::
 
-### 第三步：添加逻辑代码
+### 第三步：添加逻辑代码 {#step-3-add-logical-code}
 
 每个插槽模块的逻辑代码，都存放于 `/web/src/modules/` 目录下以插槽模块 id 命名的目录中。你可以把每个插槽模块都当作一个独立的 React 应用，它和你以往熟悉的 React 开发方式并没有什么区别，你只需要关注你的业务逻辑即可。
 
@@ -84,7 +84,7 @@ Pre-require tasks run successfully
 对于每个插件模块的打包，我们都是以模块内的 `index.tsx` 文件为入口，请不要删掉这个入口文件，不然你的打包过程可能会出现异常。
 :::
 
-### 第四步：添加样式代码
+### 第四步：添加样式代码 {#step-4-add-style-code}
 
 同样的每个插槽的样式代码也都存放于 `/web/src/modules/` 目录下以插槽模块 id 命名的目录中。打开目录下的`index.css` 文件，默认生成的内容如下：
 
@@ -142,7 +142,7 @@ Pre-require tasks run successfully
   }
   ```
 
-### 第五步：使用 ONES Design
+### 第五步：使用 ONES Design {#step-5-use-ones-design}
 
 我们提供了一套完整的 UI 组件库，可以帮助你快速构建标准的插件用户界面，在插件工程初始化的时候，它已经默认被引入了。
 

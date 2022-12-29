@@ -136,7 +136,7 @@ export const features: {
           {
             /**  文件操作 */
             title: <Translate>File Operation</Translate>,
-            url: '#',
+            url: `${baseUrl}abilities/basic/plugin-fileOP`,
           },
           {
             /** 数据库 */
@@ -192,7 +192,7 @@ export const features: {
           {
             /** 权限点 */
             title: <Translate>Permission</Translate>,
-            url: '#',
+            url: `${baseUrl}abilities/business/permission`,
           },
 
           {
@@ -211,14 +211,14 @@ export const features: {
             url: `${baseUrl}abilities/business/Independent-hosting-service`,
           },
           {
-            /** 文件解析 */
-            title: <Translate>File parsing</Translate>,
-            url: '#',
+            /** ONES project 自定义组件 */
+            title: <Translate>ONES project Custom component</Translate>,
+            url: `${baseUrl}abilities/business/project-custom-component`,
           },
           {
             /** ONES project 自定义组件 */
-            title: <Translate>ONES project Custom component</Translate>,
-            url: '#',
+            title: <Translate>Sidebar Menu</Translate>,
+            url: `${baseUrl}abilities/business/sidebar-menu`,
           },
         ],
       },

@@ -1,6 +1,7 @@
 ---
 id: timer
 sidebar_position: 7
+description: Provides a simple way to use timed tasks.
 ---
 
 # Timer

@@ -1,14 +1,19 @@
 # wiki 协同草稿
 
-- [1. 创建协同草稿(临时草稿、页面复制、从模板创建)](<#1-创建协同草稿(临时草稿、页面复制、从模板创建)>)
-- [2. 获取草稿 Token](#2-获取草稿Token)
-- [3. 获取草稿正文](#3-获取草稿正文)
-- [4. 发布草稿](#4-发布草稿)
-- [5. 更新标题](#5-更新标题)
+- [通用说明](#通用说明)
+  - [状态码说明](#状态码说明)
+- [API 说明](#api-说明)
+  - [创建协同草稿(临时草稿、页面复制、从模板创建)](<#创建协同草稿(临时草稿、页面复制、从模板创建)>)
+  - [获取草稿 Token](#获取草稿Token)
+  - [获取草稿正文](#获取草稿正文)
+  - [发布草稿](#发布草稿)
+  - [更新标题](#更新标题)
 
 ## 通用说明
 
-### HTTP status code 说明
+协同草稿相关接口。
+
+### 状态码说明
 
 | 状态码 | 说明                                              |
 | :----- | :------------------------------------------------ |
@@ -17,13 +22,10 @@
 | 404    | 未找到 NotFound.Draft                             |
 | 630    | 没有此草稿                                        |
 | 801    | 参数格式有误                                      |
-| 817    | 用户已经存在页面草稿                              |
-| 819    | 版本冲突                                          |
-| 901    | 内容过长                                          |
 
 ## API 说明
 
-### 1. 创建协同草稿(临时草稿、页面复制、从模板创建)
+### 创建协同草稿(临时草稿、页面复制、从模板创建)
 
 #### URL
 
@@ -41,57 +43,47 @@ POST
 
 JSON
 
-#### 参数列表
+#### 请求参数列表
 
 | 参数名        | 是否必须 | 值类型 | 取值范围         | 默认值 | 取值例子 | 说明                                         |
 | :------------ | :------- | :----- | :--------------- | :----- | :------- | :------------------------------------------- |
-| space_uuid    | T        | string |                  |        |          |                                              |
-| parent_uuid   | T        | string |                  |        |          |                                              |
-| title         | F        | string |                  |        |          |                                              |
-| copy_src_type | F        | string | template,page,"" |        |          | 拷贝来源类型                                 |
+| space_uuid    | T        | string |                  |        |          | 页面组 uuid                                  |
+| parent_uuid   | T        | string |                  |        |          | 父页面 uuid                                  |
+| title         | F        | string | len <= 64        |        |          | 标题                                         |
+| copy_src_type | F        | string | template,page,"" |        |          | 拷贝来源类型,空字符串为直接新建              |
 | copy_src_uuid | F        | string |                  |        |          | 被拷贝对象的 uuid，与 copy_src_uuid 配合使用 |
+
+#### 响应参数列表
+
+| 参数名      | 值类型 | 取值范围 | 说明                   |
+| :---------- | :----- | :------- | :--------------------- |
+| uuid        | string | len=8    | 草稿 uuid              |
+| space_uuid  | string | len=8    | 页面组 uuid            |
+| page_uuid   | string | len=8    | 父页面 uuid            |
+| owner_uuid  | string | len=8    | 作者 uuid              |
+| create_time | int    |          | 创建时间               |
+| ref_type    | int    | 6        | 固定值 6，协同页面类型 |
+| ref_uuid    | string | len=8    | 草稿关联的文档 uuid    |
+| status      | int    | 1        | 固定值 1，临时草稿状态 |
 
 #### 请求示例
 
-示例：
-
-1. 创建临时草稿， 请求内容为
-
-```json
-{
-  "space_uuid": "LLNkd6Up",
-  "parent_uuid": "UyZkFDM5", // 父节点的page uuid
-  "title": "title",
-  "copy_src_type": "",
-  "copy_src_uuid": ""
-}
+```curl
+curl -X POST \
+  https://your-host-name/wiki/api/wiki/team/:teamUUID/online_draft/add \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
+  -H 'Ones-User-Id: 6ZpgEzkk' \
+  -H 'cache-control: no-cache' \
+  -d '{
+    "space_uuid": "LLNkd6Up",
+    "parent_uuid": "UyZkFDM5",
+    "copy_src_type": "",
+    "copy_src_uuid": ""
+  }'
 ```
 
-1. 页面复制, 请求内容为
-
-```json
-{
-  "space_uuid": "LLNkd6Up",
-  "parent_uuid": "UyZkFDM5", // 父节点的page uuid
-  "title": "title",
-  "copy_src_type": "page",
-  "copy_src_uuid": "TPaN4NBa"
-}
-```
-
-3. 基于模板创建, 请求内容为
-
-```json
-{
-  "space_uuid": "LLNkd6Up",
-  "parent_uuid": "UyZkFDM5", // 父节点的page uuid
-  "title": "title",
-  "copy_src_type": "template",
-  "copy_src_uuid": "TPaN4NBa"
-}
-```
-
-#### 返回值示例
+#### 响应示例
 
 ```json
 {
@@ -106,7 +98,7 @@ JSON
 }
 ```
 
-### 2. 获取草稿 Token
+### 获取草稿 Token
 
 #### URL
 
@@ -116,7 +108,7 @@ https://your-host-name/wiki/api/wiki/team/:teamUUID/online_draft/:draftUUID/toke
 
 GET
 
-#### 是否需要登录
+#### 是否需要登陆
 
 是
 
@@ -124,13 +116,30 @@ GET
 
 QUERY_STRING
 
-#### 参数列表
+#### 请求参数列表
 
-| 参数名 | 是否必须 | 值类型 | 取值范围     | 默认值 | 取值例子 | 说明 |
-| :----- | :------- | :----- | :----------- | :----- | :------- | :--- |
-| action | T        | string | edit, browse |        | edit     | 枚举 |
+| 参数名 | 是否必须 | 值类型 | 取值范围     | 默认值 | 取值例子 | 说明                                     |
+| :----- | :------- | :----- | :----------- | :----- | :------- | :--------------------------------------- |
+| action | T        | string | edit, browse |        | edit     | 获取 token 的类型，可选值为 编辑 或 阅读 |
 
-#### 返回值示例
+#### 响应参数列表
+
+| 参数名 | 值类型 | 取值范围 | 说明       |
+| :----- | :----- | :------- | :--------- |
+| token  | string |          | 文档 token |
+
+#### 请求示例
+
+```curl
+curl -X GET \
+  https://your-host-name/wiki/api/wiki/team/:teamUUID/online_draft/:draftUUID/token?action=edit \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
+  -H 'Ones-User-Id: 6ZpgEzkk' \
+  -H 'cache-control: no-cache'
+```
+
+#### 响应示例
 
 ```json
 {
@@ -138,7 +147,7 @@ QUERY_STRING
 }
 ```
 
-### 3. 获取草稿正文
+### 获取草稿正文
 
 #### URL
 
@@ -148,22 +157,54 @@ https://your-host-name/wiki/api/wiki/team/:teamUUID/online_draft/:draftUUID/cont
 
 GET
 
-#### 是否需要登录
+#### 是否需要登陆
 
 是
 
-#### 返回值示例
+#### 传值方式
+
+json
+
+#### 请求参数列表
+
+无
+
+#### 响应参数列表
+
+| 参数名             | 值类型 | 取值范围 | 说明         |
+| :----------------- | :----- | :------- | :----------- |
+| content            | string |          | 内容         |
+| token              | string |          | token        |
+| online_users_count | int    |          | 在线人数     |
+| owner_uuid         | string |          | 作者 uuid    |
+| version            | int    |          | 创建时间     |
+| latest             | int    |          | 最后修改时间 |
+
+#### 请求示例
+
+```curl
+curl -X GET \
+  https://your-host-name/wiki/api/wiki/team/:teamUUID/online_draft/:draftUUID/content \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
+  -H 'Ones-User-Id: 6ZpgEzkk' \
+  -H 'cache-control: no-cache'
+```
+
+#### 响应示例
 
 ```json
 {
-  "content": "",
-  "token": "W.3HQK1toUwumd1tUhvPufkdiPp5qLm3uKOjAvzWrh9zr4ZQoncOBiR7PqGH-9tBfFiAwQd09Bpdh8xK8Sjw",
-  "latest": 1642593507711,
-  "version": 1642593508711
+  "content": "{\"blocks\":[{\"heading\":1,\"id\":\"_ByNpoBmp\",\"text\":[{\"insert\":\"草稿\"}],\"type\":\"text\"},{\"text\":[],\"id\":\"_tyWZWF42\",\"type\":\"text\"}],\"comments\":{},\"meta\":{\"version\":876,\"updatedBy\":{\"userId\":\"UrCAf4hi\",\"displayName\":\"abc\"},\"ctime\":1654497195849,\"mtime\":1671331612680},\"authors\":[\"UrCAf4hi\"],\"commentators\":[]}",
+  "version": 1654497195849,
+  "latest": 1671331612680,
+  "token": "W.ZyLVksHAx6DtMN5YeAUXTkrBWJ7XNYizrMy3aEnaMNPLk-eFBvKo6l-O_rlLUtJQo1cqTPb_X5gG6WkDBmCK1SN0uBxO4eQ-ISeEjq0lha0xWc2Ql2oKxQhqHmJt2rOVCLZsbIqWQLknGaioNxVAauW0FngbJLkQnx-0IQftfUhHsdk",
+  "online_users_count": 0,
+  "owner_uuid": "UrCAf4hi"
 }
 ```
 
-### 4. 发布草稿
+### 发布草稿
 
 #### URL
 
@@ -173,7 +214,7 @@ https://your-host-name/wiki/api/wiki/team/:teamUUID/online_draft/:draftUUID/publ
 
 POST
 
-#### 是否需要登录
+#### 是否需要登陆
 
 是
 
@@ -181,37 +222,51 @@ POST
 
 JSON
 
-#### 参数列表
+#### 请求参数列表
 
-| 参数名      | 是否必须 | 值类型 | 取值范围 | 默认值 | 取值例子 | 说明 |
-| :---------- | :------- | :----- | :------- | :----- | :------- | :--- |
-| space_uuid  | T        | string |          |        |          |      |
-| parent_uuid | T        | string |          |        |          |      |
-| title       | T        | string |          |        |          |      |
+| 参数名      | 是否必须 | 值类型 | 取值范围  | 默认值 | 取值例子 | 说明        |
+| :---------- | :------- | :----- | :-------- | :----- | :------- | :---------- |
+| space_uuid  | T        | string | len=8     |        |          | 页面组 uuid |
+| parent_uuid | T        | string | len=8     |        |          | 父页面 uuid |
+| title       | T        | string | len <= 64 |        |          | 标题        |
+
+#### 响应参数列表
+
+| 参数名     | 值类型 | 取值范围 | 说明        |
+| :--------- | :----- | :------- | :---------- |
+| team_uuid  | string | len=8    | 团队 uuid   |
+| space_uuid | string | len=8    | 页面组 uuid |
+| page_uuid  | string | len=8    | 页面 uuid   |
+| draft_uuid | string | len=8    | 草稿 uuid   |
 
 #### 请求示例
 
-```json
-{
-  "space_uuid": "LLNkd6Up",
-  "parent_uuid": "UyZkFDM5",
-  "title": "title"
-}
+```curl
+curl -X POST \
+  https://your-host-name/wiki/api/wiki/team/:teamUUID/online_draft/:draftUUID/publish \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
+  -H 'Ones-User-Id: 6ZpgEzkk' \
+  -H 'cache-control: no-cache' \
+  -d '{
+    "space_uuid": "LLNkd6Up",
+    "parent_uuid": "UyZkFDM5",
+    "title": "title"
+  }'
 ```
 
-#### 返回值示例
+#### 响应示例
 
 ```json
 {
   "team_uuid": "RDjYMhKq",
   "space_uuid": "QdmnDT57",
   "page_uuid": "MqYk1map",
-  "draft_uuid": "KLzJ5uvc",
-  "status": 3
+  "draft_uuid": "KLzJ5uvc"
 }
 ```
 
-### 5. 更新标题
+### 更新标题
 
 #### URL
 
@@ -221,7 +276,7 @@ https://your-host-name/wiki/api/wiki/team/:teamUUID/online_draft/:draftUUID/upda
 
 POST
 
-#### 是否需要登录
+#### 是否需要登陆
 
 是
 
@@ -229,21 +284,29 @@ POST
 
 JSON
 
-#### 参数列表
+#### 请求参数列表
 
 | 参数名 | 是否必须 | 值类型 | 取值范围 | 默认值 | 取值例子 | 说明 |
 | :----- | :------- | :----- | :------- | :----- | :------- | :--- |
-| title  | T        | string |          |        |          |      |
+| title  | T        | string | len<=64  |        |          | 标题 |
+
+#### 响应参数列表
 
 #### 请求示例
 
-```json
-{
-  "title": "title"
-}
+```curl
+curl -X POST \
+  https://your-host-name/wiki/api/wiki/team/:teamUUID/permission_rules/add \
+  -H 'Content-Type: application/json' \
+  -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
+  -H 'Ones-User-Id: 6ZpgEzkk' \
+  -H 'cache-control: no-cache' \
+  -d '{
+    "title": "title"
+  }'
 ```
 
-#### 返回值示例
+#### 响应示例
 
 ```json
 {}

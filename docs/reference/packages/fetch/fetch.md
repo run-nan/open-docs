@@ -4,6 +4,12 @@
 
 We provide a set of interface request library that can help you request interfaces exposed to the backend of the plugin in the frontend of the plugin, or request external interfaces.
 
+## Requirements
+
+| **@ones-op/fetch** |
+| :----------------: |
+|     `v0.4.0+`      |
+
 ## Installation
 
 Install the package in the plugin `/web` directory using the following command:
@@ -38,7 +44,7 @@ function fetchData() {
 | [isOPError](#isOPError)           | Determine whether it is an open platform or plugin interface error |
 | [OPErrorHandler](#OPErrorHandler) | Open platform or plugin standard interface error processing method |
 
-## API
+## APIs
 
 ### OPFetch {#OPFetch}
 
@@ -367,7 +373,7 @@ These are the available config options for making requests. Only the `url` is re
     // Do whatever you want with the native progress event
   },
 
-  // `maxContentLength` defines the max size of the http response content in bytes allowed in node.js
+  // `maxContentLength` defines the max size of the http response content in bytes allowed in Node.js
   maxContentLength: 2000,
 
   // `maxBodyLength` (Node only option) defines the max size of the http request content in bytes allowed

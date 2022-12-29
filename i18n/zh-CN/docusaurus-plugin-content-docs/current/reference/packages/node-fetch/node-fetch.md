@@ -16,20 +16,20 @@
 
 #### Params
 
-| **参数** | **类型**                 | **说明** | **必填** | **默认值** |
-| :------- | :----------------------- | :------- | :------- | :--------- |
-| url      | string                   | 请求地址 | 是       | -          |
-| method   | string                   | 请求类型 | 是       | -          |
-| body     | object/Uint8Array/string | 请求体   | 否       | -          |
-| headers  | Record<string, string[]> | 请求头   | 否       | -          |
+| **参数** | **说明** | **类型**                 | **必填** | **默认值** |
+| :------- | :------- | :----------------------- | :------- | :--------- |
+| url      | 请求地址 | string                   | 是       | -          |
+| method   | 请求类型 | string                   | 是       | -          |
+| body     | 请求体   | object/Uint8Array/string | 否       | -          |
+| headers  | 请求头   | Record<string, string[]> | 否       | -          |
 
 #### Returns
 
-| **参数**   | **类型**                     | **说明** | **必填** | **默认值** |
-| :--------- | :--------------------------- | :------- | :------- | :--------- |
-| statusCode | number / string / undefined  | 状态码   | -        | -          |
-| body       | object / Uint8Array / string | 返回体   | -        | -          |
-| headers    | Record<string, string[]>     | 返回头   | -        | -          |
+| **参数**   | **说明** |            **类型**            | **必填** | **默认值** |
+| :--------- | :------- | :----------------------------: | :------- | ---------- |
+| statusCode | 状态码   | number / string / undefined -  | -        |
+| body       | 返回体   | object / Uint8Array / string - | -        |
+| headers    | 返回头   |   Record<string, string[]> -   | -        |
 
 #### Example
 
@@ -49,21 +49,21 @@ const response = await fetchHttp({
 
 #### Params
 
-| **参数** | **类型**                 | **说明**                                           | **必填** | **默认值** |
-| :------- | :----------------------- | :------------------------------------------------- | :------- | :--------- |
-| path     | string                   | 请求地址，如果是 wiki 接口 需要在参数前添加'/wiki' | 是       | -          |
-| method   | string                   | 请求类型                                           | 是       | -          |
-| body     | object/Uint8Array/string | 请求体                                             | 否       | -          |
-| headers  | Record<string, string[]> | 请求头                                             | 否       | -          |
-| root     | bool                     | 是否使用插件超级用户                               | 否       | true       |
+| **参数** | **说明**                                           | **类型**                 | **必填** | **默认值** |
+| :------- | :------------------------------------------------- | :----------------------- | :------- | :--------- |
+| path     | 请求地址，如果是 wiki 接口 需要在参数前添加'/wiki' | string                   | 是       | -          |
+| method   | 请求类型                                           | string                   | 是       | -          |
+| body     | 请求体                                             | object/Uint8Array/string | 否       | -          |
+| headers  | 请求头                                             | Record<string, string[]> | 否       | -          |
+| root     | 是否使用插件超级用户                               | bool                     | 否       | true       |
 
 #### Returns
 
-| **参数**   | **类型**                     | **说明** | **必填** | **默认值** |
-| :--------- | :--------------------------- | :------- | :------- | :--------- |
-| statusCode | number / string / undefined  | 状态码   | -        | -          |
-| body       | object / Uint8Array / string | 返回体   | -        | -          |
-| headers    | Record<string, string[]>     | 返回头   | -        | -          |
+| **参数**   | **说明** | **类型**                     | **必填** | **默认值** |
+| :--------- | :------- | :--------------------------- | :------- | :--------- |
+| statusCode | 状态码   | number / string / undefined  | -        | -          |
+| body       | 返回体   | object / Uint8Array / string | -        | -          |
+| headers    | 返回头   | Record<string, string[]>     | -        | -          |
 
 #### Example
 

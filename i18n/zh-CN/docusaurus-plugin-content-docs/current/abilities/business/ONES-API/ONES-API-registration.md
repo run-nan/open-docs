@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 # ONES 接口注册
 
 ## 要求

@@ -1,18 +1,35 @@
 # wiki 草稿
 
-- [1. 获取草稿列表](#1-获取草稿列表)
-- [2. 获取草稿详情](#2-获取草稿详情)
-- [3. 获取草稿详情路由不带 space_uuid](#3-获取草稿详情路由不带space_uuid)
-- [4. 创建草稿(临时草稿、页面草稿、页面复制、从模板创建)](<#4-创建草稿(临时草稿、页面草稿、页面复制、从模板创建)>)
-- [5. 保存/发布草稿](#5-保存/发布草稿)
-- [6. 删除草稿](#6-删除草稿)
-- [7. 获取草稿附件](#7-获取草稿附件)
-- [8. 更新草稿附件](#8-更新草稿附件)
-- [9. 获取分享页面列表的草稿列表](#9-获取分享页面列表的草稿列表)
+- [通用说明](#通用说明)
+  - [draft](#draft)
+  - [状态码说明](#状态码说明)
+- [API 说明](#api-说明)
+  - [获取草稿列表](#获取草稿列表)
+  - [获取草稿详情](#获取草稿详情)
+  - [获取草稿详情路由不带 space_uuid](#获取草稿详情路由不带space_uuid)
+  - [创建草稿(临时草稿、页面草稿、页面复制、从模板创建)](<#创建草稿(临时草稿、页面草稿、页面复制、从模板创建)>)
+  - [保存/发布草稿](#保存/发布草稿)
+  - [删除草稿](#删除草稿)
+  - [获取草稿附件](#获取草稿附件)
+  - [更新草稿附件](#更新草稿附件)
+  - [获取分享页面列表的草稿列表](#获取分享页面列表的草稿列表)
 
 ## 通用说明
 
-### HTTP status code 说明
+### draft
+
+| 参数名       | 值类型 | 取值范围 | 说明                        |
+| :----------- | ------ | -------- | --------------------------- |
+| uuid         | string | len=8    | 草稿 uuid                   |
+| page_uuid    | string | len=8    | 页面 uuid                   |
+| from_version | int    |          | 草稿来源版本。-1 默认版本。 |
+| title        | string | len<=64  | 标题                        |
+| status       | int    |          | 草稿状态类型                |
+| create_time  |        |          | 草稿创建时间                |
+| updated_time |        |          | 草稿修改时间                |
+| space_uuid   |        |          | 页面组 uuid                 |
+
+### 状态码说明
 
 | 状态码 | 说明                                              |
 | :----- | :------------------------------------------------ |
@@ -27,7 +44,7 @@
 
 ## API 说明
 
-### 1. 获取草稿列表
+### 获取草稿列表
 
 #### URL
 
@@ -48,6 +65,22 @@ GET
 #### 参数列表
 
 无
+
+#### 响应说明
+
+| 参数名       | 值类型 | 取值范围 | 说明                                                                                                  |
+| :----------- | :----- | :------- | :---------------------------------------------------------------------------------------------------- |
+| uuid         | string | len=8    | 草稿 id，随机 8 位字符组成                                                                            |
+| space_uuid   | string | len=8    | 空间 id，随机 8 位字符组成                                                                            |
+| page_uuid    | string | len=8    | 页面 id，随机 8 位字符组成                                                                            |
+| from_version | int    |          | 来源版本                                                                                              |
+| title        | string | len<=64  | 页面标题                                                                                              |
+| status       | int    |          | 状态：<br/>1 临时草稿<br/>2 在已有 page 上创建一个草稿<br/>3 草稿已发布<br/>4 已删除<br/>5 在回收站中 |
+| content      | string |          | 非协同编辑页面值为正文内容，协同编辑页面值为版本号                                                    |
+| create_time  | int64  |          | 创建时间                                                                                              |
+| updated_time | int64  |          | 更新时间                                                                                              |
+| ref_type     | int64  |          | 页面关联类型                                                                                          |
+| ref_uuid     | string | len=8    | 页面关联 uuid                                                                                         |
 
 #### 请求体示例
 
@@ -81,7 +114,7 @@ curl -X GET \
 }
 ```
 
-### 2. 获取草稿详情
+### 获取草稿详情
 
 #### URL
 
@@ -103,6 +136,22 @@ GET
 
 无
 
+#### 响应说明
+
+| 参数名       | 值类型 | 取值范围 | 说明                                                                                                  |
+| :----------- | :----- | :------- | :---------------------------------------------------------------------------------------------------- |
+| uuid         | string | len=8    | 草稿 id，随机 8 位字符组成                                                                            |
+| space_uuid   | string | len=8    | 空间 id，随机 8 位字符组成                                                                            |
+| page_uuid    | string | len=8    | 页面 id，随机 8 位字符组成                                                                            |
+| from_version | int    |          | 来源版本                                                                                              |
+| title        | string | len<=64  | 页面标题                                                                                              |
+| status       | int    |          | 状态：<br/>1 临时草稿<br/>2 在已有 page 上创建一个草稿<br/>3 草稿已发布<br/>4 已删除<br/>5 在回收站中 |
+| content      | string |          | 非协同编辑页面值为正文内容，协同编辑页面值为版本号                                                    |
+| create_time  | int64  |          | 创建时间                                                                                              |
+| updated_time | int64  |          | 更新时间                                                                                              |
+| ref_type     | int64  |          | 页面关联类型                                                                                          |
+| ref_uuid     | string | len=8    | 页面关联 uuid                                                                                         |
+
 #### 请求体示例
 
 ```curl
@@ -130,7 +179,7 @@ curl -X GET \
 }
 ```
 
-### 3. 获取草稿详情(路由不带 space_uuid)
+### 获取草稿详情(路由不带 space_uuid)
 
 #### URL
 
@@ -152,6 +201,22 @@ GET
 
 无
 
+#### 响应说明
+
+| 参数名       | 值类型 | 取值范围 | 说明                                                                                                  |
+| :----------- | :----- | :------- | :---------------------------------------------------------------------------------------------------- |
+| uuid         | string | len=8    | 草稿 id，随机 8 位字符组成                                                                            |
+| space_uuid   | string | len=8    | 空间 id，随机 8 位字符组成                                                                            |
+| page_uuid    | string | len=8    | 页面 id，随机 8 位字符组成                                                                            |
+| from_version | int    |          | 来源版本                                                                                              |
+| title        | string | len<=64  | 页面标题                                                                                              |
+| status       | int    |          | 状态：<br/>1 临时草稿<br/>2 在已有 page 上创建一个草稿<br/>3 草稿已发布<br/>4 已删除<br/>5 在回收站中 |
+| content      | string |          | 非协同编辑页面值为正文内容，协同编辑页面值为版本号                                                    |
+| create_time  | int64  |          | 创建时间                                                                                              |
+| updated_time | int64  |          | 更新时间                                                                                              |
+| ref_type     | int64  |          | 页面关联类型                                                                                          |
+| ref_uuid     | string | len=8    | 页面关联 uuid                                                                                         |
+
 #### 请求体示例
 
 ```curl
@@ -179,7 +244,9 @@ curl -X GET \
 }
 ```
 
-### 4. 创建草稿(space 临时草稿、page 页面草稿、页面复制、从模板创建)
+### 创建草稿
+
+可以创建 space 临时草稿、page 页面草稿、页面复制、从模板创建草稿
 
 #### URL
 
@@ -201,61 +268,100 @@ JSON
 
 | 参数名        | 是否必须 | 值类型 | 取值范围      | 默认值 | 取值例子 | 说明                                         |
 | :------------ | :------- | :----- | :------------ | :----- | :------- | :------------------------------------------- |
-| page_uuid     | F        | string |               |        |          |                                              |
-| title         | F        | string |               |        |          |                                              |
-| content       | F        | string |               |        |          |                                              |
-| status        | T        | int    | [1,2]         |        |          | 1: space 临时草稿, 2: page 页面草稿          |
-| copy_src_type | F        | string | template,page |        | template | 拷贝来源类型                                 |
-| copy_src_uuid | F        | string |               |        |          | 被拷贝对象的 uuid，与 copy_src_uuid 配合使用 |
+| page_uuid     | 否       | string |               |        |          |                                              |
+| title         | 否       | string |               |        |          |                                              |
+| content       | 否       | string |               |        |          |                                              |
+| status        | 是       | int    | [1,2]         |        |          | 1: space 临时草稿, 2: page 页面草稿          |
+| copy_src_type | 否       | string | template,page |        | template | 拷贝来源类型                                 |
+| copy_src_uuid | 否       | string |               |        |          | 被拷贝对象的 uuid，与 copy_src_uuid 配合使用 |
+
+#### 响应说明
+
+| 参数名      | 值类型 | 取值范围 | 说明                                                                                                  |
+| :---------- | :----- | :------- | :---------------------------------------------------------------------------------------------------- |
+| uuid        | string | len=8    | 草稿 id，随机 8 位字符组成                                                                            |
+| space_uuid  | string | len=8    | 空间 id，随机 8 位字符组成                                                                            |
+| page_uuid   | string | len=8    | 页面 id，随机 8 位字符组成                                                                            |
+| owner_uuid  | string | len=8    | 创建者 id，随机 8 位字符组成                                                                          |
+| status      | int    |          | 状态：<br/>1 临时草稿<br/>2 在已有 page 上创建一个草稿<br/>3 草稿已发布<br/>4 已删除<br/>5 在回收站中 |
+| create_time | int64  |          | 创建时间                                                                                              |
 
 #### 请求示例
 
 示例：
 
-1. 创建 space 临时草稿， 请求内容为
+1. 创建 space 临时草稿，此时参数 page_uuid 为草稿父节点的 page_uuid
 
-```json
-{
-  "content": "content",
-  "page_uuid": "UyZkFDM5", // 父节点的page uuid
-  "status": 1,
-  "title": "title"
-}
+```curl
+curl -X POST \
+ https://your-host-name/wiki/api/wiki/team/3pDzCwAe/space/MAJPYt6j/drafts/add \
+  -H 'Ones-Auth-Token: ILg1uaO9d8MOG6rqQoe6Ozqkv27sTbgiKeDDgapEtIYnkyu8m6d51nq7og0koETZ' \
+  -H 'Ones-User-Id: DU6krHBN' \
+  -H 'Referer: https://your-host-name' \
+  -H 'cache-control: no-cache'
+  -d ' {
+      "content": "content",
+      "page_uuid": "UyZkFDM5",
+      "status": 1,
+      "title": "title"
+    }'
 ```
 
-2. 创建 page 页面的草稿，请求内容为
+2. 创建 page 页面的草稿，此时 page_uuid 参数为正在编辑的 page 页面的 uuid
 
-```json
-{
-  "content": "content",
-  "page_uuid": "UyZkFDM5", // page 页面的 uuid
-  "status": 2,
-  "title": "title"
-}
+```curl
+curl -X POST \
+ https://your-host-name/wiki/api/wiki/team/3pDzCwAe/space/MAJPYt6j/drafts/add \
+  -H 'Ones-Auth-Token: ILg1uaO9d8MOG6rqQoe6Ozqkv27sTbgiKeDDgapEtIYnkyu8m6d51nq7og0koETZ' \
+  -H 'Ones-User-Id: DU6krHBN' \
+  -H 'Referer: https://your-host-name' \
+  -H 'cache-control: no-cache'
+  -d ' {
+      "content": "content",
+      "page_uuid": "UyZkFDM5", //
+      "status": 2,
+      "title": "title"
+    }'
 ```
 
-3. 页面复制, 请求内容为
+3. 从页面复制
 
-```json
-{
-  "page_uuid": "UyZkFDM5",
-  "copy_src_type": "page", // 类型是 page
-  "copy_src_uuid": "UyZkFDM5",
-  "status": 1,
-  "title": "title" // 新的标题名称，如果不填该字段则默认使用被复制模板的标题为新的标题
-}
+注意： title 参数为新的标题名称，如果不填该字段则默认使用被复制页面的标题为新的标题
+
+```curl
+curl -X POST \
+ https://your-host-name/wiki/api/wiki/team/3pDzCwAe/space/MAJPYt6j/drafts/add \
+  -H 'Ones-Auth-Token: ILg1uaO9d8MOG6rqQoe6Ozqkv27sTbgiKeDDgapEtIYnkyu8m6d51nq7og0koETZ' \
+  -H 'Ones-User-Id: DU6krHBN' \
+  -H 'Referer: https://your-host-name' \
+  -H 'cache-control: no-cache'
+  -d ' {
+      "page_uuid": "UyZkFDM5",
+      "copy_src_type": "page",
+      "copy_src_uuid": "UyZkFDM5",
+      "status": 1,
+      "title": "title"
+    }'
 ```
 
 4. 基于模板创建, 请求内容为
 
-```json
-{
-  "page_uuid": "string", // 父节点的page uuid
-  "copy_src_type": "template", // 类型是template
-  "copy_src_uuid": "string",
-  "status": 1,
-  "title": "string" // 新的标题名称，如果不填该字段则默认使用被复制模板的标题为新的标题
-}
+注意：参数中的 page_uuid 为草稿父节点的页面 uuid，title 为新的标题名称，如果不填该字段则默认使用被复制模板的标题为新的标题
+
+```curl
+curl -X POST \
+ https://your-host-name/wiki/api/wiki/team/3pDzCwAe/space/MAJPYt6j/drafts/add \
+  -H 'Ones-Auth-Token: ILg1uaO9d8MOG6rqQoe6Ozqkv27sTbgiKeDDgapEtIYnkyu8m6d51nq7og0koETZ' \
+  -H 'Ones-User-Id: DU6krHBN' \
+  -H 'Referer: https://your-host-name' \
+  -H 'cache-control: no-cache'
+  -d ' {
+      "page_uuid": "string",
+      "copy_src_type": "template",
+      "copy_src_uuid": "string",
+      "status": 1,
+      "title": "string"
+    }'
 ```
 
 #### 返回值示例
@@ -271,7 +377,7 @@ JSON
 }
 ```
 
-### 5. 保存/发布草稿
+### 保存/发布草稿
 
 #### URL
 
@@ -293,12 +399,21 @@ JSON
 
 | 参数名       | 是否必须 | 值类型 | 取值范围 | 默认值 | 取值例子 | 说明                                        |
 | :----------- | :------- | :----- | :------- | :----- | :------- | :------------------------------------------ |
-| space_uuid   | F        | string |          |        |          | 临时草稿时,可以另选其他 space               |
-| page_uuid    | F        | string |          |        |          | 临时草稿时,可以另选其他 page                |
-| title        | T        | string |          |        |          |                                             |
-| content      | T        | string |          |        |          |                                             |
-| is_published | F        | bool   |          | false  | false    | 是否发布                                    |
-| is_forced    | F        | bool   |          | false  | true     | 是否强制更新, `is_published` 为 true 才生效 |
+| title        | 是       | string |          |        |          |                                             |
+| content      | 是       | string |          |        |          |                                             |
+| is_published | 否       | bool   |          | false  | false    | 是否发布                                    |
+| is_forced    | 否       | bool   |          | false  | true     | 是否强制更新, `is_published` 为 true 才生效 |
+| from_version | int      |        | 来源版本 |
+
+#### 响应说明
+
+| 参数名     | 值类型 | 取值范围 | 说明                                                                                                  |
+| :--------- | :----- | :------- | :---------------------------------------------------------------------------------------------------- |
+| team_uuid  | string | len=8    | 团队 id，随机 8 位字符组成                                                                            |
+| space_uuid | string | len=8    | 空间 id，随机 8 位字符组成                                                                            |
+| page_uuid  | string | len=8    | 页面 id，随机 8 位字符组成                                                                            |
+| draft_uuid | string | len=8    | 草稿 id，随机 8 位字符组成                                                                            |
+| status     | int    |          | 状态：<br/>1 临时草稿<br/>2 在已有 page 上创建一个草稿<br/>3 草稿已发布<br/>4 已删除<br/>5 在回收站中 |
 
 #### 请求体示例
 
@@ -343,7 +458,7 @@ JSON
 
 `exceeded_page_limit`是页面数的限制数量
 
-### 6. 删除草稿
+### 删除草稿
 
 #### URL
 
@@ -365,7 +480,26 @@ POST
 
 无
 
-#### 返回 json
+#### 响应说明
+
+| 参数名  | 值类型 | 取值范围 | 说明     |
+| :------ | :----- | :------- | :------- |
+| code    | int    |          | 结果代码 |
+| errcode | string |          | 错误消息 |
+| type    | string |          | 错误类型 |
+
+#### 请求示例
+
+```curl
+curl -X POST \
+ https://your-host-name/wiki/api/wiki/team/3pDzCwAe/space/MAJPYt6j/draft/kyu8m6d5/delete \
+  -H 'Ones-Auth-Token: ILg1uaO9d8MOG6rqQoe6Ozqkv27sTbgiKeDDgapEtIYnkyu8m6d51nq7og0koETZ' \
+  -H 'Ones-User-Id: DU6krHBN' \
+  -H 'Referer: https://your-host-name' \
+  -H 'cache-control: no-cache'
+```
+
+#### 返回示例
 
 ```json
 {
@@ -375,7 +509,7 @@ POST
 }
 ```
 
-### 7. 获取草稿附件
+### 获取草稿附件
 
 #### URL
 
@@ -393,25 +527,41 @@ GET
 
 无
 
-#### 参数列表
+#### 请求参数列表
 
 无
 
-#### 返回 JSON
+#### 响应参数列表
+
+| 参数名      | 值类型 | 取值范围                                       | 说明     |
+| :---------- | :----- | :--------------------------------------------- | :------- |
+| attachments | array  | [attachment](../page/page.md#attachment-model) | 附件列表 |
+
+#### 请求示例
+
+```curl
+curl -X GET \
+  'https://your-host-name/wiki/api/wiki/team/:teamUUID/space/:spaceUUID/draft/:draftUUID/attachments' \
+  -H 'Ones-Auth-Token: ILg1uaO9d8MOG6rqQoe6Ozqkv27sTbgiKeDDgapEtIYnkyu8m6d51nq7og0koETZ' \
+  -H 'Ones-User-Id: DU6krHBN' \
+  -H 'Referer: https://your-host-name' \
+  -H 'cache-control: no-cache'
+```
+
+#### 响应示例
 
 ```json
 {
   "attachments": [
     {
       "uuid": "XhL5nJ43",
-      "name": "img.jpeg",
-      "mimetype": ""
+      "name": "img.jpeg"
     }
   ]
 }
 ```
 
-### 8. 更新草稿附件
+### 更新草稿附件
 
 #### URL
 
@@ -429,27 +579,37 @@ POST
 
 JSON
 
-#### 参数列表
+#### 请求参数列表
 
 | 参数名 | 是否必须 | 值类型 | 取值范围 | 默认值 | 取值例子 | 说明                                                |
 | :----- | :------- | :----- | :------- | :----- | :------- | :-------------------------------------------------- |
 | add    | F        | array  |          |        |          | 新增 [attachment](../page/page.md#attachment-model) |
 | remove | F        | array  |          |        |          | 删除 [attachment](../page/page.md#attachment-model) |
 
-#### Body 示例
+#### 响应参数列表
 
-```json
-{
-  "add": [
-    {
-      "uuid": "Hc5acJYi",
-      "name": "img.jpeg"
-    }
-  ]
-}
+无
+
+#### 请求示例
+
+```curl
+curl -X POST \
+  'https://your-host-name/wiki/api/wiki/team/:teamUUID/space/:spaceUUID/draft/:draftUUID/attachments/update' \
+  -H 'Ones-Auth-Token: ILg1uaO9d8MOG6rqQoe6Ozqkv27sTbgiKeDDgapEtIYnkyu8m6d51nq7og0koETZ' \
+  -H 'Ones-User-Id: DU6krHBN' \
+  -H 'Referer: https://your-host-name' \
+  -H 'cache-control: no-cache'
+  -d '{
+    "add": [
+      {
+        "uuid": "Hc5acJYi",
+        "name": "abc.png"
+      }
+    ]
+  }'
 ```
 
-#### 返回 JSON
+#### 响应示例
 
 ```json
 {
@@ -459,7 +619,7 @@ JSON
 }
 ```
 
-### 9. 获取分享页面列表的草稿列表
+### 获取分享页面列表的草稿列表
 
 #### URL
 
@@ -477,11 +637,28 @@ POST
 
 无
 
-#### 参数列表
+#### 请求参数列表
 
 无
 
-#### 返回值示例
+#### 响应参数列表
+
+| 参数名 | 值类型 | 取值范围        | 说明     |
+| :----- | :----- | :-------------- | :------- |
+| drafts | array  | [draft](#draft) | 草稿列表 |
+
+#### 请求示例
+
+```curl
+curl -X GET \
+  'https://your-host-name/wiki/api/wiki/team/:teamUUID/share/:shareUUID/drafts' \
+  -H 'Ones-Auth-Token: ILg1uaO9d8MOG6rqQoe6Ozqkv27sTbgiKeDDgapEtIYnkyu8m6d51nq7og0koETZ' \
+  -H 'Ones-User-Id: DU6krHBN' \
+  -H 'Referer: https://your-host-name' \
+  -H 'cache-control: no-cache'
+```
+
+#### 响应示例
 
 ```json
 {

@@ -1,3 +1,9 @@
+---
+sidebar_position: 9
+description: 简洁的进度反馈方式。
+toc_max_heading_level: 4
+---
+
 import Image from '@theme/IdealImage'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
@@ -87,16 +93,16 @@ export async function createProcess(request: PluginRequest): Promise<PluginRespo
 
 **Params**
 
-| 参数           | 说明                                                                                                                         | 类型                                   | 必填 | 默认值 |
-| :------------- | :--------------------------------------------------------------------------------------------------------------------------- | :------------------------------------- | :--- | :----- |
-| processType    | 进度管理器类型,可选值: <br /> **下载进度管理器**:ProcessType.DownloadFile <br /> **数据同步进度管理器**:ProcessType.DataSync | string                                 | 是   | -      |
-| userUUID       | 用户 uuid                                                                                                                    | string                                 | 是   | -      |
-| title          | 进度标题                                                                                                                     | <a href="#LanguagePkg">LanguagePkg</a> | 是   | -      |
-| timeoutSeconds | 超时时间，进度管理器在时间内未完成则失败                                                                                     | number                                 | 否   | 60(秒) |
-| moduleID       | 进度管理器插槽 ID（仅适用于数据同步进度管理器）                                                                              | string                                 | 否   | -      |
-| teamUUID       | 进度管理器所属团队 uuid，仅当插件为组织级别下使用                                                                            | string                                 | 否   | -      |
+| 参数           | 说明                                                                                                                         | 类型                        | 必填 | 默认值 |
+| :------------- | :--------------------------------------------------------------------------------------------------------------------------- | :-------------------------- | :--- | :----- |
+| processType    | 进度管理器类型,可选值: <br /> **下载进度管理器**:ProcessType.DownloadFile <br /> **数据同步进度管理器**:ProcessType.DataSync | string                      | 是   | -      |
+| userUUID       | 用户 uuid                                                                                                                    | string                      | 是   | -      |
+| title          | 进度标题                                                                                                                     | [LanguagePkg](#LanguagePkg) | 是   | -      |
+| timeoutSeconds | 超时时间，进度管理器在时间内未完成则失败                                                                                     | number                      | 否   | 60(秒) |
+| moduleID       | 进度管理器插槽 ID（仅适用于数据同步进度管理器）                                                                              | string                      | 否   | -      |
+| teamUUID       | 进度管理器所属团队 uuid，仅当插件为组织级别下使用                                                                            | string                      | 否   | -      |
 
-**LanguagePkg**<span id="LanguagePkg"></span>
+##### LanguagePkg {#LanguagePkg}
 
 | 参数 | 说明     | 类型   | 必填 | 默认值 |
 | :--- | :------- | :----- | :--- | :----- |
@@ -183,14 +189,14 @@ export async function doneProcess(request: PluginRequest): Promise<PluginRespons
 
 - `done`参数
 
-| 参数        | 说明            | 类型                                       | 必填 | 默认值 |
-| :---------- | :-------------- | :----------------------------------------- | :--- | :----- |
-| processUUID | 进度管理器 uuid | string                                     | 是   | -      |
-| isSuccess   | 成功或失败      | bool                                       | 是   | -      |
-| resultText  | 详情内容        | <a href="#LanguagePkg">LanguagePkg</a>     | 是   | -      |
-| payload     | 完成动作        | <a href="#ProcessResult">ProcessResult</a> | 是   | -      |
+| 参数        | 说明            | 类型                            | 必填 | 默认值 |
+| :---------- | :-------------- | :------------------------------ | :--- | :----- |
+| processUUID | 进度管理器 uuid | string                          | 是   | -      |
+| isSuccess   | 成功或失败      | bool                            | 是   | -      |
+| resultText  | 详情内容        | [LanguagePkg](#LanguagePkg)     | 是   | -      |
+| payload     | 完成动作        | [ProcessResult](#ProcessResult) | 是   | -      |
 
-**ProcessResult**<span id="ProcessResult"></span>
+##### ProcessResult {#ProcessResult}
 
 | 参数     | 说明                                         | 类型   | 必填 | 默认值 |
 | :------- | :------------------------------------------- | :----- | :--- | :----- |

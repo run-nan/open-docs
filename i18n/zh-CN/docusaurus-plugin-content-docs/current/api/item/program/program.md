@@ -42,7 +42,29 @@
 
 ## 获取项目集属性详细信息
 
-[调用 graphql 接口](../../graphql/graphql.md#call_ones_graphql)
+### URL
+
+https://your-host-name/project/api/project/team/:teamUUID/items/graphql
+
+### 功能描述
+
+[调用 graphql 接口](../../graphql/graphql.md#call_ones_graphql) , 获取项目集属性详细信息
+
+### HTTP Method
+
+POST
+
+### 是否需要登录
+
+需要
+
+### 传值方式
+
+json
+
+### 请求参数列表
+
+可根据 graphql 查询条件变化，可用字段参考 [schema](#schema)
 
 ### 查询参数
 
@@ -63,6 +85,10 @@
 }
 ```
 
+### 返回参数列表
+
+请参考 [graphql 查询 item 返回参数](../../graphql/graphql.md#call_ones_graphql)
+
 ### curl 示例
 
 ```curl
@@ -78,7 +104,29 @@ curl --location --request POST 'https://your-host-name/project/api/project/team/
 
 ## 查询项目集列表项目集详细信息
 
-[调用 graphql 接口](../../graphql/graphql.md#call_ones_graphql)
+### URL
+
+https://your-host-name/project/api/project/team/:teamUUID/items/graphql
+
+### 功能描述
+
+[调用 graphql 接口](../../graphql/graphql.md#call_ones_graphql) , 查询项目集列表项目集详细信息
+
+### HTTP Method
+
+POST
+
+### 是否需要登录
+
+需要
+
+### 传值方式
+
+json
+
+### 请求参数列表
+
+可根据 graphql 查询条件变化， 可用字段参考 [schema](#schema)
 
 ### 查询参数
 
@@ -121,7 +169,11 @@ query {
 }
 ```
 
-### 返回参数参考
+### 返回参数列表
+
+请参考 [graphql 查询 item 返回参数](../../graphql/graphql.md#call_ones_graphql)
+
+### 返回参数示例
 
 ```json
 {
@@ -211,9 +263,29 @@ query {
 
 ## 创建项目集
 
-[调用方式](../item.md#添加item)
+### URL
 
-[参数列表](#schema)
+https://your-host-name/project/api/project/team/:teamUUID/items/add
+
+### 功能描述
+
+[调用 item 接口](../item.md#添加item) , 创建项目集
+
+### HTTP Method
+
+POST
+
+### 是否需要登录
+
+需要
+
+### 传值方式
+
+json
+
+### 请求参数列表
+
+可根据 graphql 查询条件变化， 可用字段参考 [schema](#schema)
 
 ### 请求参数参考
 
@@ -231,7 +303,11 @@ query {
 }
 ```
 
-### 返回参数参考
+### 返回参数列表
+
+请参考 [graphql 添加 item 返回参数](../item.md#添加item)
+
+### 返回参数示例
 
 ```json
 {
@@ -247,9 +323,35 @@ query {
 
 ## 编辑项目集信息
 
-[调用方式](../item.md#更新item)
+### URL
 
-[参数列表](#schema)
+https://your-host-name/project/api/project/team/:teamUUID/items/:itemkey/update
+
+### 功能描述
+
+[调用 item 接口](../item.md#更新item) , 更新项目集信息
+
+### HTTP Method
+
+POST
+
+### 是否需要登录
+
+需要
+
+### 传值方式
+
+URL / JSON
+
+### 请求参数列表
+
+#### URL 参数
+
+itemkey: 项目集的 key, 例如: `program-6ZpgEzkkQ7PkhGTv`
+
+#### json 参数
+
+可根据 graphql 查询条件变化，可用字段请参考 [参数列表](#schema)
 
 ### 请求参数参考
 
@@ -263,6 +365,10 @@ query {
   }
 }
 ```
+
+### 返回参数列表
+
+请参考 [graphql 更新 item 返回参数](../item.md#更新item)
 
 ### 返回参数参考
 
@@ -280,7 +386,33 @@ query {
 
 ## 删除项目集
 
-[调用方式](../item.md#删除item)
+### URL
+
+https://your-host-name/project/api/project/team/:teamUUID/items/:itemkey/delete
+
+### 功能描述
+
+[调用 item 接口](../item.md#删除item) , 删除产品
+
+### HTTP Method
+
+POST
+
+### 是否需要登录
+
+需要
+
+### 传值方式
+
+URL
+
+### 请求参数列表
+
+itemkey: 产品的 key, 例如: `program-6ZpgEzkkQ7PkhGTv`
+
+### 返回参数列表
+
+请参考 [graphql 删除 item 返回参数](../item.md#删除item)
 
 ### 返回参数参考
 
@@ -296,9 +428,29 @@ query {
 
 ## 项目集下新建子项目集
 
-[调用方式](../item.md#item-add)
+### URL
 
-[参数列表](#schema)
+https://your-host-name/project/api/project/team/:teamUUID/items/add
+
+### 功能描述
+
+[调用 item 接口](../item.md#item-add) , 在项目集下新建子项目集
+
+### HTTP Method
+
+POST
+
+### 是否需要登录
+
+需要
+
+### 传值方式
+
+URL
+
+### 请求参数列表
+
+参考 [参数列表](#schema)
 
 ### 请求参数参考
 
@@ -313,6 +465,10 @@ query {
   }
 }
 ```
+
+### 返回参数列表
+
+请参考 [graphql 添加 item 返回参数](../item.md#添加item)
 
 ### 返回参数参考
 
@@ -330,9 +486,29 @@ query {
 
 ## 添加项目到项目集
 
-[调用方式](../item.md#批量添加item)
+### URL
 
-[参数列表](#schema)
+https://your-host-name/project/api/project/team/:teamUUID/items/add
+
+### 功能描述
+
+[调用 item 接口](../item.md#item-add) , 添加项目到项目集
+
+### HTTP Method
+
+POST
+
+### 是否需要登录
+
+需要
+
+### 传值方式
+
+URL
+
+### 请求参数列表
+
+参考 [参数列表](#schema)
 
 ### 请求体参考
 
@@ -348,6 +524,10 @@ query {
   ]
 }
 ```
+
+### 返回参数列表
+
+请参考 [graphql 添加 item 返回参数](../item.md#添加item)
 
 ### 返回参数参考
 
@@ -366,11 +546,33 @@ query {
 - 需要找出对应项目的项目集 uuid;
 - relatedType=project 此项目集是关联的项目
 
-[调用方式](../item.md#删除item)
+### URL
 
-### 参数列表参考
+https://your-host-name/project/api/project/team/:teamUUID/items/:itemkey/delete
 
-none
+### 功能描述
+
+[调用 item 接口](../item.md#删除item) , 从项目集中移除项目
+
+### HTTP Method
+
+POST
+
+### 是否需要登录
+
+需要
+
+### 传值方式
+
+URL
+
+### 请求参数列表
+
+itemkey: 产品的 key, 例如: `program-6ZpgEzkkQ7PkhGTv` , 需要先找出对应项目的项目集 uuid
+
+### 返回参数列表
+
+请参考 [graphql 删除 item 返回参数](../item.md#删除item)
 
 ### 返回参数参考
 

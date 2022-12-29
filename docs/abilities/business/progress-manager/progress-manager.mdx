@@ -1,3 +1,9 @@
+---
+sidebar_position: 9
+description: Simple progress feedback method.
+toc_max_heading_level: 4
+---
+
 import Image from '@theme/IdealImage'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
@@ -65,14 +71,14 @@ import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 import { Process, LanguagePkg, ProcessType, ProcessResult } from '@ones-op/node-ability'
 
 export async function createProcess(request: PluginRequest): Promise<PluginResponse> {
-  //从请求中获取参数
+  //Get parameters from request
   const { user_uuid, title, timeout } = request?.body as any
-  //进度管理器多语言标题
+  //Progress Manager Multilingual Titles
   const titlePkg: LanguagePkg = {
     en: 'file',
     zh: title,
   }
-  //创建进度管理器，获取返回值processUUID
+  //Create a progress manager and get the return value processUUID
   const processUUID = await Process.create(ProcessType.DownloadFile, user_uuid, titlePkg, timeout)
 
   return {
@@ -83,29 +89,29 @@ export async function createProcess(request: PluginRequest): Promise<PluginRespo
 }
 ```
 
-- `create` Parameters
+- `create` Param
 
 **Params**
 
-| parameters     | explain                                                                                                                                                           | type                                   | required | default value |
-| :------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------- | :------- | :------------ |
-| processType    | type of Progress Manager,Optional values: <br /> **Download Progress Manager**:ProcessType.DownloadFile <br /> **Datasync Progress Manager**:ProcessType.DataSync | string                                 | Y        | -             |
-| userUUID       | uuid of user                                                                                                                                                      | string                                 | Y        | -             |
-| title          | title of progress                                                                                                                                                 | <a href="#LanguagePkg">LanguagePkg</a> | Y        | -             |
-| timeoutSeconds | Timeout limit, if the Progress Manager is not completed within the time limit, it fails.                                                                          | number                                 | N        | 60(s)         |
-| moduleID       | moduleID of Progress Manager（only applicable to **Datasync Progress Manager**）                                                                                  | string                                 | N        | -             |
-| teamUUID       | uuid of the team which the Progress Manager belongs，only if the plugin is used at the organizational level                                                       | string                                 | N        | -             |
+| Param          | Description                                                                                                                                                       | Type                        | Required | Default |
+| :------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------- | :------- | :------ |
+| processType    | type of Progress Manager,Optional values: <br /> **Download Progress Manager**:ProcessType.DownloadFile <br /> **Datasync Progress Manager**:ProcessType.DataSync | string                      | Y        | -       |
+| userUUID       | uuid of user                                                                                                                                                      | string                      | Y        | -       |
+| title          | title of progress                                                                                                                                                 | [LanguagePkg](#LanguagePkg) | Y        | -       |
+| timeoutSeconds | Timeout limit, if the Progress Manager is not completed within the time limit, it fails.                                                                          | number                      | N        | 60(s)   |
+| moduleID       | moduleID of Progress Manager（only applicable to **Datasync Progress Manager**）                                                                                  | string                      | N        | -       |
+| teamUUID       | uuid of the team which the Progress Manager belongs，only if the plugin is used at the organizational level                                                       | string                      | N        | -       |
 
-**LanguagePkg**<span id="LanguagePkg"></span>
+##### LanguagePkg {#LanguagePkg}
 
-| parameters | explain       | type   | required | default value |
-| :--------- | :------------ | :----- | :------- | :------------ |
-| zh         | Chinese title | string | Y        | -             |
-| en         | English title | string | Y        | -             |
+| Param | Description   | Type   | Required | Default |
+| :---- | :------------ | :----- | :------- | :------ |
+| zh    | Chinese title | string | Y        | -       |
+| en    | English title | string | Y        | -       |
 
 **Returns**
 
-| parameters  | explain                      | type   |
+| Param       | Description                  | Type   |
 | :---------- | :--------------------------- | :----- |
 | processUUID | the uuid of Progress Manager | string |
 
@@ -118,12 +124,12 @@ import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 import { Process, LanguagePkg, ProcessType, ProcessResult } from '@ones-op/node-ability'
 
 export async function updateProgress(request: PluginRequest): Promise<PluginResponse> {
-  //从请求中获取参数
+  //Get parameters from request
   const { process_uuid: processUUID } = request?.body as any
   const currentSuccessfulCount = 10
   const currentFailedCount = 5
   const currentRemainingCount = 30
-  //进度管理器更新
+  //Progress Manager Update
   await Process.update(
     processUUID,
     currentSuccessfulCount,
@@ -138,14 +144,14 @@ export async function updateProgress(request: PluginRequest): Promise<PluginResp
 }
 ```
 
-- `update`Parameters
+- `update`Param
 
-| parameters             | explain                       | type   | required | default value |
-| :--------------------- | :---------------------------- | :----- | :------- | :------------ |
-| processUUID            | uuid of Process Manager       | string | Y        | -             |
-| currentSuccessfulCount | current number of completions | number | Y        | -             |
-| currentFailedCount     | current number of failures    | number | Y        | -             |
-| currentRemainingCount  | current remaining number      | number | Y        | -             |
+| Param                  | Description                   | Type   | Required | Default |
+| :--------------------- | :---------------------------- | :----- | :------- | :------ |
+| processUUID            | uuid of Process Manager       | string | Y        | -       |
+| currentSuccessfulCount | current number of completions | number | Y        | -       |
+| currentFailedCount     | current number of failures    | number | Y        | -       |
+| currentRemainingCount  | current remaining number      | number | Y        | -       |
 
 #### Complete the Progress Manager
 
@@ -156,20 +162,20 @@ import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 import { Process, LanguagePkg, ProcessType, ProcessResult } from '@ones-op/node-ability'
 
 export async function doneProcess(request: PluginRequest): Promise<PluginResponse> {
-  //从请求中获取参数
+  //Get parameters from request
   const { process_uuid: processUUID } = request?.body as any
-  //多语言详情内容
+  //Multilingual details
   const resultText: LanguagePkg = {
     en: 'content',
     zh: '详情内容',
   }
-  //进度管理器完成时的动作，下载进度管理器下载指定的文件，数据同步进度管理器可以展示额外的内容
+  //The action when the progress manager is completed, the download progress manager downloads the specified file, and the data synchronization progress manager can display additional content
   const payload: ProcessResult = {
     filePath: './plugin.sql',
   }
 
   const isSuccess = true
-  //完成进度
+  //Complete schedule
   await Process.done(processUUID, isSuccess, resultText, payload)
 
   return {
@@ -181,28 +187,28 @@ export async function doneProcess(request: PluginRequest): Promise<PluginRespons
 }
 ```
 
-- `done` Parameters
+- `done` Param
 
-| parameters  | explain                  | type                                       | required | default value |
-| :---------- | :----------------------- | :----------------------------------------- | :------- | :------------ |
-| processUUID | uuid of Process Manager  | string                                     | Y        | -             |
-| isSuccess   | Success or failure       | bool                                       | Y        | -             |
-| resultText  | Details                  | <a href="#LanguagePkg">LanguagePkg</a>     | Y        | -             |
-| payload     | The action at completion | <a href="#ProcessResult">ProcessResult</a> | Y        | -             |
+| Param       | Description              | Type                            | Required | Default |
+| :---------- | :----------------------- | :------------------------------ | :------- | :------ |
+| processUUID | uuid of Process Manager  | string                          | Y        | -       |
+| isSuccess   | Success or failure       | bool                            | Y        | -       |
+| resultText  | Details                  | [LanguagePkg](#LanguagePkg)     | Y        | -       |
+| payload     | The action at completion | [ProcessResult](#ProcessResult) | Y        | -       |
 
-**ProcessResult**<span id="ProcessResult"></span>
+##### ProcessResult {#ProcessResult}
 
-| 参数     | 说明                                                       | 类型   | 必填 | 默认值 |
-| :------- | :--------------------------------------------------------- | :----- | :--- | :----- |
-| filePath | File path,available when **Download Progress Manager**     | string | N    | -      |
-| data     | Extra content,available when **Datasync Progress Manager** | string | N    | -      |
+| Param    | Description                                                | Type   | Required | Default |
+| :------- | :--------------------------------------------------------- | :----- | :------- | :------ |
+| filePath | File path,available when **Download Progress Manager**     | string | N        | -       |
+| data     | Extra content,available when **Datasync Progress Manager** | string | N        | -       |
 
 <Tabs>
   <TabItem value="DonwloadProgress" label="Download Progress Manager" default>
 
 ```tsx
 const payload: ProcessResult = {
-  //根目录为插件目录
+  //The root directory is the plugin directory
   filePath: './plugin.sql',
 }
 ```
@@ -212,7 +218,7 @@ const payload: ProcessResult = {
 
 ```tsx
 const payload: ProcessResult = {
-  //resultText以外的额外内容
+  //Extra content other than resultText
   data: 'anything u want',
 }
 ```
@@ -235,7 +241,7 @@ npm i @ones-op/event
 The progress manager only needs to call it up once
 
 ```tsx
-//调用全局进度管理器
+//call the global progress manager
 MFDispatch('invoke:ones:global:progressManager')
 ```
 

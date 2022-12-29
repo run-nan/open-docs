@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 import Image from '@theme/IdealImage'
 import account1 from './images/account1.png'
 import account2 from './images/account2.png'
@@ -12,7 +16,7 @@ import account6 from './images/account6.png'
 
 | **ONES** |
 | :------- |
-| 3.6+     |
+| v3.6.0+  |
 
 ## Overview
 
@@ -63,7 +67,7 @@ The OP tool add the following to the plugin
 
 - Add related paragraphs to the abilities field in `{{plugin root directory}}/config/plugin.yaml`.
 
-```yaml
+```yaml title="config/plugin.yaml"
     service:
     ...
     ...
@@ -112,27 +116,41 @@ The OP tool add the following to the plugin
             show: false
 ```
 
-- The OP tool adds files to the plugin in `{{plugin root directory}}/backend/src/account.ts`
+- The OP tool adds files to the plugin in `backend/src/account.ts`
+
+### Step 2: Realizing the correspondence method of each ability point
+
+#### Implement third-party login
+
+To implement the third-party login ONES feature, you only need to implement the `CreateLoginUrl` method.If you want to synchronize the user information (including name, email, etc.) of the third-party system to ONES and automatically create an ONES account, you also need to complete the `DoExchangeUser` method.
+
+`CreateLoginUrl` needs to return the url called when the third-party system logs in. The request of this method contains the URL redirected to ONES, which can be stitched into the respUrl to be returned by plugin developers.
 
 ```typescript
-import { Logger } from '@ones-op/node-logger'
-import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
-import { select, importSQL, count, exec } from '@ones-op/node-database'
-import { readLines } from '@ones-op/node-file'
-import { fetchHttp } from '@ones-op/node-fetch'
-import { URL } from 'url'
-const axios = require('axios')
-
-// login
+//在url中填入第三方系统登录时调用的url
 export async function CreateLoginUrl(request: PluginRequest): Promise<PluginResponse> {
-  const respUrl = ''
+  //调用完第三方登录之后，会把返回的信息重定向到该地址，有时需要使用该地址拼接respUrl
+  //@ts-ignore
+  const redirectUrl: string = request?.body.redirect_url
   const response: CreateLoginUrlResponse = {
     url: '',
   }
   return CreateLoginUrlRespData(200, '200', '', '', '', response)
 }
+```
 
+In the `DoExchangeUser` method, the plugin developer needs to return the user's information data so that the user's account is created and the information is synchronized in ONES. In the request of this method, there is key `code` information, through which plugin developers can go to a third-party system to obtain user information, and then return user information in the `DoExchangeUser` method.
+
+```typescript
 export async function DoExchangeUser(request: PluginRequest): Promise<PluginResponse> {
+  let code1 = ''
+  if (typeof request?.body == 'object' && !Array.isArray(request?.body)) {
+    const authInfo = request.body.auth_info
+    const obj = JSON.parse(authInfo)
+    //获取登录后的code，通过该code去第三方系统获取用户信息
+    code1 = obj.code
+  }
+  //返回信息resp的格式
   const resp: DoExchangeUserResponse = {
     third_party_id: '',
     name: '',
@@ -141,11 +159,18 @@ export async function DoExchangeUser(request: PluginRequest): Promise<PluginResp
     email: '',
     phone: '',
   }
-
+  //通过调用第三方API，获取用户信息并组合数据到resp中
   return DoExchangeUserRespData(200, '', '', '', '', resp)
 }
+```
 
-// 同步信息
+#### Achieve organizational personnel synchronization
+
+To achieve the function of synchronizing third-party organizational personnel to ONES, you only need to implement the `DoPullData` method. Plugin developers need to return the information of third-party departments and personnel in this method, so as to synchronize departments and personnel in ONES.
+
+Plugin developers need to go to the third-party system to obtain department information and personnel information, and then reconstruct the data into the return structure specified in the `DoPullData` method.
+
+```typescript
 export async function DoPullData(request: PluginRequest): Promise<PluginResponse> {
   const resp: DoPullDataResponse = {
     departments: [],
@@ -179,210 +204,9 @@ export async function DoPullData(request: PluginRequest): Promise<PluginResponse
 
   return DoPullDataRespData(200, '', '', '', '', resp)
 }
-
-// 发送消息
-export async function SendMessage(request: PluginRequest): Promise<PluginResponse> {
-  const body = request.body || {}
-  Logger.info('[Plugin] hello ======= 请求成功')
-  return sendMessageRespData(200, '', '', '', '')
-}
-
-interface CreateLoginUrlResponse {
-  url: string
-}
-
-function CreateLoginUrlRespData(
-  code: number,
-  errcode,
-  model,
-  reason,
-  type: Object,
-  body: CreateLoginUrlResponse
-): PluginResponse {
-  return {
-    body: {
-      code,
-      errcode,
-      model,
-      reason,
-      type,
-      body,
-    },
-  }
-}
-
-interface DoExchangeUserResponse {
-  third_party_id: string
-  name: string
-  title: string
-  avatar: string
-  email: string
-  phone: string
-}
-
-function DoExchangeUserRespData(
-  code: number,
-  errcode,
-  model,
-  reason,
-  type: Object,
-  body: DoExchangeUserResponse
-): PluginResponse {
-  return {
-    body: {
-      code,
-      errcode,
-      model,
-      reason,
-      type,
-      body,
-    },
-  }
-}
-
-interface UserInfo {
-  third_party_id: string
-  name: string
-  email: string
-  title: string
-  department_ids: string[]
-  company: string
-}
-
-interface DepartmentInfo {
-  third_party_id: string
-  name: string
-  parent_id: string
-  next_id: string
-}
-
-interface DoPullDataResponse {
-  departments: DepartmentInfo[]
-  users: UserInfo[]
-}
-
-function DoPullDataRespData(
-  code: number,
-  errcode,
-  model,
-  reason,
-  type: Object,
-  body: DoPullDataResponse
-): PluginResponse {
-  return {
-    body: {
-      code,
-      errcode,
-      model,
-      reason,
-      type,
-      body,
-    },
-  }
-}
-
-function sendMessageRespData(code: number, errcode, model, reason, type): PluginResponse {
-  return {
-    body: {
-      code,
-      errcode,
-      model,
-      reason,
-      type,
-    },
-  }
-}
 ```
 
-### Step 2: Realizing the correspondence method of each ability point
-
-- **Implement third-party login**
-
-To implement the third-party login ONES feature, you only need to implement the `CreateLoginUrl` method.If you want to synchronize the user information (including name, email, etc.) of the third-party system to ONES and automatically create an ONES account, you also need to complete the `DoExchangeUser` method.
-
-`CreateLoginUrl` needs to return the url called when the third-party system logs in. The request of this method contains the URL redirected to ONES, which can be stitched into the respUrl to be returned by plugin developers.
-
-```typescript
-//在url中填入第三方系统登录时调用的url
-export async function CreateLoginUrl(request: PluginRequest): Promise<PluginResponse> {
-    //调用完第三方登录之后，会把返回的信息重定向到该地址，有时需要使用该地址拼接respUrl
-    let redirectUrl: string = request?.body.redirect_url;
-    Logger.info("redirectUrl:", redirectUrl)
-    return respData(200, "200", "", "", "",{
-      url: respUrl
-    }
-}
-```
-
-In the `DoExchangeUser` method, the plugin developer needs to return the user's information data so that the user's account is created and the information is synchronized in ONES. In the request of this method, there is key `code` information, through which plugin developers can go to a third-party system to obtain user information, and then return user information in the `DoExchangeUser` method.
-
-```typescript
-export async function DoExchangeUser(request: PluginRequest): Promise<PluginResponse> {
-  Logger.info('Request:', request?.body)
-  let code1: string = ''
-  if (typeof request?.body == 'object' && !Array.isArray(request?.body)) {
-    let authInfo = request.body.auth_info
-    let obj = JSON.parse(authInfo)
-    //获取登录后的code，通过该code去第三方系统获取用户信息
-    code1 = obj.code
-  }
-  //返回信息resp的格式
-  const resp: DoExchangeUserResponse = {
-    third_party_id: '',
-    name: '',
-    title: '',
-    avatar: '',
-    email: '',
-    phone: '',
-  }
-  //通过调用第三方API，获取用户信息并组合数据到resp中
-  return DoExchangeUserRespData(200, '', '', '', '', resp)
-}
-```
-
----
-
-- **Achieve organizational personnel synchronization**
-
-To achieve the function of synchronizing third-party organizational personnel to ONES, you only need to implement the `DoPullData` method. Plugin developers need to return the information of third-party departments and personnel in this method, so as to synchronize departments and personnel in ONES.
-
-Plugin developers need to go to the third-party system to obtain department information and personnel information, and then reconstruct the data into the return structure specified in the `DoPullData` method.
-
-```typescript
-export async function DoPullData(request: PluginRequest): Promise<PluginResponse> {
-  //插件开发者获取第三方系统部门和人员数据信息
-  return respData(200, '', '', '', '', {
-    departments: [
-      // 返回一个部门列表,必须有一个部门id为-1的部门，该部门为根部门
-      {
-        third_party_id: '-1', // 部门唯一id
-        name: '根部门', // 部门名称
-        parent_id: '', // 父部门id
-        next_id: '', // 在同级部门中，下一个部门的id
-      },
-      {
-        third_party_id: '1', // 部门唯一id
-        name: '部门1', // 部门名称
-        parent_id: '-1', // 父部门id
-        next_id: '', // 在同级部门中，下一个部门的id
-      },
-    ],
-    users: [
-      {
-        third_party_id: userid, // 用户id
-        name: userInfo?.name, // 用户名称
-        email: userInfo?.email, // 用户email
-        title: userInfo?.position, // 职位
-        department_ids: ['-1'], // 所属部门id
-      },
-    ],
-  })
-}
-```
-
----
-
-- **Implement message push**
+#### Implement message push
 
 To implement message push to a third-party system, plugin developers need to implement their own sending logic in the `SendMessage` method. Every time ONES needs to send a message to a third-party system, the `SendMessage` method will be called, and the exact content of the message will be placed in the request of the `SendMessage` method.
 

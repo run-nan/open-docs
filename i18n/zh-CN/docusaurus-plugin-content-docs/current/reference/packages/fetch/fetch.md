@@ -4,6 +4,12 @@
 
 我们提供了一套接口请求库，可以帮你在插件前端内请求插件后端暴露的接口，或者请求外部接口。
 
+## 要求
+
+| **@ones-op/fetch** |
+| :----------------: |
+|     `v0.4.0+`      |
+
 ## 安装
 
 进入 `/web` 目录，通过以下命令安装此包：
@@ -38,7 +44,7 @@ function fetchData() {
 | [isOPError](#isOPError)           | 判断是否是开放平台或插件的接口错误 |
 | [OPErrorHandler](#OPErrorHandler) | 标准开放平台或插件接口错误处理方法 |
 
-## API
+## APIs
 
 ### OPFetch {#OPFetch}
 
@@ -367,7 +373,7 @@ type FetchInheritableInterceptor<T = FetchConfig, D = any> =
     // Do whatever you want with the native progress event
   },
 
-  // `maxContentLength` defines the max size of the http response content in bytes allowed in node.js
+  // `maxContentLength` defines the max size of the http response content in bytes allowed in Node.js
   maxContentLength: 2000,
 
   // `maxBodyLength` (Node only option) defines the max size of the http request content in bytes allowed

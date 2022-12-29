@@ -1,0 +1,53 @@
+import Image from '@theme/IdealImage'
+
+# Automation settings
+
+## Requirements
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## Overview
+
+<Image img={require('./images/automation.png')} />
+
+We have provided slots for "Configuration" - "Automation settings" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:settings:automation:new](#onessettingsautomationnew)
+- [ones:settings:automation:default](#onessettingsautomationdefault)
+
+## Slots
+
+#### ones:settings:automation:new
+
+**Module path：** Configuration / Automation settings / [new module](../index.mdx#slot-hierarchy)
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+#### ones:settings:automation:default
+
+**Module path：** Configuration / Automation settings / [Default group](../index.mdx#slot-hierarchy)
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-settings-automation-default-IPUG
+    title: Automation settings
+    moduleType: ones:settings:automation:default
+    modules:
+      - id: ones-settings-automation-default-0yBY
+        title: Automation rule
+        entry: >-
+          modules/ones-settings-automation-default-IPUG/ones-settings-automation-default-0yBY/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../../reference/config/plugin.yaml#disabled)
+- [modules(required)](../../../../../reference/config/plugin.yaml#subModule)

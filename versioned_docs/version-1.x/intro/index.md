@@ -15,7 +15,7 @@ Open Platform Solutions:
 ## Features of Open Platform
 
 - Low development cost
-  - Based on `react` and `node.js`, use a consistent language for front-end and back-end development and customization;
+  - Based on `React` and `Node.js`, use a consistent language for front-end and back-end development and customization;
   - A large number of declarations are used to replace code development, which further reduces the learning cost and development threshold for developers;
 - High development efficiency
   - Pay attention to developer experience, provide all-round developer support, and provide tools such as full-process development, debugging, and environment integration;

@@ -598,5 +598,8 @@
   },
   "ONES project Custom component": {
     "message": "自定义 ONES 项目管理组件"
+  },
+  "Sidebar Menu": {
+    "message": "侧边栏选项"
   }
 }

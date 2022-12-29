@@ -1,6 +1,7 @@
 ---
 id: super-admin
 sidebar_position: 6
+description: 插件在 ONES 中的虚拟用户。
 ---
 
 # 超级用户
@@ -54,3 +55,7 @@ const user = await Plugin.getPluginUser(teamUUID)
   "email": "3JjYLsNk_3fcca29f@ones.ai"
 }
 ```
+
+## 其他
+
+具体参数释义请参考： [@ones-op/node-ability](../../reference/packages/node-ability/node-ability.md#getPluginUser)

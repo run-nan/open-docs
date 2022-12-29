@@ -1,3 +1,7 @@
+---
+sidebar_position: 1
+---
+
 import Image from '@theme/IdealImage'
 import simpleAuth1 from './images/simple-auth1.png'
 import simpleAuth2 from './images/simple-auth2.png'
@@ -9,7 +13,7 @@ import simpleAuth3 from './images/simple-auth3.png'
 
 | **ONES** |
 | :------- |
-| 3.6+     |
+| v3.6.0+  |
 
 ## 概述
 
@@ -35,9 +39,9 @@ npx op add ability
 
 OP 工具会为插件添加如下内容
 
-- `{{插件根目录}}/config/plugin.yaml`中 abilities 字段新增相关段落。
+- 插件配置文件`config/plugin.yaml`中 abilities 字段新增相关段落。
 
-  ```yaml
+  ```yaml title="config/plugin.yaml"
   service:
     app_id: ...
     name: simple-auth
@@ -55,9 +59,9 @@ OP 工具会为插件添加如下内容
 
   `plugin.yaml`文件的`abilities`字段中，`id`的值可以自定义，`name`的值可以自定义，`function.validateFunc`的值可以替换成你实现能力方法的名称，当然保持默认也可以。
 
-- OP 工具在插件中新增文件`{{插件根目录}}/backend/src/simple-auth.ts`
+- OP 工具在插件中新增文件`backend/src/simple-auth.ts`
 
-```typescript
+```typescript title="backend/src/simple-auth.ts"
 import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 
 // 示例方法 SimpleAuth 简单登录能力使用
@@ -89,9 +93,7 @@ export async function SimpleAuthValidate(request: PluginRequest): Promise<Plugin
 
 在这里，我们实现的规则为: 只允许以`W`开头的`user_uuid`进行简单登录。
 
-`{{插件根目录}}/backend/src/simple-auth.ts`
-
-```typescript
+```typescript title="backend/src/simple-auth.ts"
 import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 
 // 示例方法 SimpleAuth 简单登录能力使用
@@ -131,7 +133,11 @@ export async function SimpleAuthValidate(request: PluginRequest): Promise<Plugin
 
 简单登录接口的 url 为`{{ ONES IpAddress}}/project/api/project/ability/simple_auth_login`，其中{{ ONES IpAddress}}为你的 ONES 实例地址。
 
-> Use the curl command to request a simple login API to try to log in. Replace the following command with the corresponding parameters (required for all places where `{{}} `parentheses are used), and copy to the command line to use it.
+:::note
+
+使用 curl 请求简单登录接口进行登录，将下面所有带有 `{{}}` 的地方替换你自己的参数
+
+:::
 
 ```
 #  Ones-Plugin-Id的值为插件instance_uuid，在插件日志可以得到。
