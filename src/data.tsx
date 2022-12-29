@@ -239,7 +239,7 @@ export const features: {
       },
       {
         label: <Translate>ONES Diagtools</Translate>,
-        url: '#',
+        url: `${baseUrl}tools/diagtools`,
         content: (
           <Translate>
             ONES Diagtools CLI and ONES Diagtools Desktop are diagnostic tools for open platforms.

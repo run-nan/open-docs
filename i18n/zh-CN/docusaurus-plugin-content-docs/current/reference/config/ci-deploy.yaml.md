@@ -56,12 +56,12 @@ ONES 持续集成环境团队或组织 UUID。
 
 ### ones-check-point
 
-- **类型：**`'team' | 'org'`
+- **类型：**`'team' | 'organization'`
 
 ONES 持续集成环境 `ones-check-id` 类型。
 
 :::caution
-如果你当前插件是组织级别生效，请将此类型修改成 `org`。
+如果你当前插件是组织级别生效，请将此类型修改成 `organization`。
 :::
 
 ### ones-plugin-id
