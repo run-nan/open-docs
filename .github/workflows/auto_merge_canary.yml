@@ -1,0 +1,71 @@
+# 自动合并canary内容
+name: AutoMergeCanary
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+      - 'i18n/zh-CN/docusaurus-plugin-content-docs/current/**'
+jobs:
+  labelchecker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get pull request labels
+        id: pr-labels
+        uses: joerick/pr-labels-action@v1.0.6
+
+      - name: Check the label
+        if: "!contains(steps.pr-labels.outputs.labels, ' canary ')"
+        run: |
+            only deal with canary label
+            exit 1
+  pathchecker:
+    needs: labelchecker
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: MikeCxx/paths-filter-strict@v1.0.8
+      id: filter
+      with:
+        filters: |
+          canary:
+            - 'docs/**'
+            - 'i18n/zh-CN/docusaurus-plugin-content-docs/current/**'
+    - name: Check if only the canary has been changed
+      if: steps.filter.outputs.canary == 'false'
+      run: |
+          found the unnecessary files changes in the pull request
+          exit 1
+  mergepullrequest:
+    needs: pathchecker
+    runs-on: ubuntu-latest
+    env:
+      pr_number: ${{ format('{0}', github.event.pull_request.number) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.TOKEN }}
+
+      - name: Approval pull request
+        uses: pwei1018/bcrs-ci-action@v1.0.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pr-approval: true
+          pr-message: "auto merge for canary"
+
+      - name: Merge pull request
+        id: automerge
+        uses: pascalgn/automerge-action@v0.15.5
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          MERGE_LABELS: "canary"
+          # MERGE_METHOD: "squash"
+          MERGE_COMMIT_MESSAGE: pull-request-title
+
+      - name: Fail result
+        if: steps.automerge.outputs.mergeResult != 'merged'
+        run: |
+          merge failed: ${{ steps.automerge.outputs.mergeResult }}
+          exit 1
