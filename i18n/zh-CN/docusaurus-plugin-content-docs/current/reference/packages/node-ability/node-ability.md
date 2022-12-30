@@ -602,16 +602,18 @@ const file = await PluginFile.uploadFile('files/test.txt', 'taskuuid', 'desc')
 
 ### Process.create
 
+创建进度管理器。
+
 #### Params
 
-| 参数           | 说明                                                                                                                         | 类型                        | 必填 | 默认值 |
-| :------------- | :--------------------------------------------------------------------------------------------------------------------------- | :-------------------------- | :--- | :----- |
-| processType    | 进度管理器类型,可选值: <br /> **下载进度管理器**:ProcessType.DownloadFile <br /> **数据同步进度管理器**:ProcessType.DataSync | string                      | 是   | -      |
-| userUUID       | 用户 uuid                                                                                                                    | string                      | 是   | -      |
-| title          | 进度标题                                                                                                                     | [LanguagePkg](#LanguagePkg) | 是   | -      |
-| timeoutSeconds | 超时时间，进度管理器在时间内未完成则失败                                                                                     | number                      | 否   | 60(秒) |
-| moduleID       | 进度管理器插槽 ID（仅适用于数据同步进度管理器）                                                                              | string                      | 否   | -      |
-| teamUUID       | 进度管理器所属团队 uuid，仅当插件为组织级别下使用                                                                            | string                      | 否   | -      |
+| 参数           | 说明                                                                                                                              | 类型                        | 必填 | 默认值 |
+| :------------- | :-------------------------------------------------------------------------------------------------------------------------------- | :-------------------------- | :--- | :----- |
+| processType    | 进度管理器类型, 可选值: <br /> **下载进度管理器**: ProcessType. DownloadFile <br /> **数据同步进度管理器**: ProcessType. DataSync | string                      | 是   | -      |
+| userUUID       | 用户 uuid                                                                                                                         | string                      | 是   | -      |
+| title          | 进度标题                                                                                                                          | [LanguagePkg](#LanguagePkg) | 是   | -      |
+| timeoutSeconds | 超时时间，进度管理器在时间内未完成则失败                                                                                          | number                      | 否   | 60(秒) |
+| moduleID       | 进度管理器插槽 ID（仅适用于数据同步进度管理器）                                                                                   | string                      | 否   | -      |
+| teamUUID       | 进度管理器所属团队 uuid，仅当插件为组织级别下使用                                                                                 | string                      | 否   | -      |
 
 ##### LanguagePkg {#LanguagePkg}
 
@@ -655,6 +657,8 @@ export async function createProcess(request: PluginRequest): Promise<PluginRespo
 
 ### Process.update
 
+更新进度管理器的进度。
+
 #### Params
 
 | 参数                   | 说明            | 类型   | 必填 | 默认值 |
@@ -694,6 +698,8 @@ export async function updateProgress(request: PluginRequest): Promise<PluginResp
 ---
 
 ### Process.done
+
+将进度管理器状态置为已完成。
 
 #### Params
 
@@ -741,6 +747,88 @@ export async function doneProcess(request: PluginRequest): Promise<PluginRespons
     },
   }
 }
+```
+
+---
+
+### getUserTeamUUIDsByEmail
+
+根据用户的邮箱查找用户的 `uuid` 以及其所在的团队 `uuid` 列表。
+
+#### Params
+
+| 参数  | 说明     | 类型   | 必填 | 默认值 |
+| :---- | :------- | :----- | :--- | :----- |
+| email | 用户邮箱 | string | 是   | -      |
+
+#### Returns
+
+| 参数       | 说明                       | 类型     |
+| :--------- | :------------------------- | :------- |
+| user_uuid  | 用户的`uuid`               | string   |
+| team_uuids | 用户所在的团队 `uuid` 列表 | string[] |
+
+#### Example
+
+```typescript
+import { getUserTeamUUIDsByEmail } from '@ones-op/node-ability'
+
+const resp = await getUserTeamUUIDsByEmail('marsdev@ones.ai')
+```
+
+---
+
+### getUserTeamUUIDsByIdNumber
+
+根据用户的工号查找用户的 `uuid` 以及其所在的团队 `uuid` 列表。
+
+#### Params
+
+| 参数      | 说明       | 类型   | 必填 | 默认值 |
+| :-------- | :--------- | :----- | :--- | :----- |
+| id_number | 用户的工号 | string | 是   | -      |
+
+#### Returns
+
+| 参数       | 说明                       | 类型     |
+| :--------- | :------------------------- | :------- |
+| user_uuid  | 用户的`uuid`               | string   |
+| team_uuids | 用户所在的团队 `uuid` 列表 | string[] |
+
+#### Example
+
+```typescript
+import { getUserTeamUUIDsByIdNumber } from '@ones-op/node-ability'
+
+const resp = await getUserTeamUUIDsByIdNumber('123456')
+```
+
+---
+
+### getUserTeamUUIDsByEmail
+
+根据用户的第三方系统 id 以及第三方系统类型查找用户的 `uuid` 以及其所在的团队 `uuid` 列表。
+
+#### Params
+
+| 参数             | 说明                 | 类型   | 必填 | 默认值 |
+| :--------------- | :------------------- | :----- | :--- | :----- |
+| third_party_id   | 用户的第三方系统 id  | string | 是   | -      |
+| third_party_type | 第三方系统的类型代号 | number | 是   | -      |
+
+#### Returns
+
+| 参数       | 说明                       | 类型     |
+| :--------- | :------------------------- | :------- |
+| user_uuid  | 用户的`uuid`               | string   |
+| team_uuids | 用户所在的团队 `uuid` 列表 | string[] |
+
+#### Example
+
+```typescript
+import { getUserTeamUUIDsByThirdPartyIDAndThirdPartyType } from '@ones-op/node-ability'
+
+const resp = await getUserTeamUUIDsByThirdPartyIDAndThirdPartyType('12345678', 0)
 ```
 
 ---
