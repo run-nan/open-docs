@@ -83,17 +83,18 @@ export function OrgUnInstall(request: PluginRequest, teamUUIDList: string[]) {
 }
 
 // Method called when the organization level plugin is being upgraded.
-export function OrgUpgrade(request: PluginRequest, teamUUIDList: string[]) {
+export function OrgUpgrade(oldPluginInfo: any, request: PluginRequest, teamUUIDList: string[]) {
   Logger.info('[Plugin] OrgUpgrade')
 }
 ```
 
 **Introduction to the parameters of the organization-level plugin lifecycle method:**
 
-| Param        | Type          | Directions                                                                                                                                                                                         |
-| :----------- | :------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| request      | PluginRequest | `request.parsedHeaders["Accept-Language"]` contains ONES current language (multilingual related) information.                                                                                      |
-| teamUUIDList | string[]      | The target team UUID list enabled this time, when the organization-level plugin is enabled, it will be applied to specific teams, and the teams stored in this list are the teams to be effective. |
+| Param         | Type          | Directions                                                                                                                                                                                         |
+| :------------ | :------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| request       | PluginRequest | `request.parsedHeaders["Accept-Language"]` contains ONES current language (multilingual related) information.                                                                                      |
+| teamUUIDList  | string[]      | The target team UUID list enabled this time, when the organization-level plugin is enabled, it will be applied to specific teams, and the teams stored in this list are the teams to be effective. |
+| oldPluginInfo | any           | `oldPluginInfo.version` is the version information of the old plugin, which only exists in the upgrade method.                                                                                     |
 
 ### **NOTICE**
 

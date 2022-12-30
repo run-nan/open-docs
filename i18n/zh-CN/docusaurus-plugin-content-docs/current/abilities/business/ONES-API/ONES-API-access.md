@@ -21,7 +21,7 @@ sidebar_position: 1
 进入插件工程的`/backend`目录，执行以下命令进行依赖安装：
 
 ```shell
-npm install @ones-op/node-fetch
+npm i @ones-op/node-fetch
 ```
 
 ### 第二步：访问 ONES API

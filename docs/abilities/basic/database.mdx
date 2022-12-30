@@ -140,3 +140,9 @@ When developing locally, in order to facilitate development and debugging, it is
 ## Other
 
 For the definition of specific parameters, please refer to: [@ones-op/node-database](../../reference/packages/node-database/node-database.md)
+
+## FAQ
+
+**How does the database migrate when the plugin is upgraded?**
+
+When the plugin is upgraded, the upgrade method in the lifecycle method will be called. The team-level plugin is `Upgrade`, and the organization-level plugin is `OrgUpgrade`. The database remains unchanged before and after the plugin is upgraded, and migration can be realized in this method.

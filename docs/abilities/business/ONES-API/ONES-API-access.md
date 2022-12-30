@@ -21,7 +21,7 @@ The ONES API access ability provides a method for plugins to access the ONES API
 Enter the `/backend` directory of the plugin project, and execute the following command for dependent installation:
 
 ```shell
-npm install @ones-op/node-fetch
+npm i @ones-op/node-fetch
 ```
 
 ### Step 2: Access the ONES API
