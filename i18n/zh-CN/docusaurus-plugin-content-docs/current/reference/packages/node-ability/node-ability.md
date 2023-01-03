@@ -122,7 +122,7 @@ export async function downloadUrl() {
 
 | 参数           | 说明                         | 类型   | 必填 | 默认值   |
 | :------------- | :--------------------------- | :----- | :--- | :------- |
-| filePath       | 想要上传到的插件存储空间目录 | string | 否   | .        |
+| filePath       | 想要上传到的插件存储空间目录 | string | 否   | -        |
 | timeoutSeconds | 有效时间                     | number | 否   | 3600(秒) |
 
 #### Returns
@@ -142,6 +142,46 @@ export async function uploadFileToPlugin(request: PluginRequest): Promise<Plugin
   return {
     body: {
       res: url,
+    },
+  }
+}
+```
+
+---
+
+### createLog
+
+生成插件审计日志
+
+#### Params
+
+| 参数    | 说明                         | 类型                   | 必填 | 默认值 |
+| :------ | :--------------------------- | :--------------------- | :--- | :----- |
+| headers | 需包含操作人 uuid 及 ip 地址 | Record<string, string> | 是   | -      |
+| message | 审计日志信息                 | string                 | 是   | -      |
+
+#### Returns
+
+| 参数 | 说明     | 类型                   |
+| :--- | :------- | :--------------------- |
+| res  | 操作结果 | Record<string, string> |
+
+#### Example
+
+```typescript
+import { AuditLog } from '@ones-op/node-ability'
+
+export async function test(request: PluginRequest): Promise<PluginResponse> {
+  const body = request.body || {}
+  let auditData = {
+    'Ones-User-Id': 'icNcsEpo', //该参数为用户uuid
+    'X-Real-Ip': '127.0.0.1', //IP地址
+  }
+  await AuditLog.createLog(auditData, '插件方法B') //写入审计信息
+  return {
+    body: {
+      res: 'audit log',
+      requestBody: body,
     },
   }
 }
