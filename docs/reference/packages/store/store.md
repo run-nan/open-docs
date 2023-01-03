@@ -641,7 +641,7 @@ Get the code repository info that the current user selected.
 
 | **ONES** | **@ones-op/store** |
 | -------- | ------------------ |
-| `TODO`   | `TODO`             |
+| v3.13.9+ | v0.6.0+            |
 
 #### Returns
 
