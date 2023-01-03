@@ -153,6 +153,12 @@ export async function uploadFileToPlugin(request: PluginRequest): Promise<Plugin
 
 Add linked repositories
 
+#### Requirements
+
+| **ONES** | **@ones-op/node-ability** |
+| :------- | :------------------------ |
+| v3.13.9+ | v0.4.0+                   |
+
 #### Params
 
 | Param    | Description                                                                           | Type                    | Required | value range  |
@@ -208,6 +214,12 @@ const batchResponse = await addRepos(toolUUID, list);
 
 query linked single code repository
 
+#### Requirements
+
+| **ONES** | **@ones-op/node-ability** |
+| :------- | :------------------------ |
+| v3.13.9+ | v0.4.0+                   |
+
 #### Params
 
 | Param     | Description                                                                           | Type   | Required | value range |
@@ -249,6 +261,12 @@ const repoInfo = await queryRepo(toolUUID, uri, namespace, name)
 
 query all linked code repositories
 
+#### Requirements
+
+| **ONES** | **@ones-op/node-ability** |
+| :------- | :------------------------ |
+| v3.13.9+ | v0.4.0+                   |
+
 #### Params
 
 | Param    | Description                                                                           | Type   | Required | value range |
@@ -283,6 +301,12 @@ const repoInfos = await queryRepos(toolUUID)
 ### addRepoCommits
 
 add repo commits
+
+#### Requirements
+
+| **ONES** | **@ones-op/node-ability** |
+| :------- | :------------------------ |
+| v3.13.9+ | v0.4.0+                   |
 
 #### Params
 
@@ -323,6 +347,12 @@ await addRepoCommits(toolUUID, repoUUID, list)
 ### addRepoPullRequest
 
 add single repo pull request (support for add and update)
+
+#### Requirements
+
+| **ONES** | **@ones-op/node-ability** |
+| :------- | :------------------------ |
+| v3.13.9+ | v0.4.0+                   |
 
 #### Params
 

@@ -153,6 +153,12 @@ export async function uploadFileToPlugin(request: PluginRequest): Promise<Plugin
 
 新增代码仓
 
+#### 要求
+
+| **ONES** | **@ones-op/node-ability** |
+| :------- | :------------------------ |
+| v3.13.9+ | v0.4.0+                   |
+
 #### Params
 
 | 参数     | 说明                                              | 类型                    | 必填 | 取值范围     |
@@ -210,6 +216,12 @@ const batchResponse = await addRepos(toolUUID, list);
 
 查询已关联的单个代码仓。
 
+#### 要求
+
+| **ONES** | **@ones-op/node-ability** |
+| :------- | :------------------------ |
+| v3.13.9+ | v0.4.0+                   |
+
 #### Params
 
 | 参数      | 说明                                              | 类型   | 必填 | 取值范围 |
@@ -249,6 +261,12 @@ const repoInfo = await queryRepo(toolUUID, uri, namespace, name)
 
 查询已关联的所有代码仓
 
+#### 要求
+
+| **ONES** | **@ones-op/node-ability** |
+| :------- | :------------------------ |
+| v3.13.9+ | v0.4.0+                   |
+
 #### Params
 
 | 参数     | 说明                                              | 类型   | 必填 | 取值范围 |
@@ -283,6 +301,12 @@ const repoInfos = await queryRepos(toolUUID)
 ### addRepoCommits
 
 新增代码仓提交 commit
+
+#### 要求
+
+| **ONES** | **@ones-op/node-ability** |
+| :------- | :------------------------ |
+| v3.13.9+ | v0.4.0+                   |
 
 #### Params
 
@@ -323,6 +347,12 @@ await addRepoCommits(toolUUID, repoUUID, list)
 ### addRepoPullRequest
 
 新增代码仓合并请求 pull request（支持新增和更新）
+
+#### 要求
+
+| **ONES** | **@ones-op/node-ability** |
+| :------- | :------------------------ |
+| v3.13.9+ | v0.4.0+                   |
 
 #### Params
 

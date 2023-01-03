@@ -4,9 +4,9 @@ import Image from '@theme/IdealImage'
 
 ## 要求
 
-| **ONES**  |
-| :-------: |
-| v3.11.58+ |
+| **ONES** |
+| :------: |
+| v3.13.9+ |
 
 ## 概述
 

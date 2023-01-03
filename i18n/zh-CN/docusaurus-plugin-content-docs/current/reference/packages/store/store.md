@@ -650,7 +650,7 @@ interface TaskInfoType {
 
 | **ONES** | **@ones-op/store** |
 | -------- | ------------------ |
-| `TODO`   | `TODO`             |
+| v3.13.9+ | v0.6.0+            |
 
 #### 返回
 
