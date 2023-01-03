@@ -2,7 +2,7 @@
 toc_max_heading_level: 4
 ---
 
-# @ones-op/node-ability（业务能力库，对业务能力、请求的封装）
+# @ones-op/node-ability
 
 我们提供了一套接口请求库，允许插件开发者调用插件的基础能力。
 
