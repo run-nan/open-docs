@@ -49,13 +49,14 @@ const response = await fetchHttp({
 
 #### Params
 
-| **参数** | **说明**                                           | **类型**                 | **必填** | **默认值** |
-| :------- | :------------------------------------------------- | :----------------------- | :------- | :--------- |
-| path     | 请求地址，如果是 wiki 接口 需要在参数前添加'/wiki' | string                   | 是       | -          |
-| method   | 请求类型                                           | string                   | 是       | -          |
-| body     | 请求体                                             | object/Uint8Array/string | 否       | -          |
-| headers  | 请求头                                             | Record<string, string[]> | 否       | -          |
-| root     | 是否使用插件超级用户                               | bool                     | 否       | true       |
+| **参数** | **说明**                                            | **类型**                 | **必填** | **默认值** |
+| :------- | :-------------------------------------------------- | :----------------------- | :------- | :--------- |
+| path     | 请求地址，如果是 wiki 接口 需要在参数前添加 `/wiki` | string                   | 是       | -          |
+| method   | 请求类型                                            | string                   | 是       | -          |
+| body     | 请求体                                              | object/Uint8Array/string | 否       | -          |
+| headers  | 请求头                                              | Record<string, string[]> | 否       | -          |
+| root     | 是否使用插件超级用户                                | bool                     | 否       | true       |
+| teamUUID | 团队`uuid`,组织级别插件需要携带该参数               | string                   | 否       | -          |
 
 #### Returns
 

@@ -14,7 +14,7 @@ Plugin **backend** API access capability related to API
 
 Used to access external services
 
-#### Params:
+#### Params
 
 | **Param** | Description     | **Type**                 | **Required** | **Default** |
 | :-------- | :-------------- | :----------------------- | :----------- | :---------- |
@@ -23,7 +23,7 @@ Used to access external services
 | body      | Request body    | object/Uint8Array/string | N            | -           |
 | headers   | Request header  | Record<string, string[]> | N            | -           |
 
-#### Returns:
+#### Returns
 
 | **Param**  | Description | **Type**                     | **Required** | **Default** |
 | :--------- | :---------- | :--------------------------- | :----------- | :---------- |
@@ -31,7 +31,7 @@ Used to access external services
 | body       | Return body | object / Uint8Array / string | Y            | -           |
 | headers    | Turn back   | Record<string, string[]>     | Y            | -           |
 
-#### Example:
+#### Example
 
 ```typescript
 //Request Baidu interface
@@ -47,17 +47,18 @@ const response = await fetchHttp({
 
 Used to access ONES system standard interface
 
-#### Params:
+#### Params
 
 | **Param** | Description                                                                     | **Type**                 | **Required** | **Default** |
 | :-------- | :------------------------------------------------------------------------------ | :----------------------- | :----------- | :---------- |
-| path      | Request address. For wiki interface, you need to add'/ wiki' before parameters. | string                   | Y            | -           |
+| path      | Request address. For wiki interface, you need to add `/wiki` before parameters. | string                   | Y            | -           |
 | method    | Request type                                                                    | string                   | Y            | -           |
 | body      | Request body                                                                    | object/Uint8Array/string | N            | -           |
 | headers   | Request header                                                                  | Record<string, string[]> | N            | -           |
 | root      | Whether to use the plugin superuser                                             | bool                     | N            | true        |
+| teamUUID  | Team `uuid`, organization-level plugins need to carry this parameter            | string                   | N            | -           |
 
-#### Returns:
+#### Returns
 
 | **Param**  | Description | **Type**                     | **Required** | **Default** |
 | :--------- | :---------- | :--------------------------- | :----------- | :---------- |
@@ -65,7 +66,7 @@ Used to access ONES system standard interface
 | body       | Return body | object / Uint8Array / string | Y            | -           |
 | headers    | Turn back   | Record<string, string[]>     | Y            | -           |
 
-#### Example：
+#### Example
 
 ```typescript
 //Use a superuser request

@@ -28,7 +28,7 @@ npm i @ones-op/node-fetch
 
 **API：** fetchONES
 
-开发者在请求 ONES API 的时候，会默认使用插件超级用户，在调用 `fetchONES` 方法时，入参中带入`root=true`，表示使用超级用户调用接口。
+开发者在请求 ONES API 的时候，会默认使用插件超级用户，在调用 `fetchONES` 方法时，入参中带入`root=true`，表示使用超级用户调用接口。组织级别的插件需要加上`teamUUID`参数。
 
 **示例 1：** 使用插件超级用户调用 ONES API
 
@@ -49,6 +49,7 @@ const response = await fetchONES({
     view: ['[default]'],
   },
   root: true, //默认为true
+  teamUUID: '',
 })
 ```
 
@@ -79,7 +80,8 @@ export async function getUserme(
       'Ones-User-Id': [userUUID],
       'Ones-Auth-Token': [userToken],
     },
-    root: false, //默认为trueß
+    root: false, //默认为true
+    teamUUID: '',
   })
 
   if (response) {
