@@ -171,7 +171,7 @@ export async function uploadFileToPlugin(request: PluginRequest): Promise<Plugin
 ```typescript
 import { AuditLog } from '@ones-op/node-ability'
 
-export async function hello(request: PluginRequest): Promise<PluginResponse> {
+export async function test(request: PluginRequest): Promise<PluginResponse> {
   const body = request.body || {}
   let auditData = {
     'Ones-User-Id': 'icNcsEpo', //该参数为用户uuid
