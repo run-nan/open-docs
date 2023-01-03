@@ -2,7 +2,7 @@
 toc_max_heading_level: 4
 ---
 
-# @ones-op/node-ability（Business ability library，Encapsulation of business abilities and requests）
+# @ones-op/node-ability
 
 We provide a set of interface request libraries that allow plugin developers to call the basic abilities of plugins.
 
