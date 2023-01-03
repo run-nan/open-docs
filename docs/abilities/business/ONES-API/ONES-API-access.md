@@ -49,10 +49,11 @@ const response = await fetchONES({
     view: ['[default]'],
   },
   root: true, //default is true
+  teamUUID: '',
 })
 ```
 
-If we do not want to request as a super admin, we should first set `root` to `false` in the code, and then add `Ones-User-Id` and `Ones-Auth-Token` to the request header. When the plugin is installed in the instance environment, the user will also bring the user's `Ones-User-Id` and `Ones-Auth-Token `when accessing the plugin API by clicking the page.
+If we do not want to request as a super admin, we should first set `root` to `false` in the code, and then add `Ones-User-Id` and `Ones-Auth-Token` to the request header. When the plugin is installed in the instance environment, the user will also bring the user's `Ones-User-Id` and `Ones-Auth-Token `when accessing the plugin API by clicking the page.Organization-level plugins need to add the `teamUUID` param.
 
 **Ones-User-Id**: User's `uuid`
 
@@ -80,6 +81,7 @@ export async function getUserme(
       'Ones-Auth-Token': [userToken],
     },
     root: false, //default is true
+    teamUUID: '',
   })
 
   if (response) {

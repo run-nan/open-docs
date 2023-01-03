@@ -46,7 +46,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          token: ${{ secrets.TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Approval pull request
         uses: pwei1018/bcrs-ci-action@v1.0.1
