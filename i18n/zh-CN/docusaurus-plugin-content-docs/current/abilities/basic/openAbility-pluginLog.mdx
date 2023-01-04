@@ -17,9 +17,9 @@ import pluginLog1 from './images/pluginLog1.png'
 
 ## 概述
 
-该能力允许每个插件打印自己的日志，提供了 4 种级别的标准日志打印方法： `debug` ，`info` ，`warning`， `error`, 并且支持导出日志文件。
+该能力允许每个插件打印自己的日志，提供了 4 种级别的标准日志打印方法： `debug`、`info`、`warning`、`error`, 并且支持导出日志文件。
 
-插件日志会显示在插件详情页中的日志页中，该页面只显示 `info`，`warning`，`error` 级别的日志。
+插件日志会显示在插件详情页中的日志页中，该页面只显示 `info`、`warning`、`error` 级别的日志。
 
 可以在`配置中心 -> 插件管理`中每个插件的**详情页面**查看插件日志，具体表现如下图所示。
 
@@ -33,10 +33,9 @@ import pluginLog1 from './images/pluginLog1.png'
 
 #### 1. 安装依赖
 
-在插件根目录下运行以下指令安装依赖。（注意，默认该能力是后端使用，并且使用目录在 `backend` 下）
+进入插件工程的`/backend`目录，执行以下命令进行依赖安装：
 
 ```shell
-cd backend
 npm i @ones-op/node-logger
 ```
 

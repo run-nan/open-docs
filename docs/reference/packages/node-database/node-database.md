@@ -1,4 +1,4 @@
-# @ones-op/node-database（plugin-database）
+# @ones-op/node-database
 
 We provide a set of interfaces related to the plugin database, allowing plugin developers to access and operate the plugin database.
 

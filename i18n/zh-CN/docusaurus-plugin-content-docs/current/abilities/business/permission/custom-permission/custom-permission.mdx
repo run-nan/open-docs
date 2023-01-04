@@ -26,7 +26,7 @@ import Image from '@theme/IdealImage'
 
 ## 使用
 
-自定义权限能力支持通过 **配置**、**API** 和 **能力** 三种方式使用自定义权限点。自定义的权限点目前只能配合前端插槽使用，具体使用方法请参照：[permission](../../../../reference/config/plugin.yaml#modulePermission)
+自定义权限能力支持通过 **自定义的标准权限配置**、**自定义权限点 API** 和 **自定义权限点能力** 三种方式使用自定义权限点。自定义的权限点目前只能配合前端插槽使用，具体使用方法请参照：[permission](../../../../reference/config/plugin.yaml#modulePermission)
 
 :::caution 注意
 
@@ -58,7 +58,7 @@ service:
 
 ### 自定义权限点 API
 
-提供非声明式的权限点定义和配置方法，在插件后端中可以使用这些 API 在来管理自定义权限。
+提供非声明式的权限点定义和配置方法，在插件后端中可以使用这些 API 来管理自定义权限。
 
 :::note
 
@@ -70,36 +70,36 @@ service:
 
 **入参：**
 
-| 参数    | 类型   | 说明                                                                   | 必填 |
-| :------ | :----- | :--------------------------------------------------------------------- | :--- |
-| path    | string | 路由，固定值: `AddPermissionInfo`                                      | 是   |
-| headers | any    | 请求头，固定值:<br />{<br/> "AbilityName":["AddPermissionInfo"]<br/> } | 是   |
-| method  | string | 请求方法，固定值:`POST`                                                | 是   |
-| body    | any    | 请求体，包含权限点信息。                                               | 是   |
+| 参数    | 说明                                                                   | 类型   | 必填 |
+| :------ | :--------------------------------------------------------------------- | :----- | :--- |
+| path    | 路由，固定值: `AddPermissionInfo`                                      | string | 是   |
+| headers | 请求头，固定值:<br />{<br/> "AbilityName":["AddPermissionInfo"]<br/> } | any    | 是   |
+| method  | 请求方法，固定值:`POST`                                                | string | 是   |
+| body    | 请求体，包含权限点信息。                                               | any    | 是   |
 
 **body**
 
-| 参数             | 类型   | 说明       | 必填 |
-| :--------------- | :----- | :--------- | :--- |
-| permission_name  | string | 权限点名称 | 是   |
-| permission_field | string | 权限点标识 | 是   |
-| permission_desc  | string | 权限点描述 | 是   |
+| 参数             | 说明       | 类型   | 必填 |
+| :--------------- | :--------- | :----- | :--- |
+| permission_name  | 权限点名称 | string | 是   |
+| permission_field | 权限点标识 | string | 是   |
+| permission_desc  | 权限点描述 | string | 是   |
 
 **返回内容：**`response.body['data']`中的内容
 
 - 正常
 
-  | 参数              | 类型   | 说明           |
-  | :---------------- | :----- | :------------- |
-  | organization_uuid | string | 组织 uuid      |
-  | team_uuid         | string | 团队 uuid      |
-  | instance_uuid     | string | 插件示例 id    |
-  | permission_name   | string | 权限点名称     |
-  | permission_desc   | string | 权限点描述     |
-  | permission_field  | string | 权限点唯一标识 |
-  | permission_id     | string | 权限点 id      |
-  | check_mode        | string | 校验类型       |
-  | ability_id        | string | 能力 id        |
+  | 参数              | 说明           | 类型   |
+  | :---------------- | :------------- | :----- |
+  | organization_uuid | 组织 uuid      | string |
+  | team_uuid         | 团队 uuid      | string |
+  | instance_uuid     | 插件示例 id    | string |
+  | permission_name   | 权限点名称     | string |
+  | permission_desc   | 权限点描述     | string |
+  | permission_field  | 权限点唯一标识 | string |
+  | permission_id     | 权限点 id      | string |
+  | check_mode        | 校验类型       | string |
+  | ability_id        | 能力 id        | string |
 
 - 错误
 
@@ -136,23 +136,23 @@ export async function addPermission(request: PluginRequest): Promise<PluginRespo
 
 **入参：**
 
-| 参数    | 类型   | 说明                                                                    | 必填 |
-| :------ | :----- | :---------------------------------------------------------------------- | :--- |
-| path    | string | 路由，固定值: `PermissionInfoList`                                      | 是   |
-| headers | any    | 请求头，固定值:<br />{<br/> "AbilityName":["PermissionInfoList"]<br/> } | 是   |
-| method  | string | 请求方法，固定值:`POST`                                                 | 是   |
+| 参数    | 说明                                                                    | 类型   | 必填 |
+| :------ | :---------------------------------------------------------------------- | :----- | :--- |
+| path    | 路由，固定值: `PermissionInfoList`                                      | string | 是   |
+| headers | 请求头，固定值:<br />{<br/> "AbilityName":["PermissionInfoList"]<br/> } | any    | 是   |
+| method  | 请求方法，固定值:`POST`                                                 | string | 是   |
 
 **返回内容：**`response.body['data']`中的内容，包含权限点信息数组，每个权限点包含以下内容
 
-| 参数             | 类型   | 说明             |
-| :--------------- | :----- | :--------------- |
-| instance_uuid    | string | 插件示例 id      |
-| permission_name  | string | 权限点名称       |
-| permission_desc  | string | 权限点描述       |
-| permission_field | string | 权限点唯一标识   |
-| permission_id    | string | 权限点 id        |
-| check_mode       | string | 校验类型         |
-| rule_info        | []rule | 已配置规则的信息 |
+| 参数             | 说明             | 类型   |
+| :--------------- | :--------------- | :----- |
+| instance_uuid    | 插件示例 id      | string |
+| permission_name  | 权限点名称       | string |
+| permission_desc  | 权限点描述       | string |
+| permission_field | 权限点唯一标识   | string |
+| permission_id    | 权限点 id        | string |
+| check_mode       | 校验类型         | string |
+| rule_info        | 已配置规则的信息 | []rule |
 
 **示例：**
 
@@ -181,18 +181,18 @@ export async function listPermission(request: PluginRequest): Promise<PluginResp
 
 **入参：**
 
-| 参数    | 类型   | 说明                                                                      | 必填 |
-| :------ | :----- | :------------------------------------------------------------------------ | :--- |
-| path    | string | 路由，固定值: `DeletePermissionInfo`                                      | 是   |
-| headers | any    | 请求头，固定值:<br />{<br/> "AbilityName":["DeletePermissionInfo"]<br/> } | 是   |
-| method  | string | 请求方法，固定值:`POST`                                                   | 是   |
-| body    | any    | 请求体，包含权限点唯一标识                                                | 是   |
+| 参数    | 说明                                                                      | 类型   | 必填 |
+| :------ | :------------------------------------------------------------------------ | :----- | :--- |
+| path    | 路由，固定值: `DeletePermissionInfo`                                      | string | 是   |
+| headers | 请求头，固定值:<br />{<br/> "AbilityName":["DeletePermissionInfo"]<br/> } | any    | 是   |
+| method  | 请求方法，固定值:`POST`                                                   | string | 是   |
+| body    | 请求体，包含权限点唯一标识                                                | any    | 是   |
 
 **body**
 
-| 参数             | 类型   | 说明       | 必填 |
-| :--------------- | :----- | :--------- | :--- |
-| permission_field | string | 权限点标识 | 是   |
+| 参数             | 说明       | 类型   | 必填 |
+| :--------------- | :--------- | :----- | :--- |
+| permission_field | 权限点标识 | string | 是   |
 
 **示例：**
 
@@ -223,20 +223,20 @@ export async function deletePermission(request: PluginRequest): Promise<PluginRe
 
 **入参：**
 
-| 参数    | 类型   | 说明                                                                   | 必填 |
-| :------ | :----- | :--------------------------------------------------------------------- | ---- |
-| path    | string | 路由，固定值: `AddPermissionRule`                                      | 是   |
-| headers | any    | 请求头，固定值:<br />{<br/> "AbilityName":["AddPermissionRule"]<br/> } | 是   |
-| method  | string | 请求方法，固定值:`POST`                                                | 是   |
-| body    | any    | 请求体，包含权限点规则信息                                             | 是   |
+| 参数    | 说明                                                                   | 类型   | 必填 |
+| :------ | :--------------------------------------------------------------------- | :----- | :--- |
+| path    | 路由，固定值: `AddPermissionRule`                                      | string | 是   |
+| headers | 请求头，固定值:<br />{<br/> "AbilityName":["AddPermissionRule"]<br/> } | any    | 是   |
+| method  | 请求方法，固定值:`POST`                                                | string | 是   |
+| body    | 请求体，包含权限点规则信息                                             | any    | 是   |
 
 **body**
 
-| 参数              | 类型   | 说明                                                                                                                                        | 必填 |
-| ----------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------- | ---- |
-| permission_id     | string | 权限点 id                                                                                                                                   | 是   |
-| user_domain_type  | string | 用户域种类，可选值：<br />所有人-`everyone`<br />用户-`single_user`<br />部门-`department`<br />用户组-`group`<br />团队负责人-`team_owner` | 是   |
-| user_domain_param | string | 用户领域的唯一标示，例如当用户域是`single_user`时，该参数的值表示`user_uuid`                                                                | 是   |
+| 参数              | 说明                                                                                                                                        | 类型   | 必填 |
+| :---------------- | :------------------------------------------------------------------------------------------------------------------------------------------ | :----- | :--- |
+| permission_id     | 权限点 id                                                                                                                                   | string | 是   |
+| user_domain_type  | 用户域种类，可选值：<br />所有人-`everyone`<br />用户-`single_user`<br />部门-`department`<br />用户组-`group`<br />团队负责人-`team_owner` | string | 是   |
+| user_domain_param | 用户领域的唯一标示，例如当用户域是`single_user`时，该参数的值表示`user_uuid`                                                                | string | 是   |
 
 **返回内容：**`response.body['data']`中的内容
 
@@ -244,19 +244,19 @@ export async function deletePermission(request: PluginRequest): Promise<PluginRe
 
   包含本次添加权限规则的信息
 
-  | 参数              | 类型   | 说明        |
-  | :---------------- | :----- | :---------- |
-  | org_uuid          | string | 组织 uuid   |
-  | team_uuid         | string | 团队 uuid   |
-  | id                | string | 权限规则 id |
-  | deleted           | Bool   | 是否删除    |
-  | permission_id     | string | 权限点 id   |
-  | context_type      | string | 上下文类型  |
-  | context_param_1   | string | 上下文参数  |
-  | context_param_2   | string | 上下文参数  |
-  | user_domain_type  | string | 用户域类型  |
-  | user_domain_param | string | 用户域参数  |
-  | position          | string | 位置        |
+  | 参数              | 说明        | 类型   |
+  | :---------------- | :---------- | :----- |
+  | org_uuid          | 组织 uuid   | string |
+  | team_uuid         | 团队 uuid   | string |
+  | id                | 权限规则 id | string |
+  | deleted           | 是否删除    | Bool   |
+  | permission_id     | 权限点 id   | string |
+  | context_type      | 上下文类型  | string |
+  | context_param_1   | 上下文参数  | string |
+  | context_param_2   | 上下文参数  | string |
+  | user_domain_type  | 用户域类型  | string |
+  | user_domain_param | 用户域参数  | string |
+  | position          | 位置        | string |
 
 - 错误
 
@@ -294,18 +294,18 @@ export async function addRule(request: PluginRequest): Promise<PluginResponse> {
 
 **入参：**
 
-| 参数    | 类型   | 说明                                                                      | 必填 |
-| :------ | :----- | :------------------------------------------------------------------------ | :--- |
-| path    | string | 路由，固定值: `DeletePermissionRule`                                      | 是   |
-| headers | any    | 请求头，固定值:<br />{<br/> "AbilityName":["DeletePermissionRule"]<br/> } | 是   |
-| method  | string | 请求方法，固定值:`POST`                                                   | 是   |
-| body    | any    | 请求体，包含权限规则唯一标识                                              | 是   |
+| 参数    | 说明                                                                      | 类型   | 必填 |
+| :------ | :------------------------------------------------------------------------ | :----- | :--- |
+| path    | 路由，固定值: `DeletePermissionRule`                                      | string | 是   |
+| headers | 请求头，固定值:<br />{<br/> "AbilityName":["DeletePermissionRule"]<br/> } | any    | 是   |
+| method  | 请求方法，固定值:`POST`                                                   | string | 是   |
+| body    | 请求体，包含权限规则唯一标识                                              | any    | 是   |
 
 **body**
 
-| 参数 | 类型   | 说明           | 必填 |
-| :--- | :----- | :------------- | :--- |
-| id   | string | 权限点规则标识 | 是   |
+| 参数 | 说明           | 类型   | 必填 |
+| :--- | :------------- | :----- | :--- |
+| id   | 权限点规则标识 | string | 是   |
 
 **示例：**
 
@@ -337,25 +337,25 @@ export async function deleteR(request: PluginRequest): Promise<PluginResponse> {
 
 **入参：**
 
-| 参数    | 类型   | 说明                                                                     | 必填 |
-| :------ | :----- | :----------------------------------------------------------------------- | :--- |
-| path    | string | 路由，固定值: `CheckPermissionRule`                                      | 是   |
-| headers | any    | 请求头，固定值:<br />{<br/> "AbilityName":["CheckPermissionRule"]<br/> } | 是   |
-| method  | string | 请求方法，固定值:`POST`                                                  | 是   |
-| body    | any    | 请求体，包含检验相关信息                                                 | 是   |
+| 参数    | 说明                                                                     | 类型   | 必填 |
+| :------ | :----------------------------------------------------------------------- | :----- | :--- |
+| path    | 路由，固定值: `CheckPermissionRule`                                      | string | 是   |
+| headers | 请求头，固定值:<br />{<br/> "AbilityName":["CheckPermissionRule"]<br/> } | any    | 是   |
+| method  | 请求方法，固定值:`POST`                                                  | string | 是   |
+| body    | 请求体，包含检验相关信息                                                 | any    | 是   |
 
 **body**
 
-| 参数             | 类型   | 说明         | 必填 |
-| :--------------- | :----- | :----------- | :--- |
-| permission_field | string | 权限点标识   | 是   |
-| user_uuid        | string | 用户的`uuid` | 是   |
+| 参数             | 说明         | 类型   | 必填 |
+| :--------------- | :----------- | :----- | :--- |
+| permission_field | 权限点标识   | string | 是   |
+| user_uuid        | 用户的`uuid` | string | 是   |
 
 **返回内容：**`response.body['data']`中的内容
 
-| 参数          | 类型 | 说明       |
-| :------------ | :--- | :--------- |
-| is_permission | bool | 是否有权限 |
+| 参数          | 说明       | 类型 |
+| :------------ | :--------- | :--- |
+| is_permission | 是否有权限 | bool |
 
 **示例：**
 
@@ -388,28 +388,28 @@ export async function checkPermission(request: PluginRequest): Promise<PluginRes
 
 **入参：**
 
-| 参数    | 类型   | 说明                                                                      | 必填 |
-| :------ | :----- | :------------------------------------------------------------------------ | :--- |
-| path    | string | 路由，固定值: `BatchCheckPermission`                                      | 是   |
-| headers | any    | 请求头，固定值:<br />{<br/> "AbilityName":["BatchCheckPermission"]<br/> } | 是   |
-| method  | string | 请求方法，固定值:`POST`                                                   | 是   |
-| body    | any    | 请求体，包含所有的校验信息                                                | 是   |
+| 参数    | 说明                                                                      | 类型   | 必填 |
+| :------ | :------------------------------------------------------------------------ | :----- | :--- |
+| path    | 路由，固定值: `BatchCheckPermission`                                      | string | 是   |
+| headers | 请求头，固定值:<br />{<br/> "AbilityName":["BatchCheckPermission"]<br/> } | any    | 是   |
+| method  | 请求方法，固定值:`POST`                                                   | string | 是   |
+| body    | 请求体，包含所有的校验信息                                                | any    | 是   |
 
 **body**
 
-| 参数              | 类型   | 说明           | 必填 |
-| :---------------- | :----- | :------------- | :--- |
-| organization_uuid | string | 组织的`uuid`   | 是   |
-| permission_field  | string | 权限的唯一标识 | 是   |
-| team_uuid         | string | 团队的`uuid`   | 是   |
-| instance_id       | string | 插件实例 id    | 是   |
-| user_uuid         | string | 用户的`uuid`   | 是   |
+| 参数              | 说明           | 类型   | 必填 |
+| :---------------- | :------------- | :----- | :--- |
+| organization_uuid | 组织的`uuid`   | string | 是   |
+| permission_field  | 权限的唯一标识 | string | 是   |
+| team_uuid         | 团队的`uuid`   | string | 是   |
+| instance_id       | 插件实例 id    | string | 是   |
+| user_uuid         | 用户的`uuid`   | string | 是   |
 
 **返回内容：**`response.body['data']`中的内容
 
-| 参数          | 类型   | 说明               |
-| :------------ | :----- | :----------------- |
-| is_permission | bool[] | 每个权限检查的结果 |
+| 参数          | 说明               | 类型   |
+| :------------ | :----------------- | :----- |
+| is_permission | 每个权限检查的结果 | bool[] |
 
 **示例：**
 
@@ -460,12 +460,12 @@ export async function checkBatch(request: PluginRequest): Promise<PluginResponse
 
 **能力配置中的参数的作用：**
 
-| 参数                   | 类型   | 作用                       |
-| :--------------------- | :----- | :------------------------- |
-| name                   | string | 权限点名称                 |
-| field                  | string | 权限点标识                 |
-| desc                   | string | 权限点描述                 |
-| is_plugin_custom_check | bool   | 是否采用插件自定义权限校验 |
+| 参数                   | 作用                       | 类型   |
+| :--------------------- | :------------------------- | :----- |
+| name                   | 权限点名称                 | string |
+| field                  | 权限点标识                 | string |
+| desc                   | 权限点描述                 | string |
+| is_plugin_custom_check | 是否采用插件自定义权限校验 | bool   |
 
 **示例：**
 
@@ -502,11 +502,11 @@ abilities:
 
 **入参:**
 
-| 参数             | 类型   | 说明                                                   |
-| :--------------- | :----- | :----------------------------------------------------- |
-| user_uuid        | string | 用户的`uuid`                                           |
-| permission_field | string | 权限点标识                                             |
-| context          | string | 额外参数，插件自定义校验时可通过该字段传递额外的参数。 |
+| 参数             | 说明                                                   | 类型   |
+| :--------------- | :----------------------------------------------------- | :----- |
+| user_uuid        | 用户的`uuid`                                           | string |
+| permission_field | 权限点标识                                             | string |
+| context          | 额外参数，插件自定义校验时可通过该字段传递额外的参数。 | string |
 
 **返回内容: **通过返回体中的`is_permission`字段的值来决定权限校验是否通过
 

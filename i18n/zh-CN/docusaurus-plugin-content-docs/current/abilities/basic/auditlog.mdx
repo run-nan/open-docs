@@ -26,10 +26,9 @@ import auditLog1 from './images/audit-log1.png'
 
 ### 第一步：添加依赖
 
-在插件根目录下运行以下指令安装依赖。（注意，默认该能力是后端使用，并且使用目录在 backend 下）
+进入插件工程的`/backend`目录，执行以下命令进行依赖安装：
 
 ```shell
-cd backend
 npm i @ones-op/node-ability
 ```
 
@@ -74,3 +73,7 @@ export async function hello(request: PluginRequest): Promise<PluginResponse> {
   }
 }
 ```
+
+## 相关 SDK
+
+具体参数释义请参考：[@ones-op/node-ability](../../reference/packages/node-ability/node-ability.md)

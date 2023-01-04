@@ -1,4 +1,4 @@
-# @ones-op/node-database（插件数据库）
+# @ones-op/node-database
 
 我们提供了一套插件数据库的相关接口，允许插件开发者访问和操作插件数据库。
 

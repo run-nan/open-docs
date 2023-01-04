@@ -144,6 +144,12 @@ export async function Install() {
   mysql_port: '3306'
 ```
 
-## 其他
+## 相关 SDK
 
 具体参数释义请参考：[@ones-op/node-database](../../reference/packages/node-database/node-database.md)
+
+## 常见问题
+
+**插件升级时数据库如何迁移?**
+
+在插件的升级时，会调用生命周期方法中的升级方法，团队级别的插件为`Upgrade`，组织级别的插件为`OrgUpgrade`。插件升级前后数据库不变，可在该方法中实现迁移。

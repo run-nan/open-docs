@@ -1,4 +1,4 @@
-# @ones-op/node-file（文件操作）
+# @ones-op/node-file
 
 We provide a set of API related to file manipulation, allowing plugin developers to manipulate files under the plugin file working directory.
 

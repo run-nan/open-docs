@@ -26,20 +26,17 @@ local:
   file_in_local: true
 ```
 
-## 能力使用
+## 使用
 
-### SDK 文档：[@ones-op/node-file](../../reference/packages/node-file/node-file.md)
+### 第一步：安装依赖
 
-#### 第一步：安装依赖
-
-在插件根目录下运行以下指令安装依赖。（注意，默认该能力是后端使用，并且使用目录在 backend 下）
+进入插件工程的`/backend`目录，执行以下命令进行依赖安装：
 
 ```shell
-cd backend
 npm i @ones-op/node-file
 ```
 
-#### 第二步: 使用示例
+### 第二步: 使用示例
 
 ```javascript
 import { makeDir, createFile, writeStrings, appendStrings, copy, rename, writeBytes, appendBytes, list, isExist, isDir, isFile, read, readLines, remove } from '@ones-op/node-file'
@@ -80,3 +77,7 @@ export async function TestFile() {
   }
 }
 ```
+
+## 相关 SDK
+
+具体参数释义请参考：[@ones-op/node-file](../../reference/packages/node-file/node-file.md)

@@ -2,7 +2,7 @@
 toc_max_heading_level: 4
 ---
 
-# @ones-op/node-ability（Business ability library，Encapsulation of business abilities and requests）
+# @ones-op/node-ability
 
 We provide a set of interface request libraries that allow plugin developers to call the basic abilities of plugins.
 
@@ -153,6 +153,12 @@ export async function uploadFileToPlugin(request: PluginRequest): Promise<Plugin
 
 Add linked repositories
 
+#### Requirements
+
+| **ONES** | **@ones-op/node-ability** |
+| :------- | :------------------------ |
+| v3.13.9+ | v0.4.0+                   |
+
 #### Params
 
 | Param    | Description                                                                           | Type                    | Required | value range  |
@@ -208,6 +214,12 @@ const batchResponse = await addRepos(toolUUID, list);
 
 query linked single code repository
 
+#### Requirements
+
+| **ONES** | **@ones-op/node-ability** |
+| :------- | :------------------------ |
+| v3.13.9+ | v0.4.0+                   |
+
 #### Params
 
 | Param     | Description                                                                           | Type   | Required | value range |
@@ -249,6 +261,12 @@ const repoInfo = await queryRepo(toolUUID, uri, namespace, name)
 
 query all linked code repositories
 
+#### Requirements
+
+| **ONES** | **@ones-op/node-ability** |
+| :------- | :------------------------ |
+| v3.13.9+ | v0.4.0+                   |
+
 #### Params
 
 | Param    | Description                                                                           | Type   | Required | value range |
@@ -283,6 +301,12 @@ const repoInfos = await queryRepos(toolUUID)
 ### addRepoCommits
 
 add repo commits
+
+#### Requirements
+
+| **ONES** | **@ones-op/node-ability** |
+| :------- | :------------------------ |
+| v3.13.9+ | v0.4.0+                   |
 
 #### Params
 
@@ -323,6 +347,12 @@ await addRepoCommits(toolUUID, repoUUID, list)
 ### addRepoPullRequest
 
 add single repo pull request (support for add and update)
+
+#### Requirements
+
+| **ONES** | **@ones-op/node-ability** |
+| :------- | :------------------------ |
+| v3.13.9+ | v0.4.0+                   |
 
 #### Params
 
@@ -602,6 +632,8 @@ const file = await PluginFile.uploadFile('files/test.txt', 'taskuuid', 'desc')
 
 ### Process.create
 
+Create a progress manager.
+
 #### Params
 
 | Param          | Description                                                                                                                                                       | Type                        | Required | Default |
@@ -668,6 +700,8 @@ export async function createProcess(request: PluginRequest): Promise<PluginRespo
 
 ### Process.update
 
+Update the progress of the progress manager.
+
 #### Params
 
 | Param                  | Description                   | Type   | Required | Default |
@@ -707,6 +741,8 @@ export async function updateProgress(request: PluginRequest): Promise<PluginResp
 ---
 
 ### Process.done
+
+Set progress manager status to completed.
 
 #### Params
 
@@ -754,6 +790,61 @@ export async function doneProcess(request: PluginRequest): Promise<PluginRespons
     },
   }
 }
+```
+
+---
+
+### getUserTeamUUIDsByIdNumber
+
+Find the user's `uuid` and the `uuid` list of the team they belong to based on the user's job number.
+
+#### Params
+
+| Param     | Description | Type   | Required | Default |
+| :-------- | :---------- | :----- | :------- | :------ |
+| id_number | user ID     | string | Y        | -       |
+
+#### Returns
+
+| Param      | Description                        | Type     |
+| :--------- | :--------------------------------- | :------- |
+| user_uuid  | user's `uuid`                      | string   |
+| team_uuids | list of `uuid`s of the user's team | string[] |
+
+#### Example
+
+```typescript
+import { getUserTeamUUIDsByIdNumber } from '@ones-op/node-ability'
+
+const resp = await getUserTeamUUIDsByIdNumber('123456')
+```
+
+---
+
+### getUserTeamUUIDsByEmail
+
+According to the user's third-party system id and third-party system type, find the user's `uuid` and the `uuid` list of the team he belongs to.
+
+#### Params
+
+| Param            | Description                         | Type   | Required | Default |
+| :--------------- | :---------------------------------- | :----- | :------- | :------ |
+| third_party_id   | user's third party system id        | string | Y        | -       |
+| third_party_type | type code of the third party system | number | Y        | -       |
+
+#### Returns
+
+| Param      | Description                        | Type     |
+| :--------- | :--------------------------------- | :------- |
+| user_uuid  | user's `uuid`                      | string   |
+| team_uuids | list of `uuid`s of the user's team | string[] |
+
+#### Example
+
+```typescript
+import { getUserTeamUUIDsByThirdPartyIDAndThirdPartyType } from '@ones-op/node-ability'
+
+const resp = await getUserTeamUUIDsByThirdPartyIDAndThirdPartyType('12345678', 0)
 ```
 
 ---

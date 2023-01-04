@@ -28,18 +28,15 @@ local:
 
 ## Usage
 
-### SDK document：[@ones-op/node-file](../../reference/packages/node-file/node-file.md)
+### Step 1: Installing dependencies
 
-#### Step 1: Installing dependencies
-
-Run the following instructions under the plugin project root directory to install dependencies. (note that this ability is used by backend by default, and the usage directory is under `backend`)
+Enter the `/backend` directory of the plugin project, and execute the following command for dependent installation:
 
 ```shell
-cd backend
 npm i @ones-op/node-file
 ```
 
-#### Step 2: Example
+### Step 2: Example
 
 ```javascript
 import { makeDir, createFile, writeStrings, appendStrings, copy, rename, writeBytes, appendBytes, list, isExist, isDir, isFile, read, readLines, remove } from '@ones-op/node-file'
@@ -80,3 +77,7 @@ export async function TestFile() {
   }
 }
 ```
+
+## SDK
+
+Parameters reference：[@ones-op/node-file](../../reference/packages/node-file/node-file.md)

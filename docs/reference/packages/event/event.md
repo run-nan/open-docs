@@ -7,8 +7,8 @@ We provide a set of event communication library that can help you communicate wi
 ## Requirements
 
 | **@ones-op/event** |
-| :----------------: |
-|     `v0.6.2+`      |
+| ------------------ |
+| `v0.6.2+`          |
 
 ## Installation
 
@@ -29,7 +29,7 @@ OPDispatch('invoke:ones:global:progressManager')
 ## Index
 
 | API                                   | Description                 |
-| :------------------------------------ | :-------------------------- |
+| ------------------------------------- | --------------------------- |
 | [OPDispatch](#opdispatch)             | The ONES-level dispatcher   |
 | [OPPluginListener](#oppluginlistener) | The plugin-level listener   |
 | [OPPluginDispatch](#opplugindispatch) | The plugin-level dispatcher |
@@ -42,9 +42,9 @@ This method triggers a number of events within the ONES system.
 
 #### Params
 
-| Params | Description                                                        |         Type          | Required | Default |
-| :----: | :----------------------------------------------------------------- | :-------------------: | :------: | :-----: |
-|  type  | Event name, corresponding to the event in the [event list](./list) | [`EventEnum`](./list) |   Yes    |         |
+| Params | Description                                                        | Type                  | Required | Default |
+| ------ | ------------------------------------------------------------------ | --------------------- | -------- | ------- |
+| type   | Event name, corresponding to the event in the [event list](./list) | [`EventEnum`](./list) | Y        |         |
 
 ### OPPluginListener
 
@@ -60,11 +60,11 @@ Cross-module communication is supported only under the same plugin and when the 
 
 #### Params
 
-|  Params  | Description            |         Type         | Required |      Default      |
-| :------: | :--------------------- | :------------------: | :------: | :---------------: |
-|   type   | Event name             |       `string`       |   Yes    |                   |
-| listener | Event handler function |    `OPListenFunc`    |   Yes    |                   |
-| options  | listener options       | `{ once?: boolean }` |    No    | `{ once: false }` |
+| Params   | Description            | Type                 | Required | Default           |
+| -------- | ---------------------- | -------------------- | -------- | ----------------- |
+| type     | Event name             | `string`             | Y        |                   |
+| listener | Event handler function | `OPListenFunc`       | Y        |                   |
+| options  | listener options       | `{ once?: boolean }` | N        | `{ once: false }` |
 
 **options.once**
 
@@ -113,10 +113,10 @@ Cross-module communication is supported only under the same plugin and when the 
 
 #### Params
 
-| Params | Description  |   Type   | Required | Default |
-| :----: | :----------- | :------: | :------: | :-----: |
-|  type  | Event name   | `string` |   Yes    |         |
-| params | Event params |  `any`   |    No    |         |
+| Params | Description  | Type     | Required | Default |
+| ------ | ------------ | -------- | -------- | ------- |
+| type   | Event name   | `string` | Y        |         |
+| params | Event params | `any`    | N        |         |
 
 #### Returns
 
