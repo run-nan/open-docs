@@ -1,0 +1,180 @@
+# @ones-op/bridge
+
+[![](https://npm.partner.ones.cn/badge/v/@ones-op/bridge.svg)](https://npm.partner.ones.cn/package/@ones-op/bridge)
+
+我们提供了一套工具库，可以帮助你调用 ONES 系统内提供的一些工具方法
+
+## 安装
+
+在插件 `/web` 目录，通过以下命令安装此包：
+
+```bash npm2yarn
+npm install @ones-op/bridge
+```
+
+## 使用
+
+```tsx
+import { modal } from '@ones-op/bridge'
+
+modal.createTask()
+```
+
+## APIs
+
+### modal
+
+通过 modal 暴露的方法，你可以唤起 ONES 系统内的一系列弹窗
+
+#### createTask
+
+唤起新建工作项的弹窗
+
+##### 要求
+
+| **ONES** | **@ones-op/bridge** |
+| -------- | ------------------- |
+| `TODO`   | `TODO`              |
+
+##### 参数
+
+| 参数       | 说明       | 类型                   | 必填 | 默认值 |
+| ---------- | ---------- | ---------------------- | ---- | ------ |
+| modalProps | 弹窗的配置 | `CreateTaskModalProps` | 否   | `{}`   |
+
+##### 类型
+
+```tsx
+interface TaskCreatedResult {
+  /** 创建的工作项的ID */
+  taskUUID: string
+  /** 跳转到工作项详情的方法 */
+  queryToTask: () => void
+  /** 创建的工作项的详情 */
+  task: Record<string, any>
+}
+
+interface CreateTaskModalProps {
+  /** 弹窗标题，如果为空，则根据选择的工作项类型自动设置 */
+  title?: string
+  /** 表单默认值 */
+  defaultValue?: {
+    /** 工作项标题 */
+    summary?: string
+    /** 所属项目 */
+    projectUUID?: string
+    /** 工作项类型 */
+    issueTypeUUID?: string
+    /** 负责人 */
+    assign?: string
+    /** 任务描述 */
+    descRich?: string
+    /** 所属迭代 */
+    sprintUUID?: string
+  }
+  /** 禁止更改的表单项 */
+  disabledFields?: {
+    /** 工作项标题 */
+    summary?: string
+    /** 所属项目 */
+    projectUUID?: boolean
+    /** 工作项类型 */
+    issueTypeUUID?: boolean
+    /** 负责人 */
+    assign?: boolean
+    /** 任务描述 */
+    descRich?: boolean
+    /** 所属迭代 */
+    sprintUUID?: boolean
+  }
+  /** 用户点击确认，且不再继续创建下一个时的回调 */
+  onOk?: (result: TaskCreatedResult) => void
+  /** 点击取消按钮时的回调 */
+  onCancel?: () => void
+  /** 工作项被创建之后的回调 */
+  onTaskCreated?: (task: TaskCreatedResult['task']) => void
+  /** 其他属性 */
+  extra?: Record<string, any>
+}
+```
+
+#### createSubTask
+
+唤起新建子工作项的弹窗
+
+##### 要求
+
+| **ONES** | **@ones-op/bridge** |
+| -------- | ------------------- |
+| `TODO`   | `TODO`              |
+
+##### 参数
+
+| 参数       | 说明       | 类型                      | 必填 | 默认值 |
+| ---------- | ---------- | ------------------------- | ---- | ------ |
+| modalProps | 弹窗的配置 | `CreateSubTaskModalProps` | 是   |        |
+
+##### 类型
+
+```tsx
+interface CreateSubTaskModalProps extends CreateTaskModalProps {
+  /** 父工作项详情 */
+  parentTask: {
+    /** 父工作项的ID */
+    uuid: string
+    /** 父工作项所属的项目ID */
+    project_uuid: string
+    [key: string]: any
+  }
+}
+```
+
+:::caution 注意
+
+`parentTask`中必须包含`uuid`和`project_uuid`，否则可能导致子工作项创建不成功。你可以直接传入[工作项详情接口](../../../api/project/task/task.md#获取工作项详情)返回的数据
+
+:::
+
+#### createRelatedTask
+
+唤起新建关联工作项的弹窗
+
+##### 要求
+
+| **ONES** | **@ones-op/bridge** |
+| -------- | ------------------- |
+| `TODO`   | `TODO`              |
+
+##### 参数
+
+| 参数       | 说明       | 类型                          | 必填 | 默认值 |
+| ---------- | ---------- | ----------------------------- | ---- | ------ |
+| modalProps | 弹窗的配置 | `CreateRelatedTaskModalProps` | 是   |        |
+
+##### 类型
+
+```tsx
+interface CreateRelatedTaskModalProps extends Omit<CreateTaskModalProps, 'defaultValue'> {
+  /** 表单默认值 */
+  defaultValue?: CreateTaskModalProps['defaultValue'] & {
+    /** 关联关系 */
+    relatedTypeValue?: string
+  }
+  /** 要关联的工作项 */
+  relatedTask: {
+    /** 关联工作项的ID */
+    uuid: string
+    /** 关联工作项的类型 */
+    issue_type_uuid: string
+    [key: string]: any
+  }
+  /** 工作项被关联之后的回调 */
+  onRelatedSuccess?: (data: Record<string, any>) => void
+}
+```
+
+:::caution 注意
+
+`relatedTask`中必须包含`uuid`和`issue_type_uuid`，否则可能导致工作项关联不成功。你可以直接传入[工作项详情接口](../../../api/project/task/task.md#获取工作项详情)返回的数据
+
+:::
