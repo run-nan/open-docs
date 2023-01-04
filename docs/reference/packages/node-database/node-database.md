@@ -20,13 +20,28 @@ Initialize the database
 | :---------- | :------------ | :----- | :------- | :------ |
 | sqlFileName | sql file path | string | Y        | -       |
 
+#### Error
+
+| errcode                     | reason                                                                                                                             | level | statusCode |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ----- | ---------- |
+| DB.SqlFileNameFormatInvalid | SQL filename format invaild.                                                                                                       | error | 400        |
+| DB.SqlFileFetchingFailed    | SQL file fetching failed.                                                                                                          | error | 400        |
+| DB.CannotFindTable          | Cannot find table content in SQL file.                                                                                             | error | 400        |
+| DB.ImportSqlErr             | An unknown error occurred while executing the import method, and the hardware error scenario gave the cause of the hardware error. | error | 500        |
+
 #### Example
 
 ```javascript
-import { importSQL } from '@ones-op/node-database'
+import { importSQL, DBError } from '@ones-op/node-database'
 
-export async function multiple_language() {
-  const language = await Language.getLanguage(user_uuid)
+export async function testImportSQL() {
+  try {
+    await importSQL('plugin.sql')
+  } catch (error) {
+    if (error instanceof DBError) {
+      Logger.error('error:', error.errcode, error.statusCode, error.level, error.reason)
+    }
+  }
 }
 ```
 
@@ -48,16 +63,25 @@ Receives the sql statement related to the query and returns the query result, wh
 | :----- | :--------------- | :-------------------- |
 | result | sql query result | Record<string, any>[] |
 
+#### Error
+
+| errcode         | reason                                                                                                                              | level | statusCode |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----- | ---------- |
+| DB.QuerySqlErr  | An unknown error occurred while executing the select method, and the specific error scenario gives the specific cause of the error. | error | 500        |
+| DB.SqlSyntaxErr | The sql does not conform to the grammatical specification, and the specific error scene gives the specific error reason.            | error | 400        |
+
 #### Example
 
 ```javascript
-import { select } from '@ones-op/node-database'
+import { select, DBError } from '@ones-op/node-database'
 
 export async function select_database() {
   try {
     const result = await select('select * from email_id_map limit 10;')
   } catch (error) {
-    Logger.error('ERROR: ', error)
+    if (error instanceof DBError) {
+      Logger.error('error:', error.errcode, error.statusCode, error.level, error.reason)
+    }
   }
 }
 ```
@@ -75,10 +99,17 @@ Execute the relevant sql statement and no result is returned. If sql execution f
 | operate | operation type，'insert' 、'update' 、 'delete' 、'create' 、'alter' 、 'drop' | string | Y        | -       |
 | sql     | sql statement                                                                  | string | Y        | -       |
 
+#### Error
+
+| errcode         | reason                                                                                                                            | level | statusCode |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------- | ----- | ---------- |
+| DB.ExecSqlErr   | An unknown error occurred while executing the exec method, and the specific error scenario gives the specific cause of the error. | error | 500        |
+| DB.SqlSyntaxErr | The sql does not conform to the grammatical specification, and the specific error scene gives the specific error reason.          | error | 400        |
+
 #### Example
 
 ```javascript
-import { exec } from '@ones-op/node-database'
+import { exec, DBError } from '@ones-op/node-database'
 
 export async function exec_database() {
   try {
@@ -87,7 +118,9 @@ export async function exec_database() {
       `INSERT INTO email_id_map VALUES ("plugin@ones.cn", "001");`
     )
   } catch (error) {
-    Logger.error('ERROR: ', error)
+    if (error instanceof DBError) {
+      Logger.error('error:', error.errcode, error.statusCode, error.level, error.reason)
+    }
   }
 }
 ```
@@ -110,16 +143,25 @@ Count related sql interface. If the sql execution is a failure, it will throw er
 | :----- | :------------------ | :----- |
 | result | statistical results | number |
 
+#### Error
+
+| errcode         | reason                                                                                                                             | level | statusCode |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ----- | ---------- |
+| DB.QuerySqlErr  | An unknown error occurred while executing the count method, and the specific error scenario gives the specific cause of the error. | error | 500        |
+| DB.SqlSyntaxErr | The sql does not conform to the grammatical specification, and the specific error scene gives the specific error reason.           | error | 400        |
+
 #### Example
 
 ```javascript
-import { count } from '@ones-op/node-database'
+import { count,DBError } from '@ones-op/node-database'
 
 export async function count_database() {
   try {
-    const c = await count('select count(*) from email_id_map;')
+    const result = await count('select count(*) from email_id_map;')
   } catch (error) {
-    Logger.error('ERROR: ', error)
+    if (error insteadof DBError){
+       Logger.error("error:", error.errcode, error.statusCode, error.level, error.reason)
+    }
   }
 }
 ```
