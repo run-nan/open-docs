@@ -20,10 +20,26 @@ Create a file
 | :-------- | :-------------- | :------- | :---------- | :----------- |
 | name      | file name       | string   | -           | Y            |
 
+#### Error
+
+| errcode          | reason             | level | statusCode |
+| ---------------- | ------------------ | ----- | ---------- |
+| InvalidParameter | Invalid parameter. | error | 400        |
+
 #### Example
 
 ```tsx
-await createFile('./tmp/test/test.txt')
+import {FileError,createFile} from "@ones-op/node-file"
+
+export async function testCreateFile() {
+  try{
+		await createFile('./tmp/test/test.txt')
+  }catch(error){
+    if(error insteadof FileError){
+       Logger.error("error:", error.errcode, error.statusCode, error.level, error.reason)
+    }
+  }
+}
 ```
 
 ---
@@ -38,10 +54,26 @@ Create a folder
 | :-------- | :-------------- | :------- | :---------- | :----------- |
 | name      | folder name     | string   | -           | Y            |
 
+#### Error
+
+| errcode          | reason             | level | statusCode |
+| ---------------- | ------------------ | ----- | ---------- |
+| InvalidParameter | Invalid parameter. | error | 400        |
+
 #### Example
 
 ```tsx
-await makeDir('./tmp/test')
+import {FileError,makeDir} from "@ones-op/node-file"
+
+export async function testMakeDir() {
+  try{
+		await makeDir('./tmp/test/test.txt')
+  }catch(error){
+    if(error insteadof FileError){
+       Logger.error("error:", error.errcode, error.statusCode, error.level, error.reason)
+    }
+  }
+}
 ```
 
 ---
@@ -57,10 +89,30 @@ Modify file name
 | originalPath | Original file path (name) | string   | -           | Y            |
 | newPath      | New file path (name)      | string   | -           | Y            |
 
+#### Error
+
+| errcode                   | reason                     | level | statusCode |
+| ------------------------- | -------------------------- | ----- | ---------- |
+| InvalidParameter          | Invalid parameter.         | error | 400        |
+| File.CannotFindTargetFile | No such file or directory. | error | 400        |
+
 #### Example
 
 ```tsx
-await rename('./tmp/test/test3.txt', './tmp/test/test4.txt')
+import {FileError,rename} from "@ones-op/node-file"
+
+export async function testRename() {
+  try{
+		await rename('./tmp/test/test3.txt', './tmp/test/test4.txt')
+  }catch(error){
+    if(error insteadof FileError){
+       Logger.error("error:", error.errcode, error.statusCode, error.level, error.reason)
+    }
+  }
+}
+
+
+
 ```
 
 ---
@@ -75,10 +127,27 @@ Remove File name
 | :-------- | :-------------- | :------- | :---------- | :----------- |
 | name      | file name       | string   | -           | Y            |
 
+#### Error
+
+| errcode                   | reason                     | level | statusCode |
+| ------------------------- | -------------------------- | ----- | ---------- |
+| InvalidParameter          | Invalid parameter.         | error | 400        |
+| File.CannotFindTargetFile | No such file or directory. | error | 400        |
+
 #### Example
 
 ```tsx
-await remove('./tmp/test/test4.txt')
+import {FileError,remove} from "@ones-op/node-file"
+
+export async function testRemove() {
+  try{
+		await remove('./tmp/test/test4.txt')('./tmp/test/test.txt')
+  }catch(error){
+    if(error insteadof FileError){
+       Logger.error("error:", error.errcode, error.statusCode, error.level, error.reason)
+    }
+  }
+}
 ```
 
 ---
@@ -99,10 +168,26 @@ Determine whether the file or folder exists
 | :-------- | :------------------------------------ | :------- |
 | exist     | Exist return true，empty return false | bool     |
 
+#### Error
+
+| errcode          | reason             | level | statusCode |
+| ---------------- | ------------------ | ----- | ---------- |
+| InvalidParameter | Invalid parameter. | error | 400        |
+
 #### Example
 
 ```tsx
-Logger.info('======isExist', await isExist('./tmp/test/test.txt'))
+import {FileError,isExist} from "@ones-op/node-file"
+
+export async function testIsExist() {
+  try{
+		Logger.info('======isExist', await isExist('./tmp/test/test.txt'))
+  }catch(error){
+    if(error insteadof FileError){
+       Logger.error("error:", error.errcode, error.statusCode, error.level, error.reason)
+    }
+  }
+}
 ```
 
 ---
@@ -123,10 +208,26 @@ Determine whether it is a file or not
 | :-------- | :------------------------------- | :------- |
 | fileExist | Yes return true，no return false | bool     |
 
+#### Error
+
+| errcode          | reason             | level | statusCode |
+| ---------------- | ------------------ | ----- | ---------- |
+| InvalidParameter | Invalid parameter. | error | 400        |
+
 #### Example
 
 ```tsx
-Logger.info('======isFile', await isFile('./tmp/test/test.txt'))
+import {FileError,isFile} from "@ones-op/node-file"
+
+export async function testIsFile() {
+  try{
+		Logger.info('======isFile', await isFile('./tmp/test/test.txt'))
+  }catch(error){
+    if(error insteadof FileError){
+       Logger.error("error:", error.errcode, error.statusCode, error.level, error.reason)
+    }
+  }
+}
 ```
 
 ---
@@ -147,10 +248,26 @@ Determine whether it is a folder
 | :-------- | :------------------------------- | :------- |
 | isDir     | Yes return true，or return false | bool     |
 
+#### Error
+
+| errcode          | reason             | level | statusCode |
+| ---------------- | ------------------ | ----- | ---------- |
+| InvalidParameter | Invalid parameter. | error | 400        |
+
 #### Example
 
 ```tsx
-Logger.info('======isDir', await isDir('./tmp'))
+import {FileError,isDir} from "@ones-op/node-file"
+
+export async function testIsDir() {
+  try{
+		Logger.info('======isDir', await isDir('./tmp'))
+  }catch(error){
+    if(error insteadof FileError){
+       Logger.error("error:", error.errcode, error.statusCode, error.level, error.reason)
+    }
+  }
+}
 ```
 
 ---
@@ -166,10 +283,27 @@ Copy a file
 | originalPath | File path (name)        | string   | -           | Y            |
 | newPath      | Destination path (name) | string   | -           | Y            |
 
+#### Error
+
+| errcode                   | reason                     | level | statusCode |
+| ------------------------- | -------------------------- | ----- | ---------- |
+| InvalidParameter          | Invalid parameter.         | error | 400        |
+| File.CannotFindTargetFile | No such file or directory. | error | 400        |
+
 #### Example
 
 ```tsx
-await copy('./tmp/test/test.txt', './tmp/test/test2.txt')
+import {FileError,copy} from "@ones-op/node-file"
+
+export async function testCopy() {
+  try{
+		await copy('./tmp/test/test.txt', './tmp/test/test2.txt')
+  }catch(error){
+    if(error insteadof FileError){
+       Logger.error("error:", error.errcode, error.statusCode, error.level, error.reason)
+    }
+  }
+}
 ```
 
 ---
@@ -190,10 +324,26 @@ Get a list of folder
 | :--------- | :-------------------- | :------- |
 | folderList | folder directory list | string[] |
 
+#### Error
+
+| errcode          | reason             | level | statusCode |
+| ---------------- | ------------------ | ----- | ---------- |
+| InvalidParameter | Invalid parameter. | error | 400        |
+
 #### Example
 
 ```tsx
-Logger.info('======List', await list('./tmp/test'))
+import {FileError,list} from "@ones-op/node-file"
+
+export async function testList() {
+  try{
+		Logger.info('======List', await list('./tmp/test'))
+  }catch(error){
+    if(error insteadof FileError){
+       Logger.error("error:", error.errcode, error.statusCode, error.level, error.reason)
+    }
+  }
+}
 ```
 
 ---
@@ -214,10 +364,29 @@ Read a file
 | :---------- | :-------------- | :--------- |
 | fileContent | file content    | Uint8Array |
 
+#### Error
+
+| errcode                   | reason                     | level | statusCode |
+| ------------------------- | -------------------------- | ----- | ---------- |
+| InvalidParameter          | Invalid parameter.         | error | 400        |
+| File.CannotFindTargetFile | No such file or directory. | error | 400        |
+
 #### Example
 
 ```tsx
-Logger.info('======read', Unit8Array2String((await read('./tmp/test/test.txt')) as Uint8Array))
+import {FileError,read} from "@ones-op/node-file"
+
+export async function testRead() {
+  try{
+		Logger.info('======read', Unit8Array2String((await read('./tmp/test/test.txt')) as Uint8Array))
+  }catch(error){
+    if(error insteadof FileError){
+       Logger.error("error:", error.errcode, error.statusCode, error.level, error.reason)
+    }
+  }
+}
+
+
 ```
 
 ---
@@ -240,10 +409,27 @@ Read the specified line of the file
 | :---------- | :--------------- | :------- |
 | lineContent | file information | string   |
 
+#### Error
+
+| errcode                   | reason                     | level | statusCode |
+| ------------------------- | -------------------------- | ----- | ---------- |
+| InvalidParameter          | Invalid parameter.         | error | 400        |
+| File.CannotFindTargetFile | No such file or directory. | error | 400        |
+
 #### Example
 
 ```tsx
-const lines = await readLines('./tmp/test/test.txt', 0, 1)
+import {FileError,readLines} from "@ones-op/node-file"
+
+export async function testReadLines() {
+  try{
+		const lines = await readLines('./tmp/test/test.txt', 0, 1)
+  }catch(error){
+    if(error insteadof FileError){
+       Logger.error("error:", error.errcode, error.statusCode, error.level, error.reason)
+    }
+  }
+}
 ```
 
 ---
@@ -259,10 +445,26 @@ Write a string to a file
 | name      | file path       | string   | -           | Y            |
 | content   | written content | string[] | -           | Y            |
 
+#### Error
+
+| errcode          | reason             | level | statusCode |
+| ---------------- | ------------------ | ----- | ---------- |
+| InvalidParameter | Invalid parameter. | error | 400        |
+
 #### Example
 
 ```tsx
-await writeStrings('./tmp/test/test.txt', ['hello world!\n'])
+import {FileError,writeStrings} from "@ones-op/node-file"
+
+export async function testWriteStrings() {
+  try{
+		await writeStrings('./tmp/test/test.txt', ['hello world!\n'])
+  }catch(error){
+    if(error insteadof FileError){
+       Logger.error("error:", error.errcode, error.statusCode, error.level, error.reason)
+    }
+  }
+}
 ```
 
 ---
@@ -278,10 +480,27 @@ Append string to file
 | name      | file path               | string   | -           | Y            |
 | content   | number of lines started | string[] | -           | Y            |
 
+#### Error
+
+| errcode                   | reason                     | level | statusCode |
+| ------------------------- | -------------------------- | ----- | ---------- |
+| InvalidParameter          | Invalid parameter.         | error | 400        |
+| File.CannotFindTargetFile | No such file or directory. | error | 400        |
+
 #### Example
 
 ```tsx
-await appendStrings('./tmp/test/test.txt', ['hello world!'])
+import {FileError,appendStrings} from "@ones-op/node-file"
+
+export async function testAppendStrings() {
+  try{
+		await appendStrings('./tmp/test/test.txt', ['hello world!'])
+  }catch(error){
+    if(error insteadof FileError){
+       Logger.error("error:", error.errcode, error.statusCode, error.level, error.reason)
+    }
+  }
+}
 ```
 
 ---
@@ -297,10 +516,28 @@ Write byte stream to file
 | name      | file path           | string     | -           | Y            |
 | byteSlice | byte stream content | Uint8Array | -           | Y            |
 
+#### Error
+
+| errcode          | reason             | level | statusCode |
+| ---------------- | ------------------ | ----- | ---------- |
+| InvalidParameter | Invalid parameter. | error | 400        |
+
 #### Example
 
 ```tsx
-await writeBytes('./tmp/test/test.txt', String2Unit8Array('hello bytes!\n'))
+import {FileError,writeBytes} from "@ones-op/node-file"
+
+export async function testWriteBytes() {
+  try{
+		await writeBytes('./tmp/test/test.txt', String2Unit8Array('hello bytes!\n'))
+  }catch(error){
+    if(error insteadof FileError){
+       Logger.error("error:", error.errcode, error.statusCode, error.level, error.reason)
+    }
+  }
+}
+
+
 ```
 
 ---
@@ -316,8 +553,25 @@ Append byte stream to file
 | name      | file path           | string     | -           | Y            |
 | byteSlice | byte stream content | Uint8Array | -           | Y            |
 
+#### Error
+
+| errcode                   | reason                     | level | statusCode |
+| ------------------------- | -------------------------- | ----- | ---------- |
+| InvalidParameter          | Invalid parameter.         | error | 400        |
+| File.CannotFindTargetFile | No such file or directory. | error | 400        |
+
 #### Example
 
 ```tsx
-await appendBytes('./tmp/test/test.txt', Object2Unit8Array({ name: 'hello bytes!' }))
+import {FileError,appendBytes} from "@ones-op/node-file"
+
+export async function testAppendBytes() {
+  try{
+		await appendBytes('./tmp/test/test.txt', Object2Unit8Array({ name: 'hello bytes!' }))
+  }catch(error){
+    if(error insteadof FileError){
+       Logger.error("error:", error.errcode, error.statusCode, error.level, error.reason)
+    }
+  }
+}
 ```

@@ -109,7 +109,7 @@ export async function select_database() {
 #### Example
 
 ```javascript
-import { exec } from '@ones-op/node-database'
+import { exec, DBError } from '@ones-op/node-database'
 
 export async function exec_database() {
   try {

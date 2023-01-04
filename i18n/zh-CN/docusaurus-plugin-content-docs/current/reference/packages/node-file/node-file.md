@@ -56,10 +56,9 @@ export async function testCreateFile() {
 
 #### Error
 
-| errcode         | reason                                                           | level | statusCode |
-| --------------- | ---------------------------------------------------------------- | ----- | ---------- |
-| DB.QuerySqlErr  | 执行 select 方法时发生了未知错误，具体错误场景给出具体错误原因。 | error | 500        |
-| DB.SqlSyntaxErr | sql 不符合语法规范，具体错误场景给出具体错误原因。               | error | 400        |
+| errcode          | reason             | level | statusCode |
+| ---------------- | ------------------ | ----- | ---------- |
+| InvalidParameter | Invalid parameter. | error | 400        |
 
 #### Example
 

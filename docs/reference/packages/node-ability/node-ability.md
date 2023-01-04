@@ -626,6 +626,12 @@ const file = await PluginFile.uploadFile('files/test.txt', 'taskuuid', 'desc')
 | :---------- | :--------------------------- | :----- |
 | processUUID | the uuid of Progress Manager | string |
 
+#### Error
+
+| errcode          | reason             | level | statusCode |
+| ---------------- | ------------------ | ----- | ---------- |
+| InvalidParameter | Invalid parameter. | error | 400        |
+
 #### Example
 
 ```typescript
@@ -641,7 +647,14 @@ export async function createProcess(request: PluginRequest): Promise<PluginRespo
     zh: title,
   }
   //Create a progress manager and get the return value processUUID
-  const processUUID = await Process.create(ProcessType.DownloadFile, user_uuid, titlePkg, timeout)
+  let processUUID = ""
+  try{
+      const processUUID = await Process.create(ProcessType.DownloadFile, user_uuid, titlePkg, timeout)
+  }catch (error){
+    if (error instaedof AbilityError){
+       Logger.error("error:", error.errcode, error.statusCode, error.level, error.reason)
+    }
+  }
 
   return {
     body: {
