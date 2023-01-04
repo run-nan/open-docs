@@ -1,6 +1,6 @@
 ---
 id: super-admin
-sidebar_position: 6
+sidebar_position: 7
 description: Plugin's virtual user in ONES.
 ---
 

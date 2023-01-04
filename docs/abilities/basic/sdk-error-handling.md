@@ -1,6 +1,6 @@
 ---
 id: sdk-error-handling
-sidebar_position: 12
+sidebar_position: 13
 description: sdk error handling。
 ---
 

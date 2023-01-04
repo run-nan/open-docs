@@ -1,6 +1,6 @@
 ---
 id: super-admin
-sidebar_position: 6
+sidebar_position: 7
 description: 插件在 ONES 中的虚拟用户。
 ---
 
