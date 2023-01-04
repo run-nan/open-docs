@@ -162,29 +162,48 @@ export async function uploadFileToPlugin(request: PluginRequest): Promise<Plugin
 
 #### Returns
 
-| 参数 | 说明     | 类型                   |
-| :--- | :------- | :--------------------- |
-| res  | 操作结果 | Record<string, string> |
+| 参数 | 说明     | 类型                |
+| :--- | :------- | :------------------ |
+| res  | 操作结果 | Record<string, any> |
 
 #### Example
 
 ```typescript
-import { AuditLog } from '@ones-op/node-ability'
+import { getAbilityConfig } from '@ones-op/node-ability'
 
-export async function test(request: PluginRequest): Promise<PluginResponse> {
-  const body = request.body || {}
-  let auditData = {
-    'Ones-User-Id': 'icNcsEpo', //该参数为用户uuid
-    'X-Real-Ip': '127.0.0.1', //IP地址
-  }
-  await AuditLog.createLog(auditData, '插件方法B') //写入审计信息
-  return {
-    body: {
-      res: 'audit log',
-      requestBody: body,
-    },
-  }
-}
+const response = await getAbilityConfig()
+```
+
+---
+
+### getAbilityConfig
+
+获取能力配置信息
+
+#### 要求
+
+| **ONES** | **@ones-op/node-ability** |
+| :------- | :------------------------ |
+| 待发布   | 待发布                    |
+
+#### Params
+
+| 参数      | 说明    | 类型   | 必填 | 默认值 |
+| :-------- | :------ | :----- | :--- | :----- |
+| abilityID | 能力 id | string | 否   | -      |
+
+#### Returns
+
+| 参数     | 说明         | 类型                |
+| :------- | :----------- | :------------------ |
+| response | 能力配置信息 | Record<string, any> |
+
+#### Example
+
+```typescript
+import { getAbilityConfig } from '@ones-op/node-ability'
+
+const response = await getAbilityConfig()
 ```
 
 ---

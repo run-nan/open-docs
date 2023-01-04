@@ -149,6 +149,38 @@ export async function uploadFileToPlugin(request: PluginRequest): Promise<Plugin
 
 ---
 
+### getAbilityConfig
+
+Get ability configuration information
+
+#### Requirements
+
+| **ONES** | **@ones-op/node-ability** |
+| :------- | :------------------------ |
+| ready    | ready                     |
+
+#### Params
+
+| Param     | Description   | Type   | Required | Default |
+| :-------- | :------------ | :----- | :------- | :------ |
+| abilityID | id of ability | string | N        | -       |
+
+#### Returns
+
+| Param    | Description                       | Type                |
+| :------- | :-------------------------------- | :------------------ |
+| response | ability configuration information | Record<string, any> |
+
+#### Example
+
+```typescript
+import { getAbilityConfig } from '@ones-op/node-ability'
+
+const response = await getAbilityConfig()
+```
+
+---
+
 ### addRepos
 
 Add linked repositories
