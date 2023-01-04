@@ -61,7 +61,7 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.HTMLIN_TOKEN }}"
           MERGE_LABELS: "canary"
-          # MERGE_METHOD: "squash"
+          MERGE_METHOD: "squash"
           MERGE_COMMIT_MESSAGE: pull-request-title
 
       - name: Fail result
