@@ -92,16 +92,16 @@ service:
   ...
 modules:
   - id: ones-testcase-report-component-new-5cZd
-    title: 测试报告组件
+    title: Test report component
     moduleType: ones:testcase:report:component:new
     modules:
       - id: ones-testcase-report-component-new-U06I
-        title: 自定义测试报告组件
+        title: Custom Plugin Render
         scene: render
         entry: >-
           modules/ones-testcase-report-component-new-5cZd/ones-testcase-report-component-new-U06I/index.html
       - id: ones-testcase-report-component-new-NQD6
-        title: 配置弹窗
+        title: Custom Plugin Setting Modal
         scene: setting
         entry: >-
           modules/ones-testcase-report-component-new-5cZd/ones-testcase-report-component-new-NQD6/index.html
@@ -243,3 +243,7 @@ refer to [upgrade the plug-in](../../../guide/upgrade.md)
 
 - Modify `abilities.config.value` first, and then upgrade the plugin
 - First modify the workspace `/lanuage/xx.yaml` multilingual translation copy, and then upgrade the plug-in
+
+**Test whether the report group name allows duplicate names?**
+
+Not allowed.
