@@ -437,3 +437,9 @@ These are the available config options for making requests. Only the `url` is re
 
 }
 ```
+
+## FAQ
+
+### Why it still popup a toast without errorCode sdk when catch a interface's error?
+
+When autoErrorToast set to be true, we will judge Whether to popup toast by calling isOPError method, so if you custom a response can pass the check of isOPError, it also works out.

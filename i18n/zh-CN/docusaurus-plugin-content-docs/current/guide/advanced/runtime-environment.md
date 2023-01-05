@@ -12,6 +12,10 @@ description: 插件在 ONES 系统中的运行时环境介绍。
 
 ONES 开放平台 Node.js Host 基于 [VM2](https://github.com/patriksimek/vm2) 提供了一套插件后端运行的沙箱环境，插件的生命周期方法以及任何能力方法均由 Host 接收到开放平台的消息后调起执行。
 
+:::caution
+我们**强烈不建议你使用内存操作**（全局变量等）。开放平台提供的是基于方法级别调用（类 [FaaS](https://en.wikipedia.org/wiki/Function_as_a_service) 模式）的后端插件体系，开放平台内部调度可能会对插件进行重启等操作，因此，内存操作是非常不可靠的。
+:::
+
 Node.js Host 提供的是一个相对宽松的沙箱环境，对于 Node.js 原生模块的使用并没有做过多的限制，而是以 `builtin: ['*']` 的方式全量支持插件使用。
 
 :::caution
