@@ -9,6 +9,12 @@ notice: 按版本发布顺序从上往下添加包；对于类型的定义，与
 
 We provide a set of plugin front-end data acquisition library that can help you get ONES standard data in the plugin. In order to ensure the readability of the data, objects and array data will use `Proxy`. You cannot and should not modify the data obtained from the standard.
 
+## Requirements
+
+| **ONES**   | **@ones-op/store** |
+| ---------- | ------------------ |
+| `v3.6.25+` | `v0.1.0+`          |
+
 ## Installation
 
 Install the package in the plugin `/web` directory using the following command:
@@ -59,12 +65,6 @@ The exported standard [React Hooks](https://reactjs.org/docs/hooks-custom.html#g
 
 Get current team information.
 
-#### Requirements
-
-| **ONES**   | **@ones-op/store** |
-| ---------- | ------------------ |
-| `v3.6.25+` | `v0.1.0+`          |
-
 #### Returns
 
 | Description              | Type           |
@@ -83,12 +83,6 @@ interface TeamInfoType {
 ### useOrganizationInfo {#useOrganizationInfo}
 
 Get the current organization information.
-
-#### Requirements
-
-| **ONES**   | **@ones-op/store** |
-| ---------- | ------------------ |
-| `v3.6.25+` | `v0.1.0+`          |
 
 #### Returns
 
@@ -109,12 +103,6 @@ interface OrganizationInfoType {
 
 Get current product information.
 
-#### Requirements
-
-| **ONES**   | **@ones-op/store** |
-| ---------- | ------------------ |
-| `v3.6.25+` | `v0.1.0+`          |
-
 #### Returns
 
 | Description                 | Type              |
@@ -134,11 +122,8 @@ interface ProductInfoType {
 
 Get current dashboard information.
 
-#### Requirements
-
-| **ONES**   | **@ones-op/store** |
-| ---------- | ------------------ |
-| `v3.6.25+` | `v0.3.0+`          |
+- Added in: `v0.3.0+`
+- ONES Requirement: `v3.10.26+`
 
 #### Returns
 
@@ -159,11 +144,8 @@ interface DashboardInfoType {
 
 Get information about the currently accessed filter view.
 
-#### Requirements
-
-| **ONES**    | **@ones-op/store** |
-| ----------- | ------------------ |
-| `v3.10.26+` | `v0.3.0+`          |
+- Added in: `v0.3.0+`
+- ONES Requirement: `v3.10.26+`
 
 #### Returns
 
@@ -184,11 +166,8 @@ interface FilterInfoType {
 
 Get current pipeline information.
 
-#### Requirements
-
-| **ONES**    | **@ones-op/store** |
-| ----------- | ------------------ |
-| `v3.10.26+` | `v0.3.0+`          |
+- Added in: `v0.3.0+`
+- ONES Requirement: `v3.10.26+`
 
 #### Returns
 
@@ -209,11 +188,8 @@ interface PipelineInfoType {
 
 Get current plugin information.
 
-#### Requirements
-
-| **ONES**    | **@ones-op/store** |
-| ----------- | ------------------ |
-| `v3.10.26+` | `v0.3.0+`          |
+- Added in: `v0.3.0+`
+- ONES Requirement: `v3.10.26+`
 
 #### Returns
 
@@ -243,11 +219,8 @@ interface PluginInfoType {
 
 Get the current program information.
 
-#### Requirements
-
-| **ONES**    | **@ones-op/store** |
-| ----------- | ------------------ |
-| `v3.10.26+` | `v0.3.0+`          |
+- Added in: `v0.3.0+`
+- ONES Requirement: `v3.10.26+`
 
 #### Returns
 
@@ -268,11 +241,8 @@ interface ProgramInfoType {
 
 Get current project information.
 
-#### Requirements
-
-| **ONES**    | **@ones-op/store** |
-| ----------- | ------------------ |
-| `v3.10.26+` | `v0.3.0+`          |
+- Added in: `v0.3.0+`
+- ONES Requirement: `v3.10.26+`
 
 #### Returns
 
@@ -293,11 +263,8 @@ interface ProjectInfoType {
 
 Get the information of the selected project role in the current project member component.
 
-#### Requirements
-
-| **ONES**    | **@ones-op/store** |
-| ----------- | ------------------ |
-| `v3.10.26+` | `v0.3.0+`          |
+- Added in: `v0.3.0+`
+- ONES Requirement: `v3.10.26+`
 
 #### Returns
 
@@ -318,11 +285,8 @@ interface ProjectRoleInfoType {
 
 Get the information of the currently access testcase library.
 
-#### Requirements
-
-| **ONES**    | **@ones-op/store** |
-| ----------- | ------------------ |
-| `v3.10.26+` | `v0.3.0+`          |
+- Added in: `v0.3.0+`
+- ONES Requirement: `v3.10.26+`
 
 #### Returns
 
@@ -343,11 +307,8 @@ interface TestCaseLibraryInfoType {
 
 Get the information of the currently access testcase library list.
 
-#### Requirements
-
-| **ONES**    | **@ones-op/store** |
-| ----------- | ------------------ |
-| `v3.10.26+` | `v0.3.0+`          |
+- Added in: `v0.3.0+`
+- ONES Requirement: `v3.10.26+`
 
 #### Returns
 
@@ -369,11 +330,8 @@ interface TestCaseListInfoType {
 
 Get the current test plan information.
 
-#### Requirements
-
-| **ONES**    | **@ones-op/store** |
-| ----------- | ------------------ |
-| `v3.10.26+` | `v0.3.0+`          |
+- Added in: `v0.3.0+`
+- ONES Requirement: `v3.10.26+`
 
 #### Returns
 
@@ -394,11 +352,8 @@ interface TestPlanInfoType {
 
 Get the current user information.
 
-#### Requirements
-
-| **ONES**    | **@ones-op/store** |
-| ----------- | ------------------ |
-| `v3.10.26+` | `v0.3.0+`          |
+- Added in: `v0.3.0+`
+- ONES Requirement: `v3.10.26+`
 
 #### Returns
 
@@ -419,11 +374,8 @@ interface UserInfoType {
 
 By calling this hook method, some action in the system can be intercepted. For details about usage and configuration, see [Trigger Slot](../../../abilities/slot/global/trigger/index.md)。
 
-#### Requirements
-
-| **ONES**    | **@ones-op/store** |
-| ----------- | ------------------ |
-| `v3.10.26+` | `v0.3.0+`          |
+- Added in: `v0.3.0+`
+- ONES Requirement: `v3.10.26+`
 
 #### Params
 
@@ -462,11 +414,8 @@ If you have a page prompt, you should call the `next` or `cancel` method after t
 
 Get the information of the current task in details of the progress manager task.
 
-#### Requirements
-
-| **ONES**   | **@ones-op/store** |
-| ---------- | ------------------ |
-| `v3.11.0+` | `v0.3.1+`          |
+- Added in: `v0.3.1+`
+- ONES Requirement: `v3.11.0+`
 
 #### Returns
 
@@ -506,11 +455,8 @@ interface ProgressJobInfoStateType {
 
 Get the data of the custom macro in the wiki editor.
 
-#### Requirements
-
-| **ONES**    | **@ones-op/store** |
-| ----------- | ------------------ |
-| `v3.11.30+` | `v0.4.0+`          |
+- Added in: `v0.4.0+`
+- ONES Requirement: `v3.11.30+`
 
 #### Returns
 
@@ -613,11 +559,8 @@ type ToolbarState<T> = BuiltInToolbarState<T> | CustomToolbarState<T>
 
 Get current task information.
 
-#### Requirements
-
-| **ONES**    | **@ones-op/store** |
-| ----------- | ------------------ |
-| `v3.11.40+` | `v0.5.0+`          |
+- Added in: `v0.5.0+`
+- ONES Requirement: `v3.11.40+`
 
 #### Returns
 
@@ -637,11 +580,8 @@ interface TaskInfoType {
 
 Get the code repository info that the current user selected.
 
-#### Requirements
-
-| **ONES** | **@ones-op/store** |
-| -------- | ------------------ |
-| v3.13.9+ | v0.6.0+            |
+- Added in: `v0.6.0+`
+- ONES Requirement: `v3.13.9+`
 
 #### Returns
 

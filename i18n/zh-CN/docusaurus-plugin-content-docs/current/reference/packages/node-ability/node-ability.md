@@ -75,11 +75,7 @@ export async function multiple_language() {
 
 下载插件存储空间 `workspace` 内的文件
 
-#### 要求
-
-| **ONES** |
-| :------- |
-| v3.11.0+ |
+- ONES 要求：`v3.11.0+`
 
 #### Params
 
@@ -112,11 +108,7 @@ export async function downloadUrl() {
 
 上传文件至插件存储空间 `workspace`
 
-#### 要求
-
-| **ONES**  |
-| :-------- |
-| v3.11.40+ |
+- ONES 要求：`v3.11.40+`
 
 #### Params
 
@@ -212,11 +204,8 @@ const response = await getAbilityConfig()
 
 新增代码仓
 
-#### 要求
-
-| **ONES** | **@ones-op/node-ability** |
-| :------- | :------------------------ |
-| v3.13.9+ | v0.4.0+                   |
+- 可用：`v0.4.0+`
+- ONES 要求：`v3.13.9+`
 
 #### Params
 
@@ -275,11 +264,8 @@ const batchResponse = await addRepos(toolUUID, list);
 
 查询已关联的单个代码仓。
 
-#### 要求
-
-| **ONES** | **@ones-op/node-ability** |
-| :------- | :------------------------ |
-| v3.13.9+ | v0.4.0+                   |
+- 可用：`v0.4.0+`
+- ONES 要求：`v3.13.9+`
 
 #### Params
 
@@ -320,11 +306,8 @@ const repoInfo = await queryRepo(toolUUID, uri, namespace, name)
 
 查询已关联的所有代码仓
 
-#### 要求
-
-| **ONES** | **@ones-op/node-ability** |
-| :------- | :------------------------ |
-| v3.13.9+ | v0.4.0+                   |
+- 可用：`v0.4.0+`
+- ONES 要求：`v3.13.9+`
 
 #### Params
 
@@ -361,11 +344,8 @@ const repoInfos = await queryRepos(toolUUID)
 
 新增代码仓提交 commit
 
-#### 要求
-
-| **ONES** | **@ones-op/node-ability** |
-| :------- | :------------------------ |
-| v3.13.9+ | v0.4.0+                   |
+- 可用：`v0.4.0+`
+- ONES 要求：`v3.13.9+`
 
 #### Params
 
@@ -407,11 +387,8 @@ await addRepoCommits(toolUUID, repoUUID, list)
 
 新增代码仓合并请求 pull request（支持新增和更新）
 
-#### 要求
-
-| **ONES** | **@ones-op/node-ability** |
-| :------- | :------------------------ |
-| v3.13.9+ | v0.4.0+                   |
+- 可用：`v0.4.0+`
+- ONES 要求：`v3.13.9+`
 
 #### Params
 

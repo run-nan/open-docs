@@ -75,11 +75,7 @@ export async function multiple_language() {
 
 Download the file in the plugin storage space `workspace`
 
-#### Requirements
-
-| **ONES** |
-| :------- |
-| v3.11.0+ |
+- ONES Requirement: `v3.11.0+`
 
 #### Params
 
@@ -112,11 +108,7 @@ export async function downloadUrl() {
 
 Upload file to plugin storage space `workspace`
 
-#### Requirements
-
-| **ONES**  |
-| :-------- |
-| v3.11.40+ |
+- ONES Requirement: `v3.11.40+`
 
 #### Params
 
@@ -185,11 +177,8 @@ const response = await getAbilityConfig()
 
 Add linked repositories
 
-#### Requirements
-
-| **ONES** | **@ones-op/node-ability** |
-| :------- | :------------------------ |
-| v3.13.9+ | v0.4.0+                   |
+- Added in: `v0.4.0+`
+- ONES Requirement: `v3.13.9+`
 
 #### Params
 
@@ -246,11 +235,8 @@ const batchResponse = await addRepos(toolUUID, list);
 
 query linked single code repository
 
-#### Requirements
-
-| **ONES** | **@ones-op/node-ability** |
-| :------- | :------------------------ |
-| v3.13.9+ | v0.4.0+                   |
+- Added in: `v0.4.0+`
+- ONES Requirement: `v3.13.9+`
 
 #### Params
 
@@ -293,11 +279,8 @@ const repoInfo = await queryRepo(toolUUID, uri, namespace, name)
 
 query all linked code repositories
 
-#### Requirements
-
-| **ONES** | **@ones-op/node-ability** |
-| :------- | :------------------------ |
-| v3.13.9+ | v0.4.0+                   |
+- Added in: `v0.4.0+`
+- ONES Requirement: `v3.13.9+`
 
 #### Params
 
@@ -334,11 +317,8 @@ const repoInfos = await queryRepos(toolUUID)
 
 add repo commits
 
-#### Requirements
-
-| **ONES** | **@ones-op/node-ability** |
-| :------- | :------------------------ |
-| v3.13.9+ | v0.4.0+                   |
+- Added in: `v0.4.0+`
+- ONES Requirement: `v3.13.9+`
 
 #### Params
 
@@ -380,11 +360,8 @@ await addRepoCommits(toolUUID, repoUUID, list)
 
 add single repo pull request (support for add and update)
 
-#### Requirements
-
-| **ONES** | **@ones-op/node-ability** |
-| :------- | :------------------------ |
-| v3.13.9+ | v0.4.0+                   |
+- Added in: `v0.4.0+`
+- ONES Requirement: `v3.13.9+`
 
 #### Params
 
