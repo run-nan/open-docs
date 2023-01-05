@@ -10,6 +10,10 @@ This section will introduce the runtime environment of the plugin in the ONES sy
 
 ONES Open Platform Node.js HOST provides a sandbox environment for plugin backends based on [VM2](https://github.com/patriksimek/vm2), where plugin lifecycle methods and any ability methods are called up and executed by the HOST after receiving messages from the Open Platform.
 
+:::caution
+We **strongly discourage you from using in-memory operations** (global variables, etc.). The Open Platform provides a backend plugin system based on method-level calls (class [FaaS](https://en.wikipedia.org/wiki/Function_as_a_service) mode), and the Open Platform internal scheduling may perform restarts and other operations on the plugin, so memory operations are very unreliable.
+:::
+
 Node.js Host provides a relatively loose sandbox environment, and does not restrict the use of Node.js native modules much, but supports plugins in full with `builtin: ['*']`.
 
 :::caution
