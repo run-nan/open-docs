@@ -52,7 +52,7 @@ const user = await Plugin.getPluginUser(teamUUID)
   "app_uuid": "",
   "instance_uuid": "3fcca29f",
   "name": "pluginTest",
-  "email": "3JjYLsNk_3fcca29f@ones.ai"
+  "email": "3JjYLsNk_3fcca29f@ones.com"
 }
 ```
 

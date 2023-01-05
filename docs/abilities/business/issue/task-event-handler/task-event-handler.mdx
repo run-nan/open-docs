@@ -67,28 +67,28 @@ Use `npx op add ability` to add `task-event-handler` ability. After adding, the 
 Developers only need to pay attention to two configurations of **issue type** and **issue field**. Multiple configurations of **issue type** and **issue field** are supported. Between multiple configurations Delimited by **","** .
 :::
 
-Example configuration: Indicates **issue type** that focus on **requirement**, **defect** and **task**, **issue field** that focus on **deadline** and **assign** change event.
+Example configuration: Indicates **issue type** that focus on **requirement** and **defect** , **issue field** that focus on **Due date** and **assign** change event.
 
 ```yaml title="config/plugin.yaml"
 abilities:
-  - id: de265bd9-9otf
-    name: 工作项处理器
-    abilityType: TaskEventHandler
+  - id: _ZcH89U9
+    name: TaskEventHandler
     version: 1.0.0
+    abilityType: TaskEventHandler
     function:
-      taskActionDoneFunc: taskActionDone
       taskPreActionFunc: taskPreAction
+      taskActionDoneFunc: taskActionDone
     config:
-      - fieldType: Input
-        key: issueTypeScope
+      - key: issueTypeScope
+        value: 'Requirement,Bug'
+        fieldType: Input
+        label: IssueType
         show: true
-        label: '工作项类型'
-        value: '需求,缺陷,任务'
-      - fieldType: Input
-        key: field
+      - key: field
+        value: 'Assignee,Due date,'
+        fieldType: Input
+        label: IssueField
         show: true
-        label: '工作项属性'
-        value: '截止日期,负责人'
 ```
 
 ### Step 2: Add pre-processing
@@ -181,7 +181,7 @@ type taskPreResponse = {
     Logger.info('action', action)
     // Add field modification
     const aField = {
-      field_name: '标题',
+      field_name: 'Title',
       value: 'test title',
     }
     events[0].task_fields.push(aField)
@@ -239,7 +239,7 @@ The `taskActionDone` function is automatically generated in the `backend/src/tas
   }
   ```
 
-### **NOTICE**
+### NOTICE
 
 1. When `TaskEvent.action` is `transit`, `publish_version`, the plugin is not allowed to modify the state.
 2. The processing logic of `taskPreAction` is earlier than the required verification of the step field. If the plugin changes the value of the required item of the step field to an empty value, an error will be reported.

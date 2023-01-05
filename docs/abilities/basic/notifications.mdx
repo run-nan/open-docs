@@ -38,7 +38,7 @@ npm i @ones-op/node-ability
 
 Use the [Notify](../../reference/packages/node-ability/node-ability.md#Notify) method to send a notification to the user.
 
-Example: use the [ONES API registration] the ability registration API, and pass in the user `uuid` when calling the interface, and send a test email to the specified user.
+Example: use the [ONES API registration](../business/ONES-API/ONES-API-registration) the ability registration API, and pass in the user `uuid` when calling the interface, and send a test email to the specified user.
 
 ```typescript
 import { Notify, NotifyWay } from '@ones-op/node-ability'
@@ -59,7 +59,7 @@ export async function sendEmail(request: PluginRequest): Promise<PluginResponse>
     MessageBody: [
       {
         Body: 'Email sending test',
-        Url: 'https://ones.cn/',
+        Url: 'https://ones.com/',
       },
     ],
     Ext: 'ext string',
