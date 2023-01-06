@@ -67,10 +67,10 @@ Now starting dev server and node-host...
 <i> [webpack-dev-server] On Your Network (IPv4): http://10.15.3.38:3000/
 <i> [webpack-dev-server] On Your Network (IPv6): http://[fe80::1]:3000/
 <i> [webpack-dev-server] Content not from webpack is served from '/Users/dev/ONES/open-platform/public' directory
-开始连接!
+Start the connection!
 {
   action: 'run',
-  email: 'idatest3@ones.ai',
+  email: 'idatest3@ones.com',
   password: 'BULWzBk6ixRM',
   reinstall: false,
   webIp: '10.15.3.38',
@@ -80,12 +80,12 @@ Now starting dev server and node-host...
   user_uuid: 'SFBs7BHh',
   webServiceUrl: '10.15.3.38:3000'
 }
-本地调试返回值: {"instance_uuid":"1d99926e"}
+Local debug return value: {"instance_uuid":"1d99926e"}
 [Plugin] Install
-插件 Install 钩子函数运行成功!
+The plugin Install hook function runs successfully!
 [Plugin] Enable
-插件 Enable 钩子函数运行成功!
-收到消息:  all done
+The plugin Enable hook function runs successfully!
+Receive a message:  all done
 ```
 
 #### Debug frontend
