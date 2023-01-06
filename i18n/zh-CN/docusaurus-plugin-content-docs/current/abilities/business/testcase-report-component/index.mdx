@@ -125,7 +125,7 @@ abilities:
 
 ### 自定义组件卡片内容
 
-在`scene` 为`render` 的模块中，通过`useTestReportComponentInfo` 获取组件配置，然后根据组件配置渲染对应的 UI 即可
+在`scene` 为`render` 的模块中，通过 [useTestReportComponentInfo](../../../reference/packages/store/#useTestReportComponentInfo) 获取组件配置，然后根据组件配置渲染对应的 UI 即可
 
 ```tsx
 import React from 'react'
@@ -145,7 +145,7 @@ export const CustomComponentCard = () => {
 
 ### 自定义组件导出内容
 
-在`scene` 为`render` 的模块中，通过`useTestReportComponentInfo` 获取保存导出内容的方法，然后根据组件配置更新导出内容即可
+在`scene` 为`render` 的模块中，通过 [useTestReportComponentInfo](../../../reference/packages/store/#useTestReportComponentInfo) 获取保存导出内容的方法，然后根据组件配置更新导出内容即可
 
 ```tsx
 import React from 'react'
@@ -169,7 +169,7 @@ export const CustomComponentCard = () => {
 
 ### 自定义组件配置弹窗
 
-如果自定义组件需要支持配置，那么开发者需要添加`scene` 为`setting` 的模块，在该模块中，通过`useTestReportComponentInfo` 获取组件配置，更新组件配置的方法，以及监听弹窗提交事件的方法，然后渲染编辑配置的表单 UI 即可。
+如果自定义组件需要支持配置，那么开发者需要添加`scene` 为`setting` 的模块，在该模块中，通过 [useTestReportComponentInfo](../../../reference/packages/store/#useTestReportComponentInfo) 获取组件配置，更新组件配置的方法，以及监听弹窗提交事件的方法，然后渲染编辑配置的表单 UI 即可。
 
 ```tsx
 import React from 'react'

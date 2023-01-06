@@ -307,7 +307,7 @@ export async function Install() {
 
 ### Step 4: Add field value verification function
 
-- **添加配置**
+- **Add configuration**
 
   ```yaml title="config/plugin.yaml"
   apis:

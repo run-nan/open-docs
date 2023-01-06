@@ -113,7 +113,7 @@ export async function importFunc(request: PluginRequest): Promise<PluginResponse
     const user: ThirdUser = {
       resource_id: 'xxxx',
       name: 'hosea',
-      email: 'hexiang@ones.cn',
+      email: 'xiaoming@ones.com',
       phone: '18888888888',
       title: 'xxx',
       company: 'ONES',
@@ -140,18 +140,16 @@ The `notifyFunc` function will be automatically generated in `backend/src/third-
 
 - Imported successfully
 
-| Param      | Type | Description              |
-| :--------- | :--- | :----------------------- |
-| is_success | bool | Whether it is successful |
+  | Param      | Type | Description              |
+  | :--------- | :--- | :----------------------- |
+  | is_success | bool | Whether it is successful |
 
-- import faile
+- import failed
 
-  d
-
-| parameter    | Type   | Description               |
-| :----------- | :----- | :------------------------ |
-| process_name | string | Indicates the failed link |
-| error_msg    | string | error message             |
+  | parameter    | Type   | Description               |
+  | :----------- | :----- | :------------------------ |
+  | process_name | string | Indicates the failed link |
+  | error_msg    | string | error message             |
 
 **Example:**
 

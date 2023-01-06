@@ -38,7 +38,7 @@ npm i @ones-op/node-ability
 
 使用 [Notify](../../reference/packages/node-ability/node-ability.md#Notify) 方法向用户发送通知。
 
-示例：使用 ONES 接口注册能力注册接口，在调用接口是传入用户`uuid`，向指定的用户发送测试邮件。
+示例：使用 [ONES 接口注册](../business/ONES-API/ONES-API-registration)能力注册接口，在调用接口是传入用户`uuid`，向指定的用户发送测试邮件。
 
 ```typescript
 import { Notify, NotifyWay } from '@ones-op/node-ability'
@@ -59,7 +59,7 @@ export async function sendEmail(request: PluginRequest): Promise<PluginResponse>
     MessageBody: [
       {
         Body: 'Email sending test',
-        Url: 'https://ones.cn/',
+        Url: 'https://ones.com/',
       },
     ],
     Ext: 'ext string',

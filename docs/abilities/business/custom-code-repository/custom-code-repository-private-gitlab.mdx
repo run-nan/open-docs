@@ -37,7 +37,7 @@ service: ...
 apis: ...
 abilities:
   - id: CkrqExqC
-    name: 自定义代码仓库
+    name: CustomCodeRepository
     version: 1.0.0
     abilityType: CustomCodeRepository
     relateModule:
@@ -46,23 +46,23 @@ abilities:
       removeRepoFunc: removeRepo
     config:
       - key: repoToolName
-        label: 关联代码仓工具名称
-        value: 自定义关联代码仓工具
+        label: Associated repository tool name
+        value: GitLab 15.4
         fieldType: Input
         show: true
       - key: repoToolDesc
-        label: 关联代码仓工具描述
-        value: 自定义关联代码仓工具
+        label: Associated code repository tool description
+        value: GitLab 15.4
         fieldType: Input
         show: true
       - key: repoToolIcon
-        label: 关联代码仓工具图标
+        label: Link code repository tool icon
         value: logo.svg
         fieldType: Input
         show: false
 modules:
   - id: ones-settings-pipeline-default-repo-link-R5w-
-    title: 关联代码仓页面
+    title: Associate code repository page
     moduleType: ones:settings:pipeline:default:repo:link
     entry: modules/ones-settings-pipeline-default-repo-link-R5w-/index.html
 ```

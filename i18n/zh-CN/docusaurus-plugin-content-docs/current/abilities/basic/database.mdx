@@ -103,7 +103,7 @@ export async function Install() {
   import { Logger } from '@ones-op/node-logger'
 
   try {
-    await exec('insert', `INSERT INTO email_id_map VALUES ("plugin@ones.cn", "001");`)
+    await exec('insert', `INSERT INTO email_id_map VALUES ("plugin@ones.com", "001");`)
   } catch (error) {
     Logger.error('ERROR: ', error)
   }

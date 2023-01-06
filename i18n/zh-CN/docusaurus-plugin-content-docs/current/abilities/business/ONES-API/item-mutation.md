@@ -33,7 +33,7 @@ ONES 系统中很多数据都支持使用 Graphql 操作。我们可以将每一
 ```yaml title="/config/plugin.yaml"
 abilities:
   - id: Ksmnf_Mc
-    name: 事件劫持
+    name: Item mutation
     version: 1.0.0
     abilityType: item-mutation
     function:

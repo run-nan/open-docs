@@ -16,7 +16,7 @@ Sometimes we need to change the performance of certain behaviors in the ONES, ad
 
 - **Replace**: The plugin can "replace" an ONES API , allowing the plugin to completely customize an API of the ONES.
 - **Prefix interception**: It means that when a request enters ONES, it will be forwarded to the plugin before it is processed. After the plugin modifies the request, it will be sent back to ONES and continue to execute the original logic. Generally used to modify the parameters of the request, or to verify the request;
-- **Suffix interception**: It means that when the request is processed in ONES, it will send a notification to the plug-in. The plug-in can perform some suffix processing at this time, but cannot modify the response content.
+- **Suffix interception**: It means that when the request is processed in ONES, it will send a notification to the plugin. The plugin can perform some suffix processing at this time, but cannot modify the response content.
 
 **interception** and **replace** are relatively low-level operations, which may cause unknown risks to ONES function. Generally speaking, the use of ONES API interception ability is considered only if other abilities do not meet the requirements.
 

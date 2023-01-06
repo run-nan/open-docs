@@ -26,19 +26,19 @@ function App() {
   const { uuid } = useTaskInfo()
   const teamUUID = localStorage.getItem('teamUUID')
 
-  // 获取工作项信息
+  // get issue information
   const getTaskInfo = () => {
     return OPFetch(`/project/P8091/api/project/team/${teamUUID}/task/${uuid}/info`)
   }
 
-  // 推送到微信公众号
+  // push to WeChat official account
   const wxPublicAccountPush = (taskInfo) => {
     try {
-      // 调用微信推送接口
+      // call the WeChat push interface
       ...
-      toast.success('推送成功')
+      toast.success('push successfully')
     } catch (e) {
-      toast.error('推送失败')
+      toast.error('push failed')
     }
   }
 
@@ -53,7 +53,7 @@ function App() {
 
   useEffect(() => {
     initialDeal()
-    // 销毁当前插槽
+    // destroy the current slot
     setTimeout(() => {
       destroyCurrentModule()
     }, 0);

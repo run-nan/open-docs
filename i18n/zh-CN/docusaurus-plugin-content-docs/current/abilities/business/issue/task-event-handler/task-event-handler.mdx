@@ -67,7 +67,7 @@ import Image from '@theme/IdealImage'
 开发者只需要关注的**工作项类型**和**工作项属性**两个配置，支持配置多个**工作项类型**和**工作项属性**，多个配置之间以 **","** 分隔。
 :::
 
-示例配置: 表示关注**需求**、**缺陷**和**任务**的**工作项类型**，关注**截止日期**和**负责人**的**工作项属性**的更改事件。
+示例配置: 表示关注**需求**和**缺陷**的**工作项类型**，关注**截止日期**和**负责人**的**工作项属性**的更改事件。
 
 ```yaml title="config/plugin.yaml"
 abilities:
@@ -83,7 +83,7 @@ abilities:
         key: issueTypeScope
         show: true
         label: '工作项类型'
-        value: '需求,缺陷,任务'
+        value: '需求,缺陷'
       - fieldType: Input
         key: field
         show: true
