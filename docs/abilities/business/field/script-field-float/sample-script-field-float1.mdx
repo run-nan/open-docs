@@ -35,14 +35,14 @@ service: ...
 apis: ...
 modules: []
 abilities:
-  - name: 脚本属性数字
+  - name: scriptField
     version: 1.0.0
     abilityType: ScriptFieldFloat
     function:
       calcFieldValue: linkTime
     config:
       - key: FieldName
-        value: 关联工作项数
+        value: LinkNumber
         fieldType: Input
         show: false
     id: ...
@@ -86,7 +86,7 @@ export const linkTime = async (request: PluginRequest): Promise<PluginResponse> 
     for (let i = 0; i < linkData.length; i++) {
       returnValue.push({
         taskUUID: linkData[i]['uuid'].toString(),
-        value: linkData[i]['linkTypeIduuid0001In'].length * 100000, //具体返回的值，可以根据业务逻辑去统计
+        value: linkData[i]['linkTypeIduuid0001In'].length * 100000, //The specific returned value can be counted according to the business logic.
       })
     }
   }

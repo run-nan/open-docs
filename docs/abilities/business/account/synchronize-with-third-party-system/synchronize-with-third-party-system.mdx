@@ -77,40 +77,40 @@ The OP tool add the following to the plugin
         version: 1.0.0
         abilityType: account
         function:
-        sendMessage: SendMessage # 发送消息
-        createLoginUrl: CreateLoginUrl # 创建重定向登录URL
-        doExchangeUser: DoExchangeUser # 确认登录用户信息
-        doPullData: DoPullData # 同步第三方系统用户数据
+         sendMessage: SendMessage
+         createLoginUrl: CreateLoginUrl # create redirect login URL
+         doExchangeUser: DoExchangeUser # obtain login user information
+         doPullData: DoPullData # synchronize third-party system user data
         config:
-        # 是否实现了登录功能
+        # whether the login function is realized
         - key: canLogin
             value: true
             show: false
-        # 是否实现了同步功能
+        # whether the synchronization function is realized
         - key: canSync
             value: true
             show: false
-        # 是否实现了发送消息的功能
+        # whether the function of sending messages is realized
         - key: canMessage
             value: true
             show: false
-        # 第三方登录的logo地址，写的是文件名，要求该文件放在前端资源根目录下，web/dist/
+        # the logo address of the third party login, which is the name of the file, which is required to be placed in the root directory of the front-end resource, web/dist/
         - key: logo
             value: logo.svg
             show: false
-        # 第三方登录名称文案
+        # third party login name
         - key: title
             value: title
             show: false
-        # 第三方描述文案
+        # third party description
         - key: desc
             value: desc
             show: false
-        # 第三方描述文案
+        # third party description
         - key: detailTip
             value: detailTip
             show: false
-        # 第三方配置提醒文案
+        # third party configuration reminder
         - key: configTip
             value: configTip
             show: false
@@ -127,9 +127,9 @@ To implement the third-party login ONES feature, you only need to implement the 
 `CreateLoginUrl` needs to return the url called when the third-party system logs in. The request of this method contains the URL redirected to ONES, which can be stitched into the respUrl to be returned by plugin developers.
 
 ```typescript
-//在url中填入第三方系统登录时调用的url
+//Fill in the url with the url that is called when the third party system logs in
 export async function CreateLoginUrl(request: PluginRequest): Promise<PluginResponse> {
-  //调用完第三方登录之后，会把返回的信息重定向到该地址，有时需要使用该地址拼接respUrl
+  //After calling the third party login, the returned information will be redirected to that address, and sometimes it is necessary to use this address to concatenate the respUrl
   //@ts-ignore
   const redirectUrl: string = request?.body.redirect_url
   const response: CreateLoginUrlResponse = {
@@ -147,10 +147,10 @@ export async function DoExchangeUser(request: PluginRequest): Promise<PluginResp
   if (typeof request?.body == 'object' && !Array.isArray(request?.body)) {
     const authInfo = request.body.auth_info
     const obj = JSON.parse(authInfo)
-    //获取登录后的code，通过该code去第三方系统获取用户信息
+    //Get the code after login, and use the code to go to the third party system to obtain user information.
     code1 = obj.code
   }
-  //返回信息resp的格式
+  //The format of the returned information resp
   const resp: DoExchangeUserResponse = {
     third_party_id: '',
     name: '',
@@ -159,7 +159,7 @@ export async function DoExchangeUser(request: PluginRequest): Promise<PluginResp
     email: '',
     phone: '',
   }
-  //通过调用第三方API，获取用户信息并组合数据到resp中
+  //Get user information and combine data into resp by calling third-party API
   return DoExchangeUserRespData(200, '', '', '', '', resp)
 }
 ```
@@ -177,7 +177,7 @@ export async function DoPullData(request: PluginRequest): Promise<PluginResponse
     users: [],
   }
 
-  // 假设只有一个根部门，部门信息必须有一个根部门，根部门id为 "-1"
+  // Suppose there is only one root department, the department information must have a root department, and the root department id is "- 1"
   const rootDepartment = {
     third_party_id: '-1',
     name: 'ONES',
@@ -188,13 +188,12 @@ export async function DoPullData(request: PluginRequest): Promise<PluginResponse
   const departments: DepartmentInfo[] = []
   departments[0] = rootDepartment
 
-  // 所有用户
   const userInfos: UserInfo[] = []
   userInfos.push({
     third_party_id: '1',
     name: 'test',
     email: 'test@qq.com',
-    title: '职位',
+    title: 'Position',
     department_ids: ['-1'],
     company: 'ONES',
   })
@@ -211,11 +210,10 @@ export async function DoPullData(request: PluginRequest): Promise<PluginResponse
 To implement message push to a third-party system, plugin developers need to implement their own sending logic in the `SendMessage` method. Every time ONES needs to send a message to a third-party system, the `SendMessage` method will be called, and the exact content of the message will be placed in the request of the `SendMessage` method.
 
 ```typescript
-// 发送消息
 export async function SendMessage(request: PluginRequest): Promise<PluginResponse> {
   Logger.info('SendMessage Request:', request?.body)
-  Logger.info('[Plugin] SendMessage ======= 请求成功')
-  //实现发送到第三方系统的逻辑
+  Logger.info('[Plugin] SendMessage ======= success')
+  //Implement the logic of sending to a third-party system
   return sendMessageRespData(200, '', '', '', '')
 }
 ```

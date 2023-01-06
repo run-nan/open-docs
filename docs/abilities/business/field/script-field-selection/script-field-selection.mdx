@@ -84,7 +84,7 @@ export async function Install() {
   Logger.info('[Plugin] Install')
   //Call the script field add method to create a script field of type "radio menu"
   const FieldsAddRes = await Field.FieldsAdd({
-    Name: '脚本属性-单选',
+    Name: 'project_field',
     Type: 1001, //Multiple selection code is 1002
     Renderer: 1,
     FilterOption: 0,
@@ -121,19 +121,19 @@ import { Logger } from '@ones-op/node-logger'
 
 export async function Install() {
   Logger.info('[Plugin] Install')
-  //添加项目属性
+  //Add project field
   const ItemsAddProjectRes = await Field.ItemsAdd({
-    FieldType: FieldTypeEnum.SingleLabel, //表示添加单选类型脚本属性
+    FieldType: FieldTypeEnum.SingleLabel, //Add single selection Type script field
     Name: 'project_field',
     ItemType: 'field',
-    Pool: PoolEnum.Project, //实体类型为项目
+    Pool: PoolEnum.Project, //Entity type is project
     ContextType: 'team',
     required: false,
   })
   if (ItemsAddProjectRes.Error) {
     throw new Error('Failed to create field')
   }
-  const { UUID: fieldUUID } = ItemsAddProjectRes //获取属性`uuid`
+  const { UUID: fieldUUID } = ItemsAddProjectRes //get field uuid
   return {
     body: {
       message: 'Field Add UUID:',
@@ -162,18 +162,18 @@ ONES loads the option values of script fileds through the plugin's `GetOptions` 
 
 ```typescript
 interface OptionType {
-  uuid: string //属性值`UUID`
-  value: string //属性值
+  uuid: string //field `UUID`
+  value: string //field value
 }
 
 export async function GetOptions(request: PluginRequest): Promise<PluginResponse> {
   const body = request?.body as any
-  const options: OptionType[] = [] //返回的选项数据
+  const options: OptionType[] = [] //Returned option data
 
   for (let i = 0; i < 3; i++) {
     options.push({
-      uuid: 'optionsUUID' + i.toString(), //选项值的`uuid`，开发者自定义
-      value: '选项值' + i.toString(), //选项值
+      uuid: 'optionsUUID' + i.toString(), //The `uuid` of the option value, customized by the developer
+      value: 'options' + i.toString(), //The value of option
     })
   }
 

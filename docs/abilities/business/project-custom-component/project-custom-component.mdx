@@ -42,7 +42,7 @@ Use ability **[Plugin multilingual support](../../../guide/abilities/multilingua
 
 :::caution
 
-This ability must be used in conjunction with the front-end slot[ones:project:component:new](../../slot/module/project/component/index.mdx)
+This ability must be used in conjunction with the front-end slot **[ones:project:component:new](../../slot/module/project/component/index.mdx)**
 
 :::
 
@@ -77,31 +77,31 @@ service:
 modules: []
 abilities:
   - id: ...
-    name: project自定义组件
+    name: project_custom_component_test
     version: 1.0.0
     abilityType: ProjectCustomComponent
     function:
-      #插件数据复制方法名称
+      #Name of the plugin data copy method
       copyPluginData: copyTest
     relateModule:
-      #自定义组件入口
+      #Custom component entry
       componentModuleEnter: ''
     config:
       - key: component_name
-        label: 自定义组件名称
-        value: 自定义组件
+        label: project custom component
+        value: project custom component
         fieldType: Input
         show: true
       - key: component_desc
-        label: 自定义组件描述
+        label: custom component description
         value: ''
         fieldType: TextArea
         show: true
         props:
-          placeholder: 自定义组件描述，允许为空
+          placeholder: custom component description,allow to leave blank
       - key: is_support_copy
-        label: 是否支持插件数据复制
-        # 如果值设置为true,则需要完成copytest方法
+        label: is_support_data_copy
+        #If the value is set to true,need to complete the copytest method
         value: true
         fieldType: Switch
         show: false
@@ -113,7 +113,7 @@ abilities:
 import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 import { Logger } from '@ones-op/node-logger'
 
-// 插件开发者如果要实现自定义组件的数据复制，需要在该方法内完成。
+// Wants to implement the data copy of the custom component, it needs to be done within this method.
 export const copyTest = async (request: PluginRequest): Promise<PluginResponse> => {
   Logger.info('copyTest  enter')
   const body = request?.body as any
@@ -178,7 +178,7 @@ Fill the corresponding component `modules.id` into `abilities.relateModule.compo
 ```yaml
 abilities:
   - id: wrIFpkyb
-    name: project自定义组件
+    name: project_custom_component_test
     version: 1.0.0
     abilityType: ProjectCustomComponent
     function:

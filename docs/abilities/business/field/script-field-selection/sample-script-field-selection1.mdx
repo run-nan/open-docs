@@ -37,8 +37,6 @@ apis:
 2. Write the `plugin.sql` file and create `script_field` table to record the corresponding relationship between the `name` and `fieldUUID` of script fields.
 
 ```sql title="workspace/plugin.sql"
--- SQL 描述文件, 一般用来初始化插件数据库， 可以配合 ImportSql() 使用
--- 注意⚠️：表名需要用 {{}} 括起来
 CREATE TABLE IF NOT EXISTS `{{script_field}}`(
     `id` INT(11) AUTO_INCREMENT,
     `fieldUUID` varchar(128) CHARACTER SET latin1 NOT NULL COMMENT 'uuid',
@@ -54,18 +52,17 @@ export async function Install() {
   Logger.info('[Plugin] Install')
   await importSQL('plugin.sql')
   const fieldUUIDs: any[] = []
-  //添加单选类型的脚本属性至工作项
+  //Add a script field of a radio type to a issue
   const issueScriptField = ['Country', 'Province', 'City']
   for (const fieldName of issueScriptField) {
     const FieldsAddProjectRes = await Field.FieldsAdd({
       Name: fieldName,
-      Type: 1001, //表示添加单选类型脚本属性
+      Type: 1001, //Add single selection Type script field
     })
     if (FieldsAddProjectRes.Error) {
-      //如果添加失败，抛出异常
       throw new Error('Failed to create field')
     }
-    //添加成功返回属性的UUID
+    //Add a UUID with a successfully returned field
     const { UUID: fieldUUID } = FieldsAddProjectRes
     fieldUUIDs.push(fieldUUID)
     Logger.info('fieldUUID:', fieldUUID)
@@ -103,13 +100,13 @@ const Cities: string[] = [
 ]
 
 interface OptionType {
-  uuid: string //属性值`UUID`
-  value: string //属性值
+  uuid: string //field `UUID`
+  value: string //field value
 }
 
 export async function GetOptions(request: PluginRequest): Promise<PluginResponse> {
   const body = request?.body as any
-  const options: OptionType[] = [] //返回的选项数据
+  const options: OptionType[] = [] //Returned option data
   const field = await getFieldMap()
   console.log(body)
   switch (field.get(body.field_uuid)) {

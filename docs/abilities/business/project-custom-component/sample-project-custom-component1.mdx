@@ -28,14 +28,12 @@ Use the `Custom project components` ability to implement custom components of ta
 
 #### 1. Add `Custom project components` ability,add module `ones:project:component:new`, take the relate field `modules.id` into `abilities.relateModule.componentModuleEnter`
 
-`config/plugin.yaml`
-
-```yaml
+```yaml title="config/plugin.yaml"
 service:
   app_id: ...
-  name: 项目内迭代工时统计
+  name: custom component
   version: 1.0.0
-  description: 展示项目内迭代的工时情况
+  description: ''
   mode: org
   logo: null
   language: nodejs
@@ -52,14 +50,24 @@ apis:
       - POST
     url: /hello
     function: hello
+  - type: external
+    methods:
+      - POST
+    url: /team/:teamUUID/customComponentTest
+    function: customComponentTest
+  - type: external
+    methods:
+      - POST
+    url: /team/:teamUUID/getComponentUsedProjectsTest
+    function: getComponentUsedProjectsTest
 modules:
   - id: ones-project-component-new-aQbS
-    title: 迭代统计
+    title: test
     moduleType: ones:project:component:new
     entry: modules/ones-project-component-new-aQbS/index.html
 abilities:
   - id: tRUFWEsd
-    name: 自定义组件
+    name: project_custom_component
     abilityType: ProjectCustomComponent
     function:
       copyPluginData: copyTest
@@ -68,21 +76,22 @@ abilities:
       componentModuleEnter: 'ones-project-component-new-aQbS'
     config:
       - key: component_name
-        label: 自定义组件名称
-        value: 迭代统计
+        label: project custom component
+        value: Iterative statistics
         fieldType: Input
         show: false
       - key: component_desc
-        label: 自定义组件描述
-        value: 展示迭代的工时消耗情况
+        label: custom component description
+        value: Show the man-hour consumption of the iteration
         fieldType: TextArea
         show: false
         props:
-          placeholder: 可配置自定义组件描述，允许为空
+          placeholder: custom component description,allow to leave blank
       - key: is_support_copy
-        label: 是否支持插件数据复制
+        label: is_support_data_copy
         value: false
         show: false
+        fieldType: Switch
 ```
 
 #### 2. Complete the function of custom components
@@ -91,9 +100,7 @@ Complete the function development of the data table under the plugin directory
 
 ##### index.tsx
 
-`web/src/modules/ones-project-component-new-aQbS/index.tsx`
-
-```typescript
+```typescript title="web/src/modules/ones-project-component-new-aQbS/index.tsx"
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { ConfigProvider } from '@ones-design/core'
@@ -110,9 +117,7 @@ ReactDOM.render(
 
 ##### table style
 
-`web/src/modules/ones-project-component-new-aQbS/index.css`
-
-```typescript
+```typescript title="web/src/modules/ones-project-component-new-aQbS/index.css"
 body {
   background: transparent;
   font-family: PingFang SC, '微软雅黑', Arial;
@@ -180,9 +185,7 @@ body {
 
 ##### Data Construction of Table
 
-`web/src/modules/ones-project-component-new-aQbS/components`
-
-```typescript
+```typescript title="web/src/modules/ones-project-component-new-aQbS/components/sprint-statistics.tsx"
 import { Alert } from '@ones-design/core'
 import VirtualTable from '@ones-design/table'
 import React from 'react'
@@ -215,34 +218,34 @@ export const SprintStatistics = () => {
               },
             },
             lock: true,
-            name: '迭代',
+            name: 'sprint',
             width: 250,
           },
           {
             code: 'startDate',
-            name: '计划开始',
+            name: 'startDate',
             width: 100,
           },
           {
             code: 'endDate',
-            name: '计划结束',
+            name: 'endDate',
             width: 100,
           },
           {
             code: 'status',
-            name: '状态',
+            name: 'status',
           },
           {
             code: 'progress',
-            name: '进度',
+            name: 'progress',
           },
           {
             code: 'member',
-            name: '人员安排',
+            name: 'member',
           },
           {
             code: 'workHours',
-            name: '工时统计(前端/后端/测试)',
+            name: 'workHours(front-end/back-end/test)',
             width: 200,
           },
         ]}
@@ -250,55 +253,55 @@ export const SprintStatistics = () => {
           {
             startDate: '2022-12-1',
             endDate: '2022-12-12',
-            status: '进行中',
-            sprint: '【基础能力】插件日志开发开发',
+            status: 'Implementing',
+            sprint: '【Basic】Logger development',
             progress: '50%',
-            member: '何文赋，林智敏',
+            member: 'Miles，George',
             workHours: '8h/20h/16h',
           },
           {
             startDate: '2022-11-15',
             endDate: '2022-12-30',
-            status: '已完成',
-            sprint: '【业务能力】插件承载脚本属性 - 浮点数开发',
+            status: 'Implemented',
+            sprint: '【Business】scirpt field float-number development',
             progress: '80%',
-            member: '林智敏，谢子默',
+            member: 'George，Shawn',
             workHours: '65h/90h/24h',
           },
           {
             startDate: '2022-10-17',
             endDate: '2022-11-1',
-            status: '进行中',
-            sprint: '【基础能力】插件文件操作开发',
+            status: 'Implementing',
+            sprint: '【Basic】plugin file operation development',
             progress: '90%',
-            member: '何文赋，邵远航',
+            member: 'Miles，Stan',
             workHours: '-/56h/8h',
           },
           {
             startDate: '2022-10-1',
             endDate: '2022-12-12',
-            status: '进行中',
-            sprint: '【业务能力】托管独立服务开发',
+            status: 'Implementing',
+            sprint: '【Business】independent hosting development',
             progress: '50%',
-            member: '谢子默，邵远航',
+            member: 'Shawn，Stan',
             workHours: '36h/180h/40h',
           },
           {
             startDate: '2022-12-15',
             endDate: '2022-12-21',
-            status: '进行中',
-            sprint: '【基础能力】插件文件操作拓展',
+            status: 'Implementing',
+            sprint: '【Basic】plugin file operation expansion',
             progress: '50%',
-            member: '郑烨磊，陈玮',
+            member: 'Kane，Eva',
             workHours: '24h/32h/8h',
           },
           {
             startDate: '2022-12-30',
             endDate: '2023-2-27',
-            status: '进行中',
-            sprint: '【业务能力】插件承载脚本属性 - 单选/多选开发',
+            status: 'Implementing',
+            sprint: '【Business】script filed - selection development',
             progress: '50%',
-            member: '张琪睿，王翰海',
+            member: 'Tony，Paul',
             workHours: '160h/192h/32h',
           },
         ]}
@@ -310,31 +313,9 @@ export const SprintStatistics = () => {
 
 ##### the design of table header
 
-`web/src/common/constants/constants.ts`
-
-```typescript
-export const SPRINT_STATISTICS_TITLE = '迭代进度统计'
-export const SPRINT_STATISTICS_ALERT = '统计项目下的全量迭代结果。'
-export const SPRINT_STATUS = '迭代状态'
-export const SPRINT_STATUS_SELECT_PLACEHOLDER = '支持筛选迭代状态'
-export const SPRINT_DONE_INTERVAL_PLACEHOLDER = '支持筛选完成前天数'
-export const SPRINT_STATUS_DONE = 'done'
-
-// value 值对应迭代中迭代状态的 category 值
-export const SPRINT_STATUS_OPTIONS = [
-  {
-    label: '未开始',
-    value: 'to_do',
-  },
-  {
-    label: '进行中',
-    value: 'in_progress',
-  },
-  {
-    label: '已完成',
-    value: 'done',
-  },
-]
+```typescript title="web/src/common/constants/constants.ts"
+export const SPRINT_STATISTICS_TITLE = 'Iterative progress statistics'
+export const SPRINT_STATISTICS_ALERT = 'Full iterative results under statistical projects.'
 ```
 
 #### 3. Install the plugin and enable it, and the custom component will be automatically added to the component libraries of all projects. You can use the custom component in the corresponding project.

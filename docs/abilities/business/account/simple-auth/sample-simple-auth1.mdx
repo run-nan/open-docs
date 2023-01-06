@@ -43,7 +43,7 @@ export async function SimpleAuthValidate(request: PluginRequest): Promise<Plugin
     return {
       body: {
         code: 400,
-        reason: '缺少参数 user_uuid',
+        reason: 'user_uuid miss',
       },
     }
   }
@@ -51,14 +51,14 @@ export async function SimpleAuthValidate(request: PluginRequest): Promise<Plugin
     return {
       body: {
         code: 400,
-        reason: '缺少参数 department',
+        reason: 'department miss',
       },
     }
   } else if (department != 'Altman') {
     return {
       body: {
         code: 401,
-        reason: '该部门不能进行简单登录',
+        reason: 'This department doesnt have the authority to login in',
       },
     }
   }
