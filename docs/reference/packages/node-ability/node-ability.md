@@ -803,6 +803,33 @@ export async function doneProcess(request: PluginRequest): Promise<PluginRespons
 
 ---
 
+### getUserTeamUUIDsByEmail
+
+Find the user's uuid and list of team uuids based on the user's mailbox.
+
+#### Params
+
+| Param | Description | Type   | Required | Default |
+| :---- | :---------- | :----- | :------- | :------ |
+| email | user email  | string | Y        | -       |
+
+#### Returns
+
+| Param      | Description                        | Type     |
+| :--------- | :--------------------------------- | :------- |
+| user_uuid  | user's `uuid`                      | string   |
+| team_uuids | list of `uuid`s of the user's team | string[] |
+
+#### Example
+
+```typescript
+import { getUserTeamUUIDsByEmail } from '@ones-op/node-ability'
+
+const resp = await getUserTeamUUIDsByEmail('marsdev@ones.com')
+```
+
+---
+
 ### getUserTeamUUIDsByIdNumber
 
 Find the user's `uuid` and the `uuid` list of the team they belong to based on the user's job number.
@@ -830,7 +857,7 @@ const resp = await getUserTeamUUIDsByIdNumber('123456')
 
 ---
 
-### getUserTeamUUIDsByEmail
+### getUserTeamUUIDsByThirdPartyIDAndThirdPartyType
 
 According to the user's third-party system id and third-party system type, find the user's `uuid` and the `uuid` list of the team he belongs to.
 

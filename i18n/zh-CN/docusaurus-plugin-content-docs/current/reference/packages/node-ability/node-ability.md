@@ -884,7 +884,7 @@ const resp = await getUserTeamUUIDsByIdNumber('123456')
 
 ---
 
-### getUserTeamUUIDsByEmail
+### getUserTeamUUIDsByThirdPartyIDAndThirdPartyType
 
 根据用户的第三方系统 id 以及第三方系统类型查找用户的 `uuid` 以及其所在的团队 `uuid` 列表。
 
