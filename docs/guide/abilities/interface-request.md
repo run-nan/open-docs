@@ -54,7 +54,7 @@ Injected the implementation of API into `index.ts`:
 // example function
 export async function hello(request: PluginRequest): Promise<PluginResponse> {
   const body = request.body || {}
-  Logger.info('[Plugin] hello ======= 请求成功')
+  Logger.info('[Plugin] hello ======= Request successful')
   return {
     body: {
       res: 'hello world',
@@ -145,7 +145,7 @@ export async function hello(request: PluginRequest): Promise<PluginResponse> {
 }
 ```
 
-You may have noticed that we brought a `root: true` when we requested it, and also told you that its default value is: **true**, is actually what we use to distinguish permissions. If you use an ordinary user to make a request, you will be required to bring two request headers, `Ones-User- Id` and `Ones-Auth- Token`. But currently, you can only obtain these two request headers in the following two ways.
+You may have noticed that we brought a `root: true` when we requested it, and also told you that its default value is: **true**, is actually what we use to distinguish permissions. If you use an ordinary user to make a request, you will be required to bring two request headers, `Ones-User-Id` and `Ones-Auth-Token`. But currently, you can only obtain these two request headers in the following two ways.
 
 - When making a frontend request, put `Ones-User-Id` and `Ones-Auth-Token` in the request header, and then obtain the request header from the request object.
 - Request ONES [Get login information](../../api/auth/auth.md#获取登录信息) API.

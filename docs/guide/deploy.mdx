@@ -55,8 +55,8 @@ There will be the following interactive questions and answers during the connect
 
 ```bash
 Branch name: master
-? Please enter the environment base URL: https://ones.cn
-? Username: test@ones.cn
+? Please enter the environment base URL: https://ones.com
+? Username: test@ones.com
 ? Password: [hidden]
   ✔ Converting CI deployment params
   ✔ Validating CI deployment params
@@ -83,8 +83,8 @@ After the above operations are completed, the op tool will write back some confi
 
 ```yaml title="/config/ci-deploy.yaml"
 default:
-  host: https://ones.cn
-  username: test@ones.cn
+  host: https://ones.com
+  username: test@ones.com
   password: test1234
   ones-check-id: 6vjJcr4L
   ones-check-point: team
@@ -112,7 +112,7 @@ Then replace the corresponding fields in `ci-deploy.yaml` in the plugin project,
 
 ```yaml title="config/ci-deploy.yaml"
 default:
-  host: https://ones.cn
+  host: https://ones.com
   username: ${username}
   password: ${password}
   ones-check-id: 6vjJcr4L
