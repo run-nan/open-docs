@@ -4,7 +4,7 @@ sidebar_position: 13
 description: sdk error handling。
 ---
 
-# Sdk Error Handling
+# Sdk error handling
 
 ## Requirements
 

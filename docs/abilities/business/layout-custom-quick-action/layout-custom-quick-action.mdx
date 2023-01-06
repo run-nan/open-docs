@@ -8,7 +8,7 @@ import actionAdd from './images/plugin-quick-action-add-en.jpg'
 import actionModify from './images/plugin-quick-action-modify-en.jpg'
 import actionShow from './images/plugin-quick-action-show-en.jpg'
 
-# Custom Layout Shortcut
+# Custom layout shortcut
 
 ## Requirements
 
@@ -159,7 +159,7 @@ modules:
 Enter the `web` directory and install the `@ones-op/store` dependency with the following command:
 
 ```
-$ npm i @ones-op/store
+npm i @ones-op/store
 ```
 
 ### Step 3: Customize shortcut button behavior
@@ -182,26 +182,26 @@ import { useTaskInfo, destroyCurrentModule } from '@ones-op/store'
 import './index.css'
 
 function App() {
-  // 当前工作项uuid
+  // current issue uuid
   const { uuid } = useTaskInfo()
 
   return (
     <>
       <Modal
         onCancel={function noRefCheck() {
-          // 取消时，销毁弹窗
+          // When canceling, destroy the popup window
           destroyCurrentModule()
         }}
         onOk={function noRefCheck() {
-          // 点击确定，销毁弹窗
+          // Click OK to destroy the popup
           destroyCurrentModule()
         }}
-        title="自定义快捷操作"
+        title="customize_shortcuts"
         closable
         visible
         width={520}
       >
-        自定义快捷操作
+        Customize shortcuts
       </Modal>
     </>
   )
@@ -225,13 +225,13 @@ ReactDOM.render(
   import './index.css'
 
   function App() {
-    // 当前工作项uuid
+    // current issue uuid
     const { uuid } = useTaskInfo()
 
     useEffect(() => {
-      // 执行相关操作逻辑
+      // execute related operation logic
       ...
-      // 最后销毁该插槽，否则无法再次触发
+      // destroy the slot last, otherwise it cannot be triggered again
       destroyCurrentModule()
     })
 

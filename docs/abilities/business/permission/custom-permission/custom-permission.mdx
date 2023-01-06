@@ -472,27 +472,27 @@ Use `npx op add ability` to add `custom-permission@1.0.0` type ability, generate
 ```yaml
 abilities:
   - id: WIXJvPcd
-    name: 自定义权限点
+    name: CustomPermission
     version: 1.0.0
     abilityType: CustomPermission
     function:
       customPermissionCheckFunc: customPermissionCheck
     config:
       - key: name
-        value: 权限点
-        label: 权限点名称
+        value: Permission
+        label: Permission name
         show: false
       - key: field
         value: my_permission
-        label: 权限点字段
+        label: Permission field
         show: false
       - key: desc
-        value: 自定义权限点
-        label: 权限点描述
+        value: Custom permission
+        label: Permission description
         show: false
       - key: is_plugin_custom_check
-        value: true
-        label: 插件自定义权限校验
+        value: false
+        label: Plugin custom permission verification
         show: false
 ```
 

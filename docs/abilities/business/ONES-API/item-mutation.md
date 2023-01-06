@@ -33,7 +33,7 @@ Example configuration:
 ```yaml title="/config/plugin.yaml"
 abilities:
   - id: Ksmnf_Mc
-    name: 事件劫持
+    name: Item mutation
     version: 1.0.0
     abilityType: item-mutation
     function:

@@ -67,7 +67,7 @@ In the generated ability configuration, we only need to pay attention to the val
 ```yaml title="config/plugin.yaml"
 abilities:
   - id: g0chW1Oh
-    name: Item处理器
+    name: ItemHandler
     version: 1.0.0
     abilityType: ItemHandler
     function:
@@ -77,12 +77,12 @@ abilities:
       - key: itemType
         value: remainingHour,task,manhour #lower camel case
         fieldType: Input
-        label: Item类型
+        label: module type
         show: true
       - key: action
         value: add,update
         fieldType: Input
-        label: 操作
+        label: operate
         show: true
 ```
 
