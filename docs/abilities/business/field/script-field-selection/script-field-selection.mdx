@@ -84,7 +84,7 @@ export async function Install() {
   Logger.info('[Plugin] Install')
   //Call the script field add method to create a script field of type "radio menu"
   const FieldsAddRes = await Field.FieldsAdd({
-    Name: 'project_field',
+    Name: 'script_selection_field',
     Type: 1001, //Multiple selection code is 1002
     Renderer: 1,
     FilterOption: 0,
