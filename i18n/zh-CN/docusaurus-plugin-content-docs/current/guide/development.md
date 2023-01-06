@@ -70,7 +70,7 @@ Now starting dev server and node-host...
 开始连接!
 {
   action: 'run',
-  email: 'idatest3@ones.ai',
+  email: 'idatest3@ones.com',
   password: 'BULWzBk6ixRM',
   reinstall: false,
   webIp: '10.15.3.38',

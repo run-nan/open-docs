@@ -115,7 +115,7 @@ export async function exec_database() {
   try {
     const result = await exec(
       'insert',
-      `INSERT INTO email_id_map VALUES ("plugin@ones.cn", "001");`
+      `INSERT INTO email_id_map VALUES ("plugin@ones.com", "001");`
     )
   } catch (error) {
     if (error instanceof DBError) {

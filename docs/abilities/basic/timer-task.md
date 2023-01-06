@@ -31,7 +31,7 @@ Example: execute the `taskAction` function every 30 seconds.
 ```yaml title="config/plugin.yaml"
 abilities:
   - id: vvOZFOyt
-    name: 固定间隔时间任务
+    name: TimerTask
     version: 1.0.0
     abilityType: TimerTask
     function:
@@ -65,7 +65,7 @@ Example: execute the `cronTaskAction` function every 30th second of the minute
 ```yaml title="config/plugin.yaml"
 abilities:
   - id: XKggffGc
-    name: cron任务
+    name: TimerTask
     version: 1.0.0
     abilityType: TimerTask
     function:

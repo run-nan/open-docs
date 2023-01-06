@@ -465,7 +465,7 @@ export async function sendEmail(request: PluginRequest): Promise<PluginResponse>
     MessageBody: [
       {
         Body: 'Email sending test',
-        Url: 'https://ones.cn/',
+        Url: 'https://ones.com/',
       },
     ],
     Ext: 'ext string',
@@ -852,7 +852,7 @@ export async function doneProcess(request: PluginRequest): Promise<PluginRespons
 ```typescript
 import { getUserTeamUUIDsByEmail } from '@ones-op/node-ability'
 
-const resp = await getUserTeamUUIDsByEmail('marsdev@ones.ai')
+const resp = await getUserTeamUUIDsByEmail('marsdev@ones.com')
 ```
 
 ---

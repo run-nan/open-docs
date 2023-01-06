@@ -438,7 +438,7 @@ export async function sendEmail(request: PluginRequest): Promise<PluginResponse>
     MessageBody: [
       {
         Body: 'Email sending test',
-        Url: 'https://ones.cn/',
+        Url: 'https://ones.com/',
       },
     ],
     Ext: 'ext string',

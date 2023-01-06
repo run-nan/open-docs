@@ -12,7 +12,7 @@ sidebar_position: 4
 
 ## Overview
 
-Many data in the ONES support Graphql operations. We can regard each [Graphql Mutation](https://graphql.cn/learn/queries/) as an event, and use the **Mutation event interception** ability to intercept these events and perform some additional Check or operate to expand new business logic. The ability will provide interception support for certain event types in advance, and the plugin can intercept the corresponding `Graphql Mutation` event by specifying the event type.
+Many data in the ONES support Graphql operations. We can regard each [Graphql Mutation](https://graphql.org/learn/queries/) as an event, and use the **Mutation event interception** ability to intercept these events and perform some additional Check or operate to expand new business logic. The ability will provide interception support for certain event types in advance, and the plugin can intercept the corresponding `Graphql Mutation` event by specifying the event type.
 
 The event types that currently support interception are: `checkManhour` (man-hour verification)
 
