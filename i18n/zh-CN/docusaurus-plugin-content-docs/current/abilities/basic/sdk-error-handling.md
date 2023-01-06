@@ -1,6 +1,6 @@
 ---
 id: sdk-error-handling
-sidebar_position: 13
+sidebar_position: 12
 description: sdk错误处理。
 ---
 
@@ -38,18 +38,30 @@ description: sdk错误处理。
 该方法有错误场景，当插件开发者传入的路径不是一个合法的路径的时候，就会报相关的错误。
 
 ```typescript
-try {
-  await makeDir('../tmp/test')
-} catch (e) {
-  if (e instanceof FileError) {
-    // InvalidParameter
-    console.log(e.errcode)
-    // 400
-    console.log(e.statusCode)
-    // Invalid parameter.
-    console.log(e.reason)
-    // error
-    console.log(e.level)
+import { makeDir, FileError } from '@ones-op/node-file'
+
+function testFileError() {
+  try {
+    await makeDir('../tmp/test')
+  } catch (e) {
+    if (e instanceof FileError) {
+      // InvalidParameter
+      console.log(e.errcode)
+      // 400
+      console.log(e.statusCode)
+      // Invalid parameter.
+      console.log(e.reason)
+      // error
+      console.log(e.level)
+    }
   }
 }
 ```
+
+#### 日志输出
+
+在插件调用 sdk 方法出错后，会自动打一条 warning 级别的插件日志，日志的内容就是报错的信息，插件管理员可以在插件详情界面中的日志界面查看该信息。
+
+#### 特殊错误场景
+
+有一个错误场景是所有 sdk 都共有的，就是平台端的错误，当 errcode 为 ServerError 时，代表的是平台端发生了错误，这时候对应的 reason 就是代码的错误栈信息，这时候需要插件开发者把 reason 提供给技术支持的同学，以便排查错误信息。

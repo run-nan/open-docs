@@ -53,3 +53,11 @@ try {
   }
 }
 ```
+
+#### log output
+
+After a plug-in fails to call the sdk method, a plug-in log of warning level will be automatically displayed. The content of the log is the error message. The plug-in administrator can view the information in the log interface of the plug-in details interface.
+
+#### Special error scenarios
+
+There is an error scenario common to all SDKs, which is an error on the platform side. When the errcode is ServerError, it means that an error has occurred on the platform side. At this time, the corresponding reason is the error stack information of the code. At this time, the plug-in developer needs to add reason is provided to technical support students to troubleshoot error messages.
