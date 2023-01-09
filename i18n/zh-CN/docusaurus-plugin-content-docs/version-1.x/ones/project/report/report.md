@@ -12,16 +12,16 @@
     - [工时报表维度分组方式](#工时报表维度分组方式)
   - [项目报表配置及返回结果示例](#项目报表配置及返回结果示例)
 - [API 说明](#api-说明)
-  - [1. 临时生成项目报表数据](#1-临时生成项目报表数据)
-  - [2. 生成常用项目报表数据](#2-生成常用项目报表数据)
-  - [3. 添加常用项目报表](#3-添加常用项目报表)
-  - [4. 更新常用项目报表](#4-更新常用项目报表)
-  - [5. 删除常用项目报表](#5-删除常用项目报表)
-  - [6. 获取常用项目报表列表](#6-获取常用项目报表列表)
-  - [7. 获取系统项目报表列表](#7-获取系统项目报表列表)
-  - [8. 导出报表数据](#8-导出报表数据)
-    - [9. 临时生成项目工时流水报表数据](#9-临时生成项目工时流水报表数据)
-  - [10. 导出项目工时报表报表数据](#10-导出项目工时报表报表数据)
+  - [临时生成项目报表数据](#临时生成项目报表数据)
+  - [生成常用项目报表数据](#生成常用项目报表数据)
+  - [添加常用项目报表](#添加常用项目报表)
+  - [更新常用项目报表](#更新常用项目报表)
+  - [删除常用项目报表](#删除常用项目报表)
+  - [获取常用项目报表列表](#获取常用项目报表列表)
+  - [获取系统项目报表列表](#获取系统项目报表列表)
+  - [导出报表数据](#导出报表数据)
+  - [临时生成项目工时流水报表数据](#临时生成项目工时流水报表数据)
+  - [导出项目工时报表报表数据](#导出项目工时报表报表数据)
 
 <!-- /TOC -->
 
@@ -160,7 +160,7 @@ manhour_order_by
 
 ## 项目报表配置及返回结果示例
 
-### 1、属性分布报表（field）
+### 属性分布报表（field）
 
 #### 配置
 
@@ -193,17 +193,17 @@ manhour_order_by
 ```json
 {
   "total": 34,
-  "labels": ["王五", "李四", "张三"],
+  "labels": ["Arnie", "Ruddy", "Lyon"],
   "datasets": [
     {
-      "label": "任务数量",
+      "label": "Number of tasks",
       "data": [19, 10, 5]
     }
   ]
 }
 ```
 
-### 2、属性分布比较报表（field_comparison）
+### 属性分布比较报表（field_comparison）
 
 #### 配置
 
@@ -242,25 +242,25 @@ manhour_order_by
 ```json
 {
   "total": 33,
-  "labels": ["王五", "李四", "张三"],
+  "labels": ["Arnie", "Ruddy", "Lyon"],
   "datasets": [
     {
-      "label": "非常紧急",
+      "label": "best",
       "data": [9, 3, 2]
     },
     {
-      "label": "紧急",
+      "label": "better",
       "data": [2, 5, 0]
     },
     {
-      "label": "普通",
+      "label": "good",
       "data": [8, 1, 3]
     }
   ]
 }
 ```
 
-### 3、新增任务趋势报表（task_trend）
+### 新增任务趋势报表（task_trend）
 
 #### 配置
 
@@ -300,7 +300,7 @@ manhour_order_by
 }
 ```
 
-### 4、任务累计趋势报表（task_cumulative_trend）
+### 任务累计趋势报表（task_cumulative_trend）
 
 #### 配置
 
@@ -340,7 +340,7 @@ manhour_order_by
 }
 ```
 
-### 5、任务属性分布趋势报表（field_trend）
+### 任务属性分布趋势报表（field_trend）
 
 #### 配置
 
@@ -380,22 +380,22 @@ manhour_order_by
   "labels": ["2017-01-01", "2017-01-01", "2017-01-01"],
   "datasets": [
     {
-      "label": "非常紧急",
+      "label": "best",
       "data": [9, 3, 8]
     },
     {
-      "label": "紧急",
+      "label": "better",
       "data": [3, 6, 8]
     },
     {
-      "label": "普通",
+      "label": "good",
       "data": [1, 3, 8]
     }
   ]
 }
 ```
 
-### 6、任务属性滞留分析（field_age）
+### 任务属性滞留分析（field_age）
 
 #### 配置
 
@@ -432,7 +432,7 @@ manhour_order_by
 ```json
 {
   "total": 33,
-  "labels": ["非常紧急", "紧急", "普通"],
+  "labels": ["best", "better", "good"],
   "datasets": [
     {
       "label": "0-7",
@@ -454,7 +454,7 @@ manhour_order_by
 }
 ```
 
-### 7、工时统计报表（manhour）
+### 工时统计报表（manhour）
 
 #### 配置
 
@@ -497,22 +497,28 @@ manhour_order_by
 ```json
 {
   "total": 6,
-  "labels": ["合计登记工时", "合计预估工时", "2017-10-01", "2017-10-31", "2017-12-23"],
-  "hidden": ["合计登记工时", "合计预估工时"],
+  "labels": [
+    "total registered hours",
+    "total estimated hours",
+    "2017-10-01",
+    "2017-10-31",
+    "2017-12-23"
+  ],
+  "hidden": ["total registered hours", "total estimated hours"],
   "datasets": [
     {
-      "label": "进行中",
+      "label": "in progress",
       "data": [2, 2, 1, 1, 0]
     },
     {
-      "label": "未开始",
+      "label": "to do",
       "data": [4, 4, 0, 0, 4]
     }
   ]
 }
 ```
 
-### 8、迭代燃尽图（sprint_burndown）
+### 迭代燃尽图（sprint_burndown）
 
 #### 配置
 
@@ -552,11 +558,11 @@ manhour_order_by
   ],
   "datasets": [
     {
-      "label": "任务数量",
+      "label": "tasks",
       "data": [10, 9, 7, 7, 6, 5, 4, 3, 2, 1, 0]
     },
     {
-      "label": "预期任务数量",
+      "label": "expected tasks",
       "data": [10, 8.75, 7.5, 6.25, 5, 3.75, 2.5, 1.25, 0, null, null]
     }
   ]
@@ -565,7 +571,7 @@ manhour_order_by
 
 # API 说明
 
-## 1. 临时生成项目报表数据
+## 临时生成项目报表数据
 
 根据传入的参数临时生成项目报表数据
 
@@ -627,23 +633,23 @@ JSON
     "assess_hours": 0,
     "groups": [
         {
-            "name": "“草帽”蒙奇·D·路飞",
+            "name": "Ruddy",
             "count": 1,
             "record_hours": 2.33,
             "assess_hours": 0,
             "records": [
                 {
                     "project_uuid": "FtuS5ApRBk9uSq6X",
-                    "project_name": "【示例】项目管理",
+                    "project_name": "[Example] project",
                     "issue_type_uuid": "3D2UjSN6",
                     "sub_issue_type_uuid": "",
                     "task_number": 22,
                     "task_uuid": "FtuS5ApR4gBUGEw1",
-                    "task_name": "【示例任务】项目角色成员API",
+                    "task_name": "[Example] API",
                     "status_category": "to_do",
-                    "status": "未开始",
+                    "status": "to do",
                     "user_uuid": "FtuS5ApR",
-                    "user_name": "“草帽”蒙奇·D·路飞",
+                    "user_name": "Ruddy",
                     "user_avatar": "***/FiJ-6RVJGV2c1GFPFdeGuOIsFWIu",
                     "hours": 2.33,
                     "start_time": "2018年12月10日 16:00",
@@ -655,7 +661,7 @@ JSON
 }
 ```
 
-## 2. 生成常用项目报表数据
+## 生成常用项目报表数据
 
 根据常用报表 uuid 生成项目报表数据
 
@@ -681,7 +687,7 @@ view_project_reports
 | :------- | :----- | :------- | :------- | :----------------------------- |
 | datasets | object | F        |          | 参考顶端的项目报表返回结果示例 |
 
-## 3. 添加常用项目报表
+## 添加常用项目报表
 
 把特定的项目报表配置保存为常用报表
 
@@ -713,7 +719,7 @@ JSON
 | :------------- | :----- | :------- | :------- | :------------------------------- |
 | project_report | object | F        |          | 项目报表，参考顶端的项目报表模型 |
 
-## 4. 更新常用项目报表
+## 更新常用项目报表
 
 更新一个常用项目报表
 
@@ -745,7 +751,7 @@ JSON
 | :------------- | :----- | :------- | :------- | :------------------------------- |
 | project_report | object | F        |          | 项目报表，参考顶端的项目报表模型 |
 
-## 5. 删除常用项目报表
+## 删除常用项目报表
 
 删除一个常用项目报表
 
@@ -769,7 +775,7 @@ view_project_reports
 
 无
 
-## 6. 获取常用项目报表列表
+## 获取常用项目报表列表
 
 获取常用项目报表列表
 
@@ -791,7 +797,7 @@ GET
 | :-------------- | :----- | :------- | :------- | :----------------------------------- |
 | project_reports | array  | F        |          | 项目报表列表，参考顶端的项目报表模型 |
 
-## 7. 获取系统项目报表列表
+## 获取系统项目报表列表
 
 获取项目下系统报表库的报表
 
@@ -820,7 +826,7 @@ view_project_reports
 | &emsp;name            | string | F        |          | 分类 名称                                                 |
 | &emsp;project_reports | array  | F        |          | 分类下的项目报表列表，参考顶端的项目报表模型，但没有 uuid |
 
-## 8. 导出报表数据
+## 导出报表数据
 
 获取项目下系统报表库的报表
 
@@ -850,7 +856,7 @@ JSON
 | :------------ | :----- | :------- | :------- | :------------------------- |
 | report_config | object | F        |          | 参考顶端的项目报表配置模型 |
 
-## 9. 临时生成项目工时流水报表数据
+## 临时生成项目工时流水报表数据
 
 根据传入的参数临时生成团队工时流水报表数据
 
@@ -880,29 +886,45 @@ JSON
 
 ### 返回参数列表
 
-| 参数名                                  | 值类型 | 允许空值 | 取值范围         | 说明          |
-| :-------------------------------------- | :----- | :------- | :--------------- | :------------ |
-| task_count                              | int    | F        | 统计的任务记录数 |
-| count                                   | int    | F        | 总的记录数       |
-| record_hours                            | float  | F        |                  | 总的记录工时  |
-| assess_hours                            | float  | F        |                  | 总的预估工时  |
-| groups                                  | object | F        |                  | 数据分组      |
-| &nbsp;&nbsp;name                        | string | F        |                  | 分组名称      |
-| &nbsp;&nbsp;cout                        | int    | F        |                  | 组里的记录数  |
-| &nbsp;&nbsp;record_hours                | string | F        |                  | 组的记录工时  |
-| &nbsp;&nbsp;assess_hours                | string | F        |                  | 组的预估工时  |
-| &nbsp;&nbsp;records                     | object | F        |                  | 组的记录      |
-| &nbsp;&nbsp;&nbsp;&nbsp;project_uuid    | string | F        |                  | 项目 UUID     |
-| &nbsp;&nbsp;&nbsp;&nbsp;project_name    | string | F        |                  | 项目名称      |
-| &nbsp;&nbsp;&nbsp;&nbsp;issue_type_uuid | string | F        |                  | 任务类型 UUID |
-| &nbsp;&nbsp;&nbsp;&nbsp;task_num        | int    | F        |                  | 任务 id       |
-| &nbsp;&nbsp;&nbsp;&nbsp;task_UUID       | string | F        |                  | 任务 UUID     |
-| &nbsp;&nbsp;&nbsp;&nbsp;task_name       | string | F        |                  | 任务名称      |
-| &nbsp;&nbsp;&nbsp;&nbsp;status_category | string | F        |                  | 任务状态类型  |
-| &nbsp;&nbsp;&nbsp;&nbsp;status          | string | F        |                  | 任务状态      |
-| &nbsp;&nbsp;&nbsp;&nbsp;hours           | string | F        |                  | 记录工时      |
-| &nbsp;&nbsp;&nbsp;&nbsp;start_time      | string | F        |                  | 工时开始时间  |
-| &nbsp;&nbsp;&nbsp;&nbsp;remark          | string | F        |                  | 备注          |
+| 参数名       | 值类型 | 允许空值 | 取值范围         | 说明         |
+| :----------- | :----- | :------- | :--------------- | :----------- |
+| task_count   | int    | F        | 统计的任务记录数 |
+| count        | int    | F        | 总的记录数       |
+| record_hours | float  | F        |                  | 总的记录工时 |
+| assess_hours | float  | F        |                  | 总的预估工时 |
+| groups       | object | F        |                  | 数据分组     |
+
+groups 对象
+
+| 参数名     | 值类型 | 允许空值 | 取值范围         | 说明 |
+| :--------- | :----- | :------- | :--------------- | :--- |
+| task_count | int    | F        | 统计的任务记录数 |
+
+task_count 对象
+
+| 参数名       | 值类型 | 允许空值 | 取值范围 | 说明         |
+| :----------- | :----- | :------- | :------- | :----------- |
+| name         | string | F        |          | 分组名称     |
+| cout         | int    | F        |          | 组里的记录数 |
+| record_hours | string | F        |          | 组的记录工时 |
+| assess_hours | string | F        |          | 组的预估工时 |
+| records      | object | F        |          | 组的记录     |
+
+records 对象
+
+| 参数名          | 值类型 | 允许空值 | 取值范围 | 说明          |
+| :-------------- | :----- | :------- | :------- | :------------ |
+| project_uuid    | string | F        |          | 项目 UUID     |
+| project_name    | string | F        |          | 项目名称      |
+| issue_type_uuid | string | F        |          | 任务类型 UUID |
+| task_num        | int    | F        |          | 任务 id       |
+| task_UUID       | string | F        |          | 任务 UUID     |
+| task_name       | string | F        |          | 任务名称      |
+| status_category | string | F        |          | 任务状态类型  |
+| status          | string | F        |          | 任务状态      |
+| hours           | string | F        |          | 记录工时      |
+| start_time      | string | F        |          | 工时开始时间  |
+| remark          | string | F        |          | 备注          |
 
 ### 返回体参考
 
@@ -914,101 +936,59 @@ JSON
   "assess_hours": 0,
   "groups": [
     {
-      "name": "进行中",
+      "name": "in progress",
       "count": 2,
       "record_hours": 2,
       "assess_hours": 0,
       "records": [
         {
           "project_uuid": "D5FqnLf3q94KYAWW",
-          "project_name": "白切鸡",
+          "project_name": "Sales",
           "issue_type_uuid": "Wri3STe4",
           "task_number": 10,
           "task_uuid": "D5FqnLf3RK4WYE2B",
-          "task_name": "买10个糯米鸡",
+          "task_name": "Sales A",
           "status_category": "in_progress",
-          "status": "进行中",
-          "user_name": "肯德鸡",
+          "status": "in progress",
+          "user_name": "Lyon",
           "hours": 1,
-          "start_time": "2017年10月31日 16:45",
+          "start_time": "2017-10-31 16:45",
           "remark": ""
         },
         {
           "project_uuid": "D5FqnLf3q94KYAWW",
-          "project_name": "白切鸡",
+          "project_name": "Purchasing",
           "issue_type_uuid": "Wri3STe4",
           "task_number": 7,
           "task_uuid": "D5FqnLf3Hndglvhx",
-          "task_name": "打包鸡",
+          "task_name": "Task b",
           "status_category": "in_progress",
-          "status": "进行中",
-          "user_name": "肯德鸡",
+          "status": "in progress",
+          "user_name": "LiLy",
           "hours": 1,
-          "start_time": "2017年10月01日 16:45",
+          "start_time": "2017-10-01 16:45",
           "remark": ""
         }
       ]
     },
     {
-      "name": "未开始",
+      "name": "to do",
       "count": 4,
       "record_hours": 4,
       "assess_hours": 0,
       "records": [
         {
           "project_uuid": "D5FqnLf3q94KYAWW",
-          "project_name": "白切鸡",
+          "project_name": "Marketing",
           "issue_type_uuid": "Gb3TS1L1",
           "task_number": 2,
           "task_uuid": "D5FqnLf3cMctsN6Y",
-          "task_name": "买半只盐焗鸡",
+          "task_name": "Task test",
           "status_category": "to_do",
-          "status": "未激活",
-          "user_name": "游戏鸡",
+          "status": "not active",
+          "user_name": "Tom",
           "hours": 1,
           "start_time": "2017年12月23日 11:03",
-          "remark": ""
-        },
-        {
-          "project_uuid": "D5FqnLf3q94KYAWW",
-          "project_name": "白切鸡",
-          "issue_type_uuid": "Gb3TS1L1",
-          "task_number": 3,
-          "task_uuid": "D5FqnLf3SC97C5rL",
-          "task_name": "测试属性位置",
-          "status_category": "to_do",
-          "status": "未激活",
-          "user_name": "游戏鸡",
-          "hours": 1,
-          "start_time": "2017年12月23日 11:03",
-          "remark": ""
-        },
-        {
-          "project_uuid": "D5FqnLf3q94KYAWW",
-          "project_name": "白切鸡",
-          "issue_type_uuid": "Gb3TS1L1",
-          "task_number": 1,
-          "task_uuid": "D5FqnLf3nY9x2oTW",
-          "task_name": "买两份新奥尔良烤翅",
-          "status_category": "to_do",
-          "status": "未激活",
-          "user_name": "肯德鸡",
-          "hours": 1,
-          "start_time": "2017年12月23日 10:54",
-          "remark": ""
-        },
-        {
-          "project_uuid": "D5FqnLf3q94KYAWW",
-          "project_name": "白切鸡",
-          "issue_type_uuid": "Gb3TS1L1",
-          "task_number": 4,
-          "task_uuid": "D5FqnLf34LxIiQQU",
-          "task_name": "吃鸡走起",
-          "status_category": "to_do",
-          "status": "未激活",
-          "user_name": "肯德鸡",
-          "hours": 1,
-          "start_time": "2017年12月23日 10:53",
           "remark": ""
         }
       ]
@@ -1017,7 +997,7 @@ JSON
 }
 ```
 
-## 10. 导出项目工时报表报表数据
+## 导出项目工时报表报表数据
 
 获取团队下系统报表库的报表
 

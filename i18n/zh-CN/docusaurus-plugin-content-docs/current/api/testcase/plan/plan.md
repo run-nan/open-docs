@@ -196,7 +196,7 @@ JSON
 
 #### 请求示例
 
-```bash
+```curl
 curl -X POST \
   'https://your-host-name/project/api/project/team/3QKyQ54X/testcase/plans/add' \
   -H 'Content-Type: application/json' \
@@ -285,7 +285,7 @@ JSON
 
 #### 请求示例
 
-```bash
+```curl
 curl -X POST \
   'https://your-host-name/project/api/project/team/3QKyQ54X/testcase/plan/KVC6mJvv/update' \
   -H 'Content-Type: application/json' \
@@ -372,7 +372,7 @@ JSON
 
 #### 请求示例
 
-```bash
+```curl
 curl -X POST \
   'https://your-host-name/project/api/project/team/3QKyQ54X/testcase/plan/KVC6mJvv/delete' \
   -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
@@ -423,7 +423,7 @@ GET
 
 #### 请求示例
 
-```bash
+```curl
 curl -X GET \
   'https://your-host-name/project/api/project/team/3QKyQ54X/testcase/plans' \
   -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
@@ -523,7 +523,7 @@ JSON
 
 #### 请求示例
 
-```bash
+```curl
 curl -X POST \
   'https://your-host-name/project/api/project/team/3QKyQ54X/testcase/plan/5VN9Bfa8/cases/add' \
   -H 'Content-Type: application/json' \
@@ -587,7 +587,7 @@ JSON
 
 #### 请求示例
 
-```bash
+```curl
 curl -X POST \
   'https://your-host-name/project/api/project/team/3QKyQ54X/testcase/plan/5VN9Bfa8/cases/update' \
   -H 'Content-Type: application/json' \
@@ -643,7 +643,7 @@ JSON
 
 #### 请求示例
 
-```bash
+```curl
 curl -X POST \
   'https://your-host-name/project/api/project/team/3QKyQ54X/testcase/plan/5VN9Bfa8/cases/delete' \
   -H 'Content-Type: application/json' \
@@ -699,7 +699,7 @@ JSON
 
 #### 请求示例
 
-```bash
+```curl
 curl -X POST \
   'https://your-host-name/project/api/project/team/3QKyQ54X/testcase/plan/5VN9Bfa8/cases/copy' \
   -H 'Content-Type: application/json' \
@@ -719,7 +719,7 @@ curl -X POST \
       "library_uuid": "G8f4GEWE",
       "module_uuid": "AdQkKCpH",
       "path": "HNcvXbWH-AdQkKCpH-EoT96LiT",
-      "name": "订单可取消状态检查",
+      "name": "check order",
       "priority": "6ibNTRBd",
       "type": "LyCk7yci",
       "assign": "BWxt3PAW",
@@ -738,7 +738,7 @@ curl -X POST \
       "related_tasks": [
         {
           "uuid": "BWxt3PAW4Q22ZKJc",
-          "summary": "支持商家自主编辑、修改优惠券规则",
+          "summary": "Support merchants to edit independently and modify coupon rules.",
           "number": 5,
           "status_uuid": "TEX1yJAE",
           "readable": true,
@@ -784,7 +784,7 @@ GET
 
 #### 请求示例
 
-```bash
+```curl
 curl -X GET \
   'https://your-host-name/project/api/project/team/3QKyQ54X/testcase/plan/5VN9Bfa8/cases' \
   -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
@@ -802,7 +802,7 @@ curl -X GET \
       "library_uuid": "G8f4GEWE",
       "module_uuid": "AdQkKCpH",
       "path": "HNcvXbWH-AdQkKCpH-EoT96LiT",
-      "name": "订单可取消状态检查",
+      "name": "check order",
       "priority": "6ibNTRBd",
       "type": "LyCk7yci",
       "assign": "BWxt3PAW",

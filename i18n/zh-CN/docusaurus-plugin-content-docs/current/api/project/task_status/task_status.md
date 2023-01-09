@@ -96,7 +96,7 @@ JSON
 
 #### 请求示例
 
-```shell
+```curl
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/task_statuses/add \
   -H 'Content-Type: application/json' \
@@ -160,7 +160,7 @@ JSON
 
 #### 请求示例
 
-```shell
+```curl
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/task_status/KXPq1Ez8/update \
   -H 'Content-Type: application/json' \
@@ -224,7 +224,7 @@ URL
 
 #### 请求示例
 
-```shell
+```curl
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/task_status/KXPq1Ez8/delete \
   -H 'Content-Type: application/json' \
@@ -277,7 +277,7 @@ URL
 
 #### 请求示例
 
-```shell
+```curl
 curl -X GET \
   https://your-host-name/project/api/project/team/3pDzCwAe/task_statuses \
   -H 'Content-Type: application/json' \
@@ -294,7 +294,7 @@ curl -X GET \
   "task_statuses": [
     {
       "uuid": "CaCRT8Tj",
-      "name": "测试提交",
+      "name": "test",
       "name_pinyin": "ce4shi4ti2jiao1",
       "category": "to_do",
       "built_in": false,

@@ -65,7 +65,7 @@ JSON
 
 #### 请求示例
 
-```bash
+```curl
 curl -X POST \
   'https://your-host-name/project/api/project/team/3QKyQ54X/related_project/BWxt3PAWObBoyBxk/config/update' \
   -H 'Content-Type: application/json' \
@@ -115,7 +115,7 @@ JSON
 
 #### 请求示例
 
-```bash
+```curl
 curl -X POST \
   'https://your-host-name/project/api/project/team/3QKyQ54X/related_project/BWxt3PAWObBoyBxk/default_members/add' \
   -H 'Content-Type: application/json' \
@@ -165,7 +165,7 @@ JSON
 
 #### 请求示例
 
-```bash
+```curl
 curl -X POST \
   'https://your-host-name/project/api/project/team/3QKyQ54X/related_project/BWxt3PAWObBoyBxk/default_members/delete' \
   -H 'Content-Type: application/json' \

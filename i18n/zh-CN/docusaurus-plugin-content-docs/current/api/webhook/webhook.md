@@ -166,17 +166,17 @@ webhook 是 ONES 系统的外部事件通知机制的实现。用户提供 webho
     {
       "from_user": {
         "uuid": "6ZpgEzkk",
-        "name": "贝加庞克"
+        "name": "Lyon"
       },
       "to_users": [],
-      "title": "[onePiece]双方各被污染",
-      "desc": "贝加庞克 将属性「状态」修改为「已计划」",
+      "title": "[onePiece]title a",
+      "desc": "Lyon modify attribute from status to planned",
       "url": "https://xxxxxxx/#/team/BDfDqJU7/project/6ZpgEzkkmkvOVIU6/issue_type/GwNxpqQh/task/6ZpgEzkkUmmWMLeg",
       "task_uuid": "6ZpgEzkkUmmWMLeg",
       "issue_type_uuid": "GwNxpqQh",
-      "issue_type_name": "需求",
+      "issue_type_name": "Requirement",
       "event_type": "update_task_status",
-      "event_name": "更新任务状态",
+      "event_name": "update task status",
       "raw_message": {
         "uuid": "P6KGV72t",
         "team_uuid": "BDfDqJU7",
@@ -191,21 +191,21 @@ webhook 是 ONES 系统的外部事件通知机制的实现。用户提供 webho
         "action": "update",
         "object_type": "task",
         "object_id": "6ZpgEzkkUmmWMLeg",
-        "object_name": "双方各被污染",
+        "object_name": "title a",
         "object_attr": "field",
         "old_value": "SriNNDVw",
         "new_value": "FXapje9B",
         "ext": {
-          "field_name": "状态",
+          "field_name": "status",
           "field_type": 12,
           "field_uuid": "field005",
           "new_option": {
-            "name": "已计划",
+            "name": "planned",
             "uuid": "FXapje9B"
           },
           "new_value": "",
           "old_option": {
-            "name": "进行中",
+            "name": "in progress",
             "uuid": "SriNNDVw"
           },
           "old_value": "",

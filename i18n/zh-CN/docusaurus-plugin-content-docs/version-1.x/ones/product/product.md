@@ -312,7 +312,7 @@ itemkey: 产品的 key, 例如: `product-6ZpgEzkkQ7PkhGTv`
 {
   "item": {
     "assign": "6ZpgEzkk",
-    "name": "壮师傅"
+    "name": "Lyon"
   }
 }
 ```
@@ -330,7 +330,7 @@ itemkey: 产品的 key, 例如: `product-6ZpgEzkkQ7PkhGTv`
     "create_time": 1581999122,
     "item_type": "product",
     "key": "product-6ZpgEzkkUVfH1vUy",
-    "name": "壮师傅",
+    "name": "Lyon",
     "name_pinyin": "zhuang4shi1fu4",
     "owner": "6ZpgEzkk",
     "uuid": "6ZpgEzkkUVfH1vUy"

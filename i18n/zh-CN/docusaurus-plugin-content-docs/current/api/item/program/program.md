@@ -188,7 +188,7 @@ query {
         },
         "createTime": 1589351460,
         "key": "program-WAhBNNYr",
-        "name": "定位到",
+        "name": "program A",
         "namePinyin": "ding4wei4dao4",
         "parent": "",
         "path": "WAhBNNYr",
@@ -213,7 +213,7 @@ query {
         },
         "createTime": 1585626156,
         "key": "program-Q77yeVDE",
-        "name": "辅导费",
+        "name": "program B",
         "namePinyin": "fu3dao3fei4",
         "parent": "",
         "path": "Q77yeVDE",
@@ -233,7 +233,7 @@ query {
         "assign": {
           "__typename": "User",
           "avatar": "",
-          "name": "贝加庞克",
+          "name": "Arnie",
           "uuid": "6ZpgEzkk"
         },
         "createTime": 1585626166,
@@ -460,7 +460,7 @@ URL
     "item_type": "program",
     "name": "sub-program",
     "related_type": "none",
-    "parent": "WGyP2og6", // 项目集下新建子项目集
+    "parent": "WGyP2og6", // Create a new sub-program
     "assign": "X60Ow895"
   }
 }

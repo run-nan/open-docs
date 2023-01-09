@@ -76,32 +76,32 @@ curl -X GET \
     {
       "uuid": "T2dyKELb",
       "parent_uuid": "",
-      "name": "草帽海贼",
-      "name_pinyin": "cao3mao4hai3zei2",
+      "name": "Sales Department",
+      "name_pinyin": "Sales Department",
       "next_uuid": "MNZj4TvY",
       "sync_type": 0
     },
     {
       "uuid": "StM3ZoDJ",
       "parent_uuid": "",
-      "name": "船",
-      "name_pinyin": "chuan2",
+      "name": "HR Department",
+      "name_pinyin": "HR Department",
       "next_uuid": "T2dyKELb",
       "sync_type": 0
     },
     {
       "uuid": "6Mh4DVYE",
       "parent_uuid": "",
-      "name": "海军",
-      "name_pinyin": "hai3jun1",
+      "name": "Marketing Department",
+      "name_pinyin": "Marketing Department",
       "next_uuid": "StM3ZoDJ",
       "sync_type": 0
     },
     {
       "uuid": "MNZj4TvY",
       "parent_uuid": "",
-      "name": "test",
-      "name_pinyin": "test",
+      "name": "Business Office",
+      "name_pinyin": "Business Office",
       "next_uuid": "",
       "sync_type": 0
     }
@@ -157,7 +157,7 @@ curl -X POST \
   -d '{
     "next_uuid": "StM3ZoDJ",
     "parent_uuid": "",
-    "name": "海军分部G5"
+    "name": "Planning Department"
   }'
 ```
 
@@ -168,7 +168,7 @@ curl -X POST \
   "add_department": {
     "uuid": "LxeRRH9Q",
     "parent_uuid": "",
-    "name": "海军分部G5",
+    "name": "Planning Department",
     "name_pinyin": "",
     "next_uuid": "StM3ZoDJ",
     "team_uuid": "BDfDqJU7"
@@ -222,7 +222,7 @@ curl -X POST \
   -H 'cache-control: no-cache' \
   -d '{
   "parent_uuid": "",
-  "name": "海军分部G5->G2",
+  "name": "Planning Department I",
   "next_uuid": "StM3ZoDJ"
 }'
 ```
@@ -369,71 +369,71 @@ curl -X POST \
   "department": [
     {
       "id": "21000",
-      "name": "研fa组部",
+      "name": "R&D Group A",
       "parentid": "",
       "order": 7
     },
     {
       "id": "23000",
-      "name": "研组部03",
+      "name": "R&D Group B",
       "parentid": "22000",
       "order": 1
     },
     {
       "id": "23001",
-      "name": "研组部03-1",
+      "name": "R&D Group C",
       "parentid": "22000",
       "order": 1
     },
     {
       "id": "23002",
-      "name": "研组部04",
+      "name": "R&D Group D",
       "parentid": "22002",
       "order": 1
     }
   ],
   "members": [
     {
-      "userid": "xiaowu001",
-      "name": "xiaowu001",
+      "userid": "J1RF8ypV",
+      "name": "Arnie001",
       "department": ["23001"],
-      "email": "xiaowu001@ones.cn",
+      "email": "Arnie001@ones.com",
       "mobile": null,
       "avatar": null,
       "title": null
     },
     {
-      "userid": "xiaowu002",
-      "name": "xiaowu002",
+      "userid": "J2RF8ypX",
+      "name": "Ruddy002",
       "department": [],
-      "email": "xiaowu002@ones.cn",
+      "email": "Ruddy002@ones.com",
       "mobile": null,
       "avatar": null,
       "title": null
     },
     {
-      "userid": "cai77",
-      "name": "cai77",
+      "userid": "J2RF8ypO",
+      "name": "Lyon77",
       "department": ["23002"],
-      "email": "cai77@ones.cn",
+      "email": "Lyon77@ones.com",
       "mobile": null,
       "avatar": null,
       "title": null
     },
     {
-      "userid": "lengbing",
-      "name": "lengbing",
+      "userid": "J2RF8ypF",
+      "name": "Tom",
       "department": [],
-      "email": "lengbing@ones.cn",
+      "email": "Tom@ones.com",
       "mobile": "15818685557",
       "avatar": null,
       "title": null
     },
     {
-      "userid": "cmjcd",
-      "name": "cmjcd",
+      "userid": "J2RF8ypD",
+      "name": "LiLy",
       "department": [],
-      "email": "cmjcd@ones.cn",
+      "email": "LiLy@ones.com",
       "mobile": "15900009999",
       "avatar": null,
       "title": null

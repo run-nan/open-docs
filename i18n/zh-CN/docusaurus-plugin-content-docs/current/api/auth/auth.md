@@ -154,7 +154,7 @@ curl -X POST \
     https://your-host-name/project/api/project/auth/login \
     -H 'Content-Type: application/json' \
     -d '{
-        "email": "test@ones.ai",
+        "email": "test@ones.com",
         "password": "ibJDTEf7PETr"
     }'
 ```
@@ -226,10 +226,10 @@ http_status_code=813
   "is_owner": true,
   "expire_time": 1578053867,
   "csm": {
-    "email": "lianxun@ones.cn",
-    "name": "??",
-    "title": "??????",
-    "phone": "???????????"
+    "email": "lianxun@ones.com",
+    "name": "lianxun",
+    "title": "",
+    "phone": ""
   }
 }
 ```

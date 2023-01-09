@@ -622,7 +622,7 @@ curl -X GET \
       "owner_uuid": "6ZpgEzkk",
       "is_archive": false,
       "title": "space_test",
-      "description": "制作 api 文档示例的页面组",
+      "description": "this is api example.",
       "create_time": 1584588038,
       "updated_time": 1584598922,
       "admins": ["6ZpgEzkk"],
@@ -705,7 +705,7 @@ curl -X GET \
     ],
     "datasets": [
       {
-        "label": "修改次数",
+        "label": "modifications",
         "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
       }
     ]
@@ -730,7 +730,7 @@ curl -X GET \
     ],
     "datasets": [
       {
-        "label": "修改次数",
+        "label": "modifications",
         "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
       }
     ]
@@ -1026,7 +1026,7 @@ curl -X GET \
         "share_uuid": "",
         "page_uuid": "W61EiMp4",
         "parent_uuid": "KSGQChyD",
-        "title": "F2045 1 草稿6",
+        "title": "F2045 1 draft 6",
         "user_uuid": "",
         "share_permission_type": 0,
         "is_share_sub_page": false,

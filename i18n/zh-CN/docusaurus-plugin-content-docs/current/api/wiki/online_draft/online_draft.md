@@ -195,7 +195,7 @@ curl -X GET \
 
 ```json
 {
-  "content": "{\"blocks\":[{\"heading\":1,\"id\":\"_ByNpoBmp\",\"text\":[{\"insert\":\"草稿\"}],\"type\":\"text\"},{\"text\":[],\"id\":\"_tyWZWF42\",\"type\":\"text\"}],\"comments\":{},\"meta\":{\"version\":876,\"updatedBy\":{\"userId\":\"UrCAf4hi\",\"displayName\":\"abc\"},\"ctime\":1654497195849,\"mtime\":1671331612680},\"authors\":[\"UrCAf4hi\"],\"commentators\":[]}",
+  "content": "{\"blocks\":[{\"heading\":1,\"id\":\"_ByNpoBmp\",\"text\":[{\"insert\":\"draft\"}],\"type\":\"text\"},{\"text\":[],\"id\":\"_tyWZWF42\",\"type\":\"text\"}],\"comments\":{},\"meta\":{\"version\":876,\"updatedBy\":{\"userId\":\"UrCAf4hi\",\"displayName\":\"abc\"},\"ctime\":1654497195849,\"mtime\":1671331612680},\"authors\":[\"UrCAf4hi\"],\"commentators\":[]}",
   "version": 1654497195849,
   "latest": 1671331612680,
   "token": "W.ZyLVksHAx6DtMN5YeAUXTkrBWJ7XNYizrMy3aEnaMNPLk-eFBvKo6l-O_rlLUtJQo1cqTPb_X5gG6WkDBmCK1SN0uBxO4eQ-ISeEjq0lha0xWc2Ql2oKxQhqHmJt2rOVCLZsbIqWQLknGaioNxVAauW0FngbJLkQnx-0IQftfUhHsdk",

@@ -266,7 +266,7 @@ https://your-host-name/project/api/project/team/BDfDqJU7/items/graphql \
   "data": {
     "users": [
       {
-        "email": "test123@example.cn",
+        "email": "test123@ones.com",
         "name": "test123",
         "uuid": "GfYQd1g2"
       }
@@ -326,7 +326,7 @@ https://your-host-name/project/api/project/team/BDfDqJU7/items/graphql \
 {
   "data": {
     "users": {
-      "email": "test123@example.cn",
+      "email": "test123@ones.com",
       "name": "test123",
       "uuid": "GfYQd1g2"
     }

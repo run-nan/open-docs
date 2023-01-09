@@ -6,11 +6,11 @@
   - [迭代属性](#迭代属性)
   - [迭代属性值](#迭代属性值)
 - [API 说明](#api说明)
-  - [1.添加项目下迭代属性](#1添加项目下迭代属性)
-  - [2.修改项目下迭代属性](#2修改项目下迭代属性)
-  - [3.删除项目下迭代属性](#3删除项目下迭代属性)
-  - [4.获取项目下迭代属性列表](#4获取项目下迭代属性列表)
-  - [5.修改迭代属性值](#5修改迭代属性值)
+  - [添加项目下迭代属性](#添加项目下迭代属性)
+  - [修改项目下迭代属性](#修改项目下迭代属性)
+  - [删除项目下迭代属性](#删除项目下迭代属性)
+  - [获取项目下迭代属性列表](#获取项目下迭代属性列表)
+  - [修改迭代属性值](#修改迭代属性值)
 
 <!-- /TOC -->
 
@@ -20,13 +20,18 @@
 
 sprint_field
 
-| 参数名            | 类型   | 说明     |
-| :---------------- | :----- | :------- |
-| uuid              | string | 属性 id  |
-| name              | string | 属性名   |
-| type              | string | 属性类型 |
-| options           | array  | 选项     |
-| &nbsp;&nbsp;value | string | 选项值   |
+| 参数名  | 类型   | 说明     |
+| :------ | :----- | :------- |
+| uuid    | string | 属性 id  |
+| name    | string | 属性名   |
+| type    | string | 属性类型 |
+| options | array  | 选项     |
+
+options 对象
+
+| 参数名 | 类型   | 说明   |
+| :----- | :----- | :----- |
+| value  | string | 选项值 |
 
 ## 迭代属性值
 
@@ -66,7 +71,7 @@ type
 
 # API 说明
 
-## 1.添加项目下迭代属性
+## 添加项目下迭代属性
 
 ### URL
 
@@ -88,26 +93,46 @@ manage_sprints
 
 ### 请求参数
 
-| 参数名                        | 类型   | 是否必填 | 说明                       |
-| :---------------------------- | :----- | :------- | :------------------------- |
-| field                         | object | T        | 属性                       |
-| &nbsp;&nbsp;uuid              | string | F        | 属性 id,程序生成不需要填写 |
-| &nbsp;&nbsp;name              | string | T        | 属性名                     |
-| &nbsp;&nbsp;type              | string | T        | 属性类型                   |
-| &nbsp;&nbsp;options           | array  | F        | 选项                       |
-| &nbsp;&nbsp;&nbsp;&nbsp;value | string | F        | 选项值                     |
+| 参数名 | 类型   | 是否必填 | 说明 |
+| :----- | :----- | :------- | :--- |
+| field  | object | T        | 属性 |
+
+field 对象
+
+| 参数名  | 类型   | 是否必填 | 说明                       |
+| :------ | :----- | :------- | :------------------------- |
+| uuid    | string | F        | 属性 id,程序生成不需要填写 |
+| name    | string | T        | 属性名                     |
+| type    | string | T        | 属性类型                   |
+| options | array  | F        | 选项                       |
+
+options 对象
+
+| 参数名 | 类型   | 是否必填 | 说明   |
+| :----- | :----- | :------- | :----- |
+| value  | string | F        | 选项值 |
 
 ### 返回参数
 
-| 参数名                        | 类型   | 是否必填 | 说明                 |
-| :---------------------------- | :----- | :------- | :------------------- |
-| field                         | object | T        | 属性                 |
-| &nbsp;&nbsp;uuid              | string | F        | 属性 id 程序生成     |
-| &nbsp;&nbsp;name              | string | T        | 属性名               |
-| &nbsp;&nbsp;type              | string | T        | 属性类型             |
-| &nbsp;&nbsp;options           | array  | F        | 选项                 |
-| &nbsp;&nbsp;&nbsp;&nbsp;value | string | F        | 选项值               |
-| server_update_stamp           | int    | T        | 数据更新时间（微妙） |
+| 参数名              | 类型   | 是否必填 | 说明                 |
+| :------------------ | :----- | :------- | :------------------- |
+| field               | object | T        | 属性                 |
+| server_update_stamp | int    | T        | 数据更新时间（微妙） |
+
+field 对象
+
+| 参数名  | 类型   | 是否必填 | 说明             |
+| :------ | :----- | :------- | :--------------- |
+| uuid    | string | F        | 属性 id 程序生成 |
+| name    | string | T        | 属性名           |
+| type    | string | T        | 属性类型         |
+| options | array  | F        | 选项             |
+
+options 对象
+
+| 参数名 | 类型   | 是否必填 | 说明   |
+| :----- | :----- | :------- | :----- |
+| value  | string | F        | 选项值 |
 
 ### 请求体示例
 
@@ -166,7 +191,7 @@ manage_sprints
 }
 ```
 
-## 2.修改项目下迭代属性
+## 修改项目下迭代属性
 
 ### URL
 
@@ -188,20 +213,25 @@ manage_sprints
 
 ### 请求参数
 
-| 参数名                        | 类型   | 是否必填 | 说明     |
-| :---------------------------- | :----- | :------- | :------- |
-| field                         | object | T        | 属性     |
-| &nbsp;&nbsp;uuid              | string | T        | 属性 id  |
-| &nbsp;&nbsp;name              | string | T        | 属性名   |
-| &nbsp;&nbsp;type              | string | T        | 属性类型 |
-| &nbsp;&nbsp;options           | array  | F        | 选项     |
-| &nbsp;&nbsp;&nbsp;&nbsp;value | string | F        | 选项值   |
+| 参数名  | 类型   | 是否必填 | 说明     |
+| :------ | :----- | :------- | :------- |
+| field   | object | T        | 属性     |
+| uuid    | string | T        | 属性 id  |
+| name    | string | T        | 属性名   |
+| type    | string | T        | 属性类型 |
+| options | array  | F        | 选项     |
+
+options 对象
+
+| 参数名 | 类型   | 是否必填 | 说明   |
+| :----- | :----- | :------- | :----- |
+| value  | string | F        | 选项值 |
 
 ### 返回参数列表
 
-| 参数名                        | 类型   | 是否必填 | 说明   |
-| :---------------------------- | :----- | :------- | :----- |
-| &nbsp;&nbsp;&nbsp;&nbsp;value | string | F        | 选项值 |
+| 参数名 | 类型   | 是否必填 | 说明   |
+| :----- | :----- | :------- | :----- |
+| value  | string | F        | 选项值 |
 
 ### 请求体示例
 
@@ -240,7 +270,7 @@ manage_sprints
 }
 ```
 
-## 3.删除项目下迭代属性
+## 删除项目下迭代属性
 
 删除操作将会一并删除已有迭代的该项属性内容，此操作不可撤销
 
@@ -278,7 +308,7 @@ manage_sprints
 }
 ```
 
-## 4.获取项目下迭代属性列表
+## 获取项目下迭代属性列表
 
 ### URL
 
@@ -302,13 +332,18 @@ BrowseProject
 
 ### 返回参数列表
 
-| 参数名              | 类型     | 是否必填 | 说明     |
-| :------------------ | :------- | :------- | :------- |
-| fields              | []object | T        | 属性     |
-| &nbsp;&nbsp;uuid    | string   | T        | 属性 id  |
-| &nbsp;&nbsp;name    | string   | T        | 属性名   |
-| &nbsp;&nbsp;type    | string   | T        | 属性类型 |
-| &nbsp;&nbsp;options | array    | T        | 选项     |
+| 参数名 | 类型     | 是否必填 | 说明 |
+| :----- | :------- | :------- | :--- |
+| fields | []object | T        | 属性 |
+
+fields 对象
+
+| 参数名  | 类型   | 是否必填 | 说明     |
+| :------ | :----- | :------- | :------- |
+| uuid    | string | T        | 属性 id  |
+| name    | string | T        | 属性名   |
+| type    | string | T        | 属性类型 |
+| options | array  | T        | 选项     |
 
 ### 请求体示例
 
@@ -321,7 +356,7 @@ BrowseProject
   "fields": [
     {
       "uuid": "SY2XZe8H",
-      "name": "迭代属性名称",
+      "name": "Name of this sprint",
       "type": "text",
       "options": null
     }
@@ -329,7 +364,7 @@ BrowseProject
 }
 ```
 
-## 5.修改迭代属性值
+## 修改迭代属性值
 
 ```
 https://your-host-name/project/api/project/team/:teamUUID/project/:projectUUID/sprint/:sprintUUID/sprint_field/:fieldUUID/update
@@ -358,7 +393,7 @@ manage_sprints
 ```json
 {
   "field_value": {
-    "value": "newValue, option 类型传选项的 uuid"
+    "value": "newValue, and the uuid of this option"
   }
 }
 ```

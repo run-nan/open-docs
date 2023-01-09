@@ -125,7 +125,7 @@ curl -X POST \
   -H 'Content-Type: application/json' \
   -d '{
       "role":{
-        "name":"部门经理"
+        "name":"department manager"
       }
     }'
 ```
@@ -136,7 +136,7 @@ curl -X POST \
 {
   "role": {
     "uuid": "WivAvG2x",
-    "name": "部门经理",
+    "name": "department manager",
     "name_pinyin": "bu4men2jing1li3",
     "built_in": false,
     "is_project_member": false,
@@ -205,7 +205,7 @@ curl -X POST \
   -H 'Content-Type: application/json' \
   -d '{
       "role":{
-        "name":"部门经理",
+        "name":"department manager",
         "uuid":"5teYvt1n"
       }
     }'
@@ -217,7 +217,7 @@ curl -X POST \
 {
   "role": {
     "uuid": "WivAvG2x",
-    "name": "部门经理",
+    "name": "department manager",
     "name_pinyin": "bu4men2jing1li3",
     "built_in": false,
     "is_project_member": false,
@@ -350,7 +350,7 @@ curl -X POST \
     "roles": [
       {
         "uuid": "BusJpbyA",
-        "name": "项目成员",
+        "name": "project members",
         "name_pinyin": "",
         "built_in": true,
         "is_project_member": true,
@@ -358,17 +358,17 @@ curl -X POST \
         "projects": [
           {
             "uuid": "JaWA3grP6Sr5fRuN",
-            "name": "【示例】敏捷式研发管理"
+            "name": "[Example] agile project management"
           },
           {
             "uuid": "JaWA3grPPfzvzVJu",
-            "name": "【示例】瀑布式研发管理"
+            "name": "[Example] waterfall project management"
           }
         ]
       },
       {
         "uuid": "NgwK9nj1",
-        "name": "UI设计师",
+        "name": "UI developer",
         "name_pinyin": "UIshe4ji4shi1",
         "built_in": false,
         "is_project_member": false,
@@ -376,7 +376,7 @@ curl -X POST \
         "projects": [
           {
             "uuid": "JaWA3grP6Sr5fRuN",
-            "name": "【示例】敏捷式研发管理"
+            "name": " [Example] agile project management"
           }
         ]
       }
@@ -639,7 +639,7 @@ curl -X POST \
     {
       "role": {
         "uuid": "BusJpbyA",
-        "name": "项目成员",
+        "name": "project members",
         "name_pinyin": "",
         "built_in": true,
         "is_project_member": true,
@@ -722,7 +722,7 @@ curl -X POST \
     {
       "role": {
         "uuid": "BusJpbyA",
-        "name": "项目成员",
+        "name": "project members",
         "name_pinyin": "",
         "built_in": true,
         "is_project_member": true,
@@ -806,7 +806,7 @@ curl -X POST \
     {
       "role": {
         "uuid": "BusJpbyA",
-        "name": "项目成员",
+        "name": "project members",
         "name_pinyin": "",
         "built_in": true,
         "is_project_member": true,
@@ -817,7 +817,7 @@ curl -X POST \
     {
       "role": {
         "uuid": "NgwK9nj1",
-        "name": "UI设计师",
+        "name": "UI developer",
         "name_pinyin": "UIshe4ji4shi1",
         "built_in": false,
         "is_project_member": false,
@@ -894,7 +894,7 @@ curl -X POST \
     {
       "role": {
         "uuid": "BusJpbyA",
-        "name": "项目成员",
+        "name": "project members",
         "name_pinyin": "",
         "built_in": true,
         "is_project_member": true,
@@ -905,7 +905,7 @@ curl -X POST \
     {
       "role": {
         "uuid": "NgwK9nj1",
-        "name": "UI设计师",
+        "name": "UI developer",
         "name_pinyin": "UIshe4ji4shi1",
         "built_in": false,
         "is_project_member": false,

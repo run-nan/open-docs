@@ -238,14 +238,14 @@ fragment StatusSimple on Status {
         "assign": {
           "__typename": "User",
           "avatar": "",
-          "name": "贝加庞克",
+          "name": "Arnie",
           "uuid": "6ZpgEzkk"
         },
         "createTime": 1591239779,
         "ganttChartUUID": "9VPyNujE",
         "ganttDataType": "group",
         "key": "task_gantt_data-7GvucDpC",
-        "name": "时间视图组件测试",
+        "name": "task gantt test",
         "parent": "",
         "planEndTime": 0,
         "planStartTime": 0,
@@ -256,7 +256,7 @@ fragment StatusSimple on Status {
           "status": {
             "__typename": "Status",
             "category": "to_do",
-            "name": "未开始",
+            "name": "to do",
             "uuid": "to_do"
           },
           "uuid": "6ZpgEzkkcqJGgEWr"
@@ -276,7 +276,7 @@ fragment StatusSimple on Status {
         "assign": {
           "__typename": "User",
           "avatar": "",
-          "name": "贝加庞克",
+          "name": "Arnie",
           "uuid": "6ZpgEzkk"
         },
         "createTime": 1591239894,
@@ -299,14 +299,14 @@ fragment StatusSimple on Status {
           "__typename": "Task",
           "issueType": {
             "__typename": "IssueType",
-            "name": "任务",
+            "name": "task",
             "uuid": "3D2UjSN6"
           },
           "number": 197,
           "status": {
             "__typename": "Status",
             "category": "to_do",
-            "name": "未开始",
+            "name": "to do",
             "uuid": "56VtNrD9"
           },
           "uuid": "6ZpgEzkkbfA5IUc2"
@@ -352,7 +352,7 @@ fragment StatusSimple on Status {
         }
       ],
       "gantt": {
-        "gantt_chart_uuid": "9VPyNujE" // 添加工作项到时间视图
+        "gantt_chart_uuid": "9VPyNujE" // add task to time view
       }
     }
   ]

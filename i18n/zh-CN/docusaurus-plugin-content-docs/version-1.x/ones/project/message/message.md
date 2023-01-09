@@ -309,7 +309,7 @@ curl -X POST \
       "action": "add",
       "object_type": "project",
       "object_id": "Gq8ZZZ7FgWHaBtAc",
-      "object_name": "创建时间",
+      "object_name": "create time",
       "is_can_show_richtext_diff": false
     }
   ],

@@ -3,11 +3,11 @@
 - [模型说明](#模型说明)
   - [迭代详情](#迭代详情)
 - [API 说明](#api-说明)
-  - [1. 添加迭代](#1-添加迭代)
-  - [2. 更新迭代](#2-更新迭代)
-  - [3. 删除迭代](#3-删除迭代)
-  - [4. 获取项目下当前用户可见的迭代列表](#4-获取项目下当前用户可见的迭代列表)
-  - [5. 获取团队中所有迭代详情](#5-获取团队中所有迭代详情)
+  - [添加迭代](#添加迭代)
+  - [更新迭代](#更新迭代)
+  - [删除迭代](#删除迭代)
+  - [获取项目下当前用户可见的迭代列表](#获取项目下当前用户可见的迭代列表)
+  - [获取团队中所有迭代详情](#获取团队中所有迭代详情)
 
 <!-- /TOC -->
 
@@ -35,7 +35,7 @@ sprint
 
 ## API 说明
 
-## 1. 添加迭代
+## 添加迭代
 
 ### URL
 
@@ -131,7 +131,7 @@ JSON
       "statuses": [
         {
           "status_uuid": "9eTpTcdk",
-          "name": "未开始",
+          "name": "to do",
           "category": "to_do",
           "plan_start_time": 1596384000,
           "plan_end_time": null,
@@ -143,7 +143,7 @@ JSON
         },
         {
           "status_uuid": "7KKSKYUq",
-          "name": "进行中",
+          "name": "in progress",
           "category": "in_progress",
           "plan_start_time": null,
           "plan_end_time": null,
@@ -155,7 +155,7 @@ JSON
         },
         {
           "status_uuid": "AtV469fA",
-          "name": "已完成",
+          "name": "done",
           "category": "done",
           "plan_start_time": null,
           "plan_end_time": 1599494399,
@@ -174,7 +174,7 @@ JSON
 }
 ```
 
-## 2. 更新迭代
+## 更新迭代
 
 ### URL
 
@@ -255,7 +255,7 @@ JSON
 }
 ```
 
-## 3. 删除迭代
+## 删除迭代
 
 ### URL
 
@@ -294,7 +294,7 @@ JSON
 | :------------------ | :----- | :------- | :--------- |
 | server_update_stamp | int64  |          | 更新时间戳 |
 
-## 4. 获取项目下当前用户可见的迭代列表
+## 获取项目下当前用户可见的迭代列表
 
 ### URL
 
@@ -316,21 +316,26 @@ JSON
 
 ### 返回参数
 
-| 参数名                    | 值类型   | 是否必填 | 说明                                                           |
-| :------------------------ | :------- | :------- | :------------------------------------------------------------- |
-| sprints                   | []object | T        | 迭代详情                                                       |
-| &nbsp;&nbsp;uuid          | string   | F        | uuid                                                           |
-| &nbsp;&nbsp;project_uuid  | string   | F        | 所属项目 uuid                                                  |
-| &nbsp;&nbsp;title         | string   | T        | 标题                                                           |
-| &nbsp;&nbsp;assign        | string   | T        | 负责人 uuid                                                    |
-| &nbsp;&nbsp;goal          | string   | T        | 迭代目标，富文本                                               |
-| &nbsp;&nbsp;start_time    | int64    | T        | 计划开始时间 单位秒                                            |
-| &nbsp;&nbsp;end_time      | int64    | T        | 计划结束时间 单位秒                                            |
-| &nbsp;&nbsp;status        | int      | F        | 迭代状态: 1:未开始,2:进行中 <br/> 3:已完成, 4:删除             |
-| &nbsp;&nbsp;create_time   | int64    | F        | 创建时间 单位秒                                                |
-| &nbsp;&nbsp;is_open_gantt | bool     | T        | 是否开启甘特图                                                 |
-| &nbsp;&nbsp;fields        | array    | F        | [迭代属性](../sprint_field/sprint_field.md#sprint_field_value) |
-| &nbsp;&nbsp;statuses      | array    | F        | [迭代阶段](../sprint_status/sprint_status.md#sprint_status)    |
+| 参数名  | 值类型   | 是否必填 | 说明     |
+| :------ | :------- | :------- | :------- |
+| sprints | []object | T        | 迭代详情 |
+
+sprints 对象
+
+| 参数名        | 值类型 | 是否必填 | 说明                                                           |
+| :------------ | :----- | :------- | :------------------------------------------------------------- |
+| uuid          | string | F        | uuid                                                           |
+| project_uuid  | string | F        | 所属项目 uuid                                                  |
+| title         | string | T        | 标题                                                           |
+| assign        | string | T        | 负责人 uuid                                                    |
+| goal          | string | T        | 迭代目标，富文本                                               |
+| start_time    | int64  | T        | 计划开始时间 单位秒                                            |
+| end_time      | int64  | T        | 计划结束时间 单位秒                                            |
+| status        | int    | F        | 迭代状态: 1:未开始,2:进行中 <br/> 3:已完成, 4:删除             |
+| create_time   | int64  | F        | 创建时间 单位秒                                                |
+| is_open_gantt | bool   | T        | 是否开启甘特图                                                 |
+| fields        | array  | F        | [迭代属性](../sprint_field/sprint_field.md#sprint_field_value) |
+| statuses      | array  | F        | [迭代阶段](../sprint_status/sprint_status.md#sprint_status)    |
 
 ### 返回值示例
 
@@ -356,7 +361,7 @@ JSON
       "statuses": [
         {
           "status_uuid": "AS3Qeqti",
-          "name": "未开始",
+          "name": "to do",
           "category": "to_do",
           "plan_start_time": 1576771200,
           "plan_end_time": null,
@@ -380,7 +385,7 @@ JSON
         },
         {
           "status_uuid": "FmfdvUUT",
-          "name": "已完成",
+          "name": "done",
           "category": "done",
           "plan_start_time": null,
           "plan_end_time": 1576943999,
@@ -397,7 +402,7 @@ JSON
 }
 ```
 
-## 5. 获取团队中所有迭代详情
+## 获取团队中所有迭代详情
 
 ### URL
 
@@ -419,21 +424,26 @@ JSON
 
 ### 返回参数
 
-| 参数名                    | 值类型   | 是否必填 | 说明                                                           |
-| :------------------------ | :------- | :------- | :------------------------------------------------------------- |
-| sprints                   | []object | T        | 迭代详情                                                       |
-| &nbsp;&nbsp;uuid          | string   | F        | uuid                                                           |
-| &nbsp;&nbsp;project_uuid  | string   | F        | 所属项目 uuid                                                  |
-| &nbsp;&nbsp;title         | string   | T        | 标题                                                           |
-| &nbsp;&nbsp;assign        | string   | T        | 负责人 uuid                                                    |
-| &nbsp;&nbsp;goal          | string   | T        | 迭代目标，富文本                                               |
-| &nbsp;&nbsp;start_time    | int64    | T        | 计划开始时间 单位秒                                            |
-| &nbsp;&nbsp;end_time      | int64    | T        | 计划结束时间 单位秒                                            |
-| &nbsp;&nbsp;status        | int      | F        | 迭代状态: 1:未开始,2:进行中 <br/> 3:已完成, 4:删除             |
-| &nbsp;&nbsp;create_time   | int64    | F        | 创建时间 单位秒                                                |
-| &nbsp;&nbsp;is_open_gantt | bool     | T        | 是否开启甘特图                                                 |
-| &nbsp;&nbsp;fields        | array    | F        | [迭代属性](../sprint_field/sprint_field.md#sprint_field_value) |
-| &nbsp;&nbsp;statuses      | array    | F        | [迭代阶段](../sprint_status/sprint_status.md#sprint_status)    |
+| 参数名  | 值类型   | 是否必填 | 说明     |
+| :------ | :------- | :------- | :------- |
+| sprints | []object | T        | 迭代详情 |
+
+sprints 对象
+
+| 参数名        | 值类型 | 是否必填 | 说明                                                           |
+| :------------ | :----- | :------- | :------------------------------------------------------------- |
+| uuid          | string | F        | uuid                                                           |
+| project_uuid  | string | F        | 所属项目 uuid                                                  |
+| title         | string | T        | 标题                                                           |
+| assign        | string | T        | 负责人 uuid                                                    |
+| goal          | string | T        | 迭代目标，富文本                                               |
+| start_time    | int64  | T        | 计划开始时间 单位秒                                            |
+| end_time      | int64  | T        | 计划结束时间 单位秒                                            |
+| status        | int    | F        | 迭代状态: 1:未开始,2:进行中 <br/> 3:已完成, 4:删除             |
+| create_time   | int64  | F        | 创建时间 单位秒                                                |
+| is_open_gantt | bool   | T        | 是否开启甘特图                                                 |
+| fields        | array  | F        | [迭代属性](../sprint_field/sprint_field.md#sprint_field_value) |
+| statuses      | array  | F        | [迭代阶段](../sprint_status/sprint_status.md#sprint_status)    |
 
 ### 返回值示例
 
@@ -459,7 +469,7 @@ JSON
       "statuses": [
         {
           "status_uuid": "AS3Qeqti",
-          "name": "未开始",
+          "name": "to do",
           "category": "to_do",
           "plan_start_time": 1576771200,
           "plan_end_time": null,
@@ -471,7 +481,7 @@ JSON
         },
         {
           "status_uuid": "QY6wtX2g",
-          "name": "进行中",
+          "name": "in progress",
           "category": "in_progress",
           "plan_start_time": null,
           "plan_end_time": null,
@@ -483,7 +493,7 @@ JSON
         },
         {
           "status_uuid": "FmfdvUUT",
-          "name": "已完成",
+          "name": "done",
           "category": "done",
           "plan_start_time": null,
           "plan_end_time": 1576943999,

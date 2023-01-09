@@ -45,7 +45,7 @@ filter
 ```json
 {
   "uuid": "2FWsr6Xz",
-  "name": "项目A、B内，创建者或者负责人是用户C，创建于11月的，bug状态不是'已回归', 包含附件的未完成任务，按优先级和创建时间排序",
+  "name": "project a",
   "owner": "6yQWMeg5",
   "create_time": 1480550400000,
   "query": {
@@ -57,7 +57,7 @@ filter
       },
       {
         "match": {
-          "field_values.field001": "你好"
+          "field_values.field001": "hello"
         }
       },
       {
@@ -354,7 +354,7 @@ URL
 
 #### 请求示例
 
-```shell
+```curl
 curl -X GET \
   https://your-host-name/project/api/project/team/3pDzCwAe/filters \
   -H 'Content-Type: application/json' \
@@ -372,7 +372,7 @@ curl -X GET \
     {
       "uuid": "ft-t-001",
       "team_uuid": "3pDzCwAe",
-      "name": "我负责的任务",
+      "name": "good task",
       "owner": "DU6krHBN",
       "create_time": 1472688000000000,
       "fixed": true,
@@ -391,7 +391,7 @@ curl -X GET \
     {
       "uuid": "ft-t-002",
       "team_uuid": "3pDzCwAe",
-      "name": "我关注的任务",
+      "name": "tasks that i care about",
       "owner": "DU6krHBN",
       "create_time": 1472688000000000,
       "fixed": true,
@@ -454,7 +454,7 @@ JSON
 
 查找项目 [DU6krHBNJEEeoG8G] 下、工作项类型为：[GLLfcQxq]， 或者负责人为：[RGzJnspW, DU6krHBN] 的工作项。
 
-```shell
+```curl
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/filters/peek \
   -H 'Content-Type: application/json' \
@@ -471,14 +471,14 @@ curl -X POST \
                 "must": [
                     {
                         "in": {
-                            "field_values.field006": [  // 任务所属项目
+                            "field_values.field006": [  // project of the task
                                 "DU6krHBNJEEeoG8G"
                             ]
                         }
                     },
                     {
                         "in": {
-                            "field_values.field007": [ // 任务类型
+                            "field_values.field007": [ // task type
                                 "GLLfcQxq"
                             ]
                         }
@@ -491,7 +491,7 @@ curl -X POST \
                         "must": [
                             {
                                 "in": {
-                                    "field_values.field004": [ // 负责人
+                                    "field_values.field004": [ // assigner
                                         "RGzJnspW",
                                         "DU6krHBN"
                                     ]
@@ -506,7 +506,7 @@ curl -X POST \
     "group_by": "",
     "sort": [
         {
-            "field_values.field009": { // 创建时间
+            "field_values.field009": { // create time
                 "order": "desc"
             }
         }
@@ -578,7 +578,7 @@ JSON
 
 #### 请求示例
 
-```shell
+```curl
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/filters/export \
   -H 'Content-Type: application/json' \
@@ -587,7 +587,7 @@ curl -X POST \
   -H 'Referer: https://your-host-name' \
   -H 'cache-control: no-cache' \
   -d '{
-    "name": "test-任务-全部任务.csv",
+    "name": "test-all-task.csv",
     "query": {
         "must": [
             {
@@ -679,7 +679,7 @@ URL
 
 #### 请求示例
 
-```shell
+```curl
 curl -X GET \
   https://your-host-name/project/api/project/team/3pDzCwAe/project/DU6krHBNJEEeoG8G/filters \
   -H 'Content-Type: application/json' \
@@ -698,7 +698,7 @@ curl -X GET \
       "uuid": "ft-p-001DU6krHBNJEEeoG8G",
       "team_uuid": "3pDzCwAe",
       "project_uuid": "DU6krHBNJEEeoG8G",
-      "name": "我负责的任务",
+      "name": "good task",
       "owner": "DU6krHBN",
       "fixed": true,
       "create_time": 1472688000000000,
@@ -723,7 +723,7 @@ curl -X GET \
       "uuid": "ft-p-002DU6krHBNJEEeoG8G",
       "team_uuid": "3pDzCwAe",
       "project_uuid": "DU6krHBNJEEeoG8G",
-      "name": "我关注的任务",
+      "name": "tasks that i care about",
       "owner": "DU6krHBN",
       "fixed": true,
       "create_time": 1472688000000000,

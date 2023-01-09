@@ -161,12 +161,7 @@
 
 ```graphql
 {
-  issueTypes(
-    filter: {
-      projects: { uuid_in: ["5EYNKKKBkkkkkk34"] }
-      subIssueType_in: [true] # 父子任务类型(不传type将返回所有)
-    }
-  ) {
+  issueTypes(filter: { projects: { uuid_in: ["5EYNKKKBkkkkkk34"] }, subIssueType_in: [true] }) {
     uuid
     name
   }
@@ -221,9 +216,7 @@
   tasks(
     filter: {
       project: { uuid_in: ["5EYNKKKBkkkkkk21"] }
-      # 方法1
       createTime_range: { from: "2017-02-01", to: "2019-03-11" }
-      # 方法2
       createTime_range: {
         quick: "last_7_days" # last_14_days last_30_days yesterday today this_week this_month this_quarter this_year
       }
@@ -247,12 +240,7 @@ NOTE: `match` 最后放在`filter`最下面,从而提高筛选性能
 
 ```graphql
 {
-  tasks(
-    filter: {
-      project: { uuid_in: ["5EYNKKKBkkkkkk21"] }
-      name_match: "怎么样" # 放在筛选条件的最下面, 提高筛选性能
-    }
-  ) {
+  tasks(filter: { project: { uuid_in: ["5EYNKKKBkkkkkk21"] }, name_match: "Purchasing" }) {
     uuid
     name
     deadline
@@ -270,9 +258,7 @@ NOTE: `match` 最后放在`filter`最下面,从而提高筛选性能
   tasks(
     filter: {
       project: { uuid_in: ["5EYNKKKBkkkkkk21"] }
-      # 方法1
       deadline_range: { from: "2017-02-01", to: "2019-03-11" }
-      # 方法2
       deadline_range: {
         quick: "last_7_days" # last_14_days last_30_days yesterday today this_week this_month this_quarter this_year
       }
@@ -303,14 +289,7 @@ NOTE: `match` 最后放在`filter`最下面,从而提高筛选性能
 
 ```graphql
 {
-  tasks(
-    filter: {
-      assign_in: ["5EYNKKKB"]
-      status: {
-        uuid_in: ["GWjYu2WK"] # 任务的状态筛选
-      }
-    }
-  ) {
+  tasks(filter: { assign_in: ["5EYNKKKB"], status: { uuid_in: ["GWjYu2WK"] } }) {
     uuid
     name
   }
@@ -325,7 +304,7 @@ NOTE: `match` 最后放在`filter`最下面,从而提高筛选性能
     sprint {
       uuid
     }
-    aggregateInt(sum: "tasks.estimatedHours") # 统计
+    aggregateInt(sum: "tasks.estimatedHours")
   }
 }
 ```
@@ -349,7 +328,7 @@ NOTE: `match` 最后放在`filter`最下面,从而提高筛选性能
 接口请求 body 格式
 
 ```graphql
-{"query":"%s"} # "%s" string类型, 参考下面示例替换
+{"query":"%s"}
 ```
 
 添加预估/登记工时
@@ -486,7 +465,7 @@ mutation {
 
 ```graphql
 {
-  activityCharts(filter: { project: { uuid_in: ["项目 uuid"] } }) {
+  activityCharts(filter: { project: { uuid_in: ["project uuid"] } }) {
     uuid
   }
 }
@@ -499,8 +478,8 @@ mutation {
 ```graphql
 mutation {
   addActivity(
-    name: "测试2"
-    chart_uuid: "7cSvWRJi" # 活动视图 uuid
+    name: "test2"
+    chart_uuid: "7cSvWRJi"
     assign: "Pqmud3zh"
     type: "ppm_task"
     progress: 0
@@ -549,12 +528,7 @@ mutation {
 
 ```graphql
 {
-  activities(
-    orderBy: { position: "ASC" }
-    filter: {
-      chartUUID_in: ["7cSvWRJi"] # 活动视图 uuid
-    }
-  ) {
+  activities(orderBy: { position: "ASC" }, filter: { chartUUID_in: ["7cSvWRJi"] }) {
     key
     name
     uuid
@@ -588,7 +562,7 @@ mutation {
 
 ```graphql
 mutation UpdateGanttData {
-  updateActivity(name: "测试333", key: "activity-6hgEt3mj") {
+  updateActivity(name: "test", key: "activity-6hgEt3mj") {
     key
   }
 }
@@ -622,10 +596,7 @@ mutation DeleteGanttData {
         # equal: "today-99d"
         # not_equal: "today-1d"
       }
-      _1Ssfdsdf_range: {
-        #自定义属性 "日期" 筛选
-        equal: "today-99d"
-      }
+      _1Ssfdsdf_range: { equal: "today-99d" }
     }
   ) {
     uuid
@@ -641,10 +612,10 @@ mutation DeleteGanttData {
 ```graphql
 {
   tasks(
-    name_euqal: ["你好"] # name完全等于
-    name_notEqual: ["你好"] # name 完全不等于
-    name_match: ["你好"] # name 包含“你好”
-    name_notMatch: ["你好"] # name 不包含“你好”
+    name_euqal: ["Sales"]
+    name_notEqual: ["Sales"]
+    name_match: ["Sales"]
+    name_notMatch: ["Sales"]
   ) {
     uuid
   }
@@ -657,11 +628,7 @@ mutation DeleteGanttData {
 
 ```graphql
 {
-  tasks(
-    relatedCount_between: {
-      equal: 1 # 等于
-    }
-  ) {
+  tasks(relatedCount_between: { equal: 1 }) {
     uuid
   }
 }
@@ -669,11 +636,7 @@ mutation DeleteGanttData {
 
 ```graphql
 {
-  tasks(
-    relatedCount_between: {
-      not_equal: 1 # 不等于
-    }
-  ) {
+  tasks(relatedCount_between: { not_equal: 1 }) {
     uuid
   }
 }
@@ -681,12 +644,7 @@ mutation DeleteGanttData {
 
 ```graphql
 {
-  tasks(
-    relatedCount_between: {
-      gt: 1
-      lt: 10 # 大于1 小于10
-    }
-  ) {
+  tasks(relatedCount_between: { gt: 1, lt: 10 }) {
     uuid
   }
 }
@@ -694,12 +652,7 @@ mutation DeleteGanttData {
 
 ```graphql
 {
-  tasks(
-    relatedCount_between: {
-      gte: 1
-      lte: 10 # 大于等于1 小于等于10
-    }
-  ) {
+  tasks(relatedCount_between: { gte: 1, lte: 10 }) {
     uuid
   }
 }

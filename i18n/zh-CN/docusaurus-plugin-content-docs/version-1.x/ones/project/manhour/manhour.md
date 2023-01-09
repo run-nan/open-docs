@@ -70,7 +70,7 @@ JSON
 {
   "start_time": 1591340400,
   "hours": 200000,
-  "remark": "登记工时备注"
+  "remark": "remarks on registered man-hour"
 }
 ```
 
@@ -84,7 +84,7 @@ JSON
   "user_uuid": "6ZpgEzkk",
   "start_time": 1591340400,
   "hours": 200000,
-  "remark": "登记工时备注"
+  "remark": "remarks on registered man-hour"
 }
 ```
 

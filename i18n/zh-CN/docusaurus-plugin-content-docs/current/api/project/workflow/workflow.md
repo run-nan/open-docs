@@ -127,23 +127,23 @@ post_function
     {
       "run_script": {
         "uuid": "script01",
-        "name": "脚本1",
+        "name": "script 01",
         "params": [
           {
             "uuid": "field001",
-            "name": "回调url",
+            "name": "callback url",
             "type": "string",
-            "value": "ones.cn"
+            "value": "ones.com"
           },
           {
             "uuid": "field002",
-            "name": "成功状态",
+            "name": "success status",
             "type": "status",
             "value": "A6bURA4T"
           },
           {
             "uuid": "field003",
-            "name": "失败状态",
+            "name": "fail status",
             "type": "status",
             "value": "saxURA4T"
           }
@@ -195,12 +195,12 @@ fields
   "fields": [
     {
       "field_uuid": "field004",
-      "default_value": null, // 非文本属性其余一律传null
+      "default_value": null, // Non-text attributes, the rest will be passed as null
       "required": false
     },
     {
       "field_uuid": "field016",
-      "default_value": "", // 文本属性无默认值可以传 ""
+      "default_value": "", // Text attribute, no default value can be passed ""
       "required": false
     }
   ]
@@ -274,7 +274,7 @@ URL
 
 #### 请求示例
 
-```shell
+```curl
 curl -X GET \
   https://your-host-name/project/api/project/team/3pDzCwAe/transitions \
   -H 'Content-Type: application/json' \
@@ -295,7 +295,7 @@ curl -X GET \
       "issue_type_uuid": "BivBjw7n",
       "start_status_uuid": "51ufBBFm",
       "end_status_uuid": "PLPLfNYH",
-      "name": "重新激活",
+      "name": "reactivation",
       "position": 0,
       "trigger": null,
       "condition": null,
@@ -365,7 +365,7 @@ transitions 结构
 
 #### 请求示例
 
-```shell
+```curl
 curl -X GET \
   https://your-host-name/project/api/project/team/3pDzCwAe/task/PRZy8efJ3woCroT8/transitions \
   -H 'Content-Type: application/json' \
@@ -382,13 +382,13 @@ curl -X GET \
   "transitions": [
     {
       "uuid": "DqWBk1sZ",
-      "name": "开始实现",
+      "name": "start development",
       "start_status_uuid": "MZQu4VaM",
       "end_status_uuid": "HdMKu3yA"
     },
     {
       "uuid": "A6ZkuNFf",
-      "name": "关闭需求",
+      "name": "close requirement",
       "start_status_uuid": "MZQu4VaM",
       "end_status_uuid": "FqGfP5Lu"
     }
@@ -435,7 +435,7 @@ JSON
 
 #### 请求示例
 
-```shell
+```curl
 curl -X POST \
  https://your-host-name//project/api/project/team/14ZuYn5s/project/8m8X18wvKho6YOVv/issue_type/SRMtFidW/transition/EqucrZNi/update \
   -H 'Content-Type: application/json' \
@@ -447,7 +447,7 @@ curl -X POST \
             {
                 "run_script": {
                     "uuid": "add_manhour",
-                    "name": "自动提交剩余工时脚本",
+                    "name": "auto add remain manhour",
                     "params": []
                 }
             }
@@ -466,14 +466,14 @@ curl -X POST \
     "issue_type_uuid": "SRMtFidW",
     "start_status_uuid": "EycE51RF",
     "end_status_uuid": "USDYT4D3",
-    "name": "回归通过",
+    "name": "regression pass",
     "position": 4,
     "trigger": null,
     "condition": null,
     "post_function": [
       {
         "run_script": {
-          "name": "自动提交剩余工时脚本",
+          "name": "auto add remain manhour",
           "params": [],
           "uuid": "add_manhour"
         }
@@ -538,7 +538,7 @@ Body
 
 #### 请求示例
 
-```shell
+```curl
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/task/DU6krHBNNKSnnHNj/new_transit \
   -H 'Content-Type: application/json' \

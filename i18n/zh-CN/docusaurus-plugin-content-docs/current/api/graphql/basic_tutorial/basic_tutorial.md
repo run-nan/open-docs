@@ -8,12 +8,12 @@ ONES GraphQL 是一种查询语言，可以根据语句内容返回指定的数�
 
 ```
 {
-	Item			# 查询某类型属性的 Item
+	Item			# Query the item of a property type
 	(
-		...						# 查询条件，包括 filter、groupBy、orderBy
+		...						# Query condition, including groupBy and orderBy
 	)
 	{
-		...						# 返回域
+		...						# Return
 	}
 }
 ```
@@ -98,22 +98,22 @@ ONES GraphQL 查询条件主要有三类： `filter`、`groupBy`、`orderBy`，�
 #### 语法结构
 
 ```
-// 一层级单个条件
+// One level single condition
 filter: {
-	field_operand: 符合规定类型的条件值
+	field_operand: Conditional value according to the specified type
 }
 
-// 一层级多个条件
+// Multiple conditions at one level
 filter: {
-	field1_operand: 符合规定类型的条件值
-	field2_operand: 符合规定类型的条件值
+	field1_operand: Conditional value according to the specified type
+	field2_operand: Conditional value according to the specified type
 }
 
-// 如果筛选条件中的字段属于 ONES 对象类型中的字段，需要依次展开
-// 二层级单个条件
+// If the fields in the filter criteria belong to the ONES object type, you need to expand them in order
+// Two level single condition
 filter: {
 	field1: {
-		field2_operand: 符合规定类型的条件值
+		field2_operand: Conditional value according to the specified type
 	}
 }
 ```
@@ -121,15 +121,15 @@ filter: {
 举例
 
 ```
-// 查询用户，并筛选用户名为 "user1" 的用户
+// Query users and filter users with user name of "user1"
 users
   filter: {
     name_equal: "user1"
   }
 )
 
-// 查询项目，筛选项目创建时间为昨天，且负责人名称包含 "user1"、"user2"
-// 由于负责人为 user 对象，以负责人名称作为过滤条件，需要对其进行展开
+// Query items, filter items created yesterday, and the name of the responsible person includes "user1" and "user2"
+// Since the person in charge is the user object and the name of the person in charge is used as the filter condition, it needs to be expanded
 projects(
   filter: {
     createTime_quick: "yesterday"
@@ -139,8 +139,7 @@ projects(
   }
 )
 
-// 查询条件必须是查询对象中的字段
-// 不合法例子，user 不是 project 中的属性
+// The query conditions must be fields in the query object
 projects(
   filter: {
     user: {
@@ -213,7 +212,7 @@ ONES GraphQL 返回域由一个 `{ }` 概括起来，返回域中的字段需要
 
 ```
 projects(
-	// 查询条件
+	// query
 ){
 	uuid
 	name
@@ -352,7 +351,7 @@ GraphQL 查询语句
             context: {
                 type_equal: "team"
             }
-            name_match: "需求来源"
+            name_match: "Task"
         }
     ) {
         uuid
@@ -372,7 +371,7 @@ GraphQL 查询返回
       {
         "aliases": ["GAMEuBgs"],
         "fieldType": "option",
-        "name": "需求来源",
+        "name": "Task",
         "uuid": "GAMEuBgs"
       }
     ]
@@ -403,7 +402,7 @@ GraphQL 查询语句
                 name_equal: "demo"
             }
             issueType: {
-                name_equal: "需求"
+                name_equal: "Requirement"
             }
         }
     ){
@@ -422,17 +421,17 @@ GraphQL 查询返回
     "tasks": [
       {
         "_GAMEuBgs": {
-          "value": "技术支持"
+          "value": "Technical Support"
         }
       },
       {
         "_GAMEuBgs": {
-          "value": "用户"
+          "value": "User"
         }
       },
       {
         "_GAMEuBgs": {
-          "value": "技术支持"
+          "value": "Sales"
         }
       },
       {

@@ -85,28 +85,38 @@ manage_sprints
 
 ### 请求参数
 
-| 参数名           | 类型   | 是否必填 | 说明     |
-| :--------------- | :----- | :------- | :------- |
-| status           | object | T        | 迭代阶段 |
-| &nbsp;&nbsp;name | string | F        | 阶段名   |
+| 参数名 | 类型   | 是否必填 | 说明     |
+| :----- | :----- | :------- | :------- |
+| status | object | T        | 迭代阶段 |
+
+status 对象
+
+| 参数名 | 类型   | 是否必填 | 说明   |
+| :----- | :----- | :------- | :----- |
+| name   | string | F        | 阶段名 |
 
 ### 返回参数
 
-| 参数名               | 类型   | 是否必填 | 说明                 |
-| :------------------- | :----- | :------- | :------------------- |
-| status               | object | T        | 迭代阶段             |
-| &nbsp;&nbsp;uuid     | string | T        | 阶段 id              |
-| &nbsp;&nbsp;name     | string | T        | 阶段名               |
-| &nbsp;&nbsp;category | string | T        | 阶段分类             |
-| &nbsp;&nbsp;build_in | bool   | T        | 是否内置阶           |
-| server_update_stamp  | int    | T        | 数据更新时间（微妙） |
+| 参数名              | 类型   | 是否必填 | 说明                 |
+| :------------------ | :----- | :------- | :------------------- |
+| status              | object | T        | 迭代阶段             |
+| server_update_stamp | int    | T        | 数据更新时间（微妙） |
+
+status 对象
+
+| 参数名   | 类型   | 是否必填 | 说明       |
+| :------- | :----- | :------- | :--------- |
+| uuid     | string | T        | 阶段 id    |
+| name     | string | T        | 阶段名     |
+| category | string | T        | 阶段分类   |
+| build_in | bool   | T        | 是否内置阶 |
 
 ### 请求体参考
 
 ```json
 {
   "status": {
-    "name": "test迭代阶段"
+    "name": "the stage of this test sprint"
   }
 }
 ```
@@ -117,7 +127,7 @@ manage_sprints
 {
   "status": {
     "uuid": "Nj8WkR3T",
-    "name": "test迭代阶段",
+    "name": "the stage of this test sprint",
     "category": "in_progress",
     "build_in": false
   },
@@ -151,22 +161,32 @@ manage_sprints
 
 ### 请求参数
 
-| 参数名          | 类型   | 是否必填 | 说明                  |
-| :-------------- | :----- | :------- | :-------------------- |
-| status          | object | T        | 阶段                  |
-| &nbsp;name      | string | F        | 阶段名                |
-| &nbsp;next_uuid | string | F        | 移动后上一个阶段的 id |
+| 参数名 | 类型   | 是否必填 | 说明 |
+| :----- | :----- | :------- | :--- |
+| status | object | T        | 阶段 |
+
+status 对象
+
+| 参数名    | 类型   | 是否必填 | 说明                  |
+| :-------- | :----- | :------- | :-------------------- |
+| name      | string | F        | 阶段名                |
+| next_uuid | string | F        | 移动后上一个阶段的 id |
 
 ### 返回参数
 
-| 参数名               | 类型   | 是否必填 | 说明                 |
-| :------------------- | :----- | :------- | :------------------- |
-| status               | object | T        | 迭代阶段             |
-| &nbsp;&nbsp;uuid     | string | T        | 阶段 id              |
-| &nbsp;&nbsp;name     | string | T        | 阶段名               |
-| &nbsp;&nbsp;category | string | T        | 阶段分类             |
-| &nbsp;&nbsp;build_in | bool   | T        | 是否内置阶           |
-| server_update_stamp  | int    | T        | 数据更新时间（微妙） |
+| 参数名              | 类型   | 是否必填 | 说明                 |
+| :------------------ | :----- | :------- | :------------------- |
+| status              | object | T        | 迭代阶段             |
+| server_update_stamp | int    | T        | 数据更新时间（微妙） |
+
+status 对象
+
+| 参数名   | 类型   | 是否必填 | 说明       |
+| :------- | :----- | :------- | :--------- |
+| uuid     | string | T        | 阶段 id    |
+| name     | string | T        | 阶段名     |
+| category | string | T        | 阶段分类   |
+| build_in | bool   | T        | 是否内置阶 |
 
 ### 请求参数参考
 
@@ -174,7 +194,7 @@ manage_sprints
 {
   "status": {
     "uuid": "Nj8WkR3T",
-    "next_uuid": "N1Kw7tiD" // 调整 Nj8WkR3T 顺序到 N1Kw7tiD 之前
+    "next_uuid": "N1Kw7tiD" // Adjust Nj8WkR3T order to before N1Kw7tiD
   }
 }
 ```
@@ -182,7 +202,7 @@ manage_sprints
 ```json
 {
   "status": {
-    "name": "updateStageName", // 修改迭代阶段名称
+    "name": "updateStageName", // Modify the name of this sprint stage
     "uuid": "Nj8WkR3T"
   }
 }
@@ -258,13 +278,18 @@ BrowseProject
 
 ### 返回参数
 
-| 参数名               | 类型     | 是否必填 | 说明       |
-| :------------------- | :------- | :------- | :--------- |
-| statuses             | []object | T        | 迭代阶段   |
-| &nbsp;&nbsp;uuid     | string   | T        | 阶段 id    |
-| &nbsp;&nbsp;name     | string   | T        | 阶段名     |
-| &nbsp;&nbsp;category | string   | T        | 阶段分类   |
-| &nbsp;&nbsp;build_in | bool     | T        | 是否内置阶 |
+| 参数名   | 类型     | 是否必填 | 说明     |
+| :------- | :------- | :------- | :------- |
+| statuses | []object | T        | 迭代阶段 |
+
+statuses 对象
+
+| 参数名   | 类型   | 是否必填 | 说明       |
+| :------- | :----- | :------- | :--------- |
+| uuid     | string | T        | 阶段 id    |
+| name     | string | T        | 阶段名     |
+| category | string | T        | 阶段分类   |
+| build_in | bool   | T        | 是否内置阶 |
 
 ### 返回体参考
 
@@ -273,49 +298,49 @@ BrowseProject
   "statuses": [
     {
       "uuid": "84oYKyg2",
-      "name": "未开始",
+      "name": "to do",
       "category": "to_do",
       "build_in": true
     },
     {
       "uuid": "4Jcq6XbX",
-      "name": "需求设计",
+      "name": "in progress",
       "category": "in_progress",
       "build_in": false
     },
     {
       "uuid": "K6y6vDHE",
-      "name": "需求评审",
+      "name": "requirement",
       "category": "in_progress",
       "build_in": false
     },
     {
       "uuid": "JiJXQCrB",
-      "name": "界面设计",
+      "name": "plan",
       "category": "in_progress",
       "build_in": false
     },
     {
       "uuid": "JkY1AtwT",
-      "name": "产品研发",
+      "name": "develop",
       "category": "in_progress",
       "build_in": false
     },
     {
       "uuid": "8kmtuDfj",
-      "name": "产品测试",
+      "name": "product testing",
       "category": "in_progress",
       "build_in": false
     },
     {
       "uuid": "N1Kw7tiD",
-      "name": "产品发布",
+      "name": "product launch",
       "category": "in_progress",
       "build_in": false
     },
     {
       "uuid": "BAYxXXtB",
-      "name": "已完成",
+      "name": "done",
       "category": "done",
       "build_in": true
     }
@@ -343,19 +368,24 @@ manage_sprints
 
 ### 请求参数
 
-| 参数名                        | 类型     | 是否必填 | 说明                                         |
-| :---------------------------- | :------- | :------- | :------------------------------------------- |
-| sprint_statuses               | []object | T        | 迭代阶段                                     |
-| &nbsp;&nbsp;status_uuid       | string   | F        | 阶段 id                                      |
-| &nbsp;&nbsp;name              | string   | F        | 阶段名                                       |
-| &nbsp;&nbsp;category          | string   | F        | 阶段分类                                     |
-| &nbsp;&nbsp;plan_start_time   | int      | F        | 计划开始时间(单位秒)                         |
-| &nbsp;&nbsp;plan_end_time     | int      | F        | 计划完成时间(单位秒)                         |
-| &nbsp;&nbsp;actual_start_time | int      | F        | 实际开始时间(单位秒)                         |
-| &nbsp;&nbsp;actual_end_time   | int      | F        | 实际完成时间(单位秒)                         |
-| &nbsp;&nbsp;is_current_status | bool     | T        | 是否当前阶段                                 |
-| &nbsp;&nbsp;desc_plain        | string   | F        | 阶段描述, 纯文本(富文本转的纯文本，不限字数) |
-| &nbsp;&nbsp;desc_rich         | string   | F        | 阶段描述，富文本                             |
+| 参数名          | 类型     | 是否必填 | 说明     |
+| :-------------- | :------- | :------- | :------- |
+| sprint_statuses | []object | T        | 迭代阶段 |
+
+sprint_statuses 对象
+
+| 参数名            | 类型   | 是否必填 | 说明                                         |
+| :---------------- | :----- | :------- | :------------------------------------------- |
+| status_uuid       | string | F        | 阶段 id                                      |
+| name              | string | F        | 阶段名                                       |
+| category          | string | F        | 阶段分类                                     |
+| plan_start_time   | int    | F        | 计划开始时间(单位秒)                         |
+| plan_end_time     | int    | F        | 计划完成时间(单位秒)                         |
+| actual_start_time | int    | F        | 实际开始时间(单位秒)                         |
+| actual_end_time   | int    | F        | 实际完成时间(单位秒)                         |
+| is_current_status | bool   | T        | 是否当前阶段                                 |
+| desc_plain        | string | F        | 阶段描述, 纯文本(富文本转的纯文本，不限字数) |
+| desc_rich         | string | F        | 阶段描述，富文本                             |
 
 ### 返回参数
 
@@ -372,7 +402,7 @@ manage_sprints
   "sprint_statuses": [
     {
       "status_uuid": "K6y6vDHE",
-      "name": "需求评审",
+      "name": "requirement review",
       "category": "in_progress",
       "plan_start_time": 1533571200,
       "plan_end_time": 1533657600,
@@ -380,7 +410,7 @@ manage_sprints
       "actual_end_time": 1533657600,
       "is_current_status": false,
       "desc_plain": "",
-      "desc_rich": "<p>修改了需求评审的描述</p>\n"
+      "desc_rich": "<p>this is the description of requirement.</p>\n"
     }
   ]
 }
@@ -393,7 +423,7 @@ manage_sprints
   "sprint_statuses": [
     {
       "status_uuid": "K6y6vDHE",
-      "name": "需求评审",
+      "name": "requirement review",
       "category": "in_progress",
       "plan_start_time": 1533571200,
       "plan_end_time": 1533657600,
@@ -401,11 +431,11 @@ manage_sprints
       "actual_end_time": 1533657600,
       "is_current_status": true,
       "desc_plain": "",
-      "desc_rich": "<p>描述</p>\n"
+      "desc_rich": "<p>description</p>\n"
     },
     {
       "status_uuid": "XvPjnUC9",
-      "name": "未开始",
+      "name": "to do",
       "category": "to_do",
       "plan_start_time": 1533571200,
       "plan_end_time": null,
@@ -413,7 +443,7 @@ manage_sprints
       "actual_end_time": null,
       "is_current_status": false,
       "desc_plain": "",
-      "desc_rich": "<p>描述</p>\n"
+      "desc_rich": "<p>description</p>\n"
     }
   ]
 }

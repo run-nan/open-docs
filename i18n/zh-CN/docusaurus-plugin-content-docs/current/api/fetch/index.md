@@ -140,7 +140,7 @@ const input = (
 
 #### 返回参数参考
 
-```javascript
+```json
 {
   "data": {
     "id": 1,
@@ -159,7 +159,7 @@ const input = (
     "web_file_path": "",
     "icon": "",
     "new_version": "",
-    "is_upgrade": false // 是否为升级包
+    "is_upgrade": false
   }
 }
 ```
@@ -184,7 +184,7 @@ const input = (
 
 #### 返回值参考
 
-```javascript
+```json
 {
   "data": [
     {
@@ -193,14 +193,14 @@ const input = (
       "service": {
         "app_id": "3C706E1S-9A67-4F19-9B23-FA7S32C7DB53",
         "instance_id": "c7cb75c9",
-        "name": "插件名称",
+        "name": "Plugin Name",
         "version": "1.0.4",
         "language": "golang",
         "language_version": "1.14.0",
         "host_version": "0.2.0",
         "host_sub_version": "1.14.0",
         "min_system_version": "3.2.0",
-        "description": "该插件用于增加插件功能",
+        "description": "This is description of the plugin.",
         "contact": "",
         "status": 0,
         "org_uuid": "JGpj2YSq",
@@ -240,55 +240,53 @@ const input = (
 
 #### 返回值参考
 
-```javascript
+```json
 {
-    "data": [
+  "data": [
+    {
+      "apis": [
         {
-            "apis": [
-                {
-                    "methods": [
-                        "POST"
-                    ],
-                    "url": "/hello",
-                    "type": "addition",
-                    "function": "hello",
-                    "team_uuid": "37WvfbQR",
-                    "scope": ""
-                }
-            ],
-            "package_path": "/data/plugin/upload/U8CBemsb/37WvfbQR/B1UTeLsW/1.0.2/",
-            "service": {
-                "app_id": "B1UTeLsW",
-                "instance_id": "c6a7081a",
-                "name": "Fetch",
-                "version": "1.0.2",
-                "language": "nodejs",
-                "language_version": "16.13.0",
-                "host_version": "1.0.4",
-                "host_sub_version": "1.0.0",
-                "min_system_version": "3.5.0",
-                "description": "Fetch api test 1.0.1",
-                "contact": "",
-                "status": 0,
-                "org_uuid": "U8CBemsb",
-                "team_uuid": "37WvfbQR",
-                "config": null,
-                "auth": null,
-                "permission": null,
-                "path": "",
-                "icon": ""
-            },
-            "modules": [
-                {
-                    "entry": "modules/ones-workspace-new-uu1d/index.html",
-                    "id": "ones-workspace-new-uu1d",
-                    "moduleType": "ones:workspace:new",
-                    "title": "upload"
-                }
-            ],
-            "abilities": []
+          "methods": ["POST"],
+          "url": "/hello",
+          "type": "addition",
+          "function": "hello",
+          "team_uuid": "37WvfbQR",
+          "scope": ""
         }
-    ]
+      ],
+      "package_path": "/data/plugin/upload/U8CBemsb/37WvfbQR/B1UTeLsW/1.0.2/",
+      "service": {
+        "app_id": "B1UTeLsW",
+        "instance_id": "c6a7081a",
+        "name": "Fetch",
+        "version": "1.0.2",
+        "language": "nodejs",
+        "language_version": "16.13.0",
+        "host_version": "1.0.4",
+        "host_sub_version": "1.0.0",
+        "min_system_version": "3.5.0",
+        "description": "Fetch api test 1.0.1",
+        "contact": "",
+        "status": 0,
+        "org_uuid": "U8CBemsb",
+        "team_uuid": "37WvfbQR",
+        "config": null,
+        "auth": null,
+        "permission": null,
+        "path": "",
+        "icon": ""
+      },
+      "modules": [
+        {
+          "entry": "modules/ones-workspace-new-uu1d/index.html",
+          "id": "ones-workspace-new-uu1d",
+          "moduleType": "ones:workspace:new",
+          "title": "upload"
+        }
+      ],
+      "abilities": []
+    }
+  ]
 }
 ```
 
@@ -313,7 +311,7 @@ const input = (
 
 #### 返回值参考
 
-```javascript
+```json
 {
   "data": true
 }
@@ -340,7 +338,7 @@ const input = (
 
 #### 返回值参考
 
-```javascript
+```json
 {
   "data": true
 }
@@ -366,7 +364,7 @@ const input = (
 
 #### 返回值参考
 
-```javascript
+```json
 {
   "data": true
 }
@@ -394,7 +392,7 @@ const input = (
 
 #### 返回值参考
 
-```javascript
+```json
 {
   "data": true
 }
@@ -418,7 +416,7 @@ const input = (
 
 #### 返回值参考
 
-```javascript
+```json
 {
   "data": [
     {
@@ -427,14 +425,14 @@ const input = (
       "service": {
         "app_id": "lt1ZZuQQ",
         "instance_id": "075d18c7",
-        "name": "插件名称",
+        "name": "Plugin Name",
         "version": "1.0.0",
         "language": "",
         "language_version": "",
         "host_version": "",
         "host_sub_version": "",
         "min_system_version": "",
-        "description": "1.插件启用后会启动插件功能； 2.两个属性会将需求展示。",
+        "description": "",
         "contact": "",
         "status": 2,
         "org_uuid": "JGpj1YSe",
@@ -472,12 +470,12 @@ const input = (
 
 #### 返回值参考
 
-```javascript
+```json
 {
   "uuid": "DU6krHBN",
-  "email": "niuqiang@ones.ai",
-  "name": "会飞的犀牛长",
-  "name_pinyin": "hui4fei1dexi1niu2zhang3",
+  "email": "Ruddy@ones.com",
+  "name": "Ruddy",
+  "name_pinyin": "Ruddy",
   "title": "",
   "avatar": "",
   "phone": "",
@@ -508,7 +506,7 @@ const input = (
 
 #### 返回值参考
 
-```javascript
+```json
 {
   "data": []
 }
@@ -534,7 +532,7 @@ const input = (
 
 #### 返回值参考
 
-```javascript
+```json
 {
   "data": null
 }
@@ -561,12 +559,12 @@ const input = (
 
 #### 返回值参考
 
-```javascript
+```json
 {
   "uuid": "DU6krHBN",
-  "email": "niuqiang@ones.ai",
-  "name": "会飞的犀牛长",
-  "name_pinyin": "hui4fei1dexi1niu2zhang3",
+  "email": "Ruddy@ones.com",
+  "name": "Ruddy",
+  "name_pinyin": "Ruddy",
   "title": "",
   "avatar": "",
   "phone": "",
@@ -598,12 +596,12 @@ const input = (
 
 #### 返回值参考
 
-```javascript
+```json
 {
   "uuid": "DU6krHBN",
-  "email": "niuqiang@ones.ai",
-  "name": "会飞的犀牛长",
-  "name_pinyin": "hui4fei1dexi1niu2zhang3",
+  "email": "Ruddy@ones.com",
+  "name": "Ruddy",
+  "name_pinyin": "Ruddy",
   "title": "",
   "avatar": "",
   "phone": "",
@@ -634,17 +632,17 @@ const input = (
 
 #### 返回值参考
 
-```javascript
+```json
 {
   "data": [
     {
       "organization_uuid": "JGrg2YSe",
       "team_uuid": "EW9GftZh",
       "instance_uuid": "428a1243",
-      "permission_name": "插件权限",
+      "permission_name": "Plugin Permission",
       "permission_field": "manage_filter_view_push",
       "permission_id": 56378,
-      "permission_desc": "以下成员具有视图推送的权限",
+      "permission_desc": "the follow members has layout permission.",
       "rule_info": []
     }
   ]
@@ -671,23 +669,23 @@ const input = (
 
 - permissionDomain 案例
 
-```javascript
+```json
 {
-    "permissionDomain": {
-        "context_type": "plugin",
-        "context_param": {
-            "plugin_uuid": "4d2eb3c0"
-        },
-        "permission": 57459,
-        "user_domain_type": "single_user",
-        "user_domain_param": "7BnuPj7S"
-    }
+  "permissionDomain": {
+    "context_type": "plugin",
+    "context_param": {
+      "plugin_uuid": "4d2eb3c0"
+    },
+    "permission": 57459,
+    "user_domain_type": "single_user",
+    "user_domain_param": "7BnuPj7S"
+  }
 }
 ```
 
 #### 返回值参考
 
-```javascript
+```json
 {
   "data": {
     "id": 1,
@@ -727,7 +725,7 @@ const input = (
 
 #### 返回值参考
 
-```javascript
+```json
 {
   "data": true
 }
@@ -771,9 +769,9 @@ getPluginLog({
 
 #### 返回值参考
 
-```javascript
+```json
 {
-    "data": "{\"Level\":\"Info\",\"Role\":\"Plugin\",\"Message\":\"[Plugin] Install\",\"ErrorCode\":\"\",\"Timestamp\":1658241611,\"CauseByMessage\":\"\",\"PluginInstanceDescriptor\":{\"PluginDescriptor\":{\"PluginName\":\"nodejs-plugin-example\",\"AppID\":\"A0UTeLsW\",\"AppVersion\":\"\",\"LanguageName\":\"nodejs\",\"Languageversion\":\"16.13.0\",\"Hostsubversion\":\"1.0.0\",\"Hostversion\":\"1.0.4\",\"Minsystemversion\":\"3.5.0\"},\"InstanceId\":\"3cd2d9a3\",\"OrgId\":\"U8CBemsb\",\"TeamId\":\"37WvfbQR\"},\"HostDescriptor\":{\"HostID\":\"Host-nodejs95974\",\"Name\":\"DefaultNodeJsHost\",\"Language\":\"nodejs\",\"HostVersion\":\"1.0.8\",\"HostSubVersion\":\"1.0.0\",\"MinSystemVersion\":\"3.5.0\",\"LanguageVersion\":\"16.13.1\"},\"HostBootDescriptor\":{\"HostBootID\":\"\",\"Name\":\"\",\"Version\":\"\"},\"PlatformDescriptor\":{\"ID\":\"R0000001\",\"Name\":\"plugin-platform\",\"Version\":\"1.0.0\",\"Address\":\"0.0.0.0\"},\"Ext\":null}\n{\"Level\":\"Info\",\"Time\":\"2022-07-19 22:40:11\",\"Message\":\"[Plugin] Install\"}\n{\"Level\":\"Info\",\"Time\":\"2022-07-19 22:40:11\",\"Message\":\"插件 Install 钩子函数运行成功!\"}\n{\"Level\":\"Info\",\"Time\":\"2022-07-19 22:52:58\",\"Message\":\"[Plugin] Enable\"}\n{\"Level\":\"Info\",\"Time\":\"2022-07-19 22:52:58\",\"Message\":\"插件 Enable 钩子函数运行成功!\"}\n{\"Level\":\"Info\",\"Time\":\"2022-07-19 22:56:58\",\"Message\":\"[Plugin] Disable\"}\n{\"Level\":\"Info\",\"Time\":\"2022-07-19 22:56:58\",\"Message\":\"插件 Disable 钩子函数运行成功!\"}\n"
+  "data": "{\"Level\":\"Info\",\"Role\":\"Plugin\",\"Message\":\"[Plugin] Install\",\"ErrorCode\":\"\",\"Timestamp\":1658241611,\"CauseByMessage\":\"\",\"PluginInstanceDescriptor\":{\"PluginDescriptor\":{\"PluginName\":\"nodejs-plugin-example\",\"AppID\":\"A0UTeLsW\",\"AppVersion\":\"\",\"LanguageName\":\"nodejs\",\"Languageversion\":\"16.13.0\",\"Hostsubversion\":\"1.0.0\",\"Hostversion\":\"1.0.4\",\"Minsystemversion\":\"3.5.0\"},\"InstanceId\":\"3cd2d9a3\",\"OrgId\":\"U8CBemsb\",\"TeamId\":\"37WvfbQR\"},\"HostDescriptor\":{\"HostID\":\"Host-nodejs95974\",\"Name\":\"DefaultNodeJsHost\",\"Language\":\"nodejs\",\"HostVersion\":\"1.0.8\",\"HostSubVersion\":\"1.0.0\",\"MinSystemVersion\":\"3.5.0\",\"LanguageVersion\":\"16.13.1\"},\"HostBootDescriptor\":{\"HostBootID\":\"\",\"Name\":\"\",\"Version\":\"\"},\"PlatformDescriptor\":{\"ID\":\"R0000001\",\"Name\":\"plugin-platform\",\"Version\":\"1.0.0\",\"Address\":\"0.0.0.0\"},\"Ext\":null}\n{\"Level\":\"Info\",\"Time\":\"2022-07-19 22:40:11\",\"Message\":\"[Plugin] Install\"}\n{\"Level\":\"Info\",\"Time\":\"2022-07-19 22:40:11\",\"Message\":\"Plugin Install callback success!\"}\n{\"Level\":\"Info\",\"Time\":\"2022-07-19 22:52:58\",\"Message\":\"[Plugin] Enable\"}\n{\"Level\":\"Info\",\"Time\":\"2022-07-19 22:52:58\",\"Message\":\"Plugin Enable callback success!\"}\n{\"Level\":\"Info\",\"Time\":\"2022-07-19 22:56:58\",\"Message\":\"[Plugin] Disable\"}\n{\"Level\":\"Info\",\"Time\":\"2022-07-19 22:56:58\",\"Message\":\"Plugin Disable callback success!\"}\n"
 }
 ```
 
@@ -813,10 +811,10 @@ getPluginLog({
 | startTime    | number              | true  |        | 导出日志开始时间 |
 | endTime      | number              | true  |        | 导出日志结束时间 |
 
-#### 返回值参考
+#### 返回值参考函数运行成功
 
-```javascript
+```json
 {
-    "url": "https://mars-dev.myones.net:11200/api/project/plugin/log/download?token=PrEbytovwgYLw422MwNAEp"
+  "url": "https://mars-dev.myones.net:11200/api/project/plugin/log/download?token=PrEbytovwgYLw422MwNAEp"
 }
 ```

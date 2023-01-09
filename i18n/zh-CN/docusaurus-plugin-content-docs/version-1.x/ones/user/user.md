@@ -95,9 +95,9 @@ curl -X GET \
 ```json
 {
   "uuid": "DU6krHBN",
-  "email": "niuqiang@ones.cn",
-  "name": "会飞的犀牛长",
-  "name_pinyin": "hui4fei1dexi1niu2zhang3",
+  "email": "niuqiang@ones.com",
+  "name": "Arnie",
+  "name_pinyin": "Arnie",
   "title": "",
   "avatar": "",
   "phone": "",
@@ -154,7 +154,7 @@ curl -X POST \
   -H 'cache-control: no-cache' \
   -d '{
     "user_uuid": "DU6krHBN",
-    "name": "会飞的犀牛长",
+    "name": "Arnie",
     "title": "update title"
 }'
 ```
@@ -219,7 +219,7 @@ curl -X POST \
   -H 'cache-control: no-cache' \
   -d '{"invite_settings":[
           {
-            "email":"123414@ones.cn"
+            "email":"123414@ones.com"
           }
         ],
         "license_types":[
@@ -238,7 +238,7 @@ curl -X POST \
 
 ```json
 {
-  "success_emails": ["123414@ones.cn"],
+  "success_emails": ["123414@ones.com"],
   "bad_emails": []
 }
 ```
@@ -436,7 +436,7 @@ team 对象
 | 参数名         | 值类型   | 取值范围              | 取值例子         | 说明                                          |
 | :------------- | :------- | :-------------------- | :--------------- | :-------------------------------------------- |
 | uuid           | string   | len<=8                | WNiMa6DR         | 用户当前所属团队 uuid                         |
-| name           | string   | len<=255              | ones.cn          | 用户当前所属团队名称                          |
+| name           | string   | len<=255              | ones.com         | 用户当前所属团队名称                          |
 | status         | int      |                       | 1:正常,3:过期    | 团队状态                                      |
 | owner          | string   | len=8                 |                  | 团队 owner 的 uuid                            |
 | logo           | string   |                       |                  | 图标                                          |
@@ -500,7 +500,7 @@ curl -X POST \
     {
       "uuid": "Jpa4piQQ",
       "status": 1,
-      "name": "宇宙最强",
+      "name": "Ruddy",
       "owner": "9uaNjXTJ",
       "logo": "",
       "cover_url": "",
@@ -525,7 +525,7 @@ curl -X POST \
   "org": {
     "org_type": 0,
     "uuid": "CbuJaGWN",
-    "name": "宇宙最强team",
+    "name": "Ruddy team",
     "style_hash": "",
     "favicon": "",
     "notifications": []

@@ -193,7 +193,7 @@ JSON
 
 #### 请求示例
 
-```shell
+```curl
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/fields/add \
   -H 'Content-Type: application/json' \
@@ -274,7 +274,7 @@ JSON
 
 #### 请求示例
 
-```shell
+```curl
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/field/KXPq1Ez8/update \
   -H 'Content-Type: application/json' \
@@ -352,7 +352,7 @@ URL
 
 #### 请求示例
 
-```shell
+```curl
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/task_status/KXPq1Ez8/delete \
   -H 'Content-Type: application/json' \
@@ -405,7 +405,7 @@ URL
 
 #### 请求示例
 
-```shell
+```curl
 curl -X GET \
   https://your-host-name/project/api/project/team/3pDzCwAe/fields \
   -H 'Content-Type: application/json' \
@@ -422,7 +422,7 @@ curl -X GET \
   "fields": [
     {
       "uuid": "AajgmACP",
-      "name": "Android系统版本",
+      "name": "Android",
       "name_pinyin": "Androidxi4tong3ban3ben3",
       "desc": "",
       "type": 1,
@@ -484,7 +484,7 @@ URL
 
 #### 请求示例
 
-```shell
+```curl
 curl -X GET \
   https://your-host-name/project/api/project/team/3pDzCwAe/field_configs \
   -H 'Content-Type: application/json' \

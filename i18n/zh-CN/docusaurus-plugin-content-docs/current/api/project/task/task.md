@@ -152,7 +152,7 @@ bad_tasks 结构
 
 示例一
 
-```shell
+```curl
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/tasks/add2 \
   -H 'Content-Type: application/json' \
@@ -202,7 +202,7 @@ curl -X POST \
 
 示例二
 
-```shell
+```curl
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/tasks/add2 \
   -H 'Content-Type: application/json' \
@@ -226,12 +226,12 @@ curl -X POST \
                 {
                     "field_uuid": "field012",
                     "type": 1,
-                    "value": "YQ3yGULf" // 选项类型，value 是选项的 uuid
+                    "value": "YQ3yGULf" // option type, value is the uuid of the option
                 },
                 {
                     "field_uuid":"field016",
                     "type":2,
-                    "value":"<p>描述</p>\n"
+                    "value":"<p>description</p>\n"
                 }
             ]
         }
@@ -321,7 +321,7 @@ bad_tasks 结构
 
 #### 请求示例
 
-```shell
+```curl
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/tasks/update2 \
   -H 'Content-Type: application/json' \
@@ -381,7 +381,7 @@ URL
 
 #### 请求示例
 
-```shell
+```curl
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/task/DU6krHBN7TS9TKx7/delete \
   -H 'Content-Type: application/json' \
@@ -457,7 +457,7 @@ task_count_by_sprint 结构
 
 #### 请求示例
 
-```shell
+```curl
 curl -X GET \
   https://your-host-name/project/api/project/team/3pDzCwAe/task_stats \
   -H 'Content-Type: application/json' \
@@ -545,7 +545,7 @@ JSON
 
 #### 请求示例
 
-```shell
+```curl
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/task/DU6krHBNNKSnnHNI/copy \
   -H 'Content-Type: application/json' \
@@ -587,7 +587,7 @@ curl -X POST \
     "deadline": null,
     "status": 1,
     "summary": "task_test",
-    "desc": "update task test . ",
+    "desc": "update task test",
     "desc_rich": "<p>update task test .&nbsp;</p>\n",
     "parent_uuid": "",
     "position": 0,
@@ -661,7 +661,7 @@ URL
 
 #### 请求示例
 
-```shell
+```curl
 curl -X GET \
   https://your-host-name/project/api/project/team/3pDzCwAe/task/DU6krHBNJPoQgfJv/info \
   -H 'Content-Type: application/json' \
@@ -833,7 +833,7 @@ errors 结构
 
 #### 请求示例
 
-```shell
+```curl
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/tasks/info \
   -H 'Content-Type: application/json' \
@@ -868,7 +868,7 @@ curl -X POST \
       "deadline": null,
       "status": 1,
       "summary": "task_test",
-      "desc": "update task test . ",
+      "desc": "update task test.",
       "desc_rich": "<p>update task test .&nbsp;</p>\n",
       "parent_uuid": "",
       "position": 0,

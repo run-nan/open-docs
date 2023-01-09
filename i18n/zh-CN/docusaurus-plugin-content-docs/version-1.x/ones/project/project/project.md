@@ -96,7 +96,7 @@ JSON
 
 ### 请求示例
 
-```bash
+```curl
 curl --location --request POST 'https://your-host-name/project/api/project/team/T8Zbied7/projects/add' \
 --header 'Ones-User-ID: XPvprKLy' \
 --header 'Ones-Auth-Token: fa34FWMz74bsXyvcZP7wvzL79obaX7atFszLnSS9hrAqAuFsMH5zHotgxfp3s8Bb' \
@@ -181,7 +181,7 @@ JSON
 
 ### 请求示例
 
-```bash
+```curl
 curl -L -X POST 'https://your-host-name/project/api/project/team/T8Zbied7/projects/copy2' \
 -H 'Ones-User-ID: XPvprKLy' \
 -H 'Ones-Auth-Token: fa34FWMz74bsXyvcZP7wvzL79obaX7atFszLnSS9hrAqAuFsMH5zHotgxfp3s8Bb' \
@@ -189,7 +189,7 @@ curl -L -X POST 'https://your-host-name/project/api/project/team/T8Zbied7/projec
 -H 'Cookie: language=zh' \
 -d '{
   "project_uuid": "XPvprKLyVUmf7QPq",
-  "project_name": "测试项目1",
+  "project_name": "test project a",
   "issue_types": [
     "D63PEwbg"
   ],
@@ -271,7 +271,7 @@ JSON
 
 ### 请求示例
 
-```bash
+```curl
 curl --location --request POST 'https://your-host-name/project/api/project/team/BDfDqJU7/item/project-6ZpgEzkk12345678/update' \
 --header 'Content-Type: application/json' \
 --header 'Ones-User-Id: 6ZpgEzkk' \
@@ -348,7 +348,7 @@ POST
 
 ### 请求示例
 
-```bash
+```curl
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/project/DU6krHBNRJ8sVGyN/delete \
   -H 'Content-Type: application/json' \
@@ -404,7 +404,7 @@ query params
 
 ### 请求示例
 
-```bash
+```curl
 curl -X GET \
   'https://your-host-name/project/api/project/team/3pDzCwAe/projects/info?ids=RGzJnspW7PFk7mZk,DU6krHBNJEEeoG8G' \
   -H 'Content-Type: application/json' \
@@ -482,7 +482,7 @@ GET
 
 ### 请求示例
 
-```bash
+```curl
 curl -X GET \
   https://your-host-name/project/api/project/team/3pDzCwAe/projects/my_project \
   -H 'Content-Type: application/json' \
@@ -554,7 +554,7 @@ query params
 
 ### 请求示例
 
-```bash
+```curl
 curl -X GET \
   https://your-host-name/project/api/project/team/3pDzCwAe/projects/all \
   -H 'Content-Type: application/json' \

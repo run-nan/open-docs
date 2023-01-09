@@ -19,30 +19,40 @@
 
 ### organization
 
-| 参数名                      | 值类型 | 取值范围 | 说明                           |
-| :-------------------------- | :----- | :------- | :----------------------------- |
-| uuid                        | string | len=8    | 组织 UUID                      |
-| name                        | string | len<=128 | 组织名称                       |
-| scale                       | int    |          | 组织规模（最大成员数）         |
-| type                        | string |          | 组织类型，详见下方说明         |
-| sync_data                   | array  |          | 第三方同步数据                 |
-| &nbsp;sync_type             | int    | 1        | 第三方企业类型 1:微信；2：钉钉 |
-| &nbsp;sync_corp_uuid        | int    |          | 第三方企业 id                  |
-| &nbsp;sync_corp_name        | string |          | 第三方企业名称                 |
-| &nbsp;sync_agent_id         | int    |          | 第三方企业应用名称             |
-| owner                       | string | len=8    | 组织创建者 uuid                |
-| logo                        | string | len<=255 | 组织 logo                      |
-| status                      | int    |          | 组织状态 1：正常；2：已过期    |
-| visibility                  | bool   |          | 组织页是否可见                 |
-| server_update_stamp         | int64  |          | 更新时间戳，单位微秒           |
-| sidebar_menus               | array  |          | 更新时间戳                     |
-| &nbsp;key                   | string |          | 侧边栏配置 key                 |
-| &nbsp;default_value         | string |          | 侧边栏配置默认值               |
-| &nbsp;element_show          | bool   |          | 是否在管理界面展示此侧边栏组件 |
-| &nbsp;value                 | string |          | 侧边栏配置 value               |
-| &nbsp;is_show               | bool   |          | 侧边栏配置是否展示             |
-| &nbsp;is_can_update_text    | bool   |          | 侧边栏配置是否可以更改 value   |
-| &nbsp;is_can_update_is_show | bool   |          | 侧边栏配置是否可以更改是否展示 |
+| 参数名              | 值类型 | 取值范围           | 说明                        |
+| :------------------ | :----- | :----------------- | :-------------------------- |
+| uuid                | string | len=8              | 组织 UUID                   |
+| name                | string | len<=128           | 组织名称                    |
+| scale               | int    |                    | 组织规模（最大成员数）      |
+| type                | string |                    | 组织类型，详见下方说明      |
+| sync_data           | array  | sync_data 对象     | 第三方同步数据              |
+| owner               | string | len=8              | 组织创建者 uuid             |
+| logo                | string | len<=255           | 组织 logo                   |
+| status              | int    |                    | 组织状态 1：正常；2：已过期 |
+| visibility          | bool   |                    | 组织页是否可见              |
+| server_update_stamp | int64  |                    | 更新时间戳，单位微秒        |
+| sidebar_menus       | array  | sidebar_menus 对象 | 侧边栏配置                  |
+
+sync_data 对象
+
+| 参数名         | 值类型 | 取值范围 | 说明                           |
+| :------------- | :----- | :------- | :----------------------------- |
+| sync_type      | int    | 1        | 第三方企业类型 1:微信；2：钉钉 |
+| sync_corp_uuid | int    |          | 第三方企业 id                  |
+| sync_corp_name | string |          | 第三方企业名称                 |
+| sync_agent_id  | int    |          | 第三方企业应用名称             |
+
+sidebar_menus 对象
+
+| 参数名                | 值类型 | 取值范围 | 说明                           |
+| :-------------------- | :----- | :------- | :----------------------------- |
+| key                   | string |          | 侧边栏配置 key                 |
+| default_value         | string |          | 侧边栏配置默认值               |
+| element_show          | bool   |          | 是否在管理界面展示此侧边栏组件 |
+| value                 | string |          | 侧边栏配置 value               |
+| is_show               | bool   |          | 侧边栏配置是否展示             |
+| is_can_update_text    | bool   |          | 侧边栏配置是否可以更改 value   |
+| is_can_update_is_show | bool   |          | 侧边栏配置是否可以更改是否展示 |
 
 ### organization_type
 
@@ -105,7 +115,7 @@ curl -X GET \
 ```json
 {
   "uuid": "CbuJaGWN",
-  "name": "xx组织",
+  "name": "Organization I",
   "owner": "9uaNjXTJ",
   "logo": "",
   "favicon": "",
@@ -160,11 +170,11 @@ URL
 
 bad_member 对象
 
-| 参数名     | 值类型 | 取值范围 | 取值例子 | 说明      |
-| :--------- | :----- | :------- | :------- | :-------- |
-| &nbsp;uuid | string |          |          | 用户 UUID |
-| &nbsp;code | int    |          |          | 返回码    |
-| &nbsp;desc | string |          |          | 错误描述  |
+| 参数名 | 值类型 | 取值范围 | 取值例子 | 说明      |
+| :----- | :----- | :------- | :------- | :-------- |
+| uuid   | string |          |          | 用户 UUID |
+| code   | int    |          |          | 返回码    |
+| desc   | string |          |          | 错误描述  |
 
 #### 请求示例
 
@@ -435,7 +445,7 @@ curl -X GET \
   "members": [
     {
       "uuid": "J9cBwY9L",
-      "email": "d831186d@ones.ai",
+      "email": "d831186d@ones.com",
       "name": "nodejs-plugin-ex",
       "name_pinyin": "",
       "title": "",
@@ -567,20 +577,35 @@ administer_organization
 
 #### 返回参数列表
 
-| 参数名                   | 值类型 | 说明              |
-| :----------------------- | :----- | :---------------- |
-| sync_data                | array  | 第三方组织数据    |
-| &nbsp;sync_type          | int    | 第三方组织类型    |
-| &nbsp;departments        | array  | 部门集合          |
-| &nbsp;&nbsp;sync_id      | string | 部门 id           |
-| &nbsp;&nbsp;parent_id    | string | 父节点 id         |
-| &nbsp;&nbsp;name         | string | 部门名称          |
-| &nbsp;&nbsp;next_id      | string | 下一个兄弟节点 id |
-| &nbsp;&nbsp;member_count | int    | 部门成员数        |
-| &nbsp;members            | array  | 用户集合          |
-| &nbsp;&nbsp;sync_id      | string | 用户 uuid         |
-| &nbsp;&nbsp;name         | string | 用户名            |
-| &nbsp;&nbsp;email        | string | 用户邮箱          |
+| 参数名    | 值类型 | 说明           |
+| :-------- | :----- | :------------- |
+| sync_data | array  | 第三方组织数据 |
+
+sync_data 对象
+
+| 参数名      | 值类型 | 说明           |
+| :---------- | :----- | :------------- |
+| sync_type   | int    | 第三方组织类型 |
+| departments | array  | 部门集合       |
+| members     | array  | 用户集合       |
+
+departments 对象
+
+| 参数名       | 值类型 | 说明              |
+| :----------- | :----- | :---------------- |
+| sync_id      | string | 部门 id           |
+| parent_id    | string | 父节点 id         |
+| name         | string | 部门名称          |
+| next_id      | string | 下一个兄弟节点 id |
+| member_count | int    | 部门成员数        |
+
+members 对象
+
+| 参数名  | 值类型 | 说明      |
+| :------ | :----- | :-------- |
+| sync_id | string | 用户 uuid |
+| name    | string | 用户名    |
+| email   | string | 用户邮箱  |
 
 #### 请求示例
 
@@ -629,15 +654,20 @@ URL
 
 #### 返回参数列表
 
-| 参数名               | 值类型 | 取值例子      | 说明                               |
-| :------------------- | :----- | :------------ | :--------------------------------- |
-| sync_data            | array  |               | 绑定的第三方组织                   |
-| &nbsp;sync_type      | int    | 1             | 第三方组织类型,1:wechat;2:dingding |
-| &nbsp;sync_corp_uuid | string |               | 指定第三方组织企业 id              |
-| &nbsp;sync_corp_name | string |               | 指定第三方组织企业名称             |
-| &nbsp;sync_agent_id  | int    |               | 指定第三方组织企业应用名称         |
-| &nbsp;departments    | array  | ["id1","id2"] | 指定部门 sync_ids                  |
-| &nbsp;members        | array  | ["id1","id2"] | 指定成员 sync_ids                  |
+| 参数名    | 值类型 | 取值例子 | 说明             |
+| :-------- | :----- | :------- | :--------------- |
+| sync_data | array  |          | 绑定的第三方组织 |
+
+sync_data 对象
+
+| 参数名         | 值类型 | 取值例子      | 说明                               |
+| :------------- | :----- | :------------ | :--------------------------------- |
+| sync_type      | int    | 1             | 第三方组织类型,1:wechat;2:dingding |
+| sync_corp_uuid | string |               | 指定第三方组织企业 id              |
+| sync_corp_name | string |               | 指定第三方组织企业名称             |
+| sync_agent_id  | int    |               | 指定第三方组织企业应用名称         |
+| departments    | array  | ["id1","id2"] | 指定部门 sync_ids                  |
+| members        | array  | ["id1","id2"] | 指定成员 sync_ids                  |
 
 #### 请求示例
 

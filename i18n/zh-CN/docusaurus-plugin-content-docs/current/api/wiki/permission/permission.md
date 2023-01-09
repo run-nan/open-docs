@@ -555,7 +555,7 @@ curl -X GET \
 
 #### 响应示例
 
-````json
+```json
 {
   "page_share_permission_type": 3,
   "is_share_sub_page": false,
@@ -574,4 +574,3 @@ curl -X GET \
   ]
 }
 ```
-````

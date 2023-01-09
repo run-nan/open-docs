@@ -101,14 +101,14 @@ curl -X POST \
         "products": [
             {
                 "assign": {
-                    "name": "”沙鳄鱼“沙·克洛克达尔",
+                    "name": "Arnie",
                     "uuid": "QuRAYz3k"
                 },
                 "createTime": 1581999173,
                 "key": "product-6ZpgEzkkLPikRNXX",
-                "name": "啊啊啊",
+                "name": "product A",
                 "owner": {
-                    "name": "贝加庞克",
+                    "name": "Ruddy",
                     "uuid": "6ZpgEzkk"
                 },
                 "productComponents": [
@@ -117,7 +117,7 @@ curl -X POST \
                         "contextParam2": null,
                         "contextType": 0,
                         "key": "product_component-XrqBwPaC",
-                        "name": "模块",
+                        "name": "module",
                         "parent": null,
                         "position": 3,
                         "type": 6,
@@ -130,7 +130,7 @@ curl -X POST \
                         "contextParam2": null,
                         "contextType": 1,
                         "key": "product_component-QCBCdgqM",
-                        "name": "任务",
+                        "name": "task",
                         "parent": null,
                         "position": 1,
                         "type": 3,
@@ -140,7 +140,7 @@ curl -X POST \
                             {
                                 "builtIn": true,
                                 "key": "product_component_view-Q6QZEXM9",
-                                "name": "全部任务",
+                                "name": "All Task",
                                 "uuid": "Q6QZEXM9"
                             }
                         ]
@@ -150,7 +150,7 @@ curl -X POST \
                         "contextParam2": null,
                         "contextType": 1,
                         "key": "product_component-NpawYgE9",
-                        "name": "缺陷",
+                        "name": "Bug",
                         "parent": null,
                         "position": 2,
                         "type": 3,
@@ -160,7 +160,7 @@ curl -X POST \
                             {
                                 "builtIn": true,
                                 "key": "product_component_view-DQRDXBCC",
-                                "name": "全部缺陷",
+                                "name": "All Bug",
                                 "uuid": "DQRDXBCC"
                             }
                         ]
@@ -170,7 +170,7 @@ curl -X POST \
                         "contextParam2": null,
                         "contextType": 1,
                         "key": "product_component-TFBoaLF9",
-                        "name": "需求",
+                        "name": "Requirement",
                         "parent": null,
                         "position": 0,
                         "type": 3,
@@ -180,7 +180,7 @@ curl -X POST \
                             {
                                 "builtIn": true,
                                 "key": "product_component_view-UcK9jVug",
-                                "name": "全部需求",
+                                "name": "All Requirement",
                                 "uuid": "UcK9jVug"
                             }
                         ]
@@ -289,7 +289,7 @@ between 用于整型浮点型数据比较
       {
         "aliases": ["uuid"],
         "allowEmpty": false,
-        "builtIn": true, // 固有属性
+        "builtIn": true,
         "defaultValue": null,
         "fieldType": "text",
         "name": "[UUID]",
@@ -299,10 +299,10 @@ between 用于整型浮点型数据比较
       {
         "aliases": ["status"],
         "allowEmpty": false,
-        "builtIn": false, // 自定义属性
+        "builtIn": false,
         "defaultValue": null,
         "fieldType": "status",
-        "name": "任务状态",
+        "name": "Task Status",
         "required": false,
         "uuid": null
       }

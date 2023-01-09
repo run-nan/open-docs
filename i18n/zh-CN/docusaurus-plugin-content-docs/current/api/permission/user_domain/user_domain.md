@@ -115,9 +115,9 @@ curl -X GET \
   "groups": [
     {
       "uuid": "DMUywgGM",
-      "name": "测试组",
+      "name": "test group",
       "name_pinyin": "ce4shi4zu3",
-      "desc": "测试小组",
+      "desc": "this is a test group",
       "create_time": 0,
       "members": ["UPuyjJtZ"]
     }
@@ -172,8 +172,8 @@ curl --location --request POST 'http://your-host-name/project/api/project/team/C
 --header 'Ones-Auth-Token: 7kSDetESVDFsTavnaHprr6pVQvxYuVUKAPRC3sKWupaqRyHjVrekZLOhJNnYVkYl' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "name": "测试组",
-    "desc": "测试小组",
+    "name": "test group",
+    "desc": "this is a test group",
     "members": [
         "UPuyjJtZ"
     ]
@@ -185,9 +185,9 @@ curl --location --request POST 'http://your-host-name/project/api/project/team/C
 ```json
 {
   "uuid": "DMUywgGM",
-  "name": "测试组",
+  "name": "test group",
   "name_pinyin": "ce4shi4zu3",
-  "desc": "测试小组",
+  "desc": "this is a test group",
   "create_time": 1669620426197825,
   "members": ["UPuyjJtZ"],
   "server_update_stamp": 1669620426197606
@@ -240,8 +240,8 @@ curl --location --request POST 'http://your-host-name/project/api/project/team/C
 --header 'Ones-Auth-Token: 7kSDetESVDFsTavnaHprr6pVQvxYuVUKAPRC3sKWupaqRyHjVrekZLOhJNnYVkYl' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "name": "研发组",
-    "desc": "研发小组",
+    "name": "R&D Group",
+    "desc": "this is a R&D Group",
     "members": [
         "UPuyjJtZ"
     ]
@@ -253,9 +253,9 @@ curl --location --request POST 'http://your-host-name/project/api/project/team/C
 ```json
 {
   "uuid": "DMUywgGM",
-  "name": "研发组",
+  "name": "R&D Group",
   "name_pinyin": "yan2fa1zu3",
-  "desc": "研发小组",
+  "desc": "this is a R&D Group",
   "create_time": 1669620426197825,
   "members": ["UPuyjJtZ"],
   "server_update_stamp": 1669622060749448

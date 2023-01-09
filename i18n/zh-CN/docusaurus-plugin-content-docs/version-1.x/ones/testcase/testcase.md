@@ -149,7 +149,7 @@ JSON
 
 #### 请求示例
 
-```bash
+```curl
 curl -X POST https://your-host-name/project/api/project/team/:teamUUID/items/graphql \
   -H 'Content-Type: application/json' \
   -H 'Ones-Auth-Token: ${token}' \
@@ -187,11 +187,11 @@ curl -X POST https://your-host-name/project/api/project/team/:teamUUID/items/gra
           {
             "isPin": false,
             "isSample": false,
-            "name": "导入测试库1",
+            "name": "test1",
             "testcaseCaseCount": 2000,
             "testcaseFieldConfig": {
               "key": "testcase_field_config-GbAeM9uH",
-              "name": "默认配置",
+              "name": "default",
               "uuid": "GbAeM9uH"
             },
             "uuid": "LhrG8UhM"
@@ -199,11 +199,11 @@ curl -X POST https://your-host-name/project/api/project/team/:teamUUID/items/gra
           {
             "isPin": false,
             "isSample": true,
-            "name": "订单系统",
+            "name": "order system",
             "testcaseCaseCount": 2,
             "testcaseFieldConfig": {
               "key": "testcase_field_config-GbAeM9uH",
-              "name": "默认配置",
+              "name": "default",
               "uuid": "GbAeM9uH"
             },
             "uuid": "V4o6KTJF"
@@ -215,7 +215,7 @@ curl -X POST https://your-host-name/project/api/project/team/:teamUUID/items/gra
             "testcaseCaseCount": 2000,
             "testcaseFieldConfig": {
               "key": "testcase_field_config-GbAeM9uH",
-              "name": "默认配置",
+              "name": "default",
               "uuid": "GbAeM9uH"
             },
             "uuid": "3LdYp7bP"
@@ -227,7 +227,7 @@ curl -X POST https://your-host-name/project/api/project/team/:teamUUID/items/gra
             "testcaseCaseCount": 2000,
             "testcaseFieldConfig": {
               "key": "testcase_field_config-GbAeM9uH",
-              "name": "默认配置",
+              "name": "default",
               "uuid": "GbAeM9uH"
             },
             "uuid": "MPM5bDMK"
@@ -239,7 +239,7 @@ curl -X POST https://your-host-name/project/api/project/team/:teamUUID/items/gra
             "testcaseCaseCount": 4000,
             "testcaseFieldConfig": {
               "key": "testcase_field_config-GbAeM9uH",
-              "name": "默认配置",
+              "name": "default",
               "uuid": "GbAeM9uH"
             },
             "uuid": "PSzjm7GL"

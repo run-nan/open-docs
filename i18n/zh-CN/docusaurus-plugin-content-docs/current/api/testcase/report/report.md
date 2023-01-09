@@ -79,7 +79,7 @@ Get
 
 #### 请求示例
 
-```bash
+```curl
 curl -X GET \
   'https://your-host-name/project/api/project/team/3QKyQ54X/testcase/report/5cSLDuk6/view_report' \
   -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
@@ -136,7 +136,7 @@ JSON
 
 #### 请求示例
 
-```bash
+```curl
 curl -X POST \
   'https://your-host-name/project/api/project/team/3QKyQ54X/testcase/report/5cSLDuk6/update_report' \
   -H 'Content-Type: application/json' \
@@ -188,7 +188,7 @@ JSON
 
 #### 请求示例
 
-```bash
+```curl
 curl -X POST \
   'https://your-host-name/project/api/project/team/3QKyQ54X/testcase/report/5cSLDuk6/export_report' \
   -H 'Content-Type: application/json' \
@@ -238,7 +238,7 @@ GET
 
 #### 请求示例
 
-```bash
+```curl
 curl -X GET \
   'https://your-host-name/project/api/project/team/3QKyQ54X/testcase/report/5cSLDuk6/download' \
   -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \

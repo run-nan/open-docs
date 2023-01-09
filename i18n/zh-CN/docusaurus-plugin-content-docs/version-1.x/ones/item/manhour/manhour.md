@@ -82,7 +82,7 @@ mutation AddManhour {
     "type": "recorded",
     "start_time": 1670666400,
     "hours": 100000,
-    "description": "登记工时的描述"
+    "description": "add man-hour description."
   }
 }
 ```
@@ -158,7 +158,7 @@ mutation UpdateManhour {
     "type": "recorded",
     "start_time": 1670666400,
     "hours": 200000,
-    "description": "登记工时的描述",
+    "description": "add man-hour description.",
     "key": "manhour-XmkU1kuV"
   }
 }
@@ -316,7 +316,7 @@ query FetchUserManhours {
         "key": "manhour-CswpZLFb",
         "owner": {
           "avatar": "",
-          "email": "xxx@ones.ai",
+          "email": "xxx@ones.com",
           "name": "AdminTest",
           "uuid": "95sGjuY5"
         },
@@ -329,7 +329,7 @@ query FetchUserManhours {
         "key": "manhour-7em8Ta9X",
         "owner": {
           "avatar": "",
-          "email": "xxx@ones.ai",
+          "email": "xxx@ones.com",
           "name": "AdminTest",
           "uuid": "95sGjuY5"
         },

@@ -48,12 +48,12 @@ page
   "pages": [
     {
       "uuid": "3snnvcEu",
-      "title": "会议记录",
+      "title": "conference record",
       "position": 3
     },
     {
       "uuid": "FBFrDoJG",
-      "title": "更新日志",
+      "title": "Changelog",
       "position": 2
     }
   ]
@@ -106,7 +106,7 @@ page
 ```json
 {
   "page": {
-    "title": "更新日志",
+    "title": "Changelog",
     "uuid": "FBFrDoJG"
   }
 }

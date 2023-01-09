@@ -64,7 +64,7 @@ JSON
 ```json
 {
   "space_uuid": "LLNkd6Up",
-  "parent_uuid": "UyZkFDM5", // 父节点的page uuid
+  "parent_uuid": "UyZkFDM5", // page uuid of the parent node
   "title": "title",
   "copy_src_type": "",
   "copy_src_uuid": ""
@@ -76,7 +76,7 @@ JSON
 ```json
 {
   "space_uuid": "LLNkd6Up",
-  "parent_uuid": "UyZkFDM5", // 父节点的page uuid
+  "parent_uuid": "UyZkFDM5", // page uuid of the parent node
   "title": "title",
   "copy_src_type": "page",
   "copy_src_uuid": "TPaN4NBa"
@@ -88,7 +88,7 @@ JSON
 ```json
 {
   "space_uuid": "LLNkd6Up",
-  "parent_uuid": "UyZkFDM5", // 父节点的page uuid
+  "parent_uuid": "UyZkFDM5", // page uuid of the parent node
   "title": "title",
   "copy_src_type": "template",
   "copy_src_uuid": "TPaN4NBa"
@@ -157,7 +157,7 @@ QUERY_STRING
 
 #### 请求体示例
 
-```json
+```curl
 curl -X GET \
  https://your-host-name/wiki/api/wiki/team/UjN1PnmK/online_page/MmjszXgX/token?action=edit \
   -H 'Ones-Auth-Token: ILg1uaO9d8MOG6rqQoe6Ozqkv27sTbgiKeDDgapEtIYnkyu8m6d51nq7og0koETZ' \
@@ -201,8 +201,7 @@ GET
 
 #### 请求体示例
 
-```json
-
+```curl
 curl -X GET \
  https://your-host-name/wiki/api/wiki/team/UjN1PnmK/online_page/MmjszXgX/content \
   -H 'Ones-Auth-Token: ILg1uaO9d8MOG6rqQoe6Ozqkv27sTbgiKeDDgapEtIYnkyu8m6d51nq7og0koETZ' \
@@ -258,14 +257,14 @@ JSON
 
 #### 请求体示例
 
-```json
+```curl
 curl -X GET \
  https://your-host-name/wiki/api/wiki/team/UjN1PnmK/online_page/MmjszXgX/publish \
   -H 'Ones-Auth-Token: ILg1uaO9d8MOG6rqQoe6Ozqkv27sTbgiKeDDgapEtIYnkyu8m6d51nq7og0koETZ' \
   -H 'Ones-User-Id: DU6krHBN' \
   -H 'Referer: https://your-host-name' \
   -H 'cache-control: no-cache'
-  -d '{"title":"主页"}'
+  -d '{"title":"title"}'
 ```
 
 #### 请求示例
@@ -320,14 +319,14 @@ JSON
 
 #### 请求体示例
 
-```json
+```curl
 curl -X GET \
  https://your-host-name/wiki/api/wiki/team/UjN1PnmK/online_page/SwkBtFNA/update_title \
   -H 'Ones-Auth-Token: ILg1uaO9d8MOG6rqQoe6Ozqkv27sTbgiKeDDgapEtIYnkyu8m6d51nq7og0koETZ' \
   -H 'Ones-User-Id: DU6krHBN' \
   -H 'Referer: https://your-host-name' \
   -H 'cache-control: no-cache'
-  -d '{"title":"主页"}'
+  -d '{"title":"title"}'
 
 ```
 
@@ -376,7 +375,7 @@ JSON
 
 #### 请求示例
 
-```json
+```curl
 curl -X GET \
  https://your-host-name/wiki/api/wiki/team/UjN1PnmK/online_page/XoKhewh7/revert/1663244218963 \
   -H 'Ones-Auth-Token: ILg1uaO9d8MOG6rqQoe6Ozqkv27sTbgiKeDDgapEtIYnkyu8m6d51nq7og0koETZ' \

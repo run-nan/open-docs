@@ -111,7 +111,7 @@ curl -X GET \
     },
     {
       "uuid": "M5an6x7r",
-      "title": "我的版本测试",
+      "title": "test",
       "desc": "",
       "assign": "6ZpgEzkk",
       "release_time": 1580029633,
@@ -375,7 +375,7 @@ curl -X POST \
 {
   "version": {
     "uuid": "M5an6x7r",
-    "title": "我的版本测试",
+    "title": "test",
     "desc": "",
     "assign": "6ZpgEzkk",
     "release_time": 1580029633,

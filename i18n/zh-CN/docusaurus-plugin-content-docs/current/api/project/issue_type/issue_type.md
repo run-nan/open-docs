@@ -135,7 +135,7 @@ issue_type 结构
 
 示例一
 
-```shell
+```curl
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/issue_types/add \
   -H 'Content-Type: application/json' \
@@ -145,7 +145,7 @@ curl -X POST \
   -H 'cache-control: no-cache' \
   -d '{
     "issue_type": {
-        "name": "工作项类型名称",
+        "name": "Name of project task type",
         "icon": 5,
         "type": 0
     }
@@ -154,7 +154,7 @@ curl -X POST \
 
 示例二
 
-```shell
+```curl
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/issue_types/add \
   -H 'Content-Type: application/json' \
@@ -164,7 +164,7 @@ curl -X POST \
   -H 'cache-control: no-cache' \
   -d '{
     "issue_type": {
-        "name": "工作项类型名称",
+        "name": "Name of project task type",
         "icon": 5,
         "type": 0
     },
@@ -177,7 +177,7 @@ curl -X POST \
 ```json
 {
   "uuid": "EL8EKdp5",
-  "name": "标准工作项类型",
+  "name": "standard project task",
   "name_pinyin": "",
   "icon": 5,
   "built_in": false,
@@ -213,7 +213,7 @@ curl -X POST \
         "uuid": "Emv1LGuv",
         "start_status_uuid": "4HfKoazf",
         "end_status_uuid": "AyFUiZok",
-        "name": "开始工作项",
+        "name": "start the task",
         "position": 0,
         "trigger": null,
         "condition": null,
@@ -289,7 +289,7 @@ issue_type 结构
 
 #### 请求示例
 
-```shell
+```curl
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/issue_type/SJt9Ua8X/update \
   -H 'Content-Type: application/json' \
@@ -339,7 +339,7 @@ curl -X POST \
         "uuid": "7QbZa1RT",
         "start_status_uuid": "MZQu4VaM",
         "end_status_uuid": "T8VegS8V",
-        "name": "进行中",
+        "name": "in progress",
         "position": 0,
         "trigger": null,
         "condition": null,
@@ -464,7 +464,7 @@ URL
 
 #### 请求示例
 
-```shell
+```curl
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/issue_type/EL8EKdp5/delete \
   -H 'Ones-Auth-Token: WuX0XphkP7370DjtlTq3TrXQ0VdGWmQmDFrGEpj3HNvevWbLgH5TNPycbbzvSYhT' \
@@ -516,7 +516,7 @@ URL
 
 #### 请求示例
 
-```shell
+```curl
 curl -X GET \
   https://your-host-name/project/api/project/team/3pDzCwAe/issue_types \
   -H 'Content-Type: application/json' \
@@ -561,7 +561,7 @@ curl -X GET \
             "uuid": "7QbZa1RT",
             "start_status_uuid": "MZQu4VaM",
             "end_status_uuid": "T8VegS8V",
-            "name": "进行中",
+            "name": "in progress",
             "position": 0,
             "trigger": null,
             "condition": null,
@@ -691,7 +691,7 @@ JSON
 
 #### 请求示例
 
-```shell
+```curl
 curl -X POST \
   https://your-host-name/project/api/project/team/DU6krHBN/project/DU6krHBNXuPAbpv8/issue_types/add \
   -H 'Content-Type: application/json' \
@@ -749,7 +749,7 @@ URL
 
 #### 请求示例
 
-```shell
+```curl
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/project/DU6krHBNXuPAbpv8/issue_type/DDP5PK74/delete \
   -H 'Content-Type: application/json' \
@@ -812,7 +812,7 @@ issue_type_configs 结构
 
 #### 请求示例
 
-```shell
+```curl
 curl -X GET \
   https://your-host-name/project/api/project/team/3pDzCwAe/issue_type_configs \
   -H 'Content-Type: application/json' \
@@ -829,7 +829,7 @@ curl -X GET \
   "issue_type_configs": [
     {
       "uuid": "2MQQbZXG",
-      "name": "需求",
+      "name": "Requirement",
       "name_pinyin": "xu1qiu2",
       "scope": "9uaNjXTJVktEf5U1",
       "scope_type": 1,

@@ -42,7 +42,7 @@ GET
 
 #### 请求示例
 
-```bash
+```curl
 curl -X GET \
   'https://your-host-name/project/api/project/team/3QKyQ54X/testcase/library/G8f4GEWE/download_template' \
   -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
@@ -94,14 +94,14 @@ multipart/form-data
 
 #### 请求示例
 
-```bash
+```curl
 curl -X POST \
   'https://your-host-name/project/api/project/team/3QKyQ54X/testcase/library/G8f4GEWE/upload' \
   -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundaryxAKmbtaB0lzHERDG' \
   -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
   -H 'Ones-User-Id: 6ZpgEzkk' \
   -H 'cache-control: no-cache' \
-  -d $'------WebKitFormBoundaryxAKmbtaB0lzHERDG\r\nContent-Disposition: form-data; name="file"; filename="订单系统.xlsx"\r\nContent-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\r\n\r\n\r\n------WebKitFormBoundaryxAKmbtaB0lzHERDG--\r\n'
+  -d $'------WebKitFormBoundaryxAKmbtaB0lzHERDG\r\nContent-Disposition: form-data; name="file"; filename="order_system.xlsx"\r\nContent-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\r\n\r\n\r\n------WebKitFormBoundaryxAKmbtaB0lzHERDG--\r\n'
 ```
 
 #### 返回示例
@@ -110,16 +110,16 @@ curl -X POST \
 {
   "column_names": [
     "ID",
-    "一级模块",
-    "二级模块",
-    "用例名称",
-    "优先级",
-    "用例类型",
-    "前置条件",
-    "步骤描述",
-    "预期结果",
-    "备注",
-    "维护人"
+    "primary module",
+    "secondary module",
+    "case name",
+    "priority",
+    "case type",
+    "pre-condition",
+    "describing procedures",
+    "expected result",
+    "remark",
+    "maintainer"
   ],
   "file_hash": "Fr3tMrDQ2jHVSwlHqTWYWt4iiY5d"
 }
@@ -175,14 +175,14 @@ MappingPayLoad
 
 #### 请求示例
 
-```bash
+```curl
 curl -X POST \
   'https://your-host-name/project/api/project/team/3QKyQ54X/testcase/library/G8f4GEWE/import' \
   -H 'Content-Type: application/json' \
   -H 'Ones-Auth-Token: si83t7NzOvAspJ4L7RhKparuw9FvAsy7z3UupTCiGxhd7zEO2cBIG12vrw31sPRP' \
   -H 'Ones-User-Id: 6ZpgEzkk' \
   -H 'cache-control: no-cache' \
-  -d '{"mapping":{"module_name_1":"一级模块","module_name_2":"二级模块","name":"用例名称","priority":"优先级","type":"用例类型","condition":"前置条件","step_desc":"步骤描述","step_result":"预期结果","desc":"备注","assign":"维护人"},"file_hash":"Fr3tMrDQ2jHVSwlHqTWYWt4iiY5d"}'
+  -d '{"mapping":{"module_name_1":"primary module","module_name_2":"secondary module","name":"case name","priority":"priority","type":"case type","condition":"pre-condition","step_desc":"describing procedures","step_result":"expected result","desc":"remark","assign":"maintainer "},"file_hash":"Fr3tMrDQ2jHVSwlHqTWYWt4iiY5d"}'
 ```
 
 #### 返回示例

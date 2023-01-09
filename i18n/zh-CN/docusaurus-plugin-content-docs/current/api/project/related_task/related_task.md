@@ -65,7 +65,7 @@ badItem
 
 #### 请求示例
 
-```shell
+```curl
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/task/FyZoT7nur9ABCDE/related_tasks \
   -H 'Content-Type: application/json' \
@@ -130,7 +130,7 @@ badItem
 
 #### 请求示例
 
-```shell
+```curl
 curl -X POST \
   https://your-host-name/project/api/project/team/3pDzCwAe/task/FyZoT7nur9ABCDE/delete/related_tasks \
   -H 'Content-Type: application/json' \
