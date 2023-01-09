@@ -136,10 +136,10 @@ function OPErrorHandler(response: OPError) => void
 #### 类型
 
 ```tsx
-interface FetchInstance extends AxiosInstance {
-  <T = any, R = FetchResponse<T>, D = any>(config: FetchConfig<D>): Promise<R>
-  <T = any, R = FetchResponse<T>, D = any>(url: string, config?: FetchConfig<D>): Promise<R>
-  create: FetchCreate
+interface FetchInstance<E extends object = EmptyObj> extends AxiosInstance {
+  <T = any, R = FetchResponse<T>, D = any>(config: FetchConfig<D, E>): Promise<R>
+  <T = any, R = FetchResponse<T>, D = any>(url: string, config?: FetchConfig<D, E>): Promise<R>
+  create: FetchCreate<E>
 }
 ```
 
@@ -163,8 +163,11 @@ interface FetchInstance extends AxiosInstance {
 ##### 类型
 
 ```tsx
-interface FetchCreate {
-  (config?: FetchConfig, inheritableInterceptors?: FetchInheritableInterceptors): FetchInstance
+interface FetchCreate<E extends object = EmptyObj> {
+  (
+    config?: FetchConfig<any, E>,
+    inheritableInterceptors?: FetchInheritableInterceptors<E>
+  ): FetchInstance<E>
 }
 ```
 
@@ -238,9 +241,9 @@ interface OPError {
 为了便于区分，可继承的拦截器只能通过 `create` 方法的第二个参数传入，实例后续添加的拦截器均不会被继承。
 
 ```ts
-interface FetchInheritableInterceptors {
-  request?: FetchInheritableInterceptor<FetchConfig>[]
-  response?: FetchInheritableInterceptor<FetchResponse>[]
+interface FetchInheritableInterceptors<E extends object = EmptyObj> {
+  request?: FetchInheritableInterceptor<FetchConfig<any, E>>[]
+  response?: FetchInheritableInterceptor<FetchConfig<any, E>>[]
 }
 
 type FetchInheritableInterceptor<T = FetchConfig, D = any> =
@@ -257,163 +260,151 @@ type FetchInheritableInterceptor<T = FetchConfig, D = any> =
 
 ```ts
 {
-  // `url` is the server URL that will be used for the request
+  // `url` 是用于请求的服务器 URL
   url: '/user',
 
-  // `method` is the request method to be used when making the request
-  method: 'get', // default
+  // `method` 是创建请求时使用的方法
+  method: 'get', // 默认值
 
-  // `baseURL` will be prepended to `url` unless `url` is absolute.
-  // It can be convenient to set `baseURL` for an instance of axios to pass relative URLs
-  // to methods of that instance.
-  baseURL: 'https://some-domain.com/api',
+  // `baseURL` 将自动加在 `url` 前面，除非 `url` 是一个绝对 URL。
+  // 它可以通过设置一个 `baseURL` 便于为 axios 实例的方法传递相对 URL
+  baseURL: 'https://some-domain.com/api/',
 
-  // `transformRequest` allows changes to the request data before it is sent to the server
-  // This is only applicable for request methods 'PUT', 'POST', 'PATCH' and 'DELETE'
-  // The last function in the array must return a string or an instance of Buffer, ArrayBuffer,
-  // FormData or Stream
-  // You may modify the headers object.
+  // `autoErrorToast` 用于控制是否自动弹窗展示插件接口或者平台接口的错误信息
+  // 使用时需要插件后端配合使用对应的sdk
+  // 仅应用于 `OPFetch`，`Fetch` 中不包含此配置
+  autoErrorToast: true // 默认值
+
+  // `transformRequest` 允许在向服务器发送前，修改请求数据
+  // 它只能用于 'PUT', 'POST' 和 'PATCH' 这几个请求方法
+  // 数组中最后一个函数必须返回一个字符串， 一个Buffer实例，ArrayBuffer，FormData，或 Stream
+  // 你可以修改请求头。
   transformRequest: [function (data, headers) {
-    // Do whatever you want to transform the data
+    // 对发送的 data 进行任意转换处理
 
     return data;
   }],
 
-  // `transformResponse` allows changes to the response data to be made before
-  // it is passed to then/catch
+  // `transformResponse` 在传递给 then/catch 前，允许修改响应数据
   transformResponse: [function (data) {
-    // Do whatever you want to transform the data
+    // 对接收的 data 进行任意转换处理
 
     return data;
   }],
 
-  // `headers` are custom headers to be sent
+  // 自定义请求头
   headers: {'X-Requested-With': 'XMLHttpRequest'},
 
-  // `params` are the URL parameters to be sent with the request
-  // Must be a plain object or a URLSearchParams object
-  // NOTE: params that are null or undefined are not rendered in the URL.
+  // `params` 是与请求一起发送的 URL 参数
+  // 必须是一个简单对象或 URLSearchParams 对象
   params: {
     ID: 12345
   },
 
-  // `paramsSerializer` is an optional function in charge of serializing `params`
+  // `paramsSerializer`是可选方法，主要用于序列化`params`
   // (e.g. https://www.npmjs.com/package/qs, http://api.jquery.com/jquery.param/)
   paramsSerializer: function (params) {
     return Qs.stringify(params, {arrayFormat: 'brackets'})
   },
 
-  // ⚠️ if the `params` is undefined and the method is 'GET'
-  // ⚠️ the `data` will be used as an alias for the `params`
-
-  // `data` is the data to be sent as the request body
-  // Only applicable for request methods 'PUT', 'POST', 'DELETE', and 'PATCH'
-  // When no `transformRequest` is set, must be of one of the following types:
+  // `data` 是作为请求体被发送的数据
+  // 仅适用 'PUT', 'POST', 'DELETE 和 'PATCH' 请求方法
+  // 在没有设置 `transformRequest` 时，则必须是以下类型之一:
   // - string, plain object, ArrayBuffer, ArrayBufferView, URLSearchParams
-  // - `GET` method only: string, plain object
-  // - Browser only: FormData, File, Blob
-  // - Node only: Stream, Buffer
+  // - 浏览器专属: FormData, File, Blob
+  // - Node 专属: Stream, Buffer
   data: {
     firstName: 'Fred'
   },
 
-  // syntax alternative to send data into the body
-  // method post
-  // only the value is sent, not the key
+  // 发送请求体数据的可选语法
+  // 请求方式 post
+  // 只有 value 会被发送，key 则不会
   data: 'Country=Brasil&City=Belo Horizonte',
 
-  // `timeout` specifies the number of milliseconds before the request times out.
-  // If the request takes longer than `timeout`, the request will be aborted.
-  timeout: 1000, // default is `0` (no timeout)
+  // `timeout` 指定请求超时的毫秒数。
+  // 如果请求时间超过 `timeout` 的值，则请求会被中断
+  timeout: 1000, // 默认值是 `0` (永不超时)
 
-  // `withCredentials` indicates whether or not cross-site Access-Control requests
-  // should be made using credentials
+  // `withCredentials` 表示跨域请求时是否需要使用凭证
   withCredentials: false, // default
 
-  // `adapter` allows custom handling of requests which makes testing easier.
-  // Return a promise and supply a valid response (see lib/adapters/README.md).
+  // `adapter` 允许自定义处理请求，这使测试更加容易。
+  // 返回一个 promise 并提供一个有效的响应 （参见 lib/adapters/README.md）。
   adapter: function (config) {
     /* ... */
   },
 
-  // `auth` indicates that HTTP Basic auth should be used, and supplies credentials.
-  // This will set an `Authorization` header, overwriting any existing
-  // `Authorization` custom headers you have set using `headers`.
-  // Please note that only HTTP Basic auth is configurable through this parameter.
-  // For Bearer tokens and such, use `Authorization` custom headers instead.
+  // `auth` HTTP Basic Auth
   auth: {
     username: 'janedoe',
     password: 's00pers3cret'
   },
 
-  // `responseType` indicates the type of data that the server will respond with
-  // options are: 'arraybuffer', 'document', 'json', 'text', 'stream'
-  //   browser only: 'blob'
-  responseType: 'json', // default
+  // `responseType` 表示浏览器将要响应的数据类型
+  // 选项包括: 'arraybuffer', 'document', 'json', 'text', 'stream'
+  // 浏览器专属：'blob'
+  responseType: 'json', // 默认值
 
-  // `responseEncoding` indicates encoding to use for decoding responses (Node.js only)
+  // `responseEncoding` 表示用于解码响应的编码 (Node.js 专属)
+  // 注意：忽略 `responseType` 的值为 'stream'，或者是客户端请求
   // Note: Ignored for `responseType` of 'stream' or client-side requests
-  responseEncoding: 'utf8', // default
+  responseEncoding: 'utf8', // 默认值
 
-  // `xsrfCookieName` is the name of the cookie to use as a value for xsrf token
-  xsrfCookieName: 'XSRF-TOKEN', // default
+  // `xsrfCookieName` 是 xsrf token 的值，被用作 cookie 的名称
+  xsrfCookieName: 'XSRF-TOKEN', // 默认值
 
-  // `xsrfHeaderName` is the name of the http header that carries the xsrf token value
-  xsrfHeaderName: 'X-XSRF-TOKEN', // default
+  // `xsrfHeaderName` 是带有 xsrf token 值的http 请求头名称
+  xsrfHeaderName: 'X-XSRF-TOKEN', // 默认值
 
-  // `onUploadProgress` allows handling of progress events for uploads
-  // browser only
+  // `onUploadProgress` 允许为上传处理进度事件
+  // 浏览器专属
   onUploadProgress: function (progressEvent) {
-    // Do whatever you want with the native progress event
+    // 处理原生进度事件
   },
 
-  // `onDownloadProgress` allows handling of progress events for downloads
-  // browser only
+  // `onDownloadProgress` 允许为下载处理进度事件
+  // 浏览器专属
   onDownloadProgress: function (progressEvent) {
-    // Do whatever you want with the native progress event
+    // 处理原生进度事件
   },
 
-  // `maxContentLength` defines the max size of the http response content in bytes allowed in Node.js
+  // `maxContentLength` 定义了node.js中允许的HTTP响应内容的最大字节数
   maxContentLength: 2000,
 
-  // `maxBodyLength` (Node only option) defines the max size of the http request content in bytes allowed
+  // `maxBodyLength`（仅Node）定义允许的http请求内容的最大字节数
   maxBodyLength: 2000,
 
-  // `validateStatus` defines whether to resolve or reject the promise for a given
-  // HTTP response status code. If `validateStatus` returns `true` (or is set to `null`
-  // or `undefined`), the promise will be resolved; otherwise, the promise will be
-  // rejected.
+  // `validateStatus` 定义了对于给定的 HTTP状态码是 resolve 还是 reject promise。
+  // 如果 `validateStatus` 返回 `true` (或者设置为 `null` 或 `undefined`)，
+  // 则promise 将会 resolved，否则是 rejected。
   validateStatus: function (status) {
-    return status >= 200 && status < 300; // default
+    return status >= 200 && status < 300; // 默认值
   },
 
-  // `maxRedirects` defines the maximum number of redirects to follow in node.js.
-  // If set to 0, no redirects will be followed.
-  maxRedirects: 5, // default
+  // `maxRedirects` 定义了在node.js中要遵循的最大重定向数。
+  // 如果设置为0，则不会进行重定向
+  maxRedirects: 5, // 默认值
 
-  // `socketPath` defines a UNIX Socket to be used in node.js.
-  // e.g. '/var/run/docker.sock' to send requests to the docker daemon.
-  // Only either `socketPath` or `proxy` can be specified.
-  // If both are specified, `socketPath` is used.
+  // `socketPath` 定义了在node.js中使用的UNIX套接字。
+  // e.g. '/var/run/docker.sock' 发送请求到 docker 守护进程。
+  // 只能指定 `socketPath` 或 `proxy` 。
+  // 若都指定，这使用 `socketPath` 。
   socketPath: null, // default
 
-  // `httpAgent` and `httpsAgent` define a custom agent to be used when performing http
-  // and https requests, respectively, in node.js. This allows options to be added like
-  // `keepAlive` that are not enabled by default.
+  // `httpAgent` 和 `httpsAgent` define a custom agent to be used when performing http
+  // `httpAgent` 和 `httpsAgent` 可以自定义代理
+  // 浏览器或者node环境，可以配置代理，如下所示
+  // `keepAlive` 不会默认开启
   httpAgent: new http.Agent({ keepAlive: true }),
   httpsAgent: new https.Agent({ keepAlive: true }),
 
-  // `proxy` defines the hostname, port, and protocol of the proxy server.
-  // You can also define your proxy using the conventional `http_proxy` and
-  // `https_proxy` environment variables. If you are using environment variables
-  // for your proxy configuration, you can also define a `no_proxy` environment
-  // variable as a comma-separated list of domains that should not be proxied.
-  // Use `false` to disable proxies, ignoring environment variables.
-  // `auth` indicates that HTTP Basic auth should be used to connect to the proxy, and
-  // supplies credentials.
-  // This will set an `Proxy-Authorization` header, overwriting any existing
-  // `Proxy-Authorization` custom headers you have set using `headers`.
-  // If the proxy server uses HTTPS, then you must set the protocol to `https`.
+  // `proxy` 定义了代理服务器的主机名，端口和协议。
+  // 您可以使用常规的`http_proxy` 和 `https_proxy` 环境变量。
+  // 使用 `false` 可以禁用代理功能，同时环境变量也会被忽略。
+  // `auth`表示应使用HTTP Basic auth连接到代理，并且提供凭据。
+  // 这将设置一个 `Proxy-Authorization` 请求头，它会覆盖 `headers` 中已存在的自定义 `Proxy-Authorization` 请求头。
+  // 如果代理服务器使用 HTTPS，则必须设置 protocol 为`https`
   proxy: {
     protocol: 'https',
     host: '127.0.0.1',
@@ -424,16 +415,20 @@ type FetchInheritableInterceptor<T = FetchConfig, D = any> =
     }
   },
 
-  // `cancelToken` specifies a cancel token that can be used to cancel the request
-  // (see Cancellation section below for details)
+  // 详情请查阅 https://axios-http.com/zh/docs/cancellation
   cancelToken: new CancelToken(function (cancel) {
   }),
 
-  // `decompress` indicates whether or not the response body should be decompressed
-  // automatically. If set to `true` will also remove the 'content-encoding' header
-  // from the responses objects of all decompressed responses
-  // - Node only (XHR cannot turn off decompression)
-  decompress: true // default
-
+  // `decompress` 控制 `response body`是否需要被压缩
+  // 如果设置为 `true` 将会自动移除header中的 `content-encoding`
+  // 压缩所有响应
+  // - Node 专属
+  decompress: true // 默认值
 }
 ```
+
+## FAQ
+
+### 为什么没有使用 [sdk 错误处理](../../../abilities/basic/sdk-error-handling)，当接口异常时，仍然会自动弹窗？
+
+因为在 `autoErrorToast` 设置为 `true`时，会通过 `isOPError` 判断是否需要自动错误弹窗，所以当自定义返回的数据符合判断条件，也会自动错误弹窗。
