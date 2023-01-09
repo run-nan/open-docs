@@ -208,3 +208,47 @@ export async function hello1(request: PluginRequest): Promise<PluginResponse> {
     }
   }
   ```
+
+#### 前端处理逻辑
+
+我们建议在调用 `ONES 接口` 时使用我们提供的 [OPFetch](../../../reference/packages/fetch/fetch.md) SDK 方法，通过 `OPFetch` 调用 `ONES 接口`，我们在 `OPFetch` 中内置一套处理错误的默认行为。
+
+- 默认错误处理
+
+  默认情况下，我们会对使用 `@ones-op/node-error` 处理过的接口，对错误信息自动弹窗。
+
+  ```tsx
+  import { OPFetch } from '@ones-op/fetch'
+
+  const fetchData = async () => {
+    try {
+      await OPFetch.post('/project/api/project/hello', {})
+    } catch (e) {
+      // OPFetch 会在拦截器中默认弹出错误信息，无需开发者再手动弹窗
+      // toast.error(e?.errorMessage)
+    }
+  }
+  ```
+
+- 自定义错误处理
+
+  若需要自定义错误处理，在调用 `OPFetch` 时，将 `autoErrorToast` 设置为 `false` 即可
+
+  ```tsx
+  import { OPFetch } from '@ones-op/fetch'
+
+  const fetchData = async () => {
+    try {
+      await OPFetch.post(
+        '/project/api/project/hello',
+        {},
+        {
+          // 关闭内置自动报错
+          autoErrorToast: false,
+        }
+      )
+    } catch (e) {
+      // 用户可自定义错误处理行为
+    }
+  }
+  ```

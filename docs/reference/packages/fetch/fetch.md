@@ -136,10 +136,10 @@ Each instance can be called directly as a method, and the attributes mounted on 
 #### Types
 
 ```tsx
-interface FetchInstance extends AxiosInstance {
-  <T = any, R = FetchResponse<T>, D = any>(config: FetchConfig<D>): Promise<R>
-  <T = any, R = FetchResponse<T>, D = any>(url: string, config?: FetchConfig<D>): Promise<R>
-  create: FetchCreate
+interface FetchInstance<E extends object = EmptyObj> extends AxiosInstance {
+  <T = any, R = FetchResponse<T>, D = any>(config: FetchConfig<D, E>): Promise<R>
+  <T = any, R = FetchResponse<T>, D = any>(url: string, config?: FetchConfig<D, E>): Promise<R>
+  create: FetchCreate<E>
 }
 ```
 
@@ -163,8 +163,11 @@ Create a request sub-instance, the second parameter supports the **inherited** i
 ##### Types
 
 ```tsx
-interface FetchCreate {
-  (config?: FetchConfig, inheritableInterceptors?: FetchInheritableInterceptors): FetchInstance
+interface FetchCreate<E extends object = EmptyObj> {
+  (
+    config?: FetchConfig<any, E>,
+    inheritableInterceptors?: FetchInheritableInterceptors<E>
+  ): FetchInstance<E>
 }
 ```
 
@@ -238,9 +241,9 @@ Because the request instance is not fixed, we pass the current instance object i
 In order to facilitate distinction, the interceptor that can be inherited can only be passed through the second parameter of the `create` method, and the interceptor that the instance is added later will not be inherited.
 
 ```ts
-interface FetchInheritableInterceptors {
-  request?: FetchInheritableInterceptor<FetchConfig>[]
-  response?: FetchInheritableInterceptor<FetchResponse>[]
+interface FetchInheritableInterceptors<E extends object = EmptyObj> {
+  request?: FetchInheritableInterceptor<FetchConfig<any, E>>[]
+  response?: FetchInheritableInterceptor<FetchConfig<any, E>>[]
 }
 
 type FetchInheritableInterceptor<T = FetchConfig, D = any> =
@@ -267,6 +270,10 @@ These are the available config options for making requests. Only the `url` is re
   // It can be convenient to set `baseURL` for an instance of axios to pass relative URLs
   // to methods of that instance.
   baseURL: 'https://some-domain.com/api',
+
+  // `autoErrorToast` indicates whether or not popup a window to show error info which request plugin's interface
+  // It can deal with the plugin's interface's error automatically
+  autoErrorToast: true, //default
 
   // `transformRequest` allows changes to the request data before it is sent to the server
   // This is only applicable for request methods 'PUT', 'POST', 'PATCH' and 'DELETE'
@@ -440,6 +447,6 @@ These are the available config options for making requests. Only the `url` is re
 
 ## FAQ
 
-### Why it still popup a toast without errorCode sdk when catch a interface's error?
+### Why it still popup a toast without [Sdk error](../../../abilities/basic/sdk-error-handling.md) when catch a interface's error?
 
 When autoErrorToast set to be true, we will judge Whether to popup toast by calling isOPError method, so if you custom a response can pass the check of isOPError, it also works out.
