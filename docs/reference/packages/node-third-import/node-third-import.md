@@ -28,7 +28,7 @@ Start third-party data import
 
 | **Param** | **Type** | **Description**                                                                                                                     | **Required** | **Default** |
 | :-------- | :------- | :---------------------------------------------------------------------------------------------------------------------------------- | :----------- | :---------- |
-| userUUID  | string   | message title                                                                                                                       | Y            | -           |
+| userUUID  | string   | user uuid                                                                                                                           | Y            | -           |
 | abilityId | string   | ability id in the plugin ability configuration                                                                                      | Y            | -           |
 | password  | string   | Import user's default password when logging in for the first time (the default password needs to be a combination of alphanumerics) | Y            | -           |
 | serverId  | string   | If you import the same batch of data, you need to ensure the same `server_id`                                                       | Y            | -           |
