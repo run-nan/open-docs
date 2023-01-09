@@ -89,7 +89,6 @@ const config = {
         maxHeadingLevel: 6,
       },
       navbar: {
-        title: 'ONES Open Platform',
         logo: {
           alt: 'ONES Open Platform',
           src: 'images/logo.png',
@@ -196,7 +195,7 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: '相关资源',
+            title: 'Resources',
             items: [
               {
                 label: 'ONES Design',
@@ -205,15 +204,11 @@ const config = {
             ],
           },
           {
-            title: '更多产品',
+            title: 'Products',
             items: [
               {
                 label: 'ONES',
-                href: 'https://ones.cn/',
-              },
-              {
-                label: 'Tower',
-                href: 'https://ones.cn/products/tower.html',
+                href: 'https://ones.com/',
               },
             ],
           },

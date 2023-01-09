@@ -23,10 +23,10 @@ Now starting dev server and node-host...
 <i> [webpack-dev-server] On Your Network (IPv4): http://10.15.3.242:3000/
 <i> [webpack-dev-server] On Your Network (IPv6): http://[fe80::1]:3000/
 <i> [webpack-dev-server] Content not from webpack is served from '/Users/dev/ONES/open-platform/public' directory
-开始连接!
+Start the connection!
 ```
 
-Normally, it will print as above to **开始连接！**.
+Normally, it will print as above to **Start the connection！**.
 
 ### Solution
 
