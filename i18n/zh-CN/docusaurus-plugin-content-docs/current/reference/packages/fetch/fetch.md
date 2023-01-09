@@ -429,6 +429,6 @@ type FetchInheritableInterceptor<T = FetchConfig, D = any> =
 
 ## FAQ
 
-### 为什么没有使用 [sdk 错误处理](../../../abilities/basic/sdk-error-handling)，当接口异常时，仍然会自动弹窗？
+### 为什么没有使用 [node-error 错误处理](../../packages/node-error)，当接口异常时，仍然会自动弹窗？
 
 因为在 `autoErrorToast` 设置为 `true`时，会通过 `isOPError` 判断是否需要自动错误弹窗，所以当自定义返回的数据符合判断条件，也会自动错误弹窗。

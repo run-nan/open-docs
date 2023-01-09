@@ -211,7 +211,7 @@ The caller of the plug-in registration interface is generally the front-end of t
 
 #### Front-end processing logic
 
-- We recommend using the [OPFetch](../../../reference/packages/fetch/fetch.md) SDK method we provide when calling the `ONES interface` to call the `ONES interface` through `OPFetch`, we A default behavior for handling errors is built into `OPFetch`.
+- We recommend using the [OPFetch](../../../reference/packages/fetch) SDK method we provide when calling the `ONES interface` to call the `ONES interface` through `OPFetch`, we A default behavior for handling errors is built into `OPFetch`.
 
 - default error handling
 
