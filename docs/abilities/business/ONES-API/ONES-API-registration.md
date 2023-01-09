@@ -145,3 +145,114 @@ export async function hello1(request: PluginRequest): Promise<PluginResponse> {
   --header 'Content-Type: application/json;charset=utf-8' \
   --data ''
   ```
+
+### Error handling (required by ONES version)
+
+The caller of the plug-in registration interface is generally the front-end of the plug-in, which represents the front-end logic injected into a certain slot of the ONES system. We provide a standard error handling method, which is that when an exception occurs in the registration interface, the plug-in can Return the error information to the front end of the plug-in, and pop up a pop-up window at the corresponding call place of the ONES system. The plug-in developer can customize the color, text, and status code of the pop-up window.
+
+#### backend interface logic
+
+- Throw a specific error type, and you can specify the error code, reason, and type to achieve the status code of the specified request, the text of the pop-up window, and the color.
+
+  type: The type of error, which can be divided into error and warning. Error is a server error, and warning is a user operation error.
+
+  reason: The reason for the error.
+
+  code: Consistent with the http status code, not 200.
+
+- ```typescript
+  import { PluginError, PluginErrorTypeEnum } from '@ones-op/node-error'
+
+  export async function TestPluginError() {
+    throw new PluginError(PluginErrorTypeEnum.error, 500, 'test')
+  }
+  ```
+
+- In a more convenient way, errors can be divided into two types caused by user operations and plug-in logic, so two functions are provided respectively. This function also returns a specific error type, but it has a default type and code. Plug-ins Developers only need to specify reason.
+
+  serverError: code:500，type:error
+
+  clientError: code:400, type:warning
+
+  ```typescript
+  import { serverError, clientError } from '@ones-op/node-error'
+
+  export async function TestServerError() {
+    throw serverError('this is server error reason.')
+  }
+
+  export async function TestClientError() {
+    throw clientError('this is client error reason.')
+  }
+  ```
+
+- When the plug-in calls the sdk method in the registration interface, the sdk method may throw an exception. At this time, the plug-in developer can also directly throw the error in the registration interface. The rules are as follows:
+
+  1. When the sdk error information is converted into the standard error of the plug-in interface, the conversion rules are as follows: level is converted to type, statusCode is converted to code, and reason is converted to reason.
+
+  2. When the statusCode in the sdk error is 500, it means that the error is a platform-side error, and the corresponding error reason should not be directly exposed to the user, so at this time, the reason in the error will be uniformly converted to "Service unavailable. Try again later."
+
+  3. It also provides a function to convert sdk errors into plug-in interface errors, which can be modified and thrown again:
+
+  ```typescript
+  import { SdkErrorToPluginError } from '@ones-op/node-error'
+  import { isExist } from '@ones-op/node-file'
+
+  export async function testSdkErrorToPluginError(request: PluginRequest) {
+    try {
+      isExist('../test.txt')
+    } catch (e) {
+      const pluginErr = SdkErrorToPluginError(e)
+      pluginErr.reason = 'test'
+      throw pluginErr
+    }
+  }
+  ```
+
+#### Front-end processing logic
+
+- We recommend using the [OPFetch](../../../reference/packages/fetch/fetch.md) SDK method we provide when calling the `ONES interface` to call the `ONES interface` through `OPFetch`, we A default behavior for handling errors is built into `OPFetch`.
+
+- default error handling
+
+  By default, we will automatically pop up the error message for the interface handled by `@ones-op/node-error`.
+
+- ```tsx
+  import { OPFetch } from '@ones-op/fetch'
+
+  const fetchData = async () => {
+    try {
+      await OPFetch.post('/project/api/project/hello', {})
+    } catch (e) {
+      // OPFetch 会在拦截器中默认弹出错误信息，无需开发者再手动弹窗
+      // toast.error(e?.errorMessage)
+    }
+  }
+  ```
+
+- Custom Error Handling
+
+  If you need to customize error handling, set `autoErrorToast` to `false` when calling `OPFetch`
+
+```typescript
+import { OPFetch } from '@ones-op/fetch'
+
+const fetchData = async () => {
+  try {
+    await OPFetch.post(
+      '/project/api/project/hello',
+      {},
+      {
+        // Turn off the built-in automatic error reporting
+        autoErrorToast: false,
+      }
+    )
+  } catch (e) {
+    // User-definable error handling behavior
+  }
+}
+```
+
+## Other
+
+For detailed parameters, please refer to: [@ones-op/node-error](../../../reference/packages/node-error/node-error.md)

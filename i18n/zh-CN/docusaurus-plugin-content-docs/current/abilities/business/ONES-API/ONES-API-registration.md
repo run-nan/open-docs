@@ -146,7 +146,7 @@ export async function hello1(request: PluginRequest): Promise<PluginResponse> {
   --data ''
   ```
 
-### 错误处理（ONES 版本要求 v3.14+）
+### 错误处理（ONES 版本要求）
 
 插件注册接口的调用方一般是插件前端，插件前端代表着 ONES 系统的某个插槽注入的前端逻辑，我们提供了一种标准的错误处理方式，该方式就是当注册接口发生异常时，插件可把错误信息返回到插件前端，并在 ONES 系统对应调用的地方弹出弹窗，插件开发者可自定义弹窗的颜色，文案，请求的状态码。
 
@@ -161,10 +161,10 @@ export async function hello1(request: PluginRequest): Promise<PluginResponse> {
   code: 跟 http 状态码保持一致，非 200。
 
   ```typescript
-  import { PluginError, Type } from '@ones-op/node-error'
+  import { PluginError, PluginErrorTypeEnum } from '@ones-op/node-error'
 
   export async function TestPluginError() {
-    throw new PluginError(Type.error, 500, 'test')
+    throw new PluginError(PluginErrorTypeEnum.error, 500, 'test')
   }
   ```
 
@@ -252,3 +252,7 @@ export async function hello1(request: PluginRequest): Promise<PluginResponse> {
     }
   }
   ```
+
+## 其他
+
+具体参数释义请参考：[@ones-op/node-error](../../../reference/packages/node-error/node-error.md)

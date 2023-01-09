@@ -911,3 +911,14 @@ const resp = await getUserTeamUUIDsByThirdPartyIDAndThirdPartyType('12345678', 0
 ```
 
 ---
+
+## Type
+
+### AbilityError
+
+| 参数       | 说明               | 类型     |
+| :--------- | :----------------- | :------- |
+| level      | 错误等级           | `string` |
+| reason     | 错误原因           | `string` |
+| statusCode | 对应的 http 状态码 | `string` |
+| errcode    | 错误码             | `string` |
