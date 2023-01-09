@@ -17,6 +17,9 @@ const config = {
     defaultLocale: 'en',
     locales: ['en', 'zh-CN'],
   },
+  customFields: {
+    PRODUCTION_ENV: process.env.PRODUCTION_ENV,
+  },
 
   presets: [
     [
@@ -77,6 +80,7 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      metadata: [{ name: 'robots', content: 'noindex, nofollow' }],
       colorMode: {
         respectPrefersColorScheme: true,
       },
@@ -99,7 +103,6 @@ const config = {
             position: 'left',
             label: 'Learning',
             to: 'docs/next/learning',
-            docsPluginId: 'default',
           },
           {
             type: 'docSidebar',
@@ -161,7 +164,6 @@ const config = {
             to: 'changelog',
             label: 'Changelog',
             position: 'left',
-            docsPluginId: 'default',
           },
           {
             //首页默认展示item的第一项
@@ -171,19 +173,16 @@ const config = {
               {
                 label: 'Plugin Development',
                 to: 'docs/next/learning',
-                docsPluginId: 'default',
               },
               {
                 label: 'ONES Development',
                 to: 'project/development',
-                docsPluginId: 'project',
               },
             ],
           },
           {
             type: 'docsVersionDropdown',
             position: 'right',
-            docsPluginId: 'default',
           },
           {
             type: 'localeDropdown',

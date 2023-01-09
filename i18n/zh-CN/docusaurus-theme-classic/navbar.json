@@ -1,8 +1,4 @@
 {
-  "title": {
-    "message": "ONES 开放平台",
-    "description": "The title in the navbar"
-  },
   "item.label.Learning": {
     "message": "学习地图",
     "description": "Navbar item with label Learning"

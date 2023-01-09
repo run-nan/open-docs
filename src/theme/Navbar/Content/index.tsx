@@ -2,6 +2,7 @@ import React, { type ReactNode } from 'react'
 import { useThemeConfig } from '@docusaurus/theme-common'
 import { useActivePlugin } from '@docusaurus/plugin-content-docs/client'
 import { splitNavbarItems, useNavbarMobileSidebar } from '@docusaurus/theme-common/internal'
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import NavbarItem, { type Props as NavbarItemConfig } from '@theme/NavbarItem'
 import NavbarColorModeToggle from '@theme/Navbar/ColorModeToggle'
 import SearchBar from '@theme/SearchBar'
@@ -11,7 +12,9 @@ import NavbarSearch from '@theme/Navbar/Search'
 
 import styles from './styles.module.css'
 
-const excludeType = ['dropdown', 'localeDropdown']
+const excludeTypeInONESDevelopment = ['dropdown', 'localeDropdown']
+const excludeTypeInRelease = ['dropdown', 'docsVersionDropdown']
+const projectDocsPluginId = 'project'
 
 function useNavbarItems() {
   // TODO temporary casting until ThemeConfig type is improved
@@ -39,56 +42,49 @@ function NavbarContentLayout({ left, right }: { left: ReactNode; right: ReactNod
 
 export default function NavbarContent(): JSX.Element {
   const mobileSidebar = useNavbarMobileSidebar()
+  let navbarItems = useNavbarItems()
+
+  /** --------------------------------------------------------------- */
+  const docusaurusContext = useDocusaurusContext()
   const activePlugin = useActivePlugin()
-  const pluginId = activePlugin?.pluginId
-  const navbarItems = useNavbarItems()
+  const pluginId = activePlugin?.pluginId ?? 'default'
+  const customFields = docusaurusContext.siteConfig.customFields
+  const isProduction = Object.prototype.hasOwnProperty.call(customFields, 'PRODUCTION_ENV')
 
-  /**当没有实例标志的时候，默认使用default的实例标识 */
-  const condition = pluginId ?? 'default'
-  let items: NavbarItemConfig[] = navbarItems.filter(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    (item) => excludeType.includes(item?.type) || item?.docsPluginId === condition
-  )
-
-  const dropdownItemIndex = items.findIndex((item) => item?.type === 'dropdown')
-
-  if (dropdownItemIndex !== -1) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const dropdownItem = items[dropdownItemIndex]?.items
-    const label = pluginId
-      ? dropdownItem.find((item) => item?.docsPluginId === pluginId).label
-      : dropdownItem[0].label
-
-    /** docsPluginId 是被用来作为 ONES 开发和 插件开发的区分的。但是 link dropdown 这些类型并不需要这个参数，直接传下去在开发环境下控制台会报错 */
-    const dropdownItems = dropdownItem?.map((dropdownItem) => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { docsPluginId, ...restProps } = dropdownItem
-
-      return restProps
-    })
-
-    items[dropdownItemIndex] = Object.assign({}, items[dropdownItemIndex], {
-      label,
-      items: dropdownItems,
-    })
-  }
-
-  items = items.map((item) => {
-    if (item.type !== 'docSidebar') {
+  if (isProduction) {
+    navbarItems = navbarItems.filter(
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { docsPluginId = '', ...restProps } = item
-      return restProps
-    }
-    return item
-  })
+      (item) => item?.label !== 'Changelog' && !excludeTypeInRelease.includes(item.type)
+    )
+  }
 
-  const [leftItems, rightItems] = splitNavbarItems(items)
+  navbarItems =
+    pluginId === projectDocsPluginId
+      ? navbarItems.filter(
+          (item) =>
+            excludeTypeInONESDevelopment.includes(item.type) ||
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            item.docsPluginId === projectDocsPluginId
+        )
+      : // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        navbarItems.filter((item) => item.docsPluginId !== projectDocsPluginId)
 
-  const searchBarItem = items.find((item) => item?.type === 'search')
+  if (!isProduction) {
+    const targetItem = navbarItems.find((item) => item.type === 'dropdown')
+    Object.assign(targetItem, {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      label: targetItem?.items?.[pluginId === projectDocsPluginId ? 1 : 0]?.label,
+    })
+  }
+  /** --------------------------------------------------------------- */
+
+  const [leftItems, rightItems] = splitNavbarItems(navbarItems)
+
+  const searchBarItem = navbarItems.find((item) => item?.type === 'search')
 
   return (
     <NavbarContentLayout
