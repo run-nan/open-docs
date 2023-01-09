@@ -42,7 +42,7 @@ abilities:
       calcFieldValue: linkTime
     config:
       - key: FieldName
-        value: LinkNumber
+        value: LinkTaskNumber
         fieldType: Input
         show: false
     id: ...
@@ -101,4 +101,4 @@ export const linkTime = async (request: PluginRequest): Promise<PluginResponse> 
 }
 ```
 
-4. After the plugin is developed, the plugin can be installed to create the script filed `关联工作项数`, which can be used by adding the script filed to the work item.
+4. After the plugin is developed, the plugin can be installed to create the script filed `LinkTaskNumber`, which can be used by adding the script filed to issue type.
