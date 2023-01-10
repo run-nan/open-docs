@@ -272,6 +272,8 @@ These are the available config options for making requests. Only the `url` is re
   baseURL: 'https://some-domain.com/api',
 
   // `autoErrorToast` indicates whether or not popup a window to show error info which request plugin's interface
+  // When using it, the plug-in backend needs to be used in conjunction with the corresponding `node-error` sdk
+  // `node-error` can refer from https://docs.partner.ones.cn/zh-CN/docs/next/reference/packages/node-error/
   // It can deal with the plugin's interface's error automatically
   autoErrorToast: true, //default
 
