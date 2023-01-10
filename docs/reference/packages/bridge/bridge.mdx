@@ -1,3 +1,5 @@
+import Image from '@theme/IdealImage'
+
 # @ones-op/bridge
 
 [![](https://npm.partner.ones.cn/badge/v/@ones-op/bridge.svg)](https://npm.partner.ones.cn/package/@ones-op/bridge)
@@ -75,7 +77,7 @@ interface CreateTaskModalProps {
   /** the disabled fields of the form */
   disabledFields?: {
     /** the title of the task */
-    summary?: string
+    summary?: boolean
     /** the project of the task */
     projectUUID?: boolean
     /** the issue type of the task */
@@ -177,3 +179,61 @@ interface CreateRelatedTaskModalProps extends Omit<CreateTaskModalProps, 'defaul
 `uuid` and `issue_type_uuid` must be included in `relatedTask`, otherwise the task relation may fail. You can directly pass in the data returned by [task detail interface] (../../../api/project/task/task.md#get work item details)
 
 :::
+
+### refreshList
+
+通过调用`refreshList`方法，你可以手动触发标品中列表的刷新
+
+#### 要求
+
+| **ONES** | **@ones-op/bridge** |
+| -------- | ------------------- |
+| `TODO`   | `TODO`              |
+
+#### 参数
+
+| 参数     | 说明       | 类型       | 必填 | 默认值 |
+| -------- | ---------- | ---------- | ---- | ------ |
+| listName | 列表的名字 | `ListName` | 是   |        |
+
+#### 类型
+
+```tsx
+type ListName = 'memberList' | 'codeRepositoryList' | 'planTestcaseList' | 'demandTrackList'
+```
+
+##### memberList
+
+- 可用：`TODO`
+- ONES 要求：`v3.11.15+`
+
+触发成员列表刷新（支持标品中所有成员列表）。
+
+<Image img={require('./images/refresh-member-list.png')} />
+
+##### codeRepositoryList
+
+- 可用：`TODO`
+- ONES 要求：`v3.13.9+`
+
+代码仓管理列表页刷新
+
+<Image img={require('./images/code-repository.png')} />
+
+##### planTestcaseList
+
+- 可用：`TODO`
+- ONES 要求：`TODO`
+
+测试管理 / 测试计划 / 用例列表刷新
+
+<Image img={require('./images/testcase-list.png')} />
+
+##### demandTrackList
+
+- 可用：`TODO`
+- ONES 要求：`TODO`
+
+测试管理 / 测试计划 / 需求跟踪列表刷新
+
+<Image img={require('./images/requirement-traceability-list.png')} />
