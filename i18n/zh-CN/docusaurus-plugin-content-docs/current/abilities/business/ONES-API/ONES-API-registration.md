@@ -209,6 +209,16 @@ export async function hello1(request: PluginRequest): Promise<PluginResponse> {
   }
   ```
 
+- 我们针对常用错误的原因也做了一系列的总结，这些错误原因更标准，插件开发者在抛出错误时，可考虑使用这些标准的错误，具体使用如下：
+
+  ```typescript
+  import { CommonReason, serverError } from '@ones-op/node-error'
+
+  export async function testCommonReason(request: PluginRequest) {
+    throw serverError(CommonReason.NetworkError)
+  }
+  ```
+
 #### 前端处理逻辑
 
 我们建议在调用 `ONES 接口` 时使用我们提供的 [OPFetch](../../../reference/packages/fetch/fetch.md) SDK 方法，通过 `OPFetch` 调用 `ONES 接口`，我们在 `OPFetch` 中内置一套处理错误的默认行为。

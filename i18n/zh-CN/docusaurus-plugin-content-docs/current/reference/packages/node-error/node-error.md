@@ -95,10 +95,6 @@ export async function testSdkErrorToPluginErrorr() {
 }
 ```
 
----
-
-###
-
 ## Type
 
 ### PluginError
@@ -121,4 +117,14 @@ pluginError 错误等级
 | PluginErrorTypeEnum.error   | 错误级别 |
 | PluginErrorTypeEnum.warning | 警告级别 |
 
-###
+### CommonReason {#CommonReason}
+
+pluginError 共用的错误信息
+
+| 可选值                             | 对应文案                  |
+| :--------------------------------- | :------------------------ |
+| CommonReason.RequestTimeOut        | Request time out.         |
+| CommonReason.ServiceUnresponsive   | Service unresponsive.     |
+| CommonReason.ServiceIsNotAvailable | Service is not available. |
+| CommonReason.InvalidParameter      | Invalid parameter.        |
+| CommonReason.NetworkError          | Network error.            |

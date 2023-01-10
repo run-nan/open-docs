@@ -889,7 +889,7 @@ const resp = await getUserTeamUUIDsByThirdPartyIDAndThirdPartyType('12345678', 0
 
 ### AbilityError
 
-| 参数       | 说明             | 类型     |
+| Param      | Description      | Type     |
 | :--------- | :--------------- | :------- |
 | level      | error level      | `string` |
 | reason     | error reason     | `string` |

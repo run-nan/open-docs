@@ -26,9 +26,9 @@ throw client error
 
 #### Params
 
-| 参数   | 说明         | 类型   | 必填 | 默认值 |
-| :----- | :----------- | :----- | :--- | :----- |
-| reason | wrong reason | string | yes  | -      |
+| Param  | Description  | Type   | Required | Default |
+| :----- | :----------- | :----- | :------- | :------ |
+| reason | wrong reason | string | yes      | -       |
 
 #### Example
 
@@ -48,9 +48,9 @@ Throw server error error
 
 #### Params
 
-| 参数   | 说明         | 类型   | 必填 | 默认值 |
-| :----- | :----------- | :----- | :--- | :----- |
-| reason | wrong reason | string | 是   | -      |
+| Param  | Description  | Type   | Required | Default |
+| :----- | :----------- | :----- | :------- | :------ |
+| reason | wrong reason | string | 是       | -       |
 
 #### Example
 
@@ -70,13 +70,13 @@ The error of the sdk package is converted into a plug-in registration interface 
 
 #### Params
 
-| 参数         | 说明                             | 类型 | 必填 | 默认值 |
-| :----------- | :------------------------------- | :--- | :--- | :----- |
-| abilityError | The wrong type of an sdk package | any  | Yes  | -      |
+| Param        | Description                      | Type | Required | Default |
+| :----------- | :------------------------------- | :--- | :------- | :------ |
+| abilityError | The wrong type of an sdk package | any  | Yes      | -       |
 
 #### Returns
 
-| 参数   | 说明                                            | 类型        |
+| Param  | Description                                     | Type        |
 | :----- | :---------------------------------------------- | :---------- |
 | result | Plugin error corresponding to sdk package error | PluginError |
 
@@ -99,7 +99,7 @@ export async function testSdkErrorToPluginErrorr() {
 
 ### PluginError
 
-| 参数       | 说明                           | 类型                                          |
+| Param      | Description                    | Type                                          |
 | :--------- | :----------------------------- | :-------------------------------------------- |
 | type       | error level                    | [`PluginErrorTypeEnum`](#PluginErrorTypeEnum) |
 | reason     | wrong reason                   | `string`                                      |
@@ -112,7 +112,19 @@ export async function testSdkErrorToPluginErrorr() {
 
 pluginError error level
 
-| 可选值                      | 说明          |
+| Enum                        | Description   |
 | :-------------------------- | :------------ |
 | PluginErrorTypeEnum.error   | error level   |
 | PluginErrorTypeEnum.warning | warning level |
+
+### CommonReason {#CommonReason}
+
+pluginError common error reason
+
+| Enum                               | Text                      |
+| :--------------------------------- | :------------------------ |
+| CommonReason.RequestTimeOut        | Request time out.         |
+| CommonReason.ServiceUnresponsive   | Service unresponsive.     |
+| CommonReason.ServiceIsNotAvailable | Service is not available. |
+| CommonReason.InvalidParameter      | Invalid parameter.        |
+| CommonReason.NetworkError          | Network error.            |

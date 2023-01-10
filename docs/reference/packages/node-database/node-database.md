@@ -172,7 +172,7 @@ export async function count_database() {
 
 ### DBError
 
-| 参数       | 说明             | 类型     |
+| Param      | Description      | Type     |
 | :--------- | :--------------- | :------- |
 | level      | error level      | `string` |
 | reason     | error reason     | `string` |

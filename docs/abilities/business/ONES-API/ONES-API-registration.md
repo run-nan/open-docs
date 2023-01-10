@@ -209,6 +209,16 @@ The caller of the plug-in registration interface is generally the front-end of t
   }
   ```
 
+- We have also made a series of summaries on the causes of common errors. These error causes are more standard. Plug-in developers can consider using these standard errors when throwing errors. The specific usage is as follows:
+
+  ```typescript
+  import { CommonReason, serverError } from '@ones-op/node-error'
+
+  export async function testCommonReason(request: PluginRequest) {
+    throw serverError(CommonReason.NetworkError)
+  }
+  ```
+
 #### Front-end processing logic
 
 - We recommend using the [OPFetch](../../../reference/packages/fetch) SDK method we provide when calling the `ONES interface` to call the `ONES interface` through `OPFetch`, we A default behavior for handling errors is built into `OPFetch`.
@@ -224,7 +234,7 @@ The caller of the plug-in registration interface is generally the front-end of t
     try {
       await OPFetch.post('/project/api/project/hello', {})
     } catch (e) {
-      // OPFetch 会在拦截器中默认弹出错误信息，无需开发者再手动弹窗
+      // OPFetch will pop up an error message in the interceptor by default, no need for developers to pop up the window manually
       // toast.error(e?.errorMessage)
     }
   }

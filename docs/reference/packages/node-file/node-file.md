@@ -580,7 +580,7 @@ export async function testAppendBytes() {
 
 ### FileError
 
-| 参数       | 说明             | 类型     |
+| Param      | Description      | Type     |
 | :--------- | :--------------- | :------- |
 | level      | error level      | `string` |
 | reason     | error reason     | `string` |
