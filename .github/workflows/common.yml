@@ -1,6 +1,9 @@
 name: Common
 on:
   workflow_call:
+    secrets:
+      SSH_PRIVATE_KEY:
+        required: true
 jobs:
   deploy:
     timeout-minutes: 30

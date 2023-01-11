@@ -76,3 +76,5 @@ jobs:
   deploy:
     needs: mergepullrequest
     uses: ./.github/workflows/common.yml
+    secrets:
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
