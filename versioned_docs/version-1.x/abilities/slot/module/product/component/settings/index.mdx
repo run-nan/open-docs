@@ -1,0 +1,79 @@
+import Image from '@theme/IdealImage'
+
+# Product settings
+
+## Requirements
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## Overview
+
+<Image img={require('./images/settings.png')} />
+
+We have provided slots for "Product Management" - "Product component" - "Product settings" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:product:settings:new](#onesproductsettingsnew)
+- [ones:product:settings:config](#onesproductsettingsconfig)
+- [ones:product:settings:info](#onesproductsettingsinfo)
+- [ones:product:settings:component](#onesproductsettingscomponent)
+- [ones:product:settings:more](#onesproductsettingsmore)
+
+## Slots
+
+#### ones:product:settings:new
+
+**Module path：** Product Management / Product component / Product settings / new module
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+#### ones:product:settings:config
+
+**Module path：** Product Management / Product component / Product settings / Product configuration
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:product:settings:info
+
+**Module path：** Product Management / Product component / Product settings / Basic info
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:product:settings:component
+
+**Module path：** Product Management / Product component / Product settings / Component settings
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:product:settings:more
+
+**Module path：** Product Management / Product component / Product settings / More
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-product-settings-info-m7iL
+    title: Basic info
+    moduleType: ones:product:settings:info
+    entry: modules/ones-product-settings-info-m7iL/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../../../reference/config/plugin.yaml#disabled)
+
+### Available Hook API
+
+- [useProjectInfo](../../../../../../reference/packages/store/store.md#useProjectInfo)
+
+```ts
+import { useProjectInfo } from '@ones-op/store'
+
+const projectInfo = useProjectInfo()
+```

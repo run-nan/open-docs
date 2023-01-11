@@ -1,0 +1,93 @@
+import Image from '@theme/IdealImage'
+
+# Setting
+
+## Requirements
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## Overview
+
+<Image img={require('./images/setting.png')} />
+
+We have provided slots for "ONES Project" - "Project component" - "Setting" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:project:settings:new](#onesprojectsettingsnew)
+- [ones:project:settings:component](#onesprojectsettingscomponent)
+- [ones:project:settings:issueType](#onesprojectsettingsissuetype)
+- [ones:project:settings:permission](#onesprojectsettingspermission)
+- [ones:project:settings:sprint](#onesprojectsettingssprint)
+- [ones:project:settings:config](#onesprojectsettingsconfig)
+- [ones:project:settings:operation](#onesprojectsettingsoperation)
+
+## Slots
+
+#### ones:project:settings:new
+
+**Module path：** ONES Project / Project component / Setting / new module
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+#### ones:project:settings:component
+
+**Module path：** ONES Project / Project component / Setting / Component
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:project:settings:issueType
+
+**Module path：** ONES Project / Project component / Setting / Issue type
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:project:settings:permission
+
+**Module path：** ONES Project / Project component / Setting / Permission
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:project:settings:sprint
+
+**Module path：** ONES Project / Project component / Setting / Sprint settings
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:project:settings:config
+
+**Module path：** ONES Project / Project component / Setting / Project settings
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:project:settings:operation
+
+**Module path：** ONES Project / Project component / Setting / Project operation
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-project-settings-component-ZaTe
+    title: Component
+    moduleType: ones:project:settings:component
+    entry: modules/ones-project-settings-component-ZaTe/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../../../reference/config/plugin.yaml#disabled)
+
+### Available Hook API
+
+- [useProjectInfo](../../../../../../reference/packages/store/store.md#useProjectInfo)
+
+```ts
+import { useProjectInfo } from '@ones-op/store'
+
+const projectInfo = useProjectInfo()
+```

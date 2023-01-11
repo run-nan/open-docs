@@ -1,0 +1,57 @@
+import Image from '@theme/IdealImage'
+
+# Basic configuration
+
+## Requirements
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## Overview
+
+<Image img={require('./images/basic.png')} />
+
+We have provided slots for "Configuration" - "TestCase settings" - "Basic configuration" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:settings:testcase:base:new](#onessettingstestcasebasenew)
+- [ones:settings:testcase:base:project](#onessettingstestcasebaseproject)
+- [ones:settings:testcase:base:permission](#onessettingstestcasebasepermission)
+
+## Slots
+
+#### ones:settings:testcase:base:new
+
+**ONES Requirement:** v3.11.15+
+
+**Module path：** Configuration / TestCase settings / Basic configuration / new module
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+#### ones:settings:testcase:base:project
+
+**Module path：** Configuration / TestCase settings / Basic configuration / Link project
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:settings:testcase:base:permission
+
+**Module path：** Configuration / TestCase settings / Basic configuration / Permission
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-settings-testcase-base-project-ugP9
+    title: Link project
+    moduleType: ones:settings:testcase:base:project
+    entry: modules/ones-settings-testcase-base-project-ugP9/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../../../reference/config/plugin.yaml#disabled)

@@ -1,20 +1,23 @@
 ---
 sidebar_position: 2
+description: ONES Open Platform command line diagnostic tools.
 ---
 
 # CLI Usage
-
-ONES Open Platform command line diagnostic tools, it can connect to the ONES Open Platform according to the configuration you set, view the logs and status of the platform and plug in, so that you can troubleshoot problems, or export the current data, to others joint troubleshooting.
-
-:::note
-Its main features are the same as Desktop.
-:::
 
 ## Requirements
 
 | **ONES** |
 | -------- |
 | v3.12.0+ |
+
+## Overview
+
+ONES Open Platform command line diagnostic tools, it can connect to the ONES Open Platform according to the configuration you set, view the logs and status of the platform and plug in, so that you can troubleshoot problems, or export the current data, to others joint troubleshooting.
+
+:::note
+Its main features are the same as Desktop.
+:::
 
 ## Installation
 

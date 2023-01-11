@@ -1,0 +1,87 @@
+---
+id: create
+sidebar_position: 4
+---
+
+import Image from '@theme/IdealImage'
+
+# 创建插件
+
+## 概述
+
+你可以创建一个安装在 ONES 系统中的插件工程，这样就可以对 ONES 系统的功能进行个性化定制。
+
+## 使用
+
+### 第一步：创建一个插件
+
+你可以使用 ONES CLI 来创建一个新的插件工程
+
+1. 切换到创建插件工程的目录，或者使用一个新的目录来作为插件工程的根目录，如 `/dev/test`
+2. 运行下方命令创建一个插件工程
+
+```bash
+cd /dev/test
+# -d 选项表明使用默认的工程创建预设配置
+ones create -d
+```
+
+如果你是想创建**组织级别**插件，那么你需要使用 `--plugin-type` 来指定，执行如下指令
+
+```bash
+ones create --plugin-type organization
+```
+
+初始化过程中 ONES CLI 会完成以下操作：
+
+1. 初始化 git
+2. 创建工程模板文件
+3. 安装插件开发脚手架工具 op
+4. 创建全局缓存文件
+5. 安装插件工程项目依赖
+
+在插件工程初始化完成后 ONES CLI 会输出插件工程的相关信息
+
+```bash
+Project has been created
+Project path: /dev/test
+Project name: test
+Project description:
+Project sub CLI: @ones/cli-plugin
+```
+
+### 第二步：插件打包
+
+插件工程创建成功后，你可以尝试运行下方命令来对插件进行打包：
+
+```
+npx op packup
+# 或
+npx op packup CustomPluginName
+```
+
+:::caution 注意
+
+在 Windows TTY 中，打包插件时自定义的插件名称中如果包含中文字符，指令可能不会被正确地执行。
+
+开发者可以尝试使用默认名称进行插件打包，并在打包完成后手动对文件进行重命名。
+
+:::
+
+打包操作完成后可以在当前插件工程根目录中看到打包好的插件 `opk` 包
+
+### 第三步：在 ONES 系统中安装插件
+
+在启用了开放平台的环境中，你可以上传并安装这个 `opk` 包：
+
+- ##### 团队级别插件安装
+
+  【配置中心】-【插件管理】
+
+  <Image img={require('./images/install-plugin.png')} />
+
+- ##### 组织级别插件安装
+  【组织管理】-【插件管理】
+  <Image img={require('./images/org-plugin-zh.png')} />
+
+至此，你已经完成了第一个插件的安装。

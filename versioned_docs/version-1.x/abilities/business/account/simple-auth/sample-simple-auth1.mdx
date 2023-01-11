@@ -1,0 +1,77 @@
+import Image from '@theme/IdealImage'
+import sampleSimpleAuth1 from './images/sample-simple-auth1.png'
+import sampleSimpleAuth2 from './images/sample-simple-auth2.png'
+
+# Scene： Assign employees of the department to make a simple login
+
+## Scene Description
+
+Users want employees of the `Altman` department to log in directly without a password.
+
+## Performance
+
+Users do not need to enter a password, just declare their own department and `user_ uuid` to log in directly.
+
+- Employees whose department is `monster` cannot simply log in.
+
+<Image img={sampleSimpleAuth1} />
+
+- Employees whose department is `Altman` successfully log in simply and get access token.
+
+<Image img={sampleSimpleAuth2} />
+
+## Solution
+
+### Implementation idea
+
+Through the simple login ability, when an employee whose department is `Altman` is identified, the origin regular login logic of the ONES system is skipped and the login status of the employee is directly realized by calling the simple login interface of the plugin directly.
+
+### Plugin development
+
+1. Use the OP tool to add simple-auth ability
+
+2. Complete the business logic of the `SimpleAuthValidate` method
+
+```typescript
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+export async function SimpleAuthValidate(request: PluginRequest): Promise<PluginResponse> {
+  const body = request?.body as any
+  let user_uuid = body['user_uuid']
+  let department = body['department']
+  if (!user_uuid) {
+    return {
+      body: {
+        code: 400,
+        reason: 'user_uuid miss',
+      },
+    }
+  }
+  if (!department) {
+    return {
+      body: {
+        code: 400,
+        reason: 'department miss',
+      },
+    }
+  } else if (department != 'Altman') {
+    return {
+      body: {
+        code: 401,
+        reason: 'This department doesnt have the authority to login in',
+      },
+    }
+  }
+  return {
+    body: {
+      code: 200,
+      data: {
+        uuid: user_uuid,
+        department: department,
+      },
+    },
+  }
+}
+```
+
+3. Install and enable the plugin to support simple login for employees of specified departments.

@@ -1,0 +1,71 @@
+import Image from '@theme/IdealImage'
+
+# 项目
+
+## 要求
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## 概述
+
+<Image img={require('./images/project.png')} />
+
+我们为「配置中心」-「项目管理配置」-「项目」提供了一些插槽，以便于为该应用定制化页面模块。
+
+当前支持的插槽：
+
+- [ones:settings:project:self:new](#onessettingsprojectselfnew)
+- [ones:settings:project:self:manage](#onessettingsprojectselfmanage)
+- [ones:settings:project:self:field](#onessettingsprojectselffield)
+- [ones:settings:project:self:status](#onessettingsprojectselfstatus)
+- [ones:settings:project:self:role](#onessettingsprojectselfrole)
+
+## 插槽
+
+#### ones:settings:project:self:new
+
+**ONES 要求：** v3.11.15+
+
+**模块路径：** 配置中心 / 项目管理配置 / 项目 / 新模块
+
+**个数限制：** 一个插件中最多可声明 **10 **个该插槽，系统中最多同时存在 **100 **个该插槽
+
+#### ones:settings:project:self:manage
+
+**模块路径：** 配置中心 / 项目管理配置 / 项目 / 项目管理
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:settings:project:self:field
+
+**模块路径：** 配置中心 / 项目管理配置 / 项目 / 项目属性
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:settings:project:self:status
+
+**模块路径：** 配置中心 / 项目管理配置 / 项目 / 项目状态
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:settings:project:self:role
+
+**模块路径：** 配置中心 / 项目管理配置 / 项目 / 项目角色
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+## 使用
+
+```yaml
+modules:
+  - id: ones-settings-project-self-manage-KEU_
+    title: Project management
+    moduleType: ones:settings:project:self:manage
+    entry: modules/ones-settings-project-self-manage-KEU_/index.html
+```
+
+**支持的配置项：**
+
+- [disabled](../../../../../../reference/config/plugin.yaml#disabled)

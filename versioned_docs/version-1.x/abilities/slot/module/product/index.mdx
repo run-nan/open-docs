@@ -1,0 +1,48 @@
+# Product Management
+
+import Image from '@theme/IdealImage'
+
+## Requirements
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## Overview
+
+<Image img={require('./images/product.png')} />
+
+We have provided slots for "Product Management" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:product:new](#onesproductnew)
+- [ones:product:index](#onesproductindex)
+
+## Slots
+
+#### ones:product:new
+
+**Module path：** Product Management / new module
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+#### ones:product:index
+
+**Module path：** Product Management / Product
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-product-index-KSea
+    title: Product
+    moduleType: ones:product:index
+    entry: modules/ones-product-index-KSea/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../reference/config/plugin.yaml#disabled)

@@ -1,0 +1,320 @@
+---
+sidebar_position: 12
+description: ----
+---
+
+import Image from '@theme/IdealImage'
+import sampleProjectCustomComponent1 from './images/sample-project-custom-component1.png'
+
+# Scene: Statistics of Sprint working hours within a project
+
+## Scene description
+
+Users want to see the working hours information of each sprint in the project directly through the table.
+
+## Performance
+
+Adding custom components to the project,then you can view the relevant data of each sprint under the project in the form of a table
+
+<Image img={sampleProjectCustomComponent1} />
+
+## Solution
+
+### Implementation idea
+
+Use the `Custom project components` ability to implement custom components of table data within the plug-in
+
+### Plugin development
+
+#### 1. Add `Custom project components` ability,add module `ones:project:component:new`, take the relate field `modules.id` into `abilities.relateModule.componentModuleEnter`
+
+```yaml title="config/plugin.yaml"
+service:
+  app_id: ...
+  name: custom component
+  version: 1.0.0
+  description: ''
+  mode: org
+  logo: null
+  language: nodejs
+  language_version: 16.13.0
+  host_version: 1.0.4
+  host_sub_version: 1.0.0
+  min_system_version: 3.5.0
+  auth: null
+  config: null
+  scope: 1
+apis:
+  - type: addition
+    methods:
+      - POST
+    url: /hello
+    function: hello
+  - type: external
+    methods:
+      - POST
+    url: /team/:teamUUID/customComponentTest
+    function: customComponentTest
+  - type: external
+    methods:
+      - POST
+    url: /team/:teamUUID/getComponentUsedProjectsTest
+    function: getComponentUsedProjectsTest
+modules:
+  - id: ones-project-component-new-aQbS
+    title: test
+    moduleType: ones:project:component:new
+    entry: modules/ones-project-component-new-aQbS/index.html
+abilities:
+  - id: tRUFWEsd
+    name: project_custom_component
+    abilityType: ProjectCustomComponent
+    function:
+      copyPluginData: copyTest
+    version: 1.0.0
+    relateModule:
+      componentModuleEnter: 'ones-project-component-new-aQbS'
+    config:
+      - key: component_name
+        label: project custom component
+        value: Iterative statistics
+        fieldType: Input
+        show: false
+      - key: component_desc
+        label: custom component description
+        value: Show the man-hour consumption of the iteration
+        fieldType: TextArea
+        show: false
+        props:
+          placeholder: custom component description,allow to leave blank
+      - key: is_support_copy
+        label: is_support_data_copy
+        value: false
+        show: false
+        fieldType: Switch
+```
+
+#### 2. Complete the function of custom components
+
+Complete the function development of the data table under the plugin directory
+
+##### index.tsx
+
+```typescript title="web/src/modules/ones-project-component-new-aQbS/index.tsx"
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { ConfigProvider } from '@ones-design/core'
+import { SprintStatistics } from './components/sprint-statistics'
+import './index.css'
+
+ReactDOM.render(
+  <ConfigProvider>
+    <SprintStatistics />
+  </ConfigProvider>,
+  document.getElementById('ones-mf-root')
+)
+```
+
+##### table style
+
+```typescript title="web/src/modules/ones-project-component-new-aQbS/index.css"
+body {
+  background: transparent;
+  line-height: 1.5;
+  padding: 20px 0;
+}
+
+#ones-mf-root {
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  background: #fff;
+  .sprint-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    background: #fff;
+    .sprint-head {
+      .sprint-head-title {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 26px;
+        padding: 0 20px;
+      }
+      .sprint-head-alert {
+        margin: 20px 0px 15px;
+        padding: 0 20px;
+      }
+    }
+    .sprint-picker {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 0 20px;
+      width: 40%;
+      .sprint-status-select {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 60%;
+        margin-right: 20px;
+        .select-title {
+          width: 30%;
+        }
+        .select-main {
+          width: 70%
+        }
+      }
+      .sprint-done-interval {
+        width: 40%;
+      }
+    }
+    .sprint-table {
+      margin: 0 20px;
+      margin-top: 20px;
+    }
+  }
+}
+```
+
+##### Data Construction of Table
+
+```typescript title="web/src/modules/ones-project-component-new-aQbS/components/sprint-statistics.tsx"
+import { Alert } from '@ones-design/core'
+import VirtualTable from '@ones-design/table'
+import React from 'react'
+import {
+  SPRINT_STATISTICS_TITLE,
+  SPRINT_STATISTICS_ALERT,
+} from '../../../common/constants/constants'
+
+export const SprintStatistics = () => {
+  const sprintFilterChange = (params) => {
+    console.log('Change Params: ', params)
+  }
+
+  return (
+    <div className="sprint-container">
+      <div className="sprint-head">
+        <div className="sprint-head-title">{SPRINT_STATISTICS_TITLE}</div>
+        <Alert type="info" className="sprint-head-alert">
+          {SPRINT_STATISTICS_ALERT}
+        </Alert>
+      </div>
+      <VirtualTable
+        className="sprint-table"
+        columns={[
+          {
+            code: 'sprint',
+            features: {
+              autoWidth: {
+                min: 250,
+              },
+            },
+            lock: true,
+            name: 'sprint',
+            width: 250,
+          },
+          {
+            code: 'startDate',
+            name: 'startDate',
+            width: 100,
+          },
+          {
+            code: 'endDate',
+            name: 'endDate',
+            width: 100,
+          },
+          {
+            code: 'status',
+            name: 'status',
+          },
+          {
+            code: 'progress',
+            name: 'progress',
+          },
+          {
+            code: 'member',
+            name: 'member',
+          },
+          {
+            code: 'workHours',
+            name: 'workHours(front-end/back-end/test)',
+            width: 200,
+          },
+        ]}
+        dataSource={[
+          {
+            startDate: '2022-12-1',
+            endDate: '2022-12-12',
+            status: 'Implementing',
+            sprint: '【Basic】Logger development',
+            progress: '50%',
+            member: 'Miles，George',
+            workHours: '8h/20h/16h',
+          },
+          {
+            startDate: '2022-11-15',
+            endDate: '2022-12-30',
+            status: 'Implemented',
+            sprint: '【Business】scirpt field float-number development',
+            progress: '80%',
+            member: 'George，Shawn',
+            workHours: '65h/90h/24h',
+          },
+          {
+            startDate: '2022-10-17',
+            endDate: '2022-11-1',
+            status: 'Implementing',
+            sprint: '【Basic】plugin file operation development',
+            progress: '90%',
+            member: 'Miles，Stan',
+            workHours: '-/56h/8h',
+          },
+          {
+            startDate: '2022-10-1',
+            endDate: '2022-12-12',
+            status: 'Implementing',
+            sprint: '【Business】independent hosting development',
+            progress: '50%',
+            member: 'Shawn，Stan',
+            workHours: '36h/180h/40h',
+          },
+          {
+            startDate: '2022-12-15',
+            endDate: '2022-12-21',
+            status: 'Implementing',
+            sprint: '【Basic】plugin file operation expansion',
+            progress: '50%',
+            member: 'Kane，Eva',
+            workHours: '24h/32h/8h',
+          },
+          {
+            startDate: '2022-12-30',
+            endDate: '2023-2-27',
+            status: 'Implementing',
+            sprint: '【Business】script filed - selection development',
+            progress: '50%',
+            member: 'Tony，Paul',
+            workHours: '160h/192h/32h',
+          },
+        ]}
+      />
+    </div>
+  )
+}
+```
+
+##### the design of table header
+
+```typescript title="web/src/common/constants/constants.ts"
+export const SPRINT_STATISTICS_TITLE = 'Iterative progress statistics'
+export const SPRINT_STATISTICS_ALERT = 'Full iterative results under statistical projects.'
+```
+
+#### 3. Install the plugin and enable it, and the custom component will be automatically added to the component libraries of all projects. You can use the custom component in the corresponding project.

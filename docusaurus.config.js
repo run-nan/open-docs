@@ -17,6 +17,7 @@ const config = {
     defaultLocale: 'en',
     locales: ['en', 'zh-CN'],
   },
+  noIndex: true, // prohibit seo
   customFields: {
     PRODUCTION_ENV: process.env.PRODUCTION_ENV,
   },
@@ -102,7 +103,7 @@ const config = {
           {
             position: 'left',
             label: 'Learning',
-            to: 'docs/next/learning',
+            to: 'docs/learning',
           },
           {
             type: 'docSidebar',
@@ -172,7 +173,7 @@ const config = {
             items: [
               {
                 label: 'Plugin Development',
-                to: 'docs/next/learning',
+                to: 'docs/learning',
               },
               {
                 label: 'ONES Development',

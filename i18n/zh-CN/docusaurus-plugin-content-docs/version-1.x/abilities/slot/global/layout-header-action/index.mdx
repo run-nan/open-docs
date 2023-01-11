@@ -1,0 +1,83 @@
+import Image from '@theme/IdealImage'
+
+# 系统顶栏右侧插槽
+
+## 要求
+
+| **ONES** |
+| :------: |
+| v3.6.11+ |
+
+## 概述
+
+<Image img={require('./images/header.png')} />{' '}
+
+我们在系统顶栏右侧提供了一些插槽，以便于定制化系统顶栏右侧模块
+
+当前支持的插槽：
+
+- [ones:layout:header:action:new](#oneslayoutheaderactionnew)
+- [ones:layout:header:action:search](#oneslayoutheaderactionsearch)
+- [ones:layout:header:action:add](#oneslayoutheaderactionadd)
+- [ones:layout:header:action:help](#oneslayoutheaderactionhelp)
+- [ones:layout:header:action:settings](#oneslayoutheaderactionsettings)
+- [ones:layout:header:action:notification](#oneslayoutheaderactionnotification)
+- [ones:layout:header:action:avatar](#oneslayoutheaderactionavatar)
+
+## 插槽
+
+#### ones:layout:header:action:new
+
+**模块路径：** 系统顶栏右侧操作模块，用于在系统顶栏右侧追加新操作内容
+
+**个数限制：** 一个插件中最多可声明 **10 **个该插槽，系统中最多同时存在 **100 **个该插槽
+
+#### ones:layout:header:action:search
+
+**模块路径：** 系统顶栏右侧操作模块，用于替换系统顶栏右侧「搜索」操作模块
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:layout:header:action:add
+
+**模块路径：** 系统顶栏右侧操作模块，用于替换系统顶栏右侧「新建」操作模块
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:layout:header:action:help
+
+**模块路径：** 系统顶栏右侧操作模块，用于替换系统顶栏右侧「帮助」操作模块
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:layout:header:action:settings
+
+**模块路径：** 系统顶栏右侧操作模块，用于替换系统顶栏右侧「设置」操作模块
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:layout:header:action:notification
+
+**模块路径：** 系统顶栏右侧操作模块，用于替换系统顶栏右侧「通知」操作模块
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:layout:header:action:avatar
+
+**模块路径：** 系统顶栏右侧操作模块，用于替换系统顶栏右侧「头像」操作模块
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+## 使用
+
+```yaml
+modules:
+  - id: ones-layout-header-action-new-nYKZ
+    title: action
+    moduleType: ones:layout:header:action:new
+    entry: modules/ones-layout-header-action-new-nYKZ/index.html
+```
+
+**支持的配置项：**
+
+- [disabled](../../../../reference/config/plugin.yaml#disabled)

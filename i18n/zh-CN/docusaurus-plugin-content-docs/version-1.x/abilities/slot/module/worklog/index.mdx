@@ -1,0 +1,64 @@
+# 工时管理
+
+import Image from '@theme/IdealImage'
+
+## 要求
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## 概述
+
+<Image img={require('./images/worklog.png')} />
+
+我们为「工时管理」提供了一些插槽，以便于为该应用定制化页面模块。
+
+当前支持的插槽：
+
+- [ones:manhour:new](#onesmanhournew)
+- [ones:manhour:calendar](#onesmanhourcalendar)
+- [ones:manhour:report](#onesmanhourreport)
+- [ones:manhour:log](#onesmanhourlog)
+
+## 插槽
+
+#### ones:manhour:new
+
+**模块路径：** 工时管理 / 新模块
+
+**个数限制：** 一个插件中最多可声明 **10 **个该插槽，系统中最多同时存在 **100 **个该插槽
+
+#### ones:manhour:calendar
+
+**ONES 要求：** v3.11.15+
+
+**模块路径：** 工时管理 / 工时日历
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:manhour:report
+
+**模块路径：** 工时管理 / 工时报表
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:manhour:log
+
+**模块路径：** 工时管理 / 工时日志
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+## 使用
+
+```yaml
+modules:
+  - id: ones-manhour-calendar-E542
+    title: Worklog calendar
+    moduleType: ones:manhour:calendar
+    entry: modules/ones-manhour-calendar-E542/index.html
+```
+
+**支持的配置项：**
+
+- [disabled](../../../../reference/config/plugin.yaml#disabled)

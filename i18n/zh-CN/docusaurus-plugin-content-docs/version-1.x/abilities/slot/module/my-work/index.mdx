@@ -1,0 +1,69 @@
+import Image from '@theme/IdealImage'
+
+# 我的工作台
+
+## 要求
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## 概述
+
+<Image img={require('./images/my-work.png')} />
+
+我们为「我的工作台」提供了一些插槽，以便于为该应用定制化页面模块。
+
+当前支持的插槽：
+
+- [ones:workspace:new](#onesworkspacenew)
+- [ones:workspace:index](#onesworkspaceindex)
+- [ones:workspace:dashboard](#onesworkspacedashboard)
+- [ones:workspace:filter](#onesworkspacefilter)
+- [ones:workspace:manhour](#onesworkspacemanhour)
+
+## 插槽
+
+#### ones:workspace:new
+
+**模块路径：** 我的工作台 / 新模块
+
+**个数限制：** 一个插件中最多可声明 **10 **个该插槽，系统中最多同时存在 **100 **个该插槽
+
+#### ones:workspace:overview
+
+**模块路径：** 我的工作台 / 概览
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:workspace:dashboard
+
+**模块路径：** 我的工作台 / 仪表盘
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:workspace:filter
+
+**模块路径：** 我的工作台 / 筛选器
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:workspace:manhour
+
+**模块路径：** 我的工作台 / 工时
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+## 使用
+
+```yaml
+modules:
+  - id: ones-workspace-overview-NP56
+    title: Overview
+    moduleType: ones:workspace:overview
+    entry: modules/ones-workspace-overview-NP56/index.html
+```
+
+**支持的配置项：**
+
+- [disabled](../../../../reference/config/plugin.yaml#disabled)

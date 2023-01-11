@@ -1,0 +1,45 @@
+import Image from '@theme/IdealImage'
+
+# 进度管理器插槽
+
+## 要求
+
+| **ONES** |
+| :------: |
+| v3.11.0+ |
+
+## 概述
+
+<Image img={require('./images/progress.png')} />{' '}
+
+通过进度管理器能力创建的任务，可以对该任务的详情弹窗内容进行替换。
+
+当前支持的插槽：
+
+- [ones:global:progress:detail](#onesglobalprogressdetail)
+
+## 插槽
+
+#### ones:global:progress:detail
+
+**个数限制：** 一个插件中最多可声明 **10 **个该插槽，系统中最多同时存在 **100 **个该插槽
+
+:::caution 注意
+
+当前插槽需要使用「[进度管理器](../../../business/progress-manager/progress-manager.mdx)」能力。
+
+:::
+
+## 使用
+
+```yaml
+modules:
+  - id: ones-global-progress-detail-BUTc
+    title: progress
+    moduleType: ones:global:progress:detail
+    entry: modules/ones-global-progress-detail-BUTc/index.html
+```
+
+### 可访问的上下文数据
+
+- [useProgressJobInfo](../../../../reference/packages/store/store.md#useProgressJobInfo)

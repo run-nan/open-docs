@@ -1,0 +1,212 @@
+import Image from '@theme/IdealImage'
+
+# 项目组件
+
+## 要求
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## 概述
+
+<Image img={require('./images/component.png')} />
+
+我们为「项目管理」-「项目组件」提供了一些插槽，以便于为该应用定制化页面模块。
+
+当前支持的插槽：
+
+- [ones:project:component:new](#onesprojectcomponentnew)
+- [ones:project:component:overview](#onesprojectcomponentoverview)
+- [ones:project:component:report](#onesprojectcomponentreport)
+- [ones:project:component:member](#onesprojectcomponentmember)
+- [ones:project:component:todo](#onesprojectcomponenttodo)
+- [ones:project:component:sprint](#onesprojectcomponentsprint)
+- [ones:project:component:sprintPlan](#onesprojectcomponentsprintplan)
+- [ones:project:component:publish](#onesprojectcomponentpublish)
+- [ones:project:component:desk](#onesprojectcomponentdesk)
+- [ones:project:component:deliverable](#onesprojectcomponentdeliverable)
+- [ones:project:component:milestone](#onesprojectcomponentmilestone)
+- [ones:project:component:pipeline](#onesprojectcomponentpipeline)
+- [ones:project:component:bug](#onesprojectcomponentbug)
+- [ones:project:component:task](#onesprojectcomponenttask)
+- [ones:project:component:filter](#onesprojectcomponentfilter)
+- [ones:project:component:gantt](#onesprojectcomponentgantt)
+- [ones:project:component:doc](#onesprojectcomponentdoc)
+- [ones:project:component:file](#onesprojectcomponentfile)
+- [ones:project:component:plan](#onesprojectcomponentplan)
+- [ones:project:component:demand](#onesprojectcomponentdemand)
+- [ones:project:component:story](#onesprojectcomponentstory)
+- [ones:project:component:execute](#onesprojectcomponentexecute)
+
+## 插槽
+
+#### ones:project:component:new
+
+**ONES 要求：** v3.11.16+
+
+**模块路径：** 项目管理 / 项目组件 / 新模块
+
+**个数限制：** 一个插件中最多可声明 **10 **个该插槽，系统中最多同时存在 **100 **个该插槽
+
+:::caution 注意
+
+该插槽必须搭配后端业务能力 [插件承载 project 自定义组件](../../../../../abilities/business/project-custom-component/project-custom-component.mdx) 使用。
+
+:::
+
+:::caution 注意
+
+该插槽不支持[权限](../../../../../reference/config/plugin.yaml#modulePermission)。
+
+:::
+
+#### ones:project:component:overview
+
+**模块路径：** 项目管理 / 项目组件 / 概览
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:project:component:report
+
+**模块路径：** 项目管理 / 项目组件 / 报表
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:project:component:member
+
+**模块路径：** 项目管理 / 项目组件 / 成员
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:project:component:todo
+
+**模块路径：** 项目管理 / 项目组件 / 待办事项
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:project:component:sprint
+
+**模块路径：** 项目管理 / 项目组件 / 迭代
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:project:component:sprintPlan
+
+**模块路径：** 项目管理 / 项目组件 / 迭代计划
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:project:component:publish
+
+**模块路径：** 项目管理 / 项目组件 / 发布
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:project:component:desk
+
+**模块路径：** 项目管理 / 项目组件 / 工单
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:project:component:deliverable
+
+**模块路径：** 项目管理 / 项目组件 / 交付物
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:project:component:milestone
+
+**模块路径：** 项目管理 / 项目组件 / 里程碑
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:project:component:pipeline
+
+**模块路径：** 项目管理 / 项目组件 / 流水线
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:project:component:bug
+
+**模块路径：** 项目管理 / 项目组件 / 缺陷
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:project:component:task
+
+**模块路径：** 项目管理 / 项目组件 / 任务
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:project:component:filter
+
+**模块路径：** 项目管理 / 项目组件 / 筛选器
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:project:component:gantt
+
+**模块路径：** 项目管理 / 项目组件 / 时间视图
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:project:component:doc
+
+**模块路径：** 项目管理 / 项目组件 / 文档
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:project:component:file
+
+**模块路径：** 项目管理 / 项目组件 / 文件
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:project:component:plan
+
+**模块路径：** 项目管理 / 项目组件 / 项目计划
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:project:component:demand
+
+**模块路径：** 项目管理 / 项目组件 / 需求
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:project:component:story
+
+**模块路径：** 项目管理 / 项目组件 / 用户故事
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:project:component:execute
+
+**模块路径：** 项目管理 / 项目组件 / 执行
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+## 使用
+
+```yaml
+modules:
+  - id: ones-project-component-overview-ia39
+    title: Overview
+    moduleType: ones:project:component:overview
+    entry: modules/ones-project-component-overview-ia39/index.html
+```
+
+**支持的配置项：**
+
+- [disabled](../../../../../reference/config/plugin.yaml#disabled)
+
+### 可访问的上下文数据
+
+- [useProjectInfo](../../../../../reference/packages/store/store.md#useProjectInfo)
+
+```ts
+import { useProjectInfo } from '@ones-op/store'
+
+const projectInfo = useProjectInfo()
+```

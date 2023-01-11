@@ -1,0 +1,54 @@
+import Image from '@theme/IdealImage'
+
+# Program component
+
+## Requirements
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## Overview
+
+<Image img={require('./images/component.png')} />
+
+We have provided slots for "ONES Plan" - "Programs" - "Program component" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:plan:component:project](#onesplancomponentproject)
+- [ones:plan:component:member](#onesplancomponentmember)
+
+## Slots
+
+#### ones:plan:component:project
+
+**Module path：** ONES Plan / Programs / Program component / Project
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:plan:component:member
+
+**Module path：** ONES Plan / Programs / Program component / Member
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-plan-component-project-tblX
+    title: Project
+    moduleType: ones:plan:component:project
+    entry: modules/ones-plan-component-project-tblX/index.html
+```
+
+### Available Hook API
+
+- [useProgramInfo](../../../../../reference/packages/store/store.md#useProgramInfo)
+
+```ts
+import { useProgramInfo } from '@ones-op/store'
+
+const programInfo = useProgramInfo()
+```

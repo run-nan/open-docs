@@ -1,0 +1,71 @@
+# 测试管理
+
+import Image from '@theme/IdealImage'
+
+## 要求
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## 概述
+
+<Image img={require('./images/testcase.png')} />
+
+我们为「测试管理」提供了一些插槽，以便于为该应用定制化页面模块。
+
+当前支持的插槽：
+
+- [ones:testcase:new](#onestestcasenew)
+- [ones:testcase:overview](#onestestcaseoverview)
+- [ones:testcase:library](#onestestcaselibrary)
+- [ones:testcase:plan](#onestestcaseplan)
+- [ones:testcase:report](#onestestcasereport)
+
+## 插槽
+
+#### ones:testcase:new
+
+**模块路径：** 测试管理 / 新模块
+
+**个数限制：** 一个插件中最多可声明 **10 **个该插槽，系统中最多同时存在 **100 **个该插槽
+
+#### ones:testcase:overview
+
+**ONES 要求：** v3.11.15+
+
+**模块路径：** 测试管理 / 概览
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:testcase:library
+
+**模块路径：** 测试管理 / 用例库
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:testcase:plan
+
+**模块路径：** 测试管理 / 测试计划
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:testcase:report
+
+**模块路径：** 测试管理 / 测试报告
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+## 使用
+
+```yaml
+modules:
+  - id: ones-testcase-overview-rsuI
+    title: Overview
+    moduleType: ones:testcase:overview
+    entry: modules/ones-testcase-overview-rsuI/index.html
+```
+
+**支持的配置项：**
+
+- [disabled](../../../../reference/config/plugin.yaml#disabled)

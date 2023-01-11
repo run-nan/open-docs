@@ -1,0 +1,74 @@
+# Organization settings
+
+import Image from '@theme/IdealImage'
+
+## Requirements
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## Overview
+
+<Image img={require('./images/organization-settings.png')} />
+
+We have provided slots for "Organization settings" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:settings:organization:new](#onessettingsorganizationnew)
+- [ones:settings:organization:manage](#onessettingsorganizationmanage)
+- [ones:settings:organization:account](#onessettingsorganizationaccount)
+- [ones:settings:organization:appearance](#onessettingsorganizationappearance)
+- [ones:settings:organization:safe](#onessettingsorganizationsafe)
+
+## Slots
+
+#### ones:settings:organization:new
+
+**Module path：** Organization settings / new module
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+#### ones:settings:organization:manage
+
+**Module path：** Organization settings / Organization settings
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:settings:organization:account
+
+**Module path：** Organization settings / Accounts and members
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:settings:organization:appearance
+
+**Module path：** Organization settings / System preference settings
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:settings:organization:safe
+
+**Module path：** Organization settings / System security
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-settings-organization-manage-y4dV
+    title: Organization settings
+    moduleType: ones:settings:organization:manage
+    modules:
+      - id: ones-settings-organization-manage-R7q8
+        title: Organization info
+        entry: >-
+          modules/ones-settings-organization-manage-y4dV/ones-settings-organization-manage-R7q8/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../reference/config/plugin.yaml#disabled)
+- [modules(required)](../../../../reference/config/plugin.yaml#subModule)

@@ -1,0 +1,55 @@
+import Image from '@theme/IdealImage'
+
+# 默认分组
+
+## 要求
+
+| **ONES**  |
+| :-------: |
+| v3.11.15+ |
+
+## 概述
+
+<Image img={require('./images/default.png')} />
+
+我们为「配置中心」-「工时设置」-「[默认分组](../../index.mdx#slot-hierarchy)」提供了一些插槽，以便于为该应用定制化页面模块。
+
+当前支持的插槽：
+
+- [ones:settings:manhour:default:new](#onessettingsmanhourdefaultnew)
+- [ones:settings:manhour:default:mode](#onessettingsmanhourdefaultmode)
+- [ones:settings:manhour:default:limit](#onessettingsmanhourdefaultlimit)
+
+## 插槽
+
+#### ones:settings:manhour:default:new
+
+**模块路径：** 配置中心 / 工时设置 / [默认分组](../../index.mdx#slot-hierarchy) / 新模块
+
+**个数限制：** 一个插件中最多可声明 **10 **个该插槽，系统中最多同时存在 **100 **个该插槽
+
+#### ones:settings:manhour:default:mode
+
+**模块路径：** 配置中心 / 工时设置 / [默认分组](../../index.mdx#slot-hierarchy) / 工时模式
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:settings:manhour:default:limit
+
+**模块路径：** 配置中心 / 工时设置 / [默认分组](../../index.mdx#slot-hierarchy) / 登记工时上限
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+## 使用
+
+```yaml
+modules:
+  - id: ones-settings-manhour-default-mode-h778
+    title: Worklog mode
+    moduleType: ones:settings:manhour:default:mode
+    entry: modules/ones-settings-manhour-default-mode-h778/index.html
+```
+
+**支持的配置项：**
+
+- [disabled](../../../../../../reference/config/plugin.yaml#disabled)

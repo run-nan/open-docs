@@ -1,0 +1,191 @@
+---
+sidebar_position: 3
+---
+
+import Image from '@theme/IdealImage'
+import scriptFieldSelection1 from './images/script-field-selection1.png'
+import scriptFieldSelection2 from './images/script-field-selection2.png'
+import scriptFieldSelection3 from './images/script-field-selection3.png'
+
+# 插件承载脚本属性 - 单选/多选
+
+## 要求
+
+| **ONES** |
+| :------- |
+| v3.6.0+  |
+
+## 概述
+
+该能力允许插件实现了一个类型为“**单选菜单/多选菜单**”的特殊的`工作项/项目`属性。脚本属性和同类型系统属性在 **ONES** 的表现形式是一样的（同样支持通过筛选器查找，支持进行排序展示），它们不同点在于，脚本属性的名称是由插件的代码决定的，用户不能在 ONES 上进行修改，并且其各个选项值由它自己的业务逻辑计算得出，插件开发者可以通过实现不同的脚本属性值计算规则，完成多样的业务开发。
+
+### 能力表现
+
+在插件安装时，会执行创建该脚本属性(单选菜单或多选菜单)，并且添加到全局属性列表中。用户可以将该属性添加到需要的`工作项类型/项目`上
+
+:::caution
+
+添加进工作项类型中的脚本属性允许移除，但是全局的脚本属性和项目中的脚本属性添加后无法移除
+
+:::
+
+<br />
+
+该脚本属性添加到`工作项类型/项目`后，表现与其它系统属性相同。
+
+<Image img={scriptFieldSelection1} />
+
+### 工作项中的脚本属性 - 单选/多选
+
+<Image img={scriptFieldSelection2} />{' '}
+
+### 项目中的脚本属性 - 单选/多选
+
+:::caution 注意
+
+当前项目属性只支持在项目的`概览`下使用，在项目的属性表头下并不适用。
+
+:::
+
+<Image img={scriptFieldSelection3} />
+
+## 使用
+
+按如下步骤即可使用该能力。
+
+### 第一步: 在插件配置文件`config/plugin.yaml`文件中，`apis`字段内新增内容
+
+这一步是为在插件中暴露一个接口，当用户点击该能力生成的脚本属性时，ONES 会通过这个接口获取该脚本属性的选项内容。
+
+在插件配置文件中添加 `/scriptFieldSearch` 接口, 多个**单选/多选**类型的脚本属性共用该接口
+
+```yaml title="config/plugin.yaml"
+service:
+  app_id: ...
+  name: ability-scriptSelection
+  ...
+apis:
+  - type: addition
+    methods:
+      - POST
+    url: /scriptFieldSearch
+    function: GetOptions
+```
+
+### 第二步: 在插件安装时调用的`install`方法内，完成脚本属性的创建。
+
+#### 使用`FieldsAdd`方法，创建`工作项`下的脚本属性
+
+```typescript title="backend/src/index.ts"
+import { Field } from '@ones-op/node-ability'
+import { Logger } from '@ones-op/node-logger'
+
+export async function Install() {
+  Logger.info('[Plugin] Install')
+  //调用脚本属性添加方法，创建类型为“单选菜单”的脚本属性
+  const FieldsAddRes = await Field.FieldsAdd({
+    Name: '脚本属性-单选',
+    Type: 1001, //多选为1002
+  })
+  if (FieldsAddRes.Error) {
+    //如果添加失败，抛出异常
+    throw new Error('Failed to create property')
+  }
+  //添加成功返回属性的UUID
+  const { UUID: fieldUUID } = FieldsAddRes
+  Logger.info('fieldUUID:', fieldUUID)
+  return {
+    body: {
+      message: 'Field Add UUID:',
+      fieldUUID,
+    },
+  }
+}
+```
+
+**FieldsAdd 参数介绍**
+
+| 参数 | 类型   | 说明                                            |
+| :--- | :----- | :---------------------------------------------- |
+| Name | string | 属性名称                                        |
+| Type | int    | 脚本属性类型<br />- 1001：单选<br/>- 1002：多选 |
+
+---
+
+#### 使用`ItemsAdd`方法，创建`项目`下的脚本属性
+
+```typescript title="backend/src/index.ts"
+import { Field, FieldTypeEnum, PoolEnum } from '@ones-op/node-ability'
+import { Logger } from '@ones-op/node-logger'
+
+export async function Install() {
+  Logger.info('[Plugin] Install')
+  //添加项目属性
+  const ItemsAddProjectRes = await Field.ItemsAdd({
+    FieldType: FieldTypeEnum.SingleLabel, //表示添加单选类型脚本属性
+    Name: 'project_field',
+    ItemType: 'field',
+    Pool: PoolEnum.Project, //实体类型为项目
+    ContextType: 'team',
+    required: false,
+  })
+  if (ItemsAddProjectRes.Error) {
+    throw new Error('Failed to create field')
+  }
+  const { UUID: fieldUUID } = ItemsAddProjectRes //获取属性`uuid`
+  return {
+    body: {
+      message: 'Field Add UUID:',
+      fieldUUID,
+    },
+  }
+}
+```
+
+**ItemsAdd 参数介绍**
+
+| 参数        | 类型   | 说明                                                                                            |
+| :---------- | :----- | :---------------------------------------------------------------------------------------------- |
+| FieldType   | string | 脚本属性类型：<br />- `FieldTypeEnum.SingleLabel`: 单选<br />- `FieldTypeEnum.MultiLabel`: 多选 |
+| Name        | string | 属性名称                                                                                        |
+| ItemType    | string | 固定值：`field`                                                                                 |
+| Pool        | string | 固定值: `PoolEnum.Project`                                                                      |
+| ContextType | string | 上下文类型                                                                                      |
+| required    | bool   | 是否必填                                                                                        |
+
+### 第三步: 在`GetOptions`方法中，如以下格式完成脚本属性选项值的构建。
+
+编写 `GetOptions` 处理函数，如果同时有多个**单选/多选**类型的脚本属性，可根据添加脚本属性时返回的`fieldUUID`对不同的脚本属性进行处理。
+ONES 会通过插件的`GetOptions`方法加载脚本属性的选项值。
+
+```typescript
+interface OptionType {
+  uuid: string //属性值`UUID`
+  value: string //属性值
+}
+
+export async function GetOptions(request: PluginRequest): Promise<PluginResponse> {
+  const body = request?.body as any
+  const options: OptionType[] = [] //返回的选项数据
+
+  for (let i = 0; i < 3; i++) {
+    options.push({
+      uuid: 'optionsUUID' + i.toString(), //选项值的`uuid`，开发者自定义
+      value: '选项值' + i.toString(), //选项值
+    })
+  }
+
+  return {
+    body: {
+      code: 200,
+      body: {
+        options: options,
+      },
+    },
+  }
+}
+```
+
+## 示例
+
+- [位置信息属性](sample-script-field-selection1.mdx)

@@ -1,0 +1,79 @@
+# 测试计划设置
+
+import Image from '@theme/IdealImage'
+
+## 要求
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## 概述
+
+<Image img={require('./images/settings.png')} />
+
+我们为「测试管理」-「测试计划」-「测试计划设置」提供了一些插槽，以便于为该应用定制化页面模块。
+
+当前支持的插槽：
+
+- [ones:testcase:plan:settings:new](#onestestcaseplansettingsnew)
+- [ones:testcase:plan:settings:info](#onestestcaseplansettingsinfo)
+- [ones:testcase:plan:settings:perform](#onestestcaseplansettingsperform)
+- [ones:testcase:plan:settings:permission](#onestestcaseplansettingspermission)
+- [ones:testcase:plan:settings:more](#onestestcaseplansettingsmore)
+
+## 插槽
+
+#### ones:testcase:plan:settings:new
+
+**模块路径：** 测试管理 / 测试计划 / 测试计划设置 / 新模块
+
+**个数限制：** 一个插件中最多可声明 **10 **个该插槽，系统中最多同时存在 **100 **个该插槽
+
+#### ones:testcase:plan:settings:info
+
+**模块路径：** 测试管理 / 测试计划 / 测试计划设置 / 测试计划信息
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:testcase:plan:settings:perform
+
+**模块路径：** 测试管理 / 测试计划 / 测试计划设置 / 执行配置
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:testcase:plan:settings:permission
+
+**模块路径：** 测试管理 / 测试计划 / 测试计划设置 / 权限配置
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:testcase:plan:settings:more
+
+**模块路径：** 测试管理 / 测试计划 / 测试计划设置 / 更多
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+## 使用
+
+```yaml
+modules:
+  - id: ones-testcase-plan-settings-info-c6mm
+    title: Info
+    moduleType: ones:testcase:plan:settings:info
+    entry: modules/ones-testcase-plan-settings-info-c6mm/index.html
+```
+
+**支持的配置项：**
+
+- [disabled](../../../../../../reference/config/plugin.yaml#disabled)
+
+### 可访问的上下文数据
+
+- [useTestPlanInfo](../../../../../../reference/packages/store/store.md#useTestPlanInfo)
+
+```ts
+import { useTestPlanInfo } from '@ones-op/store'
+
+const testPlanInfo = useTestPlanInfo()
+```

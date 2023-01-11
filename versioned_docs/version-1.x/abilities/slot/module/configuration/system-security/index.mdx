@@ -1,0 +1,53 @@
+import Image from '@theme/IdealImage'
+
+# System security
+
+## Requirements
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## Overview
+
+<Image img={require('./images/system-security.png')} />
+
+We have provided slots for "Configuration" - "System security" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:settings:safe:new](#onessettingssafenew)
+- [ones:settings:safe:default](#onessettingssafedefault)
+
+## Slots
+
+#### ones:settings:safe:new
+
+**Module path：** Configuration / System security / [new module](../index.mdx#slot-hierarchy)
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+#### ones:settings:safe:default
+
+**Module path：** Configuration / System security / [Default group](../index.mdx#slot-hierarchy)
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-settings-safe-default-48rW
+    title: System security
+    moduleType: ones:settings:safe:default
+    modules:
+      - id: ones-settings-safe-default-CaHY
+        title: Audit Log
+        entry: >-
+          modules/ones-settings-safe-default-48rW/ones-settings-safe-default-CaHY/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../../reference/config/plugin.yaml#disabled)
+- [modules(required)](../../../../../reference/config/plugin.yaml#subModule)

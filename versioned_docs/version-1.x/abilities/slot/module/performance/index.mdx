@@ -1,0 +1,50 @@
+# ONES Performance
+
+import Image from '@theme/IdealImage'
+
+## Requirements
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## Overview
+
+<Image img={require('./images/performance.png')} />
+
+We have provided slots for "ONES Performance" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:performance:new](#onesperformancenew)
+- [ones:performance:dashboard](#onesperformancedashboard)
+
+## Slots
+
+#### ones:performance:new
+
+**Module path：** ONES Performance / new module
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+#### ones:performance:dashboard
+
+**Module path：** ONES Performance / Dashboard
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+**ONES Requirement:** `v3.11.15+`
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-performance-dashboard-cvM8
+    title: Dashboard
+    moduleType: ones:performance:dashboard
+    entry: modules/ones-performance-dashboard-cvM8/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../reference/config/plugin.yaml#disabled)

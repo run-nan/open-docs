@@ -1,0 +1,234 @@
+import Image from '@theme/IdealImage'
+import projectCustomComponent1 from './images/project-custom-component1.png'
+import projectCustomComponent2 from './images/project-custom-component2.png'
+import projectCustomComponent3 from './images/project-custom-component3.png'
+import projectCustomComponent4 from './images/project-custom-component4.png'
+import projectCustomComponent5 from './images/project-custom-component5.png'
+
+# Custom project components
+
+## Requirements
+
+| **ONES**  |
+| :-------- |
+| v3.11.16+ |
+
+## Overview
+
+The plugin uses this ability to add custom components to the project of the ONES, and users can use it according to the uniform standard of the ONES -- the order of custom components in the navigation bar and the basic configuration.
+
+Plugin developers can customize the content of the component
+
+<Image img={projectCustomComponent5} />
+
+Custom components are used in the same way as other components
+
+<Image img={projectCustomComponent4} />
+
+**Properties of custom components**
+
+- Users can customize the UI and functionality of the component；
+- Support user to configure component name and component description；
+- When the plugin that hosts this ability is enabled, the custom components defined by this ability will appear in the component library of each project, and users can use these components according to the uniform standard of the ONES；
+- When the plugin that hosts this ability is unabled/uninstalled, the custom components defined by this ability and the objects created by the user using these components are deleted from the project；
+- Allows developers copy the contents of custom components between different projects；
+
+**Scenes for custom components**
+
+- Functional scenarios that cannot be satisfied by the existing components of the ONES；
+- User-defined more diverse project configuration requirements scenarios
+
+Use ability **[Plugin multilingual support](../../../guide/abilities/multilingual.mdx)** if custom components need to consider multilingual scenarios
+
+:::caution
+
+This ability must be used in conjunction with the front-end slot **[ones:project:component:new](../../slot/module/project/component/index.mdx)**
+
+:::
+
+## Usage
+
+To use this ability,developers need to add the backend ability `Custom project components` and the front-end slot `ones:project:component:new` respectively，and then implement your own custom component function in the code.
+
+### Step 1：Add and use ability through the OP tool
+
+#### 1. Add back-end ability `Custom project components`
+
+Use the Command Line to enter the OP command in the plugin root directory to add ability (this directive requires OP tool version 1.0 or above)
+
+```shell
+npx op add ability
+```
+
+Select and add `project-custom-component@1.0.0`
+
+<Image img={projectCustomComponent1} />
+
+the OP tool will add the following to the plugin
+
+- The OP tool adds `abilitiy` field related paragraphs in `{{plugin root directory}}/config/plugin.yaml`
+
+```yaml
+service:
+  app_id: ...
+  name: ability-project-custom-component
+  ...
+  ...
+modules: []
+abilities:
+  - id: ...
+    name: project_custom_component_test
+    version: 1.0.0
+    abilityType: ProjectCustomComponent
+    function:
+      #Name of the plugin data copy method
+      copyPluginData: copyTest
+    relateModule:
+      #Custom component entry
+      componentModuleEnter: ''
+    config:
+      - key: component_name
+        label: project custom component
+        value: project custom component
+        fieldType: Input
+        show: true
+      - key: component_desc
+        label: custom component description
+        value: ''
+        fieldType: TextArea
+        show: true
+        props:
+          placeholder: custom component description,allow to leave blank
+      - key: is_support_copy
+        label: is_support_data_copy
+        #If the value is set to true,need to complete the copytest method
+        value: true
+        fieldType: Switch
+        show: false
+```
+
+- The `project-custom-component.ts` file is created in `backend/src` directory.If the developer wants to implement the data replication function of custom project components among multiple projects, the developer can do it in the `copyTest` method in this file.
+
+```typescript
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+import { Logger } from '@ones-op/node-logger'
+
+// Wants to implement the data copy of the custom component, it needs to be done within this method.
+export const copyTest = async (request: PluginRequest): Promise<PluginResponse> => {
+  Logger.info('copyTest  enter')
+  const body = request?.body as any
+
+  let srcProjectUUID = body.srcProjectUUID
+  let dstProjectUUID = body.dstProjectUUID
+
+  Logger.info(
+    '[Plugin] copyTest',
+    'url:',
+    request.url,
+    'srcProjectUUID:',
+    srcProjectUUID,
+    'dstProjectUUID:',
+    dstProjectUUID
+  )
+
+  return {
+    body: {
+      code: 200,
+      body: {
+        state: 0,
+        message: 'success',
+      },
+    },
+  }
+}
+```
+
+#### 2. The OP tool adds front-end slot `ones:project:component:new`
+
+Use the Command Line to enter the OP command in the plugin root directory to add module (this directive requires OP tool version 1.0 or above)
+
+```shell
+npx op add module
+```
+
+Select and add `ones:project:component:new` and enter a custom title
+
+<Image img={projectCustomComponent2} />
+
+the OP tool will add the following to the plugin
+
+- The op tools adds `module` field related paragraphs in `config/plugin.yaml`
+
+```yaml
+modules:
+  - id: ones-project-component-new-weUW
+    title: customComponent1
+    moduleType: ones:project:component:new
+    entry: modules/ones-project-component-new-weUW/index.html
+```
+
+- The `ones-project-component-new-weUW` directory is created in `web/src`.
+
+#### 3. Populate the plugin configuration file `config/plugin.yaml`
+
+In order to be able to identify the corresponding custom components,fill the field `abilities.relateModule.componentModuleEnter`
+
+Fill the corresponding component `modules.id` into `abilities.relateModule.componentModuleEnter`,**note that the filling value should to be added with`''`**
+
+```yaml
+abilities:
+  - id: wrIFpkyb
+    name: project_custom_component_test
+    version: 1.0.0
+    abilityType: ProjectCustomComponent
+    function:
+      copyPluginData: copyTest
+    relateModule:
+      componentModuleEnter: 'ones-project-component-new-weUW'
+```
+
+### Step 2：Complete the function of custom components
+
+In step 2,developers need to complete their own custom component function design according to their actual needs.
+
+#### Component design
+
+`web/src/modules/ones-project-component-new-weUW/index.tsx`
+
+```typescript
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { ConfigProvider } from '@ones-design/core'
+import './index.css'
+
+ReactDOM.render(
+  <ConfigProvider>customComponent1</ConfigProvider>,
+  document.getElementById('ones-mf-root')
+)
+```
+
+`web/src/modules/ones-project-component-new-weUW/index.css`
+
+```typescript
+#ones-mf-root {}
+```
+
+#### Custom component data replication function
+
+Developers need to complete their plugin data replication logic in the `copyTest` function under the file `backend/src/project-custom-component.ts`.
+
+### Step 3：Install and enable the plugin
+
+Install and enable the plugin, if the `abilities.relateModule.componentModuleEnter` configuration is not filled in under `config/plugin.yaml`,it will cause a mistake.
+
+You can configure the name and description of custom components on the plugin details page in `Configuration -> Plugin Management-> Normal plugin`, as shown in the following figure.
+
+<Image img={projectCustomComponent3} />
+
+In the left column of `ONES Project->{{any Projec}}-> Setting -> Componennt` , the custom component is located in `plugin component` title and is used in the same way as other components
+
+<Image img={projectCustomComponent4} />
+
+## Examples
+
+- [Statistics of Sprint working hours within a project](sample-project-custom-component1.mdx)

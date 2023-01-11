@@ -1,8 +1,11 @@
 ---
 sidebar_position: 3
+description: ONES 开发平台诊断工具 CLI 命令。
 ---
 
 # CLI 命令
+
+## 概览
 
 ONES 开发平台诊断工具 CLI 命令。
 
@@ -10,7 +13,7 @@ ONES 开发平台诊断工具 CLI 命令。
 开发者调用 CLI 的指令模版：`diagtools [command] [arguments] [options]`
 :::
 
-## 概览
+## 索引
 
 | 指令名称                          | 指令描述                       |
 | --------------------------------- | ------------------------------ |

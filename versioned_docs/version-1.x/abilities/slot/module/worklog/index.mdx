@@ -1,0 +1,64 @@
+# Worklog Management
+
+import Image from '@theme/IdealImage'
+
+## Requirements
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## Overview
+
+<Image img={require('./images/worklog.png')} />
+
+We have provided slots for "Worklog Management" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:manhour:new](#onesmanhournew)
+- [ones:manhour:calendar](#onesmanhourcalendar)
+- [ones:manhour:report](#onesmanhourreport)
+- [ones:manhour:log](#onesmanhourlog)
+
+## Slots
+
+#### ones:manhour:new
+
+**Module path：** Worklog Management / new module
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+#### ones:manhour:calendar
+
+**ONES Requirement:** v3.11.15+
+
+**Module path：** Worklog Management / Worklog calendar
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:manhour:report
+
+**Module path：** Worklog Management / Worklog report
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:manhour:log
+
+**Module path：** Worklog Management / Worklog
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-manhour-calendar-E542
+    title: Worklog calendar
+    moduleType: ones:manhour:calendar
+    entry: modules/ones-manhour-calendar-E542/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../reference/config/plugin.yaml#disabled)

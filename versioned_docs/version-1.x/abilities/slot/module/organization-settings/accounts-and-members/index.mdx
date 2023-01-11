@@ -1,0 +1,62 @@
+import Image from '@theme/IdealImage'
+
+# Accounts and members
+
+## Requirements
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## Overview
+
+<Image img={require('./images/accounts-and-members.png')} />
+
+We have provided slots for "Organization settings" - "Accounts and members" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:settings:organization:account:new](#onessettingsorganizationaccountnew)
+- [ones:settings:organization:account:manage](#onessettingsorganizationaccountmanage)
+- [ones:settings:organization:account:login](#onessettingsorganizationaccountlogin)
+- [ones:settings:organization:account:connect](#onessettingsorganizationaccountconnect)
+
+## Slots
+
+#### ones:settings:organization:account:new
+
+**Module path：** Organization settings / Accounts and members / new module
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+#### ones:settings:organization:account:manage
+
+**Module path：** Organization settings / Accounts and members / Manage organization members
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:settings:organization:account:login
+
+**Module path：** Organization settings / Accounts and members / Login and logout settings
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:settings:organization:account:connect
+
+**Module path：** Organization settings / Accounts and members / Account integrations
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-settings-organization-account-manage-AYTo
+    title: Manage organization members
+    moduleType: ones:settings:organization:account:manage
+    entry: modules/ones-settings-organization-account-manage-AYTo/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../../reference/config/plugin.yaml#disabled)

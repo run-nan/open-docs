@@ -1,0 +1,62 @@
+import Image from '@theme/IdealImage'
+
+# Default group
+
+## Requirements
+
+| **ONES**  |
+| :-------: |
+| v3.11.15+ |
+
+## Overview
+
+<Image img={require('./images/default.png')} />
+
+We have provided slots for "Configuration" - "System security" - "[Default group](../../index.mdx#slot-hierarchy)" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:settings:safe:default:new](#onessettingssafedefaultnew)
+- [ones:settings:safe:default:log](#onessettingssafedefaultlog)
+- [ones:settings:safe:default:policy](#onessettingssafedefaultpolicy)
+- [ones:settings:safe:default:watermark](#onessettingssafedefaultwatermark)
+
+## Slots
+
+#### ones:settings:safe:default:new
+
+**Module path：** Configuration / System security / [Default group](../../index.mdx#slot-hierarchy) / new module
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+#### ones:settings:safe:default:log
+
+**Module path：** Configuration / System security / [Default group](../../index.mdx#slot-hierarchy) / Audit Log
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:settings:safe:default:policy
+
+**Module path：** Configuration / System security / [Default group](../../index.mdx#slot-hierarchy) / Network access security policy
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:settings:safe:default:watermark
+
+**Module path：** Configuration / System security / [Default group](../../index.mdx#slot-hierarchy) / Watermark
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-settings-safe-default-log-U7j_
+    title: Audit Log
+    moduleType: ones:settings:safe:default:log
+    entry: modules/ones-settings-safe-default-log-U7j_/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../../../reference/config/plugin.yaml#disabled)

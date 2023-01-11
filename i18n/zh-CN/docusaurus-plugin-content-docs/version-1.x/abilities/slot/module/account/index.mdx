@@ -1,0 +1,60 @@
+# 个人中心
+
+import Image from '@theme/IdealImage'
+
+## 要求
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## 概述
+
+<Image img={require('./images/account.png')} />
+
+我们为「个人中心」提供了一些插槽，以便于为该应用定制化页面模块。
+
+当前支持的插槽：
+
+- [ones:account:new](#onesaccountnew)
+- [ones:account:personal](#onesaccountpersonal)
+- [ones:account:dashboard](#onesaccountdashboard)
+
+## 插槽
+
+#### ones:account:new
+
+**模块路径：** 个人中心 / 新模块
+
+**个数限制：** 一个插件中最多可声明 **10 **个该插槽，系统中最多同时存在 **100 **个该插槽
+
+#### ones:account:personal
+
+**模块路径：** 个人中心 / 个人信息
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:account:dashboard
+
+**模块路径：** 个人中心 / 仪表盘
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+## 使用
+
+```yaml
+modules:
+  - id: ones-account-personal-uhK0
+    title: Personal info
+    moduleType: ones:account:personal
+    modules:
+      - id: ones-account-personal-JhsH
+        title: My account
+        entry: >-
+          modules/ones-account-personal-uhK0/ones-account-personal-JhsH/index.html
+```
+
+**支持的配置项：**
+
+- [disabled](../../../../reference/config/plugin.yaml#disabled)
+- [modules（必填）](../../../../reference/config/plugin.yaml#subModule)

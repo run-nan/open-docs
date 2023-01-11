@@ -1,0 +1,68 @@
+import Image from '@theme/IdealImage'
+
+# Default group
+
+## Requirements
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## Overview
+
+<Image img={require('./images/default.png')} />
+
+We have provided slots for "Configuration" - "Team settings" - "[Default group](../../index.mdx#slot-hierarchy)" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:settings:team:default:new](#onessettingsteamdefaultnew)
+- [ones:settings:team:default:info](#onessettingsteamdefaultinfo)
+- [ones:settings:team:default:permission](#onessettingsteamdefaultpermission)
+- [ones:settings:team:default:authorize](#onessettingsteamdefaultauthorize)
+
+## Slots
+
+#### ones:settings:team:default:new
+
+**ONES Requirement:** v3.11.15+
+
+**Module path：** Configuration / Team settings / [Default group](../../index.mdx#slot-hierarchy) / new module
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+#### ones:settings:team:default:info
+
+**ONES Requirement:** v3.11.15+
+
+**Module path：** Configuration / Team settings / [Default group](../../index.mdx#slot-hierarchy) / Team info
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:settings:team:default:permission
+
+**ONES Requirement:** v3.11.15+
+
+**Module path：** Configuration / Team settings / [Default group](../../index.mdx#slot-hierarchy) / Team permission
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:settings:team:default:authorize
+
+**Module path：** Configuration / Team settings / [Default group](../../index.mdx#slot-hierarchy) / Authorization Management
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-settings-team-default-info-tDtA
+    title: Team info
+    moduleType: ones:settings:team:default:info
+    entry: modules/ones-settings-team-default-info-tDtA/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../../../reference/config/plugin.yaml#disabled)

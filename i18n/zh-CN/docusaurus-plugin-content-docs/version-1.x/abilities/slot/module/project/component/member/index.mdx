@@ -1,0 +1,55 @@
+import Image from '@theme/IdealImage'
+
+# 成员
+
+## 要求
+
+| **ONES**  |
+| :-------: |
+| v3.10.14+ |
+
+## 概述
+
+<Image img={require('./images/header-action.png')} />
+
+我们支持在「项目管理」-「项目组件」-「成员」组件的顶部操作模块的左侧追加新内容
+
+当前支持的插槽：
+
+- [ones:project:component:member:action:new](#onesprojectcomponentmemberactionnew)
+
+## 插槽
+
+#### ones:project:component:member:action:new
+
+**模块路径：** 项目管理 / 项目组件 / 成员 / 顶部操作模块 / 新模块
+
+**个数限制：** 一个插件中最多可声明 **10 **个该插槽，系统中最多同时存在 **100 **个该插槽
+
+## 使用
+
+```yaml
+modules:
+  - id: ones-project-component-member-action-new-r6pG
+    title: new header action
+    moduleType: ones:project:component:member:action:new
+    entry: modules/ones-project-component-member-action-new-r6pG/index.html
+```
+
+### 可访问的上下文数据
+
+- [useProjectInfo](../../../../../../reference/packages/store/store.md#useProjectInfo)
+
+```ts
+import { useProjectInfo } from '@ones-op/store'
+
+const projectInfo = useProjectInfo()
+```
+
+- [useProjectRoleInfo](../../../../../../reference/packages/store/store.md#useProjectRoleInfo)
+
+```ts
+import { useProjectRoleInfo } from '@ones-op/store'
+
+const projectRoleInfo = useProjectRoleInfo()
+```

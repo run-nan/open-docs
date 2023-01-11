@@ -1,0 +1,158 @@
+---
+sidebar_position: 4
+description: 平台支持国际化能力，你可以轻松翻译的插件。
+---
+
+import Image from '@theme/IdealImage'
+
+# 国际化
+
+## 要求
+
+| ONES    |
+| ------- |
+| v3.6.0+ |
+
+## 概述
+
+插件提供了配置国际化内容的能力，该能力可以让你的插件感知到 ONES 所处的语言环境，根据语言环境来展示你插件的国际化需求。
+
+以插件的详情页面为示例，当 ONES 系统的语言为中文时，如下图所示：
+
+<Image img={require('./images/plugin-detail-zh.png')} />
+
+ONES 系统为英文时，如下图所示：
+
+<Image img={require('./images/plugin-detail-en.png')} />
+
+综上可见，使用了多语能力之后。插件的内容可以随着 ONES 的语言切换而切换。
+
+## 使用
+
+### 插件配置中使用多语言
+
+#### 第一步：多语言申明
+
+你需要在插件工程根目录下的 `workspace` 文件夹中创建一个 `language` 文件夹，在该文件夹下，新建 `en.yaml` 与 `zh.yaml` 两个文件，按照如下所示进行语言配置：
+
+**中文配置**
+
+```yaml title="/workspace/language/zh.yaml"
+PluginName: 多语言
+PluginDescription: 这是一个支持中英文两种语言的插件
+```
+
+**英文配置**
+
+```yaml title="/workspace/language/en.yaml"
+PluginName: Multil-Language-Plugin
+PluginDescription: The plugin is used to test Mult-Language abilities
+```
+
+#### 第二步：使用 key 值占位
+
+然后我们在配置文件中需要使用多语言的地方使用 `{{.key}}` 来进行占位。如在: `plugin.yaml` 文件中实现多语言。
+
+```yaml title="/config/plugin.yaml"
+service:
+  name: '{{.PluginName}}'
+  description: '{{.PluginDescription}}'
+```
+
+这样在插件配置文件中多语言的配置就完成了。
+
+### 插件后端中使用多语言
+
+#### 第一步：多语言申明
+
+在 `/workspace/language` 下新增 **zh.yaml** 和 **en.yaml** 文件。
+
+```yaml title="/workspace/language/zh.yaml"
+PluginName: 多能力插件Demo
+PluginDescription: Node.js 插件的 demo, 提供了所有能力和工具标准使用方式
+```
+
+```yaml title="/workspace/language/en.yaml"
+PluginName: Multilability plugin Demo
+PluginDescription: The demo of Node.js, providing  all the ability and standard usage of tools
+```
+
+#### 第二步：安装依赖
+
+进入插件工程的 `/backend` 目录，执行以下命令进行依赖安装：
+
+```bash npm2yarn
+npm install @ones-op/node-ability
+```
+
+#### 第三步：在代码中使用
+
+```tsx
+import { Language } from '@ones-op/node-ability'
+
+export async function multiple_language(request: PluginRequest): Promise<PluginResponse> {
+  const { body, headers } = request
+  const userUUID = headers['Ones-User-Id']
+  // 获取用户语言
+  const language = await Language.getLanguage(userUUID)
+  // 获取语言对应的多语言key的值
+  const description = await Language.getLanguageString(language, 'PluginDescription')
+
+  return {
+    body: {
+      res: {
+        description,
+      },
+      requestBody: body,
+    },
+  }
+}
+```
+
+### 插件前端中使用多语言
+
+在插件中，你可以使用 `window` 访问我们在插件执行环境注入的全局变量。
+
+#### 第一步：了解当前支持的语言标识
+
+| 语言标识 | 语言名称 |
+| -------- | -------- |
+| zh-CN    | 简体中文 |
+| en       | 英语     |
+
+#### 第二步：多语言申明
+
+```tsx title="language.tsx"
+const zhHans = {
+  toast: '吐司',
+  modal: '对话框',
+  text: '你好',
+  pwdErr: '请再次输入密码！',
+  userNameErr: '用户名错误!',
+  ok: '确定',
+  cancel: '取消',
+}
+
+const en: typeof zhHans = {
+  toast: 'toast',
+  modal: 'Dialog',
+  text: 'hello',
+  pwdErr: 'please input password again',
+  userNameErr: 'usename error!',
+  ok: 'ok',
+  cancel: 'cancel',
+}
+
+const resourceMap: { [_: string]: typeof zhHans } = {
+  'zh-CN': zhHans,
+  'en': en,
+}
+```
+
+#### 第三步：在代码中使用
+
+```tsx title="index.tsx"
+const locale = (window as any).__ones_op_locale__?.locale || 'zh-CN'
+
+const langResource = resourceMap[locale]
+```

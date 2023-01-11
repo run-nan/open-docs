@@ -1,0 +1,47 @@
+import Image from '@theme/IdealImage'
+
+# Filters
+
+## Requirements
+
+| **ONES**  |
+| :-------: |
+| v3.10.26+ |
+
+## Overview
+
+<Image img={require('./images/filter.png')} />
+
+Append a new module to the left of the top header action zone under the path "My work" - "Filters"
+
+The slots currently supported are as follows:
+
+- [ones:workspace:filter:header:action:new](#onesworkspacefilterheaderactionnew)
+
+## Slots
+
+#### ones:workspace:filter:header:action:new
+
+**Module path：** My work / Filters / top header action / new module
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-workspace-filter-header-action-new-Nc4T
+    title: new header action
+    moduleType: ones:workspace:filter:header:action:new
+    entry: modules/ones-workspace-filter-header-action-new-Nc4T/index.html
+```
+
+### Available Hook API
+
+- [useFilterInfo](../../../../../reference/packages/store/store.md#useFilterInfo)
+
+```ts
+import { useFilterInfo } from '@ones-op/store'
+
+const filterInfo = useFilterInfo()
+```

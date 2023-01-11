@@ -21,7 +21,7 @@ export function HomepageHeader() {
         <div className={styles.buttons}>
           <Link
             className={clsx('button button--secondary button--lg', styles.buttons, styles.link)}
-            to="docs/next/learning"
+            to="docs/learning"
           >
             <Translate>Get Started</Translate> →
           </Link>

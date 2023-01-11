@@ -1,0 +1,540 @@
+import Image from '@theme/IdealImage'
+
+# Custom permission
+
+## Requirements
+
+| **ONES**  |
+| :-------- |
+| v3.10.14+ |
+
+## Overview
+
+Sometimes the content customized by the plugin also needs to control access permissions, and only relying on the existing permission verification of ONES cannot satisfy the permission control of the customized content of the plugin. Therefore, we provide the custom permission ability, which can be used to restrict access to the custom content of the plugin. For example: when the front end of the plugin needs to implement "level" pages, and different users (groups) have different access scopes, this ability can be used for permission control.
+
+:::note
+
+The permission added with this ability only take effect within the plugin, that is, it can only control the access rights of the content added by the plugin.
+
+:::
+
+### Performance
+
+After using the ability to add permissions, there are related permission configurations on the permission configuration page of the plugin details.
+
+<Image img={require('./images/custom-permission01.png')} />
+
+## Usage
+
+The custom permission ability supports the use of custom permission points in three ways: **customized standard permission configuration**, **custom permission API** and **custom permission point ability**. Currently, custom permission points can only be used with front-end slots. For specific usage methods, please refer to: [permission](../../../../reference/config/plugin.yaml#modulePermission)
+
+:::caution NOTICE
+
+Only the permission points added through the ability can be customized by the plugin to verify the logic of the permission, and the others use the original permission verification logic of ONES.
+
+:::
+
+### Custom standard permission configuration
+
+Add a custom array of standard permission point configuration items in the plugin's configuration file
+
+**Param:**
+
+| Param | Description                  | Type   | Required | Default |
+| :---- | :--------------------------- | :----- | :------- | :------ |
+| name  | permission name              | string | Y        | -       |
+| field | permission unique identifier | string | Y        | -       |
+| desc  | permission description       | string | N        | -       |
+
+**Example:**
+
+```yaml title="config/plugin.yaml"
+service:
+  permission:
+    - name: My custom read permission
+      field: my-custom-read-permission-key
+      desc: This is an example of custom read permission
+```
+
+### Custom Permission API
+
+Provides non-declarative permission point definition and configuration methods, these APIs can be used in the plugin backend to manage custom permissions.
+
+:::note
+
+In the examples, the `addition` interface is added through the [ONES API registration](../../ONES-API/ONES-API-registration.md) ability for debugging
+
+:::
+
+#### Add permission point
+
+**Param:**
+
+| Param   | Description                                                                         | Type   | Required |
+| :------ | :---------------------------------------------------------------------------------- | :----- | :------- |
+| path    | Routing, fixed value: `AddPermissionInfo`                                           | string | Y        |
+| headers | Request header, fixed value:<br />{<br/> "AbilityName":["AddPermissionInfo"]<br/> } | any    | Y        |
+| method  | Request method, fixed value:`POST`                                                  | string | Y        |
+| body    | The request body contains permission point information.                             | any    | Y        |
+
+**body**
+
+| Param            | Description                  | Type   | Required |
+| :--------------- | :--------------------------- | :----- | :------- |
+| permission_name  | permission point name        | string | Y        |
+| permission_field | permission unique identifier | string | Y        |
+| permission_desc  | permission point description | string | Y        |
+
+**Return:** Contents in `response.body['data']`
+
+- Normal
+
+  | Param             | Description                  | Type   |
+  | :---------------- | :--------------------------- | :----- |
+  | organization_uuid | organization uuid            | string |
+  | team_uuid         | team uuid                    | string |
+  | instance_uuid     | plugin instance id           | string |
+  | permission_name   | permission point name        | string |
+  | permission_desc   | permission point description | string |
+  | permission_field  | permission unique identifier | string |
+  | permission_id     | permission point id          | string |
+  | check_mode        | check type                   | string |
+  | ability_id        | ability id                   | string |
+
+- Error
+
+  Return when the added permission point already exists: permission_field of plugin already exists
+
+**Example:**
+
+```typescript
+export async function addPermission(request: PluginRequest): Promise<PluginResponse> {
+  const response = await fetchONES({
+    path: `AddPermissionInfo`,
+    headers: {
+      AbilityName: ['AddPermissionInfo'],
+    },
+    method: 'POST',
+    body: {
+      permission_name: 'api_add_permission', // permission point name
+      permission_field: 'api_add_permission123', // permission unique identifier
+      permission_desc: 'test',
+    },
+  })
+  const body = response?.body as any
+  const data = JSON.parse(body.toString())['data']
+  Logger.info(data)
+  return {
+    body: {
+      data: data,
+    },
+  }
+}
+```
+
+#### Get permission point
+
+**Param:**
+
+| Param   | Description                                                                          | Type   | Required |
+| :------ | :----------------------------------------------------------------------------------- | :----- | :------- |
+| path    | Routing, fixed value: `PermissionInfoList`                                           | string | Y        |
+| headers | Request header, fixed value:<br />{<br/> "AbilityName":["PermissionInfoList"]<br/> } | any    | Y        |
+| method  | Request method, fixed value:`POST`                                                   | string | Y        |
+
+**Return:** Contents in `response.body['data']`, contains an array of permission point information, and each permission point contains the following content
+
+| Param            | Description                        | Type   |
+| :--------------- | :--------------------------------- | :----- |
+| instance_uuid    | plugin instance id                 | string |
+| permission_name  | permission point name              | string |
+| permission_desc  | permission point description       | string |
+| permission_field | permission unique identifier       | string |
+| permission_id    | permission point id                | string |
+| check_mode       | check type                         | string |
+| rule_info        | information about configured rules | []rule |
+
+**Example:**
+
+```typescript
+export async function listPermission(request: PluginRequest): Promise<PluginResponse> {
+  const response = await fetchONES({
+    path: `PermissionInfoList`,
+    headers: {
+      AbilityName: ['PermissionInfoList'],
+    },
+    method: 'POST',
+    body: {},
+  })
+  const body = response?.body as any
+  const data = JSON.parse(body.toString())['data']
+  Logger.info(data)
+  return {
+    body: {
+      data: data,
+    },
+  }
+}
+```
+
+#### Delete permission point
+
+**Param:**
+
+| Param   | Description                                                                            | Type   | Required |
+| :------ | :------------------------------------------------------------------------------------- | :----- | :------- |
+| path    | Routing, fixed value: `DeletePermissionInfo`                                           | string | Y        |
+| headers | Request header, fixed value:<br />{<br/> "AbilityName":["DeletePermissionInfo"]<br/> } | any    | Y        |
+| method  | Request method, fixed value:`POST`                                                     | string | Y        |
+| body    | Request body, including permission unique identifier                                   | any    | Y        |
+
+**body**
+
+| Param            | Description                  | Type   | Required |
+| :--------------- | :--------------------------- | :----- | :------- |
+| permission_field | permission unique identifier | string | Y        |
+
+**Example:**
+
+```typescript
+export async function deletePermission(request: PluginRequest): Promise<PluginResponse> {
+  const response = await fetchONES({
+    path: `DeletePermissionInfo`,
+    headers: {
+      AbilityName: ['DeletePermissionInfo'],
+    },
+    method: 'POST',
+    body: {
+      permission_field: 'api_add_permission123',
+    },
+  })
+  const body = response?.body as any
+  const data = JSON.parse(body.toString())['data']
+  Logger.info(data)
+  return {
+    body: {
+      data: data,
+    },
+  }
+}
+```
+
+#### Add permission rule
+
+**Param:**
+
+| Param   | Description                                                                         | Type   | Required |
+| :------ | :---------------------------------------------------------------------------------- | :----- | -------- |
+| path    | Routing, fixed value: `AddPermissionRule`                                           | string | Y        |
+| headers | Request header, fixed value:<br />{<br/> "AbilityName":["AddPermissionRule"]<br/> } | any    | Y        |
+| method  | Request method, fixed value:`POST`                                                  | string | Y        |
+| body    | Request body, including permission point rule information                           | any    | Y        |
+
+**body**
+
+| Param             | Description                                                                                                                                                              | Type   | Required |
+| :---------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----- | :------- |
+| permission_id     | permission point id                                                                                                                                                      | string | Y        |
+| user_domain_type  | User domain type, optional values:<br />Everyone-`everyone`<br />User-`single_user`<br />Department-`department`<br />User group-`group`<br /> Team Owner - `team_owner` | string | Y        |
+| user_domain_param | The unique identifier of the user domain, for example, when the user domain is `single_user`, the value of this parameter indicates `user_uuid`                          | string | Y        |
+
+**Return:** Contents in `response.body['data']`
+
+- Normal
+
+  Contains information about adding permission rules this time
+
+  | Param             | Description         | Type   |
+  | :---------------- | :------------------ | :----- |
+  | org_uuid          | organization uuid   | string |
+  | team_uuid         | team uuid           | string |
+  | id                | permission rule id  | string |
+  | deleted           | delete or not       | Bool   |
+  | permission_id     | permission point id | string |
+  | context_type      | context type        | string |
+  | context_param_1   | context param 1     | string |
+  | context_param_2   | context param 2     | string |
+  | user_domain_type  | user domain type    | string |
+  | user_domain_param | user domain param   | string |
+  | position          | location            | string |
+
+- Error
+
+  When the user domain type of the added permission point rule is wrong, return: `<UserDomainNotExist> UserDomainNotExist`
+
+**Example:**
+
+```typescript
+export async function addRule(request: PluginRequest): Promise<PluginResponse> {
+  const { user_uuid, permission_id } = request.body as any
+  const response = await fetchONES({
+    path: `AddPermissionRule`,
+    headers: {
+      AbilityName: ['AddPermissionRule'],
+    },
+    method: 'POST',
+    body: {
+      permission_id: permission_id, // The unique id of permission, returned when add_permission_info
+      user_domain_type: 'single_user', // User domain type, existing: everyone, single_user, department, group, team_owner
+      user_domain_param: user_uuid, // The unique identifier of the user domain, for example, when user_domain_type is single_user, user_domain_param is the identifier of user_uuid
+    },
+  })
+  const body = response?.body as any
+  const data = JSON.parse(body.toString())['data']
+  Logger.info(data)
+  return {
+    body: {
+      data: data,
+    },
+  }
+}
+```
+
+#### Delete permission rule
+
+**Param:**
+
+| Param   | Description                                                                            | Type   | Required |
+| :------ | :------------------------------------------------------------------------------------- | :----- | :------- |
+| path    | Routing, fixed value: `DeletePermissionRule`                                           | string | Y        |
+| headers | Request header, fixed value:<br />{<br/> "AbilityName":["DeletePermissionRule"]<br/> } | any    | Y        |
+| method  | Request method, fixed value:`POST`                                                     | string | Y        |
+| body    | Request body, including the unique identifier of the permission rule                   | any    | Y        |
+
+**body**
+
+| Param | Description        | Type   | Required |
+| :---- | :----------------- | :----- | :------- |
+| id    | permission rule id | string | Y        |
+
+**Example:**
+
+```typescript
+export async function deleteR(request: PluginRequest): Promise<PluginResponse> {
+  const { rule_id, user_uuid } = request.body as any
+  const response = await fetchONES({
+    path: `DeletePermissionRule`,
+    headers: {
+      AbilityName: ['DeletePermissionRule'],
+    },
+    method: 'POST',
+    body: {
+      id: rule_id, // The unique id of permission_rule will be returned when add_permission_rule
+    },
+  })
+  const body = response?.body as any
+  const data = JSON.parse(body.toString())['data']
+  Logger.info(data)
+  return {
+    body: {
+      data: data,
+    },
+  }
+}
+```
+
+#### Check permission point
+
+**Param:**
+
+| Param   | Description                                                                           | Type   | Required |
+| :------ | :------------------------------------------------------------------------------------ | :----- | :------- |
+| path    | Routing, fixed value: `CheckPermissionRule`                                           | string | Y        |
+| headers | Request header, fixed value:<br />{<br/> "AbilityName":["CheckPermissionRule"]<br/> } | any    | Y        |
+| method  | Request method, fixed value:`POST`                                                    | string | Y        |
+| body    | Request body, containing information about inspection                                 | any    | Y        |
+
+**body**
+
+| Param            | Description                  | Type   | Required |
+| :--------------- | :--------------------------- | :----- | :------- |
+| permission_field | permission unique identifier | string | Y        |
+| user_uuid        | User's `uuid`                | string | Y        |
+
+**Return:** Contents in `response.body['data']`
+
+| Param         | Description         | Type |
+| :------------ | :------------------ | :--- |
+| is_permission | Is there permission | bool |
+
+**Example:**
+
+```typescript
+export async function checkPermission(request: PluginRequest): Promise<PluginResponse> {
+  const { user_uuid, permission_field } = request.body as any
+  const response = await fetchONES({
+    path: `CheckPermissionRule`,
+    headers: {
+      AbilityName: ['CheckPermissionRule'],
+    },
+    method: 'POST',
+    body: {
+      permission_field: permission_field,
+      user_uuid: user_uuid,
+    },
+  })
+  const body = response?.body as any
+  const data = JSON.parse(body.toString())['data']
+  Logger.info(data)
+  return {
+    body: {
+      data: data,
+    },
+  }
+}
+```
+
+#### Batch permission point check
+
+**Param:**
+
+| Param   | Description                                                                            | Type   | Required |
+| :------ | :------------------------------------------------------------------------------------- | :----- | :------- |
+| path    | Routing, fixed value: `BatchCheckPermission`                                           | string | Y        |
+| headers | Request header, fixed value:<br />{<br/> "AbilityName":["BatchCheckPermission"]<br/> } | any    | Y        |
+| method  | Request method, fixed value:`POST`                                                     | string | Y        |
+| body    | Request body, including all verification information                                   | any    | Y        |
+
+**body**
+
+| Param             | Description                 | Type   | Required |
+| :---------------- | :-------------------------- | :----- | :------- |
+| organization_uuid | organization uuid           | string | Y        |
+| permission_field  | unique ID of the permission | string | Y        |
+| team_uuid         | team uuid                   | string | Y        |
+| instance_id       | plugin instance id          | string | Y        |
+| user_uuid         | User's `uuid`               | string | Y        |
+
+**Return:** Contents in `response.body['data']`
+
+| Param         | Description                         | Type   |
+| :------------ | :---------------------------------- | :----- |
+| is_permission | The result of each permission check | bool[] |
+
+**Example:**
+
+```typescript
+export async function checkBatch(request: PluginRequest): Promise<PluginResponse> {
+  const { user_uuid, permission_field, user_uuid2 } = request.body as any
+  const response = await fetchONES({
+    path: `BatchCheckPermission`,
+    headers: {
+      AbilityName: ['BatchCheckPermission'],
+    },
+    method: 'POST',
+    body: {
+      permission_rules: [
+        {
+          organization_uuid: global.onesEnv.organizationUUID,
+          permission_field: permission_field,
+          team_uuid: global.onesEnv.teamUUID,
+          instance_id: global.onesEnv.instanceId,
+          user_uuid: user_uuid,
+        },
+        {
+          organization_uuid: global.onesEnv.organizationUUID,
+          permission_field: permission_field,
+          team_uuid: global.onesEnv.teamUUID,
+          instance_id: global.onesEnv.instanceId,
+          user_uuid: user_uuid2,
+        },
+      ],
+    },
+  })
+  const body = response?.body as any
+  const data = JSON.parse(body.toString())['data']
+  Logger.info(data)
+  return {
+    body: {
+      data: data,
+    },
+  }
+}
+```
+
+### Custom permission ability
+
+#### Step 1: Add configuration
+
+Use `npx op add ability` to add `custom-permission@1.0.0` type ability, generate `backend/src/custom-permission.ts` file and generate ability configuration in the plugin configuration file.
+
+**The role of the parameters in the ability configuration:**
+
+| Param                  | Description                                          | Type   |
+| :--------------------- | :--------------------------------------------------- | :----- |
+| name                   | permission point name                                | string |
+| field                  | permission unique identifier                         | string |
+| desc                   | permission point description                         | string |
+| is_plugin_custom_check | whether to use plugin custom permission verification | bool   |
+
+**Example:**
+
+```yaml
+abilities:
+  - id: WIXJvPcd
+    name: CustomPermission
+    version: 1.0.0
+    abilityType: CustomPermission
+    function:
+      customPermissionCheckFunc: customPermissionCheck
+    config:
+      - key: name
+        value: Permission
+        label: Permission name
+        show: false
+      - key: field
+        value: my_permission
+        label: Permission field
+        show: false
+      - key: desc
+        value: Custom permission
+        label: Permission description
+        show: false
+      - key: is_plugin_custom_check
+        value: false
+        label: Plugin custom permission verification
+        show: false
+```
+
+#### Step 2: Write permission verification function
+
+According to the function name configured in `function.customPermissionCheckFunc` in the ability configuration, add the corresponding permission check function in `backend/src/custom-permission.ts`, which will be called when using the plugin custom permission check .
+
+**Param:**
+
+| Param            | Description                                                                                                               | Type   |
+| :--------------- | :------------------------------------------------------------------------------------------------------------------------ | :----- |
+| user_uuid        | User's `uuid`                                                                                                             | string |
+| permission_field | permission unique identifier                                                                                              | string |
+| context          | Additional parameters, when the plugin customizes the validation, additional parameters can be passed through this field. | string |
+
+**Return: **Determine whether the permission check is passed by returning the value of the `is_permission` field in the body
+
+**Example: **Only restrict users whose `user_uuid` is `SFBs7BHh`
+
+```typescript
+import { Logger } from '@ones-op/node-logger'
+import { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+export async function customPermissionCheck(request: PluginRequest): Promise<PluginResponse> {
+  const body = request?.body as any
+  Logger.info(JSON.stringify(body, undefined, 2))
+  let permission = true
+  if (body.uuid == 'SFBs7BHh') {
+    permission = false
+  }
+  return {
+    statusCode: 200,
+    body: {
+      code: 200,
+      body: {
+        is_permission: permission,
+      },
+    },
+  }
+}
+```
+
+## Examples
+
+[System side component](./system-sider-permission.mdx)

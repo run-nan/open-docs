@@ -1,8 +1,11 @@
 ---
 sidebar_position: 3
+description: ONES Open Platform Diagtools CLI Commands.
 ---
 
 # CLI Commands
+
+## Overview
 
 ONES Open Platform Diagtools CLI Commands.
 
@@ -10,7 +13,7 @@ ONES Open Platform Diagtools CLI Commands.
 The developer invokes the CLI command template: `diagtools [command] [arguments] [options]`
 :::
 
-## Overview
+## Index
 
 | Command                           | Description                                    |
 | --------------------------------- | ---------------------------------------------- |

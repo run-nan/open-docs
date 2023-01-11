@@ -1,0 +1,48 @@
+# ONES Desk
+
+import Image from '@theme/IdealImage'
+
+## Requirements
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## Overview
+
+<Image img={require('./images/desk.png')} />
+
+We have provided slots for "ONES Desk" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:desk:new](#onesdesknew)
+- [ones:desk:index](#onesdeskindex)
+
+## Slots
+
+#### ones:desk:new
+
+**Module path：** ONES Desk / new module
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+#### ones:desk:index
+
+**Module path：** ONES Desk / Ticket overview
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-desk-index-w6Q_
+    title: Ticket overview
+    moduleType: ones:desk:index
+    entry: modules/ones-desk-index-w6Q_/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../reference/config/plugin.yaml#disabled)

@@ -1,0 +1,47 @@
+import Image from '@theme/IdealImage'
+
+# 仪表盘
+
+## 要求
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## 概述
+
+<Image img={require('./images/dashboard.png')} />{' '}
+
+在「我的工作台」-「仪表盘」组件的顶部操作模块的左侧追加新内容
+
+当前支持的插槽：
+
+- [ones:workspace:dashboard:header:action:new](#onesworkspacedashboardheaderactionnew)
+
+## 插槽
+
+#### ones:workspace:dashboard:header:action:new
+
+**模块路径：** 我的工作台 / 仪表盘 / 顶部操作模块 / 新模块
+
+**个数限制：** 一个插件中最多可声明 **10 **个该插槽，系统中最多同时存在 **100 **个该插槽
+
+## 使用
+
+```yaml
+modules:
+  - id: ones-workspace-dashboard-header-action-new-nW_y
+    title: new action header
+    moduleType: ones:workspace:dashboard:header:action:new
+    entry: modules/ones-workspace-dashboard-header-action-new-nW_y/index.html
+```
+
+### 可访问的上下文数据
+
+- [useDashboardInfo](../../../../../reference/packages/store/store.md#useDashboardInfo)
+
+```ts
+import { useDashboardInfo } from '@ones-op/store'
+
+const dashboardInfo = useDashboardInfo()
+```

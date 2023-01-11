@@ -1,0 +1,50 @@
+import Image from '@theme/IdealImage'
+
+# Test plan
+
+## Requirements
+
+| **ONES** |
+| :------: |
+| v3.6.0+  |
+
+## Overview
+
+<Image img={require('./images/test-plan.png')} />
+
+We have provided slots for "Configuration" - "TestCase settings" - "Test plan" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:settings:testcase:plan:new](#onessettingstestcaseplannew)
+- [ones:settings:testcase:plan:field](#onessettingstestcaseplanfield)
+
+## Slots
+
+#### ones:settings:testcase:plan:new
+
+**ONES Requirement:** v3.11.15+
+
+**Module path：** Configuration / TestCase settings / Test plan / new module
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+#### ones:settings:testcase:plan:field
+
+**Module path：** Configuration / TestCase settings / Test plan / Test plan field
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-settings-testcase-plan-field-o_zn
+    title: Test plan field
+    moduleType: ones:settings:testcase:plan:field
+    entry: modules/ones-settings-testcase-plan-field-o_zn/index.html
+```
+
+**Supported config options：**
+
+- [disabled](../../../../../../reference/config/plugin.yaml#disabled)

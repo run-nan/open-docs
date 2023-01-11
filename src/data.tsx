@@ -1,7 +1,7 @@
 import React from 'react'
 import Translate from '@docusaurus/Translate'
 
-const baseUrl = '/docs/next/'
+const baseUrl = '/docs/'
 
 /** 首页功能列表 */
 export const features: {
@@ -142,12 +142,6 @@ export const features: {
             /** 数据库 */
             title: <Translate>Database</Translate>,
             url: `${baseUrl}abilities/basic/database`,
-          },
-
-          {
-            /** 错误处理 */
-            title: <Translate>Error handling</Translate>,
-            url: `${baseUrl}abilities/basic/error-handling`,
           },
           // {
           //   /** 多语言-国际化 */

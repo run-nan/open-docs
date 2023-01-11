@@ -1,0 +1,44 @@
+import Image from '@theme/IdealImage'
+
+# System sider slot
+
+## Requirements
+
+| **ONES** |
+| :------: |
+| v3.6.11+ |
+
+## Overview
+
+<Image img={require('./images/sider.png')} />
+
+We have provided slots for the sider menu in the system to hide it.
+
+The slots currently supported are as follows:
+
+- [ones:layout:sider](#oneslayoutsider)
+
+## Slots
+
+#### ones:layout:sider
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-layout-sider-MTKc
+    title: sider
+    moduleType: ones:layout:sider
+```
+
+:::caution
+
+This slot doesn't support overwriting the system sider menu by the [entry](../../../../reference/config/plugin.yaml.mdx#entry).
+
+:::
+
+**Supported config options：**
+
+- [disabled](../../../../reference/config/plugin.yaml#disabled)

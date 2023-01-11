@@ -1,0 +1,53 @@
+---
+id: openAbility-pluginLog
+sidebar_position: 1
+description: 简便的日志操作。
+---
+
+import Image from '@theme/IdealImage'
+import pluginLog1 from './images/pluginLog1.png'
+
+# 插件日志
+
+## 要求
+
+| **ONES** |
+| :------- |
+| v3.7.51+ |
+
+## 概述
+
+该能力允许每个插件打印自己的日志，提供了 4 种级别的标准日志打印方法： `debug`、`info`、`warning`、`error`, 并且支持导出日志文件。
+
+插件日志会显示在插件详情页中的日志页中，该页面只显示 `info`、`warning`、`error` 级别的日志。
+
+可以在`配置中心 -> 插件管理`中每个插件的**详情页面**查看插件日志，具体表现如下图所示。
+
+<Image img={pluginLog1} />
+
+## 使用
+
+在本地调试时，如果需要将日志打印在控制台，可以在 `config/local.yaml` 中开启配置 `debug_mode: true`，并且日志文件会保存在插件目录的`ones-plugin-node-host.log`。
+
+### 插件日志能力使用：
+
+#### 1. 安装依赖
+
+进入插件工程的`/backend`目录，执行以下命令进行依赖安装：
+
+```shell
+npm i @ones-op/node-logger
+```
+
+#### 2. 使用示例
+
+```javascript
+import { Logger } from '@ones-op/node-logger'
+
+function logExample() {
+  Logger.debug('debug 级别日志')
+  Logger.info('info 级别日志')
+  Logger.warning('warning 级别日志')
+  Logger.error('error 级别日志')
+}
+```
