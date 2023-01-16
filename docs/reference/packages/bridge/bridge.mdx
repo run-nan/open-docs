@@ -153,7 +153,7 @@ open the pop-up dialog to create a related task
 | ---------- | ----------------------- | ----------------------------- | -------- | ------- |
 | modalProps | the config of the modal | `CreateRelatedTaskModalProps` | Y        |         |
 
-##### 类型
+##### Type
 
 ```tsx
 interface CreateRelatedTaskModalProps extends Omit<CreateTaskModalProps, 'defaultValue'> {
@@ -182,58 +182,64 @@ interface CreateRelatedTaskModalProps extends Omit<CreateTaskModalProps, 'defaul
 
 ### refreshList
 
-通过调用`refreshList`方法，你可以手动触发标品中列表的刷新
+you can mannually trigger the refresh of some lists in the ONES system
 
-#### 要求
+#### Requirements
 
 | **ONES** | **@ones-op/bridge** |
 | -------- | ------------------- |
 | `TODO`   | `TODO`              |
 
-#### 参数
+#### Params
 
-| 参数     | 说明       | 类型       | 必填 | 默认值 |
-| -------- | ---------- | ---------- | ---- | ------ |
-| listName | 列表的名字 | `ListName` | 是   |        |
+| Params   | Description          | Type       | Required | Default |
+| -------- | -------------------- | ---------- | -------- | ------- |
+| listName | the name of the list | `ListName` | Y        |         |
 
-#### 类型
+#### Type
 
 ```tsx
-type ListName = 'memberList' | 'codeRepositoryList' | 'planTestcaseList' | 'demandTrackList'
+type ListName =
+  | 'memberList'
+  | 'codeRepositoryList'
+  | 'planTestcaseList'
+  | 'requirementTraceabilityList'
 ```
 
 ##### memberList
 
-- 可用：`TODO`
-- ONES 要求：`v3.11.15+`
+- ONES requirements: `v3.11.15+`
 
-触发成员列表刷新（支持标品中所有成员列表）。
+Triggered member list refresh (supports all member lists).
 
 <Image img={require('./images/refresh-member-list.png')} />
 
 ##### codeRepositoryList
 
-- 可用：`TODO`
-- ONES 要求：`v3.13.9+`
+- ONES requirements: `v3.13.9+`
 
-代码仓管理列表页刷新
+Refresh the code repositories list in the "Configuration" - "Pipeline settings" - "Manage repositories" page
 
 <Image img={require('./images/code-repository.png')} />
 
 ##### planTestcaseList
 
-- 可用：`TODO`
-- ONES 要求：`TODO`
+- ONES requirements: `TODO`
 
-测试管理 / 测试计划 / 用例列表刷新
+Refresh the testcase list in the "ONES TestCase" - "Test Plans" - "Test case" page
 
 <Image img={require('./images/testcase-list.png')} />
 
-##### demandTrackList
+##### requirementTraceabilityList
 
-- 可用：`TODO`
-- ONES 要求：`TODO`
+- ONES requirements: `TODO`
 
-测试管理 / 测试计划 / 需求跟踪列表刷新
+Refresh the requirement traceability list in the "ONES TestCase" - "Test Plans" - "Requirements traceability" page
 
 <Image img={require('./images/requirement-traceability-list.png')} />
+
+### invokeProgressManager
+
+you can invoke the global progress manager by calling the `invokeProgressManager` method
+
+<Image img={require('./images/invoke-ones-global-progressManager.png')} />

@@ -200,7 +200,11 @@ interface CreateRelatedTaskModalProps extends Omit<CreateTaskModalProps, 'defaul
 #### 类型
 
 ```tsx
-type ListName = 'memberList' | 'codeRepositoryList' | 'planTestcaseList' | 'demandTrackList'
+type ListName =
+  | 'memberList'
+  | 'codeRepositoryList'
+  | 'planTestcaseList'
+  | 'requirementTraceabilityList'
 ```
 
 ##### memberList
@@ -230,7 +234,7 @@ type ListName = 'memberList' | 'codeRepositoryList' | 'planTestcaseList' | 'dema
 
 <Image img={require('./images/testcase-list.png')} />
 
-##### demandTrackList
+##### requirementTraceabilityList
 
 - 可用：`TODO`
 - ONES 要求：`TODO`
@@ -238,3 +242,9 @@ type ListName = 'memberList' | 'codeRepositoryList' | 'planTestcaseList' | 'dema
 测试管理 / 测试计划 / 需求跟踪列表刷新
 
 <Image img={require('./images/requirement-traceability-list.png')} />
+
+### invokeProgressManager
+
+通过调用`invokeProgressManager`方法，可以激活全局进度管理器。
+
+<Image img={require('./images/invoke-ones-global-progressManager.png')} />
