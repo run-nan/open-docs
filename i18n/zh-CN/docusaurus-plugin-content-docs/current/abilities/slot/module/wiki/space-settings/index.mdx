@@ -1,0 +1,46 @@
+import Image from '@theme/IdealImage'
+
+# 页面组设置
+
+## 要求
+
+| **ONES** |
+| :------: |
+| v3.x.x+  |
+
+## 概述
+
+<Image img={require('./images/settings.png')} />
+
+我们为「知识库管理」-「页面组设置」提供了一些插槽，以便于为该应用定制化页面模块。
+
+当前支持的插槽：
+
+- [ones:wiki:space:settings:new](#onesworkspacefilterheaderactionnew)
+
+## 插槽
+
+#### ones:wiki:space:settings:new
+
+**模块路径：** 知识库管理 / 页面组 / 页面组设置 / 回收站前面
+
+**个数限制：** 一个插件中最多可声明 **10 **个该插槽，系统中最多同时存在 **100 **个该插槽
+
+## 使用
+
+```yaml
+- id: ones-wiki-space-settings-new-dcbC
+  title: 自定义tab
+  moduleType: ones:wiki:space:settings:new
+  entry: modules/ones-wiki-space-settings-new-dcbC/index.html
+```
+
+### 可访问的上下文数据
+
+- [useWikiSpaceInfo](../../../../../reference/packages/store/store.md#useWikiSpaceInfo)
+
+```ts
+import { useWikiSpaceInfo } from '@ones-op/store'
+
+const spaceInfo = useWikiSpaceInfo()
+```
