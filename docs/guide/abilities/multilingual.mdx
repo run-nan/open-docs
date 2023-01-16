@@ -1,6 +1,7 @@
 ---
 sidebar_position: 4
 description: The platform supports internationalization capabilities, and you can easily translate plugin.
+toc_max_heading_level: 4
 ---
 
 import Image from '@theme/IdealImage'
@@ -109,6 +110,10 @@ export async function multiple_language(request: PluginRequest): Promise<PluginR
 }
 ```
 
+:::tip
+This ability obtains the language information set by the user last time. If it is directly responding to the front-end request, it is recommended to directly use the user language information in the front-end request.
+:::
+
 ### Use multiple languages in the plugin frontend
 
 In the plugin, you can use `window` to access the global variables that we injected in the plugin execution environment.
@@ -156,3 +161,9 @@ const locale = (window as any).__ones_op_locale__?.locale || 'en'
 
 const langResource = resourceMap[locale]
 ```
+
+## FAQ
+
+##### When the same account selects different languages in different browsers, there is a mismatch when using the ability to obtain user language information
+
+The same user is allowed to select different languages in different browsers, but only the language information that the user selected last time can be obtained when acquiring the user language through the ability. Therefore, for the interface directly requested by the front end, the language information carried in the request is directly used.

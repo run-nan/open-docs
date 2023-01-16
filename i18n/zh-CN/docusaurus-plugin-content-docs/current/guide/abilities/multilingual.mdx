@@ -1,6 +1,7 @@
 ---
 sidebar_position: 4
 description: 平台支持国际化能力，你可以轻松翻译的插件。
+toc_max_heading_level: 4
 ---
 
 import Image from '@theme/IdealImage'
@@ -109,6 +110,10 @@ export async function multiple_language(request: PluginRequest): Promise<PluginR
 }
 ```
 
+:::tip
+该能力获取的是用户最后一次设置的语言信息，如果是直接响应前端请求时，建议直接使用前端请求中的用户语言信息。
+:::
+
 ### 插件前端中使用多语言
 
 在插件中，你可以使用 `window` 访问我们在插件执行环境注入的全局变量。
@@ -156,3 +161,9 @@ const locale = (window as any).__ones_op_locale__?.locale || 'zh-CN'
 
 const langResource = resourceMap[locale]
 ```
+
+## 常见问题
+
+##### 同一账户在不同浏览器选择不同的语言时，使用能力获取用户语言信息时出现不匹配的情况
+
+同一个用户允许在不同的浏览器选择不同的语言，但通过能力获取用户语言时只能获取用户最后一次选择的语言信息。因此，对于前端直接请求的接口，直接使用请求中携带的语言信息。
