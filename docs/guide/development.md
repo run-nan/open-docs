@@ -104,6 +104,8 @@ Local debug return value: {
 
 Plugin api are roughly divided into two types: [**api registration**](#) and [**api interception**](../abilities/business/ONES-API/ONES-API-interception.md). When you use [Postman](https://learning.postman.com/docs/getting-started/introduction/) to debug these api, you need to add different request headers according to these two types.
 
+When your interface debugging shows unexpected results, you can refer to our provided [**Debugging**](./advanced/debugger.mdx) method for single-step debugging to further locate the problem.
+
 ##### Api registration
 
 ```json title="Headers"
