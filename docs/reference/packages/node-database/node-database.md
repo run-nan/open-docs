@@ -65,10 +65,11 @@ Receives the sql statement related to the query and returns the query result, wh
 
 #### Error
 
-| errcode         | reason                                                                                                                              | level | statusCode |
-| --------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----- | ---------- |
-| DB.QuerySqlErr  | An unknown error occurred while executing the select method, and the specific error scenario gives the specific cause of the error. | error | 500        |
-| DB.SqlSyntaxErr | The sql does not conform to the grammatical specification, and the specific error scene gives the specific error reason.            | error | 400        |
+| errcode          | reason                                                                                                                              | level | statusCode |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----- | ---------- |
+| DB.QuerySqlErr   | An unknown error occurred while executing the select method, and the specific error scenario gives the specific cause of the error. | error | 500        |
+| DB.SqlSyntaxErr  | The sql does not conform to the grammatical specification, and the specific error scene gives the specific error reason.            | error | 400        |
+| InvalidParameter | Invalid parameter.                                                                                                                  | error | 400        |
 
 #### Example
 
@@ -101,10 +102,11 @@ Execute the relevant sql statement and no result is returned. If sql execution f
 
 #### Error
 
-| errcode         | reason                                                                                                                            | level | statusCode |
-| --------------- | --------------------------------------------------------------------------------------------------------------------------------- | ----- | ---------- |
-| DB.ExecSqlErr   | An unknown error occurred while executing the exec method, and the specific error scenario gives the specific cause of the error. | error | 500        |
-| DB.SqlSyntaxErr | The sql does not conform to the grammatical specification, and the specific error scene gives the specific error reason.          | error | 400        |
+| errcode          | reason                                                                                                                            | level | statusCode |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------- | ----- | ---------- |
+| DB.ExecSqlErr    | An unknown error occurred while executing the exec method, and the specific error scenario gives the specific cause of the error. | error | 500        |
+| DB.SqlSyntaxErr  | The sql does not conform to the grammatical specification, and the specific error scene gives the specific error reason.          | error | 400        |
+| InvalidParameter | Invalid parameter.                                                                                                                | error | 400        |
 
 #### Example
 
@@ -145,10 +147,11 @@ Count related sql interface. If the sql execution is a failure, it will throw er
 
 #### Error
 
-| errcode         | reason                                                                                                                             | level | statusCode |
-| --------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ----- | ---------- |
-| DB.QuerySqlErr  | An unknown error occurred while executing the count method, and the specific error scenario gives the specific cause of the error. | error | 500        |
-| DB.SqlSyntaxErr | The sql does not conform to the grammatical specification, and the specific error scene gives the specific error reason.           | error | 400        |
+| errcode          | reason                                                                                                                             | level | statusCode |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ----- | ---------- |
+| DB.QuerySqlErr   | An unknown error occurred while executing the count method, and the specific error scenario gives the specific cause of the error. | error | 500        |
+| DB.SqlSyntaxErr  | The sql does not conform to the grammatical specification, and the specific error scene gives the specific error reason.           | error | 400        |
+| InvalidParameter | Invalid parameter.                                                                                                                 | error | 400        |
 
 #### Example
 
