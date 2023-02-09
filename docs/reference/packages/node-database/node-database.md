@@ -156,14 +156,14 @@ Count related sql interface. If the sql execution is a failure, it will throw er
 #### Example
 
 ```javascript
-import { count,DBError } from '@ones-op/node-database'
+import { count, DBError } from '@ones-op/node-database'
 
 export async function count_database() {
   try {
     const result = await count('select count(*) from email_id_map;')
   } catch (error) {
-    if (error insteadof DBError){
-       Logger.error("error:", error.errcode, error.statusCode, error.level, error.reason)
+    if (error instanceof DBError) {
+      Logger.error('error:', error.errcode, error.statusCode, error.level, error.reason)
     }
   }
 }
