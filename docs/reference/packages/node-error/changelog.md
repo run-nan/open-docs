@@ -6,4 +6,4 @@ All notable changes to this package will be documented in this file.
 
 ### Features
 
-- **Fetch:** 🌟 Provide the Open Platform error
+- **Fetch:** 🌟 Added an error mechanism for handling platform capabilities, and added an error handling mechanism for plug-in interface standards.
