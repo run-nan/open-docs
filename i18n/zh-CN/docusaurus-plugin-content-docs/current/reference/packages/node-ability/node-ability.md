@@ -704,7 +704,13 @@ const file = await PluginFile.uploadFile('files/test.txt', 'taskuuid', 'desc')
 
 ```typescript
 import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
-import { Process, LanguagePkg, ProcessType, ProcessResult, AbilityError } from '@ones-op/node-ability'
+import {
+  Process,
+  LanguagePkg,
+  ProcessType,
+  ProcessResult,
+  AbilityError,
+} from '@ones-op/node-ability'
 
 export async function createProcess(request: PluginRequest): Promise<PluginResponse> {
   //从请求中获取参数
@@ -715,12 +721,11 @@ export async function createProcess(request: PluginRequest): Promise<PluginRespo
     zh: title,
   }
   //创建进度管理器，获取返回值processUUID
-  let processUUID = ""
-  try{
-      const processUUID = await Process.create(ProcessType.DownloadFile, user_uuid, titlePkg, timeout)
-  }catch (e){
-    if (e instaedof AbilityError){
-
+  let processUUID = ''
+  try {
+    const processUUID = await Process.create(ProcessType.DownloadFile, user_uuid, titlePkg, timeout)
+  } catch (e) {
+    if (e instanceof AbilityError) {
     }
   }
 

@@ -688,12 +688,12 @@ export async function createProcess(request: PluginRequest): Promise<PluginRespo
     zh: title,
   }
   //Create a progress manager and get the return value processUUID
-  let processUUID = ""
-  try{
-      const processUUID = await Process.create(ProcessType.DownloadFile, user_uuid, titlePkg, timeout)
-  }catch (error){
-    if (error instaedof AbilityError){
-       Logger.error("error:", error.errcode, error.statusCode, error.level, error.reason)
+  let processUUID = ''
+  try {
+    const processUUID = await Process.create(ProcessType.DownloadFile, user_uuid, titlePkg, timeout)
+  } catch (error) {
+    if (error instanceof AbilityError) {
+      Logger.error('error:', error.errcode, error.statusCode, error.level, error.reason)
     }
   }
 
