@@ -18,7 +18,7 @@ When using the sdk methods provided by ONES, some error scenarios may occur. The
 
 - Each sdk package has its own error type, for example, the ones-op/node-file package has the error type FileError, and the ones-op/node-database package has the error type DBError.
 - The error types corresponding to the sdk package and the error scenarios corresponding to the sdk can be found in the corresponding api documentation.
-- After knowing the error type corresponding to the sdk package, the plug-in developer can judge and obtain the error information by means of instead of.
+- After knowing the error type corresponding to the sdk package, the plug-in developer can judge and obtain the error information by means of instanceof.
 
 ## Usage
 

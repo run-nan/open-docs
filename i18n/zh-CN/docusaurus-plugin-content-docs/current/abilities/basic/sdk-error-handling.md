@@ -18,7 +18,7 @@ description: sdk错误处理。
 
 - 每一个 sdk 包都有自身的一个错误类型，例如 ones-op/node-file 包有错误类型 FileError，ones-op/node-database 包有错误类型 DBError。
 - sdk 包对应的错误类型，sdk 对应的错误场景有哪些，可在对应的 api 文档中得知。
-- 得知 sdk 包对应的错误类型之后，插件开发者就可通过 instead of 的方式判断并获取错误信息。
+- 得知 sdk 包对应的错误类型之后，插件开发者就可通过 instanceof 的方式判断并获取错误信息。
 
 ## 使用
 
