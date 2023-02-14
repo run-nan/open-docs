@@ -601,3 +601,64 @@ interface CodeRepositoryInfo {
   previous: () => void
 }
 ```
+
+### useTestReportComponentInfo {#useTestReportComponentInfo}
+
+In the plugin custom test report component, get the data of the current component and the method of operating the data.
+
+- Added in: `v0.7.0+`
+- ONES Requirement: `v3.13.22+`
+
+#### Returns
+
+| Description                                                  | Type                          |
+| ------------------------------------------------------------ | ----------------------------- |
+| Data of the current component and the operations on the data | `TestcaseReportComponentInfo` |
+
+#### Types
+
+```tsx
+interface ExportTitle {
+  // export title
+  type: 'title'
+  content: string
+}
+
+interface ExportText {
+  // export plain text
+  type: 'text'
+  content: string
+}
+
+interface ExportLink {
+  // export link
+  type: 'link'
+  content: string
+  url: string
+}
+
+interface ExportImage {
+  // export picture
+  type: 'image'
+  url: string
+}
+
+interface ExportCustomContent {
+  // Export custom content
+  type: 'custom'
+  content: string // html text
+}
+
+type ExportItem = ExportTitle | ExportText | ExportLink | ExportImage | ExportCustomContent
+
+interface TestcaseReportComponentInfo<T extends Record<string, any> = {}> {
+  isReportMode: boolean // Are you on the report page, if not, you're on re report template page
+  isViewMode: boolean // Are you in viewing mode, if not, you're in editing mode
+  contentUUID: string // If you are currently on the report page, it indicates the report ID; if you are on the report template page, it indicates the report template ID
+  componentSetting: T // Component configuration information
+  componentUUID: string // the ID of the component
+  updateComponentSettingConfig: (newConfig: Partial<T>) => void // The method to update the setting of the component
+  updateComponentExportContent: (exportItems: ExportItem[]) => void // The method to update the export content of the component
+  addOnSubmitSettingListener: (next: () => void) => () => void // The method to listen the event of submitting the setting popup, and the return value is the method to cancel listening
+}
+```

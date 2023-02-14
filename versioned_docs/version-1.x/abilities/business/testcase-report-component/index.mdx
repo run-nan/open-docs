@@ -1,0 +1,249 @@
+---
+sidebar_position: 11
+description: ----
+---
+
+import Image from '@theme/IdealImage'
+import libImg from './images/lib.png'
+import renderImg from './images/render.png'
+import settingImg from './images/setting.png'
+import exportImg from './images/export.png'
+
+# Custom test reporting components
+
+## Requirements
+
+| **ONES**  |
+| :-------- |
+| v3.13.22+ |
+
+## Overview
+
+The open platform provides the ability to customize test report components. When the test report components provided by the standard product cannot meet the requirements, use this ability to add a custom component in the test report and test report template editing page.
+When using this ability, the content that users can customize includes:
+
+1. Component card rendering content
+2. Component configuration popup content
+3. Component export content
+
+### Performance
+
+When the plug-in which uses this capability is enabled, you can add custom components from the component library on the left when editing a test report or test report template
+
+<Image img={libImg} />
+
+After adding a custom component, you can configure the content of the component through a custom configuration pop-up window
+
+<Image img={settingImg} />
+
+The customized content will be rendered in the component card
+
+<Image img={renderImg} />
+
+If you have configured custom component export content, the exported test report will contain the content of the custom component
+
+<Image img={exportImg} />
+
+## Usage
+
+### Install pre-dependencies
+
+```shell
+npm i @ones-op/store
+```
+
+### Add modules
+
+1. Execute `npx op add module` , select `ones:testcase:report:component:new` to add a module
+2. Excute `npx op add sub-module` , add a sub-module under the `ones:testcase:report:component:new module` just added
+3. Manually configure the module in `/config/plugin.yaml`
+
+```yaml
+modules:
+  - id: ones-testcase-report-component-new-5cZd
+    title: custom test report
+    moduleType: ones:testcase:report:component:new
+    modules:
+      - id: ones-testcase-report-component-new-U06I
+        title: card render
+        scene: render # necessary
+        entry: >-
+          modules/ones-testcase-report-component-new-5cZd/ones-testcase-report-component-new-U06I/index.html
+      - id: ones-testcase-report-component-new-NQD6
+        title: setting render
+        scene: setting # unnecessary
+        entry: >-
+          modules/ones-testcase-report-component-new-5cZd/ones-testcase-report-component-new-NQD6/index.html
+```
+
+A custom component module contains two submodules
+
+- component card: `scene` is `render`, which is used to `render` the card content of the custom component in the test report, which must be added
+- setting popup: `scene` is `setting`, which is used to render the configuration pop-up window content of the custom component. If the component does not support configuration, you can choose not to add it
+
+### Add Ability
+
+1. Execute `npx op add ability` , select `testcase-report-custom-component@1.0.0` to add an ability
+2. Manually configure the ability in `/config/plugin.yaml`
+
+```yaml
+service:
+  app_id: Wr1aVwZS
+  ...
+modules:
+  - id: ones-testcase-report-component-new-5cZd
+    title: Test report component
+    moduleType: ones:testcase:report:component:new
+    modules:
+      - id: ones-testcase-report-component-new-U06I
+        title: Custom Plugin Render
+        scene: render
+        entry: >-
+          modules/ones-testcase-report-component-new-5cZd/ones-testcase-report-component-new-U06I/index.html
+      - id: ones-testcase-report-component-new-NQD6
+        title: Custom Plugin Setting Modal
+        scene: setting
+        entry: >-
+          modules/ones-testcase-report-component-new-5cZd/ones-testcase-report-component-new-NQD6/index.html
+abilities:
+    - id: testcase-report-custom-component
+      name: testcase-report-custom-component
+      version: 1.0.0
+      abilityType: TestcaseReportCustomComponent
+      relateModule:
+        componentModule: 'ones-testcase-report-component-new-5cZd' # the moduleID of the module whose moduleType is ones:testcase:report:component:new
+      config:
+        - key: component_name
+          label: testcase-report-custom-component-name
+          value: plugin Custom Component
+          fieldType: Input
+          show: false
+```
+
+### Custom component card content
+
+In the module whose `scene` is `render`, get the component setting through [useTestReportComponentInfo](../../../reference/packages/store/#useTestReportComponentInfo), and then render the corresponding UI according to the component setting
+
+```tsx
+import React from 'react'
+import { useTestReportComponentInfo } from '@ones-op/store'
+
+export const CustomComponentCard = () => {
+  // get the component setting
+  const { componentSetting } = useTestReportComponentInfo()
+  // render the corresponding UI according to the component setting
+  return (
+    <div>
+      <div>{JSON.stringify(componentSetting, null, 2)}</p>
+    </div>
+  )
+}
+
+```
+
+### Custom component export content
+
+In the module where scene is render, use [useTestReportComponentInfo](../../../reference/packages/store/#useTestReportComponentInfo) to obtain the method to save the exported content, and then update the exported content according to the component setting
+
+```tsx
+import React from 'react'
+import { useTestReportComponentInfo } from '@ones-op/store'
+
+export const CustomComponentCard = () => {
+  // get the component setting and the method to save the exported content
+  const { componentSetting, updateComponentExportContent } = useTestReportComponentInfo()
+  // update the exported content according to the component setting
+  React.useEffect(() => {
+    updateComponentExportContent([
+      {
+        type: 'text',
+        content: JSON.stringify(componentSetting, null, 2),
+      },
+    ])
+  }, [componentSetting, updateComponentExportContent])
+  // omit follow-up content
+}
+```
+
+### Custom component setting popup
+
+If the custom component needs to support configuration, then the developer needs to add a module with scene as setting. In this module, use the hook [useTestReportComponentInfo](../../../reference/packages/store/#useTestReportComponentInfo) to get the component setting, the method to update the component configuration, and the method to listen to the event of submitting the pop-up window, and then just render the editing form.
+
+```tsx
+import React from 'react'
+import { Form, Input } from '@ones-design/core'
+import { useTestReportComponentInfo } from '@ones-op/store'
+
+export const Setting = () => {
+  const { componentSetting, updateComponentSetting, addOnSubmitSettingListener } =
+    useTestReportComponentInfo()
+  const [form] = Form.useForm()
+  // The callback of the popup submission event
+  const onSubmitSetting = React.useCallback(
+    (next: () => void) => {
+      form
+        .validateFields()
+        .then(() => {
+          // If the form validation passes, update the component configuration, and call next to execute subsequent logic
+          updateComponentSetting(form.getFieldsValue())
+          next()
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    [form, updateComponentSetting]
+  )
+  // Listen to the pop-up window submission event when the component is mounted, and cancel the listener when the component is unmounted
+  React.useEffect(() => {
+    const unsubscribe = addOnSubmitSettingListener(onSubmitSetting)
+    return () => {
+      unsubscribe()
+    }
+  }, [onSubmitSetting])
+
+  return (
+    <Form initialValues={componentSetting} form={form}>
+      <Form.Item label="name" name={['name']} rules={[{ required: true }]}>
+        <Input />
+      </Form.Item>
+    </Form>
+  )
+}
+```
+
+## Q&A
+
+**How can the test report component name be multilingual?**
+
+refer to [Plug-in multilingual support](../../../guide/abilities/multilingual.mdx)
+
+```yaml
+service:
+  app_id: Wr1aVwZS
+  ...
+abilities:
+    - id: testcase-report-custom-component
+      name: testcase-report-custom-component
+      version: 1.0.0
+      abilityType: TestcaseReportCustomComponent
+      relateModule:
+        componentModule: 'ones-testcase-report-component-new-5cZd'
+      config:
+        - key: component_name
+          label: testcase-report-custom-component-name
+          value: {{.ComponentName}}
+          fieldType: Input
+          show: false
+```
+
+**How to update test report component name?**
+
+refer to [upgrade the plug-in](../../../guide/upgrade.md)
+
+- Modify `abilities.config.value` first, and then upgrade the plugin
+- First modify the workspace `/lanuage/xx.yaml` multilingual translation copy, and then upgrade the plug-in
+
+**Test whether the report group name allows duplicate names?**
+
+Not allowed.
