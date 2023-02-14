@@ -24,9 +24,9 @@
 
 | errcode                     | reason                                                           | level | statusCode |
 | --------------------------- | ---------------------------------------------------------------- | ----- | ---------- |
-| DB.SqlFileNameFormatInvalid | SQL filename format invaild.（sql 文件名格式不对）               | error | 400        |
-| DB.SqlFileFetchingFailed    | SQL file fetching failed. （无法找到 sql 文件）                  | error | 400        |
-| DB.CannotFindTable          | Cannot find table content in SQL file.（文件内没有表内容）       | error | 400        |
+| DB.SqlFileNameFormatInvalid | SQL filename format invaild.                                     | error | 400        |
+| DB.SqlFileFetchingFailed    | SQL file fetching failed.                                        | error | 400        |
+| DB.CannotFindTable          | Cannot find table content in SQL file.                           | error | 400        |
 | DB.ImportSqlErr             | 执行 import 方法时发生了未知错误，具体错误场景给出具体错误原因。 | error | 500        |
 
 #### Example
