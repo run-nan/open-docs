@@ -607,11 +607,8 @@ interface CodeRepositoryInfo {
 
 In the plugin custom test report component, get the data of the current component and the method of operating the data.
 
-#### Requirements
-
-| **ONES** | **@ones-op/store** |
-| -------- | ------------------ |
-| `TODO`   | `TODO`             |
+- Added in: `v0.7.0+`
+- ONES Requirement: `v3.13.22+`
 
 #### Returns
 

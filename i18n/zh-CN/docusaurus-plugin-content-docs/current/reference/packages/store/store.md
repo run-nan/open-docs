@@ -617,8 +617,8 @@ interface CodeRepositoryInfo {
 
 #### 要求
 
-- 可用：`TODO`
-- ONES 要求：`TODO`
+- 可用：`v0.7.0+`
+- ONES 要求：`v3.13.22+`
 
 #### 返回
 
