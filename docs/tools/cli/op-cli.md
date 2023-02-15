@@ -12,17 +12,18 @@ Developer need to use [npx](https://docs.npmjs.com/cli/v8/commands/npx) to execu
 
 | Command               | Description                                                                                                                       |
 | --------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| [init](#init)         | Initialize project dependencies and project settings.                                                                             |
+| [init](#init)         | Initialize project settings.                                                                                                      |
 | [add](#add)           | Add a ability or module for the project.                                                                                          |
 | [packup](#packup)     | Pack up the plugin project and build `.opk` file in the root directory.                                                           |
 | [login](#login)       | Store the parameters used to obtain user credentials in a specific environment into `config/local.yaml`.                          |
 | [ci](#ci)             | Store the parameters used to obtain user credentials in a specific branch for (gitlab) CI into `config/ci-deploy.yaml`.           |
 | [pickteam](#pickteam) | Fetch the team list and update the config file with the team information from the team list for local debugging or CI deployment. |
 | [invoke](#invoke)     | Start the plugin project locally and invoke one or several life-cycles of the plugin.                                             |
+| [update](#update)     | Update project content.                                                                                                           |
 
 ## init
 
-Initialize project dependencies and project settings.
+Initialize project settings.
 
 It will be automatic execute after install npm dependencies, developer can check `scripts` fields on `packages.json` to learn more detail.
 
@@ -310,7 +311,27 @@ Developer can learn more about [available life-cycle](../../guide/lifecycle.mdx)
 
 ### Options
 
-| Option                      | Alias | Description                                                                                                                                                          |
-| --------------------------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--webpack-logging <level>` |       | Specify the webpack logging level, support level: <ul><li>`none`</li><li>`error`</li><li>`warn`</li><li>`info`</li><li>`verbose`</li></ul> Default level is `error`. |
-| `--reinstall-plugin`        |       | The `appid` is conflict between plugin which installed by user and plugin run by developer in the same scope, plugin installed by user will be uninstalled.          |
+| Option                           | Alias | Description                                                                                                                                                                                                                                   |
+| -------------------------------- | ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--mode <type>`                  |       | specify the mode, support mode: <ul><li>`all`</li><li>`backend`</li><li>`frontend`</li></ul> Default mode is `all`.                                                                                                                           |
+| `--webpack-stats-preset <level>` |       | Specify the webpack logging level, support level: <ul><li>`errors-only`</li><li>`errors-warnings`</li><li>`minimal`</li><li>`none`</li><li>`normal`</li><li>`verbose`</li><li>`detailed`</li><li>`summary`</li></ul> Default level is `info`. |
+
+## update
+
+Update project content.
+
+```shell
+npx op update <target>
+```
+
+### Arguments
+
+| Argument | Description                             |
+| -------- | --------------------------------------- |
+| `target` | Update target，only support `template`. |
+
+### Available target
+
+| name       | Alias | Description                                                                                                                  |
+| ---------- | ----- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `template` |       | Update project templates `@ones/cli-ability-template` , `@ones-op/utils` to the latest version of the current major version. |

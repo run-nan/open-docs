@@ -14,10 +14,8 @@ sidebar_position: 5
 ```
 └── <Plugin name>
   ├── backend # 后端资源目录
-  │   ├── node_modules
   │   ├── src
   │   │   └── index.ts
-  │   ├── package-lock.json
   │   ├── package.json
   │   └── tsconfig.json
   ├── config # 插件配置
@@ -30,7 +28,6 @@ sidebar_position: 5
   │   ├── public
   │   │   └── logo.svg # 插件 Logo
   │   ├── browserslist
-  │   ├── package-lock.json
   │   ├── package.json
   │   └── tsconfig.json
   ├── workspace
@@ -41,6 +38,7 @@ sidebar_position: 5
   │   └── plugin.sql
   ├── package-lock.json
   ├── package.json
+  ├── node_modules
   ├── README.md
 ```
 

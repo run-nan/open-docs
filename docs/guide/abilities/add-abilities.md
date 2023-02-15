@@ -5,6 +5,12 @@ description: A variety of capabilities are available to easily develop your ONES
 
 # Add ability
 
+:::tip
+
+To get the latest ability template, execute `npx op update template` first
+
+:::
+
 ## Overview
 
 If you want to customize some of the behaviors in ONES business module, we also provide you with a lot of "ability". These ability are the smallest units you can define and modify ONES, as well as the smallest units that can use and access ONES existing resources. The "slot" mentioned earlier is a pure frontend ability, which is not quite the same as what we are talking about now. The slot is the smallest unit in which you adjust and modify the ONES UI.
@@ -39,10 +45,32 @@ script-field-float@1.0.0
 script-id@1.0.0
 send-short-message@1.0.0
 simple-auth@1.0.0
-task-event-handler@1.0.0
+task-event-handler@1.0.0 (Ability does not match current system version)
 ```
 
 In the list, you can search for and select interface-related abilities or business open abilities through the arrow keys or enter the ability name.
+
+:::tip
+
+When logged in, the tool will prompt which abilities are not available according to the connected environment
+
+:::
+
+After selecting the ability version, if there are multiple templates for the ability version, you need to select a template.
+
+```
+? Please select a template: …
+1.0
+1.0-cron
+
+```
+
+If the selected ability must be bound to the template, you also need to bind the module according to the prompts.
+
+```
+? Please enter the module 'ones:global:modal' title you want to add: …
+
+```
 
 ## Examples
 
