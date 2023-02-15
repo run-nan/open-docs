@@ -6,34 +6,34 @@ import Image from '@theme/IdealImage'
 
 # 全屏展示
 
-## Requirements
+## 要求
 
 | **ONES** |
 | :------- |
 | todo     |
 
-## Overview
+## 概述
 
-In order to focus on the presentation of information in some scenarios, you may need to hide the left menu bar and the top menu bar to highlight the information on the middle page. We provide you with a very simple way to achieve full screen functionality.
+在某些场景下为了聚焦信息的展示，你可能需要隐藏左侧菜单栏和顶部菜单栏，突出中间页面的信息。我们给你提供了非常简单的方法来实现全屏的功能。
 
 <Image img={require('./images/full-screen.png')} />
 
-## Usage
+## 使用
 
-The way to use it is simple, for example, to access the test plan page, you need to enter the address below in the address bar:
+使用它的方法很简单，例如，要访问测试计划页面，你需要在地址栏中输入以下地址：
 
 ```shell
 https://ones.com/project/#/testcase/team/${teamUUID}/plan
 ```
 
-When you want to access the test plan page in full screen form, you just type:
+当你想要以全屏形式访问测试计划页面时，只需键入：
 
 ```shell
 https://ones.com/project/#/testcase/team/${teamUUID}/plan?allow=fullscreen
 ```
 
-You only need to add the query parameter **`allow=fullscreen`** after the normal access address.
+你只需在正常访问地址后添加查询参数 **`allow=fullscreen`** 即可。
 
 :::tip
-If you want to exit full screen mode, you just need to clear the **`allow=fullscreen`** query parameters on the address bar and refresh the page.
+如果你想退出全屏模式，只需清除地址栏上的 **`allow=fullscreen`** 查询参数，刷新页面即可。
 :::

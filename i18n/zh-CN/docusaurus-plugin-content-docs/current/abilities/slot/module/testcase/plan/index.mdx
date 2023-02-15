@@ -1,32 +1,32 @@
-# Test plans
+# 测试计划
 
 import Image from '@theme/IdealImage'
 
-## Requirements
+## 要求
 
 | **ONES** |
 | :------: |
 |   TODO   |
 
-## Overview
+## 概述
 
 <Image img={require('./images/test-case-plan.png')} />
 
-We have provided slots for "ONES TestCase" - "Test plans" to customize the page module for the application.
+我们为「测试管理」-「测试计划」提供了一些插槽，以便于为该应用定制化页面模块。
 
-The slots currently supported are as follows:
+当前支持插槽如下：
 
 - [ones:testcase:plan:header:action:new](#onestestcaseplancomponentcase)
 
-## Slots
+## 插槽
 
 #### ones:testcase:plan:header:action:new
 
-**Module path：** ONES TestCase / Test plans
+**模块路径：** 测试管理 / 测试计划
 
-**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+**个数限制：** 一个插件中最多可声明 **10** 个该插槽, 系统中最多同时存在 **100** 个该插槽.
 
-## Usage
+## 使用
 
 ```yaml
 modules:
@@ -36,7 +36,7 @@ modules:
     entry: modules/ones:testcase:plan:header:action:new-2efs/index.html
 ```
 
-### Available Hook API
+### 可以访问的上下文数据
 
 - [useFilterInfo](../../../../../reference/packages/store/store.md#useFilterInfo)
 
