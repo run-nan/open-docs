@@ -7,3 +7,10 @@
 ### 新特性
 
 - **OpBridge:** 🌟 新增`modal`模块用于唤起标品弹窗
+
+## 0.3.0 (2023-02-20)
+
+### 新特性
+
+- **OpBridge:** 🌟 新增`refreshList`方法用于刷新标品中的列表
+- **OpBridge:** 🌟 新增`invokeProgressManager`方法用于唤起标品的进度管理器

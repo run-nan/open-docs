@@ -187,9 +187,9 @@ interface CreateRelatedTaskModalProps extends Omit<CreateTaskModalProps, 'defaul
 
 #### 要求
 
-| **ONES** | **@ones-op/bridge** |
-| -------- | ------------------- |
-| `TODO`   | `TODO`              |
+| **ONES**    | **@ones-op/bridge** |
+| ----------- | ------------------- |
+| `v3.13.24+` | `v0.3.0+`           |
 
 #### 参数
 
@@ -209,7 +209,7 @@ type ListName =
 
 ##### memberList
 
-- 可用：`TODO`
+- 可用：`v0.3.0+`
 - ONES 要求：`v3.11.15+`
 
 触发成员列表刷新（支持标品中所有成员列表）。
@@ -218,7 +218,7 @@ type ListName =
 
 ##### codeRepositoryList
 
-- 可用：`TODO`
+- 可用：`v0.3.0+`
 - ONES 要求：`v3.13.9+`
 
 代码仓管理列表页刷新
@@ -227,8 +227,8 @@ type ListName =
 
 ##### planTestcaseList
 
-- 可用：`TODO`
-- ONES 要求：`TODO`
+- 可用：`v0.3.0+`
+- ONES 要求：`v3.13.24+`
 
 测试管理 / 测试计划 / 用例列表刷新
 
@@ -236,8 +236,8 @@ type ListName =
 
 ##### requirementTraceabilityList
 
-- 可用：`TODO`
-- ONES 要求：`TODO`
+- 可用：`v0.3.0+`
+- ONES 要求：`v3.13.24+`
 
 测试管理 / 测试计划 / 需求跟踪列表刷新
 
@@ -246,5 +246,11 @@ type ListName =
 ### invokeProgressManager
 
 通过调用`invokeProgressManager`方法，可以激活全局进度管理器。
+
+#### 要求
+
+| **ONES**    | **@ones-op/bridge** |
+| ----------- | ------------------- |
+| `v3.13.24+` | `v0.3.0+`           |
 
 <Image img={require('./images/invoke-ones-global-progressManager.png')} />

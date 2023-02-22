@@ -180,3 +180,77 @@ interface CreateRelatedTaskModalProps extends Omit<CreateTaskModalProps, 'defaul
 `relatedTask`中必须包含`uuid`和`issue_type_uuid`，否则可能导致工作项关联不成功。你可以直接传入[工作项详情接口](../../../api/project/task/task.md#获取工作项详情)返回的数据
 
 :::
+
+### refreshList
+
+通过调用`refreshList`方法，你可以手动触发标品中列表的刷新
+
+#### 要求
+
+| **ONES**    | **@ones-op/bridge** |
+| ----------- | ------------------- |
+| `v3.13.24+` | `v0.3.0+`           |
+
+#### 参数
+
+| 参数     | 说明       | 类型       | 必填 | 默认值 |
+| -------- | ---------- | ---------- | ---- | ------ |
+| listName | 列表的名字 | `ListName` | 是   |        |
+
+#### 类型
+
+```tsx
+type ListName =
+  | 'memberList'
+  | 'codeRepositoryList'
+  | 'planTestcaseList'
+  | 'requirementTraceabilityList'
+```
+
+##### memberList
+
+- 可用：`v0.3.0+`
+- ONES 要求：`v3.11.15+`
+
+触发成员列表刷新（支持标品中所有成员列表）。
+
+<Image img={require('./images/refresh-member-list.png')} />
+
+##### codeRepositoryList
+
+- 可用：`v0.3.0+`
+- ONES 要求：`v3.13.9+`
+
+代码仓管理列表页刷新
+
+<Image img={require('./images/code-repository.png')} />
+
+##### planTestcaseList
+
+- 可用：`v0.3.0+`
+- ONES 要求：`v3.13.24+`
+
+测试管理 / 测试计划 / 用例列表刷新
+
+<Image img={require('./images/testcase-list.png')} />
+
+##### requirementTraceabilityList
+
+- 可用：`v0.3.0+`
+- ONES 要求：`v3.13.24+`
+
+测试管理 / 测试计划 / 需求跟踪列表刷新
+
+<Image img={require('./images/requirement-traceability-list.png')} />
+
+### invokeProgressManager
+
+通过调用`invokeProgressManager`方法，可以激活全局进度管理器。
+
+#### 要求
+
+| **ONES**    | **@ones-op/bridge** |
+| ----------- | ------------------- |
+| `v3.13.24+` | `v0.3.0+`           |
+
+<Image img={require('./images/invoke-ones-global-progressManager.png')} />

@@ -179,3 +179,72 @@ interface CreateRelatedTaskModalProps extends Omit<CreateTaskModalProps, 'defaul
 `uuid` and `issue_type_uuid` must be included in `relatedTask`, otherwise the task relation may fail. You can directly pass in the data returned by [task detail interface] (../../../api/project/task/task.md#get work item details)
 
 :::
+
+### refreshList
+
+you can mannually trigger the refresh of some lists in the ONES system
+
+#### Requirements
+
+| **ONES**    | **@ones-op/bridge** |
+| ----------- | ------------------- |
+| `v3.13.24+` | `v0.3.0+`           |
+
+#### Params
+
+| Params   | Description          | Type       | Required | Default |
+| -------- | -------------------- | ---------- | -------- | ------- |
+| listName | the name of the list | `ListName` | Y        |         |
+
+#### Type
+
+```tsx
+type ListName =
+  | 'memberList'
+  | 'codeRepositoryList'
+  | 'planTestcaseList'
+  | 'requirementTraceabilityList'
+  | 'testPlanList'
+```
+
+##### memberList
+
+- ONES requirements: `v3.11.15+`
+
+Triggered member list refresh (supports all member lists).
+
+<Image img={require('./images/refresh-member-list.png')} />
+
+##### codeRepositoryList
+
+- ONES requirements: `v3.13.9+`
+
+Refresh the code repositories list in the "Configuration" - "Pipeline settings" - "Manage repositories" page
+
+<Image img={require('./images/code-repository.png')} />
+
+##### planTestcaseList
+
+- ONES requirements: `v3.13.24+`
+
+Refresh the testcase list in the "ONES TestCase" - "Test Plans" - "Test case" page
+
+<Image img={require('./images/testcase-list.png')} />
+
+##### requirementTraceabilityList
+
+- ONES requirements: `v3.13.24+`
+
+Refresh the requirement traceability list in the "ONES TestCase" - "Test Plans" - "Requirements traceability" page
+
+<Image img={require('./images/requirement-traceability-list.png')} />
+
+### invokeProgressManager
+
+| **ONES**    | **@ones-op/bridge** |
+| ----------- | ------------------- |
+| `v3.13.24+` | `v0.3.0+`           |
+
+you can invoke the global progress manager by calling the `invokeProgressManager` method
+
+<Image img={require('./images/invoke-ones-global-progressManager.png')} />
