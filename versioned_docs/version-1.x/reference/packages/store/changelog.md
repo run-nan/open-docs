@@ -2,6 +2,12 @@
 
 All notable changes to this package will be documented in this file.
 
+# 0.8.0 (2023-2-21)
+
+### Features
+
+- **Store:** 🌟 Provide `useWikiSpaceInfo` hook to to get the current space information
+
 # 0.5.0 (2022-11-25)
 
 ### Features

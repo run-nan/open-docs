@@ -56,6 +56,7 @@ function App() {
 | [useProgressJobInfo](#useProgressJobInfo)         | 在进度管理器任务详情弹窗中，获取当前任务的信息         |
 | [useDocumentInfo](#useDocumentInfo)               | 在 wiki 编辑器的自定义宏中，获取当前宏的数据和操作方法 |
 | [useTaskInfo](#useTaskInfo)                       | 获取当前工作项信息                                     |
+| [useWikiSpaceInfo](#useWikiSpaceInfo)             | 获取当前访问的页面组信息                               |
 
 ## Hooks
 
@@ -670,5 +671,27 @@ interface TestcaseReportComponentInfo<T extends Record<string, any> = {}> {
   updateComponentSettingConfig: (newConfig: Partial<T>) => void // 更新组件的配置信息的方法
   updateComponentExportContent: (exportItems: ExportItem[]) => void // 更新组件的导出内容的方法
   addOnSubmitSettingListener: (next: () => void) => () => void // 监听点击配置弹窗确认按钮时的回调函数的方法，返回值的是取消监听的方法
+}
+```
+
+### useWikiSpaceInfo {#useWikiSpaceInfo}
+
+获取当前访问的页面组信息。
+
+- 可用：`v0.8.0+`
+- ONES 要求：`v3.13.24+`
+
+#### 返回
+
+| 说明           | 类型                |
+| -------------- | ------------------- |
+| 当前页面组信息 | `WikiSpaceInfoType` |
+
+#### 类型
+
+```tsx
+interface WikiSpaceInfoType {
+  uuid: string // 当前页面组的 UUID
+  name: string // 当前页面组的名称
 }
 ```

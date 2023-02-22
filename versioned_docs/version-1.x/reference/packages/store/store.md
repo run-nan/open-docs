@@ -56,6 +56,7 @@ function App() {
 | [useProgressJobInfo](#useProgressJobInfo)         | Get the information of the current task in details of the progress manager task          |
 | [useDocumentInfo](#useDocumentInfo)               | Get the data of the custom macro in the wiki editor                                      |
 | [useTaskInfo](#useTaskInfo)                       | Get current task information                                                             |
+| [useWikiSpaceInfo](#useWikiSpaceInfo)             | Get the current space information                                                        |
 
 ## Hooks
 
@@ -660,5 +661,27 @@ interface TestcaseReportComponentInfo<T extends Record<string, any> = {}> {
   updateComponentSettingConfig: (newConfig: Partial<T>) => void // The method to update the setting of the component
   updateComponentExportContent: (exportItems: ExportItem[]) => void // The method to update the export content of the component
   addOnSubmitSettingListener: (next: () => void) => () => void // The method to listen the event of submitting the setting popup, and the return value is the method to cancel listening
+}
+```
+
+### useWikiSpaceInfo {#useWikiSpaceInfo}
+
+Get the current space information.
+
+- Added in: `v0.8.0+`
+- ONES Requirement: `v3.13.24+`
+
+#### Returns
+
+| Description               | Type                |
+| ------------------------- | ------------------- |
+| Current space information | `WikiSpaceInfoType` |
+
+#### Types
+
+```tsx
+interface WikiSpaceInfoType {
+  uuid: string // Current space UUID
+  name: string // Current space name
 }
 ```
