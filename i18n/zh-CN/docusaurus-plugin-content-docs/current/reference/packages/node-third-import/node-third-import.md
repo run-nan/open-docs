@@ -156,10 +156,11 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 
 ##### IssueTypeWithFields {#IssueTypeWithFields}
 
-| 参数          | 说明      | 类型                | 必填 |
-| :------------ | :-------- | :------------------ | :--- |
-| issue_type_id | 工作项 ID | `string`            | 是   |
-| fields        | 属性列表  | [`Field[]`](#Field) | 是   |
+| 参数                   | 说明                | 类型                                                            | 必填 |
+| :--------------------- | :------------------ | :-------------------------------------------------------------- | :--- |
+| issue_type_id          | 工作项 ID           | `string`                                                        | 是   |
+| issue_type_detail_type | ONES 内置工作项类型 | [`ThirdIssueTypeDetailTypeEnum`](#ThirdIssueTypeDetailTypeEnum) | 是   |
+| fields                 | 属性列表            | [`Field[]`](#Field)                                             | 是   |
 
 ##### Field {#Field}
 
@@ -453,6 +454,41 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 | created_time  | 创建时间      | `number` | 是   |
 | updated_time  | 更新时间      | `number` | 是   |
 
+### ThirdTaskRelease
+
+| 参数       | 说明            | 类型     | 必填 |
+| :--------- | :-------------- | :------- | :--- |
+| task_id    | 工作项 ID       | `string` | 是   |
+| release_id | 发布的工作项 ID | `string` | 是   |
+
+### ThirdSprintFieldValue
+
+| 参数        | 说明        | 类型                                                                  | 必填 |
+| :---------- | :---------- | :-------------------------------------------------------------------- | :--- |
+| resource_id | 资源 ID     | `string`                                                              | 是   |
+| project_id  | 项目 ID     | `string`                                                              | 是   |
+| sprint_id   | 迭代 ID     | `string`                                                              | 是   |
+| field_id    | 属性 ID     | `string`                                                              | 是   |
+| field_type  | 属性类型 ID | [`ThirdProjectSprintFieldTypeEnum`](#ThirdProjectSprintFieldTypeEnum) | 是   |
+| value       | 属性值      | `any`                                                                 | 是   |
+
+### ThirdSprintFieldOption {#ThirdSprintFieldOption}
+
+| 参数        | 说明       | 类型     | 必填 |
+| :---------- | :--------- | :------- | :--- |
+| resource_id | 资源 ID    | `string` | 是   |
+| value       | 属性选项值 | `string` | 是   |
+
+### ThirdProjectSprintField
+
+| 参数        | 说明       | 类型                                                                  | 必填 |
+| :---------- | :--------- | :-------------------------------------------------------------------- | :--- |
+| resource_id | 资源 ID    | `string`                                                              | 是   |
+| project_id  | 项目 ID    | `string`                                                              | 是   |
+| name        | 属性名称   | `string`                                                              | 是   |
+| type        | 属性类型   | [`ThirdProjectSprintFieldTypeEnum`](#ThirdProjectSprintFieldTypeEnum) | 是   |
+| options     | 属性选项值 | [`ThirdSprintFieldOption`](#ThirdSprintFieldOption)                   | 是   |
+
 ## Enum
 
 ### WorkdayEnum {#WorkdayEnum}
@@ -735,3 +771,30 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 | 可选值                                         | 说明 |
 | :--------------------------------------------- | :--- |
 | ThirdIssueTypeStatusEnum.IssueTypeStatusNormal | 正常 |
+
+### ThirdIssueTypeDetailTypeEnum {#ThirdIssueTypeDetailTypeEnum}
+
+ONES 内置工作项类型
+
+| 可选值                                         | 说明             |
+| :--------------------------------------------- | :--------------- |
+| ThirdIssueTypeDetailTypeEnum.DetailTypeCustom  | 默认，自定义类型 |
+| ThirdIssueTypeDetailTypeEnum.DetailTypeDemand  | 需求             |
+| ThirdIssueTypeDetailTypeEnum.DetailTypeTask    | 任务             |
+| ThirdIssueTypeDetailTypeEnum.DetailTypeDefect  | 缺陷             |
+| ThirdIssueTypeDetailTypeEnum.DetailTypePublish | 发布             |
+
+### ThirdProjectSprintFieldTypeEnum {#ThirdProjectSprintFieldTypeEnum}
+
+项目迭代属性的属性类型
+
+| 可选值                                                 | 说明     |
+| :----------------------------------------------------- | :------- |
+| ThirdProjectSprintFieldTypeEnum.FieldTypeOption        | 单选     |
+| ThirdProjectSprintFieldTypeEnum.FieldTypeText          | 单行文本 |
+| ThirdProjectSprintFieldTypeEnum.FieldTypeMultiLineText | 多行文本 |
+| ThirdProjectSprintFieldTypeEnum.FieldTypeUser          | 单选用户 |
+| ThirdTaskFieldTypeEnum.FieldTypeFloat                  | 浮点数   |
+| ThirdTaskFieldTypeEnum.FieldTypeDate                   | 日期     |
+| ThirdTaskFieldTypeEnum.FieldTypeTime                   | 时间     |
+| ThirdTaskFieldTypeEnum.FieldTypeInteger                | 整数     |

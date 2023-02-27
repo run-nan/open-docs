@@ -156,10 +156,11 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 
 ##### IssueTypeWithFields {#IssueTypeWithFields}
 
-| Param         | Description | Type                | Required |
-| :------------ | :---------- | :------------------ | :------- |
-| issue_type_id | issue ID    | `string`            | Y        |
-| fields        | field list  | [`Field[]`](#Field) | Y        |
+| Param                  | Description              | Type                                                            | Required |
+| :--------------------- | :----------------------- | :-------------------------------------------------------------- | :------- |
+| issue_type_id          | issue ID                 | `string`                                                        | Y        |
+| issue_type_detail_type | ONES built-in issue type | [`ThirdIssueTypeDetailTypeEnum`](#ThirdIssueTypeDetailTypeEnum) | Y        |
+| fields                 | field list               | [`Field[]`](#Field)                                             | Y        |
 
 ##### Field {#Field}
 
@@ -453,6 +454,41 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 | created_time  | creation time         | `number` | Y        |
 | updated_time  | updated time          | `number` | Y        |
 
+### ThirdTaskRelease
+
+| Param      | Description           | Type     | Required |
+| :--------- | :-------------------- | :------- | :------- |
+| task_id    | issue type ID         | `string` | Y        |
+| release_id | publish issue type ID | `string` | Y        |
+
+### ThirdSprintFieldValue
+
+| Param       | Description   | Type                                                                  | Required |
+| :---------- | :------------ | :-------------------------------------------------------------------- | :------- |
+| resource_id | resource ID   | `string`                                                              | Y        |
+| project_id  | project ID    | `string`                                                              | Y        |
+| sprint_id   | sprint ID     | `string`                                                              | Y        |
+| field_id    | field ID      | `string`                                                              | Y        |
+| field_type  | field type ID | [`ThirdProjectSprintFieldTypeEnum`](#ThirdProjectSprintFieldTypeEnum) | Y        |
+| value       | value         | `any`                                                                 | Y        |
+
+### ThirdSprintFieldOption {#ThirdSprintFieldOption}
+
+| Param       | Description | Type     | Required |
+| :---------- | :---------- | :------- | :------- |
+| resource_id | resource ID | `string` | Y        |
+| value       | value       | `string` | Y        |
+
+### ThirdProjectSprintField
+
+| Param       | Description | Type                                                                  | Required |
+| :---------- | :---------- | :-------------------------------------------------------------------- | :------- |
+| resource_id | resource ID | `string`                                                              | Y        |
+| project_id  | project ID  | `string`                                                              | Y        |
+| name        | name        | `string`                                                              | Y        |
+| type        | type        | [`ThirdProjectSprintFieldTypeEnum`](#ThirdProjectSprintFieldTypeEnum) | Y        |
+| options     | options     | [`ThirdSprintFieldOption`](#ThirdSprintFieldOption)                   | Y        |
+
 ## Enum
 
 ### WorkdayEnum {#WorkdayEnum}
@@ -735,3 +771,30 @@ issue status
 | Enum                                           | Description |
 | :--------------------------------------------- | :---------- |
 | ThirdIssueTypeStatusEnum.IssueTypeStatusNormal | Normal      |
+
+### ThirdIssueTypeDetailTypeEnum {#ThirdIssueTypeDetailTypeEnum}
+
+ONES built-in issue type
+
+| Enum                                           | Description          |
+| :--------------------------------------------- | :------------------- |
+| ThirdIssueTypeDetailTypeEnum.DetailTypeCustom  | default, custom type |
+| ThirdIssueTypeDetailTypeEnum.DetailTypeDemand  | demand               |
+| ThirdIssueTypeDetailTypeEnum.DetailTypeTask    | task                 |
+| ThirdIssueTypeDetailTypeEnum.DetailTypeDefect  | defect               |
+| ThirdIssueTypeDetailTypeEnum.DetailTypePublish | publish              |
+
+### ThirdProjectSprintFieldTypeEnum {#ThirdProjectSprintFieldTypeEnum}
+
+project sprint field type
+
+| Enum                                                   | Description         |
+| :----------------------------------------------------- | :------------------ |
+| ThirdProjectSprintFieldTypeEnum.FieldTypeOption        | Single Choice       |
+| ThirdProjectSprintFieldTypeEnum.FieldTypeText          | Single line of text |
+| ThirdProjectSprintFieldTypeEnum.FieldTypeMultiLineText | Multi-line text     |
+| ThirdProjectSprintFieldTypeEnum.FieldTypeUser          | Single user         |
+| ThirdTaskFieldTypeEnum.FieldTypeFloat                  | Float               |
+| ThirdTaskFieldTypeEnum.FieldTypeDate                   | date                |
+| ThirdTaskFieldTypeEnum.FieldTypeTime                   | Time                |
+| ThirdTaskFieldTypeEnum.FieldTypeInteger                | Integer             |
