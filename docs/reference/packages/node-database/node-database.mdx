@@ -31,8 +31,31 @@ Initialize the database
 
 #### Example
 
-```javascript
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+<TabItem value="1" label="0.4.0+">
+
+```typescript
+import { importSQL } from '@ones-op/node-database'
+import { Logger } from '@ones-op/node-logger'
+
+export async function testImportSQL() {
+  try {
+    await importSQL('plugin.sql')
+  } catch (error) {
+    Logger.error('ERROR: ', error)
+  }
+}
+```
+
+</TabItem>
+<TabItem value="2" label="0.6.0+">
+
+```typescript
 import { importSQL, DBError } from '@ones-op/node-database'
+import { Logger } from '@ones-op/node-logger'
 
 export async function testImportSQL() {
   try {
@@ -44,6 +67,9 @@ export async function testImportSQL() {
   }
 }
 ```
+
+</TabItem>
+</Tabs>
 
 ---
 
@@ -73,8 +99,28 @@ Receives the sql statement related to the query and returns the query result, wh
 
 #### Example
 
-```javascript
+<Tabs>
+<TabItem value="1" label="0.4.0+">
+
+```typescript
+import { select } from '@ones-op/node-database'
+import { Logger } from '@ones-op/node-logger'
+
+export async function select_database() {
+  try {
+    const result = await select('select * from email_id_map limit 10;')
+  } catch (error) {
+    Logger.error('ERROR: ', error)
+  }
+}
+```
+
+</TabItem>
+<TabItem value="2" label="0.6.0+">
+
+```typescript
 import { select, DBError } from '@ones-op/node-database'
+import { Logger } from '@ones-op/node-logger'
 
 export async function select_database() {
   try {
@@ -86,6 +132,9 @@ export async function select_database() {
   }
 }
 ```
+
+</TabItem>
+</Tabs>
 
 ---
 
@@ -110,8 +159,31 @@ Execute the relevant sql statement and no result is returned. If sql execution f
 
 #### Example
 
+<Tabs>
+<TabItem value="1" label="0.4.0+">
+
+```javascript
+import { exec } from '@ones-op/node-database'
+import { Logger } from '@ones-op/node-logger'
+
+export async function exec_database() {
+  try {
+    const result = await exec(
+      'insert',
+      `INSERT INTO email_id_map VALUES ("plugin@ones.com", "001");`
+    )
+  } catch (error) {
+    Logger.error('ERROR: ', error)
+  }
+}
+```
+
+</TabItem>
+<TabItem value="2" label="0.6.0+">
+
 ```javascript
 import { exec, DBError } from '@ones-op/node-database'
+import { Logger } from '@ones-op/node-logger'
 
 export async function exec_database() {
   try {
@@ -126,6 +198,9 @@ export async function exec_database() {
   }
 }
 ```
+
+</TabItem>
+</Tabs>
 
 ---
 
@@ -155,8 +230,28 @@ Count related sql interface. If the sql execution is a failure, it will throw er
 
 #### Example
 
+<Tabs>
+<TabItem value="1" label="0.4.0+">
+
+```javascript
+import { count } from '@ones-op/node-database'
+import { Logger } from '@ones-op/node-logger'
+
+export async function count_database() {
+  try {
+    const result = await count('select count(*) from email_id_map;')
+  } catch (error) {
+    Logger.error('ERROR: ', error)
+  }
+}
+```
+
+</TabItem>
+<TabItem value="2" label="0.6.0+">
+
 ```javascript
 import { count, DBError } from '@ones-op/node-database'
+import { Logger } from '@ones-op/node-logger'
 
 export async function count_database() {
   try {
@@ -168,6 +263,9 @@ export async function count_database() {
   }
 }
 ```
+
+</TabItem>
+</Tabs>
 
 ---
 

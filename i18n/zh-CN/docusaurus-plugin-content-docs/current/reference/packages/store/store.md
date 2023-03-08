@@ -601,7 +601,7 @@ interface TaskInfoType {
 
 #### 类型
 
-> `CodeRepositoryInfo.uuid` 和能力方法 `addRepoCommits` 中的 [`toolUUID`](../../../reference/packages/node-ability/node-ability.md#addrepocommits) 一致。
+> `CodeRepositoryInfo.uuid` 和能力方法 `addRepoCommits` 中的 [`toolUUID`](../../../reference/packages/node-ability/node-ability.mdx#addrepocommits) 一致。
 
 ```tsx
 interface CodeRepositoryInfo {

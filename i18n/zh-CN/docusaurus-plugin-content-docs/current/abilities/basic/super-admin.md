@@ -58,4 +58,4 @@ const user = await Plugin.getPluginUser(teamUUID)
 
 ## 其他
 
-具体参数释义请参考： [@ones-op/node-ability](../../reference/packages/node-ability/node-ability.md#getPluginUser)
+具体参数释义请参考： [@ones-op/node-ability](../../reference/packages/node-ability/node-ability.mdx#getPluginUser)

@@ -675,25 +675,63 @@ Create a progress manager.
 
 #### Example
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+<TabItem value="1" label="0.4.0+">
+
 ```typescript
 import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 import { Process, LanguagePkg, ProcessType, ProcessResult } from '@ones-op/node-ability'
 
 export async function createProcess(request: PluginRequest): Promise<PluginResponse> {
-  //Get parameters from request
+  //从请求中获取参数
   const { user_uuid, title, timeout } = request?.body as any
-  //Progress Manager Multilingual Titles
+  //进度管理器多语言标题
   const titlePkg: LanguagePkg = {
-    en: 'file',
+    en: 'process',
     zh: title,
   }
-  //Create a progress manager and get the return value processUUID
+  //创建进度管理器，获取返回值processUUID
+  const processUUID = await Process.create(ProcessType.DownloadFile, user_uuid, titlePkg, timeout)
+
+  return {
+    body: {
+      process_uuid: processUUID,
+    },
+  }
+}
+```
+
+</TabItem>
+<TabItem value="2" label="0.6.0+">
+
+```typescript
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+import {
+  Process,
+  LanguagePkg,
+  ProcessType,
+  ProcessResult,
+  AbilityError,
+} from '@ones-op/node-ability'
+
+export async function createProcess(request: PluginRequest): Promise<PluginResponse> {
+  //从请求中获取参数
+  const { user_uuid, title, timeout } = request?.body as any
+  //进度管理器多语言标题
+  const titlePkg: LanguagePkg = {
+    en: 'process',
+    zh: title,
+  }
+  //创建进度管理器，获取返回值processUUID
   let processUUID = ''
   try {
     const processUUID = await Process.create(ProcessType.DownloadFile, user_uuid, titlePkg, timeout)
-  } catch (error) {
-    if (error instanceof AbilityError) {
-      Logger.error('error:', error.errcode, error.statusCode, error.level, error.reason)
+  } catch (e) {
+    if (e instanceof AbilityError) {
+      // handle error
     }
   }
 
@@ -704,6 +742,9 @@ export async function createProcess(request: PluginRequest): Promise<PluginRespo
   }
 }
 ```
+
+</TabItem>
+</Tabs>
 
 ---
 

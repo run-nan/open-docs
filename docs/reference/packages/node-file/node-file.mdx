@@ -28,8 +28,31 @@ Create a file
 
 #### Example
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+<TabItem value="1" label="0.4.0+">
+
+```tsx
+import { createFile } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
+
+export async function testCreateFile() {
+  try {
+    await createFile('./tmp/test/test.txt')
+  } catch (error) {
+    Logger.error('ERROR: ', error)
+  }
+}
+```
+
+</TabItem>
+<TabItem value="2" label="0.6.0+">
+
 ```tsx
 import { FileError, createFile } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
 
 export async function testCreateFile() {
   try {
@@ -41,6 +64,9 @@ export async function testCreateFile() {
   }
 }
 ```
+
+</TabItem>
+</Tabs>
 
 ---
 
@@ -62,8 +88,28 @@ Create a folder
 
 #### Example
 
+<Tabs>
+<TabItem value="1" label="0.4.0+">
+
+```tsx
+import { makeDir } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
+
+export async function testMakeDir() {
+  try {
+    await makeDir('./tmp/test/test.txt')
+  } catch (error) {
+    Logger.error('ERROR: ', error)
+  }
+}
+```
+
+</TabItem>
+<TabItem value="2" label="0.6.0+">
+
 ```tsx
 import { FileError, makeDir } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
 
 export async function testMakeDir() {
   try {
@@ -76,6 +122,8 @@ export async function testMakeDir() {
 }
 ```
 
+</TabItem>
+</Tabs>
 ---
 
 ### rename
@@ -98,8 +146,28 @@ Modify file name
 
 #### Example
 
+<Tabs>
+<TabItem value="1" label="0.4.0+">
+
+```tsx
+import { rename } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
+
+export async function testRename() {
+  try {
+    await rename('./tmp/test/test3.txt', './tmp/test/test4.txt')
+  } catch (error) {
+    Logger.error('ERROR: ', error)
+  }
+}
+```
+
+</TabItem>
+<TabItem value="2" label="0.6.0+">
+
 ```tsx
 import { FileError, rename } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
 
 export async function testRename() {
   try {
@@ -111,6 +179,9 @@ export async function testRename() {
   }
 }
 ```
+
+</TabItem>
+</Tabs>
 
 ---
 
@@ -133,8 +204,28 @@ Remove File name
 
 #### Example
 
+<Tabs>
+<TabItem value="1" label="0.4.0+">
+
+```tsx
+import { remove } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
+
+export async function testRemove() {
+  try {
+    await remove('./tmp/test/test4.txt')('./tmp/test/test.txt')
+  } catch (error) {
+    Logger.error('ERROR: ', error)
+  }
+}
+```
+
+</TabItem>
+<TabItem value="2" label="0.6.0+">
+
 ```tsx
 import { FileError, remove } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
 
 export async function testRemove() {
   try {
@@ -146,6 +237,9 @@ export async function testRemove() {
   }
 }
 ```
+
+</TabItem>
+</Tabs>
 
 ---
 
@@ -173,8 +267,28 @@ Determine whether the file or folder exists
 
 #### Example
 
+<Tabs>
+<TabItem value="1" label="0.4.0+">
+
+```tsx
+import { isExist } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
+
+export async function testIsExist() {
+  try {
+    Logger.info('======isExist', await isExist('./tmp/test/test.txt'))
+  } catch (error) {
+    Logger.error('ERROR: ', error)
+  }
+}
+```
+
+</TabItem>
+<TabItem value="2" label="0.6.0+">
+
 ```tsx
 import { FileError, isExist } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
 
 export async function testIsExist() {
   try {
@@ -186,6 +300,9 @@ export async function testIsExist() {
   }
 }
 ```
+
+</TabItem>
+</Tabs>
 
 ---
 
@@ -213,8 +330,28 @@ Determine whether it is a file or not
 
 #### Example
 
+<Tabs>
+<TabItem value="1" label="0.4.0+">
+
+```tsx
+import { isFile } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
+
+export async function testIsFile() {
+  try {
+    Logger.info('======isFile', await isFile('./tmp/test/test.txt'))
+  } catch (error) {
+    Logger.error('ERROR: ', error)
+  }
+}
+```
+
+</TabItem>
+<TabItem value="2" label="0.6.0+">
+
 ```tsx
 import { FileError, isFile } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
 
 export async function testIsFile() {
   try {
@@ -226,6 +363,9 @@ export async function testIsFile() {
   }
 }
 ```
+
+</TabItem>
+</Tabs>
 
 ---
 
@@ -253,8 +393,28 @@ Determine whether it is a folder
 
 #### Example
 
+<Tabs>
+<TabItem value="1" label="0.4.0+">
+
+```tsx
+import { isDir } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
+
+export async function testIsDir() {
+  try {
+    Logger.info('======isDir', await isDir('./tmp'))
+  } catch (error) {
+    Logger.error('ERROR: ', error)
+  }
+}
+```
+
+</TabItem>
+<TabItem value="2" label="0.6.0+">
+
 ```tsx
 import { FileError, isDir } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
 
 export async function testIsDir() {
   try {
@@ -266,6 +426,9 @@ export async function testIsDir() {
   }
 }
 ```
+
+</TabItem>
+</Tabs>
 
 ---
 
@@ -289,8 +452,28 @@ Copy a file
 
 #### Example
 
+<Tabs>
+<TabItem value="1" label="0.4.0+">
+
+```tsx
+import { copy } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
+
+export async function testCopy() {
+  try {
+    await copy('./tmp/test/test.txt', './tmp/test/test2.txt')
+  } catch (error) {
+    Logger.error('ERROR: ', error)
+  }
+}
+```
+
+</TabItem>
+<TabItem value="2" label="0.6.0+">
+
 ```tsx
 import { FileError, copy } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
 
 export async function testCopy() {
   try {
@@ -302,6 +485,9 @@ export async function testCopy() {
   }
 }
 ```
+
+</TabItem>
+</Tabs>
 
 ---
 
@@ -329,8 +515,28 @@ Get a list of folder
 
 #### Example
 
+<Tabs>
+<TabItem value="1" label="0.4.0+">
+
+```tsx
+import { list } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
+
+export async function testList() {
+  try {
+    Logger.info('======List', await list('./tmp/test'))
+  } catch (error) {
+    Logger.error('ERROR: ', error)
+  }
+}
+```
+
+</TabItem>
+<TabItem value="2" label="0.6.0+">
+
 ```tsx
 import { FileError, list } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
 
 export async function testList() {
   try {
@@ -342,6 +548,9 @@ export async function testList() {
   }
 }
 ```
+
+</TabItem>
+</Tabs>
 
 ---
 
@@ -370,8 +579,28 @@ Read a file
 
 #### Example
 
+<Tabs>
+<TabItem value="1" label="0.4.0+">
+
+```tsx
+import { read } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
+
+export async function testRead() {
+  try {
+    Logger.info('======read', Unit8Array2String((await read('./tmp/test/test.txt')) as Uint8Array))
+  } catch (error) {
+    Logger.error('ERROR: ', error)
+  }
+}
+```
+
+</TabItem>
+<TabItem value="2" label="0.6.0+">
+
 ```tsx
 import { FileError, read } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
 
 export async function testRead() {
   try {
@@ -383,6 +612,9 @@ export async function testRead() {
   }
 }
 ```
+
+</TabItem>
+</Tabs>
 
 ---
 
@@ -413,8 +645,28 @@ Read the specified line of the file
 
 #### Example
 
+<Tabs>
+<TabItem value="1" label="0.4.0+">
+
+```tsx
+import { readLines } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
+
+export async function testReadLines() {
+  try {
+    const lines = await readLines('./tmp/test/test.txt', 0, 1)
+  } catch (error) {
+    Logger.error('ERROR: ', error)
+  }
+}
+```
+
+</TabItem>
+<TabItem value="2" label="0.6.0+">
+
 ```tsx
 import { FileError, readLines } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
 
 export async function testReadLines() {
   try {
@@ -426,6 +678,9 @@ export async function testReadLines() {
   }
 }
 ```
+
+</TabItem>
+</Tabs>
 
 ---
 
@@ -448,8 +703,28 @@ Write a string to a file
 
 #### Example
 
+<Tabs>
+<TabItem value="1" label="0.4.0+">
+
+```tsx
+import { writeStrings } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
+
+export async function testWriteStrings() {
+  try {
+    await writeStrings('./tmp/test/test.txt', ['hello world!\n'])
+  } catch (error) {
+    Logger.error('ERROR: ', error)
+  }
+}
+```
+
+</TabItem>
+<TabItem value="2" label="0.6.0+">
+
 ```tsx
 import { FileError, writeStrings } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
 
 export async function testWriteStrings() {
   try {
@@ -461,6 +736,9 @@ export async function testWriteStrings() {
   }
 }
 ```
+
+</TabItem>
+</Tabs>
 
 ---
 
@@ -484,8 +762,28 @@ Append string to file
 
 #### Example
 
+<Tabs>
+<TabItem value="1" label="0.4.0+">
+
+```tsx
+import { appendStrings } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
+
+export async function testAppendStrings() {
+  try {
+    await appendStrings('./tmp/test/test.txt', ['hello world!'])
+  } catch (error) {
+    Logger.error('ERROR: ', error)
+  }
+}
+```
+
+</TabItem>
+<TabItem value="2" label="0.6.0+">
+
 ```tsx
 import { FileError, appendStrings } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
 
 export async function testAppendStrings() {
   try {
@@ -497,6 +795,9 @@ export async function testAppendStrings() {
   }
 }
 ```
+
+</TabItem>
+</Tabs>
 
 ---
 
@@ -519,8 +820,28 @@ Write byte stream to file
 
 #### Example
 
+<Tabs>
+<TabItem value="1" label="0.4.0+">
+
+```tsx
+import { writeBytes } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
+
+export async function testWriteBytes() {
+  try {
+    await writeBytes('./tmp/test/test.txt', String2Unit8Array('hello bytes!\n'))
+  } catch (error) {
+    Logger.error('ERROR: ', error)
+  }
+}
+```
+
+</TabItem>
+<TabItem value="2" label="0.6.0+">
+
 ```tsx
 import { FileError, writeBytes } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
 
 export async function testWriteBytes() {
   try {
@@ -532,6 +853,9 @@ export async function testWriteBytes() {
   }
 }
 ```
+
+</TabItem>
+</Tabs>
 
 ---
 
@@ -555,8 +879,28 @@ Append byte stream to file
 
 #### Example
 
+<Tabs>
+<TabItem value="1" label="0.4.0+">
+
+```tsx
+import { appendBytes } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
+
+export async function testAppendBytes() {
+  try {
+    await appendBytes('./tmp/test/test.txt', Object2Unit8Array({ name: 'hello bytes!' }))
+  } catch (error) {
+    Logger.error('ERROR: ', error)
+  }
+}
+```
+
+</TabItem>
+<TabItem value="2" label="0.6.0+">
+
 ```tsx
 import { FileError, appendBytes } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
 
 export async function testAppendBytes() {
   try {
@@ -568,6 +912,9 @@ export async function testAppendBytes() {
   }
 }
 ```
+
+</TabItem>
+</Tabs>
 
 ## Type
 
