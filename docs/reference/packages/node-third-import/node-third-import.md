@@ -72,6 +72,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 | resource_id    | resource ID             | `string` | Y        |
 | task_id        | issue ID                | `string` | Y        |
 | full_file_path | attachment file address | `string` | Y        |
+| file_name |  file name | `string` | N        |
 
 ### ThirdTaskLink
 
@@ -444,13 +445,13 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 | desc          | description           | `string` | Y        |
 | owner_id      | Creator ID            | `string` | Y        |
 | assign_id     | Responsible ID        | `string` | Y        |
-| deadline      | final completion date | `number` | Y        |
+| deadline      | final completion date | `number` | N        |
 | priority_id   | priority ID           | `string` | Y        |
 | status_id     | status id             | `string` | Y        |
 | project_id    | project ID            | `string` | Y        |
 | issue_type_id | issue type ID         | `string` | Y        |
-| sprint_id     | iteration ID          | `string` | Y        |
-| parent_id     | parent issue ID       | `string` | Y        |
+| sprint_id     | iteration ID          | `string` | N        |
+| parent_id     | parent issue ID       | `string` | N        |
 | created_time  | creation time         | `number` | Y        |
 | updated_time  | updated time          | `number` | Y        |
 
@@ -649,7 +650,7 @@ iteration status
 
 ### ThirdTaskStatusCategoryEnum {#ThirdTaskStatusCategoryEnum}
 
-issue Classification
+issue status Classification
 
 | Enum                                                        | Description |
 | :---------------------------------------------------------- | :---------- |
@@ -671,10 +672,17 @@ type of hours
 
 issue field value type
 
-| Enum                                             | Description         |
-| :----------------------------------------------- | :------------------ |
-| ThirdTaskFieldValueFieldTypeEnum.FieldTypeOption | Single              |
-| ThirdTaskFieldValueFieldTypeEnum.FieldTypeText   | Single line of text |
+| Enum                                                    | Description             |
+| :------------------------------------------------------ | :---------------------- |
+| ThirdTaskFieldValueFieldTypeEnum.FieldTypeOption        | Single Choice           |
+| ThirdTaskFieldValueFieldTypeEnum.FieldTypeMultiOption   | Multiple choice         |
+| ThirdTaskFieldValueFieldTypeEnum.FieldTypeText          | Single line of text     |
+| ThirdTaskFieldValueFieldTypeEnum.FieldTypeMultiLineText | Multi-line text         |
+| ThirdTaskFieldValueFieldTypeEnum.FieldTypeUser          | Single user             |
+| ThirdTaskFieldValueFieldTypeEnum.FieldTypeUserList      | Multiple user selection |
+| ThirdTaskFieldValueFieldTypeEnum.FieldTypeFloat         | Float                   |
+| ThirdTaskFieldValueFieldTypeEnum.FieldTypeDate          | date                    |
+| ThirdTaskFieldValueFieldTypeEnum.FieldTypeTime          | Time                    |
 
 ### ThirdNotificationValueTypeEnum {#ThirdNotificationValueTypeEnum}
 
@@ -794,7 +802,7 @@ project sprint field type
 | ThirdProjectSprintFieldTypeEnum.FieldTypeText          | Single line of text |
 | ThirdProjectSprintFieldTypeEnum.FieldTypeMultiLineText | Multi-line text     |
 | ThirdProjectSprintFieldTypeEnum.FieldTypeUser          | Single user         |
-| ThirdTaskFieldTypeEnum.FieldTypeFloat                  | Float               |
-| ThirdTaskFieldTypeEnum.FieldTypeDate                   | date                |
-| ThirdTaskFieldTypeEnum.FieldTypeTime                   | Time                |
-| ThirdTaskFieldTypeEnum.FieldTypeInteger                | Integer             |
+| ThirdProjectSprintFieldTypeEnum.FieldTypeFloat         | Float               |
+| ThirdProjectSprintFieldTypeEnum.FieldTypeDate          | date                |
+| ThirdProjectSprintFieldTypeEnum.FieldTypeTime          | Time                |
+| ThirdProjectSprintFieldTypeEnum.FieldTypeInteger       | Integer             |

@@ -72,6 +72,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 | resource_id    | 资源 ID      | `string` | 是   |
 | task_id        | 工作项 ID    | `string` | 是   |
 | full_file_path | 附件文件地址 | `string` | 是   |
+| file_name | 文件名称 | `string` | 否   |
 
 ### ThirdTaskLink
 
@@ -444,13 +445,13 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 | desc          | 描述          | `string` | 是   |
 | owner_id      | 创建者 ID     | `string` | 是   |
 | assign_id     | 负责人 ID     | `string` | 是   |
-| deadline      | 最后完成日期  | `number` | 是   |
+| deadline      | 最后完成日期  | `number` | 否   |
 | priority_id   | 优先级 ID     | `string` | 是   |
 | status_id     | 状态 ID       | `string` | 是   |
 | project_id    | 项目 ID       | `string` | 是   |
 | issue_type_id | 工作项类型 ID | `string` | 是   |
-| sprint_id     | 迭代 ID       | `string` | 是   |
-| parent_id     | 父工作项 ID   | `string` | 是   |
+| sprint_id     | 迭代 ID       | `string` | 否   |
+| parent_id     | 父工作项 ID   | `string` | 否   |
 | created_time  | 创建时间      | `number` | 是   |
 | updated_time  | 更新时间      | `number` | 是   |
 
@@ -649,7 +650,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 
 ### ThirdTaskStatusCategoryEnum {#ThirdTaskStatusCategoryEnum}
 
-工作项分类
+工作项状态类型分类
 
 | 可选值                                                      | 说明   |
 | :---------------------------------------------------------- | :----- |
@@ -671,10 +672,17 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 
 工作项属性值类型
 
-| 可选值                                           | 说明     |
-| :----------------------------------------------- | :------- |
-| ThirdTaskFieldValueFieldTypeEnum.FieldTypeOption | 单选     |
-| ThirdTaskFieldValueFieldTypeEnum.FieldTypeText   | 单行文本 |
+| 可选值                                                  | 说明     |
+| :------------------------------------------------------ | :------- |
+| ThirdTaskFieldValueFieldTypeEnum.FieldTypeOption        | 单选     |
+| ThirdTaskFieldValueFieldTypeEnum.FieldTypeMultiOption   | 多选     |
+| ThirdTaskFieldValueFieldTypeEnum.FieldTypeText          | 单行文本 |
+| ThirdTaskFieldValueFieldTypeEnum.FieldTypeMultiLineText | 多行文本 |
+| ThirdTaskFieldValueFieldTypeEnum.FieldTypeUser          | 单选用户 |
+| ThirdTaskFieldValueFieldTypeEnum.FieldTypeUserList      | 多选用户 |
+| ThirdTaskFieldValueFieldTypeEnum.FieldTypeFloat         | 浮点数   |
+| ThirdTaskFieldValueFieldTypeEnum.FieldTypeDate          | 日期     |
+| ThirdTaskFieldValueFieldTypeEnum.FieldTypeTime          | 时间     |
 
 ### ThirdNotificationValueTypeEnum {#ThirdNotificationValueTypeEnum}
 
@@ -794,7 +802,7 @@ ONES 内置工作项类型
 | ThirdProjectSprintFieldTypeEnum.FieldTypeText          | 单行文本 |
 | ThirdProjectSprintFieldTypeEnum.FieldTypeMultiLineText | 多行文本 |
 | ThirdProjectSprintFieldTypeEnum.FieldTypeUser          | 单选用户 |
-| ThirdTaskFieldTypeEnum.FieldTypeFloat                  | 浮点数   |
-| ThirdTaskFieldTypeEnum.FieldTypeDate                   | 日期     |
-| ThirdTaskFieldTypeEnum.FieldTypeTime                   | 时间     |
-| ThirdTaskFieldTypeEnum.FieldTypeInteger                | 整数     |
+| ThirdProjectSprintFieldTypeEnum.FieldTypeFloat         | 浮点数   |
+| ThirdProjectSprintFieldTypeEnum.FieldTypeDate          | 日期     |
+| ThirdProjectSprintFieldTypeEnum.FieldTypeTime          | 时间     |
+| ThirdProjectSprintFieldTypeEnum.FieldTypeInteger       | 整数     |
