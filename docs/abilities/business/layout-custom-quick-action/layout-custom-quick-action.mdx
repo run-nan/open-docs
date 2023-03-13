@@ -158,8 +158,8 @@ modules:
 
 Enter the `web` directory and install the `@ones-op/store` dependency with the following command:
 
-```
-npm i @ones-op/store
+```bash npm2yarn
+npm install @ones-op/store @ones-op/bridge
 ```
 
 ### Step 3: Customize shortcut button behavior
@@ -168,7 +168,7 @@ Define the behavior of the shortcut button in the module, the following is an ex
 
 :::caution notice
 
-After executing the custom shortcut button logic, the slot must be destroyed by calling the `destroyCurrentModule()` method.
+After executing the custom shortcut button logic, the slot must be destroyed by calling the `lifecycle.destroy()` method.
 
 :::
 
@@ -178,7 +178,8 @@ After executing the custom shortcut button logic, the slot must be destroyed by 
 import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import { ConfigProvider, Modal } from '@ones-design/core'
-import { useTaskInfo, destroyCurrentModule } from '@ones-op/store'
+import { lifecycle } from '@ones-op/bridge'
+import { useTaskInfo } from '@ones-op/store'
 import './index.css'
 
 function App() {
@@ -190,11 +191,11 @@ function App() {
       <Modal
         onCancel={function noRefCheck() {
           // When canceling, destroy the popup window
-          destroyCurrentModule()
+          lifecycle.destroy()
         }}
         onOk={function noRefCheck() {
           // Click OK to destroy the popup
-          destroyCurrentModule()
+          lifecycle.destroy()
         }}
         title="customize_shortcuts"
         closable
@@ -217,11 +218,16 @@ ReactDOM.render(
 
 #### 2. Interfaceless pure logic type
 
+:::tip
+If you expect the plugin to still respond to another click by the user to activate while it is activated, you should consider combining [`useModuleInstanceInfo`](../../../reference/packages/store/store.md#useModuleInstanceInfo) to achieve this.
+:::
+
 ```tsx
   import React, { useEffect } from 'react'
   import ReactDOM from 'react-dom'
   import { ConfigProvider } from '@ones-design/core'
-  import { useTaskInfo, destroyCurrentModule } from '@ones-op/store'
+  import { lifecycle } from '@ones-op/bridge'
+  import { useTaskInfo } from '@ones-op/store'
   import './index.css'
 
   function App() {
@@ -232,7 +238,7 @@ ReactDOM.render(
       // execute related operation logic
       ...
       // destroy the slot last, otherwise it cannot be triggered again
-      destroyCurrentModule()
+      lifecycle.destroy()
     })
 
     return <></>

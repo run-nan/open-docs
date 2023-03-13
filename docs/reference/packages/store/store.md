@@ -377,6 +377,11 @@ By calling this hook method, some action in the system can be intercepted. For d
 
 - Added in: `v0.3.0+`
 - ONES Requirement: `v3.10.26+`
+- Deprecated
+
+:::warning
+If you are writing a new plugin, it is recommended that you use the [`useVariablesInfo`](#useVariablesInfo) hook to get the data, the `useAction` hook will be deprecated in the future.
+:::
 
 #### Params
 
@@ -683,5 +688,67 @@ Get the current space information.
 interface WikiSpaceInfoType {
   uuid: string // Current space UUID
   name: string // Current space name
+}
+```
+
+### useVariablesInfo {#useVariablesInfo}
+
+Get the non-standard temporary data passed by the current slot. You can get the type inference of the data passed by the current slot by specifying the paradigm.
+
+- Added in: `v0.x.x+`
+
+#### Returns
+
+| Description                     | Type              |
+| ------------------------------- | ----------------- |
+| Data passed by the current slot | `VariablesMap[T]` |
+
+#### Types
+
+```tsx
+function useVariablesInfo<T extends keyof VariablesMap>(): VariablesMap[T]
+
+type VariablesMap = TriggerActionMap & {
+  // Unified Trigger type
+  'ones:global:trigger': Action<Record<PropertyKey, any>> & {
+    actionType: keyof ActionType
+  }
+  // ......
+}
+
+type TriggerActionMap = {
+  [T in keyof ActionType]: ActionType[T] & { actionType: T }
+}
+```
+
+### useModuleInstanceInfo {#useModuleInstanceInfo}
+
+Get information about the current plugin module instance.
+
+- Added in: `v0.x.x+`
+- ONES Requirement: `v3.13.xx+`
+- Module restrictions: `'ones:global:trigger' | 'ones:global:modal'`
+
+:::caution
+Currently only available for some modules that require manual activation mode settings.
+:::
+
+:::note
+The same plugin module with manual activation mode will not be activated again while it is already activated, but will be updated with the number of times the module will be activated again.
+
+In some special scenarios, you can listen for changes in this data and re-run the `mount` operation on the component.
+:::
+
+#### Returns
+
+| Description                         | Type                 |
+| ----------------------------------- | -------------------- |
+| Current plugin instance information | `ModuleInstanceInfo` |
+
+#### Types
+
+```tsx
+interface ModuleInstanceInfo {
+  invokeAgainCount: number
 }
 ```

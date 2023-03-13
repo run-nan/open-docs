@@ -6,6 +6,13 @@
 
 ### 新特性
 
+- **Store:** 🌟 提供 `useVariablesInfo` hook 获取插槽传递的非标准数据
+- **Store:** 🌟 提供 `useModuleInstanceInfo` hook 获取手动激活的插件实例信息
+
+# 0.x.0 (2023-x-x)
+
+### 新特性
+
 - **Store:** 🌟 提供 `useWikiSpaceInfo` hook 获取当前页面组上下文信息
 
 # 0.5.0 (2022-11-25)

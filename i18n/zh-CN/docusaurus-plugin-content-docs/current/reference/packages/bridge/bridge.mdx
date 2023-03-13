@@ -254,3 +254,23 @@ type ListName =
 | `v3.13.24+` | `v0.3.0+`           |
 
 <Image img={require('./images/invoke-ones-global-progressManager.png')} />
+
+### lifecycle
+
+通过调用 `lifecycle` 实例的方法，插件可以操作自身的部分生命周期。
+
+#### 要求
+
+| **@ones-op/bridge** |
+| ------------------- |
+| `v0.x.0+`           |
+
+#### destroy
+
+插件可以通过调用 `lifecycle.destroy` 方法，来销毁自身。
+
+:::caution
+这通常在手动激活的插件模块中使用，如果你使用的插槽并无特别说明，一般情况下不需要调用该方法。
+:::
+
+- ONES 要求：`v3.11.40+`

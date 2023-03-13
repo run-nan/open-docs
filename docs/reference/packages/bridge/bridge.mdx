@@ -248,3 +248,23 @@ Refresh the requirement traceability list in the "ONES TestCase" - "Test Plans" 
 you can invoke the global progress manager by calling the `invokeProgressManager` method
 
 <Image img={require('./images/invoke-ones-global-progressManager.png')} />
+
+### lifecycle
+
+The plugin can manipulate part of its own lifecycle by calling the methods of the `lifecycle` instance.
+
+#### Requirements
+
+| **@ones-op/bridge** |
+| ------------------- |
+| `v0.x.0+`           |
+
+#### destroy
+
+The plugin can destroy themselves by calling the `lifecycle.destroy` method.
+
+:::caution
+This is usually used in manually activated plugin modules, and if the slot you are using does not specify it, you generally do not need to call this method.
+:::
+
+- ONES requirements: `v3.11.40+`

@@ -6,6 +6,13 @@ All notable changes to this package will be documented in this file.
 
 ### Features
 
+- **Store:** 🌟 Provide `useVariablesInfo` hook to get the non-standard data passed by the slot
+- **Store:** 🌟 Provide `useModuleInstanceInfo` hook to get information about manually activated plugin instance
+
+# 0.x.0 (2023-x-x)
+
+### Features
+
 - **Store:** 🌟 Provide `useWikiSpaceInfo` hook to to get the current space information
 
 # 0.5.0 (2022-11-25)

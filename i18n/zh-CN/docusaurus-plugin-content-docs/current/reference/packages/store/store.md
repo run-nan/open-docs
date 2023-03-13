@@ -377,6 +377,11 @@ interface UserInfoType {
 
 - 可用：`v0.3.0+`
 - ONES 要求：`v3.10.26+`
+- 已废弃
+
+:::warning
+如果你正在编写新插件，推荐你使用 [`useVariablesInfo`](#useVariablesInfo) 方法获取数据，`useAction` 方法将会在未来废弃掉。
+:::
 
 #### 参数
 
@@ -626,7 +631,7 @@ interface CodeRepositoryInfo {
 | ------------------------------ | ----------------------------- |
 | 当前组件的数据以及对数据的操作 | `TestcaseReportComponentInfo` |
 
-#### Types
+#### 类型
 
 ```tsx
 interface ExportTitle {
@@ -693,5 +698,67 @@ interface TestcaseReportComponentInfo<T extends Record<string, any> = {}> {
 interface WikiSpaceInfoType {
   uuid: string // 当前页面组的 UUID
   name: string // 当前页面组的名称
+}
+```
+
+### useVariablesInfo {#useVariablesInfo}
+
+获取当前插槽传递过来的非标准临时数据，你可以通过指定范型获得当前插槽传递数据的类型推断。
+
+- 可用：`v0.x.x+`
+
+#### 返回
+
+| 说明               | 类型              |
+| ------------------ | ----------------- |
+| 当前插槽传递的数据 | `VariablesMap[T]` |
+
+#### 类型
+
+```tsx
+function useVariablesInfo<T extends keyof VariablesMap>(): VariablesMap[T]
+
+type VariablesMap = TriggerActionMap & {
+  // Trigger 统一类型
+  'ones:global:trigger': Action<Record<PropertyKey, any>> & {
+    actionType: keyof ActionType
+  }
+  // ......
+}
+
+type TriggerActionMap = {
+  [T in keyof ActionType]: ActionType[T] & { actionType: T }
+}
+```
+
+### useModuleInstanceInfo {#useModuleInstanceInfo}
+
+获取当前插件模块实例信息。
+
+- 可用：`v0.x.x+`
+- ONES 要求：`v3.13.xx+`
+- 模块限制：`'ones:global:trigger' | 'ones:global:modal'`
+
+:::caution
+目前仅提供给部分需要设置手动激活模式的模块。
+:::
+
+:::note
+同一个手动激活模式的插件模块，在已经激活期间，不会再次被激活，而是更新模块再次被激活的次数。
+
+在一些特殊场景，你可以监听此数据的变化，重新对组件进行 `mount` 操作。
+:::
+
+#### 返回
+
+| 说明             | 类型                 |
+| ---------------- | -------------------- |
+| 当前插件实例信息 | `ModuleInstanceInfo` |
+
+#### 类型
+
+```tsx
+interface ModuleInstanceInfo {
+  invokeAgainCount: number
 }
 ```

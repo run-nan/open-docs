@@ -18,7 +18,8 @@
 import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import { ConfigProvider, toast } from '@ones-design/core';
-import { useTaskInfo, destroyCurrentModule } from '@ones-op/store'
+import { lifecycle } from '@ones-op/bridge'
+import { useTaskInfo } from '@ones-op/store'
 import { OPFetch } from '@ones-op/fetch';
 import './index.css'
 
@@ -55,7 +56,7 @@ function App() {
     initialDeal()
     // 销毁当前插槽
     setTimeout(() => {
-      destroyCurrentModule()
+      lifecycle.destroy()
     }, 0);
   }, [])
 
