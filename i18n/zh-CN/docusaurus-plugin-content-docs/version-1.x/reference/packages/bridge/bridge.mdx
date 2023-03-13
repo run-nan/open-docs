@@ -204,6 +204,7 @@ type ListName =
   | 'memberList'
   | 'codeRepositoryList'
   | 'planTestcaseList'
+  | 'testPlanList'
   | 'requirementTraceabilityList'
 ```
 
@@ -234,6 +235,15 @@ type ListName =
 
 <Image img={require('./images/testcase-list.png')} />
 
+##### testPlanList
+
+- 可用: `v0.3.1+`
+- ONES 要求: `v3.13.35+`
+
+测试管理 / 测试计划 / 测试计划列表刷新
+
+<Image img={require('./images/test-plan-list.png')} />
+
 ##### requirementTraceabilityList
 
 - 可用：`v0.3.0+`
@@ -243,7 +253,7 @@ type ListName =
 
 <Image img={require('./images/requirement-traceability-list.png')} />
 
-### invokeProgressManager
+##### invokeProgressManager
 
 通过调用`invokeProgressManager`方法，可以激活全局进度管理器。
 
