@@ -1,58 +1,47 @@
-# Test plans component
+# Test plans
 
 import Image from '@theme/IdealImage'
 
 ## Requirements
 
-| **ONES** |
-| :------: |
-| v3.6.0+  |
+| **ONES**  |
+| :-------: |
+| v3.13.35+ |
 
 ## Overview
 
-<Image img={require('./images/plan.png')} />
+<Image img={require('./images/test-case-plan.png')} />
 
 We have provided slots for "ONES TestCase" - "Test plans" to customize the page module for the application.
 
 The slots currently supported are as follows:
 
-- [ones:testcase:plan:component:case](#onestestcaseplancomponentcase)
-- [ones:testcase:plan:component:demand](#onestestcaseplancomponentdemand)
+- [ones:testcase:plan:header:action:new](#onestestcaseplancomponentcase)
 
 ## Slots
 
-#### ones:testcase:plan:component:case
+#### ones:testcase:plan:header:action:new
 
-**Module path：** ONES TestCase / Test plans / Test case
+**Module path：** ONES TestCase / Test plans
 
-**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
-
-#### ones:testcase:plan:component:demand
-
-**Module path：** ONES TestCase / Test plans / Requirements traceability
-
-**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
 
 ## Usage
 
 ```yaml
 modules:
-  - id: ones-testcase-plan-component-case-2efs
+  - id: ones:testcase:plan:header:action:new-2efs
     title: Test case
-    moduleType: ones:testcase:plan:component:case
-    entry: modules/ones-testcase-plan-component-case-2efs/index.html
+    moduleType: ones:testcase:plan:header:action:new
+    entry: modules/ones:testcase:plan:header:action:new-2efs/index.html
 ```
-
-**Supported config options：**
-
-- [disabled](../../../../../reference/config/plugin.yaml#disabled)
 
 ### Available Hook API
 
-- [useTestPlanInfo](../../../../../reference/packages/store/store.md#useTestPlanInfo)
+- [useFilterInfo](../../../../../reference/packages/store/store.md#useFilterInfo)
 
 ```ts
-import { useTestPlanInfo } from '@ones-op/store'
+import { useFilterInfo } from '@ones-op/store'
 
-const testPlanInfo = useTestPlanInfo()
+const { viewUUID: uuid, viewName: name } = useFilterInfo()
 ```
