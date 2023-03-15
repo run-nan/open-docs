@@ -42,9 +42,9 @@ This method triggers a number of events within the ONES system.
 
 #### Params
 
-| Params | Description                                                        | Type                  | Required | Default |
-| ------ | ------------------------------------------------------------------ | --------------------- | -------- | ------- |
-| type   | Event name, corresponding to the event in the [event list](./list) | [`EventEnum`](./list) | Y        |         |
+| Params | Description | Type   | Required | Default |
+| ------ | ----------- | ------ | -------- | ------- |
+| type   | Event name  | string | Y        |         |
 
 ### OPPluginListener
 
