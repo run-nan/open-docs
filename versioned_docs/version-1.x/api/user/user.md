@@ -1,5 +1,3 @@
-<!-- TOC depthTo:3 -->
-
 # ONES User API
 
 - [通用说明](#通用说明)

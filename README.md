@@ -47,3 +47,13 @@ $ npm run build
 ```
 
 This command generates static content into the `build` directory and can be served using any static contents hosting service.
+
+### Start
+
+```
+// run inner docs
+$ npm run dev
+
+// run public docs
+$ npm run start
+```

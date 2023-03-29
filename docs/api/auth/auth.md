@@ -1,5 +1,3 @@
-<!-- TOC depthFrom:1 depthTo:2 updateOnSave:true withLinks:true -->
-
 # ONES Auth API
 
 - [通用说明](#通用说明)

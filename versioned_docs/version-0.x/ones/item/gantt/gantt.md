@@ -437,7 +437,7 @@ none
 
 ## 获取甘特图列表
 
-[调用 graphql 接口](../../graphql/graphql.md#call_ones_graphql)
+[调用 GraphQL 接口](../../graphql/graphql.md#call_ones_graphql)
 
 ### 查询参数
 
@@ -567,7 +567,7 @@ query LIST_GANTT_CHARTS($filter: Filter, $orderBy: OrderBy) {
 
 ## 获取甘特图中数据
 
-[调用 graphql 接口](../../graphql/graphql.md#call_ones_graphql)
+[调用 GraphQL 接口](../../graphql/graphql.md#call_ones_graphql)
 
 ### 查询参数
 

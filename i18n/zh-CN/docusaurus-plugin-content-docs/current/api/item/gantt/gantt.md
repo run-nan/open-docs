@@ -121,7 +121,7 @@ json
 
 ### 请求参数列表
 
-可根据 graphql 查询条件变化， 可用字段参考 [参数列表](#gantt_chart)
+可根据 GraphQL 查询条件变化， 可用字段参考 [参数列表](#gantt_chart)
 
 ### 请求示例
 
@@ -143,7 +143,7 @@ json
 
 ### 返回参数列表
 
-请参考 [graphql 新增 item 返回参数](../item.md#添加item)
+请参考 [GraphQL 新增 item 返回参数](../item.md#添加item)
 
 ### 返回体示例
 
@@ -199,7 +199,7 @@ itemkey: 甘特图的 key, 例如: `gantt_chart-6ZpgEzkkQ7PkhGTv`
 
 #### json 参数
 
-可根据 graphql 查询条件变化，可用字段请参考 [参数列表](#gantt_chart)
+可根据 GraphQL 查询条件变化，可用字段请参考 [参数列表](#gantt_chart)
 
 ### 请求示例
 
@@ -219,7 +219,7 @@ itemkey: 甘特图的 key, 例如: `gantt_chart-6ZpgEzkkQ7PkhGTv`
 
 ### 返回参数列表
 
-请参考 [graphql 更新 item 返回参数](../item.md#更新item)
+请参考 [GraphQL 更新 item 返回参数](../item.md#更新item)
 
 ### 返回体示例
 
@@ -313,7 +313,7 @@ json
 
 ### 请求参数列表
 
-可根据 graphql 查询条件变化，可用字段请参考 [参数列表](#ganttdata)
+可根据 GraphQL 查询条件变化，可用字段请参考 [参数列表](#ganttdata)
 
 ### 请求示例
 
@@ -335,7 +335,7 @@ json
 
 ### 返回参数列表
 
-请参考 [graphql 添加 item 返回参数](../item.md#添加item)
+请参考 [GraphQL 添加 item 返回参数](../item.md#添加item)
 
 ### 返回体示例
 
@@ -390,7 +390,7 @@ json
 
 ### 请求参数列表
 
-可根据 graphql 查询条件变化，可用字段请参考 [参数列表](#ganttdata)
+可根据 GraphQL 查询条件变化，可用字段请参考 [参数列表](#ganttdata)
 
 ### 请求示例
 
@@ -412,7 +412,7 @@ json
 
 ### 返回参数列表
 
-请参考 [graphql 添加 item 返回参数](../item.md#添加item)
+请参考 [GraphQL 添加 item 返回参数](../item.md#添加item)
 
 ### 返回体示例
 
@@ -465,7 +465,7 @@ json
 
 ### 请求参数列表
 
-可根据 graphql 查询条件变化，可用字段请参考 [参数列表](#ganttdata)
+可根据 GraphQL 查询条件变化，可用字段请参考 [参数列表](#ganttdata)
 
 ### 请求示例
 
@@ -488,7 +488,7 @@ json
 
 ### 返回参数列表
 
-请参考 [graphql 添加 item 返回参数](../item.md#添加item)
+请参考 [GraphQL 添加 item 返回参数](../item.md#添加item)
 
 ### 返回体示例
 
@@ -547,7 +547,7 @@ itemkey: 甘特图的 key, 例如: `gantt_data-6ZpgEzkkQ7PkhGTv`
 
 #### json 参数
 
-可根据 graphql 查询条件变化，可用字段请参考 [参数列表](#ganttdata)
+可根据 GraphQL 查询条件变化，可用字段请参考 [参数列表](#ganttdata)
 
 ### 请求体参考
 
@@ -568,7 +568,7 @@ itemkey: 甘特图的 key, 例如: `gantt_data-6ZpgEzkkQ7PkhGTv`
 
 ### 返回参数列表
 
-请参考 [graphql 更新 item 返回参数](../item.md#更新item)
+请参考 [GraphQL 更新 item 返回参数](../item.md#更新item)
 
 ### 返回体参考
 
@@ -625,7 +625,7 @@ itemkey: 项目集的 key, 例如: `gantt_chart-6ZpgEzkkQ7PkhGTv`
 
 ### 返回参数列表
 
-请参考 [graphql 删除 item 返回参数](../item.md#删除item)
+请参考 [GraphQL 删除 item 返回参数](../item.md#删除item)
 
 ### 返回参数参考
 
@@ -647,7 +647,7 @@ https://your-host-name/project/api/project/team/:teamUUID/items/graphql
 
 ### 功能描述
 
-[调用 graphql 接口](../../graphql/graphql.md#call_ones_graphql) , 获取甘特图列表
+[调用 GraphQL 接口](../../graphql/graphql.md#call_ones_graphql) , 获取甘特图列表
 
 ### HTTP Method
 
@@ -663,7 +663,7 @@ json
 
 ### 请求参数列表
 
-可根据 graphql 查询条件变化，可用字段参考 [gantt_chart](#gantt_chart)
+可根据 GraphQL 查询条件变化，可用字段参考 [gantt_chart](#gantt_chart)
 
 ### 查询参数
 
@@ -719,7 +719,7 @@ query LIST_GANTT_CHARTS($filter: Filter, $orderBy: OrderBy) {
 
 ### 返回参数列表
 
-请参考 [graphql 查询 item 返回参数](../../graphql/graphql.md#call_ones_graphql)
+请参考 [GraphQL 查询 item 返回参数](../../graphql/graphql.md#call_ones_graphql)
 
 ### 返回体参考
 
@@ -805,7 +805,7 @@ https://your-host-name/project/api/project/team/:teamUUID/items/graphql
 
 ### 功能描述
 
-[调用 graphql 接口](../../graphql/graphql.md#call_ones_graphql) , 获取甘特图中数据
+[调用 GraphQL 接口](../../graphql/graphql.md#call_ones_graphql) , 获取甘特图中数据
 
 ### HTTP Method
 
@@ -821,7 +821,7 @@ json
 
 ### 请求参数列表
 
-可根据 graphql 查询条件变化，可用字段参考 [gantt_chart](#gantt_chart)
+可根据 GraphQL 查询条件变化，可用字段参考 [gantt_chart](#gantt_chart)
 
 ### 查询参数示例
 
@@ -883,7 +883,7 @@ query LIST_GANTT_DATAS($filter: Filter, $orderBy: OrderBy) {
 
 ### 返回参数列表
 
-请参考 [graphql 查询 item 返回参数](../../graphql/graphql.md#call_ones_graphql)
+请参考 [GraphQL 查询 item 返回参数](../../graphql/graphql.md#call_ones_graphql)
 
 ### 返回体参考
 

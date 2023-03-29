@@ -1,5 +1,5 @@
 {
-  "item.label.Learning": {
+  "item.label.Learning map": {
     "message": "学习地图",
     "description": "Navbar item with label Learning"
   },
@@ -20,7 +20,7 @@
     "description": "Navbar item with label Tools"
   },
   "item.label.FAQ": {
-    "message": "FAQ",
+    "message": "常见问题",
     "description": "Navbar item with label FAQ"
   },
   "item.label.Changelog": {
@@ -46,5 +46,29 @@
   "item.label.Reference": {
     "message": "Reference",
     "description": "Navbar item with label Reference"
+  },
+  "item.label.Documentation": {
+    "message": "文档",
+    "description": "Navbar item with label Documentation"
+  },
+  "item.label.API Docs": {
+    "message": "API 文档",
+    "description": "Navbar item with label API Docs"
+  },
+  "item.label.ONES Open Platform": {
+    "message": "开放平台",
+    "description": "Navbar item with label ONES Open Platform"
+  },
+  "item.label.Resources": {
+    "message": "资源",
+    "description": "Navbar item with label Resources"
+  },
+  "item.label.ONES Design": {
+    "message": "ONES Design",
+    "description": "Navbar item with label ONES Design"
+  },
+  "item.label.Open source of web code": {
+    "message": "前端开源",
+    "description": "Navbar item with label Documentation"
   }
 }

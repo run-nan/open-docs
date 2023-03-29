@@ -1,6 +1,4 @@
-<!-- TOC depthTo:3 -->
-
-# 工时
+# Manhour
 
 - [manhour](#manhour)
 - [登记工时](#登记工时)

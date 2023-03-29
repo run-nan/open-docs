@@ -31,7 +31,7 @@ jobs:
           key: ${{ hashFiles('package-lock.json') }}-${{ github.run_id }}
           path: node_modules/.cache
           restore-keys: ${{ hashFiles('package-lock.json') }}-
-      - run: npm run build
+      - run: npm run build:dev
       - uses: appleboy/scp-action@v0.1.2
         with:
           host: 120.78.193.246

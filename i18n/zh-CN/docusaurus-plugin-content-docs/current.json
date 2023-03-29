@@ -47,9 +47,9 @@
     "message": "Item",
     "description": "The label for category Item in sidebar api"
   },
-  "sidebar.api.category.Graphql": {
-    "message": "Graphql",
-    "description": "The label for category Graphql in sidebar api"
+  "sidebar.api.category.GraphQL": {
+    "message": "GraphQL",
+    "description": "The label for category GraphQL in sidebar api"
   },
   "sidebar.api.category.Http": {
     "message": "Http",
@@ -59,9 +59,17 @@
     "message": "主要概念",
     "description": "The label for category Main concepts in sidebar guide"
   },
-  "sidebar.abilities.category.Slot": {
+  "sidebar.abilities.category.Slots": {
     "message": "插槽",
-    "description": "The label for category Slot in sidebar abilities"
+    "description": "The label for category 插槽 in sidebar abilities"
+  },
+  "sidebar.abilities.category.Core": {
+    "message": "平台开放能力",
+    "description": "The label for category 平台开放能力 in sidebar abilities"
+  },
+  "sidebar.abilities.category.App Modules": {
+    "message": "应用开放能力",
+    "description": "The label for category 应用开放能力 in sidebar abilities"
   },
   "sidebar.abilities.category.全局插槽": {
     "message": "全局插槽",
@@ -88,7 +96,7 @@
     "description": "The label for category 项目组件 in sidebar abilities"
   },
   "sidebar.abilities.category.Basic Abilities": {
-    "message": "基础能力",
+    "message": "平台开放能力",
     "description": "The label for category Basic Abilities in sidebar abilities"
   },
   "sidebar.abilities.category.插件自定义权限点": {
@@ -96,7 +104,7 @@
     "description": "The label for category 插件自定义权限点 in sidebar abilities"
   },
   "sidebar.abilities.category.Business Abilities": {
-    "message": "业务能力",
+    "message": "应用开放能力",
     "description": "The label for category Business Abilities in sidebar abilities"
   },
   "sidebar.abilities.category.ONES 接口操作": {

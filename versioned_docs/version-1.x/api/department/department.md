@@ -1,4 +1,4 @@
-## ONES Department API
+# ONES Department API
 
 - [model](#model)
   - [1. 获取团队部门列表](#1-获取团队部门列表)

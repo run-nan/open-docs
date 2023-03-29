@@ -1,0 +1,218 @@
+.cardWraper {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  width: 100%;
+  border-radius: 10px;
+  padding: 40px;
+  cursor: pointer;
+}
+
+.cardWraper:hover {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.cardIcon {
+  width: 40px;
+  height: 40px;
+}
+
+.title {
+  font-size: 24px;
+  line-height: 30px;
+  color: var(--gray--1);
+  font-weight: bold;
+  padding-top: 20px;
+}
+
+.description {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--gray--3);
+  padding-top: 10px;
+}
+
+.keyword {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: var(--gray--3);
+}
+
+.keywordItem {
+  position: relative;
+}
+
+.keywordItem::before {
+  background-color: #303030;
+  border-radius: 50%;
+  content: '';
+  height: 4px;
+  width: 4px;
+  position: absolute;
+  top: 9px;
+}
+
+.keywordText {
+  padding-left: 10px;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.tipWraper {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  color: var(--ifm-color-primary);
+  cursor: pointer;
+  width: fit-content;
+}
+.tipWraper:active {
+  color: var(--ifm-color-primary-dark);
+}
+.tipWraper:hover .tipsIcon {
+  transition: transform var(--ifm-transition-fast) linear;
+  transform: translateX(5px);
+}
+.tipText {
+  padding-right: 5px;
+}
+
+/* width >= 1260 */
+@media screen and (min-width: 1260px) {
+  .cardWraper:not(:last-child) {
+    margin-right: 20px;
+  }
+  .keywordItem:first-child {
+    margin-top: 10px;
+  }
+  .keywordItem {
+    margin-top: 5px;
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .tipWraper {
+    font-size: 16px;
+    padding-top: 20px;
+    line-height: 24px;
+  }
+}
+
+/* 1024 <= witdh <= 1259 */
+@media screen and (min-width: 1024px) and (max-width: 1259px) {
+  .cardWraper:not(:last-child) {
+    margin-right: 20px;
+  }
+  .cardIcon {
+    height: 40px;
+    width: 40px;
+  }
+  .title {
+    font-size: 24px;
+    line-height: 30px;
+    padding-top: 20px;
+  }
+  .description {
+    font-size: 16px;
+    line-height: 24px;
+    padding-top: 10px;
+  }
+  .keywordText {
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .keywordItem {
+    margin-top: 5px;
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .keywordItem:first-child {
+    margin-top: 10px;
+  }
+  .tipWraper {
+    font-size: 16px;
+    padding-top: 15px;
+    line-height: 24px;
+  }
+}
+
+/* 768px <= width <= 1023px */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .cardWraper {
+    width: 100%;
+    padding: 40px;
+  }
+  .cardWraper:not(:last-child) {
+    margin-bottom: 20px;
+  }
+  .cardIcon {
+    height: 40px;
+    width: 40px;
+  }
+  .title {
+    font-size: 24px;
+    line-height: 30px;
+    padding-top: 20px;
+  }
+  .description {
+    font-size: 16px;
+    line-height: 24px;
+    padding-top: 10px;
+  }
+  .keywordText {
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .keywordItem {
+    margin-top: 5px;
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .keywordItem:first-child {
+    margin-top: 10px;
+  }
+  .tipWraper {
+    font-size: 16px;
+    padding-top: 15px;
+    line-height: 24px;
+  }
+}
+
+/* 0 <= width <= 767 */
+@media screen and (max-width: 767px) {
+  .cardWraper {
+    padding: 30px;
+  }
+  .cardWraper:not(:last-child) {
+    margin-bottom: 20px;
+  }
+  .cardIcon {
+    height: 32px;
+    width: 32px;
+  }
+  .title {
+    font-size: 16px;
+    line-height: 24px;
+    padding-top: 15px;
+  }
+  .description {
+    font-size: 14px;
+    line-height: 22px;
+    padding-top: 5px;
+  }
+  .keywordText {
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .keywordItem {
+    margin-top: 5px;
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .tipWraper {
+    font-size: 14px;
+    padding-top: 15px;
+    line-height: 22px;
+  }
+}

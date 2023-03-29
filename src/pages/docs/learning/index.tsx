@@ -1,13 +1,15 @@
 import React from 'react'
 import Layout from '@theme/Layout'
-import Translate from '@docusaurus/Translate'
+import Translate, { translate } from '@docusaurus/Translate'
+
 import { Steps } from '@site/src/components'
 
 import styles from './styles.module.css'
 
 export default function Learning() {
+  const title = translate({ message: 'Learning' })
   return (
-    <Layout title="learning" description="Learning Map">
+    <Layout title={title} description="Learning Map">
       <div className={styles.learningContent}>
         <div className={styles.title}>
           <Translate>Learning</Translate>

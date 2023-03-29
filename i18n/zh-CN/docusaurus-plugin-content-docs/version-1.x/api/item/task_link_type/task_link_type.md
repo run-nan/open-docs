@@ -1,4 +1,4 @@
-## 目录
+# 工作项关联类型
 
 - [通用说明](#通用说明)
   - [task_link_type](#task_link_type)
@@ -54,8 +54,8 @@ JSON
 
 | 参数名    | 值类型 | 说明                                                                         |
 | :-------- | :----- | :--------------------------------------------------------------------------- |
-| query     | string | graphql 查询语句，参考下方请求示例和 [调用方式](../item.md#添加item)         |
-| variables | object | graphql 查询变量，参考顶部 [task_link_type](##task_link_type) 和下方请求示例 |
+| query     | string | GraphQL 查询语句，参考下方请求示例和 [调用方式](../item.md#添加item)         |
+| variables | object | GraphQL 查询变量，参考顶部 [task_link_type](##task_link_type) 和下方请求示例 |
 
 #### 返回参数列表
 
@@ -138,8 +138,8 @@ JSON
 
 | 参数名    | 值类型 | 说明                                                                                   |
 | :-------- | :----- | :------------------------------------------------------------------------------------- |
-| query     | string | graphql 查询语句，参考下方请求示例和 [调用方式](../item.md#添加item)                   |
-| variables | object | graphql 查询变量，参考 [调用 graphql 接口](../../graphql/graphql.md#call_ones_graphql) |
+| query     | string | GraphQL 查询语句，参考下方请求示例和 [调用方式](../item.md#添加item)                   |
+| variables | object | GraphQL 查询变量，参考 [调用 GraphQL 接口](../../graphql/graphql.md#call_ones_graphql) |
 
 #### 返回参数列表
 
@@ -246,7 +246,7 @@ curl -X POST \
 
 ### 更新关联关系类型
 
-通过 graphql 更新关联关系类型
+通过 GraphQL 更新关联关系类型
 
 #### URL
 
@@ -268,8 +268,8 @@ JSON
 
 | 参数名    | 值类型 | 说明                                                                         |
 | :-------- | :----- | :--------------------------------------------------------------------------- |
-| query     | string | graphql 查询语句，参考下方请求示例和 [调用方式](../item.md#更新item)         |
-| variables | object | graphql 查询变量，参考顶部 [task_link_type](##task_link_type) 和下方请求示例 |
+| query     | string | GraphQL 查询语句，参考下方请求示例和 [调用方式](../item.md#更新item)         |
+| variables | object | GraphQL 查询变量，参考顶部 [task_link_type](##task_link_type) 和下方请求示例 |
 
 #### 返回参数列表
 

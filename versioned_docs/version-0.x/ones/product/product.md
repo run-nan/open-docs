@@ -124,7 +124,7 @@
 
 ## 查询产品详细信息
 
-[调用 graphql 接口](../graphql/graphql.md#call_ones_graphql)
+[调用 GraphQL 接口](../graphql/graphql.md#call_ones_graphql)
 
 ```graphql
 {
@@ -266,7 +266,7 @@
 
 ## 查询产品下模块列表
 
-[调用 graphql 接口](../graphql/graphql.md#call_ones_graphql)
+[调用 GraphQL 接口](../graphql/graphql.md#call_ones_graphql)
 
 ```graphql
 {

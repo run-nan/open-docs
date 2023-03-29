@@ -1,46 +1,36 @@
 import React from 'react'
-import Link from '@docusaurus/Link'
-import { features } from '../../../data'
+// import Link from '@docusaurus/Link'
+import Translate from '@docusaurus/Translate'
+import { guideCardData, abilityCardData } from '../../../data'
 import styles from './styles.module.css'
+import { GuideCard } from '../../guideCard'
+import { AbilityCard } from '../../abilityCard'
 
 export const HomePageMain = () => {
   return (
     <main className={styles.container}>
-      {features.map((data, index) => {
-        const { title, cards } = data
-        return (
-          <section className={styles.cardList} key={index}>
-            <div className={styles.cardListTitle}>{title}</div>
-            <div className={styles.cards}>
-              {cards.map((card, cardIndex) => {
-                const { label, content, url } = card
-                return Array.isArray(content) ? (
-                  <div className={styles.abilityCard} key={cardIndex}>
-                    <div className={styles.abilityCardTitle}>{label}</div>
-                    <ul className={styles.abilityCardList}>
-                      {content.map((item, contentIndex) => {
-                        const { title: itemLabel, url: itemURL } = item
-                        return (
-                          <li className={styles.label} key={contentIndex}>
-                            <Link to={itemURL} className={styles.labelLink}>
-                              {itemLabel}
-                            </Link>
-                          </li>
-                        )
-                      })}
-                    </ul>
-                  </div>
-                ) : (
-                  <Link className={styles.toolCard} to={url} key={cardIndex}>
-                    <div className={styles.toolCardLabel}>{label}</div>
-                    <div className={styles.toolCardContent}>{content}</div>
-                  </Link>
-                )
-              })}
-            </div>
+      <section className={styles.guideCardWraper}>
+        <span className={styles.sectionTitle}>
+          <Translate>Take your development to the next level</Translate>
+        </span>
+        <section className={styles.guideCardContent}>
+          {guideCardData.map((item) => {
+            return <GuideCard {...item} key={item.title}></GuideCard>
+          })}
+        </section>
+      </section>
+      <section className={styles.bgWraper}>
+        <section className={styles.abilityCardWraper}>
+          <span className={styles.sectionTitle}>
+            <Translate>Explore the abilities of ONES Open Platform</Translate>
+          </span>
+          <section className={styles.abilityCardContent}>
+            {abilityCardData.map((item) => {
+              return <AbilityCard {...item} key={item.title} />
+            })}
           </section>
-        )
-      })}
+        </section>
+      </section>
     </main>
   )
 }

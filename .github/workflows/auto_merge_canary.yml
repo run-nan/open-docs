@@ -20,7 +20,6 @@ jobs:
         run: |
             labels=$(gh api -H "Accept: application/vnd.github+json" /repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels | jq --compact-output '[.[].name]')
             echo "res=$labels" >> $GITHUB_OUTPUT
-
       - name: Check the label
         if: ${{ !contains(steps.label.outputs.res, 'canary') }}
         run: |

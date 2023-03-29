@@ -91,9 +91,9 @@
     "message": "Item",
     "description": "The label for category Item in sidebar ones"
   },
-  "sidebar.ones.category.Graphql": {
-    "message": "Graphql",
-    "description": "The label for category Graphql in sidebar ones"
+  "sidebar.ones.category.GraphQL": {
+    "message": "GraphQL",
+    "description": "The label for category GraphQL in sidebar ones"
   },
   "sidebar.ones.category.Http": {
     "message": "Http",

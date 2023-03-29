@@ -1,4 +1,4 @@
-<!-- TOC depthFrom:1 depthTo:2 withLinks:1 updateOnSave:1 orderedList:0 -->
+# User domain
 
 - [通用说明](#通用说明)
   - [用户域模型](#用户域模型)

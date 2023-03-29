@@ -9,9 +9,11 @@
 - [ ] 包含中英双语
 - [ ] 包含更新日志
 - [ ] 标注 ONES 版本要求
+- [ ] 保证示例邮箱全部使用 @ones.com 结尾
+- [ ] 保证所有的内容（比如示例数据、代码提示、注释等）都是使用英文优先
+- [ ] 文件名使用中划线 `-`
 
 ### 图片
 
 - [ ] 产品配图使用 Retina 屏幕截图，英语界面优先，并且不可出现敏感信息，如：域名、聊天、名称、地址等
-
 - [ ] 图片使用 `Image` 组件引入：[使用文档](https://docusaurus.io/zh-CN/docs/api/plugins/@docusaurus/plugin-ideal-image#usage)

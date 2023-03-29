@@ -7,23 +7,19 @@ import styles from './styles.module.css'
 
 export function HomepageHeader() {
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
+    <header className={clsx('hero hero--primary', styles.heroBanner, styles.heroHeight)}>
       <div className={clsx('container', styles.heroContainer)}>
-        <h1 className="hero__title">
-          <Translate>ONES Open Platform</Translate>
-        </h1>
-        <p className="hero__subtitle">
+        <span className={styles.heroTitle}>
+          <Translate>Customize your workspace</Translate>
+        </span>
+        <span className={styles.heroSubtitle}>
           <Translate>
-            ONES fully opens the pedestal capability to help customers and partners build an
-            enterprise digital platform and accelerate the release of products.
+            ONES provides extended development capabilities to meet customized needs.
           </Translate>
-        </p>
+        </span>
         <div className={styles.buttons}>
-          <Link
-            className={clsx('button button--secondary button--lg', styles.buttons, styles.link)}
-            to="docs/learning"
-          >
-            <Translate>Get Started</Translate> →
+          <Link className={clsx('button', styles.buttons, styles.link)} to="docs/guide/overview">
+            <Translate>Start to build</Translate>
           </Link>
         </div>
       </div>

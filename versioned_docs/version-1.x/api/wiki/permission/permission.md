@@ -1,4 +1,4 @@
-# wiki 权限
+# Wiki permission
 
 说明： ONES 系统采用了一致性的权限模型，wiki 权限模型参考 [ONES 权限模型](../permission/permission.md#权限规则)
 

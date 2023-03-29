@@ -1,5 +1,3 @@
-<!-- TOC depthTo:3 -->
-
 # 工时
 
 - [manhour](#manhour)

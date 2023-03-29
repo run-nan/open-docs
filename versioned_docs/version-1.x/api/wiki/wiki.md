@@ -1,4 +1,4 @@
-# Wiki model
+# Wiki Model
 
 ## space
 

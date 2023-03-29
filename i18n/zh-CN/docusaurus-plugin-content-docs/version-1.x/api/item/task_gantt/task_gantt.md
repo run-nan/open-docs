@@ -79,7 +79,7 @@
 
 ## 获取时间视图列表
 
-[调用 graphql 接口](../../graphql/graphql.md#call_ones_graphql)
+[调用 GraphQL 接口](../../graphql/graphql.md#call_ones_graphql)
 
 ### 查询参数
 
@@ -152,7 +152,7 @@ query LIST_TASK_GANTT_CHARTS($filter: Filter, $orderBy: OrderBy) {
 
 ## 获取时间视图中的数据
 
-[调用 graphql 接口](../../graphql/graphql.md#call_ones_graphql)
+[调用 GraphQL 接口](../../graphql/graphql.md#call_ones_graphql)
 
 ### 查询参数
 

@@ -1,6 +1,4 @@
-<!-- TOC depthTo:3 withLinks:true -->
-
-# 目录
+# Issue type
 
 - [模型](#模型)
   - [工作项类型](#工作项类型)

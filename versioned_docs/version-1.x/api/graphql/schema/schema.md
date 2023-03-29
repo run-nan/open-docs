@@ -1,4 +1,4 @@
-# Schema Types
+# Schema types
 
 <details>
   <summary><strong>Table of Contents</strong></summary>

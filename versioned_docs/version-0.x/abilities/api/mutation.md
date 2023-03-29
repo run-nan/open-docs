@@ -1,12 +1,12 @@
 # Mutation 事件劫持
 
-阅读之前最好先了解一下什么是 [Graphql Mutation](https://graphql.cn/learn/queries/) 。
+阅读之前最好先了解一下什么是 [GraphQL Mutation](https://graphql.cn/learn/queries/) 。
 
 ## 能力描述
 
-ONES 系统将许多数据都支持了使用 Graphql 操作。我们可以将每一次的 Graphql Mutation(_通过 Graphql 操作数据_) 看成是一个事件，**事件劫持 **这个能力就是可以对这些事件进行劫持，从而拓展出新的业务逻辑；
+ONES 系统将许多数据都支持了使用 GraphQL 操作。我们可以将每一次的 GraphQL Mutation(_通过 GraphQL 操作数据_) 看成是一个事件，**事件劫持 **这个能力就是可以对这些事件进行劫持，从而拓展出新的业务逻辑；
 
-能力会预先针对某些事件类型提供劫持的支持，这样插件就可以通过指定事件类型，劫持 Graphql Mutation 接口了；
+能力会预先针对某些事件类型提供劫持的支持，这样插件就可以通过指定事件类型，劫持 GraphQL Mutation 接口了；
 
 目前支持工时相关 Mutation 事件：addManhour,updateManhour。
 

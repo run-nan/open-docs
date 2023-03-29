@@ -1,4 +1,4 @@
-# ONES GraphQL 调用示例
+# ONES graphQL useage
 
 # 目录
 

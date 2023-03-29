@@ -17,7 +17,7 @@ sidebar_position: 1
 
 ## 简介
 
-- ONES Item 是 ONES 产品关于数据筛选、数据的存储的解决方案。是基于 rest、graphql 实现的后端服务框架。
+- ONES Item 是 ONES 产品关于数据筛选、数据的存储的解决方案。是基于 rest、GraphQL 实现的后端服务框架。
 - Item 的核心是类型系统（Type System），每个类型（Schema）对应一个对象实体（例如：用户实体）。
 - Item 用属性（Field）集合去描述每个类型（Schema）。
 - 在 Item 中最重要的部分是属性（Field）以及描述属性的元数据。

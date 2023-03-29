@@ -1,4 +1,4 @@
-# 状态码说明
+# HTTP status description
 
 ## 通用状态码说明
 

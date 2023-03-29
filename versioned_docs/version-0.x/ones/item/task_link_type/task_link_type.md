@@ -66,7 +66,7 @@
 
 ## 查询关联关系类型列表
 
-[调用 graphql 接口](../../graphql/graphql.md#call_ones_graphql)
+[调用 GraphQL 接口](../../graphql/graphql.md#call_ones_graphql)
 
 ### 请求体参考
 

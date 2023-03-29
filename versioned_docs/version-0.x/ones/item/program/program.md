@@ -42,7 +42,7 @@
 
 ## 获取项目集属性详细信息
 
-[调用 graphql 接口](../../graphql/graphql.md#call_ones_graphql)
+[调用 GraphQL 接口](../../graphql/graphql.md#call_ones_graphql)
 
 ### 查询参数
 
@@ -78,7 +78,7 @@ curl --location --request POST 'https://your-host-name/project/api/project/team/
 
 ## 查询项目集列表项目集详细信息
 
-[调用 graphql 接口](../../graphql/graphql.md#call_ones_graphql)
+[调用 GraphQL 接口](../../graphql/graphql.md#call_ones_graphql)
 
 ### 查询参数
 

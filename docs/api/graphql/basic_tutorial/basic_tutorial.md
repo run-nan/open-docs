@@ -1,4 +1,4 @@
-# ONES GraphQL 简易教程
+# ONES graphQL simple tutorial
 
 ## 概述
 

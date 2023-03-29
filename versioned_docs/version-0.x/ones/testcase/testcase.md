@@ -122,9 +122,9 @@
 
 ### 特殊说明：
 
-使用 graphql 查询，可以自行构建请求参数和筛选条件等等
+使用 GraphQL 查询，可以自行构建请求参数和筛选条件等等
 
-[graphql 使用方法请参考 GraphQL 文档](../graphql/graphql.md)
+[GraphQL 使用方法请参考 GraphQL 文档](../graphql/graphql.md)
 
 ---
 
@@ -150,9 +150,9 @@ JSON
 
 | 参数名 | 值类型 | 值说明           | 是否可以空 |
 | ------ | ------ | ---------------- | ---------- |
-| query  | string | graphql 请求脚本 | 否         |
+| query  | string | GraphQL 请求脚本 | 否         |
 
-#### graphql 请求脚本
+#### GraphQL 请求脚本
 
 ```
 {

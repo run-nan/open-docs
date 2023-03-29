@@ -7,6 +7,27 @@
   justify-content: center;
   text-align: center;
   overflow: hidden;
+  background: url('/homepage/banner_1920.svg') no-repeat center center,
+    linear-gradient(0deg, #e8f1ff -11.11%, #ffffff 105.81%);
+  background-size: auto;
+  box-sizing: border-box;
+}
+
+.heroBanner {
+  padding: 60px 30px;
+}
+
+.heroTitle {
+  font-weight: 700;
+  text-align: center;
+  color: var(--gray--1);
+}
+
+.heroSubtitle {
+  font-weight: 400;
+  text-align: center;
+  color: var(--gray--1);
+  padding: 20px 0 40px 0;
 }
 
 .heroContainer {
@@ -14,14 +35,102 @@
   flex-direction: column;
   margin: 0;
   padding: 0;
+  color: #16171a;
+  align-items: center;
 }
 
 .buttons.link {
-  color: #338fe5;
+  color: #ffffff;
+  background-color: var(--ifm-color-primary);
+  font-size: 16px;
+  padding: 12px 25px;
+  line-height: 24px;
+  border-radius: 3px;
 }
 
-@media screen and (max-width: 996px) {
+.buttons.link:hover {
+  background-color: var(--ifm-color-primary-hover);
+}
+
+.buttons.link:active {
+  background: var(--ifm-color-primary-dark);
+}
+
+.hero__title {
+  font-size: 16px;
+}
+
+/* width > 1260 */
+@media screen and (min-width: 1260px) {
   .heroBanner {
-    padding: 2rem;
+    background-size: auto;
+  }
+  .heroTitle {
+    font-size: 48px;
+    line-height: 60px;
+  }
+  .heroSubtitle {
+    font-size: 20px;
+    line-height: 28px;
+  }
+  .heroBanner {
+    padding: 100px 30px;
+  }
+}
+
+/* 1024 < width < 1260 */
+@media screen and (min-width: 1024px) and (max-width: 1259px) {
+  .heroBanner {
+    background: url('/homepage/banner_1260.svg') no-repeat center center,
+      linear-gradient(0deg, #e8f1ff -11.11%, #ffffff 105.81%);
+    background-size: auto;
+  }
+  .heroTitle {
+    font-size: 42px;
+    line-height: 50px;
+  }
+  .heroSubtitle {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .heroBanner {
+    padding: 80px 30px;
+  }
+}
+
+/* 768 < width < 1023 */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .heroBanner {
+    background-size: cover;
+  }
+  .heroTitle {
+    font-size: 42px;
+    line-height: 50px;
+  }
+  .heroSubtitle {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .heroBanner {
+    padding: 60px 30px;
+  }
+}
+
+/* 0 < width <= 767*/
+@media screen and (max-width: 767px) {
+  .heroBanner {
+    background-size: cover;
+    padding: 60px 20px;
+  }
+  .heroTitle {
+    font-size: 32px;
+    line-height: 40px;
+  }
+  .heroSubtitle {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .heroBanner {
+    padding: 60px 20px;
   }
 }

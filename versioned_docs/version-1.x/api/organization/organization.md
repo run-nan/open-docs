@@ -1,5 +1,3 @@
-<!-- TOC depthFrom:1 depthTo:2 orderedList:false -->
-
 # ONES Organization API
 
 - [通用说明](#通用说明)

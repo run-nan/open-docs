@@ -1,0 +1,75 @@
+name: PublicRelease
+on:
+  workflow_dispatch:
+    inputs:
+      releaseVersion:
+        description: '请输入发布版本号，例如v1.0.0'
+        required: true
+      changeLog:
+        description: '请输入更新日志'
+        required: false
+
+env:
+  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+jobs:
+  deploy:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    env:
+      ALLOWED_MEMBERS: htmlin
+    steps:
+      - name: Check Permissions
+        run: |
+          if [[ "${{github.actor}}" =~ (^|,)${{env.ALLOWED_MEMBERS}}($|,) ]];
+          then
+            echo Continue~
+          else
+            echo You are not allowed to run this workflow & exit 1
+          fi
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js v16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      # npm ci 会清空 node_modules，所以缓存需要在 npm ci 之后才运行
+      - name: Cache node_modules/.cache
+        uses: actions/cache@v3
+        with:
+          key: ${{ hashFiles('package-lock.json') }}-${{ github.run_id }}
+          path: node_modules/.cache
+          restore-keys: ${{ hashFiles('package-lock.json') }}-
+
+      - run: npm run build
+
+      - name: Build Package
+        run: |
+          tar -czf open-docs-${{ github.event.inputs.releaseVersion }}.tar.gz -C dist .
+
+      - name: Create tag
+        uses: rickstaa/action-create-tag@v1
+        with:
+          tag: ${{ github.event.inputs.releaseVersion }}
+          force_push_tag: true
+          message: |
+            ${{ github.event.inputs.changeLog }}
+
+      - name: Create release with assests
+        uses: phuonghuynh/action-ghrelease@v1.1.0
+        with:
+          tag_name: ${{ github.event.inputs.releaseVersion }}
+          name: ${{ github.event.inputs.releaseVersion }}
+          files: open-docs-${{ github.event.inputs.releaseVersion }}.tar.gz
+          body: ${{ github.event.inputs.changeLog }}

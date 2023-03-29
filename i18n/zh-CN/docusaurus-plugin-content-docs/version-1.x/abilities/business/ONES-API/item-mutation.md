@@ -12,7 +12,7 @@ sidebar_position: 5
 
 ## 概述
 
-ONES 系统中很多数据都支持使用 Graphql 操作。我们可以将每一次的 [Graphql Mutation](https://graphql.org/learn/queries/) 看成是一个事件，使用 **Mutation 事件劫持** 能力可以对这些事件进行劫持并进行一些额外的检查或操作，从而拓展出新的业务逻辑。能力会预先针对某些事件类型提供劫持支持，插件可以通过指定事件类型，劫持对应 `Graphql Mutation` 事件。
+ONES 系统中很多数据都支持使用 GraphQL 操作。我们可以将每一次的 [GraphQL Mutation](https://graphql.org/learn/queries/) 看成是一个事件，使用 **Mutation 事件劫持** 能力可以对这些事件进行劫持并进行一些额外的检查或操作，从而拓展出新的业务逻辑。能力会预先针对某些事件类型提供劫持支持，插件可以通过指定事件类型，劫持对应 `GraphQL Mutation` 事件。
 
 目前支持劫持的事件类型有：`checkManhour`（工时校验）
 

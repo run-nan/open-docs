@@ -132,7 +132,7 @@ https://your-host-name/project/api/project/team/:teamUUID/items/graphql
 
 ### 功能描述
 
-[调用 graphql 接口](../graphql/graphql.md#call_ones_graphql) , 查询产品详细信息
+[调用 GraphQL 接口](../graphql/graphql.md#call_ones_graphql) , 查询产品详细信息
 
 ### HTTP Method
 
@@ -148,7 +148,7 @@ json
 
 ### 请求参数列表
 
-可根据 graphql 查询条件变化，可用字段请参考 [#product](#product)
+可根据 GraphQL 查询条件变化，可用字段请参考 [#product](#product)
 
 ### 请求体示例
 
@@ -209,7 +209,7 @@ json
 
 ### 返回参数列表
 
-请参考 [graphql 查询 item 返回参数](../graphql/graphql.md#call_ones_graphql)
+请参考 [GraphQL 查询 item 返回参数](../graphql/graphql.md#call_ones_graphql)
 
 ---
 
@@ -237,7 +237,7 @@ json
 
 ### 请求参数列表
 
-可根据 graphql 查询条件变化，可用字段请参考 [#product](#product)
+可根据 GraphQL 查询条件变化，可用字段请参考 [#product](#product)
 
 ### 请求体参考
 
@@ -253,7 +253,7 @@ json
 
 ### 返回参数列表
 
-请参考 [graphql 添加 item 返回参数](../item/item.md#添加item)
+请参考 [GraphQL 添加 item 返回参数](../item/item.md#添加item)
 
 ### 返回值参考
 
@@ -304,7 +304,7 @@ itemkey: 产品的 key, 例如: `product-6ZpgEzkkQ7PkhGTv`
 
 #### json 参数
 
-可根据 graphql 查询条件变化，可用字段请参考 [#product](#product)
+可根据 GraphQL 查询条件变化，可用字段请参考 [#product](#product)
 
 ### 请求体参考
 
@@ -319,7 +319,7 @@ itemkey: 产品的 key, 例如: `product-6ZpgEzkkQ7PkhGTv`
 
 ### 返回参数列表
 
-请参考 [graphql 更新 item 返回参数](../item/item.md#更新item)
+请参考 [GraphQL 更新 item 返回参数](../item/item.md#更新item)
 
 ### 返回值参考
 
@@ -374,7 +374,7 @@ itemkey: 产品的 key, 例如: `product-6ZpgEzkkQ7PkhGTv`
 
 ### 返回参数列表
 
-请参考 [graphql 删除 item 返回参数](../item/item.md#删除item)
+请参考 [GraphQL 删除 item 返回参数](../item/item.md#删除item)
 
 ### 返回值参考
 
@@ -396,7 +396,7 @@ https://your-host-name/project/api/project/team/:teamUUID/items/graphql
 
 ### 功能描述
 
-[调用 graphql 接口](../graphql/graphql.md#call_ones_graphql) , 查询产品下的模块列表
+[调用 GraphQL 接口](../graphql/graphql.md#call_ones_graphql) , 查询产品下的模块列表
 
 ### HTTP Method
 
@@ -412,7 +412,7 @@ JSON
 
 ### 请求参数列表
 
-可根据 graphql 查询条件变化，可用字段请参考 [#product](#product) 和 [#product_module](#product_module)
+可根据 GraphQL 查询条件变化，可用字段请参考 [#product](#product) 和 [#product_module](#product_module)
 
 ### 请求体参考
 
@@ -454,7 +454,7 @@ JSON
 
 ### 返回参数列表
 
-请参考 [graphql 删除 item 返回参数](../item/item.md#删除item)
+请参考 [GraphQL 删除 item 返回参数](../item/item.md#删除item)
 
 ---
 
@@ -482,7 +482,7 @@ JSON
 
 ### 请求参数列表
 
-可根据 graphql 查询条件变化，可用字段请参考 [#product_module](#product_module)
+可根据 GraphQL 查询条件变化，可用字段请参考 [#product_module](#product_module)
 
 ### 请求体参考
 
@@ -499,7 +499,7 @@ JSON
 
 ### 返回参数列表
 
-请参考 [graphql 查询 item 返回参数](../graphql/graphql.md#call_ones_graphql)
+请参考 [GraphQL 查询 item 返回参数](../graphql/graphql.md#call_ones_graphql)
 
 ### 返回值参考
 
@@ -547,7 +547,7 @@ JSON
 
 ### 请求参数列表
 
-可根据 graphql 查询条件变化，可用字段请参考 [#product_module](#product_module)
+可根据 GraphQL 查询条件变化，可用字段请参考 [#product_module](#product_module)
 
 ### 请求体参考
 
@@ -564,7 +564,7 @@ JSON
 
 ### 返回参数列表
 
-请参考 [graphql 添加 item 返回参数](../item/item.md#添加item)
+请参考 [GraphQL 添加 item 返回参数](../item/item.md#添加item)
 
 ### 返回值参考
 
@@ -618,7 +618,7 @@ itemkey: 产品的 key, 例如: `product_module-6ZpgEzkkQ7PkhGTv`
 
 #### json 参数
 
-可根据 graphql 查询条件变化，可用字段请参考 [#product_module](#product_module)
+可根据 GraphQL 查询条件变化，可用字段请参考 [#product_module](#product_module)
 
 ### 请求体参考
 
@@ -632,7 +632,7 @@ itemkey: 产品的 key, 例如: `product_module-6ZpgEzkkQ7PkhGTv`
 
 ### 返回参数列表
 
-请参考 [graphql 更新 item 返回参数](../item/item.md#更新item)
+请参考 [GraphQL 更新 item 返回参数](../item/item.md#更新item)
 
 ### 返回值参考
 
@@ -684,7 +684,7 @@ itemkey: 产品的 key, 例如: `product_module-6ZpgEzkkQ7PkhGTv`
 
 ### 返回参数列表
 
-请参考 [graphql 删除 item 返回参数](../item/item.md#删除item)
+请参考 [GraphQL 删除 item 返回参数](../item/item.md#删除item)
 
 ### 返回值参考
 

@@ -1,4 +1,4 @@
-# Slot Abilities
+# Slots
 
 There are three types of front-end slots: global slots, application slots, and module slots.
 

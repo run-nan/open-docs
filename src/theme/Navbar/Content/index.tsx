@@ -9,7 +9,7 @@ import SearchBar from '@theme/SearchBar'
 import NavbarMobileSidebarToggle from '@theme/Navbar/MobileSidebar/Toggle'
 import NavbarLogo from '@theme/Navbar/Logo'
 import NavbarSearch from '@theme/Navbar/Search'
-
+import LocaleDropdownNavbarItem from '@theme/NavbarItem/LocaleDropdownNavbarItem'
 import styles from './styles.module.css'
 
 const excludeTypeInONESDevelopment = ['dropdown', 'localeDropdown']
@@ -42,7 +42,7 @@ function NavbarContentLayout({ left, right }: { left: ReactNode; right: ReactNod
 
 export default function NavbarContent(): JSX.Element {
   const mobileSidebar = useNavbarMobileSidebar()
-  let navbarItems = useNavbarItems()
+  const navbarItems = useNavbarItems()
 
   /** --------------------------------------------------------------- */
   const docusaurusContext = useDocusaurusContext()
@@ -51,35 +51,37 @@ export default function NavbarContent(): JSX.Element {
   const customFields = docusaurusContext.siteConfig.customFields
   const isProduction = Object.prototype.hasOwnProperty.call(customFields, 'PRODUCTION_ENV')
 
-  if (isProduction) {
-    navbarItems = navbarItems.filter(
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      (item) => item?.label !== 'Changelog' && !excludeTypeInRelease.includes(item.type)
-    )
-  }
+  // if (isProduction) {
+  //   navbarItems = navbarItems.filter(
+  //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //     // @ts-ignore
+  //     (item) => item?.label !== 'Changelog' && !excludeTypeInRelease.includes(item.type)
+  //   )
+  // }
 
-  navbarItems =
-    pluginId === projectDocsPluginId
-      ? navbarItems.filter(
-          (item) =>
-            excludeTypeInONESDevelopment.includes(item.type) ||
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            item.docsPluginId === projectDocsPluginId
-        )
-      : // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        navbarItems.filter((item) => item.docsPluginId !== projectDocsPluginId)
+  // navbarItems =
+  //   pluginId === projectDocsPluginId
+  //     ? navbarItems.filter(
+  //         (item) =>
+  //           excludeTypeInONESDevelopment.includes(item.type) ||
+  //           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //           // @ts-ignore
+  //           item.docsPluginId === projectDocsPluginId
+  //       )
+  //     : // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //       // @ts-ignore
+  //       navbarItems?.filter((item) => {
+  //         return item?.docsPluginId !== projectDocsPluginId
+  //       })
 
-  if (!isProduction) {
-    const targetItem = navbarItems.find((item) => item.type === 'dropdown')
-    Object.assign(targetItem, {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      label: targetItem?.items?.[pluginId === projectDocsPluginId ? 1 : 0]?.label,
-    })
-  }
+  // if (!isProduction) {
+  //   const targetItem = navbarItems.find((item) => item.type === 'dropdown')
+  //   Object.assign(targetItem, {
+  //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //     // @ts-ignore
+  //     label: targetItem?.items?.[pluginId === projectDocsPluginId ? 1 : 0]?.label,
+  //   })
+  // }
   /** --------------------------------------------------------------- */
 
   const [leftItems, rightItems] = splitNavbarItems(navbarItems)
@@ -101,7 +103,7 @@ export default function NavbarContent(): JSX.Element {
         // Ask the user to add the respective navbar items => more flexible
         <>
           <NavbarItems items={rightItems} />
-          <NavbarColorModeToggle className={styles.colorModeToggle} />
+          {/* <NavbarColorModeToggle className={styles.colorModeToggle} /> */}
           {!searchBarItem && (
             <NavbarSearch>
               <SearchBar />
