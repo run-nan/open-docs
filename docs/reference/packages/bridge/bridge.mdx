@@ -280,3 +280,59 @@ This is usually used in manually activated plugin modules, and if the slot you a
 :::
 
 - ONES requirements: `v3.11.40+`
+
+### dashboardCard
+
+Through the hook provided by the `dashboardCard` module，you can complete the related functionality of [custom card](../../../abilities/business/custom-card/custom-card.mdx)
+
+:::caution
+this module is only available in the plugin module of [custom card](../../../abilities/business/custom-card/custom-card.mdx)
+:::
+
+#### Requirements
+
+| **ONES** | **@ones-op/bridge** |
+| -------- | ------------------- |
+| `TODO`   | `TODO`              |
+
+#### useOnSubmitConfig
+
+call the `useOnSubmitConfig` method in the card configuration pop-up window (`scene` is `setting`), your callback will be triggered when the user clicks the save configuration button.
+
+##### Params
+
+| Params   | Description                                                  | Type         | Required | Default |
+| -------- | ------------------------------------------------------------ | ------------ | -------- | ------- |
+| callback | the callback function when the user clicks the submit button | `CallbackFn` | Y        |         |
+
+##### Types
+
+```tsx
+type CallbackFn = <T = any>(submit: (config: T) => void) => void | Promise<void>
+
+function useOnSubmitConfig<T>(callback: CallbackFn<T>): void
+```
+
+#### useCustomMenus
+
+call the `useCustomMenus` method in the card rendering area (`scene` is `render`), you can mount custom menus of the card
+
+<Image img={require('./images/card-menus.png')} />
+
+##### Params
+
+| Params      | Description  | Type               | Required | Default |
+| ----------- | ------------ | ------------------ | -------- | ------- |
+| customMenus | custom menus | `CustomMenuItem[]` | Y        |         |
+
+##### Types
+
+```tsx
+type CustomMenuItem = {
+  key: string; // the unique key of the menu item
+  label: string; // the title of the menu item
+  onClick: () => void ｜ Promise<void>; // the callback when the menu item is clicked
+};
+
+function useCustomMenus(customMenus: CustomMenuItem[]): void;
+```

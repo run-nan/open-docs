@@ -1,0 +1,72 @@
+import Image from '@theme/IdealImage'
+
+# Custom Card
+
+## Requirements
+
+| **ONES** |
+| :------: |
+|   ToDo   |
+
+## Overview
+
+<Image img={require('./images/classify.png')} />{' '}
+
+We support add custom cards in the dashboard for "ONES Project" - "Project component" - "Overview" - "Edit the dashboard" - "Add widget"
+
+The slots currently supported are as follows:
+
+- [ones:dashboard:card:new](#ones:dashboard:card:new)
+
+## Slots
+
+#### ones:dashboard:card:new
+
+**Module path:** ONES Project / Project component / Overview / Edit the dashboard / Add widget
+
+**Number limit: ** Declare a maximum of 10 slots in each plugin, and up to 100 slots in the system.
+
+:::caution
+
+the module must be used with the backend business capability [custom card](../../../../../../business/custom-card/custom-card.mdx)
+
+:::
+
+## Usage
+
+```yaml
+- id: ones-dashboard-card-new-jIfv
+  title: Custom Card
+  desc: Custom Card Description
+  defaultCardName: Default Card Name
+  icon: custom-card.svg
+  defaultLayout:
+    h: 4 # height
+    w: 5 # width
+  layout:
+    minH: 3 # minimum height
+    minW: 3 # minimum width
+    maxH: 6 # maximum height
+    maxW: 6 # maximum width
+  objectType: # the type of the dashboard
+    - project_component
+  moduleType: ones:dashboard:card:new
+  modules:
+    - id: ones-dashboard-card-new-C9Hv
+      title: render
+      scene: render # the render area of the card
+      entry: >-
+        modules/ones-dashboard-card-new-jIfv/ones-dashboard-card-new-C9Hv/index.html
+    - id: ones-dashboard-card-new-kjkK
+      scene: setting
+      title: setting # the setting area of the card
+      entry: >-
+        modules/ones-dashboard-card-new-jIfv/ones-dashboard-card-new-kjkK/index.html
+```
+
+### Available Hook API
+
+- [useDashboardCardInfo](../../../../../../../reference/packages/store/store.md#useDashboardCardInfo)
+- [useDashboardCardConfigInfo](../../../../../../../reference/packages/store/store.md#useDashboardCardConfigInfo)
+- [useOnSubmitConfig](../../../../../../../reference/packages/bridge/bridge.mdx#useOnSubmitConfig)
+- [useCustomMenus](../../../../../../../reference/packages/bridge/bridge.mdx#useCustomMenus)

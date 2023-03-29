@@ -284,3 +284,59 @@ type ListName =
 :::
 
 - ONES 要求：`v3.11.40+`
+
+### dashboardCard
+
+通过 `dashboardCard` 模块提供的 hook，你可以完成 [自定义卡片](../../../abilities/business/custom-card/custom-card.mdx) 的相关功能
+
+:::caution
+该模块仅在 [自定义卡片](../../../abilities/business/custom-card/custom-card.mdx) 的插件模块中可用
+:::
+
+#### 要求
+
+| **ONES** | **@ones-op/bridge** |
+| -------- | ------------------- |
+| `TODO`   | `TODO`              |
+
+#### useOnSubmitConfig
+
+在卡片配置弹窗中（`scene` 为 `setting`）调用 `useOnSubmitConfig` 方法，可以在用户点击保存配置时，触发你传入的回调。
+
+##### 参数
+
+| 参数     | 说明                             | 类型         | 必填 | 默认值 |
+| -------- | -------------------------------- | ------------ | ---- | ------ |
+| callback | 用户点击弹窗上的保存按钮时的回调 | `CallbackFn` | 是   |        |
+
+##### 类型
+
+```tsx
+type CallbackFn = <T = any>(submit: (config: T) => void) => void | Promise<void>
+
+function useOnSubmitConfig<T>(callback: CallbackFn<T>): void
+```
+
+#### useCustomMenus
+
+在卡片渲染区域中（`scene` 为 `render`）调用 `useCustomMenus` 方法，可以给卡片挂载自定义菜单
+
+<Image img={require('./images/card-menus.png')} />
+
+##### 参数
+
+| 参数        | 说明       | 类型               | 必填 | 默认值 |
+| ----------- | ---------- | ------------------ | ---- | ------ |
+| customMenus | 自定义菜单 | `CustomMenuItem[]` | 是   |        |
+
+##### 类型
+
+```tsx
+type CustomMenuItem = {
+  key: string; // 菜单的唯一标识
+  label: string; // 菜单标题
+  onClick: () => void ｜ Promise<void>; // 点击菜单的回调
+};
+
+function useCustomMenus(customMenus: CustomMenuItem[]): void;
+```

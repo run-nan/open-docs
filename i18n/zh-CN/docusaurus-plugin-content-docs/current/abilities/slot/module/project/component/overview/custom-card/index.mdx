@@ -1,0 +1,72 @@
+import Image from '@theme/IdealImage'
+
+# 自定义卡片
+
+## 要求
+
+| **ONES** |
+| :------: |
+|   ToDo   |
+
+## 概述
+
+<Image img={require('./images/classify.png')} />{' '}
+
+我们支持在「项目管理」-「项目组件」-「概览」-「编辑仪表盘」-「添加卡片」增加自定义卡片
+
+当前支持的插槽：
+
+- [ones:dashboard:card:new](#ones:dashboard:card:new)
+
+## 插槽
+
+#### ones:dashboard:card:new
+
+**模块路径：** 项目管理 / 项目组件 / 概览 / 编辑仪表盘
+
+**个数限制：** 一个插件中最多可声明 **10 ** 个该插槽，系统中最多同时存在 **100 ** 个该插槽
+
+:::caution 注意
+
+该插槽必须搭配后端业务能力 [自定义卡片](../../../../../../business/custom-card/custom-card.mdx) 使用。
+
+:::
+
+## 使用
+
+```yaml
+- id: ones-dashboard-card-new-jIfv
+  title: Custom Card # 卡片名称
+  desc: Custom Card Description # 卡片描述
+  defaultCardName: Default Card Name # 添加卡片时的默认名称
+  icon: custom-card.svg # 卡片图标
+  defaultLayout: # 卡片的默认布局
+    h: 4 # 高度
+    w: 5 # 宽度
+  layout:
+    minH: 3 # 最小高度
+    minW: 3 # 最小宽度
+    maxH: 6 # 最大高度
+    maxW: 6 # 最大宽度
+  objectType: # 卡片所属的仪表盘类型
+    - project_component # 项目概览
+  moduleType: ones:dashboard:card:new
+  modules:
+    - id: ones-dashboard-card-new-C9Hv
+      title: render
+      scene: render # 卡片渲染区域
+      entry: >-
+        modules/ones-dashboard-card-new-jIfv/ones-dashboard-card-new-C9Hv/index.html
+    - id: ones-dashboard-card-new-kjkK
+      scene: setting
+      title: setting # 卡片配置弹窗区域
+      entry: >-
+        modules/ones-dashboard-card-new-jIfv/ones-dashboard-card-new-kjkK/index.html
+```
+
+### 可访问的上下文数据
+
+- [useDashboardCardInfo](../../../../../../../reference/packages/store/store.md#useDashboardCardInfo)
+- [useDashboardCardConfigInfo](../../../../../../../reference/packages/store/store.md#useDashboardCardConfigInfo)
+- [useOnSubmitConfig](../../../../../../../reference/packages/bridge/bridge.mdx#useOnSubmitConfig)
+- [useCustomMenus](../../../../../../../reference/packages/bridge/bridge.mdx#useCustomMenus)
