@@ -15,49 +15,50 @@ import Image from '@theme/IdealImage'
 
 ## Overview
 
-开放平台提供自定义卡片的能力，支持在仪表盘中自定义一个全新的卡片类型。在当前提供的卡片类型无法满足用户需求时，可以通过自定义卡片的方式来实现。
+The open platform provides the ability to customize cards, allowing users to create a completely new type of card in the dashboard. When the currently available card types cannot meet user needs, custom cards can be created to achieve the desired functionality.
 
-目前用户可以自定义的内容包括：
+Currently, users can customize the following aspects of the card:
 
-1. 卡片的名称、描述、图标和尺寸
-2. 卡片的配置、菜单
-3. 卡片展示的内容
+1. The card's name, description, icon, and size
+2. The card's configuration and menu
+3. The content displayed on the card
 
-目前支持添加自定义卡片类型的位置包括：
+Currently, custom card types can be added to the following locations:
 
-1. 我的工作台-仪表盘
-2. 项目概览
+1. My Workspace - dashboard
+
+2. Project - project_component
 
 #### Performance
 
-插件启用之后，在编辑仪表盘时，点击添加卡片可以看到新增的自定义卡片类型:
+After the plugin is enabled, when editing a dashboard, users can see the newly added custom card type by clicking "Add widget":
 
 <Image img={require('./images/classify.png')} />
 
-自定义卡片的配置表单:
+The configuration form for the custom card:
 
 <Image img={require('./images/setting.png')} />
 
-自定义卡片的菜单中显示声明的菜单项:
+The declared menu items displayed in the custom card's menu:
 
 <Image img={require('./images/menus.png')} />
 
-自定义卡片的展示效果:
+The display effect of the custom card:
 
 <Image img={require('./images/render.png')} />
 
 ## Usage
 
-### 添加模块
+### Adding a Module
 
-1. 执行`npx op add module`命令，添加`ones:dashboard:card:new`类型的模块
-2. 执行`npx op add sub-module` 命令，在刚刚添加的`ones:dashboard:card:new` 模块下添加子模块
-3. 在 `/config/plugin.yaml` 中对模块进行手动配置
+1. Execute the command npx op add module to add a module of type ones:dashboard:card:new.
+2. Execute the command npx op add sub-module to add a sub-module under the ones:dashboard:card:new module that was just added.
+3. Manually configure the module in `/config/plugin.yaml`.
 
-下面是示例配置，一个自定义卡片模块中包含两个子模块
+The following is an example configuration where a custom card module contains two sub-modules:
 
-- 组件卡片：scene 为 render，用来渲染自定义卡片内容，必须添加
-- 配置弹窗：scene 为 setting ，用来渲染自定义卡片配置弹窗的表单内容，如果组件不支持配置，可以不添加
+- Component Card: the scene is "render" used to render the content of the custom card, this is required
+- Configuration Dialog: the scene is "setting" used to render the form content of the custom card's configuration dialog, this can be omitted if the component does not support configuration.
 
 ```yaml title="plugin.yaml"
 service:
@@ -65,21 +66,21 @@ service:
   ...
 modules:
   - id: ones-dashboard-card-new-jIfq
-    title: Custom Card # 卡片名称
-    desc: Custom Card Description # 卡片描述
-    defaultCardName: Default Card Name # 添加卡片时的默认名称
-    icon: custom-card.svg # 卡片图标
-    defaultLayout: # 卡片的默认布局
-      h: 4 # 高度
-      w: 5 # 宽度
+    title: Custom Card                          # Card Name
+    desc: Custom Card Description               # Card Description
+    defaultCardName: Default Card Name          # Default name when adding the card
+    icon: custom-card.svg                       # Card icon
+    defaultLayout:                              # Default layout of the card
+      h: 4                                      # Height
+      w: 5                                      # Width
     layout:
-      minH: 3 # 最小高度
-      minW: 3 # 最小宽度
-      maxH: 6 # 最大高度
-      maxW: 6 # 最大宽度
-    objectType: # 卡片所属的仪表盘类型
-      - project_component # 项目概览
-      - dashboard # 我的工作台
+      minH: 3                                   # Minimum height
+      minW: 3                                   # Minimum width
+      maxH: 6                                   # Maximum height
+      maxW: 6                                   # Maximum width
+    objectType:                                 # The range of card types that can be used
+      - project_component                       # Project Overview
+      - dashboard                               # My Workspace
     moduleType: ones:dashboard:card:new
     modules:
       - id: ones-dashboard-card-new-C9Hs
@@ -94,22 +95,22 @@ modules:
           modules/ones-dashboard-card-new-jIfv/ones-dashboard-card-new-kjkK/index.html
 ```
 
-#### 支持的配置项
+#### Supported configuration items
 
-| 配置项          | 说明                                                                                           |
-| :-------------- | :--------------------------------------------------------------------------------------------- |
-| title           | 自定义卡片类型的名称                                                                           |
-| desc            | 自定义卡片的描述                                                                               |
-| defaultCardName | 自定义卡片的默认名称                                                                           |
-| icon            | 自定义卡片图标 url                                                                             |
-| defaultLayout   | 自定义卡片的默认尺寸，默认尺寸需要在限制尺寸之内                                               |
-| layout          | 自定义卡片的最小最大尺寸限制，不配置时默认不限制                                               |
-| objectType      | 自定义卡片可应用的仪表盘类型，目前支持 `dashboard`（仪表盘）和 `project_component`（项目概览） |
+| Configuration Item | Description                                                                                                                                        |
+| :----------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
+| title              | The name of the custom card type                                                                                                                   |
+| desc               | The description of the custom card                                                                                                                 |
+| defaultCardName    | The default name of the custom card                                                                                                                |
+| icon               | The URL of the custom card icon                                                                                                                    |
+| defaultLayout      | The default size of the custom card, which must be within the size limits                                                                          |
+| layout             | The minimum and maximum size limits of the custom card. If not configured, there is no limit.                                                      |
+| objectType         | The dashboard types that the custom card can be applied to. Currently supports `dashboard` (dashboard) and `project_component` (project overview). |
 
-### 添加能力
+### Adding Ability
 
-1. 执行`npx op add ability`命令，添加`custom-card@1.0.0`类型的能力
-2. 在 `/config/plugin.yaml` 中对能力进行手动配置，将能力关联上模块
+1. Run the `npx op add ability` command to add the `custom-card@1.0.0` type of ability.
+2. Manually configure the ability in `/config/plugin.yaml` and associate it with modules.
 
 ```yaml title="plugin.yaml"
 service:
@@ -117,21 +118,21 @@ service:
   ...
 modules:
   - id: ones-dashboard-card-new-jIfq
-    title: Custom Card # 卡片名称
-    desc: Custom Card Description # 卡片描述
-    defaultCardName: Default Card Name # 添加卡片时的默认名称
-    icon: custom-card.svg # 卡片图标
-    defaultLayout: # 卡片的默认布局
-      h: 4 # 高度
-      w: 5 # 宽度
+    title: Custom Card                  # Name of the card
+    desc: Custom Card Description       # Description of the card
+    defaultCardName: Default Card Name  # Default name of the card when adding
+    icon: custom-card.svg               # Icon of the card
+    defaultLayout:                      # Default layout of the card
+      h: 4                              # Height
+      w: 5                              # Width
     layout:
-      minH: 3 # 最小高度
-      minW: 3 # 最小宽度
-      maxH: 6 # 最大高度
-      maxW: 6 # 最大宽度
-    objectType: # 卡片所属的仪表盘类型
-      - project_component # 项目概览
-      - dashboard # 我的工作台
+      minH: 3                           # Minimum height
+      minW: 3                           # Minimum width
+      maxH: 6                           # Maximum height
+      maxW: 6                           # Maximum width
+    objectType:                         # The range of card types that can be used
+      - project_component               # Project overview
+      - dashboard                       # My workspace
     moduleType: ones:dashboard:card:new
     modules:
       - id: ones-dashboard-card-new-C9Hs
@@ -150,16 +151,16 @@ abilities:
     version: 1.0.0
     abilityType: CustomCard
     function:
-      cardDataFunc: getCardData   # 获取卡片数据的函数名
+      cardDataFunc: getCardData                     # Name of the function to retrieve card data
     relateModule:
-      cardModule: ones-dashboard-card-new-jIfq # 需要手动填写，必须填写moduleType为ones-dashboard-card-new的模块ID
+      cardModule: ones-dashboard-card-new-jIfq      # Must be manually filled in with the module ID of moduleType ones-dashboard-card-new
 ```
 
-### 编写处理函数
+### Writing the processing function
 
-在添加能力之后，会生成`/backend/src/custom-card.js`文件，其中包含一个获取自定义卡片数据的函数，需要在其中编写卡片数据的获取逻辑。
+After adding the ability, a `/backend/src/custom-card.js` file will be generated, which contains a function to get the custom card data, in which you need to write the logic to get the card data.
 
-示例函数如下：
+The example function is as follows:
 
 ```ts
 import { Logger } from '@ones-op/node-logger'
@@ -187,29 +188,29 @@ export async function getCardData(request: PluginRequest<CardRequest>): Promise<
 }
 ```
 
-#### 入参介绍
+#### Reference Introduction
 
-| 参数               | 说明                                                               | 类型   |
-| :----------------- | :----------------------------------------------------------------- | :----- |
-| object_type        | 卡片所属的仪表盘类型，目前支持的有`dashboard`和`project_component` | string |
-| language           | 本次请求的前端语言                                                 | string |
-| project_uuid       | 项目唯一标识符,在卡片类型为`project_component`时存在               | string |
-| card_custom_config | 卡片自定义配置，json 格式                                          | any    |
+| Parameters         | Description                                                                                            | Type   |
+| :----------------- | :----------------------------------------------------------------------------------------------------- | :----- |
+| object_type        | The type of dashboard the card belongs to, currently supported are `dashboard` and `project_component` | string |
+| language           | The front-end language of this request                                                                 | string |
+| project_uuid       | The unique identifier for the project, present when the card type is `project_component`               | string |
+| card_custom_config | Card custom configuration, in json format                                                              | any    |
 
-#### 返回格式
+#### Response
 
 ```js
 {
     body: {
-      code: 200,   //本次请求的响应码，非200为请求错误
-      body: cardData,    // 卡片数据，会直接返回给前端
+      code: 200,   //Response code of this request, non-200 is request error
+      body: cardData,    // Card data that will be returned directly to the front-end
     }
 }
 ```
 
-### 自定义卡片内容
+### Customize card content
 
-在`scene`为`render`的子模块中，通过[useDashboardCardInfo](../../../reference/packages/store/store.md#usedashboardcardinfo)获取卡片数据，进行卡片内容的渲染。
+In the submodule where `scene` is `render`, pass [useDashboardCardInfo](../../../reference/packages/store/store.md#usedashboardcardinfo) to get the card data for rendering the card content.
 
 ```tsx
 import React from 'react'
@@ -232,9 +233,9 @@ ReactDOM.render(
 )
 ```
 
-### 自定义卡片的菜单
+### Custom card menu
 
-在`scene`为`render`的子模块中，通过[useCustomMenus](../../../reference/packages/bridge/bridge.mdx#usecustommenus)挂载自定义菜单。
+In the submodule where `scene` is `render`, the submodule with [useCustomMenus](../../../reference/packages/bridge/bridge.mdx#usecustommenus) to mount the custom menus.
 
 ```tsx
 import React from 'react'
@@ -273,10 +274,10 @@ ReactDOM.render(
 )
 ```
 
-### 自定义卡片配置弹窗
+### Custom card configuration pop-ups
 
-在`scene`为`setting`的子模块中，通过[useDashboardCardConfigInfo](../../../reference/packages/store/store.md#usedashboardcardconfiginfo)获取卡片上下文，
-通过[useOnSubmitConfig](../../../reference/packages/bridge/bridge.mdx#useonsubmitconfig) 监听提交配置事件，进行卡片配置弹窗的渲染。
+In the submodule where `scene` is `setting`, pass [useDashboardCardConfigInfo](../../../reference/packages/store/store.md#usedashboardcardconfiginfo) to get the card context.
+Get the card context via [useOnSubmitConfig](../../../reference/packages/bridge/bridge.mdx#useonsubmitconfig) to listen to the submit configuration event and render the card configuration popup.
 
 ```tsx
 import React from 'react'
@@ -330,9 +331,9 @@ ReactDOM.render(
 )
 ```
 
-## Usage
+## Q&A
 
-#### 自定义卡片如何实现多语言？
+#### How to implement multi-language for custom cards?
 
-- 可配置部分实现多语言，如卡片名称、卡片描述、卡片默认名称等，可参考[插件多语言支持](../../../guide/abilities/multilingual.mdx)进行实现
-- 卡片展示内容多语言，需要在插件开发者自己实现，处理函数的入参中提供了本次请求的语言。
+- Configurable sections to implement multilingual, such as card name, card description, card default name, etc., can be found in [Plugin Multilanguage Support](../../../guide/abilities/multilingual.mdx) for implementation
+- Card display content multilingual, need to be implemented in the plug-in developers themselves, processing function in the input parameters to provide the language of this request.
