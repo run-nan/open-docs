@@ -281,6 +281,24 @@ This is usually used in manually activated plugin modules, and if the slot you a
 
 - ONES requirements: `v3.11.40+`
 
+#### onDestroy
+
+Called immediately before ONES destroys the plugin.
+
+- ONES requirements: `v3.11.40+`
+
+##### Params
+
+| Params   | Description                                                   | Type         | Required | Default |
+| -------- | ------------------------------------------------------------- | ------------ | -------- | ------- |
+| callback | the callback function when the ONES try to destroy the plugin | `CallbackFn` | Y        |         |
+
+##### Types
+
+```tsx
+function onDestroy(callback: () => void): void
+```
+
 ### dashboardCard
 
 Through the hook provided by the `dashboardCard` module，you can complete the related functionality of [custom card](../../../abilities/business/custom-card/custom-card.mdx)
@@ -337,3 +355,13 @@ type CustomMenuItem = {
 function useCustomMenus(customMenus: CustomMenuItem[]): void;
 
 ```
+
+### OPProvider
+
+The `OPProvider` will unmount its children component when the plugin calls the function [`lifecycle.destroy`](./#destroy). It's useful when the plugin wants to delay destroying the component by config [`destroyDelayTime`](../../config/plugin.yaml#destroydelaytime) to true in the YAML.
+
+#### Requirements
+
+| **ONES**    | **@ones-op/bridge** |
+| ----------- | ------------------- |
+| `v3.13.24+` | `v0.3.0+`           |

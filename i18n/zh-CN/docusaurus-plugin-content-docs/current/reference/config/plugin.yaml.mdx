@@ -457,6 +457,30 @@ modules:
     permisson: my-example-effective-permission-key
 ```
 
+### destroyDelayTime
+
+- **类型：** `boolean`
+
+- **ONES 要求:** `v3.13.35+`
+
+该配置用于控制模块销毁的延迟时间, 仅适用于 [`manual`](./plugin.yaml#manual) 配置为 true 的插件。
+
+:::caution
+
+如果您需要延迟销毁模块，您的插件将在 ONES 中激活一段时间。该插件仍然可以从 ONES 接收消息或将消息发送到 ONES（例如，`op-store` 和 `op-event`）。您可以卸载插件的根组件以取消监听来自 ONES 的消息，除了 `@ones-design` 的 provider，其可以用来弹出 toast 消息。
+
+:::
+
+### enableMemoryRouter
+
+- **类型：** `boolean`
+
+- **ONES 要求:** `v3.13.35+`
+
+在这种路由器模式下，您可以在插件中使用其他第三方路由库。
+
+此路由模式为插件创建了一个新的 `location` 和 `history`。插件获取的 URL 是模块的入口，并作为查询参数保存在浏览器地址栏中。
+
 ### modules {#subModule}
 
 - **类型：**[`modules`](#modules)

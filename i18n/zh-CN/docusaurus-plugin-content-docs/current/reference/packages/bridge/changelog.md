@@ -4,6 +4,11 @@
 
 ## 0.x.0 (2023-03-xx)
 
+- **OpBridge:** 🌟 新增 `lifecycle.onDestroy` 用来监听插件卸载的生命周期
+- **OpBridge:** 🌟 新增 `OPProvider` provider，插件调用 `lifecycle.destroy` 时，卸载子组件
+
+## 0.x.0 (2023-03-xx)
+
 - **OpBridge:** 🌟 新增 `lifecycle` 实例用于操作与监听当前插件的部分生命周期
 
 ## 0.2.0 (2023-02-07)

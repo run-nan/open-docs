@@ -4,6 +4,11 @@ All notable changes to this package will be documented in this file.
 
 ## 0.x.0 (2023-03-xx)
 
+- **OpBridge:** 🌟 Added the method `lifecycle.onDestroy` to listen to the lifecycle of plugin destroy
+- **OpBridge:** 🌟 Added the provider `OPProvider` to unmount its children component when the plugin calls the `lifecycle.destroy`
+
+## 0.x.0 (2023-03-xx)
+
 - **OpBridge:** 🌟 Added the method `lifecycle` to operate and listen to part of the current plugin's lifecycle
 
 ## 0.2.0 (2023-02-07)
