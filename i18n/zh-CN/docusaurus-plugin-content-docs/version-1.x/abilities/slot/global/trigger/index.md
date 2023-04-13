@@ -51,12 +51,57 @@ modules:
   配置本模块需要处理的[触发事件](./list)
 
   :::warning
-  代码里 `useAction` 用到的类型必须与 `plugin.yaml` 相应模块下的 `actions` 声明保持一致，否则将会导致系统无法调起插件，或者系统操作（Action）永久陷入 pending 状态。
+  当插件被激活时，你必须使用下述 [可访问的上下文数据](#context) 中的 `useVariablesInfo` 或 `useAction` 方法，获取 `next` 或者 `cancel` 函数并调用，否则系统操作（Action）将永久陷入 pending 状态。
   :::
 
-### 可访问的上下文数据
+### 可访问的上下文数据{#context}
 
-- [useAction](../../../../reference/packages/store/store.md#useAction)
+#### [useVariablesInfo](../../../../reference/packages/store/store.md#useVariablesInfo)
+
+- ONES 要求：`v3.13.43+`
+
+与 `useAction` 异同点：
+
+- 直接返回数据，不再需要通过回调对方式获取。
+- 没有参数，通过范型推断返回值。
+- 此方法拿到的 `next` 与 `cancel` 方法并没有绑定插件销毁操作，而是由插件通过调用 `lifecycle.destroy` 方法自行控制模块销毁时机。
+- 新增 `actionType` 返回，用于判断是什么操作（Action）触发了当前插件模块。
+
+:::warning
+当插件调用 `next` 或者 `cancel` 后，需要尽可能快的时间内调用 `lifecycle.destroy` 方法将自身销毁，避免用户再次触发时无法重新激活插件。
+:::
+
+```tsx
+import { useVariablesInfo } from '@ones-op/store'
+import { lifecycle } from '@ones-op/bridge'
+function TriggerPlugin() {
+  const [visible, setVisible] = useState(true)
+  const moduleData = useVariablesInfo<'ones:global:trigger'>()
+  const { sessionID, next, cancel, data: payload, actionType } = moduleData
+  const handleOk = useCallback(() => {
+    setVisible(false)
+    next?.(payload)
+    lifecycle.destroy()
+  }, [next, payload])
+  const handleCancel = useCallback(() => {
+    setVisible(false)
+    toast.warning('cancel')
+    setTimeout(() => {
+      cancel?.()
+      lifecycle.destroy()
+    }, 1100)
+  }, [cancel])
+  return (
+    <Modal visible={visible} title="Confirm Data" onOk={handleOk} onCancel={handleCancel}>
+      <p>sessionID: {sessionID}</p>
+      <p>data: </p>
+      <p>{JSON.stringify(payload?.data)}</p>
+    </Modal>
+  )
+}
+```
+
+#### [useAction](../../../../reference/packages/store/store.md#useAction)（已废弃）
 
 ```tsx
 import { useAction } from '@ones-op/store'

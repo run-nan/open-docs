@@ -58,7 +58,7 @@ modules:
 
 #### [useVariablesInfo](../../../../reference/packages/store/store.md#useVariablesInfo)
 
-- ONES 要求：`v3.13.x+`
+- ONES 要求：`v3.13.43+`
 
 与 `useAction` 异同点：
 
@@ -69,8 +69,6 @@ modules:
 
 :::warning
 当插件调用 `next` 或者 `cancel` 后，需要尽可能快的时间内调用 `lifecycle.destroy` 方法将自身销毁，避免用户再次触发时无法重新激活插件。
-
-如果没办法保证在用户再次触发时将当前模块销毁，你应该考虑结合 [`useModuleInstanceInfo`](../../../../reference/packages/store/store.md#useModuleInstanceInfo) 使用。
 :::
 
 ```tsx
@@ -160,9 +158,3 @@ function TriggerPlugin() {
 开放平台将会按插件管理页列表顺序串行激活 `module` ，每个 `module` 都将拿到 `action` 的原始数据，所有 `module` 处理完后，使用 lodash 的 [`merge`](https://lodash.com/docs/#merge) 函数合并处理结果并返回给 ONES 系统。
 
 我们强烈不建议你多个模块或插件同时使用同一个 `action`，因为这将会受限于上述逻辑，无法在某个插件内删除特定数据，修改数据属性值也将会受限于插件顺序（数据属性路径相同时，后者将会覆盖前者）。
-
-<h3>当插件还未执行 lifecycle.destroy，用户再次触发了相应操作时，插件模块无法重新激活？</h3>
-
-目前开放平台并不支持同一个模块同时运行多个实例，如果插件模块未销毁，再次被触发（激活）时，插件模块并不会重新创建新实例走 `mount` 流程，而是会对旧有实例走 `update` 流程（数据将会更新），你可以在插件内结合 [`useModuleInstanceInfo`](../../../../reference/packages/store/store.md#useModuleInstanceInfo) 返回的 `invokeAgainCount` 判断是否重新执行 `mount` 逻辑（比如将此值设为组件的 `key`）。
-
-未来我们将会进一步优化此类异步销毁的场景，因此如果非有必要，建议你先采取同步的方式销毁实例（即在 `next` 与 `cancel` 方法执行完后立即执行 `lifecycle.destroy` 方法）。

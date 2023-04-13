@@ -1,4 +1,6 @@
 import Image from '@theme/IdealImage'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
 # Wiki collaborative page
 
@@ -151,10 +153,33 @@ function App() {
 
 Editable interface
 
+<Tabs>
+
+<TabItem value='latest' label="Latest">
+
+```tsx
+import { lifecycle } from '@ones-op/bridge'
+function App() {
+  const document = useDocumentInfo<unknown, boolean>()
+  const cancel = useCallback(() => {
+    if (document.toolbarState.customData) {
+      document.destroy()
+    } else {
+      // close toolbar
+      lifecycle.destroy()
+    }
+  }, [document])
+  return <Modal title="Plugin development" onCancel={cancel} />
+}
+```
+
+</TabItem>
+
+<TabItem value='ONES v3.11.40-' label="ONES v3.11.40-">
+
 ```tsx
 function App() {
   const document = useDocumentInfo<unknown, boolean>()
-
   const cancel = useCallback(() => {
     if (document.toolbarState.customData) {
       document.destroy()
@@ -166,10 +191,13 @@ function App() {
       })
     }
   }, [document])
-
   return <Modal title="Plugin development" onCancel={cancel} />
 }
 ```
+
+</TabItem>
+
+</Tabs>
 
 ### Save The Data
 
@@ -216,6 +244,41 @@ document.saveData(
 
 :::
 
+<Tabs>
+
+<TabItem value='latest' label="Latest">
+
+```ts
+import { lifecycle } from '@ones-op/bridge'
+const document = useDocumentInfo()
+document
+  .uploadResource(File /** the image file that needs to be exported  */, 'test.svg'), () => {})
+  .then((resourceName) => {
+    document.saveData(
+      // the data that saves to the document
+      {
+        data: value,
+        // Do not pass a custom value to the field `resources`, otherwise it will be treated as a resource ID.
+        resources: [resourceId]
+      },
+      {
+        exportSpec: [
+          {
+            type: 'image',
+            data: resourceName,
+          },
+        ],
+      }
+    )
+    // close toolbar
+    lifecycle.destroy()
+  })
+```
+
+</TabItem>
+
+<TabItem value='ONES v3.11.40-' label="ONES v3.11.40-">
+
 ```ts
 const document = useDocumentInfo()
 
@@ -245,6 +308,10 @@ document
     })
   })
 ```
+
+</TabItem>
+
+</Tabs>
 
 ### Plugin Runtime Status
 

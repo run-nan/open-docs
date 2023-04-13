@@ -159,8 +159,8 @@ modules:
 
 进入 `web` 目录，通过以下命令安装 `@ones-op/store` 依赖：
 
-```
-npm i @ones-op/store
+```bash npm2yarn
+npm install @ones-op/store @ones-op/bridge
 ```
 
 ### 第三步：自定义快捷操作按钮行为
@@ -169,7 +169,7 @@ npm i @ones-op/store
 
 :::caution 注意
 
-执行完自定义快捷操作按钮逻辑后，都必须调用 `destroyCurrentModule()` 方法销毁插槽。
+执行完自定义快捷操作按钮逻辑后，都必须调用 `lifecycle.destroy()` 方法销毁插槽。
 
 :::
 
@@ -179,7 +179,8 @@ npm i @ones-op/store
 import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import { ConfigProvider, Modal } from '@ones-design/core'
-import { useTaskInfo, destroyCurrentModule } from '@ones-op/store'
+import { lifecycle } from '@ones-op/bridge'
+import { useTaskInfo } from '@ones-op/store'
 import './index.css'
 
 function App() {
@@ -191,11 +192,11 @@ function App() {
       <Modal
         onCancel={function noRefCheck() {
           // 取消时，销毁弹窗
-          destroyCurrentModule()
+          lifecycle.destroy()
         }}
         onOk={function noRefCheck() {
           // 点击确定，销毁弹窗
-          destroyCurrentModule()
+          lifecycle.destroy()
         }}
         title="自定义快捷操作"
         closable
@@ -218,11 +219,16 @@ ReactDOM.render(
 
 #### 2.无界面纯逻辑类型
 
+:::tip
+如果你期望在插件被激活期间，仍然能响应用户的再次点击激活，你应该考虑结合 [`useModuleInstanceInfo`](../../../reference/packages/store/store.md#useModuleInstanceInfo) 来实现。
+:::
+
 ```tsx
   import React, { useEffect } from 'react'
   import ReactDOM from 'react-dom'
   import { ConfigProvider } from '@ones-design/core'
-  import { useTaskInfo, destroyCurrentModule } from '@ones-op/store'
+  import { lifecycle } from '@ones-op/bridge'
+  import { useTaskInfo } from '@ones-op/store'
   import './index.css'
 
   function App() {
@@ -233,7 +239,7 @@ ReactDOM.render(
       // 执行相关操作逻辑
       ...
       // 最后销毁该插槽，否则无法再次触发
-      destroyCurrentModule()
+      lifecycle.destroy()
     })
 
     return <></>

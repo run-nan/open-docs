@@ -1,4 +1,6 @@
 import Image from '@theme/IdealImage'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
 # Wiki 协同页面
 
@@ -149,6 +151,30 @@ function App() {
 
 编辑界面
 
+<Tabs>
+
+<TabItem value='latest' label="最新">
+
+```tsx
+import { lifecycle } from '@ones-op/bridge'
+function App() {
+  const document = useDocumentInfo<unknown, boolean>()
+  const cancel = useCallback(() => {
+    if (document.toolbarState.customData) {
+      document.destroy()
+    } else {
+      // 关闭 toolbar
+      lifecycle.destroy()
+    }
+  }, [document])
+  return <Modal title="插件开发" onCancel={cancel} />
+}
+```
+
+</TabItem>
+
+<TabItem value='ONES v3.11.40-' label="ONES v3.11.40-">
+
 ```tsx
 function App() {
   const document = useDocumentInfo<unknown, boolean>()
@@ -168,6 +194,10 @@ function App() {
   return <Modal title="插件开发" onCancel={cancel} />
 }
 ```
+
+</TabItem>
+
+</Tabs>
 
 ### 保存数据
 
@@ -211,6 +241,41 @@ document.saveData(
 
 :::
 
+<Tabs>
+
+<TabItem value='latest' label="最新">
+
+```ts
+import { lifecycle } from '@ones-op/bridge'
+const document = useDocumentInfo()
+document
+  .uploadResource(File /** 需要导出的图片文件  */, 'test.svg'), () => {})
+  .then((resourceName) => {
+    document.saveData(
+      // 需要保存到文档中的数据
+      {
+        data: value,
+        // 请勿将自定义的值传递给字段`resources`，否则会被当作资源 ID 处理。
+        resources: [resourceId]
+      },
+      {
+        exportSpec: [
+          {
+            type: 'image',
+            data: resourceName,
+          },
+        ],
+      }
+    )
+    // 关闭 toolbar
+    lifecycle.destroy()
+  })
+```
+
+</TabItem>
+
+<TabItem value='ONES v3.11.40-' label="ONES v3.11.40-">
+
 ```ts
 const document = useDocumentInfo()
 
@@ -240,6 +305,10 @@ document
     })
   })
 ```
+
+</TabItem>
+
+</Tabs>
 
 ### 插件运行状态
 

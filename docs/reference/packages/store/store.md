@@ -695,7 +695,7 @@ interface WikiSpaceInfoType {
 
 Get the non-standard temporary data passed by the current slot. You can get the type inference of the data passed by the current slot by specifying the paradigm.
 
-- Added in: `v0.x.x+`
+- Added in: `v0.9.0+`
 
 #### Returns
 
@@ -725,9 +725,9 @@ type TriggerActionMap = {
 
 Get information about the current plugin module instance.
 
-- Added in: `v0.x.x+`
-- ONES Requirement: `v3.13.xx+`
-- Module restrictions: `'ones:global:trigger' | 'ones:global:modal'`
+- Added in: `v0.9.0+`
+- ONES Requirement: `v3.13.43+`
+- Module restrictions: `'ones:global:modal'`
 
 :::caution
 Currently only available for some modules that require manual activation mode settings.

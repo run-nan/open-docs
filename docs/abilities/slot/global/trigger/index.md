@@ -58,7 +58,7 @@ modules:
 
 #### [useVariablesInfo](../../../../reference/packages/store/store.md#useVariablesInfo)
 
-- ONES Requirement: `v3.13.x+`
+- ONES Requirement: `v3.13.43+`
 
 Similarities and differences with `useAction`.
 
@@ -69,8 +69,6 @@ Similarities and differences with `useAction`.
 
 :::warning
 When the plugin calls `next` or `cancel`, it needs to call the `lifecycle.destroy` method to destroy itself as soon as possible, so that the user can't reactivate the plugin when it is triggered again.
-
-If there is no way to guarantee that the current module will be destroyed when the user triggers it again, you should consider combining [`useModuleInstanceInfo`](../../../../reference/packages/store/store.md#useModuleInstanceInfo).
 :::
 
 ```tsx
@@ -164,9 +162,3 @@ from the `lodash` and return to the system.
 We strongly do not recommend that you use the same `action` for multiple modules or plugins at the same time, because of
 the reason described above, and you cannot delete specific data in a plugin, and modifying attributes of the data ​​will
 also be limited by the order of plugins (For the same attribute in the data, the former is overridden by the latter).
-
-<h3>When the plugin has not yet executed lifecycle.destroy and the user triggers the corresponding action again, the plugin module cannot be reactivated? </h3>
-
-Currently the Open Platform does not support multiple instances of the same module running at the same time. If the plugin module is not destroyed, when it is triggered (activated) again, the plugin module will not recreate a new instance and go through the `mount` process, but will go through the `update` process for the old instance (the data will be updated), you can combine [`useModuleInstanceInfo`](../../../../reference/packages/store/store.md#useModuleInstanceInfo) with the `invokeAgainCount` returned to determine whether to re-execute the `mount` logic (e.g. by setting this value to the component's `key`).
-
-We will be further optimizing this asynchronous destruction scenario in the future, so if not necessary, it is recommended that you first destroy the instance synchronously (i.e. execute the `lifecycle.destroy` method immediately after the `next` and `cancel` methods are executed).

@@ -51,12 +51,57 @@ modules:
   Configure the [trigger event](./list.md) this module needs to be handle.
 
   :::warning
-  The type used in `useAction` must be consistent with the `actions` declaration in the corresponding module of `plugin.yaml`, otherwise the plugin cannot be called up or the Action is permanently stuck in pending state.
+  When the plugin is activated, you must use the `useVariablesInfo` or `useAction` method in [accessible context data](#context) below to get the `next` or `cancel` function and call it, otherwise the system action (Action) will be permanently in the pending state.
   :::
 
-### Available Hook API
+### Available Hook API {#context}
 
-- [useAction](../../../../reference/packages/store/store.md#useAction)
+#### [useVariablesInfo](../../../../reference/packages/store/store.md#useVariablesInfo)
+
+- ONES Requirement: `v3.13.43+`
+
+Similarities and differences with `useAction`.
+
+- Return data directly, no longer need to get it by way of callback pairs.
+- No parameters, return value is inferred by paradigm.
+- The `next` and `cancel` methods of this method do not bind to the plugin destruction operation, but let the plugin control the module destruction timing by calling the `lifecycle.destroy` method.
+- A new `actionType` return is added to determine what Action triggered the current plugin module.
+
+:::warning
+When the plugin calls `next` or `cancel`, it needs to call the `lifecycle.destroy` method to destroy itself as soon as possible, so that the user can't reactivate the plugin when it is triggered again.
+:::
+
+```tsx
+import { useVariablesInfo } from '@ones-op/store'
+import { lifecycle } from '@ones-op/bridge'
+function TriggerPlugin() {
+  const [visible, setVisible] = useState(true)
+  const moduleData = useVariablesInfo<'ones:global:trigger'>()
+  const { sessionID, next, cancel, data: payload, actionType } = moduleData
+  const handleOk = useCallback(() => {
+    setVisible(false)
+    next?.(payload)
+    lifecycle.destroy()
+  }, [next, payload])
+  const handleCancel = useCallback(() => {
+    setVisible(false)
+    toast.warning('cancel')
+    setTimeout(() => {
+      cancel?.()
+      lifecycle.destroy()
+    }, 1100)
+  }, [cancel])
+  return (
+    <Modal visible={visible} title="Confirm Data" onOk={handleOk} onCancel={handleCancel}>
+      <p>sessionID: {sessionID}</p>
+      <p>data: </p>
+      <p>{JSON.stringify(payload?.data)}</p>
+    </Modal>
+  )
+}
+```
+
+#### [useAction](../../../../reference/packages/store/store.md#useAction) (Deprecated)
 
 ```tsx
 import { useAction } from '@ones-op/store'

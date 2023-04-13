@@ -705,7 +705,7 @@ interface WikiSpaceInfoType {
 
 获取当前插槽传递过来的非标准临时数据，你可以通过指定范型获得当前插槽传递数据的类型推断。
 
-- 可用：`v0.x.x+`
+- 可用：`v0.9.0+`
 
 #### 返回
 
@@ -735,9 +735,9 @@ type TriggerActionMap = {
 
 获取当前插件模块实例信息。
 
-- 可用：`v0.x.x+`
-- ONES 要求：`v3.13.xx+`
-- 模块限制：`'ones:global:trigger' | 'ones:global:modal'`
+- 可用：`v0.9.0+`
+- ONES 要求：`v3.13.43+`
+- 模块限制：`'ones:global:modal'`
 
 :::caution
 目前仅提供给部分需要设置手动激活模式的模块。
