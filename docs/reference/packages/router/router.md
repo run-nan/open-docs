@@ -2,6 +2,12 @@
 
 [![](https://npm.partner.ones.cn/badge/v/@ones-op/router.svg)](https://npm.partner.ones.cn/package/@ones-op/router)
 
+:::caution
+
+This package is deprecated, please use the "react-router-dom" instead. Before replacing "@ones-op/router", please make sure to read the document about the configuration ["enableMemoryRouter"](../../config/plugin.yaml#enablememoryrouter) and set it to true.
+
+:::
+
 We provide a set of front-end routing component library that can use this library to operate the URL of the current page.
 
 ## Requirements

@@ -479,7 +479,43 @@ modules:
 
 在这种路由器模式下，您可以在插件中使用其他第三方路由库。
 
-此路由模式为插件创建了一个新的 `location` 和 `history`。插件获取的 URL 是模块的入口，并作为查询参数保存在浏览器地址栏中。
+此路由模式为插件创建了一个新的 `location` 和 `history`。插件获取的 URL 是插件模块的入口，并作为查询参数保存在浏览器地址栏中。
+
+:::caution 注意
+
+在使用该模式之前，您可以通过 `window.location.href` 获取浏览器地址栏中的真实 URL，开启此模式后，您将无法再依赖于来自此 URL 的数据。
+
+:::
+
+如果你想使用 `react-router-dom` 中的 `BrowserRouter`，你需要设置 `basename`，该值可以通过 `window.__op_router_basename__` 获取。
+
+比如:
+
+```tsx
+import { BrowserRouter } from 'react-router-dom'
+ReactDOM.render(
+  <ConfigProvider>
+    <BrowserRouter basename={window.__op_router_basename__}>
+      <App />
+    </BrowserRouter>
+  </ConfigProvider>,
+  document.getElementById('ones-mf-root')
+)
+```
+
+或者您可以直接使用 `HashRouter`。
+
+```tsx
+import { HashRouter } from 'react-router-dom'
+ReactDOM.render(
+  <ConfigProvider>
+    <HashRouter>
+      <App />
+    </HashRouter>
+  </ConfigProvider>,
+  document.getElementById('ones-mf-root')
+)
+```
 
 ### modules {#subModule}
 

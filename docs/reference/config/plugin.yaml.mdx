@@ -481,6 +481,42 @@ In this router mode, you can use other third-party routers in the plugin.
 
 This router mode creates a new `location` and `history` for the plugin. The URL that the plugin gets is the entry of the module and is saved in the browser address bar as a query argument.
 
+:::caution
+
+Before using this mode, you can get the real URL in the browser address bar by `window.location.href`. After opening this mode, you can't depend on the data from that URL anymore.
+
+:::
+
+If you want to use the `BrowserRouter` in the `react-router-dom`, you need to set the `basename` which can be gotten by the `window.__op_router_basename__`.
+
+For example:
+
+```tsx
+import { BrowserRouter } from 'react-router-dom'
+ReactDOM.render(
+  <ConfigProvider>
+    <BrowserRouter basename={window.__op_router_basename__}>
+      <App />
+    </BrowserRouter>
+  </ConfigProvider>,
+  document.getElementById('ones-mf-root')
+)
+```
+
+Or you can use the `HashRouter` directly.
+
+```tsx
+import { HashRouter } from 'react-router-dom'
+ReactDOM.render(
+  <ConfigProvider>
+    <HashRouter>
+      <App />
+    </HashRouter>
+  </ConfigProvider>,
+  document.getElementById('ones-mf-root')
+)
+```
+
 ### modules {#subModule}
 
 - **Type:** [`modules`](#modules)

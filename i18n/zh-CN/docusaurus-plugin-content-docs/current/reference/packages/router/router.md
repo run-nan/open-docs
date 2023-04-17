@@ -2,6 +2,12 @@
 
 [![](https://npm.partner.ones.cn/badge/v/@ones-op/router.svg)](https://npm.partner.ones.cn/package/@ones-op/router)
 
+:::caution 注意
+
+此包已弃用，请改用“react-router-dom”。在替换“@ones-op/router”之前，请务必阅读有关[“enableMemoryRouter”](../../config/plugin.yaml#enablememoryrouter)配置项的文档并将其值设置为 true。
+
+:::
+
 我们提供了一套前端路由组件库，你的插件能够使用此库操纵当前页面的 URL。
 
 ## 兼容性
