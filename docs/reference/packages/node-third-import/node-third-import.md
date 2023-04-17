@@ -72,7 +72,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 | resource_id    | resource ID             | `string` | Y        |
 | task_id        | issue ID                | `string` | Y        |
 | full_file_path | attachment file address | `string` | Y        |
-| file_name |  file name | `string` | N        |
+| file_name      | file name               | `string` | N        |
 
 ### ThirdTaskLink
 
@@ -605,7 +605,6 @@ project type
 
 | Enum                                      | Description |
 | :---------------------------------------- | :---------- |
-| ThirdProjectTypeEnum.ProjectTypeNoneEnum  | Normal type |
 | ThirdProjectTypeEnum.ProjectTypeAgileEnum | Agile type  |
 
 ### ThirdProjectStatusEnum {#ThirdProjectStatusEnum}

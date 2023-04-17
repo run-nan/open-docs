@@ -72,7 +72,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 | resource_id    | 资源 ID      | `string` | 是   |
 | task_id        | 工作项 ID    | `string` | 是   |
 | full_file_path | 附件文件地址 | `string` | 是   |
-| file_name | 文件名称 | `string` | 否   |
+| file_name      | 文件名称     | `string` | 否   |
 
 ### ThirdTaskLink
 
@@ -605,7 +605,6 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 
 | 可选值                                    | 说明     |
 | :---------------------------------------- | :------- |
-| ThirdProjectTypeEnum.ProjectTypeNoneEnum  | 普通类型 |
 | ThirdProjectTypeEnum.ProjectTypeAgileEnum | 敏捷类型 |
 
 ### ThirdProjectStatusEnum {#ThirdProjectStatusEnum}

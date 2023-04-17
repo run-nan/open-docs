@@ -1,3 +1,7 @@
+---
+toc_max_heading_level: 4
+---
+
 import Image from '@theme/IdealImage'
 
 # Custom permission
@@ -56,7 +60,7 @@ service:
       desc: This is an example of custom read permission
 ```
 
-### Custom Permission API
+### Custom Permission API - BackEnd
 
 Provides non-declarative permission point definition and configuration methods, these APIs can be used in the plugin backend to manage custom permissions.
 
@@ -448,6 +452,140 @@ export async function checkBatch(request: PluginRequest): Promise<PluginResponse
     body: {
       data: data,
     },
+  }
+}
+```
+
+### Custom Permission Point API - Front End
+
+#### Get permission points info
+
+Get a list of custom permission points and their rules
+
+##### URL
+
+https://your-host-name/project/api/project/team/:team_uuid/plugin/permissioninfo/list
+
+##### HTTP Method
+
+POST
+
+##### Transfer method
+
+json
+
+##### List of request parameters
+
+| Param             | Required | Type   | Description        |
+| :---------------- | :------- | :----- | :----------------- |
+| instance_uuid     | Y        | string | plugin_instance_id |
+| team_uuid         | Y        | string | team`uuid`         |
+| organization_uuid | Y        | string | organization`uuid` |
+
+##### Returns a list of parameters
+
+| Param | Type  | Description                       |
+| :---- | :---- | :-------------------------------- |
+| data  | array | Array of custom permission points |
+
+##### Example of request
+
+```curl
+curl --location 'https://your-host-name/project/api/project/team/:team_uuid/plugin/permissioninfo/list' \
+--header 'Ones-User-Id: N5tnQP1D' \
+--header 'Content-Type: application/json;charset=utf-8' \
+--header 'Ones-Auth-Token: 9iiqA0As7UldZ61aOSpzaMAQclSRWXCAGOwNK2D3yolDYodoJGr764bpOVm2QVLp' \
+--header 'Ones-Plugin-Id: built_in_apis' \
+--data '{
+    "instance_uuid": "994af1e3".
+    "team_uuid": "E1r1oDP1".
+    "organization_uuid": "9qcEhFjy"
+}'
+```
+
+##### Return Example
+
+```json
+{
+    "data": [
+        {
+            "instance_uuid": "994af1e3".
+            "permission_name": "Permission".
+            "permission_field": "my_permission".
+            "permission_id": "1646758032098463744".
+            "permission_desc": "Custom permission".
+            "check_mode": "standard".
+            "rule_info": [
+                {
+                    "id": "1646758267080151040".
+                    "permission": "1646758032098463744".
+                    "context_type": "plugin".
+                    "context_param_1": "994af1e3".
+                    "context_param_2": "".
+                    "user_domain_type": "single_user".
+                    "user_domain_param": "N5tnQP1D".
+                    "position": 1
+                }
+            ]
+        }
+    ]
+}
+```
+
+#### Check permission point
+
+Checks if a user has permission for a custom permission point
+
+##### URL
+
+https://your-host-name/project/api/project/team/:team_uuid/plugin/permissionrule/check
+
+##### HTTP Method
+
+POST
+
+##### Transfer method
+
+json
+
+##### List of request param
+
+| Param             | Required | Type   | Description                                   |
+| :---------------- | :------- | :----- | :-------------------------------------------- |
+| instance_id       | Y        | string | plugin_instance_id                            |
+| team_uuid         | Y        | string | team`uuid`                                    |
+| organization_uuid | Y        | string | organization`uuid`                            |
+| permission_field  | Y        | string | custom permission point configuration `field` |
+
+##### Returns a list of parameters
+
+| Param         | Type | Description                |
+| :------------ | :--- | :------------------------- |
+| is_permission | bool | whether to have permission |
+
+##### Example of request
+
+The value of the `Ones-User-Id` parameter in the request header is the user for this verification
+
+```curl
+curl --location 'http://your-host-name/project/api/project/team/E1r1oDP1/plugin/permissionrule/check' \
+--header 'Ones-User-Id: 6wFTfuTt' \
+--header 'Content-Type: application/json;charset=utf-8' \
+--header 'Ones-Plugin-Id: built_in_apis' \
+--data '{
+    "instance_id": "994af1e3".
+    "team_uuid": "E1r1oDP1".
+    "organization_uuid": "9qcEhFjy".
+    "permission_field": "table_view_permission"
+}'
+```
+
+##### Return Example
+
+```json
+{
+  "data": {
+    "is_permission": true
   }
 }
 ```
