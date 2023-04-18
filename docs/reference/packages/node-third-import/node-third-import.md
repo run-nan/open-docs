@@ -67,6 +67,8 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 
 ### ThirdTaskAttachment
 
+The workspace is not supported for local debugging, you should set the configuration file_in_local in `config/local.yaml` to false or use server-side debugging.
+
 | Param          | Description             | Type     | Required |
 | :------------- | :---------------------- | :------- | :------- |
 | resource_id    | resource ID             | `string` | Y        |
