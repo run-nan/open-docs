@@ -67,11 +67,14 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 
 ### ThirdTaskAttachment
 
+附件导入在本地调试时暂不支持将工作区间设置为本地插件的 `workspace` 目录，本地调试时应将`config/local.yaml`中的配置 file_in_local 设置为 false 或者 使用服务端调试。
+
 | 参数           | 说明         | 类型     | 必填 |
 | :------------- | :----------- | :------- | :--- |
 | resource_id    | 资源 ID      | `string` | 是   |
 | task_id        | 工作项 ID    | `string` | 是   |
 | full_file_path | 附件文件地址 | `string` | 是   |
+| file_name      | 文件名称     | `string` | 否   |
 
 ### ThirdTaskLink
 
@@ -568,7 +571,6 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 
 | 可选值                                    | 说明     |
 | :---------------------------------------- | :------- |
-| ThirdProjectTypeEnum.ProjectTypeNoneEnum  | 普通类型 |
 | ThirdProjectTypeEnum.ProjectTypeAgileEnum | 敏捷类型 |
 
 ### ThirdProjectStatusEnum {#ThirdProjectStatusEnum}

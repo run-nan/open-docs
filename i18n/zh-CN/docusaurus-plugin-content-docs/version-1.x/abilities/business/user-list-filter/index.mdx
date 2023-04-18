@@ -1,0 +1,222 @@
+---
+sidebar_position: 14
+description: ---
+---
+
+import Image from '@theme/IdealImage'
+import image01 from './images/image01.png'
+import image02 from './images/image02.png'
+import image03 from './images/image03.png'
+import image04 from './images/image04.png'
+
+# 自定义用户列表
+
+## 要求
+
+| **ONES** |
+| :------- |
+| 3.13.35+ |
+
+## 概述
+
+作为插件开发者，我希望能够自定义用户规则，以便在项目关联的工作项中搜索或修改人员必须隶属于插件自定义的用户规则范围内。
+使用该能力时，用户可以自定义的内容包括：
+
+1. 全局配置项“工作项成员属性可选范围”，添加自定义规则选项。
+2. 项目管理的工作项，成员搜索功能受"工作项成员属性可选范围"控制。
+
+- 包括：搜索负责人，搜索解决者，搜索关注者，搜索自定义单选成员，搜索自定义多选成员。
+
+3. 项目管理的工作项，成员修改功能受"工作项成员属性可选范围"控制。
+
+- 包括：修改负责人，修改解决者，修改关注者，修改自定义单选成员，修改自定义多选成员，批量修改属性，新增工作项。
+
+### 能力表现
+
+当启用该能力的插件后，在全局配置项“工作项成员属性可选范围”，新增自定义规则选项。
+
+<Image img={image01} />
+
+当选择“自定义规则选项”，项目管理的工作项中成员搜索功能受可选范围控制。
+
+<Image img={image02} />
+
+当选择“自定义规则选项”，项目管理的工作项中修改成员功能受可选范围控制。
+
+<Image img={image03} />
+
+当停用该能力的插件后，在全局配置项“工作项成员属性可选范围”，之前新增自定义规则选项将消失。
+
+<Image img={image04} />
+
+## 使用
+
+### 添加能力
+
+执行`npx op add ability`命令，选中`user-list-filter@1.0.0`
+
+- `config/plugin.yaml` 中将添加该能力信息
+
+```yaml
+service:
+  app_id: Wr1aVwZS
+  ...
+modules:[]
+abilities:
+  - id: saxkWEsg
+    name: Plugin Members
+    version: 1.0.0
+    abilityType: UserListFilter
+    scope: org
+    desc: plugin members which can filter all ones users.
+    function:
+      UserListFilterCallback: userListFilterTest
+    forOnesFunc: null
+    forPluginFunc: null
+    config:
+      - key: user_list_name
+        value: custom members
+        fieldType: Input
+        show: false
+```
+
+- `backend/src/user_list_filter.ts` 中将添加 userListFilterTest 函数
+
+```tsx
+import { Logger } from '@ones-op/node-logger'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+export const userListFilterTest = async (request: PluginRequest): Promise<PluginResponse> => {
+  Logger.info('[userListFilterTest] enter')
+  const body = request?.body as any
+  let users = body['users']
+  //Logger.info("[userListFilterTest] users:", users.length)
+
+  if (users == undefined) {
+    Logger.info('[userListFilterTest] has no users')
+  } else if (users.length == 0) {
+    Logger.info('[userListFilterTest] users has no item')
+  } else {
+    Logger.info('[userListFilterTest] users[0]:', users[0])
+  }
+  //Init information
+  let data_result = new Array()
+
+  /**[start] custom user filter rules**/
+
+  /**[end] custom user filter rules**/
+
+  return {
+    body: {
+      code: 200,
+      body: {
+        state: 0,
+        message: 'success',
+        data: data_result,
+      },
+    },
+  }
+}
+```
+
+### 自定义过滤规则
+
+在`userListFilterTest`中，根据用户信息，添加自定义规则逻辑，过滤出满足规则的用户。
+
+#### 用户信息
+
+| 参数名       | 值类型 | 取值范围 | 取值例子     | 说明                      |
+| :----------- | :----- | :------- | :----------- | :------------------------ |
+| uuid         | string | len=8    | NbDQH9A9     | 用户 uuid                 |
+| company      | string | len<=128 | ones         | 公司名称                  |
+| email        | string | len<=128 | Tom@ones.com | 用户 email                |
+| inviter_uuid | string | len=8    | 4i4S57VG     | 邀请者 uuid               |
+| name         | string | len<=64  | Tom01        | 用户名称                  |
+| phone        | string | len<=32  | 15522778899  | 联系电话                  |
+| status       | string | len<=8   | 1            | 用户状态，1:正常 2.删除的 |
+| team_uuid    | string | len=8    | 9xHa5f8V     | 团队 uuid                 |
+| title        | string | len<=64  | 经理         | 用户职位                  |
+
+#### 示例
+
+根据用户 email 信息，添加自定义规则。比如，实现过滤邮箱后缀"@ones.ai"的所有用户。
+
+```tsx
+import { Logger } from '@ones-op/node-logger'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+export const userListFilterTest = async (request: PluginRequest): Promise<PluginResponse> => {
+  Logger.info('[userListFilterTest] enter')
+  const body = request?.body as any
+  let users = body['users']
+  //Logger.info("[userListFilterTest] users:", users.length)
+
+  if (users == undefined) {
+    Logger.info('[userListFilterTest] has no users')
+  } else if (users.length == 0) {
+    Logger.info('[userListFilterTest] users has no item')
+  } else {
+    Logger.info('[userListFilterTest] users[0]:', users[0])
+  }
+  //Init information
+  let data_result = new Array()
+
+  /**[start] custom user filter rules**/
+  if (users) {
+    let reqSuffix = /@ones.ai$/
+    for (let idx in users) {
+      if (reqSuffix.test(users[idx]['email'])) {
+        data_result.push(users[idx]['uuid'] as string)
+      }
+    }
+  }
+  /**[end] custom user filter rules**/
+
+  return {
+    body: {
+      code: 200,
+      body: {
+        state: 0,
+        message: 'success',
+        data: data_result,
+      },
+    },
+  }
+}
+```
+
+## 常见问题
+
+**自定义用户列表选项名称如何实现多语言？**
+
+参考[插件多语言支持](../../../guide/abilities/multilingual.mdx)
+
+```yaml
+service:
+  app_id: Wr1aVwZS
+  ...
+abilities:
+  - id: saxkWEsg
+    name: Plugin Members
+    version: 1.0.0
+    abilityType: UserListFilter
+    scope: org
+    desc: plugin members which can filter all ones users.
+    function:
+      UserListFilterCallback: userListFilterTest
+    forOnesFunc: null
+    forPluginFunc: null
+    config:
+      - key: user_list_name
+        value: {{.UserListName}}
+        fieldType: Input
+        show: false
+```
+
+**如何更新自定义用户列表选项名称?**
+
+参考[插件升级](../../../guide/upgrade.md)
+
+- 修改 `abilities.config.value`
+- 修改 `workspace/lanuage/xx.yaml` 多语言翻译文案
+- 对插件进行升级

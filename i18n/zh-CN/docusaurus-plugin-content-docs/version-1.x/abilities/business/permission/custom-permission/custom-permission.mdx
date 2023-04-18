@@ -1,3 +1,7 @@
+---
+toc_max_heading_level: 4
+---
+
 import Image from '@theme/IdealImage'
 
 # 自定义权限点
@@ -56,7 +60,7 @@ service:
       desc: This is an example of custom read permission
 ```
 
-### 自定义权限点 API
+### 自定义权限点 API - 后端
 
 提供非声明式的权限点定义和配置方法，在插件后端中可以使用这些 API 来管理自定义权限。
 
@@ -89,21 +93,21 @@ service:
 
 - 正常
 
-  | 参数              | 说明           | 类型   |
-  | :---------------- | :------------- | :----- |
-  | organization_uuid | 组织 uuid      | string |
-  | team_uuid         | 团队 uuid      | string |
-  | instance_uuid     | 插件示例 id    | string |
-  | permission_name   | 权限点名称     | string |
-  | permission_desc   | 权限点描述     | string |
-  | permission_field  | 权限点唯一标识 | string |
-  | permission_id     | 权限点 id      | string |
-  | check_mode        | 校验类型       | string |
-  | ability_id        | 能力 id        | string |
+| 参数              | 说明           | 类型   |
+| :---------------- | :------------- | :----- |
+| organization_uuid | 组织 uuid      | string |
+| team_uuid         | 团队 uuid      | string |
+| instance_uuid     | 插件示例 id    | string |
+| permission_name   | 权限点名称     | string |
+| permission_desc   | 权限点描述     | string |
+| permission_field  | 权限点唯一标识 | string |
+| permission_id     | 权限点 id      | string |
+| check_mode        | 校验类型       | string |
+| ability_id        | 能力 id        | string |
 
 - 错误
 
-  当添加的权限点已经存在时返回：permission_field of plugin already exists
+当添加的权限点已经存在时返回：permission_field of plugin already exists
 
 **示例：**
 
@@ -142,17 +146,32 @@ export async function addPermission(request: PluginRequest): Promise<PluginRespo
 | headers | 请求头，固定值:<br />{<br/> "AbilityName":["PermissionInfoList"]<br/> } | any    | 是   |
 | method  | 请求方法，固定值:`POST`                                                 | string | 是   |
 
-**返回内容：**`response.body['data']`中的内容，包含权限点信息数组，每个权限点包含以下内容
+**返回内容:** `response.body['data']`中的内容，包含权限点信息数组，每个权限点包含以下内容
 
-| 参数             | 说明             | 类型   |
-| :--------------- | :--------------- | :----- |
-| instance_uuid    | 插件示例 id      | string |
-| permission_name  | 权限点名称       | string |
-| permission_desc  | 权限点描述       | string |
-| permission_field | 权限点唯一标识   | string |
-| permission_id    | 权限点 id        | string |
-| check_mode       | 校验类型         | string |
-| rule_info        | 已配置规则的信息 | []rule |
+##### permission
+
+| 参数             | 说明             | 类型            |
+| :--------------- | :--------------- | :-------------- |
+| instance_uuid    | 插件示例 id      | string          |
+| permission_name  | 权限点名称       | string          |
+| permission_desc  | 权限点描述       | string          |
+| permission_field | 权限点唯一标识   | string          |
+| permission_id    | 权限点 id        | string          |
+| check_mode       | 校验类型         | string          |
+| rule_info        | 已配置规则的信息 | [rule](#rule)[] |
+
+##### rule
+
+| 参数              | 说明        | 类型   |
+| :---------------- | :---------- | :----- |
+| id                | 权限规则 id | string |
+| permission_id     | 权限点 id   | string |
+| context_type      | 上下文类型  | string |
+| context_param_1   | 上下文参数  | string |
+| context_param_2   | 上下文参数  | string |
+| user_domain_type  | 用户域类型  | string |
+| user_domain_param | 用户域参数  | string |
+| position          | 位置        | string |
 
 **示例：**
 
@@ -242,25 +261,25 @@ export async function deletePermission(request: PluginRequest): Promise<PluginRe
 
 - 正常
 
-  包含本次添加权限规则的信息
+包含本次添加权限规则的信息
 
-  | 参数              | 说明        | 类型   |
-  | :---------------- | :---------- | :----- |
-  | org_uuid          | 组织 uuid   | string |
-  | team_uuid         | 团队 uuid   | string |
-  | id                | 权限规则 id | string |
-  | deleted           | 是否删除    | Bool   |
-  | permission_id     | 权限点 id   | string |
-  | context_type      | 上下文类型  | string |
-  | context_param_1   | 上下文参数  | string |
-  | context_param_2   | 上下文参数  | string |
-  | user_domain_type  | 用户域类型  | string |
-  | user_domain_param | 用户域参数  | string |
-  | position          | 位置        | string |
+| 参数              | 说明        | 类型   |
+| :---------------- | :---------- | :----- |
+| org_uuid          | 组织 uuid   | string |
+| team_uuid         | 团队 uuid   | string |
+| id                | 权限规则 id | string |
+| deleted           | 是否删除    | Bool   |
+| permission_id     | 权限点 id   | string |
+| context_type      | 上下文类型  | string |
+| context_param_1   | 上下文参数  | string |
+| context_param_2   | 上下文参数  | string |
+| user_domain_type  | 用户域类型  | string |
+| user_domain_param | 用户域参数  | string |
+| position          | 位置        | string |
 
 - 错误
 
-  当添加的权限点规则用户域类型不对时返回：`<UserDomainNotExist> UserDomainNotExist`
+当添加的权限点规则用户域类型不对时返回：`<UserDomainNotExist> UserDomainNotExist`
 
 **示例：**
 
@@ -448,6 +467,140 @@ export async function checkBatch(request: PluginRequest): Promise<PluginResponse
     body: {
       data: data,
     },
+  }
+}
+```
+
+### 自定义权限点 API - 前端
+
+#### 获取权限点列表
+
+获取自定义权限点列表及其规则
+
+##### URL
+
+https://your-host-name/project/api/project/team/:team_uuid/plugin/permissioninfo/list
+
+##### HTTP Method
+
+POST
+
+##### 传值方式
+
+json
+
+##### 请求参数列表
+
+| 参数名            | 是否必须 | 值类型 | 说明        |
+| :---------------- | :------- | :----- | :---------- |
+| instance_uuid     | 是       | string | 插件实例 ID |
+| team_uuid         | 是       | string | 团队`uuid`  |
+| organization_uuid | 是       | string | 组织`uuid`  |
+
+##### 返回参数列表
+
+| 参数名 | 值类型                      | 说明             |
+| :----- | :-------------------------- | :--------------- |
+| data   | [permission](#permission)[] | 自定义权限点数组 |
+
+##### 请求示例
+
+```curl
+curl --location 'https://your-host-name/project/api/project/team/:team_uuid/plugin/permissioninfo/list' \
+--header 'Ones-User-Id: N5tnQP1D' \
+--header 'Content-Type: application/json;charset=utf-8' \
+--header 'Ones-Auth-Token: 9iiqA0As7UldZ61aOSpzaMAQclSRWXCAGOwNK2D3yolDYodoJGr764bpOVm2QVLp' \
+--header 'Ones-Plugin-Id: built_in_apis' \
+--data '{
+    "instance_uuid": "994af1e3",
+    "team_uuid": "E1r1oDP1",
+    "organization_uuid": "9qcEhFjy"
+}'
+```
+
+##### 返回示例
+
+```json
+{
+  "data": [
+    {
+      "instance_uuid": "994af1e3",
+      "permission_name": "Permission",
+      "permission_field": "my_permission",
+      "permission_id": "1646758032098463744",
+      "permission_desc": "Custom permission",
+      "check_mode": "standard",
+      "rule_info": [
+        {
+          "id": "1646758267080151040",
+          "permission": "1646758032098463744",
+          "context_type": "plugin",
+          "context_param_1": "994af1e3",
+          "context_param_2": "",
+          "user_domain_type": "single_user",
+          "user_domain_param": "N5tnQP1D",
+          "position": 1
+        }
+      ]
+    }
+  ]
+}
+```
+
+#### 权限点校验
+
+检验用户是否有某个自定义权限点的权限
+
+##### URL
+
+https://your-host-name/project/api/project/team/:team_uuid/plugin/permissionrule/check
+
+##### HTTP Method
+
+POST
+
+##### 传值方式
+
+json
+
+##### 请求参数列表
+
+| 参数名            | 是否必须 | 值类型 | 说明                      |
+| :---------------- | :------- | :----- | :------------------------ |
+| instance_id       | 是       | string | 插件实例 ID               |
+| team_uuid         | 是       | string | 团队`uuid`                |
+| organization_uuid | 是       | string | 组织`uuid`                |
+| permission_field  | 是       | string | 自定义权限点配置的`field` |
+
+##### 返回参数列表
+
+| 参数名        | 值类型 | 说明       |
+| :------------ | :----- | :--------- |
+| is_permission | bool   | 是否有权限 |
+
+##### 请求示例
+
+请求头中的`Ones-User-Id` 参数的值为本次校验的用户
+
+```curl
+curl --location 'http://your-host-name/project/api/project/team/E1r1oDP1/plugin/permissionrule/check' \
+--header 'Ones-User-Id: 6wFTfuTt' \
+--header 'Content-Type: application/json;charset=utf-8' \
+--header 'Ones-Plugin-Id: built_in_apis' \
+--data '{
+    "instance_id": "994af1e3",
+    "team_uuid": "E1r1oDP1",
+    "organization_uuid": "9qcEhFjy",
+    "permission_field": "table_view_permission"
+}'
+```
+
+##### 返回示例
+
+```json
+{
+  "data": {
+    "is_permission": true
   }
 }
 ```

@@ -146,17 +146,32 @@ export async function addPermission(request: PluginRequest): Promise<PluginRespo
 | headers | 请求头，固定值:<br />{<br/> "AbilityName":["PermissionInfoList"]<br/> } | any    | 是   |
 | method  | 请求方法，固定值:`POST`                                                 | string | 是   |
 
-**返回内容：**`response.body['data']`中的内容，包含权限点信息数组，每个权限点包含以下内容
+**返回内容:** `response.body['data']`中的内容，包含权限点信息数组，每个权限点包含以下内容
 
-| 参数             | 说明             | 类型   |
-| :--------------- | :--------------- | :----- |
-| instance_uuid    | 插件示例 id      | string |
-| permission_name  | 权限点名称       | string |
-| permission_desc  | 权限点描述       | string |
-| permission_field | 权限点唯一标识   | string |
-| permission_id    | 权限点 id        | string |
-| check_mode       | 校验类型         | string |
-| rule_info        | 已配置规则的信息 | []rule |
+##### permission
+
+| 参数             | 说明             | 类型            |
+| :--------------- | :--------------- | :-------------- |
+| instance_uuid    | 插件示例 id      | string          |
+| permission_name  | 权限点名称       | string          |
+| permission_desc  | 权限点描述       | string          |
+| permission_field | 权限点唯一标识   | string          |
+| permission_id    | 权限点 id        | string          |
+| check_mode       | 校验类型         | string          |
+| rule_info        | 已配置规则的信息 | [rule](#rule)[] |
+
+##### rule
+
+| 参数              | 说明        | 类型   |
+| :---------------- | :---------- | :----- |
+| id                | 权限规则 id | string |
+| permission_id     | 权限点 id   | string |
+| context_type      | 上下文类型  | string |
+| context_param_1   | 上下文参数  | string |
+| context_param_2   | 上下文参数  | string |
+| user_domain_type  | 用户域类型  | string |
+| user_domain_param | 用户域参数  | string |
+| position          | 位置        | string |
 
 **示例：**
 
@@ -484,9 +499,9 @@ json
 
 ##### 返回参数列表
 
-| 参数名 | 值类型 | 说明             |
-| :----- | :----- | :--------------- |
-| data   | array  | 自定义权限点数组 |
+| 参数名 | 值类型                      | 说明             |
+| :----- | :-------------------------- | :--------------- |
+| data   | [permission](#permission)[] | 自定义权限点数组 |
 
 ##### 请求示例
 

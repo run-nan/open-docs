@@ -148,15 +148,30 @@ export async function addPermission(request: PluginRequest): Promise<PluginRespo
 
 **Return:** Contents in `response.body['data']`, contains an array of permission point information, and each permission point contains the following content
 
-| Param            | Description                        | Type   |
-| :--------------- | :--------------------------------- | :----- |
-| instance_uuid    | plugin instance id                 | string |
-| permission_name  | permission point name              | string |
-| permission_desc  | permission point description       | string |
-| permission_field | permission unique identifier       | string |
-| permission_id    | permission point id                | string |
-| check_mode       | check type                         | string |
-| rule_info        | information about configured rules | []rule |
+##### permission
+
+| Param            | Description                        | Type            |
+| :--------------- | :--------------------------------- | :-------------- |
+| instance_uuid    | plugin instance id                 | string          |
+| permission_name  | permission point name              | string          |
+| permission_desc  | permission point description       | string          |
+| permission_field | permission unique identifier       | string          |
+| permission_id    | permission point id                | string          |
+| check_mode       | check type                         | string          |
+| rule_info        | information about configured rules | [rule](#rule)[] |
+
+##### rule
+
+| Param             | Description         | Type   |
+| :---------------- | :------------------ | :----- |
+| id                | permission rule id  | string |
+| permission_id     | permission point id | string |
+| context_type      | context type        | string |
+| context_param_1   | context param 1     | string |
+| context_param_2   | context param 2     | string |
+| user_domain_type  | user domain type    | string |
+| user_domain_param | user domain param   | string |
+| position          | location            | string |
 
 **Example:**
 
@@ -484,9 +499,9 @@ json
 
 ##### Returns a list of parameters
 
-| Param | Type  | Description                       |
-| :---- | :---- | :-------------------------------- |
-| data  | array | Array of custom permission points |
+| Param | Type                        | Description                       |
+| :---- | :-------------------------- | :-------------------------------- |
+| data  | [permission](#permission)[] | Array of custom permission points |
 
 ##### Example of request
 

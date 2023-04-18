@@ -67,11 +67,14 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 
 ### ThirdTaskAttachment
 
+The workspace is not supported for local debugging, you should set the configuration file_in_local in `config/local.yaml` to false or use server-side debugging.
+
 | Param          | Description             | Type     | Required |
 | :------------- | :---------------------- | :------- | :------- |
 | resource_id    | resource ID             | `string` | Y        |
 | task_id        | issue ID                | `string` | Y        |
 | full_file_path | attachment file address | `string` | Y        |
+| file_name      | file name               | `string` | N        |
 
 ### ThirdTaskLink
 
@@ -568,7 +571,6 @@ project type
 
 | Enum                                      | Description |
 | :---------------------------------------- | :---------- |
-| ThirdProjectTypeEnum.ProjectTypeNoneEnum  | Normal type |
 | ThirdProjectTypeEnum.ProjectTypeAgileEnum | Agile type  |
 
 ### ThirdProjectStatusEnum {#ThirdProjectStatusEnum}
