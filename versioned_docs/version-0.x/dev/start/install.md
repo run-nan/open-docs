@@ -1,5 +1,5 @@
 ---
-slug: /
+slug: /start
 sidebar_position: 1
 ---
 

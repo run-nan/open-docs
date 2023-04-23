@@ -27,3 +27,10 @@
 html[data-theme='dark'] .description {
   color: rgb(211, 195, 168);
 }
+
+@media screen and (max-width: 767px) {
+  .learningContent {
+    margin: 20px 30px;
+    overflow: auto;
+  }
+}

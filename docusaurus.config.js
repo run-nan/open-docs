@@ -18,6 +18,12 @@ const versionsConfig = isPublic
 const extraNavConfig = isPublic
   ? []
   : [
+      // 添加内部文档，目前暂时没有先屏蔽
+      // {
+      //   label: 'Inner',
+      //   position: 'left',
+      //   items: []
+      // },
       {
         to: 'changelog',
         label: 'Changelog',
@@ -29,12 +35,14 @@ const extraNavConfig = isPublic
       },
     ]
 
+const url = isPublic ? 'https://developer.ones.com' : 'https://docs.partner.ones.cn'
+
 /** @type {import('@docusaurus/types').Config} */
 
 const config = {
   title: 'ONES Open Platform',
   tagline: 'ONES 全面开放基座能力，助力客户与合作伙伴构建企业数字化平台，加速企业发布产品。',
-  url: 'https://docs.partner.ones.cn',
+  url,
   onBrokenLinks: 'log',
   baseUrl: '/',
   favicon: 'images/favicon.ico',
@@ -52,6 +60,19 @@ const config = {
   noIndex: true, // prohibit seo
   customFields: {
     PRODUCTION_ENV: process.env.PRODUCTION_ENV,
+    /**
+     * 开放平台文档快捷入口前缀
+     */
+    quickEntryPrefixPath: [
+      // 1.x版本
+      '/abilities',
+      '/reference',
+      '/guide',
+      '/tools',
+      // 0.x 版本
+      '/start',
+      'config/plugin',
+    ],
   },
 
   presets: [
@@ -74,6 +95,13 @@ const config = {
             },
           },
           ...versionsConfig,
+        },
+        // 由于当前禁止了seo，打包不会生成sitemap.xml，但不影响algolia使用
+        sitemap: {
+          changefreq: 'weekly',
+          priority: 0.5,
+          ignorePatterns: ['/tags/**'],
+          filename: 'sitemap.xml',
         },
         blog: {
           blogTitle: 'Changelog',
@@ -121,9 +149,17 @@ const config = {
         disableSwitch: true,
         // respectPrefersColorScheme: true,
       },
+      algolia: {
+        // Application ID
+        appId: 'N2DTG7C9DS',
+        //  Search-Only API Key
+        apiKey: '7c5554ff7ee867923280a77cb0c11fe3',
+        indexName: isPublic ? 'open_docs_prod' : 'open_docs_inner',
+      },
       docs: {
         sidebar: {
           hideable: true,
+          autoCollapseCategories: true,
         },
       },
       tableOfContents: {
@@ -137,17 +173,18 @@ const config = {
         },
         items: [
           {
-            type: 'dropdown',
             label: 'Documentation',
             position: 'left',
             items: [
               {
+                type: 'docSidebar',
                 label: 'API Docs',
-                to: '/docs/api/readme',
+                sidebarId: 'api',
               },
               {
+                type: 'docSidebar',
                 label: 'ONES Open Platform',
-                to: 'docs/guide/overview',
+                sidebarId: 'guide',
               },
             ],
           },
@@ -159,10 +196,6 @@ const config = {
                 label: 'ONES Design',
                 to: 'https://bangwork.github.io/ones-design/?path=/story/ones-design--page',
               },
-              // {
-              //   label: 'Open source of web code',
-              //   to: '/project/development',
-              // },
               {
                 label: 'Learning map',
                 to: 'docs/learning',
@@ -172,6 +205,35 @@ const config = {
                 to: 'docs/faq/development',
               },
             ],
+          },
+          // 开放平台快捷入口
+          {
+            type: 'docSidebar',
+            position: 'left',
+            label: 'Guide',
+            sidebarId: 'guide',
+            category: 'quickEntry',
+          },
+          {
+            type: 'docSidebar',
+            position: 'left',
+            label: 'Abilities',
+            sidebarId: 'abilities',
+            category: 'quickEntry',
+          },
+          {
+            type: 'docSidebar',
+            position: 'left',
+            label: 'Reference',
+            sidebarId: 'reference',
+            category: 'quickEntry',
+          },
+          {
+            type: 'docSidebar',
+            position: 'left',
+            label: 'Tools',
+            sidebarId: 'tools',
+            category: 'quickEntry',
           },
           {
             type: 'localeDropdown',
@@ -189,7 +251,7 @@ const config = {
         style: 'dark',
         logo: {
           alt: 'ONES Logo',
-          src: 'homepage/logo_footer.svg',
+          src: 'homepage/logo-footer.svg',
           href: 'https://ones.com',
         },
         links: [
@@ -255,16 +317,7 @@ const config = {
       },
     }),
 
-  themes: [
-    [
-      require.resolve('@easyops-cn/docusaurus-search-local'),
-      {
-        hashed: true,
-        language: ['en', 'zh'],
-      },
-    ],
-    ['@docusaurus/theme-mermaid', {}],
-  ],
+  themes: [['@docusaurus/theme-mermaid', {}]],
 
   markdown: {
     mermaid: true,

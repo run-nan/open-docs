@@ -1,32 +1,16 @@
 name: PublicRelease
+
 on:
   workflow_dispatch:
-    inputs:
-      releaseVersion:
-        description: '请输入发布版本号，例如v1.0.0'
-        required: true
-      changeLog:
-        description: '请输入更新日志'
-        required: false
 
 env:
   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
 jobs:
-  deploy:
+  release:
     timeout-minutes: 60
     runs-on: ubuntu-latest
-    env:
-      ALLOWED_MEMBERS: htmlin
     steps:
-      - name: Check Permissions
-        run: |
-          if [[ "${{github.actor}}" =~ (^|,)${{env.ALLOWED_MEMBERS}}($|,) ]];
-          then
-            echo Continue~
-          else
-            echo You are not allowed to run this workflow & exit 1
-          fi
       - name: Checkout
         uses: actions/checkout@v3
 
@@ -54,22 +38,23 @@ jobs:
 
       - run: npm run build
 
-      - name: Build Package
+      - name: Build package
         run: |
-          tar -czf open-docs-${{ github.event.inputs.releaseVersion }}.tar.gz -C dist .
+          tar -czf artifacts.tar.gz -C dist .
 
-      - name: Create tag
-        uses: rickstaa/action-create-tag@v1
+      - name: Semantic release
+        uses: cycjimmy/semantic-release-action@v3.4.2
+        id: semantic   # Need an `id` for output variables
         with:
-          tag: ${{ github.event.inputs.releaseVersion }}
-          force_push_tag: true
-          message: |
-            ${{ github.event.inputs.changeLog }}
+          branch: main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create release with assests
-        uses: phuonghuynh/action-ghrelease@v1.1.0
-        with:
-          tag_name: ${{ github.event.inputs.releaseVersion }}
-          name: ${{ github.event.inputs.releaseVersion }}
-          files: open-docs-${{ github.event.inputs.releaseVersion }}.tar.gz
-          body: ${{ github.event.inputs.changeLog }}
+      - name: Trigger docSearch scraper
+        if: steps.semantic.outputs.new_release_published == 'true'
+        run: |
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.everest-preview+json" \
+            ${{ github.event.repository.url }}/dispatches \
+            -d '{"event_type": "DocSearch"}'

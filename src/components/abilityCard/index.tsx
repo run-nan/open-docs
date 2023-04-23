@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './styles.module.css'
-import { useHistory } from 'react-router-dom'
-import RightArrow from '../../../static/homepage/right_arrow.svg'
+import { useHistory } from '@docusaurus/router'
+import RightArrow from '/homepage/right-arrow.svg'
 
 export const AbilityCard = (props) => {
   const { title, description, url, tips, icon, keyword } = props

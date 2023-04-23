@@ -7,7 +7,7 @@
   justify-content: center;
   text-align: center;
   overflow: hidden;
-  background: url('/homepage/banner_1920.svg') no-repeat center center,
+  background: url('/homepage/banner-1920.svg') no-repeat center center,
     linear-gradient(0deg, #e8f1ff -11.11%, #ffffff 105.81%);
   background-size: auto;
   box-sizing: border-box;
@@ -81,7 +81,7 @@
 /* 1024 < width < 1260 */
 @media screen and (min-width: 1024px) and (max-width: 1259px) {
   .heroBanner {
-    background: url('/homepage/banner_1260.svg') no-repeat center center,
+    background: url('/homepage/banner-1260.svg') no-repeat center center,
       linear-gradient(0deg, #e8f1ff -11.11%, #ffffff 105.81%);
     background-size: auto;
   }

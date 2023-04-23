@@ -1,20 +1,22 @@
-import React, { type ReactNode } from 'react'
+import React, { useMemo, type ReactNode } from 'react'
 import { useThemeConfig } from '@docusaurus/theme-common'
-import { useActivePlugin } from '@docusaurus/plugin-content-docs/client'
+// import { useActivePlugin } from '@docusaurus/plugin-content-docs/client'
+import { useLocation } from '@docusaurus/router'
+
 import { splitNavbarItems, useNavbarMobileSidebar } from '@docusaurus/theme-common/internal'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import NavbarItem, { type Props as NavbarItemConfig } from '@theme/NavbarItem'
-import NavbarColorModeToggle from '@theme/Navbar/ColorModeToggle'
+// import NavbarColorModeToggle from '@theme/Navbar/ColorModeToggle'
 import SearchBar from '@theme/SearchBar'
 import NavbarMobileSidebarToggle from '@theme/Navbar/MobileSidebar/Toggle'
 import NavbarLogo from '@theme/Navbar/Logo'
 import NavbarSearch from '@theme/Navbar/Search'
-import LocaleDropdownNavbarItem from '@theme/NavbarItem/LocaleDropdownNavbarItem'
-import styles from './styles.module.css'
+// import LocaleDropdownNavbarItem from '@theme/NavbarItem/LocaleDropdownNavbarItem'
+// import styles from './styles.module.css'
 
-const excludeTypeInONESDevelopment = ['dropdown', 'localeDropdown']
-const excludeTypeInRelease = ['dropdown', 'docsVersionDropdown']
-const projectDocsPluginId = 'project'
+// const excludeTypeInONESDevelopment = ['dropdown', 'localeDropdown']
+// const excludeTypeInRelease = ['dropdown', 'docsVersionDropdown']
+// const projectDocsPluginId = 'project'
 
 function useNavbarItems() {
   // TODO temporary casting until ThemeConfig type is improved
@@ -43,48 +45,21 @@ function NavbarContentLayout({ left, right }: { left: ReactNode; right: ReactNod
 export default function NavbarContent(): JSX.Element {
   const mobileSidebar = useNavbarMobileSidebar()
   const navbarItems = useNavbarItems()
+  const { pathname } = useLocation()
 
   /** --------------------------------------------------------------- */
   const docusaurusContext = useDocusaurusContext()
-  const activePlugin = useActivePlugin()
-  const pluginId = activePlugin?.pluginId ?? 'default'
-  const customFields = docusaurusContext.siteConfig.customFields
-  const isProduction = Object.prototype.hasOwnProperty.call(customFields, 'PRODUCTION_ENV')
-
-  // if (isProduction) {
-  //   navbarItems = navbarItems.filter(
-  //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //     // @ts-ignore
-  //     (item) => item?.label !== 'Changelog' && !excludeTypeInRelease.includes(item.type)
-  //   )
-  // }
-
-  // navbarItems =
-  //   pluginId === projectDocsPluginId
-  //     ? navbarItems.filter(
-  //         (item) =>
-  //           excludeTypeInONESDevelopment.includes(item.type) ||
-  //           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //           // @ts-ignore
-  //           item.docsPluginId === projectDocsPluginId
-  //       )
-  //     : // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //       // @ts-ignore
-  //       navbarItems?.filter((item) => {
-  //         return item?.docsPluginId !== projectDocsPluginId
-  //       })
-
-  // if (!isProduction) {
-  //   const targetItem = navbarItems.find((item) => item.type === 'dropdown')
-  //   Object.assign(targetItem, {
-  //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //     // @ts-ignore
-  //     label: targetItem?.items?.[pluginId === projectDocsPluginId ? 1 : 0]?.label,
-  //   })
-  // }
-  /** --------------------------------------------------------------- */
 
   const [leftItems, rightItems] = splitNavbarItems(navbarItems)
+
+  const finalLeft = useMemo(() => {
+    const { quickEntryPrefixPath } = docusaurusContext.siteConfig.customFields
+    const isBelongQuickEntry = quickEntryPrefixPath.some((item) => pathname?.indexOf(item) > -1)
+    const homePageNavbarItems = leftItems.filter((item) => item.category !== 'quickEntry')
+    const quickEntryNavbarItems = leftItems.filter((item) => item.category === 'quickEntry')
+
+    return isBelongQuickEntry ? quickEntryNavbarItems : homePageNavbarItems
+  }, [docusaurusContext, leftItems, pathname])
 
   const searchBarItem = navbarItems.find((item) => item?.type === 'search')
 
@@ -95,7 +70,7 @@ export default function NavbarContent(): JSX.Element {
         <>
           {!mobileSidebar.disabled && <NavbarMobileSidebarToggle />}
           <NavbarLogo />
-          <NavbarItems items={leftItems} />
+          <NavbarItems items={finalLeft} />
         </>
       }
       right={
