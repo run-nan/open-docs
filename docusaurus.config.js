@@ -14,7 +14,7 @@ const versionsConfig = isPublic
     }
   : {}
 
-// 正式版本隐藏 `ChangeLog` 和 `docVersion`
+// 正式版本隐藏 `docVersion`
 const extraNavConfig = isPublic
   ? []
   : [
@@ -25,17 +25,12 @@ const extraNavConfig = isPublic
       //   items: []
       // },
       {
-        to: 'changelog',
-        label: 'Changelog',
-        position: 'left',
-      },
-      {
         type: 'docsVersionDropdown',
         position: 'right',
       },
     ]
 
-// 正式环境使用algolia搜索、内部文档使用本地搜索
+// 正式环境使用algolia搜索，algolia对象有值，则会使用 `DocSearch` 组件
 const algoliaConfig = isPublic
   ? {
       algolia: {
@@ -48,6 +43,7 @@ const algoliaConfig = isPublic
     }
   : {}
 
+// 内部文档使用本地搜索
 const extraSearchPluginConfig = isPublic
   ? []
   : [
@@ -58,6 +54,18 @@ const extraSearchPluginConfig = isPublic
           language: ['en', 'zh'],
         },
       ],
+    ]
+
+// 正式对外文档隐藏 `ChangeLog`
+const extraQuickEntryConfig = isPublic
+  ? []
+  : [
+      {
+        to: 'changelog',
+        label: 'Changelog',
+        position: 'left',
+        category: 'quickEntry',
+      },
     ]
 
 const url = isPublic ? 'https://developer.ones.com' : 'https://docs.partner.ones.cn'
@@ -94,9 +102,16 @@ const config = {
       '/reference',
       '/guide',
       '/tools',
+      '/faq',
+      '/changelog',
       // 0.x 版本
       '/start',
       'config/plugin',
+      'dev/style-guide',
+      'dev/sample-tutorial',
+      'api/config',
+      'api/module-type',
+      'api/cli',
     ],
   },
 
@@ -219,10 +234,6 @@ const config = {
                 label: 'Learning map',
                 to: 'docs/learning',
               },
-              {
-                label: 'FAQ',
-                to: 'docs/faq/development',
-              },
             ],
           },
           // 开放平台快捷入口
@@ -254,6 +265,14 @@ const config = {
             sidebarId: 'tools',
             category: 'quickEntry',
           },
+          {
+            type: 'docSidebar',
+            position: 'left',
+            label: 'FAQ',
+            sidebarId: 'faq',
+            category: 'quickEntry',
+          },
+          ...extraQuickEntryConfig,
           {
             type: 'localeDropdown',
             position: 'right',
@@ -319,10 +338,6 @@ const config = {
               {
                 label: 'Learning map',
                 to: 'docs/learning',
-              },
-              {
-                label: 'FAQ',
-                to: 'docs/faq/development/',
               },
             ],
           },
