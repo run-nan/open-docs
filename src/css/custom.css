@@ -299,3 +299,15 @@
     padding: 10px 20px;
   }
 }
+
+/* 兼容本地搜索 */
+@media screen and (min-width: 577px) {
+  .navbar__search-input {
+    border-radius: 3px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .navbar__search-input {
+    background: #fff var(--ifm-navbar-search-input-icon) no-repeat 0.75rem center / 1rem 1rem;
+  }
+}

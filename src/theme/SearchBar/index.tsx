@@ -8,39 +8,11 @@ import Head from '@docusaurus/Head'
 import { isRegexpStringMatch } from '@docusaurus/theme-common'
 import { useSearchPage } from '@docusaurus/theme-common/internal'
 import { useDocSearchKeyboardEvents } from '@docsearch/react'
-// import { DocSearchButton } from '../DocSearch'
+import { TranslationsLocale } from './locale'
 import { DocSearchButton } from '@docsearch/react'
 import { useAlgoliaContextualFacetFilters } from '@docusaurus/theme-search-algolia/client'
 import Translate from '@docusaurus/Translate'
-import translations from '@theme/SearchTranslations'
-
-// 对英文部分词条做映射，中文暂不关心
-const newTranslations = {
-  'en': {
-    modal: {
-      footer: {
-        closeKeyAriaLabel: 'Escape key',
-        closeText: 'Close',
-        navigateDownKeyAriaLabel: 'Arrow down',
-        navigateText: 'Navigate',
-        navigateUpKeyAriaLabel: 'Arrow up',
-        searchByText: 'Search by',
-        selectKeyAriaLabel: 'Enter key',
-        selectText: 'Select',
-      },
-      startScreen: {
-        favoriteSearchesTitle: 'Favorite',
-        noRecentSearchesText: 'Type something  to search',
-        recentSearchesTitle: 'Recent',
-        removeFavoriteSearchButtonTitle: 'Remove this search from favorites',
-        removeRecentSearchButtonTitle: 'Remove this search from history',
-        saveRecentSearchButtonTitle: 'Save this search',
-      },
-    },
-    placeholder: 'Search',
-  },
-  'zh-cn': {},
-}
+import SearchBarWrapper from '../SearchBarLocal'
 
 let DocSearchModal = null
 function Hit({ hit, children }) {
@@ -83,23 +55,9 @@ function DocSearch({ contextualSearch, externalUrlRegex, ...props }) {
   const searchButtonRef = useRef(null)
   const [isOpen, setIsOpen] = useState(false)
   const [initialQuery, setInitialQuery] = useState(undefined)
-  const mergedTranslations = useMemo(() => {
-    if (currentLocale === 'en') {
-      return {
-        ...translations,
-        modal: {
-          ...translations.modal,
-          footer: {
-            ...newTranslations.en.modal.footer,
-          },
-          startScreen: {
-            ...newTranslations.en.modal.startScreen,
-          },
-        },
-        placeholder: newTranslations.en.placeholder,
-      }
-    }
-    return translations
+  const translations = useMemo(() => {
+    // en first
+    return TranslationsLocale[currentLocale] ?? TranslationsLocale.en
   }, [currentLocale])
   const importDocSearchModalIfNeeded = useCallback(() => {
     if (DocSearchModal) {
@@ -197,7 +155,7 @@ function DocSearch({ contextualSearch, externalUrlRegex, ...props }) {
         onMouseOver={importDocSearchModalIfNeeded}
         onClick={onOpen}
         ref={searchButtonRef}
-        translations={mergedTranslations.button}
+        translations={translations.button}
       />
 
       {isOpen &&
@@ -217,15 +175,27 @@ function DocSearch({ contextualSearch, externalUrlRegex, ...props }) {
             })}
             {...props}
             searchParameters={searchParameters}
-            placeholder={mergedTranslations.placeholder}
-            translations={mergedTranslations.modal}
+            placeholder={translations?.placeholder}
+            translations={translations?.modal}
           />,
           searchContainer.current
         )}
     </>
   )
 }
+
 export default function SearchBar() {
   const { siteConfig } = useDocusaurusContext()
-  return <DocSearch {...siteConfig.themeConfig.algolia} />
+  const {
+    siteConfig: {
+      customFields: { PRODUCTION_ENV },
+    },
+  } = useDocusaurusContext()
+
+  // 线上algolia,内部文档使用本地搜索
+  if (PRODUCTION_ENV === 'production') {
+    return <DocSearch {...siteConfig.themeConfig.algolia} />
+  }
+
+  return <SearchBarWrapper></SearchBarWrapper>
 }

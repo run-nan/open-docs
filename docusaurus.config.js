@@ -35,6 +35,31 @@ const extraNavConfig = isPublic
       },
     ]
 
+// 正式环境使用algolia搜索、内部文档使用本地搜索
+const algoliaConfig = isPublic
+  ? {
+      algolia: {
+        // Application ID
+        appId: 'N2DTG7C9DS',
+        //  Search-Only API Key
+        apiKey: '7c5554ff7ee867923280a77cb0c11fe3',
+        indexName: 'open_docs_prod',
+      },
+    }
+  : {}
+
+const extraSearchPluginConfig = isPublic
+  ? []
+  : [
+      [
+        require.resolve('@easyops-cn/docusaurus-search-local'),
+        {
+          hashed: true,
+          language: ['en', 'zh'],
+        },
+      ],
+    ]
+
 const url = isPublic ? 'https://developer.ones.com' : 'https://docs.partner.ones.cn'
 
 /** @type {import('@docusaurus/types').Config} */
@@ -149,13 +174,7 @@ const config = {
         disableSwitch: true,
         // respectPrefersColorScheme: true,
       },
-      algolia: {
-        // Application ID
-        appId: 'N2DTG7C9DS',
-        //  Search-Only API Key
-        apiKey: '7c5554ff7ee867923280a77cb0c11fe3',
-        indexName: isPublic ? 'open_docs_prod' : 'open_docs_inner',
-      },
+      ...algoliaConfig,
       docs: {
         sidebar: {
           hideable: true,
@@ -317,7 +336,7 @@ const config = {
       },
     }),
 
-  themes: [['@docusaurus/theme-mermaid', {}]],
+  themes: [['@docusaurus/theme-mermaid', {}], ...extraSearchPluginConfig],
 
   markdown: {
     mermaid: true,

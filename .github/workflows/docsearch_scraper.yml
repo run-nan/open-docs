@@ -1,4 +1,4 @@
-name: DocSearch Scraper
+name: DocSearchScraper
 
 on:
   repository_dispatch:
