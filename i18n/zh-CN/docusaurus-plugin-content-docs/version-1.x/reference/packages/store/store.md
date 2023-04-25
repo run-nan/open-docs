@@ -760,3 +760,62 @@ interface ModuleInstanceInfo {
   invokeAgainCount: number
 }
 ```
+
+### useDashboardCardInfo {#useDashboardCardInfo}
+
+自定义仪表盘卡片中，获取当前卡片的上下文数据
+
+#### 要求
+
+- 可用：`v0.10.0+`
+- ONES 要求：`v3.13.50+`
+
+#### 返回
+
+| 说明                 | 类型                   |
+| -------------------- | ---------------------- |
+| 当前卡片的上下文数据 | `DashboardCardInfo<T>` |
+
+#### 类型
+
+```tsx
+interface DashboardCardInfo<T extends any> {
+  cardUUID: string // 卡片UUID
+  dashboardUUID: string // 仪表盘UUID
+  projectUUID?: string // 如果是项目概览下的仪表盘，则会有项目UUID
+  componentUUID?: string | undefined // 如果是项目概览下的仪表盘，则会有组件UUID
+  mode: 'normal' | 'edit' | 'play' // 当前卡片的模式，normal为正常模式，edit为编辑模式，play为播放模式
+  cardData: T // 当前卡片的数据，由插件的后端返回
+}
+
+function useDashboardCardInfo<T extends any>(): DashboardCardInfo<T>
+```
+
+### useDashboardCardConfigInfo {#useDashboardCardConfigInfo}
+
+自定义仪表盘卡片的配置弹窗中，获取当前卡片的上下文数据
+
+#### 要求
+
+- 可用：`v0.10.0+`
+- ONES 要求：`v3.13.50+`
+
+#### 返回
+
+| 说明                 | 类型                         |
+| -------------------- | ---------------------------- |
+| 当前卡片的上下文数据 | `DashboardCardConfigInfo<T>` |
+
+#### 类型
+
+```tsx
+interface DashboardCardConfigInfo<T extends any> {
+  dashboardUUID: string // 仪表盘UUID
+  projectUUID?: string // 如果是项目概览下的仪表盘，则会有项目UUID
+  componentUUID?: string // 如果是项目概览下的仪表盘，则会有组件UUID
+  cardUUID?: string // 卡片UUID，如果是新建卡片时的弹窗，则卡片UUID为undefined
+  cardConfig?: T // 卡片的自定义配置，如果是新建卡片时的弹窗，则卡片配置为undefined
+}
+
+function useDashboardCardConfigInfo<T extends any>(): DashboardCardConfigInfo<T>
+```

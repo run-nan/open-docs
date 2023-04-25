@@ -2,6 +2,13 @@
 
 这个包所有值得注意的变化都将记录在这个文件中。
 
+# 0.10.0 (2023-04-25)
+
+### 新特性
+
+- **Store:** 🌟 提供 `useDashboardCardInfo` hook 获取自定义卡片的上下文数据
+- **Store:** 🌟 提供 `useDashboardCardConfigInfo` hook 获取自定义卡片配置弹窗的上下文数据
+
 # 0.x.0 (2023-x-x)
 
 ### 新特性

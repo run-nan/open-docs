@@ -2,6 +2,10 @@
 
 All notable changes to this package will be documented in this file.
 
+## 0.10.0 (2023-04-25)
+
+- **OpBridge** 🌟 Added the module `dashboardCard` to complete the related functions of custom cards
+
 ## 0.9.0 (2023-03-31)
 
 - **OpBridge:** 🌟 Added the method `lifecycle` to operate and listen to part of the current plugin's lifecycle

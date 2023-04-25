@@ -2,6 +2,13 @@
 
 All notable changes to this package will be documented in this file.
 
+# 0.10.0 (2023-04-25)
+
+### Features
+
+- **Store:** 🌟 Provide `useDashboardCardInfo` hook to get the context data of custom card
+- **Store:** 🌟 Provide `useDashboardCardConfigInfo` hook to get the context data of custom card config dialog
+
 # 0.x.0 (2023-x-x)
 
 ### Features

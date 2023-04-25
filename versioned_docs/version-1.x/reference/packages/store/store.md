@@ -750,3 +750,62 @@ interface ModuleInstanceInfo {
   invokeAgainCount: number
 }
 ```
+
+### useDashboardCardInfo {#useDashboardCardInfo}
+
+In the custom dashboard card, get the context data of the current card
+
+#### Requirements
+
+- Added in: `v0.10.0+`
+- ONES Requirement: `v3.13.43+`
+
+#### Returns
+
+| Description                          | Type                   |
+| ------------------------------------ | ---------------------- |
+| the context data of the current card | `DashboardCardInfo<T>` |
+
+#### Types
+
+```tsx
+interface DashboardCardInfo<T extends any> {
+  cardUUID: string // card UUID
+  dashboardUUID: string // dashboard UUID
+  projectUUID?: string // if the dashboard is under the project overview, there will be a project UUID
+  componentUUID?: string | undefined // if the dashboard is under the project overview, there will be a component UUID
+  mode: 'normal' | 'edit' | 'play' // the mode of the card
+  cardData: T // The data of the current card, returned by the backend of the plugin
+}
+
+function useDashboardCardInfo<T extends any>(): DashboardCardInfo<T>
+```
+
+### useDashboardCardConfigInfo {#useDashboardCardConfigInfo}
+
+In the setting pop-up window of the custom dashboard card, get the context data of the current card's config
+
+#### Requirements
+
+- Added in: `v0.10.0+`
+- ONES Requirement: `v3.13.43+`
+
+#### Returns
+
+| Description                                   | Type                         |
+| --------------------------------------------- | ---------------------------- |
+| the context data of the current card's config | `DashboardCardConfigInfo<T>` |
+
+#### Types
+
+```tsx
+interface DashboardCardConfigInfo<T extends any> {
+  dashboardUUID: string // dashboard UUID
+  projectUUID?: string // if the dashboard is under the project overview, there will be a project UUID
+  componentUUID?: string // if the dashboard is under the project overview, there will be a component UUID
+  cardUUID?: string // Card UUID, if it is a pop-up window when creating a new card, the card UUID is undefined
+  cardConfig?: T // The custom configuration of the card, if it is a pop-up window when creating a new card, the card configuration is undefined
+}
+
+function useDashboardCardConfigInfo<T extends any>(): DashboardCardConfigInfo<T>
+```

@@ -769,8 +769,8 @@ interface ModuleInstanceInfo {
 
 #### 要求
 
-- 可用：`ToDo`
-- ONES 要求：`ToDo`
+- 可用：`v0.10.0+`
+- ONES 要求：`v3.13.50+`
 
 #### 返回
 
@@ -799,8 +799,8 @@ function useDashboardCardInfo<T extends any>(): DashboardCardInfo<T>
 
 #### 要求
 
-- 可用：`ToDo`
-- ONES 要求：`ToDo`
+- 可用：`v0.10.0+`
+- ONES 要求：`v3.13.50+`
 
 #### 返回
 

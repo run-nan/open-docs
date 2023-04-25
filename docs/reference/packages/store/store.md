@@ -759,8 +759,8 @@ In the custom dashboard card, get the context data of the current card
 
 #### Requirements
 
-- Added in: `TODO`
-- ONES Requirement: `TODO`
+- Added in: `v0.10.0+`
+- ONES Requirement: `v3.13.43+`
 
 #### Returns
 
@@ -789,8 +789,8 @@ In the setting pop-up window of the custom dashboard card, get the context data 
 
 #### Requirements
 
-- Added in: `TODO`
-- ONES Requirement: `TODO`
+- Added in: `v0.10.0+`
+- ONES Requirement: `v3.13.43+`
 
 #### Returns
 
