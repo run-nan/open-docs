@@ -517,6 +517,12 @@ ReactDOM.render(
 )
 ```
 
+:::caution
+
+When you use the `Link` in the react component to render the tag `<a />` and allow the user to open the link in the new tab by right-clicking, the browser will open a wrong page, for this case, the tag `<a href=""/>` is not recommended. If you need to jump to the ONES and know the absolute path, you can use the tag `<a href="absolutePath"/>`.
+
+:::
+
 ### modules {#subModule}
 
 - **Type:** [`modules`](#modules)

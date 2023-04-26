@@ -517,6 +517,12 @@ ReactDOM.render(
 )
 ```
 
+:::caution
+
+当你在 react 组件中使用 `Link` 来渲染标签 `<a />`，并且允许用户通过右键在新标签页中打开链接时，浏览器会打开一个错误的页面，这种场景不推荐使用标签 `<a href=""/>`。如果你需要跳转到 ONES，并且知道绝对路径，则你可以使用标签 `<a href="absolutePath"/>`。
+
+:::
+
 ### modules {#subModule}
 
 - **类型：**[`modules`](#modules)
