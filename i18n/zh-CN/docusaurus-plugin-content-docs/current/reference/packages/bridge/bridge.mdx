@@ -362,7 +362,7 @@ function useCustomMenus(customMenus: CustomMenuItem[]): void;
 
 ### OPProvider
 
-当插件调用函数 [`lifecycle.destroy`](./#destroy) 时，`OPProvider` 将卸载其子组件。当插件在 YAML 中配置了属性 [`destroyDelayTime`](../../config/plugin.yaml#destroydelaytime) 并设置为 true 来延迟销毁组件时，这个 provider 会将自己的子组件卸载。
+当插件调用函数 [`lifecycle.destroy`](./#destroy) 时，`OPProvider` 将卸载其子组件。当插件在 YAML 中配置了属性 [`enableDelayDestroy`](../../config/plugin.yaml#enabledelaydestroy) 并设置为 true 来延迟销毁组件时，这个 provider 会将自己的子组件卸载。
 
 #### 要求
 

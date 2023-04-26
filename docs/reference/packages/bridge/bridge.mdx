@@ -358,7 +358,7 @@ function useCustomMenus(customMenus: CustomMenuItem[]): void;
 
 ### OPProvider
 
-The `OPProvider` will unmount its children component when the plugin calls the function [`lifecycle.destroy`](./#destroy). It's useful when the plugin wants to delay destroying the component by config [`destroyDelayTime`](../../config/plugin.yaml#destroydelaytime) to true in the YAML.
+The `OPProvider` will unmount its children component when the plugin calls the function [`lifecycle.destroy`](./#destroy). It's useful when the plugin wants to delay destroying the component by config [`enableDelayDestroy`](../../config/plugin.yaml#enabledelaydestroy) to true in the YAML.
 
 #### Requirements
 
