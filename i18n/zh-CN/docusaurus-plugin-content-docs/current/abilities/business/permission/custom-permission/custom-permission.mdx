@@ -655,11 +655,29 @@ abilities:
 
 **入参:**
 
-| 参数             | 说明                                                   | 类型   |
-| :--------------- | :----------------------------------------------------- | :----- |
-| user_uuid        | 用户的`uuid`                                           | string |
-| permission_field | 权限点标识                                             | string |
-| context          | 额外参数，插件自定义校验时可通过该字段传递额外的参数。 | string |
+| 参数             | 说明           | 类型              |
+| :--------------- | :------------- | :---------------- |
+| user_uuid        | 用户的`uuid`   | string            |
+| permission_field | 权限点标识     | string            |
+| context          | 权限上下文参数 | PermissionContext |
+
+```typescript
+interface PermissionContext {
+  project_uuid?: string // 项目管理 -> 项目ID
+  filter_view_uuid?: string // 我的工作台 -> 筛选器 -> 筛选器视图ID
+  program_uuid?: string // 项目集管理 -> 项目集ID
+  product_uuid?: string // 产品管理 -> 产品ID
+  testcase_library_uuid?: string // 测试管理 -> 测试用例库ID
+  test_plan_uuid?: string // 测试管理 -> 测试计划ID
+  wiki_space_uuid?: string // 知识管理 -> 页面组ID
+  workspace_dashboard_uuid?: string // 我的工作台 -> 仪表盘 -> 仪表盘ID
+  performance_dashboard_uuid?: string // 效能管理 -> 仪表盘 -> 仪表盘ID
+}
+```
+
+:::caution
+如果权限校验逻辑依赖权限上下文参数，还需要在使用权限点的模块下配置 [needPermissionContext](../../../../reference/config/plugin.yaml#needPermissionContext) 为`true`，只有这样才会在权限上下文变动时重新校验权限。
+:::
 
 **返回内容: **通过返回体中的`is_permission`字段的值来决定权限校验是否通过
 
