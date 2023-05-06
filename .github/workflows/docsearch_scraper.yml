@@ -1,6 +1,7 @@
 name: DocSearchScraper
 
 on:
+  workflow_dispatch:
   repository_dispatch:
     types: [DocSearch]
 
@@ -10,9 +11,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # 由于我们生成制品，需要运维点击部署，所以不能立即爬取，需要，理论上8小时内会完成部署，之后再爬取
-      - name: Sleep for 8 hours
-        run: sleep 28800
+      # 由于我们生成制品，需要运维点击部署，所以不能立即爬取，需要，理论上4小时内会完成部署，之后再爬取，action 定时最大6小时
+      # 如果是手动触发，则立即爬取
+      - name: Sleep if needed
+        run: sleep ${{ github.event.client_payload.timer || 0 }}
 
       - name: Get the content of docsearch.json as config
         id: algolia_config

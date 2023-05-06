@@ -50,6 +50,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # 传入 timer 参数，用于 DocSearch 爬虫定时器消费
       - name: Trigger docSearch scraper
         if: steps.semantic.outputs.new_release_published == 'true'
         run: |
@@ -57,4 +58,4 @@ jobs:
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github.everest-preview+json" \
             ${{ github.event.repository.url }}/dispatches \
-            -d '{"event_type": "DocSearch"}'
+            -d '{"event_type": "DocSearch","client_payload": { "timer": 14400 }}'
