@@ -8,9 +8,9 @@ description: sdk error handling。
 
 ## Requirements
 
-| **ONES** |
-| :------- |
-|          |
+| **ONES**  | @ones-op/node-file |
+| :-------- | :----------------- |
+| v3.13.31+ | v0.6.0+            |
 
 ## Overview
 
