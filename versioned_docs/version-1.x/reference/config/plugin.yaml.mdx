@@ -457,6 +457,72 @@ modules:
     permisson: my-example-effective-permission-key
 ```
 
+### enableDelayDestroy
+
+- **Type:** `boolean`
+
+- **ONES requirements:** `v3.13.58+`
+
+Whether the module should be delayed to destroy, which only works with the plugin that the [`manual`](./plugin.yaml#manual) configuration is true.
+
+:::caution
+
+If you need to delay destroying the module, your plugin will be activated in ONES for some time. The plugin still can receive the message from the ONES or send the message to the ONES(For example, the `op-store` and the `op-event`). You can uninstall the plugin's root component to cancel listening to the message from the ONES except for the provider of `@ones-design` which can be used to toast a message.
+
+:::
+
+### enableMemoryRouter
+
+- **Type:** `boolean`
+
+- **ONES requirements:** `v3.13.58+`
+
+In this router mode, you can use other third-party routers in the plugin.
+
+This router mode creates a new `location` and `history` for the plugin. The URL that the plugin gets is the entry of the module and is saved in the browser address bar as a query argument.
+
+:::caution
+
+Before using this mode, you can get the real URL in the browser address bar by `window.location.href`. After opening this mode, you can't depend on the data from that URL anymore.
+
+:::
+
+If you want to use the `BrowserRouter` in the `react-router-dom`, you need to set the `basename` which can be gotten by the `window.__op_router_basename__`.
+
+For example:
+
+```tsx
+import { BrowserRouter } from 'react-router-dom'
+ReactDOM.render(
+  <ConfigProvider>
+    <BrowserRouter basename={window.__op_router_basename__}>
+      <App />
+    </BrowserRouter>
+  </ConfigProvider>,
+  document.getElementById('ones-mf-root')
+)
+```
+
+Or you can use the `HashRouter` directly.
+
+```tsx
+import { HashRouter } from 'react-router-dom'
+ReactDOM.render(
+  <ConfigProvider>
+    <HashRouter>
+      <App />
+    </HashRouter>
+  </ConfigProvider>,
+  document.getElementById('ones-mf-root')
+)
+```
+
+:::caution
+
+When you use the `Link` in the react component to render the tag `<a />` and allow the user to open the link in the new tab by right-clicking, the browser will open a wrong page, for this case, the tag `<a href=""/>` is not recommended. If you need to jump to the ONES and know the absolute path, you can use the tag `<a href="absolutePath"/>`.
+
+:::
+
 ### modules {#subModule}
 
 - **Type:** [`modules`](#modules)

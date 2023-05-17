@@ -285,6 +285,28 @@ type ListName =
 
 - ONES 要求：`v3.11.40+`
 
+#### onDestroy
+
+在销毁插件之前被调用。
+
+##### 要求
+
+| **ONES**    | **@ones-op/bridge** |
+| ----------- | ------------------- |
+| `v3.13.58+` | `v0.6.1+`           |
+
+##### 参数
+
+| 参数     | 说明                             | 类型         | 必填 | 默认值 |
+| -------- | -------------------------------- | ------------ | ---- | ------ |
+| callback | 当前回调会在销毁插件之前被调用。 | `CallbackFn` | 是   |        |
+
+##### 类型
+
+```tsx
+function onDestroy(callback: () => void): void
+```
+
 ### dashboardCard
 
 通过 `dashboardCard` 模块提供的 hook，你可以完成 [自定义卡片](../../../abilities/business/custom-card/custom-card.mdx) 的相关功能
@@ -341,3 +363,13 @@ type CustomMenuItem = {
 function useCustomMenus(customMenus: CustomMenuItem[]): void;
 
 ```
+
+### OPProvider
+
+当插件调用函数 [`lifecycle.destroy`](./#destroy) 时，`OPProvider` 将卸载其子组件。当插件在 YAML 中配置了属性 [`enableDelayDestroy`](../../config/plugin.yaml#enabledelaydestroy) 并设置为 true 来延迟销毁组件时，这个 provider 会将自己的子组件卸载。
+
+#### 要求
+
+| **ONES**    | **@ones-op/bridge** |
+| ----------- | ------------------- |
+| `v3.13.58+` | `v0.6.1+`           |

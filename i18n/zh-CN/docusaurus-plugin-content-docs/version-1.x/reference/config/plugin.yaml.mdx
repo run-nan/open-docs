@@ -457,6 +457,72 @@ modules:
     permisson: my-example-effective-permission-key
 ```
 
+### enableDelayDestroy
+
+- **类型：** `boolean`
+
+- **ONES 要求:** `v3.13.58+`
+
+模块是否应该延迟销毁，仅适用于 [`manual`](./plugin.yaml#manual) 配置为 true 的插件。
+
+:::caution
+
+如果您需要延迟销毁模块，您的插件将在 ONES 中激活一段时间。该插件仍然可以从 ONES 接收消息或将消息发送到 ONES（例如，`op-store` 和 `op-event`）。您可以卸载插件的根组件以取消监听来自 ONES 的消息，除了 `@ones-design` 的 provider，其可以用来弹出 toast 消息。
+
+:::
+
+### enableMemoryRouter
+
+- **类型：** `boolean`
+
+- **ONES 要求:** `v3.13.58+`
+
+在这种路由器模式下，您可以在插件中使用其他第三方路由库。
+
+此路由模式为插件创建了一个新的 `location` 和 `history`。插件获取的 URL 是插件模块的入口，并作为查询参数保存在浏览器地址栏中。
+
+:::caution 注意
+
+在使用该模式之前，您可以通过 `window.location.href` 获取浏览器地址栏中的真实 URL，开启此模式后，您将无法再依赖于来自此 URL 的数据。
+
+:::
+
+如果你想使用 `react-router-dom` 中的 `BrowserRouter`，你需要设置 `basename`，该值可以通过 `window.__op_router_basename__` 获取。
+
+比如:
+
+```tsx
+import { BrowserRouter } from 'react-router-dom'
+ReactDOM.render(
+  <ConfigProvider>
+    <BrowserRouter basename={window.__op_router_basename__}>
+      <App />
+    </BrowserRouter>
+  </ConfigProvider>,
+  document.getElementById('ones-mf-root')
+)
+```
+
+或者您可以直接使用 `HashRouter`。
+
+```tsx
+import { HashRouter } from 'react-router-dom'
+ReactDOM.render(
+  <ConfigProvider>
+    <HashRouter>
+      <App />
+    </HashRouter>
+  </ConfigProvider>,
+  document.getElementById('ones-mf-root')
+)
+```
+
+:::caution
+
+当你在 react 组件中使用 `Link` 来渲染标签 `<a />`，并且允许用户通过右键在新标签页中打开链接时，浏览器会打开一个错误的页面，这种场景不推荐使用标签 `<a href=""/>`。如果你需要跳转到 ONES，并且知道绝对路径，则你可以使用标签 `<a href="absolutePath"/>`。
+
+:::
+
 ### modules {#subModule}
 
 - **类型：**[`modules`](#modules)
