@@ -61,3 +61,15 @@ workspace:
     - a.txt
     - temp/*
 ```
+
+## 约束
+
+### 插件配置 - service.config
+
+- 插件升级时，不允许修改 `service.config` 的声明，即使修改了也不会生效。
+- 插件升级时，允许新增、删除 `service.config`。
+
+### 能力配置 - abilities.config
+
+- 插件升级时，`abilities.id` 与 `abilities.version:abilities.type` 的映射不允许发生改变。
+- 插件升级时，`abilities.config` 仅支持修改 `show` 和 `value` 字段，其他字段即使修改了也不会生效。
