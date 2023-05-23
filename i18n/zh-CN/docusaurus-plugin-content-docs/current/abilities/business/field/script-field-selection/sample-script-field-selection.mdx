@@ -1,22 +1,28 @@
-# Scene: Location FieldGroup
+# 场景： 位置信息属性
 
-## Scene Description
+## 场景描述
 
-It is hoped that location information, including country, province, and city, can be set in the issue fields, and these field meet the real constraints with each other. For example, after a country is selected, the options for provinces will be limited to the range of values selected by the country. And if the field with a smaller area is selected first, the corresponding upper-level location information can be automatically filled. Verify the validity of the location information when submitting the information at the end.
+希望在工作项属性中可以设置位置信息，包括国家、省份和城市，且这些属性相互之间符合真实约束，例如选择了国家之后，省份的可选项会被限制在国家所选值的范围内。并且如果先选择区域较小的属性能够自动填充对应的上级位置信息。最后提交信息时校验位置信息的合法性。
 
-## Solution
+## 解决方案
 
-### Implementation idea
+### 实现思路：
 
-The location information is expressed by adding three single-selection script-field to the issue, and they are associated to form an FieldGroup and added to the issue entity. Use the linkage function in the plugin to host the fieldgroup to realize the corresponding constraints.
+通过向工作项中添加三个单选类型的脚本属性来表达位置信息，将他们关联起来形成一个属性组并添加到工作项实体中。
 
-Among them, the constraints of the hierarchical relationship can be judged when obtaining the option value; the automatic filling of the upper-level location information can be realized by using the function of automatic filling of field values; the legality verification can be realized by using the function of field value verification.
+属性层级关系的约束可以在获取选项值时进行判断；自动填充上级位置信息可以使用属性值联动的功能实现；合法性校验可以使用属性值校验的功能进行实现。
 
-## Plugin development
+:::tip
 
-### Step 1: Add FieldGroup
+示例中出现的数据库相关 API: importSQL,exec,select 等请参考 **[数据库](../../../basic/database.mdx)** 能力
 
-Initialize the database in the `workspace/plugin.sql` file of the plugin.
+:::
+
+## 插件开发
+
+### 第一步：添加属性和属性组
+
+在插件的`workspace/plugin.sql`中初始化数据库
 
 ```sql title="workspace/plugin.sql"
 CREATE TABLE IF NOT EXISTS `{{script_field}}`(
@@ -36,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `{{location}}`(
 
 ```
 
-In the plugin's `Install` lifecycle method, add the script-field, create the FieldGroup and add it to the issue. Persist the acquired script-field `fieldUUID` into the database for subsequent use.
+在插件的`Install`生命周期方法中，添加脚本属性，创建属性组并添加到工作项中。将获取到的脚本属性`fieldUUID`持久化到数据库中以待后续使用。
 
 ```typescript
 import { Logger } from '@ones-op/node-logger'
@@ -45,17 +51,19 @@ import { exec, importSQL, select } from '@ones-op/node-database'
 import { Field, PoolEnum } from '@ones-op/node-ability'
 export async function Install() {
   await importSQL('plugin.sql')
-  //Add a script-field of type single-selection to issue
+  //添加单选类型的脚本属性至工作项
   const issueScriptField = ['Country', 'Province', 'City']
   const fieldUUIDs: any[] = []
   for (const fieldName of issueScriptField) {
     const FieldsAddProjectRes = await Field.FieldsAdd({
       Name: fieldName,
-      Type: 1001,
+      Type: 1001, //表示添加单选类型脚本属性
     })
     if (FieldsAddProjectRes.Error) {
-      throw new Error('Failed to create field')
+      //如果添加失败，抛出异常
+      throw new Error('Failed to create property')
     }
+    //添加成功返回属性的UUID
     const { UUID: fieldUUID } = FieldsAddProjectRes
     fieldUUIDs.push(fieldUUID)
     Logger.info('fieldUUID:', fieldUUID)
@@ -72,7 +80,7 @@ export async function Install() {
       Logger.error('error: ', error)
     }
   }
-  //create FieldGroup
+  //创建属性组
   const relateionsTask: any[] = []
   fieldUUIDs.forEach((fieldUUID, index) => {
     const relation = {
@@ -88,7 +96,7 @@ export async function Install() {
     Relations: relateionsTask,
   })
   Logger.info('success to create fieldGroup' + JSON.stringify(AddGroupFieldRes, undefined, 2))
-  //insert sample data
+  //插入示例数据
   try {
     const sql =
       "INSERT into location(Country, Province, City) values ('America', 'Washington', 'Seattle'), ('America', 'Washington', 'Olympia'), ('America', 'Hawaii', 'Hilo'), ('America', 'Hawaii', 'Kahului'), ('China', 'Guangdong', 'Dongguan'), ('China', 'Guangdong', 'Shenzhen'), ('China', 'SiChuan', 'Chengdu'), ('China', 'SiChuan', 'Leshan'), ('Japan', 'Tokyo', 'Hokkaido');"
@@ -100,9 +108,9 @@ export async function Install() {
 }
 ```
 
-### Step 2: Write data source functions
+### 第二步：编写脚本属性数据源函数
 
-- Add configuration
+- **添加配置**
 
 ```yaml title="config/plugin.yaml"
 apis:
@@ -113,9 +121,9 @@ apis:
     function: GetOptions
 ```
 
-- **Write handler function**
+- **编写处理函数**
 
-Returns the optional value of the response according to the currently edited field, and only returns a legal option value if the upper-level location information already exists.
+根据当前编辑的属性返回响应的可选值，如果已经具有上层位置信息，那么只返回合法的选项值。
 
 ```typescript
 interface OptionType {
@@ -140,73 +148,57 @@ const data = {
   China: { Guangdong: { Dongguan: {}, Shenzhen: {} }, SiChuan: { Chengdu: {}, Leshan: {} } },
   Japan: { Tokyo: { Hokkaido: {} } },
 }
-export async function GetOptions(request: PluginRequest): Promise<PluginResponse> {
-  const body = request?.body as any
 
-  let location: any = { Country: null, Province: null, City: null }
-  const options: OptionType[] = [] //Returned option data
-  let field = await getFieldMap()
-  if (body.relations == null) {
-    location[field.get(body.field_uuid)] = body.uuids[0]
-  } else {
-    body.relations.forEach((relation, index) => {
-      location[field.get(relation.field_uuid)] = relation.field_value
-    })
-  }
-  switch (field.get(body.field_uuid)) {
-    case 'Country':
-      for (let i in Countries) {
-        options.push({
-          uuid: Countries[i],
-          value: Countries[i],
-        })
-      }
-      break
-    case 'Province':
-      if (location.Country != null) {
-        for (let key in data[location.Country]) {
-          options.push({
-            uuid: key,
-            value: key,
-          })
-        }
-      } else {
-        for (let i in Provinces) {
-          options.push({
-            uuid: Provinces[i],
-            value: Provinces[i],
-          })
-        }
-      }
-      break
-    case 'City':
-      if (location.Province != null) {
-        for (let key in data[location.Country][location.Province]) {
-          options.push({
-            uuid: key,
-            value: key,
-          })
-        }
-      } else {
-        for (let i in Cities) {
-          options.push({
-            uuid: Cities[i],
-            value: Cities[i],
-          })
-        }
-      }
-      break
-  }
-
+const response = (options: Array<OptionType>) => {
   return {
     statusCode: 200,
     body: {
       code: 200,
       body: {
-        options: options,
+        options,
       },
     },
   }
+}
+export async function GetOptions(request: PluginRequest): Promise<PluginResponse> {
+  const body = request?.body
+  let field = await getFieldMap()
+  if (Array.isArray(body.uuids)) {
+    return response(body.uuids.map((uuid: string) => ({ uuid, value: uuid })))
+  } else if (Array.isArray(body.relations)) {
+    let location: any = { Country: null, Province: null, City: null }
+    let options: OptionType[] = [] //返回的选项数据
+    body.relations.forEach((relation, index) => {
+      location[field.get(relation.field_uuid)] = relation.field_value
+    })
+    switch (field.get(body.field_uuid)) {
+      case 'Country':
+        return response(Countries.map((uuid) => ({ uuid, value: uuid })))
+      case 'Province':
+        if (location.Country) {
+          return response(data[location.Country].map((uuid) => ({ uuid, value: uuid })))
+        } else {
+          return response(Provinces.map((uuid) => ({ uuid, value: uuid })))
+        }
+      case 'City':
+        if (location.Province) {
+          return response(
+            data[location.Country][location.Province].map((uuid) => ({ uuid, value: uuid }))
+          )
+        } else {
+          return response(Cities.map((uuid) => ({ uuid, value: uuid })))
+        }
+      default:
+        return response([])
+    }
+  }
+  const entities = {
+    Country,
+    Province,
+    City,
+  }
+  const uuids = entities[field.get(body.field_uuid)] || []
+  return response(uuids.map((uuid: string) => ({ uuid, value: uuid })))
 }
 async function getFieldMap(): Promise<any> {
   let field = new Map()
@@ -224,9 +216,9 @@ async function getFieldMap(): Promise<any> {
 }
 ```
 
-### Step 3: Add field value autofill function
+### 第三步：添加属性值自动填充功能
 
-- **Add configuration**
+- **添加配置**
 
 ```yaml title="config/plugin.yaml"
 apis:
@@ -237,9 +229,9 @@ apis:
     function: GroupFieldOnChange
 ```
 
-- **Write handler function**
+- **编写处理函数**
 
-When the edited field lacks superior information, obtain the corresponding information from the database and backfill it on the interface
+当编辑的属性缺乏上级信息时，从数据库中获取对应的信息并回填到界面上
 
 ```typescript
 interface FieldValueType {
@@ -341,9 +333,9 @@ export async function GroupFieldOnChange(request: PluginRequest): Promise<Plugin
 }
 ```
 
-### Step 4: Add field value verification function
+### 第四步：添加属性值校验功能
 
-- **Add configuration**
+- **添加配置**
 
 ```yaml title="config/plugin.yaml"
 apis:
@@ -354,9 +346,9 @@ apis:
     function: GroupFieldValidate
 ```
 
-- **Write handler function**
+- **编写处理函数**
 
-Verify whether the superior-subordinate relationship of all location information is legal according to the data in the plugin database.
+  根据插件数据库中的数据校验所有位置信息的上下级关系是否合法。
 
 ```typescript
 interface UpdateType {
@@ -407,5 +399,17 @@ export async function GroupFieldValidate(request: PluginRequest): Promise<Plugin
     Logger.error('error' + error)
   }
   return finalResult
+}
+
+function buildValidateFailResponse(code: number, reason: string, type: string): PluginResponse {
+  return {
+    statusCode: 200,
+    body: {
+      code: code,
+      reason: reason,
+      module: 'Plugin.FieldGroup',
+      type: type,
+    },
+  }
 }
 ```
