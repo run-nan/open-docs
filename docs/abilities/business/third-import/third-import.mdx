@@ -61,6 +61,46 @@ abilities:
       notifyFunc: notifyFunc
 ```
 
+| **ONES**  |
+| :-------- |
+|  |
+  In `abilities`.`config`, plug-in developers are supported to customize the notification message.
+
+The configuration items corresponding to custom notification messages need to be manually added by the plug-in developer, and some configuration items are supported (if no configuration message is added, the default value will be used).
+
+For example, when you don't care about third-party notifications, you only need to add three configuration items: msgTitleNotice, msgFailedContent, and msgSuccessContent.
+
+
+Example configuration:
+
+```yaml title="config/plugin.yaml"
+abilities:
+  - id: 5I-CjPX_
+    name: third-party import
+    version: 1.0.0
+    abilityType: ThirdImport
+    function:
+      importFunc: importFunc
+      notifyFunc: notifyFunc
+    config:
+      - key: msgTitleNotice
+        value: 'This is a title'
+        fieldType: Input
+      - key: msgFailedContent
+        value: 'This is the content for the import failure'
+        fieldType: Input
+      - key: msgSuccessContent
+        value: 'This is the content of the successfully imported'
+        fieldType: Input
+      - key: msgThirdTitleFailed
+        value: 'When an import fails，the third-party notification has this title'
+        fieldType: Input
+      - key: msgThirdTitleDone
+        value: 'when an import success，the third-party notification has this title'
+        fieldType: Input
+```
+
+
 ### Step 3: Start importing
 
 Call the `startImport` method to start importing third data.

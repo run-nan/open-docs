@@ -1,0 +1,92 @@
+# @ones-op/node-fs
+
+We provide a set of related interfaces for file operations, allowing plug-in developers to operate on files in the plug-in file working directory.
+
+The node-fs package is implemented by encapsulating the [fs](https://nodejs.cn/dist/latest-v16.x/docs/api/fs.html)  of Node.js. Currently, the node-fs package only supports the interface to [promises](https://nodejs.cn/dist/latest-v16.x/docs/api/fs.html#promise-api) in fs .
+
+
+## Requirements
+
+| **ONES** |
+| :------- |
+| v3.6.0+  |
+
+## API
+
+### APIs
+The following is a list of APIs supported by the node-fs package:
+
+
+| node-fs             | promises          |     illustrate          |   support  |
+| --------------------------- | -------------------- | ----------------------- | ----- |
+|access         |access(path[, mode])               | Test the user's permissions on the file or directory specified by path.       | yes       |
+|appendFile     |appendFile(path, data[, options])  | Asynchronously appends data to the file, creating the file if it does not already exist.      | yes       |
+|chmod          |chmod(path, mode)                  | Change the permissions of the file.       | yes       |
+|chown          |chown(path, uid, gid)              | Change the owner of the file.       | yes       |
+|copyFile       |copyFile(src, dest[, mode])        | Copies src to dest asynchronously. By default, if dest already exists, it will be overwritten.       | yes       |
+|cp             |cp(src, dest[, options])           | Asynchronously copy the entire directory structure from src to dest, including subdirectories and files.       | yes       |
+|lchmod         |lchmod(path, mode)                 | Change the permissions of a symbolic link. This method is only implemented on macOS.       | yes       |
+|lchown         |lchown(path, uid, gid)             | Change ownership on symlinks.      | yes       |
+|lutimes        |lutimes(path, atime, mtime)        | Change file access and modification times.      | yes       |
+|link           |link(existingPath, newPath)        | Create a new link from existingPath to newPath.       | yes       |
+|lstat          |lstat(path[, options])             | Equivalent to fsPromises.stat(), except that path points to a symbolic link, in which case the link itself is counted, not the file it refers to.       | yes       |
+|mkdir          |mkdir(path[, options])             | Create directories asynchronously.       | yes       |
+|mkdtemp        |mkdtemp(prefix[, options])         | Create a unique temporary directory.        | yes       |
+|open           |open(path, flags[, mode])          | open a file.        | yes       |
+|opendir        |opendir(path[, options])           | Asynchronously opens a directory for an iterative scan.       | yes       |
+|readdir        |readdir(path[, options])           | Read the contents of a directory.       | yes       |
+|readFile       |readFile(path[, options])          | Read the entire contents of the file asynchronously.       | yes       |
+|readlink       |readlink(path[, options])          | Read the contents of the symbolic link referenced by path.       | yes       |
+|realpath       |realpath(path[, options])          | Determine the actual location of path.       | yes       |
+|rename         |rename(oldPath, newPath)           | Rename oldPath to newPath.       | yes       |
+|rmdir          |rmdir(path[, options])             | Delete the directory identified by path.       | yes       |
+|rm             |rm(path[, options])                | Delete files and directories.       | yes       |
+|stat           |stat(path[, options])              | The fs.Stats for the given path.       | yes       |
+|symlink        |symlink(target, path[, type])      | Create a symbolic link.       | yes       |
+|truncate       |truncate(path[, len])              | Truncate (shorten or lengthen) the content on path to len bytes.       | yes       |
+|unlink         |unlink(path)                       | If path points to a symbolic link, the link is removed without affecting the file or directory to which the link points. If the file path pointed to by path is not a symbolic link, delete the file.      | yes       |
+|utimes         |utimes(path, atime, mtime)         | Change the filesystem timestamp of the object referenced by path.       | yes       |
+|watch          |watch(filename[, options])         | Returns an asynchronous iterator that monitors changes on filename, where filename is a file or directory.       | yes       |
+|writeFile      |writeFile(file, data[, options])   | Asynchronously writes data to a file, replacing the file if it already exists.       | yes       |
+
+
+### Parameter
+
+#### The parameters of the API in the node-fs package are consistent with the fs of Node.js, but the following restrictions are imposed on the file and directory parameters
+
+1.The directory or file parameter must be of string type. If the parameters are not satisfied, an error message will be given:
+
+<font color= "#FF0000"> "Illegal argument: path to file or directory is not of type string." </font> <br /><br />
+
+2.Directory or file parameters are not allowed to exceed the workspace directory. If the parameters are not satisfied, an error message will be given:
+
+<font color= "#FF0000">  "Illegal parameter: ../file21.txt is out of range of accessible paths" </font> <br />
+
+#### The file size should not be too large, it is recommended not to exceed 500MB.
+
+#### If you read and write large files, it is recommended to use slice|batch processing.
+
+
+## Example
+The use of each interface of node-fs is basically the same as the [fs](https://nodejs.cn/dist/latest-v16.x/docs/api/fs.html) of Node.js.
+
+The following is `mkdir` give as a simple example:
+
+```javascript
+import {Logger} from '@ones-op/node-logger'
+import {promises} from '@ones-op/node-fs'
+
+const dir1_name = './dir1'
+const dir2_name = './dir1/dir2'
+const dir3_name = './dir1/dir2/dir3'
+
+export async function TestMkdir() {
+  try {
+        await promises.mkdir(dir1_name)
+        await promises.mkdir(dir3_name, {recursive: true})
+
+    } catch (error: any) {
+        Logger.error('[makeDirTest] error:', error.message)
+    }
+}
+```

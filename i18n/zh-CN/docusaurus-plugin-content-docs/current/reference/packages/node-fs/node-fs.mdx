@@ -1,0 +1,91 @@
+# @ones-op/node-fs
+
+我们提供了一套文件操作的相关接口，允许插件开发者对插件文件工作目录下的文件进行操作。
+
+node-fs包通过封装Node.js的 [fs](https://nodejs.cn/dist/latest-v16.x/docs/api/fs.html) 来实现。目前，node-fs包仅支持fs中 [promises](https://nodejs.cn/dist/latest-v16.x/docs/api/fs.html#promise-api) 的接口。
+
+## 要求
+
+| **ONES** |
+| :------- |
+| v3.6.0+  |
+
+## API
+
+### API列表
+下面给出node-fs包所支持的API列表：
+
+
+| node-fs             | promises          |     说明          |   支持  |
+| --------------------------- | -------------------- | ----------------------- | ----- |
+|access         |access(path[, mode])               | 测试用户对 path 指定的文件或目录的权限。       | 是       |
+|appendFile     |appendFile(path, data[, options])  | 异步地将数据追加到文件，如果该文件尚不存在，则创建该文件。       | 是       |
+|chmod          |chmod(path, mode)                  | 更改文件的权限。       | 是       |
+|chown          |chown(path, uid, gid)              | 更改文件的所有权。       | 是       |
+|copyFile       |copyFile(src, dest[, mode])        | 异步地将 src 复制到 dest。 默认情况下，如果 dest 已经存在，则会被覆盖。       | 是       |
+|cp             |cp(src, dest[, options])           | 将整个目录结构从 src 异步地复制到 dest，包括子目录和文件。       | 是       |
+|lchmod         |lchmod(path, mode)                 | 更改符号链接的权限。此方法仅在 macOS 上实现。       | 是       |
+|lchown         |lchown(path, uid, gid)             | 更改符号链接上的所有权。       | 是       |
+|lutimes        |lutimes(path, atime, mtime)        | 更改文件的访问和修改时间      | 是       |
+|link           |link(existingPath, newPath)        | 创建从 existingPath 到 newPath 的新链接。       | 是       |
+|lstat          |lstat(path[, options])             | 等效于 fsPromises.stat()，除非 path 指向符号链接，在这种情况下，被统计的是链接本身，而不是其所引用的文件。       | 是       |
+|mkdir          |mkdir(path[, options])             | 异步地创建目录。       | 是       |
+|mkdtemp        |mkdtemp(prefix[, options])         | 创建唯一的临时目录。        | 是       |
+|open           |open(path, flags[, mode])          | 打开文件。        | 是       |
+|opendir        |opendir(path[, options])           | 异步地打开目录进行迭代扫描。       | 是       |
+|readdir        |readdir(path[, options])           | 读取目录的内容。       | 是       |
+|readFile       |readFile(path[, options])          | 异步地读取文件的全部内容。       | 是       |
+|readlink       |readlink(path[, options])          | 读取 path 引用的符号链接的内容。       | 是       |
+|realpath       |realpath(path[, options])          | 确定 path 的实际位置。       | 是       |
+|rename         |rename(oldPath, newPath)           | 将 oldPath 重命名为 newPath。       | 是       |
+|rmdir          |rmdir(path[, options])             | 删除由 path 标识的目录。       | 是       |
+|rm             |rm(path[, options])                | 删除文件和目录。       | 是       |
+|stat           |stat(path[, options])              | 给定的 path 的 fs.Stats。       | 是       |
+|symlink        |symlink(target, path[, type])      | 创建符号链接。       | 是       |
+|truncate       |truncate(path[, len])              | 将 path 上的内容截断（缩短或延长长度）到 len 个字节。       | 是       |
+|unlink         |unlink(path)                       | 如果 path 指向符号链接，则删除该链接，但不影响链接所指向的文件或目录。 如果 path 指向的文件路径不是符号链接，则删除文件。       | 是       |
+|utimes         |utimes(path, atime, mtime)         | 更改 path 引用的对象的文件系统时间戳。       | 是       |
+|watch          |watch(filename[, options])         | 返回异步迭代器，其监视 filename 上的更改，其中 filename 是文件或目录。       | 是       |
+|writeFile      |writeFile(file, data[, options])   | 异步地将数据写入文件，如果文件已经存在，则替换该文件。       | 是       |
+
+
+### 参数说明
+
+#### node-fs包中API的参数与Node.js的fs保持一致，但是对文件和目录参数做了以下限制：
+
+1.目录或文件参数必须是string类型。如果参数不满足，将给与错误提示：
+
+<font color= "#FF0000"> "非法参数: 文件或目录的路径不是string类型"</font> <br /><br />
+
+2.目录或文件参数不允许超出workspace目录外。如果参数不满足，将给与错误提示：
+
+<font color= "#FF0000">  "非法参数: ../file21.txt 超出可访问路径范围" </font> <br />
+
+#### 文件大小不宜太大，建议不超过500MB。
+
+#### 如果读写大文件，建议采用分片|分批处理。
+
+
+## 示例
+node-fs各个接口的使用和Node.js的 [fs](https://nodejs.cn/dist/latest-v16.x/docs/api/fs.html) 基本一致。
+
+下面以`mkdir`为例，给出简单示例：
+
+```javascript
+import {Logger} from '@ones-op/node-logger'
+import {promises} from '@ones-op/node-fs'
+
+const dir1_name = './dir1'
+const dir2_name = './dir1/dir2'
+const dir3_name = './dir1/dir2/dir3'
+
+export async function TestMkdir() {
+  try {
+        await promises.mkdir(dir1_name)
+        await promises.mkdir(dir3_name, {recursive: true})
+
+    } catch (error: any) {
+        Logger.error('[makeDirTest] error:', error.message)
+    }
+}
+```

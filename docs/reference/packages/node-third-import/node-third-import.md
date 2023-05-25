@@ -67,7 +67,11 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 
 ### ThirdTaskAttachment
 
-The workspace is not supported for local debugging, you should set the configuration file_in_local in `config/local.yaml` to false or use server-side debugging.
+| **ONES** |
+| :------- |
+|   |
+
+The local debugging mode now supports importing attachments, but files must less than 100MB in this mode.
 
 | Param          | Description             | Type     | Required |
 | :------------- | :---------------------- | :------- | :------- |

@@ -5,6 +5,8 @@ description: 插件本身的文件存储。
 
 # 插件文件操作
 
+由于`@ones-op/node-file`包存在bug，当ONES版本超过`v3.13.60`时候，请使用[`@ones-op/node-fs`](plugin-fileOP-new.md)包进行替换。
+
 ## 要求
 
 | **ONES** | @ones-op/node-utils | @ones-op/node-file |

@@ -61,6 +61,46 @@ abilities:
       notifyFunc: notifyFunc
 ```
 
+| **ONES**  |
+| :-------- |
+| |
+在`abilities`.`config`中，支持插件开发者自定义通知消息内容。
+
+自定义通知消息对应的配置项，需要插件开发者手动添加，并且支持添加部分配置项（没有添加配置消息，会使用默认值）。
+
+例如当不关心第三方通知时，仅需要添加msgTitleNotice，msgFailedContent，msgSuccessContent这三个配置项。
+
+
+示例配置：
+
+```yaml title="config/plugin.yaml"
+abilities:
+  - id: 5I-CjPX_
+    name: 第三方导入
+    version: 1.0.0
+    abilityType: ThirdImport
+    function:
+      importFunc: importFunc
+      notifyFunc: notifyFunc
+    config:
+      - key: msgTitleNotice
+        value: '这是标题'
+        fieldType: Input
+      - key: msgFailedContent
+        value: '导入失败内容'
+        fieldType: Input
+      - key: msgSuccessContent
+        value: '导入成功内容'
+        fieldType: Input
+      - key: msgThirdTitleFailed
+        value: '导入失败时，第三方标题'
+        fieldType: Input
+      - key: msgThirdTitleDone
+        value: '导入成功时，第三方标题'
+        fieldType: Input
+```
+
+
 ### 第三步：开始导入
 
 调用 `startImport` 方法开始第三方数据的导入。

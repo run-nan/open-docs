@@ -67,7 +67,11 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 
 ### ThirdTaskAttachment
 
-附件导入在本地调试时暂不支持将工作区间设置为本地插件的 `workspace` 目录，本地调试时应将`config/local.yaml`中的配置 file_in_local 设置为 false 或者 使用服务端调试。
+| **ONES** |
+| :------- |
+|   |
+
+附件导入在本地调试方式已支持，但是要求文件不超过100MB。
 
 | 参数           | 说明         | 类型     | 必填 |
 | :------------- | :----------- | :------- | :--- |
