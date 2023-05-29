@@ -10,6 +10,9 @@ import taskSelectionField2 from './images/task-selection-field-2.png'
 import projectSelecttionField1 from './images/project-selection-field-1.png'
 import projectSelecttionField2 from './images/project-selection-field-2.png'
 import productSelecttionField from './images/product-selection-field.png'
+import editFieldGroup1 from './images/edit-field-group1.png'
+import editFieldGroup2 from './images/edit-field-group2.png'
+import editFieldGroup3 from './images/edit-field-group3.png'
 
 # 单选/多选菜单属性
 
@@ -174,10 +177,12 @@ interface Body {
 interface Response {
   body: {
     code: number
-    options: Array<{
-      uuid: string
-      value: string
-    }>
+    body: {
+      options: Array<{
+        uuid: string
+        value: string
+      }>
+    }
   }
 }
 
@@ -265,10 +270,12 @@ interface Body {
 interface Response {
   body: {
     code: number
-    options: Array<{
-      uuid: string
-      value: string
-    }>
+    body: {
+      options: Array<{
+        uuid: string
+        value: string
+      }>
+    }
   }
 }
 
@@ -514,35 +521,49 @@ sequenceDiagram
     actor u as User
     participant o as ONES
     participant p as Plugin
-    u->>+o: Click on script-field
-    o-->>-u: FieldGroup modification box
+    u->>+o: 点击脚本属性
+    o-->>-u: 属性组修改框
     rect rgb(129,216,207,0.3)
-    note left of u: Get options
-    u->>+o: Edit field
-    o->>+p: Call /scriptFieldSearch
-    p-->>-o: Return optional
-    o-->>-u: Return optional
+    note left of u: 获取选项值
+    u->>+o: 编辑单选属性
+    o->>+p: 调用 /scriptFieldSearch
+    p-->>-o: 返回可选项
+    o-->>-u: 返回可选项
     end
     rect rgb(129,216,207,0.3)
-    note left of u: Autofill field value
-    u->>+o: Select an option
-    o->>+p: Call /groupFieldOnChange
-    p-->>-o: Return backfill data
-    o-->>-u: Automatic backfill
+    note left of u: 属性值自动填充
+    u->>+o: 选择某一选项
+    o->>+p: 调用 /groupFieldOnChange
+    p-->>-o: 返回回填数据
+    o-->>-u: 自动回填
     end
-    u->>+o: Query option value
-    o->>+p: Call /scriptFieldSearch
-    p-->>-o: Return option value
-    o-->>-u: Return option value
+    u->>+o: 查询选项值
+    o->>+p: 调用 /scriptFieldSearch
+    p-->>-o: 返回选项值
+    o-->>-u: 返回选项值
     rect rgb(129,216,207,0.3)
-    note left of u: Check field value
-    u->>+o: Submit FieldGroup Modifications
-    o->>+p: Call /groupFieldValidate
-    p-->>-o: Return verification result
-    o-->>o: If the verification is successful, the data will be modified
-    o-->>-u: Return verification result
+    note left of u: 属性值校验
+    u->>+o: 提交属性组修改
+    o->>+p: 调用 /groupFieldValidate
+    p-->>-o: 返回校验结果
+    o-->>o: 如果验证成功，则修改数据
+    o-->>-u: 返回校验结果
     end
 ```
+
+:::tip
+
+在 ONES 系统中，修改属性组内的属性与修改普通属性的交互略有不同，由于属性组内的属性有关联关系，因此修改属性组内的属性必须整组修改：
+
+- 修改属性组内的属性时，会弹出属性组编辑弹窗：
+
+  <Image img={editFieldGroup1} />
+
+- 批量修改工作项属性时，如果选中了属性组内的属性，属性组内的其他属性也会被自动选中：
+  <Image img={editFieldGroup2} />
+  <Image img={editFieldGroup3} />
+
+:::tip
 
 ## 示例
 

@@ -10,6 +10,9 @@ import taskSelectionField2 from './images/task-selection-field-2.png'
 import projectSelecttionField1 from './images/project-selection-field-1.png'
 import projectSelecttionField2 from './images/project-selection-field-2.png'
 import productSelecttionField from './images/product-selection-field.png'
+import editFieldGroup1 from './images/edit-field-group1.png'
+import editFieldGroup2 from './images/edit-field-group2.png'
+import editFieldGroup3 from './images/edit-field-group3.png'
 
 # Selection
 
@@ -174,10 +177,12 @@ interface Body {
 interface Response {
   body: {
     code: number
-    options: Array<{
-      uuid: string
-      value: string
-    }>
+    body: {
+      options: Array<{
+        uuid: string
+        value: string
+      }>
+    }
   }
 }
 
@@ -265,10 +270,12 @@ interface Body {
 interface Response {
   body: {
     code: number
-    options: Array<{
-      uuid: string
-      value: string
-    }>
+    body: {
+      options: Array<{
+        uuid: string
+        value: string
+      }>
+    }
   }
 }
 
@@ -556,6 +563,20 @@ sequenceDiagram
     o-->>-u: Return validation result
     end
 ```
+
+:::tip
+
+In ONES system, modifying fields within a field group has a slightly different interaction compared to modifying regular fields. Due to the interdependency among fields within a field group, modifying fields within a field group requires modifying the entire group as a whole.
+
+- When modifying fields within a field group, an field group editing dialog will appear.
+
+  <Image img={editFieldGroup1} />
+
+- When batch modifying issue fields, if a field within a field group is selected, other fields within the same group will also be automatically selected.
+  <Image img={editFieldGroup2} />
+  <Image img={editFieldGroup3} />
+
+:::tip
 
 ## Examples
 
