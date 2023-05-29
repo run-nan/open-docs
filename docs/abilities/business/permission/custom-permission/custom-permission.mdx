@@ -93,21 +93,21 @@ In the examples, the `addition` interface is added through the [ONES API registr
 
 - Normal
 
-  | Param             | Description                  | Type   |
-  | :---------------- | :--------------------------- | :----- |
-  | organization_uuid | organization uuid            | string |
-  | team_uuid         | team uuid                    | string |
-  | instance_uuid     | plugin instance id           | string |
-  | permission_name   | permission point name        | string |
-  | permission_desc   | permission point description | string |
-  | permission_field  | permission unique identifier | string |
-  | permission_id     | permission point id          | string |
-  | check_mode        | check type                   | string |
-  | ability_id        | ability id                   | string |
+| Param             | Description                  | Type   |
+| :---------------- | :--------------------------- | :----- |
+| organization_uuid | organization uuid            | string |
+| team_uuid         | team uuid                    | string |
+| instance_uuid     | plugin instance id           | string |
+| permission_name   | permission point name        | string |
+| permission_desc   | permission point description | string |
+| permission_field  | permission unique identifier | string |
+| permission_id     | permission point id          | string |
+| check_mode        | check type                   | string |
+| ability_id        | ability id                   | string |
 
 - Error
 
-  Return when the added permission point already exists: permission_field of plugin already exists
+Return when the added permission point already exists: permission_field of plugin already exists
 
 **Example:**
 
@@ -261,25 +261,25 @@ export async function deletePermission(request: PluginRequest): Promise<PluginRe
 
 - Normal
 
-  Contains information about adding permission rules this time
+Contains information about adding permission rules this time
 
-  | Param             | Description         | Type   |
-  | :---------------- | :------------------ | :----- |
-  | org_uuid          | organization uuid   | string |
-  | team_uuid         | team uuid           | string |
-  | id                | permission rule id  | string |
-  | deleted           | delete or not       | Bool   |
-  | permission_id     | permission point id | string |
-  | context_type      | context type        | string |
-  | context_param_1   | context param 1     | string |
-  | context_param_2   | context param 2     | string |
-  | user_domain_type  | user domain type    | string |
-  | user_domain_param | user domain param   | string |
-  | position          | location            | string |
+| Param             | Description         | Type   |
+| :---------------- | :------------------ | :----- |
+| org_uuid          | organization uuid   | string |
+| team_uuid         | team uuid           | string |
+| id                | permission rule id  | string |
+| deleted           | delete or not       | Bool   |
+| permission_id     | permission point id | string |
+| context_type      | context type        | string |
+| context_param_1   | context param 1     | string |
+| context_param_2   | context param 2     | string |
+| user_domain_type  | user domain type    | string |
+| user_domain_param | user domain param   | string |
+| position          | location            | string |
 
 - Error
 
-  When the user domain type of the added permission point rule is wrong, return: `<UserDomainNotExist> UserDomainNotExist`
+When the user domain type of the added permission point rule is wrong, return: `<UserDomainNotExist> UserDomainNotExist`
 
 **Example:**
 
@@ -655,11 +655,31 @@ According to the function name configured in `function.customPermissionCheckFunc
 
 **Param:**
 
-| Param            | Description                                                                                                               | Type   |
-| :--------------- | :------------------------------------------------------------------------------------------------------------------------ | :----- |
-| user_uuid        | User's `uuid`                                                                                                             | string |
-| permission_field | permission unique identifier                                                                                              | string |
-| context          | Additional parameters, when the plugin customizes the validation, additional parameters can be passed through this field. | string |
+| Param            | Description                   | Type              |
+| :--------------- | :---------------------------- | :---------------- |
+| user_uuid        | User's `uuid`                 | string            |
+| permission_field | permission unique identifier  | string            |
+| context          | Permission context parameters | PermissionContext |
+
+```typescript
+interface PermissionContext {
+  project_uuid?: string // ONES Projects -> project ID
+  filter_view_uuid?: string // My work -> Filters -> filter view ID
+  program_uuid?: string // ONES Program -> program ID
+  product_uuid?: string // Product Management -> product ID
+  testcase_library_uuid?: string // ONES TestCase -> Test case libarary -> test case library ID
+  test_plan_uuid?: string // ONES Testcase -> Test plans -> test planID
+  wiki_space_uuid?: string // ONES Wiki -> Spaces -> space ID
+  workspace_dashboard_uuid?: string // My work -> Dashboards -> dashboard ID
+  performance_dashboard_uuid?: string // ONES Performace -> Dashboard -> dashboard ID
+}
+```
+
+:::caution
+
+If the permission verification logic relies on permission context parameters, you also need to configure [needPermissionContext](../../../../reference/config/plugin.yaml#needPermissionContext) as `true` in the module that uses the permission point. Only in this way will the permission be re-verified when there are changes in the permission context.
+
+:::
 
 **Return: **Determine whether the permission check is passed by returning the value of the `is_permission` field in the body
 

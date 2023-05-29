@@ -1,84 +1,144 @@
+---
+sidebar_position: 2
+description: permission with context
+---
+
 import Image from '@theme/IdealImage'
 
-# 场景：支持上下文的权限点
+# Scene：Custom sprint component with context-based permission
 
-## 场景描述
+## Scene description
 
-在系统顶栏右侧添加功能组件，并且希望可以控制访问权限，对于没有访问权限的人员隐藏该组件。
+We want to implement a custom sprint component in "ONES project" and control its access permissions. The component should only be visible when it belongs to the "Demo Project" and hidden otherwise.
 
-## 解决方案
+## Solution
 
-### 实现思路
+### Implementation idea
 
-使用系统顶栏右侧插槽新增一个新的组件，使用自定义权限点能力添加一个插件权限点，将新增的组件关联该自定义权限点。
+Implement a custom sprint module and use the custom permission ability to add a plugin permission . Associate the custom sprint module with this custom permission.
 
-### 实现效果
+### Effect
 
-拥有权限的人能够见到系统顶栏右侧新增了一个组件。
+When the component belongs to the "Demo Project," the custom sprint module is visible.
 
-<Image img={require('./images/sider-permission-01.png')} />
+<Image img={require('./images/custom-sprint-01.png')} />
 
-没有权限的人系统顶栏右侧无变化。
+When the component does not belong to the "Demo Project," the custom sprint module is hidden.
 
-<Image img={require('./images/sider-permission-02.png')} />
+<Image img={require('./images/custom-sprint-02.png')} />
 
-## 插件开发
+## Plugin development
 
-### 第一步：添加插槽
+### Step 1: Add Slot
 
-使用`npx op add module`添加`ones:layout:header:action:new`类型的插槽。
+Use `npx op add module` to add a slot of type `ones:project:component:sprint`.
 
-### 第二步：添加组件
-
-这里只以图标的形式简单展示，无新增具体逻辑。
-
-进入插件工程的 `/web` 目录，执行以下命令进行依赖安装：
-
-```shell
-npm i '@ones-design/icons'
+```yaml title="config/plugin.yaml"
+modules:
+  - id: ones-project-component-sprint-li88
+    title: Sprint
+    moduleType: ones:project:component:sprint
+    entry: modules/ones-project-component-sprint-li88/index.html
 ```
 
-添加图标
+Implement the slot rendering logic:
 
-```typescript title="web/src/modules/ones-layout-header-action-new-mYbE/index.tsx"
-import { Book } from '@ones-design/icons'
-
+```tsx title="web/src/modules/ones-project-component-sprint-li88/index.tsx"
 ReactDOM.render(
   <ConfigProvider>
-    <Book />
+    <h1>Custom Sprint</h1>
   </ConfigProvider>,
   document.getElementById('ones-mf-root')
 )
 ```
 
-### 第三步：配置自定义权限点
+### Step 2: Add Custom Permission
 
-在插件的配置文件中添加权限点配置
+Use `npx op add ability` to add the `custom-permission` ability.
+
+Add the custom permission to the ability configuration:
 
 ```yaml title="config/plugin.yaml"
-service:
-	...
-  permission:
-    - name: Component permissions
-      field: component_permissions
-      desc: System sider permissions
+abilities:
+  - id: xp4rZk24fP
+    name: custom permission
+    version: 1.0.0
+    abilityType: CustomPermission
+    function:
+      customPermissionCheckFunc: customPermissionCheck
+    config:
+      - key: name
+        value: custom_sprint_permission
+        show: false
+      - key: field
+        value: custom_sprint_permission
+        show: false
+      - key: desc
+        value: custom_sprint_permission
+        show: false
+      - key: is_plugin_custom_check
+        value: true
+        show: false
 ```
 
-### 第四步：插槽关联权限点
+Implement the permission validation logic in the `customPermissionCheck` function:
 
-`module`配置新增`permission`字段
+```typescript title="backend/src/custom-permission.ts"
+import { Logger } from '@ones-op/node-logger'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 
-```yaml titile="config/plugin.yaml"
+interface PermissionContext {
+  project_uuid?: string // ONES Projects -> project ID
+  filter_view_uuid?: string // My work -> Filters -> filter view ID
+  program_uuid?: string // ONES Program -> program ID
+  product_uuid?: string // Product Management -> product ID
+  testcase_library_uuid?: string // ONES TestCase -> Test case libarary -> test case library ID
+  test_plan_uuid?: string // ONES Testcase -> Test plans -> test planID
+  wiki_space_uuid?: string // ONES Wiki -> Spaces -> space ID
+  workspace_dashboard_uuid?: string // My work -> Dashboards -> dashboard ID
+  performance_dashboard_uuid?: string // ONES Performace -> Dashboard -> dashboard ID
+}
+
+interface PermissionBody {
+  user_uuid: string // User ID
+  permission_field: string // Permission Field
+  context: PermissionContext
+}
+
+const permissionResult = (is_permission: boolean) => ({
+  statusCode: 200,
+  body: {
+    code: 200,
+    body: {
+      is_permission,
+    },
+  },
+})
+
+export async function customPermissionCheck(
+  request: PluginRequest<PermissionBody>
+): Promise<PluginResponse> {
+  Logger.info('check custom permission')
+  const { permission_field, context = {} } = request.body
+  Logger.info('body:', JSON.stringify(request.body, null, 2))
+  switch (permission_field) {
+    case 'custom_sprint_permission':
+      return permissionResult(context?.project_uuid === 'UBwog7LWV7wZcWyT') // UBwog7LWV7wZcWyT is the projectUUID of the "Demo Project"
+  }
+  return permissionResult(true)
+}
+```
+
+### Step 3: Associate Slot with Permission Point
+
+Add the `permission` and `needPermissionContext` fields to the `module` configuration. Associate them with the permission point declared in the `custom-permission` ability:
+
+```yaml title="config/plugin.yaml"
 modules:
-  - id: ones-layout-header-action-new-mYbE
-    title: test
-    moduleType: ones:layout:header:action:new
-    entry: modules/ones-layout-header-action-new-mYbE/index.html
-    permission: component_permissions
+  - id: ones-project-component-sprint-li88
+    title: Sprint
+    moduleType: ones:project:component:sprint
+    entry: modules/ones-project-component-sprint-li88/index.html
+    permission: custom_sprint_permission
+    needPermissionContext: true # When needPermissionContext is true, permissions are revalidated when the permission context changes.
 ```
-
-### 第五步：配置权限
-
-在插件详情页面配置权限
-
-<Image img={require('./images/sider-permission-03.png')} />
