@@ -4,9 +4,9 @@ We provide a set of API related to file manipulation, allowing plugin developers
 
 ## Requirements
 
-| **ONES** |
-| :------- |
-| v3.6.0+  |
+| ONES    |
+| :------ |
+| v3.6.0+ |
 
 ## API
 

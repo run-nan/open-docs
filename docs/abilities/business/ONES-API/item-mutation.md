@@ -6,9 +6,9 @@ sidebar_position: 4
 
 ## Requirements
 
-| **ONES** |
-| :------- |
-| v3.6.0+  |
+| ONES    |
+| :------ |
+| v3.6.0+ |
 
 ## Overview
 

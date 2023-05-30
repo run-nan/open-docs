@@ -6,9 +6,9 @@ toc_max_heading_level: 4
 
 ## 要求
 
-| **ONES** |
-| :------- |
-|          |
+| ONES |
+| :--- |
+|      |
 
 ## 安装
 

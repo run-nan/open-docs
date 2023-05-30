@@ -8,9 +8,9 @@ toc_max_heading_level: 4
 
 ## 要求
 
-| **ONES** |
-| :------- |
-| v3.6.0+  |
+| ONES    |
+| :------ |
+| v3.6.0+ |
 
 ## API
 
@@ -174,9 +174,9 @@ const response = await getAbilityConfig()
 
 #### 要求
 
-| **ONES** | **@ones-op/node-ability** |
-| :------- | :------------------------ |
-| 待发布   | 待发布                    |
+| ONES   | **@ones-op/node-ability** |
+| :----- | :------------------------ |
+| 待发布 | 待发布                    |
 
 #### Params
 

@@ -6,9 +6,9 @@ sidebar_position: 2
 
 ## Requirements
 
-| **ONES** | @ones-op/node-error | @ones-op/fetch |
-| :------- | :------------------ | :------------- |
-| v3.6.0+  | v0.1.1+             | v0.6.0+        |
+| ONES    | @ones-op/node-error | @ones-op/fetch |
+| :------ | :------------------ | :------------- |
+| v3.6.0+ | v0.1.1+             | v0.6.0+        |
 
 ## Overview
 

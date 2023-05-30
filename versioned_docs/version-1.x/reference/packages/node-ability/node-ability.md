@@ -8,9 +8,9 @@ We provide a set of interface request libraries that allow plugin developers to 
 
 ## Compatibility Requirements
 
-| **ONES** |
-| :------- |
-| v3.6.0+  |
+| ONES    |
+| :------ |
+| v3.6.0+ |
 
 ## API
 
@@ -147,9 +147,9 @@ Get ability configuration information
 
 #### Requirements
 
-| **ONES** | **@ones-op/node-ability** |
-| :------- | :------------------------ |
-| ready    | ready                     |
+| ONES  | **@ones-op/node-ability** |
+| :---- | :------------------------ |
+| ready | ready                     |
 
 #### Params
 

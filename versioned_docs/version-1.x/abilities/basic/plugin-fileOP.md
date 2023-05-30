@@ -7,9 +7,9 @@ description: File storage for the plugin itself.
 
 ## Requirements
 
-| **ONES** |
-| :------- |
-| v3.6.0+  |
+| ONES    | @ones-op/node-utils | @ones-op/node-file |
+| :------ | :------------------ | :----------------- |
+| v3.6.0+ | v0.2.0+             | v0.3.0+            |
 
 ## Overview
 

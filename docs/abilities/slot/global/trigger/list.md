@@ -6,7 +6,7 @@ import Image from '@theme/IdealImage'
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.10.20+ |
 
@@ -16,7 +16,7 @@ Pre-action before updating the issue's standard fields except for the [status](#
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.10.20+ |
 
@@ -28,7 +28,7 @@ Post-action after updating the issue's standard field except for the [status](#a
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.10.20+ |
 
@@ -45,7 +45,7 @@ different from other standard fields.
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.10.20+ |
 
@@ -57,7 +57,7 @@ Post-action after updating the issue's status.
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.10.20+ |
 
@@ -67,7 +67,7 @@ Pre-action for the issue's "Change issue type".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.10.20+ |
 
@@ -79,7 +79,7 @@ Post-action for the issue's "Change issue type".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.10.20+ |
 
@@ -89,7 +89,7 @@ Pre-action for the issue's "Convert to subissue".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.10.20+ |
 
@@ -101,7 +101,7 @@ Post-action for the issue's "Convert to subissue".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.10.20+ |
 
@@ -111,7 +111,7 @@ Pre-action for the subissue's "Change subissue type".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.10.20+ |
 
@@ -123,7 +123,7 @@ Post-action for the subissue's "Change subissue type".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.10.20+ |
 
@@ -133,7 +133,7 @@ Pre-action for the subissue's "Convert to issue".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.10.20+ |
 
@@ -145,7 +145,7 @@ Post-action for the subissue's "Convert to issue".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -155,7 +155,7 @@ Pre-action for "Create issue", "Create subissue", "Bulk create subissues".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -167,7 +167,7 @@ Post-action for "Create issue", "Create subissue", "Bulk create subissues".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.10.20+ |
 
@@ -177,7 +177,7 @@ Pre-action for the issue list's "Bulk change issue types".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.10.20+ |
 
@@ -189,7 +189,7 @@ Post-action for the issue list's "Bulk change issue types".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.10.20+ |
 
@@ -199,7 +199,7 @@ Pre-action for the issue list's "Bulk convert to subissues".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.10.20+ |
 
@@ -211,7 +211,7 @@ Post-action for the issue list's "Bulk convert to subissues".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.10.20+ |
 
@@ -221,7 +221,7 @@ Pre-action for the issue list's "Bulk convert into issues".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.10.20+ |
 
@@ -233,7 +233,7 @@ Post-action for the issue list's "Bulk convert into issues".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.10.20+ |
 
@@ -243,7 +243,7 @@ Pre-action for the issue list's "Bulk change issue fields".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.10.20+ |
 
@@ -255,7 +255,7 @@ Post-action for the issue list's "Bulk change issue fields".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -265,7 +265,7 @@ Pre-action for "Bulk create issues".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -277,7 +277,7 @@ Post-action for "Bulk create issues".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -287,7 +287,7 @@ Pre-action for "Create project".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -299,7 +299,7 @@ Post-action for "Create project".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -309,7 +309,7 @@ Pre-action for "Duplicate from existing project".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -321,7 +321,7 @@ Post-action for "Duplicate from existing project".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -331,7 +331,7 @@ Pre-action for updating the project info, for example, project name, project inf
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -343,7 +343,7 @@ Post-action for updating the project info, for example, project name, project in
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -353,7 +353,7 @@ Pre-action for "Time estimated" of "Worklog info" only if the worklog mode is th
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -365,7 +365,7 @@ Post-action for "Time estimated" of "Worklog info" only if the worklog mode is t
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -381,7 +381,7 @@ In the different "Worklog mode", the data format that the Action received is dif
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -399,7 +399,7 @@ In the different "Worklog mode", the data format that the Action received is dif
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -409,7 +409,7 @@ Pre-action for "Time estimated", "Log time".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -421,7 +421,7 @@ Post-action for "Time estimated", "Log time".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -431,7 +431,7 @@ Pre-action for "Modify time spent", "Modify member time estimated".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -443,7 +443,7 @@ Post-action for "Modify time spent", "Modify member time estimated".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -453,7 +453,7 @@ Pre-action for "Delete member Time spent", "Delete member Time estimated".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -465,7 +465,7 @@ Post-action for "Delete member Time spent", "Delete member Time estimated".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -475,7 +475,7 @@ Pre-action for "Create plan", "Create milestone".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -487,7 +487,7 @@ Post-action for "Create plan", "Create milestone".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -497,7 +497,7 @@ Pre-action for updating the project plan and updating the milestone.
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -509,7 +509,7 @@ Post-action for updating the project plan and updating the milestone.
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -519,7 +519,7 @@ Pre-action for "Delete plan", "Delete milestone".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -531,7 +531,7 @@ Post-action for "Delete plan", "Delete milestone".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -541,7 +541,7 @@ Pre-action for "Add predecessor" in the detail of a plan under "Project plan".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -553,7 +553,7 @@ Post-action for "Add predecessor" in the detail of a plan under "Project plan".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -563,7 +563,7 @@ Pre-action for "Delete dependency" of a predecessor in the detail of a plan unde
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -575,7 +575,7 @@ Post-action for "Delete dependency" of a predecessor in the detail of a plan und
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -585,7 +585,7 @@ Pre-action for "Create snapshot".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -597,7 +597,7 @@ Post-action for "Create snapshot".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -607,7 +607,7 @@ Pre-action for updating snapshot.
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -619,7 +619,7 @@ Post-action for updating snapshot.
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -629,7 +629,7 @@ Pre-action for "Create target deliverable".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -641,7 +641,7 @@ Post-action for "Create target deliverable".
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -651,7 +651,7 @@ Pre-action for updating target deliverable.
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -663,7 +663,7 @@ Post-action for updating target deliverable.
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 
@@ -673,7 +673,7 @@ Pre-action for deleting target deliverable.
 
 #### Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.11.25+ |
 

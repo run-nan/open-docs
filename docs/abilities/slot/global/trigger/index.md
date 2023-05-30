@@ -2,7 +2,7 @@
 
 ## Requirements
 
-| **ONES**  |
+|   ONES    |
 | :-------: |
 | v3.10.20+ |
 

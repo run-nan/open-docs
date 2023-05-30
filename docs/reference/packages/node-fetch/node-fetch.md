@@ -4,9 +4,9 @@ Plugin **backend** API access capability related to API
 
 ## Requirements
 
-| **ONES** |
-| :------- |
-| v3.6.0+  |
+| ONES    |
+| :------ |
+| v3.6.0+ |
 
 ## API
 

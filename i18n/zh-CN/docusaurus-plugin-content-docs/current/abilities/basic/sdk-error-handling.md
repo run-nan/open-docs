@@ -8,7 +8,7 @@ description: sdk错误处理。
 
 ## 要求
 
-| **ONES**  | @ones-op/node-file |
+| ONES      | @ones-op/node-file |
 | :-------- | :----------------- |
 | v3.13.31+ | v0.6.0+            |
 

@@ -9,9 +9,9 @@ There have some bugs in the `@ones-op/node-file` package, please replace it with
 
 ## Requirements
 
-| **ONES** | @ones-op/node-utils | @ones-op/node-file |
-| :------- | :------------------ | :----------------- |
-| v3.6.0+  | v0.2.0+             | v0.3.0+            |
+| ONES    | @ones-op/node-utils | @ones-op/node-file |
+| :------ | :------------------ | :----------------- |
+| v3.6.0+ | v0.2.0+             | v0.3.0+            |
 
 ## Overview
 

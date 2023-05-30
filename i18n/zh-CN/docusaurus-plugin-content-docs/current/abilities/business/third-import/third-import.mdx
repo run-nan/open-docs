@@ -7,7 +7,7 @@ description: ----
 
 ## 要求
 
-| **ONES**  | @ones-op/node-third-import |
+| ONES      | @ones-op/node-third-import |
 | :-------- | :------------------------- |
 | v3.11.39+ | v0.1.2+                    |
 
@@ -61,15 +61,15 @@ abilities:
       notifyFunc: notifyFunc
 ```
 
-| **ONES**  |
-| :-------- |
-| |
+| ONES |
+| :--- |
+|      |
+
 在`abilities`.`config`中，支持插件开发者自定义通知消息内容。
 
 自定义通知消息对应的配置项，需要插件开发者手动添加，并且支持添加部分配置项（没有添加配置消息，会使用默认值）。
 
-例如当不关心第三方通知时，仅需要添加msgTitleNotice，msgFailedContent，msgSuccessContent这三个配置项。
-
+例如当不关心第三方通知时，仅需要添加 msgTitleNotice，msgFailedContent，msgSuccessContent 这三个配置项。
 
 示例配置：
 
@@ -99,7 +99,6 @@ abilities:
         value: '导入成功时，第三方标题'
         fieldType: Input
 ```
-
 
 ### 第三步：开始导入
 

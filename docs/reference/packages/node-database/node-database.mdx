@@ -4,9 +4,9 @@ We provide a set of interfaces related to the plugin database, allowing plugin d
 
 ## Requirements
 
-| **ONES** |
-| -------- |
-| v3.6.0+  |
+| ONES    |
+| ------- |
+| v3.6.0+ |
 
 ## API
 

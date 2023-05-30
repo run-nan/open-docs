@@ -6,7 +6,7 @@ toc_max_heading_level: 4
 
 ## Require
 
-| **ONES**  |
+| ONES      |
 | :-------- |
 | v3.11.39+ |
 
@@ -67,9 +67,9 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 
 ### ThirdTaskAttachment
 
-| **ONES** |
-| :------- |
-|   |
+| ONES |
+| :--- |
+|      |
 
 The local debugging mode now supports importing attachments, but files must less than 100MB in this mode.
 

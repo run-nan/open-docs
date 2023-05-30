@@ -7,7 +7,7 @@ description: ONES Open Platform command line diagnostic tools.
 
 ## Requirements
 
-| **ONES** |
+| ONES     |
 | -------- |
 | v3.12.0+ |
 

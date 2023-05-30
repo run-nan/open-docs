@@ -6,7 +6,7 @@ toc_max_heading_level: 4
 
 ## Require
 
-| **ONES**  |
+| ONES      |
 | :-------- |
 | v3.11.39+ |
 

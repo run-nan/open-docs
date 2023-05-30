@@ -8,7 +8,7 @@ description: Provides a simple way to use timed tasks.
 
 ## Requirements
 
-| **ONES**  |
+| ONES      |
 | :-------- |
 | v3.10.52+ |
 

@@ -11,7 +11,7 @@ We provide a set of plugin front-end data acquisition library that can help you 
 
 ## Requirements
 
-| **ONES**   | **@ones-op/store** |
+| ONES       | **@ones-op/store** |
 | ---------- | ------------------ |
 | `v3.6.25+` | `v0.1.0+`          |
 

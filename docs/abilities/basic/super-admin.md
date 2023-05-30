@@ -8,9 +8,9 @@ description: Plugin's virtual user in ONES.
 
 ## Requirements
 
-| **ONES** | @ones-op/node-ability |
-| :------- | :-------------------- |
-| v3.6.0+  | v0.1.9+               |
+| ONES    | @ones-op/node-ability |
+| :------ | :-------------------- |
+| v3.6.0+ | v0.1.9+               |
 
 ## Overview
 

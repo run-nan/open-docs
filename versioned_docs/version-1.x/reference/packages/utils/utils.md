@@ -52,7 +52,7 @@ Splicing URL and search parameters.
 
 ##### Requirements
 
-| **ONES**  | **@ones-op/bridge** |
+| ONES      | **@ones-op/bridge** |
 | --------- | ------------------- |
 | v3.13.35+ | v0.21.1             |
 

@@ -7,7 +7,7 @@ description: ----
 
 ## Requirements
 
-| **ONES**  | @ones-op/node-third-import |
+| ONES      | @ones-op/node-third-import |
 | :-------- | :------------------------- |
 | v3.11.39+ | v0.1.2+                    |
 
@@ -61,15 +61,15 @@ abilities:
       notifyFunc: notifyFunc
 ```
 
-| **ONES**  |
-| :-------- |
-|  |
-  In `abilities`.`config`, plug-in developers are supported to customize the notification message.
+| ONES |
+| :--- |
+|      |
+
+In `abilities`.`config`, plug-in developers are supported to customize the notification message.
 
 The configuration items corresponding to custom notification messages need to be manually added by the plug-in developer, and some configuration items are supported (if no configuration message is added, the default value will be used).
 
 For example, when you don't care about third-party notifications, you only need to add three configuration items: msgTitleNotice, msgFailedContent, and msgSuccessContent.
-
 
 Example configuration:
 
@@ -99,7 +99,6 @@ abilities:
         value: 'when an import success，the third-party notification has this title'
         fieldType: Input
 ```
-
 
 ### Step 3: Start importing
 
