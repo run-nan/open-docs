@@ -6,7 +6,7 @@ import Image from '@theme/IdealImage'
 import scriptFieldFloat1 from './images/script-field-float1.png'
 import scriptFieldFloat2 from './images/script-field-float2.png'
 
-# Plugin script field - Floating point number
+# Float
 
 ## Requirements
 
@@ -16,21 +16,30 @@ import scriptFieldFloat2 from './images/script-field-float2.png'
 
 ## Overview
 
-This ability allows the plugin implement a special [issue field](https://guide.ones.pro/wiki/#/team/LBrdb4wE/space/6XDAYB1a/page/ChPFxP95).Script field and system field of the same type are rerepresented in the same way in **ONES**(also supports searching through filters and sorting display
-).The difference between them is that the names and values of script fields are entirely determined by the code in the plugin, and users cannot actively modify them in ONES,but plugin developers can complete a variety of business development by implementing different script attribute value calculation rules.
+This capability allows plugins to implement a special script field of type "**float**", where the name and value of the field are determined solely by the plugin's code and cannot be modified by users in ONES. Plugin developers can implement different calculation rules for script property values to achieve diverse business development.
 
-Scenarios where script fields apply:
+Use cases for float script properties:
 
-1. Count the value by a certain calculation rule
-2. Hoped that the value is accurate and cannot be artificially altered
+1. Statistical calculations based on a specific rule
+2. Need for accurate values that cannot be manually modified
 
-### Performance
+### Scope
 
-When the plugin executes the install method, the issue field is created and added to the global fields list. The user can add this field to the desired issue type.
+Float script fields can only be added as **issue** fields.
+
+### Performace
+
+You can add float script fields to specific issue types just like using system work issue fields.
 
 <Image img={scriptFieldFloat2} />
 
-When the plugin is unabled/uninstalled, the value of this field becomes 0, becoming a read-only field that loses its statistical function. This field is put back into use when the plugin is disabled/installed.
+In most scenarios, script issue fields behave similarly to the system issue fields in the ONES system. However, there are slight differences in the following scenarios:
+
+- In layout configuration, tagged fields do not support script fields.
+- In issue list view，only filtering based on script issue fields is supported, while sorting and grouping based on script issue fields are not supported.
+- Importing issues does not support importing issues that contain script issue fields.
+- In "Automation Settings", updating script issue fields and creating issues with pre-set script field values are not supported.
+- In "My Work" - "Dashboard" - "Custom Report Card", using script issue fields as analysis dimensions is not supported.
 
 ## Usage
 
@@ -164,39 +173,9 @@ Note that the value in the returned parameter `returnValue` defaults to floating
 
 :::
 
-### Scope of use of ability
-
-- Project
-
-  Intra-project filters display script fields as filter criteria
-
-- Pruduct
-
-  Intra-product filters display script fields as filter criteria
-
-- Plan
-
-  The filter within the itemset displays script fields as filter criteria
-
-- Task
-  <p />
-  New task pop-up window
-  <br />
-  Task Detals
-  <br />
-  Task list (table view) and header configuration
-  <br />
-  Batch New task
-  <br />
-  Modify task fields in bulk
-  <br />
-  Batch import
-  <br />
-  Batch export
-
 ## Examples
 
-- [Automatically count the number of relationships of a certain link type of issue](sample-script-field-float1.mdx)
+- [Automatically count the number of relationships of a certain link type of issue](./sample-script-field-float.mdx)
 
 ## FAQ
 
