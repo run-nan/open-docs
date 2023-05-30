@@ -655,11 +655,31 @@ According to the function name configured in `function.customPermissionCheckFunc
 
 **Param:**
 
-| Param            | Description                                                                                                               | Type   |
-| :--------------- | :------------------------------------------------------------------------------------------------------------------------ | :----- |
-| user_uuid        | User's `uuid`                                                                                                             | string |
-| permission_field | permission unique identifier                                                                                              | string |
-| context          | Additional parameters, when the plugin customizes the validation, additional parameters can be passed through this field. | string |
+| Param            | Description                   | Type              |
+| :--------------- | :---------------------------- | :---------------- |
+| user_uuid        | User's `uuid`                 | string            |
+| permission_field | permission unique identifier  | string            |
+| context          | Permission context parameters | PermissionContext |
+
+```typescript
+interface PermissionContext {
+  project_uuid?: string // ONES Projects -> project ID
+  filter_view_uuid?: string // My work -> Filters -> filter view ID
+  program_uuid?: string // ONES Program -> program ID
+  product_uuid?: string // Product Management -> product ID
+  testcase_library_uuid?: string // ONES TestCase -> Test case libarary -> test case library ID
+  test_plan_uuid?: string // ONES Testcase -> Test plans -> test planID
+  wiki_space_uuid?: string // ONES Wiki -> Spaces -> space ID
+  workspace_dashboard_uuid?: string // My work -> Dashboards -> dashboard ID
+  performance_dashboard_uuid?: string // ONES Performace -> Dashboard -> dashboard ID
+}
+```
+
+:::caution
+
+If the permission verification logic relies on permission context parameters, you also need to configure [needPermissionContext](../../../../reference/config/plugin.yaml#needPermissionContext) as `true` in the module that uses the permission point. Only in this way will the permission be re-verified when there are changes in the permission context.
+
+:::
 
 **Return: **Determine whether the permission check is passed by returning the value of the `is_permission` field in the body
 

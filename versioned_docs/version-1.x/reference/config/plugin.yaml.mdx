@@ -457,6 +457,13 @@ modules:
     permisson: my-example-effective-permission-key
 ```
 
+### needPermissionContext {#needPermissionContext}
+
+- **Type:** `boolean`
+- **ONES requirements:**: v3.13.59+
+
+Whether permission validation depends on page context. When set to `true`, module permissions will be revalidated when the page context changes. Otherwise, module permissions will only be validated once upon the initial page entry. This feature needs to be used in conjunction with the custom permission ability of the plugin. For more details, refer to [Custom Permission](../../abilities/business/permission/custom-permission/custom-permission.mdx).
+
 ### enableDelayDestroy
 
 - **Type:** `boolean`
