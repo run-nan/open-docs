@@ -24,7 +24,7 @@ description: 提供简便的定时任务使用方法。
 
 #### 第一步：添加配置
 
-使用`npx op add ability` 添加`timer-task`类型的能力，会在插件配置文件中添加能力配置和生成`timer-task.ts`文件。在配置中，定频方式的`key`字段的值为`interval`，`value`字段的值为间隔时间，单位为**秒**。
+使用`npx op add ability` 添加`timer-task`类型的能力并选择`1.0.0`模板，会在插件配置文件中添加能力配置和生成`timer-task.ts`文件。在配置中，定频方式的`key`字段的值为`interval`，`value`字段的值为间隔时间，单位为**秒**。
 
 示例配置：每个 30 秒执行一次`taskAction`函数。
 
@@ -58,7 +58,7 @@ export async function taskAction() {
 
 #### 第一步：添加配置
 
-在插件的配置文件中添加能力配置，在配置中，定时方式的`key`字段的值为`cron`，`value`字段的值为`cron`表达式。
+使用`npx op add ability` 添加`timer-task`类型的能力并选择`1.0.0-cron`模板，会在插件配置文件中添加能力配置和生成`timer-task.ts`文件。在配置中，定时方式的`key`字段的值为`cron`，`value`字段的值为`cron`表达式。
 
 示例配置：在每分钟的第 30 秒执行一次`cronTaskAction`函数
 

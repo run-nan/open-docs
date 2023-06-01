@@ -5,7 +5,11 @@ description: File storage for the plugin itself.
 
 # Plugin file operation
 
+:::danger
+
 There have some bugs in the `@ones-op/node-file` package, please replace it with the [`@ones-op/node-fs`](plugin-fileOP-new.md) package when the ONES version exceeds `v3.13.60`.
+
+:::
 
 ## Requirements
 

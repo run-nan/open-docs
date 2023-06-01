@@ -61,15 +61,20 @@ abilities:
       notifyFunc: notifyFunc
 ```
 
-| ONES |
-| :--- |
-|      |
+| ONES  |
+| :-------- |
+|  v3.13.60+ |
+  In `abilities`.`config`, plug-in developers can manually add custom notification message content (if no configured message is added, default message is used).
 
-In `abilities`.`config`, plug-in developers are supported to customize the notification message.
+**custom notification **
 
-The configuration items corresponding to custom notification messages need to be manually added by the plug-in developer, and some configuration items are supported (if no configuration message is added, the default value will be used).
-
-For example, when you don't care about third-party notifications, you only need to add three configuration items: msgTitleNotice, msgFailedContent, and msgSuccessContent.
+| Param       | Type | Description                      | Required |
+| :----------- | :----- | :------------------------ |  :----- |
+| msgTitleNotice            | string | Title of notification                                             |N   |
+| msgFailedContent          | string | Message content when import fails                                   |N   |
+| msgSuccessContent         | string | Message content when import succeeds                                  |N   |
+| msgThirdTitleFailed       | string | When an import fails，the third-party notification has this title        |N   |
+| msgThirdTitleDone         | string | when an import success，the third-party notification has this title        |N   |
 
 Example configuration:
 
@@ -99,6 +104,7 @@ abilities:
         value: 'when an import success，the third-party notification has this title'
         fieldType: Input
 ```
+
 
 ### Step 3: Start importing
 

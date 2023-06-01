@@ -67,11 +67,11 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 
 ### ThirdTaskAttachment
 
-| ONES |
-| :--- |
-|      |
+| NES |
+| :------- |
+|  v3.13.60+ |
 
-附件导入在本地调试方式已支持，但是要求文件不超过 100MB。
+附件导入在本地调试方式已支持，但是要求文件不超过100MB。
 
 | 参数           | 说明         | 类型     | 必填 |
 | :------------- | :----------- | :------- | :--- |

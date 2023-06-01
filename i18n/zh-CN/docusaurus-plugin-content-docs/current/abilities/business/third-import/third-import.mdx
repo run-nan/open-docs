@@ -61,15 +61,21 @@ abilities:
       notifyFunc: notifyFunc
 ```
 
-| ONES |
-| :--- |
-|      |
+| ONES  |
+| :-------- |
+| v3.13.60+ |
 
-在`abilities`.`config`中，支持插件开发者自定义通知消息内容。
+在`abilities`.`config`中，插件开发者手动添加自定义通知消息内容（如果没有添加配置消息，就使用默认消息）。
 
-自定义通知消息对应的配置项，需要插件开发者手动添加，并且支持添加部分配置项（没有添加配置消息，会使用默认值）。
+**自定义通知 **
 
-例如当不关心第三方通知时，仅需要添加 msgTitleNotice，msgFailedContent，msgSuccessContent 这三个配置项。
+| 参数       | 值类型 | 说明                      | 必填 |
+| :----------- | :----- | :------------------------ |  :----- |
+| msgTitleNotice            | string | 消息的标题                                             |否   |
+| msgFailedContent          | string | 导入失败时，消息的内容                                   |否   |
+| msgSuccessContent         | string | 导入成功时，消息的内容                                   |否   |
+| msgThirdTitleFailed       | string | 配置了第三方通知场景，导入失败时，发给第三方消息的标题        |否   |
+| msgThirdTitleDone         | string | 配置了第三方通知场景，导入成功时，发给第三方消息的标题        |否   |
 
 示例配置：
 
@@ -99,6 +105,7 @@ abilities:
         value: '导入成功时，第三方标题'
         fieldType: Input
 ```
+
 
 ### 第三步：开始导入
 
