@@ -19,3 +19,8 @@ _*
 browserslist
 LICENSE
 package*.json
+
+# openapi
+*.txt
+*.info.mdx
+*.api.mdx

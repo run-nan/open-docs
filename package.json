@@ -18,7 +18,10 @@
     "serve": "docusaurus serve --dir dist",
     "translation:zh": "docusaurus write-translations --locale zh-CN --override",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "gen-api": "docusaurus gen-api-docs all",
+    "clean-api": "docusaurus clean-api-docs all",
+    "rebuild-api": "npm run clean-api && npm run gen-api"
   },
   "author": {
     "name": "htmlin",
@@ -43,6 +46,8 @@
     "@typescript-eslint/parser": "~5.36.2",
     "clsx": "~1.1.1",
     "cross-env": "7.0.3",
+    "docusaurus-plugin-openapi-docs": "1.7.3",
+    "docusaurus-theme-openapi-docs": "1.7.3",
     "eslint": "~8.23.0",
     "eslint-config-prettier": "~8.5.0",
     "eslint-plugin-react-hooks": "~4.6.0",

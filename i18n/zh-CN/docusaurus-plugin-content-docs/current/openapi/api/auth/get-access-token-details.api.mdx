@@ -1,0 +1,33 @@
+---
+id: get-access-token-details
+title: "获取访问令牌详情"
+description: "获取访问令牌详情"
+sidebar_label: "获取访问令牌详情"
+hide_title: true
+hide_table_of_contents: true
+api: {"operationId":"get-access-token-details","description":"获取访问令牌详情","parameters":[{"in":"header","name":"Authorization","required":true,"schema":{"type":"string","description":"访问令牌"}}],"responses":{"200":{"description":"请求成功","content":{"application/json":{"schema":{"type":"object","properties":{"active":{"type":"boolean","description":"访问令牌是否可用"},"sub":{"type":"string","description":"申请访问令牌的用户ID"},"scope":{"type":"string","description":"可访问的Open API范围（逗号,分隔）"},"client_id":{"type":"string","description":"Oauth应用标识"},"token_type":{"type":"string","description":"访问令牌类型"},"exp":{"type":"integer","description":"访问令牌失效时间（单位：秒）"},"team_id":{"type":"string","description":"创建的Oauth应用所在的团队ID"}},"title":"AccessTokenResponse"}}}}},"method":"get","path":"/oauth2/introspect","servers":[{"url":"https://ones.cn"},{"url":"http://ones.cn"}],"info":{"title":"Auth","version":"1.0","description":"ONES REST API采用标准的OAuth 2.0授权机制，旨在为第三方应用程序提供安全的用户授权和访问令牌，以访问受保护的资源。OAuth 2.0允许第三方应用程序以一种安全、可控的方式获取有限且可撤销的访问权限，而无需直接使用用户的凭证。这种授权机制提供了一种灵活且可靠的方式，使得第三方应用程序可以与ONES系统进行安全互动，并获取所需的资源访问权限。\n"},"postman":{"name":"获取访问令牌详情","description":{"content":"获取访问令牌详情","type":"text/plain"},"url":{"path":["oauth2","introspect"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Accept","value":"application/json"}],"method":"GET"}}
+sidebar_class_name: "get api-method"
+info_path: docs/current/openapi/api/auth/auth
+custom_edit_url: null
+---
+
+import ApiTabs from "@theme/ApiTabs";
+import MimeTabs from "@theme/MimeTabs";
+import ParamsItem from "@theme/ParamsItem";
+import ResponseSamples from "@theme/ResponseSamples";
+import SchemaItem from "@theme/SchemaItem";
+import SchemaTabs from "@theme/SchemaTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import TabItem from "@theme/TabItem";
+
+## 获取访问令牌详情
+
+
+
+获取访问令牌详情
+
+<details style={{"marginBottom":"1rem"}} data-collapsed={false} open={true}><summary style={{}}><strong>Header Parameters</strong></summary><div><ul><ParamsItem className={"paramsItem"} param={{"in":"header","name":"Authorization","required":true,"schema":{"type":"string","description":"访问令牌"}}}></ParamsItem></ul></div></details><div><ApiTabs><TabItem label={"200"} value={"200"}><div>
+
+请求成功
+
+</div><div><MimeTabs schemaType={"response"}><TabItem label={"application/json"} value={"application/json"}><SchemaTabs><TabItem label={"Schema"} value={"Schema"}><details style={{}} data-collapsed={false} open={true}><summary style={{"textAlign":"left"}}><strong>Schema</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"active"} required={false} schemaName={"boolean"} qualifierMessage={undefined} schema={{"type":"boolean","description":"访问令牌是否可用"}}></SchemaItem><SchemaItem collapsible={false} name={"sub"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"申请访问令牌的用户ID"}}></SchemaItem><SchemaItem collapsible={false} name={"scope"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"可访问的Open API范围（逗号,分隔）"}}></SchemaItem><SchemaItem collapsible={false} name={"client_id"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Oauth应用标识"}}></SchemaItem><SchemaItem collapsible={false} name={"token_type"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"访问令牌类型"}}></SchemaItem><SchemaItem collapsible={false} name={"exp"} required={false} schemaName={"integer"} qualifierMessage={undefined} schema={{"type":"integer","description":"访问令牌失效时间（单位：秒）"}}></SchemaItem><SchemaItem collapsible={false} name={"team_id"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"创建的Oauth应用所在的团队ID"}}></SchemaItem></ul></details></TabItem><TabItem label={"Example (from schema)"} value={"Example (from schema)"}><ResponseSamples responseExample={"{\n  \"active\": true,\n  \"sub\": \"string\",\n  \"scope\": \"string\",\n  \"client_id\": \"string\",\n  \"token_type\": \"string\",\n  \"exp\": 0,\n  \"team_id\": \"string\"\n}"} language={"json"}></ResponseSamples></TabItem></SchemaTabs></TabItem></MimeTabs></div></TabItem></ApiTabs></div>

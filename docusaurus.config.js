@@ -3,6 +3,8 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github')
 const darkCodeTheme = require('prism-react-renderer/themes/dracula')
 
+const openAPIConfig = require('./docusaurus.openapi.config')
+
 // 是否是正式版
 const isPublic = process.env.PRODUCTION_ENV === 'production'
 
@@ -134,6 +136,7 @@ const config = {
               noIndex: true,
             },
           },
+          ...openAPIConfig.docConfig,
           ...versionsConfig,
         },
         // 由于当前禁止了seo，打包不会生成sitemap.xml，但不影响algolia使用
@@ -178,6 +181,7 @@ const config = {
         disableInDev: false,
       },
     ],
+    ...openAPIConfig.plugins,
   ],
 
   themeConfig:
@@ -210,6 +214,7 @@ const config = {
             label: 'Documentation',
             position: 'left',
             items: [
+              openAPIConfig.navbarItem,
               {
                 type: 'docSidebar',
                 label: 'API Docs',
@@ -306,6 +311,10 @@ const config = {
             title: 'Documentation',
             items: [
               {
+                label: 'Open API',
+                to: 'docs/openapi',
+              },
+              {
                 label: 'API Docs',
                 to: 'docs/api/readme',
               },
@@ -351,7 +360,7 @@ const config = {
       },
     }),
 
-  themes: [['@docusaurus/theme-mermaid', {}], ...extraSearchPluginConfig],
+  themes: [['@docusaurus/theme-mermaid', {}], ...openAPIConfig.themes, ...extraSearchPluginConfig],
 
   markdown: {
     mermaid: true,

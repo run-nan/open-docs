@@ -1,0 +1,33 @@
+---
+id: revoke-access-token
+title: "Revoke Access Token"
+description: "Revoke Access Token."
+sidebar_label: "Revoke Access Token"
+hide_title: true
+hide_table_of_contents: true
+api: {"operationId":"revoke-access-token","description":"Revoke Access Token.","requestBody":{"content":{"application/json":{"schema":{"required":["client_id","client_secret","access_token"],"type":"object","properties":{"client_id":{"type":"string","description":"The \"Client ID\" obtained from creating an OAuth application."},"client_secret":{"type":"string","description":"The \"Client Secret\" obtained from creating an OAuth application."},"access_token":{"type":"string","description":"Access token."}}}}}},"responses":{"200":{"description":"Request successful."}},"method":"post","path":"/oauth2/revoke","servers":[{"url":"https://ones.com"},{"url":"http://ones.com"}],"jsonRequestBodyExample":{"client_id":"string","client_secret":"string","access_token":"string"},"info":{"title":"Auth","version":"1.0","description":"The ONES REST API utilizes the standard OAuth 2.0 authorization mechanism to provide secure user authorization and access tokens for third-party applications to access protected resources. OAuth 2.0 enables third-party applications to obtain limited and revocable access privileges in a secure and controlled manner, without directly using user credentials. This authorization mechanism offers a flexible and reliable way for third-party applications to securely interact with the ONES system and obtain the necessary resource access permissions.\n"},"postman":{"name":"Revoke Access Token","description":{"content":"Revoke Access Token.","type":"text/plain"},"url":{"path":["oauth2","revoke"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"\"\"","options":{"raw":{"language":"json"}}}}}
+sidebar_class_name: "post api-method"
+info_path: docs/version-1.x/openapi/api/auth/auth
+custom_edit_url: null
+---
+
+import ApiTabs from "@theme/ApiTabs";
+import MimeTabs from "@theme/MimeTabs";
+import ParamsItem from "@theme/ParamsItem";
+import ResponseSamples from "@theme/ResponseSamples";
+import SchemaItem from "@theme/SchemaItem";
+import SchemaTabs from "@theme/SchemaTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import TabItem from "@theme/TabItem";
+
+## Revoke Access Token
+
+
+
+Revoke Access Token.
+
+<MimeTabs><TabItem label={"application/json"} value={"application/json-schema"}><details style={{}} data-collapsed={false} open={true}><summary style={{"textAlign":"left"}}><strong>Request Body</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"client_id"} required={true} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"The \"Client ID\" obtained from creating an OAuth application."}}></SchemaItem><SchemaItem collapsible={false} name={"client_secret"} required={true} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"The \"Client Secret\" obtained from creating an OAuth application."}}></SchemaItem><SchemaItem collapsible={false} name={"access_token"} required={true} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Access token."}}></SchemaItem></ul></details></TabItem></MimeTabs><div><ApiTabs><TabItem label={"200"} value={"200"}><div>
+
+Request successful.
+
+</div><div></div></TabItem></ApiTabs></div>

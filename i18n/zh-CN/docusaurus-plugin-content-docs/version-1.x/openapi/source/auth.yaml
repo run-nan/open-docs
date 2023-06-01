@@ -1,0 +1,209 @@
+openapi: 3.0.1
+info:
+  title: Auth
+  version: '1.0'
+  description: |
+    ONES REST API采用标准的OAuth 2.0授权机制，旨在为第三方应用程序提供安全的用户授权和访问令牌，以访问受保护的资源。OAuth 2.0允许第三方应用程序以一种安全、可控的方式获取有限且可撤销的访问权限，而无需直接使用用户的凭证。这种授权机制提供了一种灵活且可靠的方式，使得第三方应用程序可以与ONES系统进行安全互动，并获取所需的资源访问权限。
+servers:
+  - url: https://ones.cn
+  - url: http://ones.cn
+paths:
+  /oauth2/authorize:
+    get:
+      summary: 申请授权码
+      operationId: apply-for-authorization-code
+      description: 申请授权码
+      parameters:
+        - name: client_id
+          required: true
+          in: query
+          description: 创建OAuth应用得到的Client ID
+          schema:
+            type: string
+        - name: response_type
+          required: true
+          in: query
+          description: 固定值 code
+          schema:
+            type: string
+        - name: redirect_uri
+          in: query
+          description: 创建OAuth应用时配置的Redirect URI，用户同意授权后将携带授权码重定向至该地址
+          schema:
+            type: string
+        - name: scope
+          in: query
+          description: 逗号,分隔的Scope列表，必须是OAuth应用配置Scope的子集，默认使用创建OAuth应用时配置的Scope
+          schema:
+            type: string
+        - name: state
+          in: query
+          description: 随机字符串，客户端使用它来维护请求和回调之间的状态，最终将原样返回
+          schema:
+            type: string
+      responses:
+        302:
+          description: 重定向至Redirect URI，并且在URL参数中添加code、state两个参数
+  /oauth2/token:
+    post:
+      summary: 申请或者刷新访问令牌
+      operationId: apply-for-or-refresh-access-token
+      description: 申请或者刷新访问令牌
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                client_id:
+                  type: string
+                  description: 创建OAuth应用得到的Client ID，申请、刷新访问令牌都需要赋值
+                client_secret:
+                  type: string
+                  description: 创建OAuth应用得到的Client Secret，申请访问令牌需要赋值
+                code:
+                  type: string
+                  description: 授权码，申请访问令牌需要赋值
+                redirect_uri:
+                  type: string
+                  description: 创建OAuth应用配置的Redirect URI，非必填，申请访问令牌可赋值
+                grant_type:
+                  type: string
+                  enum: [authorization_code, refresh_token]
+                  description: authorization_code：申请访问令牌时选择，refresh_token：刷新访问令牌时选择
+                refresh_token:
+                  type: string
+                  description: 刷新令牌，刷新访问令牌需要赋值
+      responses:
+        200:
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplyTokenSuccessResponse'
+        400:
+          description: 无效的请求
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        401:
+          description: 如果身份验证凭据不正确或丢失，则返回
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        500:
+          description: 内部服务错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+  /oauth2/introspect:
+    get:
+      summary: 获取访问令牌详情
+      operationId: get-access-token-details
+      description: 获取访问令牌详情
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+            description: 访问令牌
+      responses:
+        200:
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse'
+  /oauth2/revoke:
+    post:
+      summary: 注销访问令牌
+      operationId: revoke-access-token
+      description: 注销访问令牌
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - client_id
+                - client_secret
+                - access_token
+              type: object
+              properties:
+                client_id:
+                  type: string
+                  description: 创建OAuth应用得到的Client ID
+                client_secret:
+                  type: string
+                  description: 创建OAuth应用得到的Client Secret
+                access_token:
+                  type: string
+                  description: 访问令牌
+      responses:
+        200:
+          description: 请求成功
+components:
+  schemas:
+    ApplyTokenSuccessResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: 访问令牌（有效期：1天）
+        refresh_token:
+          type: string
+          description: 刷新令牌，用于刷新访问令牌（有效期：30天）
+        expires_in:
+          type: integer
+          description: 访问令牌失效时间（单位：秒）
+        scope:
+          type: string
+          description: Oauth应用可访问的Open API范围（逗号,分隔）
+        token_type:
+          type: string
+          description: 访问令牌类型
+        user_id:
+          type: string
+          description: 申请访问令牌用户ID
+        email:
+          type: string
+          description: 申请访问令牌用户邮箱
+    AccessTokenResponse:
+      type: object
+      properties:
+        active:
+          type: boolean
+          description: 访问令牌是否可用
+        sub:
+          type: string
+          description: 申请访问令牌的用户ID
+        scope:
+          type: string
+          description: 可访问的Open API范围（逗号,分隔）
+        client_id:
+          type: string
+          description: Oauth应用标识
+        token_type:
+          type: string
+          description: 访问令牌类型
+        exp:
+          type: integer
+          description: 访问令牌失效时间（单位：秒）
+        team_id:
+          type: string
+          description: 创建的Oauth应用所在的团队ID
+    BadResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 本次请求错误信息
+        error_code:
+          type: integer
+          description: 本次请求错误码
+        error_description:
+          type: string
+          description: 本次请求错误信息详情

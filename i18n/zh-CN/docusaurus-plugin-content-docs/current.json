@@ -214,5 +214,32 @@
   "sidebar.guide.category.Advanced Guide": {
     "message": "进阶指南",
     "description": "The label for category Advanced Guide in sidebar guide"
+  },
+  "sidebar.openapi.category.Auth": {
+    "message": "授权"
+  },
+  "sidebar.openapi.category.Issue": {
+    "message": "工作项"
+  },
+  "sidebar.openapi.category.Issue Attachments": {
+    "message": "工作项文件上传"
+  },
+  "sidebar.openapi.category.Issue Fields": {
+    "message": "工作项属性"
+  },
+  "sidebar.openapi.category.Issue Status": {
+    "message": "工作项状态"
+  },
+  "sidebar.openapi.category.Issue Types": {
+    "message": "工作项类型"
+  },
+  "sidebar.openapi.category.Issue Workflows": {
+    "message": "工作流"
+  },
+  "sidebar.openapi.category.Project": {
+    "message": "项目"
+  },
+  "sidebar.openapi.category.Testcase Library": {
+    "message": "用例库"
   }
 }

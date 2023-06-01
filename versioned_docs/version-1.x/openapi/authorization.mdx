@@ -1,0 +1,150 @@
+---
+id: authorization
+sidebar_position: 2
+sidebar_label: 'Authorization'
+---
+
+# Authentication and authorization
+
+## Create OAuth Application
+
+Team administrators can create it in the ONES system in "Configuration Center" - "Team Configuration" - "Custom OAuth Application". After creating the OAuth application, you will receive a Client ID and Client Secret, which developers need to store securely.
+
+Creating an OAuth application requires the following information:
+
+- Application Name: The name of the OAuth application.
+- Redirect URI: Upon successful authorization code application, it will redirect to this address.
+- Scope: Select the extent of the ONES Open API that the OAuth application can access.
+
+## Apply for Authorization Code
+
+Request Example：
+
+```
+curl 'https://ones.com/oauth2/authorize?client_id=CLIENT_ID&response_type=code'
+```
+
+[Detailed Interface Introduction](./api/auth/apply-for-authorization-code.api.mdx)
+
+After the request is successful, the browser will be redirected to the ONES system. If the user is not logged in, they will need to log in. If the user is already logged in, it will redirect to the authorization consent page. Once the user agrees to the authorization, it will redirect to the Redirect URI, and 'code' and 'state' parameters will be added to the URL. The 'code' will become invalid after applying for the access token and can only be used once.
+
+## Apply for Access Token
+
+Request Example：
+
+```
+curl -X POST 'https://ones.com/oauth2/token' \
+    -H 'Content-Type: application/x-www-form-urlencoded' \
+    -d 'client_id=CLIENT_ID' \
+    -d 'client_secret=CLIENT_SECRET' \
+    -d 'code=CODE' \
+    -d 'grant_type=authorization_code'
+```
+
+Response Example：
+
+```
+{
+    "access_token": "CN-NDd...pLW",
+    "email": "test@ones.ai",
+    "expires_in": 86400,
+    "refresh_token": "CN-MDF...TNi",
+    "scope": "read:testcase:library,write:testcase:library",
+    "token_type": "Bearer",
+    "user_id": "CJ...qz"
+}
+```
+
+[Detailed Interface Introduction](./api/auth/apply-for-or-refresh-access-token.api.mdx)
+
+The 'access_token' is a globally unique credential for making API calls. It is required when calling the Open API, and developers need to securely store it.
+
+## Access Open API
+
+Request Example：
+
+```
+curl 'https://ones.com/rest/api/v1/xxx' -H "Authorization: Bearer ACCESS_TOKEN"
+```
+
+## Get Access Token Details
+
+Request Example：
+
+```
+curl "https://ones.com/oauth2/introspect" -H "Authorization: Bearer ACCESS_TOKEN"
+```
+
+Response Example：
+
+```
+{
+    "active": true,
+    "sub": "CJ...qz",
+    "scope": "read:testcase:library,write:testcase:library",
+    "client_id": "3hF...leI",
+    "token_type": "Bearer",
+    "exp": 1681889317,
+    "team_id": "xxx"
+}
+```
+
+[Detailed Interface Introduction](./api/auth/get-access-token-details.api.mdx)
+
+## Refresh Access Token
+
+After refreshing the access token, the previously applied access token and refresh token will both become invalid, and new access and refresh tokens will be returned.
+
+Request Example：
+
+```
+curl -X POST 'https://ones.com/oauth2/token' \
+    -H 'Content-Type: application/x-www-form-urlencoded' \
+    -d 'client_id=CLIENT_ID' \
+    -d 'refresh_token=REFRESH_TOKEN' \
+    -d 'grant_type=refresh_token'
+```
+
+Response Example：
+
+```
+{
+    "access_token": "CN-NDd...pLW",
+    "email": "test@ones.ai",
+    "expires_in": 86400,
+    "refresh_token": "CN-MDF...TNi",
+    "scope": "read:testcase:library,write:testcase:library",
+    "token_type": "Bearer",
+    "user_id": "CJ...qz"
+}
+```
+
+[Detailed Interface Introduction](./api/auth/apply-for-or-refresh-access-token.api.mdx)
+
+## Revoke Access Token
+
+When revoking the access token, the refresh token will also become invalid.
+
+Request Example：
+
+```
+curl -X POST 'https://ones.com/oauth2/revoke' \
+    -H 'Content-Type: application/json' \
+    -d '{
+        "client_id": CLIENT_ID,
+        "client_secret": CLIENT_SECRET,
+        "access_token": ACCESS_TOKEN
+    }'
+```
+
+[Detailed Interface Introduction](./api/auth/revoke-access-token.api.mdx)
+
+## FAQ
+
+**If the Scope of the OAuth application is changed, does the Scope of the already applied access token change synchronously?**
+
+Changing the Scope of the OAuth application will not affect the Scope of the already granted access token. If the new Scope needs to be effective, you must redo the process of applying for the authorization code and the access token.
+
+**After deleting the OAuth application, will the already applied access token become invalid?**
+
+After deleting the OAuth application, the already granted authorization code, access token, and refresh token will all become invalid.

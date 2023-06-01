@@ -1,0 +1,161 @@
+openapi: 3.0.1
+info:
+  title: Issue fields
+  version: '1.0'
+  description: |
+    This resource represents issue fields. Use it to get issue fields.
+paths:
+  /project/team/{teamID}/issueFields:
+    get:
+      summary: Get a list of issue fields
+      operationId: get-a-list-of-issue-fields
+      description: Get a list of issue fields.
+      security:
+        - oauth2:
+            - read:project:issueField
+      parameters:
+        - name: teamID
+          in: path
+          description: The team ID
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllSuccessResponse'
+        401:
+          description: Returned if the authentication credentials are incorrect or missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        403:
+          description: Returns if the scope check fails.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        404:
+          description: Returned if the resource object was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        500:
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+components:
+  schemas:
+    ListItem:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the issue field.
+        id:
+          type: string
+          description: The id of the issue field.
+        buildIn:
+          type: boolean
+          description: Whether it is a system built-in issue status.
+        createTime:
+          type: integer
+          description: The createTime of the issue field.
+        defaultValue:
+          type: object
+          description: The defaultValue of the issue field.
+        aliases:
+          type: array
+          description: The alias of the issue field.
+          items:
+            type: string
+        typeLabel:
+          type: string
+          description: The type label of the issue field.
+        typeEnum:
+          type: integer
+          description: The type enum of the issue field.
+        options:
+          type: array
+          description: The options of the issue field.
+          items:
+            $ref: '#/components/schemas/Option'
+    Option:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The id of the option.
+        value:
+          type: object
+          description: The value of the option.
+    PageInfo:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The number returned this time.
+        endCursor:
+          type: string
+          description: The last cursor on this page is generally used to turn pages.
+            backwards.
+        endPos:
+          type: integer
+          description: The last position on this page.
+        hasNextPage:
+          type: boolean
+          description: Is there a next page.
+        startCursor:
+          type: string
+          description: The first cursor on this page is generally used to turn pages.
+            backwards.
+        startPos:
+          type: integer
+          description: The first position on this page.
+        totalCount:
+          type: integer
+          description: The total number of items available in the entire collection,
+            including those that are  returned in the current response.
+    AllSuccessResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          description: The result of this request.
+        data:
+          type: object
+          properties:
+            list:
+              type: array
+              items:
+                $ref: '#/components/schemas/ListItem'
+            pageInfo:
+              $ref: '#/components/schemas/PageInfo'
+    BadResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          description: The result of this request.
+        errorCode:
+          type: string
+          description: The error code of this request.
+        errorMsg:
+          type: string
+          description: Error message for this request.
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://ones.com/oauth2/authorize
+          tokenUrl: https://ones.com/oauth2/token
+          scopes:
+            read:project:issueField: Access issue field
