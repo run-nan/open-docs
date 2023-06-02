@@ -3,7 +3,7 @@ id: scope
 sidebar_position: 4
 ---
 
-# OAuth 2.0 scopes
+# OAuth 2.0 Scopes
 
 | Scope name                     | Description                          |
 | ------------------------------ | ------------------------------------ |

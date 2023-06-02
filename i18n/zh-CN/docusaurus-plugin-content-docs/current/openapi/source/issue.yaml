@@ -66,7 +66,7 @@ paths:
                 $ref: '#/components/schemas/BadResponse'
     post:
       summary: 新建工作项
-      operationId: create-a-new-test-case-issue
+      operationId: create-a-new-issue
       description: 新建工作项
       security:
         - oauth2:
