@@ -8,7 +8,7 @@ We provide a set of interface request library that can help you request interfac
 
 | **@ones-op/fetch** |
 | ------------------ |
-| `v0.4.0+`          |
+| v0.4.0+            |
 
 ## Installation
 
@@ -229,6 +229,7 @@ interface OPError {
   model: string
   reason: string
   type: 'error' | 'warning' | 'info'
+  closable?: boolean
 }
 ```
 

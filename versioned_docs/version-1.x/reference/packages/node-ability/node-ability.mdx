@@ -667,7 +667,19 @@ Create a progress manager.
 | :---------- | :--------------------------- | :----- |
 | processUUID | the uuid of Progress Manager | string |
 
+#### Error
+
+| errcode          | reason             | level | statusCode |
+| ---------------- | ------------------ | ----- | ---------- |
+| InvalidParameter | Invalid parameter. | error | 400        |
+
 #### Example
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+<TabItem value="1" label="0.4.0+">
 
 ```typescript
 import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
@@ -678,7 +690,7 @@ export async function createProcess(request: PluginRequest): Promise<PluginRespo
   const { user_uuid, title, timeout } = request?.body as any
   //Progress Manager Multilingual Titles
   const titlePkg: LanguagePkg = {
-    en: 'file',
+    en: 'process',
     zh: title,
   }
   //Create a progress manager and get the return value processUUID
@@ -691,6 +703,48 @@ export async function createProcess(request: PluginRequest): Promise<PluginRespo
   }
 }
 ```
+
+</TabItem>
+<TabItem value="2" label="0.6.0+">
+
+```typescript
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+import {
+  Process,
+  LanguagePkg,
+  ProcessType,
+  ProcessResult,
+  AbilityError,
+} from '@ones-op/node-ability'
+
+export async function createProcess(request: PluginRequest): Promise<PluginResponse> {
+  //Get parameters from request
+  const { user_uuid, title, timeout } = request?.body as any
+  //Progress Manager Multilingual Titles
+  const titlePkg: LanguagePkg = {
+    en: 'process',
+    zh: title,
+  }
+  //Create a progress manager and get the return value processUUID
+  let processUUID = ''
+  try {
+    const processUUID = await Process.create(ProcessType.DownloadFile, user_uuid, titlePkg, timeout)
+  } catch (e) {
+    if (e instanceof AbilityError) {
+      // handle error
+    }
+  }
+
+  return {
+    body: {
+      process_uuid: processUUID,
+    },
+  }
+}
+```
+
+</TabItem>
+</Tabs>
 
 ---
 
@@ -871,3 +925,14 @@ const resp = await getUserTeamUUIDsByThirdPartyIDAndThirdPartyType('12345678', 0
 ```
 
 ---
+
+## Type
+
+### AbilityError
+
+| Param      | Description      | Type     |
+| :--------- | :--------------- | :------- |
+| level      | error level      | `string` |
+| reason     | error reason     | `string` |
+| statusCode | http status code | `string` |
+| errcode    | error code       | `string` |

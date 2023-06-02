@@ -2,7 +2,7 @@
 
 All notable changes to this package will be documented in this file.
 
-# 0.6.0 (2023-02-20)
+# 0.5.3 (2023-02-28)
 
 ### Features
 

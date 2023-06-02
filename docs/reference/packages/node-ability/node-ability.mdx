@@ -686,14 +686,14 @@ import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 import { Process, LanguagePkg, ProcessType, ProcessResult } from '@ones-op/node-ability'
 
 export async function createProcess(request: PluginRequest): Promise<PluginResponse> {
-  //从请求中获取参数
+  //Get parameters from request
   const { user_uuid, title, timeout } = request?.body as any
-  //进度管理器多语言标题
+  //Progress Manager Multilingual Titles
   const titlePkg: LanguagePkg = {
     en: 'process',
     zh: title,
   }
-  //创建进度管理器，获取返回值processUUID
+  //Create a progress manager and get the return value processUUID
   const processUUID = await Process.create(ProcessType.DownloadFile, user_uuid, titlePkg, timeout)
 
   return {
@@ -718,14 +718,14 @@ import {
 } from '@ones-op/node-ability'
 
 export async function createProcess(request: PluginRequest): Promise<PluginResponse> {
-  //从请求中获取参数
+  //Get parameters from request
   const { user_uuid, title, timeout } = request?.body as any
-  //进度管理器多语言标题
+  //Progress Manager Multilingual Titles
   const titlePkg: LanguagePkg = {
     en: 'process',
     zh: title,
   }
-  //创建进度管理器，获取返回值processUUID
+  //Create a progress manager and get the return value processUUID
   let processUUID = ''
   try {
     const processUUID = await Process.create(ProcessType.DownloadFile, user_uuid, titlePkg, timeout)

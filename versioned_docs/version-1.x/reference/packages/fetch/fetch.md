@@ -8,7 +8,7 @@ We provide a set of interface request library that can help you request interfac
 
 | **@ones-op/fetch** |
 | ------------------ |
-| `v0.4.0+`          |
+| v0.4.0+            |
 
 ## Installation
 
@@ -229,6 +229,7 @@ interface OPError {
   model: string
   reason: string
   type: 'error' | 'warning' | 'info'
+  closable?: boolean
 }
 ```
 
@@ -270,6 +271,12 @@ These are the available config options for making requests. Only the `url` is re
   // It can be convenient to set `baseURL` for an instance of axios to pass relative URLs
   // to methods of that instance.
   baseURL: 'https://some-domain.com/api',
+
+  // `autoErrorToast` indicates whether or not popup a window to show error info which request plugin's interface
+  // When using it, the plug-in backend needs to be used in conjunction with the corresponding `node-error` sdk
+  // `node-error` can refer from https://docs.partner.ones.cn/zh-CN/docs/next/reference/packages/node-error/
+  // It can deal with the plugin's interface's error automatically
+  autoErrorToast: true, //default
 
   // `transformRequest` allows changes to the request data before it is sent to the server
   // This is only applicable for request methods 'PUT', 'POST', 'PATCH' and 'DELETE'
@@ -440,3 +447,9 @@ These are the available config options for making requests. Only the `url` is re
 
 }
 ```
+
+## FAQ
+
+### Why it still popup a toast without [node-error](../../packages/node-error) when catch a interface's error?
+
+When autoErrorToast set to be true, we will judge Whether to popup toast by calling isOPError method, so if you custom a response can pass the check of isOPError, it also works out.

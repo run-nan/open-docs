@@ -8,7 +8,7 @@
 
 | **@ones-op/fetch** |
 | ------------------ |
-| `v0.4.0+`          |
+| v0.4.0+            |
 
 ## 安装
 
@@ -229,6 +229,7 @@ interface OPError {
   model: string
   reason: string
   type: 'error' | 'warning' | 'info'
+  closable?: boolean
 }
 ```
 
@@ -269,6 +270,12 @@ type FetchInheritableInterceptor<T = FetchConfig, D = any> =
   // `baseURL` 将自动加在 `url` 前面，除非 `url` 是一个绝对 URL。
   // 它可以通过设置一个 `baseURL` 便于为 axios 实例的方法传递相对 URL
   baseURL: 'https://some-domain.com/api/',
+
+  // `autoErrorToast` 用于控制是否自动弹窗展示插件接口或者平台接口的错误信息
+  // 使用时需要插件后端配合使用对应的 `node-error` sdk
+  // `node-error` 使用方法可参考 https://docs.partner.ones.cn/zh-CN/docs/next/reference/packages/node-error/
+  // 仅应用于 `OPFetch`，`Fetch` 中不包含此配置
+  autoErrorToast: true // 默认值
 
   // `transformRequest` 允许在向服务器发送前，修改请求数据
   // 它只能用于 'PUT', 'POST' 和 'PATCH' 这几个请求方法
@@ -421,3 +428,9 @@ type FetchInheritableInterceptor<T = FetchConfig, D = any> =
   decompress: true // 默认值
 }
 ```
+
+## FAQ
+
+### 为什么没有使用 [node-error 错误处理](../../packages/node-error)，当接口异常时，仍然会自动弹窗？
+
+因为在 `autoErrorToast` 设置为 `true`时，会通过 `isOPError` 判断是否需要自动错误弹窗，所以当自定义返回的数据符合判断条件，也会自动错误弹窗。

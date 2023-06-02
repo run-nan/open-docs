@@ -694,7 +694,19 @@ const file = await PluginFile.uploadFile('files/test.txt', 'taskuuid', 'desc')
 | :---------- | :-------------- | :----- |
 | processUUID | 进度管理器 UUID | string |
 
+#### Error
+
+| errcode          | reason             | level | statusCode |
+| ---------------- | ------------------ | ----- | ---------- |
+| InvalidParameter | Invalid parameter. | error | 400        |
+
 #### Example
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+<TabItem value="1" label="0.4.0+">
 
 ```typescript
 import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
@@ -718,6 +730,48 @@ export async function createProcess(request: PluginRequest): Promise<PluginRespo
   }
 }
 ```
+
+</TabItem>
+<TabItem value="2" label="0.6.0+">
+
+```typescript
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+import {
+  Process,
+  LanguagePkg,
+  ProcessType,
+  ProcessResult,
+  AbilityError,
+} from '@ones-op/node-ability'
+
+export async function createProcess(request: PluginRequest): Promise<PluginResponse> {
+  //从请求中获取参数
+  const { user_uuid, title, timeout } = request?.body as any
+  //进度管理器多语言标题
+  const titlePkg: LanguagePkg = {
+    en: 'process',
+    zh: title,
+  }
+  //创建进度管理器，获取返回值processUUID
+  let processUUID = ''
+  try {
+    const processUUID = await Process.create(ProcessType.DownloadFile, user_uuid, titlePkg, timeout)
+  } catch (e) {
+    if (e instanceof AbilityError) {
+      // handle error
+    }
+  }
+
+  return {
+    body: {
+      process_uuid: processUUID,
+    },
+  }
+}
+```
+
+</TabItem>
+</Tabs>
 
 ---
 
@@ -898,3 +952,14 @@ const resp = await getUserTeamUUIDsByThirdPartyIDAndThirdPartyType('12345678', 0
 ```
 
 ---
+
+## Type
+
+### AbilityError
+
+| 参数       | 说明               | 类型     |
+| :--------- | :----------------- | :------- |
+| level      | 错误等级           | `string` |
+| reason     | 错误原因           | `string` |
+| statusCode | 对应的 http 状态码 | `string` |
+| errcode    | 错误码             | `string` |
