@@ -701,6 +701,28 @@ interface WikiSpaceInfoType {
 }
 ```
 
+### useWikiPageInfo {#useWikiPageInfo}
+
+获取当前访问的页面的信息。
+
+- 可用：`v0.x.x+`
+- ONES 要求：`v3.x.x+`
+
+#### 返回
+
+| 说明           | 类型               |
+| -------------- | ------------------ |
+| 当前页面的信息 | `WikiPageInfoType` |
+
+#### 类型
+
+```tsx
+interface WikiPageInfoType {
+  uuid: string // 当前页面的 UUID
+  name: string // 当前页面的名称
+}
+```
+
 ### useVariablesInfo {#useVariablesInfo}
 
 获取当前插槽传递过来的非标准临时数据，你可以通过指定范型获得当前插槽传递数据的类型推断。

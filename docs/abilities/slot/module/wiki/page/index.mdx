@@ -1,0 +1,54 @@
+import Image from '@theme/IdealImage'
+
+# Wiki page
+
+## Requirements
+
+|  ONES   |
+| :-----: |
+| v3.x.x+ |
+
+## Overview
+
+<Image img={require('./images/page.png')} />
+
+We have provided slots for "Wiki" - "Space" - "Wiki page" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:wiki:space:header:title](#oneswikispaceheadertitle)
+
+## Slots
+
+#### ones:wiki:space:header:title
+
+** Module path ** ONES Wiki / spaces / Wiki page / title
+
+** Number limit：** Declare a maximum of **1 ** slots in each plugin，and up to **1 ** slots in the system.
+
+## Usage
+
+```yaml
+- id: ones-wiki-space-header-title-oU6k
+  title: wiki
+  moduleType: ones:wiki:space:header:title
+  entry: modules/ones-wiki-space-header-title-oU6k/index.html
+```
+
+### Available Hook API
+
+- [useWikiSpaceInfo](../../../../../reference/packages/store/store.md#useWikiSpaceInfo)
+
+```ts
+import { useWikiSpaceInfo } from '@ones-op/store'
+
+const spaceInfo = useWikiSpaceInfo()
+```
+
+- [useWikiPageInfo](../../../../../reference/packages/store/store.md#useWikiPageInfo)
+
+```ts
+import { useWikiPageInfo } from '@ones-op/store'
+
+const pageInfo = useWikiPageInfo()
+```

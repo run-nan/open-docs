@@ -12,7 +12,7 @@ import Image from '@theme/IdealImage'
 
 <Image img={require('./images/activity.png')} />
 
-We have provided slots for "ONES Project" - "Project component" - "Issue detail" - "Activity" to customize the page module for the application.
+We have provided slots for "ONES Project" - "Project component" - "Issue detail" to customize the page module for the application.
 
 The slots currently supported are as follows:
 
@@ -21,8 +21,17 @@ The slots currently supported are as follows:
 - [ones:issue:feed:file](#onesissuefeedfile)
 - [ones:issue:feed:relate](#onesissuefeedrelate)
 - [ones:issue:feed:changelog](#onesissuefeedchangelog)
+- [ones:issue:header:action:new](#onesissueheaderactionnew)
 
 ## Slots
+
+#### ones:issue:header:action:new
+
+**ONES Requirement:** v3.XX.XX+
+
+**Module path：** ONES Project / Project component / Issue detail / top header action / new module
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
 
 #### ones:issue:feed:all
 
@@ -67,3 +76,21 @@ modules:
 **Supported config options：**
 
 - [disabled](../../../../../../reference/config/plugin.yaml#disabled)
+
+### Available Hook API
+
+- [useProjectInfo](../../../../../../reference/packages/store/store.md#useProjectInfo)
+
+```ts
+import { useProjectInfo } from '@ones-op/store'
+
+const projectInfo = useProjectInfo()
+```
+
+- [useTaskInfo](../../../../../../reference/packages/store/store.md#useTaskInfo)
+
+```ts
+import { useTaskInfo } from '@ones-op/store'
+
+const projectTaskInfo = useTaskInfo()
+```

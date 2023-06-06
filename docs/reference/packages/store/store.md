@@ -691,6 +691,28 @@ interface WikiSpaceInfoType {
 }
 ```
 
+### useWikiPageInfo {#useWikiPageInfo}
+
+Get the current page information.
+
+- Added in: `v0.x.x+`
+- ONES Requirement: `v3.x.x+`
+
+#### Returns
+
+| Description              | Type               |
+| ------------------------ | ------------------ |
+| Current page information | `WikiPageInfoType` |
+
+#### Types
+
+```tsx
+interface WikiPageInfoType {
+  uuid: string // Current page UUID
+  name: string // Current page name
+}
+```
+
 ### useVariablesInfo {#useVariablesInfo}
 
 Get the non-standard temporary data passed by the current slot. You can get the type inference of the data passed by the current slot by specifying the paradigm.

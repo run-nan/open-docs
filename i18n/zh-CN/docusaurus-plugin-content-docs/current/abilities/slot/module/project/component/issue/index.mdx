@@ -12,7 +12,7 @@ import Image from '@theme/IdealImage'
 
 <Image img={require('./images/activity.png')} />
 
-我们为「项目管理」-「项目组件」-「工作项详情」-「动态」提供了一些插槽，以便于为该应用定制化页面模块。
+我们为「项目管理」-「项目组件」-「工作项详情」提供了一些插槽，以便于为该应用定制化页面模块。
 
 当前支持的插槽：
 
@@ -21,8 +21,17 @@ import Image from '@theme/IdealImage'
 - [ones:issue:feed:file](#onesissuefeedfile)
 - [ones:issue:feed:relate](#onesissuefeedrelate)
 - [ones:issue:feed:changelog](#onesissuefeedchangelog)
+- [ones:issue:header:action:new](#onesissueheaderactionnew)
 
 ## 插槽
+
+#### ones:issue:header:action:new
+
+**ONES 要求：** v3.XX.XX+
+
+**模块路径：** 项目管理 / 项目组件 / 工作项详情 / 顶部操作模块 / 新模块
+
+**个数限制：** 一个插件中最多可声明 **10 **个该插槽，系统中最多同时存在 **100 **个该插槽
 
 #### ones:issue:feed:all
 
@@ -67,3 +76,21 @@ modules:
 **支持的配置项：**
 
 - [disabled](../../../../../../reference/config/plugin.yaml#disabled)
+
+### 可访问的上下文数据
+
+- [useProjectInfo](../../../../../../reference/packages/store/store.md#useProjectInfo)
+
+```ts
+import { useProjectInfo } from '@ones-op/store'
+
+const projectInfo = useProjectInfo()
+```
+
+- [useTaskInfo](../../../../../../reference/packages/store/store.md#useTaskInfo)
+
+```ts
+import { useTaskInfo } from '@ones-op/store'
+
+const projectTaskInfo = useTaskInfo()
+```
