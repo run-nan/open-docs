@@ -3,7 +3,7 @@ id: status-code
 sidebar_position: 3
 ---
 
-# Status codes
+# Status Codes
 
 The ONES REST API uses the [standard HTTP status codes](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html).
 

@@ -10,9 +10,9 @@ servers:
 paths:
   /oauth2/authorize:
     get:
-      summary: Apply for Authorization Code
+      summary: Apply for authorization code
       operationId: apply-for-authorization-code
-      description: Apply for Authorization Code.
+      description: Apply for authorization code.
       parameters:
         - name: client_id
           required: true
@@ -101,9 +101,9 @@ paths:
                 $ref: '#/components/schemas/BadResponse'
   /oauth2/introspect:
     get:
-      summary: Get Access Token Details
+      summary: Get access token details
       operationId: get-access-token-details
-      description: Get Access Token Details.
+      description: Get access token details.
       parameters:
         - in: header
           name: Authorization
@@ -120,9 +120,9 @@ paths:
                 $ref: '#/components/schemas/AccessTokenResponse'
   /oauth2/revoke:
     post:
-      summary: Revoke Access Token
+      summary: Revoke access token
       operationId: revoke-access-token
-      description: Revoke Access Token.
+      description: Revoke access token.
       requestBody:
         content:
           application/json:

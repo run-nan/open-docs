@@ -4,9 +4,9 @@ sidebar_position: 2
 sidebar_label: 'Authorization'
 ---
 
-# Authentication and authorization
+# Authentication And Authorization
 
-## Create OAuth Application
+## Create oauth application
 
 Team administrators can create it in the ONES system in "Configuration Center" - "Team Configuration" - "Custom OAuth Application". After creating the OAuth application, you will receive a Client ID and Client Secret, which developers need to store securely.
 
@@ -16,7 +16,7 @@ Creating an OAuth application requires the following information:
 - Redirect URI: Upon successful authorization code application, it will redirect to this address.
 - Scope: Select the extent of the ONES Open API that the OAuth application can access.
 
-## Apply for Authorization Code
+## Apply for authorization code
 
 Request Example：
 
@@ -28,7 +28,7 @@ curl 'https://ones.com/oauth2/authorize?client_id=CLIENT_ID&response_type=code'
 
 After the request is successful, the browser will be redirected to the ONES system. If the user is not logged in, they will need to log in. If the user is already logged in, it will redirect to the authorization consent page. Once the user agrees to the authorization, it will redirect to the Redirect URI, and 'code' and 'state' parameters will be added to the URL. The 'code' will become invalid after applying for the access token and can only be used once.
 
-## Apply for Access Token
+## Apply for access token
 
 Request Example：
 
@@ -67,7 +67,7 @@ Request Example：
 curl 'https://ones.com/rest/api/v1/xxx' -H "Authorization: Bearer ACCESS_TOKEN"
 ```
 
-## Get Access Token Details
+## Get access token details
 
 Request Example：
 
@@ -91,7 +91,7 @@ Response Example：
 
 [Detailed Interface Introduction](./api/auth/get-access-token-details.api.mdx)
 
-## Refresh Access Token
+## Refresh access token
 
 After refreshing the access token, the previously applied access token and refresh token will both become invalid, and new access and refresh tokens will be returned.
 
@@ -121,7 +121,7 @@ Response Example：
 
 [Detailed Interface Introduction](./api/auth/apply-for-or-refresh-access-token.api.mdx)
 
-## Revoke Access Token
+## Revoke access token
 
 When revoking the access token, the refresh token will also become invalid.
 

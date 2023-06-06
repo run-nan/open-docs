@@ -65,9 +65,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/BadResponse'
     post:
-      summary: Create a new test case issue
-      operationId: create-a-new-test-case-issue
-      description: Create a new test case library.
+      summary: Create a new issue
+      operationId: create-a-new-issue
+      description: Create a new issue.
       security:
         - oauth2:
             - write:project:issue
@@ -170,7 +170,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/BadResponse'
     put:
-      summary: Update a  issue
+      summary: Update a issue
       operationId: update-a-issue
       description: Update a issue.
       security:

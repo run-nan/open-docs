@@ -1,11 +1,11 @@
 ---
 id: get-access-token-details
-title: "Get Access Token Details"
-description: "Get Access Token Details."
-sidebar_label: "Get Access Token Details"
+title: "Get access token details"
+description: "Get access token details."
+sidebar_label: "Get access token details"
 hide_title: true
 hide_table_of_contents: true
-api: {"operationId":"get-access-token-details","description":"Get Access Token Details.","parameters":[{"in":"header","name":"Authorization","required":true,"schema":{"type":"string","description":"Access token."}}],"responses":{"200":{"description":"Request successful.","content":{"application/json":{"schema":{"type":"object","properties":{"active":{"type":"boolean","description":"Whether the access token is valid/usable."},"sub":{"type":"string","description":"The user ID of the user who requested the access token."},"scope":{"type":"string","description":"The Open API scopes that are accessible, separated by commas."},"client_id":{"type":"string","description":"The identifier of the OAuth application."},"token_type":{"type":"string","description":"The type of access token."},"exp":{"type":"integer","description":"The expiration time of the access token."},"team_id":{"type":"string","description":"The team ID of the created OAuth application."}},"title":"AccessTokenResponse"}}}}},"method":"get","path":"/oauth2/introspect","servers":[{"url":"https://ones.com"},{"url":"http://ones.com"}],"info":{"title":"Auth","version":"1.0","description":"The ONES REST API utilizes the standard OAuth 2.0 authorization mechanism to provide secure user authorization and access tokens for third-party applications to access protected resources. OAuth 2.0 enables third-party applications to obtain limited and revocable access privileges in a secure and controlled manner, without directly using user credentials. This authorization mechanism offers a flexible and reliable way for third-party applications to securely interact with the ONES system and obtain the necessary resource access permissions.\n"},"postman":{"name":"Get Access Token Details","description":{"content":"Get Access Token Details.","type":"text/plain"},"url":{"path":["oauth2","introspect"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Accept","value":"application/json"}],"method":"GET"}}
+api: {"operationId":"get-access-token-details","description":"Get access token details.","parameters":[{"in":"header","name":"Authorization","required":true,"schema":{"type":"string","description":"Access token."}}],"responses":{"200":{"description":"Request successful.","content":{"application/json":{"schema":{"type":"object","properties":{"active":{"type":"boolean","description":"Whether the access token is valid/usable."},"sub":{"type":"string","description":"The user ID of the user who requested the access token."},"scope":{"type":"string","description":"The Open API scopes that are accessible, separated by commas."},"client_id":{"type":"string","description":"The identifier of the OAuth application."},"token_type":{"type":"string","description":"The type of access token."},"exp":{"type":"integer","description":"The expiration time of the access token."},"team_id":{"type":"string","description":"The team ID of the created OAuth application."}},"title":"AccessTokenResponse"}}}}},"method":"get","path":"/oauth2/introspect","servers":[{"url":"https://ones.com"},{"url":"http://ones.com"}],"info":{"title":"Auth","version":"1.0","description":"The ONES REST API utilizes the standard OAuth 2.0 authorization mechanism to provide secure user authorization and access tokens for third-party applications to access protected resources. OAuth 2.0 enables third-party applications to obtain limited and revocable access privileges in a secure and controlled manner, without directly using user credentials. This authorization mechanism offers a flexible and reliable way for third-party applications to securely interact with the ONES system and obtain the necessary resource access permissions.\n"},"postman":{"name":"Get access token details","description":{"content":"Get access token details.","type":"text/plain"},"url":{"path":["oauth2","introspect"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Accept","value":"application/json"}],"method":"GET"}}
 sidebar_class_name: "get api-method"
 info_path: docs/openapi/api/auth/auth
 custom_edit_url: null
@@ -20,11 +20,11 @@ import SchemaTabs from "@theme/SchemaTabs";
 import DiscriminatorTabs from "@theme/DiscriminatorTabs";
 import TabItem from "@theme/TabItem";
 
-## Get Access Token Details
+## Get access token details
 
 
 
-Get Access Token Details.
+Get access token details.
 
 <details style={{"marginBottom":"1rem"}} data-collapsed={false} open={true}><summary style={{}}><strong>Header Parameters</strong></summary><div><ul><ParamsItem className={"paramsItem"} param={{"in":"header","name":"Authorization","required":true,"schema":{"type":"string","description":"Access token."}}}></ParamsItem></ul></div></details><div><ApiTabs><TabItem label={"200"} value={"200"}><div>
 
