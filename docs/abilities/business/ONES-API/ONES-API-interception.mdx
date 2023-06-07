@@ -2,6 +2,9 @@
 sidebar_position: 3
 ---
 
+import Image from '@theme/IdealImage'
+import urlParamImg from './images/urlParam.png'
+
 # ONES API interception
 
 ## Requirements
@@ -211,6 +214,55 @@ This ability is about to be abandoned, and future compatibility is not guarantee
     }
   }
   ```
+
+### custom query param
+
+Support interface interception with custom query parameters allowing different interface interception functions to be used for the same URL based on the request's query parameters.
+You can set custom query parameters in the apis field in the `config/plugin.yaml` file.
+All requests to this interface will be intercepted if they contain these pre-set parameters, otherwise they will not be intercepted.
+
+<Image img={urlParamImg} />
+
+- interception rule
+
+1. An interface can only be intercepted by one plugin for one type of interface interception (prefix, replace, suffix),
+   but it allows an interface to define different query parameters to match different handling functions.
+
+2. Custom query parameters are represented as a map with both the key and value being strings.
+   Interface interception will be triggered if all the keys and values in the map are included in the request to this interface.
+
+3. When a request satisfies multiple interface interception rules with custom query parameters,
+   the corresponding function will be matched based on the order declared in the `config/plugin.yaml` file.
+
+- Sample configuration
+
+  Add the following configuration to the `apis` field in the plugin configuration file:
+
+  ```yaml title='/config/plugin.yaml'
+  apis:
+    - type: replace
+      methods:
+        - POST
+      scope: project
+      url: /users/me
+      function: replaceFunc1
+      query:
+        k1: v1
+    - type: replace
+      methods:
+        - POST
+      scope: project
+      url: /users/me
+      function: replaceFunc2
+      query:
+        k2: v2
+  ```
+
+  - request url: `/users/me?k2=v2` match: replaceFunc2
+
+  - request url: `/users/me?k1=v1&k2=v2&k3=v3` based on declared order，match: replaceFunc1
+
+  - request url: `/users/me` no match，do not intercepted the interface and follow the original processing logic
 
 ### Debug
 
