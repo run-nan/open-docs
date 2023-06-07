@@ -12,13 +12,6 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 <Tabs>
-<TabItem value="1" label="3.6.0+ ">
-
-| ONES    | @ones-op/node-utils | @ones-op/node-file |
-| :------ | :------------------ | :----------------- |
-| v3.6.0+ | v0.2.0+             | v0.3.0+            |
-
-</TabItem>
 <TabItem value="2" label="3.13.60+">
 
 | ONES    | @ones-op/node-fs |
@@ -26,11 +19,25 @@ import TabItem from '@theme/TabItem'
 | v3.13.60+ |    v0.0.1+              |
 
 </TabItem>
+<TabItem value="1" label="3.6.0+ ">
+
+| ONES    | @ones-op/node-utils | @ones-op/node-file |
+| :------ | :------------------ | :----------------- |
+| v3.6.0+ | v0.2.0+             | v0.3.0+            |
+
+</TabItem>
 </Tabs>
 
 ## Overview
 
 <Tabs>
+<TabItem value="2" label="3.13.60+">
+
+Each plugin has its own file workspace, which allows the plugin to create, read, write and preset its own files, which is located under `{{plugin root directory}}/workspace`.
+
+Before the plugin is packaged, you can place the files you need in `{{plugin root directory}}/workspace`. After the plugin is successfully installed and enabled, you can manipulate the plugin files and manipulate the files in the directory.
+
+</TabItem>
 <TabItem value="1" label="3.6.0+ ">
 
 Each plugin has its own file workspace, which allows the plugin to create, read, write and preset its own files, which is located under `{{plugin root directory}}/workspace`.
@@ -47,13 +54,6 @@ local:
 ```
 
 </TabItem>
-<TabItem value="2" label="3.13.60+">
-
-Each plugin has its own file workspace, which allows the plugin to create, read, write and preset its own files, which is located under `{{plugin root directory}}/workspace`.
-
-Before the plugin is packaged, you can place the files you need in `{{plugin root directory}}/workspace`. After the plugin is successfully installed and enabled, you can manipulate the plugin files and manipulate the files in the directory.
-
-</TabItem>
 </Tabs>
 
 ## Usage
@@ -63,17 +63,17 @@ Before the plugin is packaged, you can place the files you need in `{{plugin roo
 Enter the `/backend` directory of the plugin project, and execute the following command for dependent installation:
 
 <Tabs>
-<TabItem value="1" label="3.6.0+ ">
-
-```shell
-npm i @ones-op/node-file
-```
-
-</TabItem>
 <TabItem value="2" label="3.13.60+">
 
 ```shell
 npm i @ones-op/node-fs
+```
+
+</TabItem>
+<TabItem value="1" label="3.6.0+ ">
+
+```shell
+npm i @ones-op/node-file
 ```
 
 </TabItem>
@@ -82,49 +82,6 @@ npm i @ones-op/node-fs
 ### Step 2: Example
 
 <Tabs>
-<TabItem value="1" label="3.6.0+ ">
-
-```javascript
-import { makeDir, createFile, writeStrings, appendStrings, copy, rename, writeBytes, appendBytes, list, isExist, isDir, isFile, read, readLines, remove } from '@ones-op/node-file'
-import { Logger } from '@ones-op/node-logger'
-import { String2Unit8Array, Object2Unit8Array, Unit8Array2String } from '@ones-op/node-utils'
-
-export async function TestFile() {
-  try {
-    await makeDir('./tmp/test')
-    await createFile('./tmp/test/test.txt')
-    await writeStrings('./tmp/test/test.txt', ['hello world!\n'])
-    await appendStrings('./tmp/test/test.txt', ['hello world!'])
-    await copy('./tmp/test/test.txt', './tmp/test/test2.txt')
-    await copy('./tmp/test/test.txt', './tmp/test/test3.txt')
-    await rename('./tmp/test/test3.txt', './tmp/test/test4.txt')
-    await writeBytes('./tmp/test/test.txt', String2Unit8Array('hello bytes!\n'))
-    await appendBytes('./tmp/test/test.txt', Object2Unit8Array({ name: 'hello bytes!' }))
-    Logger.info('======List', await list('./tmp/test'))
-    Logger.info('======isExist', await isExist('./tmp/test/test.txt'))
-    Logger.info('======isDir', await isDir('./tmp'))
-    Logger.info('======isDir', await isDir('./tmp/test'))
-    Logger.info('======isDir', await isDir('./tmp/test/test.txt'))
-    Logger.info('======isFile', await isFile('./tmp/test/test.txt'))
-    Logger.info('======read', Unit8Array2String((await read('./tmp/test/test.txt')) as Uint8Array))
-    const lines = await readLines('./tmp/test/test.txt', 0, 1)
-    Logger.info('======readLines', lines)
-    await remove('./tmp/test/test4.txt')
-    Logger.info('======List', await list('./tmp/test'))
-  } catch (error) {
-    Logger.error('ERROR: testFile callback:', error)
-  }
-
-  return {
-    body: {
-      code: 200,
-      data: 'ok',
-    },
-  }
-}
-```
-
-</TabItem>
 <TabItem value="2" label="3.13.60+">
 
 ```javascript
@@ -207,19 +164,62 @@ export async function TestFile() {
 ```
 
 </TabItem>
+<TabItem value="1" label="3.6.0+ ">
+
+```javascript
+import { makeDir, createFile, writeStrings, appendStrings, copy, rename, writeBytes, appendBytes, list, isExist, isDir, isFile, read, readLines, remove } from '@ones-op/node-file'
+import { Logger } from '@ones-op/node-logger'
+import { String2Unit8Array, Object2Unit8Array, Unit8Array2String } from '@ones-op/node-utils'
+
+export async function TestFile() {
+  try {
+    await makeDir('./tmp/test')
+    await createFile('./tmp/test/test.txt')
+    await writeStrings('./tmp/test/test.txt', ['hello world!\n'])
+    await appendStrings('./tmp/test/test.txt', ['hello world!'])
+    await copy('./tmp/test/test.txt', './tmp/test/test2.txt')
+    await copy('./tmp/test/test.txt', './tmp/test/test3.txt')
+    await rename('./tmp/test/test3.txt', './tmp/test/test4.txt')
+    await writeBytes('./tmp/test/test.txt', String2Unit8Array('hello bytes!\n'))
+    await appendBytes('./tmp/test/test.txt', Object2Unit8Array({ name: 'hello bytes!' }))
+    Logger.info('======List', await list('./tmp/test'))
+    Logger.info('======isExist', await isExist('./tmp/test/test.txt'))
+    Logger.info('======isDir', await isDir('./tmp'))
+    Logger.info('======isDir', await isDir('./tmp/test'))
+    Logger.info('======isDir', await isDir('./tmp/test/test.txt'))
+    Logger.info('======isFile', await isFile('./tmp/test/test.txt'))
+    Logger.info('======read', Unit8Array2String((await read('./tmp/test/test.txt')) as Uint8Array))
+    const lines = await readLines('./tmp/test/test.txt', 0, 1)
+    Logger.info('======readLines', lines)
+    await remove('./tmp/test/test4.txt')
+    Logger.info('======List', await list('./tmp/test'))
+  } catch (error) {
+    Logger.error('ERROR: testFile callback:', error)
+  }
+
+  return {
+    body: {
+      code: 200,
+      data: 'ok',
+    },
+  }
+}
+```
+
+</TabItem>
 </Tabs>
 
 ## SDK
 
 <Tabs>
-<TabItem value="1" label="3.6.0+ ">
-
-Parameters reference：[@ones-op/node-file](../../reference/packages/node-file/node-file.mdx)
-
-</TabItem>
 <TabItem value="2" label="3.13.60+">
 
 Parameters reference：[@ones-op/node-fs](../../reference/packages/node-fs/node-fs.mdx)
+
+</TabItem>
+<TabItem value="1" label="3.6.0+ ">
+
+Parameters reference：[@ones-op/node-file](../../reference/packages/node-file/node-file.mdx)
 
 </TabItem>
 </Tabs>
