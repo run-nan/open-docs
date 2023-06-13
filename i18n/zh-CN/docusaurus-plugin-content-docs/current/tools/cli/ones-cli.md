@@ -1,3 +1,7 @@
+---
+sidebar_position: 1
+---
+
 # ONES CLI 指令
 
 ## 概览

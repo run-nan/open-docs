@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 # OP CLI 指令
 
 当前章节列出了可用于通过 OP CLI 构建插件的指令。
@@ -73,6 +77,12 @@ npx op packup [filename]
 | 参数名称   | 参数描述                                 |
 | ---------- | ---------------------------------------- |
 | `filename` | 指定 `.opk` 文件的名称，默认为项目名称。 |
+
+### 选项
+
+| 选项名称        | 选项别名 | 选项描述                       |
+| --------------- | -------- | ------------------------------ | --- |
+| `--bumpversion` | --       | 打包时提供更新插件版本号的选项 |     |
 
 ## login
 
@@ -319,9 +329,9 @@ npx op invoke [options] <target>
 | `--webpack-stats-preset <level>` |          | 指定 Webpack 日志级别，支持级别有: <ul><li>`errors-only`</li><li>`errors-warnings`</li><li>`minimal`</li><li>`none`</li><li>`normal`</li><li>`verbose`</li><li>`detailed`</li><li>`summary`</li></ul> 默认日志级别为 `info`。 |
 | `--reinstall-plugin`             |          | 当目标环境中已安装的插件 `appid` 与当前插件工程冲突时，会尝试卸载目标环境中的插件并安装本地工程中的插件内容。                                                                                                                 |
 
-## update
+## update (待废弃)
 
-更新项目内容。
+更新项目内容，即将废弃，建议使用 `upgrade` 命令
 
 ```shell
 npx op update <target>
@@ -338,3 +348,11 @@ npx op update <target>
 | 名称       | 别名 | 描述                                                                                    |
 | ---------- | ---- | --------------------------------------------------------------------------------------- |
 | `template` |      | 更新项目模版 `@ones/cli-ability-template` , `@ones-op/utils` 到非破坏性版本的最新版本。 |
+
+## upgrade
+
+升级 `@ones/cli-plugin` 及相关依赖到当前大版本的最新版本
+
+```shell
+npx op upgrade
+```

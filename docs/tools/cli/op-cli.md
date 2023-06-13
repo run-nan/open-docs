@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 # OP CLI Commands
 
 This reference lists the commands that you can use to build plugin with OP CLI.
@@ -67,6 +71,12 @@ Pack up the plugin project and build `.opk` file in the root directory.
 ```shell
 npx op packup [filename]
 ```
+
+### 选项
+
+| 选项名称        | 选项别名 | 选项描述                                              |
+| --------------- | -------- | ----------------------------------------------------- |
+| `--bumpversion` | --       | packup plug-in with options to update plug-in version |
 
 ### Arguments
 
@@ -316,9 +326,9 @@ Developer can learn more about [available life-cycle](../../guide/lifecycle.mdx)
 | `--mode <type>`                  |       | specify the mode, support mode: <ul><li>`all`</li><li>`backend`</li><li>`frontend`</li></ul> Default mode is `all`.                                                                                                                           |
 | `--webpack-stats-preset <level>` |       | Specify the webpack logging level, support level: <ul><li>`errors-only`</li><li>`errors-warnings`</li><li>`minimal`</li><li>`none`</li><li>`normal`</li><li>`verbose`</li><li>`detailed`</li><li>`summary`</li></ul> Default level is `info`. |
 
-## update
+## update (Deprecated)
 
-Update project content.
+Update project content, to be deprecated, using `upgrade` instead.
 
 ```shell
 npx op update <target>
@@ -335,3 +345,11 @@ npx op update <target>
 | name       | Alias | Description                                                                                                                  |
 | ---------- | ----- | ---------------------------------------------------------------------------------------------------------------------------- |
 | `template` |       | Update project templates `@ones/cli-ability-template` , `@ones-op/utils` to the latest version of the current major version. |
+
+## upgrade
+
+upgrade `@ones/cli-plugin` and relative dependencies to lastest version which range of current major version
+
+```shell
+npx op upgrade
+```
