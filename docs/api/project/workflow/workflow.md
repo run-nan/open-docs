@@ -126,7 +126,7 @@ post_function
             "uuid": "field001",
             "name": "回调url",
             "type": "string",
-            "value": "ones.cn"
+            "value": "ones.com"
           },
           {
             "uuid": "field002",

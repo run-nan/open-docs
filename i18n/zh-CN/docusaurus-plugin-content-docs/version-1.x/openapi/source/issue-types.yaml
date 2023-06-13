@@ -145,7 +145,7 @@ components:
       type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://ones.cn/oauth2/authorize
-          tokenUrl: https://ones.cn/oauth2/token
+          authorizationUrl: https://ones.com/oauth2/authorize
+          tokenUrl: https://ones.com/oauth2/token
           scopes:
             read:project:issueType: 获取工作项类型

@@ -24,7 +24,7 @@ sidebar_position: 5
 ```bash
 % op login -e=sit
 ? 输入测试环境url: http://120.76.45.123
-? 输入用户邮箱: test@ones.cn
+? 输入用户邮箱: test@ones.com
 ? 输入密码: test1234
 2022/02/28 23:54:25 登录成功!!
 ? 选择需要指定的team: GSwm2Lix

@@ -28,7 +28,7 @@ Execute the `npx op login` command in the root directory of the plugin project t
 ➜ npx op login
 ? Please enter the environment base URL: http://120.76.45.123
 ? Please enter the environment host URL: tcp://120.76.45.123:9006
-? Username: test1@ones.cn
+? Username: test1@ones.com
 ? Password: [hidden]
   ✔ Converting inputted answers to login params
   ✔ Fetching user profile

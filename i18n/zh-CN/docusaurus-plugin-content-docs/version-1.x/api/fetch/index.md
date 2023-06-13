@@ -489,7 +489,7 @@ const input = (
 ### 10. getPluginConfigs
 
 - 获取插件功能配置页的配置项数组
-- [详见文档 config 部分](https://docs.partner.ones.ai/docs/api/config/plugin#config)
+- [详见文档 config 部分](../../reference/config/plugin.yaml.mdx#config)
 
 #### URL
 
@@ -515,7 +515,7 @@ const input = (
 ### 11. getPluginAbilities
 
 - 获取插件的能力配置
-- [详见 abilities 文档](https://docs.partner.ones.ai/docs/api/config/plugin/#abilities)
+- [详见 abilities 文档](../../reference/config/plugin.yaml.mdx/#abilities)
 
 #### URL
 
@@ -541,7 +541,7 @@ const input = (
 ### 12. updatePluginAbilities
 
 - 更新插件的能力配置
-- [详见 abilities 文档](https://docs.partner.ones.ai/docs/api/config/plugin/#abilities)
+- [详见 abilities 文档](../../reference/config/plugin.yaml.mdx/#abilities)
 
 #### URL
 
@@ -578,7 +578,7 @@ const input = (
 ### 13. batchUpdatePluginConfig
 
 - 批量更新插件配置
-- [详见文档 config 部分](https://docs.partner.ones.ai/docs/api/config/plugin#config)
+- [详见文档 config 部分](../../reference/config/plugin.yaml.mdx#config)
 
 #### URL
 
@@ -615,7 +615,7 @@ const input = (
 ### 14. getCustomPermissions
 
 - 获取插件的权限点配置
-- [详见文档 permission 部分](https://docs.partner.ones.ai/docs/ones/permission/)
+- [详见文档 permission 部分](../../abilities/business/permission)
 
 #### URL
 
@@ -652,7 +652,7 @@ const input = (
 ### 15. addCustomPermissionDomain
 
 - 添加插件的权限点配置
-- [详见文档 permission 部分](https://docs.partner.ones.ai/docs/ones/permission/)
+- [详见文档 permission 部分](../../abilities/business/permission)
 
 #### URL
 
@@ -708,7 +708,7 @@ const input = (
 ### 16. removeCustomPermissionDomain
 
 - 删除插件的权限点配置
-- [详见文档 permission 部分](https://docs.partner.ones.ai/docs/ones/permission/)
+- [详见文档 permission 部分](../../abilities/business/permission)
 
 #### URL
 

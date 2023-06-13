@@ -475,7 +475,7 @@ const input = (
 ```javascript
 {
   "uuid": "DU6krHBN",
-  "email": "niuqiang@ones.ai",
+  "email": "niuqiang@ones.com",
   "name": "nisssss",
   "name_pinyin": "hui4fei1dexi1niu2zhang3",
   "title": "",
@@ -491,7 +491,7 @@ const input = (
 ### 10. getPluginConfigs
 
 - Get the configuration item array of the plugin function configuration page
-- [config](https://docs.partner.ones.ai/docs/api/config/plugin#config)
+- [config](../../reference/config/plugin.yaml.mdx#config)
 
 #### URL
 
@@ -517,7 +517,7 @@ const input = (
 ### 11. getPluginAbilities
 
 - Get the ability configuration of the plugin
-- [abilities](https://docs.partner.ones.ai/docs/api/config/plugin/#abilities)
+- [abilities](../../reference/config/plugin.yaml.mdx#abilities)
 
 #### URL
 
@@ -543,7 +543,7 @@ const input = (
 ### 12. updatePluginAbilities
 
 - Update plugin abilities configuration
-- [abilities](https://docs.partner.ones.ai/docs/api/config/plugin/#abilities)
+- [abilities](../../reference/config/plugin.yaml.mdx#abilities)
 
 #### URL
 
@@ -564,7 +564,7 @@ const input = (
 ```javascript
 {
   "uuid": "DU6krHBN",
-  "email": "niuqiang@ones.ai",
+  "email": "niuqiang@ones.com",
   "name": "flyyyyy",
   "name_pinyin": "hui4fei1dexi1niu2zhang3",
   "title": "",
@@ -580,7 +580,7 @@ const input = (
 ### 13. batchUpdatePluginConfig
 
 - 批量更新插件配置
-- [详见文档 config 部分](https://docs.partner.ones.ai/docs/api/config/plugin#config)
+- [详见文档 config 部分](../../reference/config/plugin.yaml.mdx#config)
 
 #### URL
 
@@ -601,7 +601,7 @@ const input = (
 ```javascript
 {
   "uuid": "DU6krHBN",
-  "email": "niuqiang@ones.ai",
+  "email": "niuqiang@ones.com",
   "name": "会飞的犀牛长",
   "name_pinyin": "hui4fei1dexi1niu2zhang3",
   "title": "",
@@ -617,7 +617,7 @@ const input = (
 ### 14. getCustomPermissions
 
 - Get the permission point configuration of the plugin
-- [permission](https://docs.partner.ones.ai/docs/ones/permission/)
+- [permission](../../abilities/business/permission)
 
 #### URL
 
@@ -654,7 +654,7 @@ const input = (
 ### 15. addCustomPermissionDomain
 
 - Add the permission point configuration of the plugin
-- [permission](https://docs.partner.ones.ai/docs/ones/permission/)
+- [permission](../../abilities/business/permission)
 
 #### URL
 
@@ -710,7 +710,7 @@ const input = (
 ### 16. removeCustomPermissionDomain
 
 - Remove the permission point configuration of the plugin
-- [permission](https://docs.partner.ones.ai/docs/ones/permission/)
+- [permission](../../abilities/business/permission)
 
 #### URL
 

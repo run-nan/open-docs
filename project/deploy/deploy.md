@@ -104,9 +104,9 @@ To rollback the deployment image, execute the following command:
 		docker ps | grep (port) //get CONTAINER ID
         docker rm -f (CONTAINER ID)
         view the volume name (config.json 'volume' field)
-        docker volume rm (volume name), may be wrong please check the documentation(https://docs.partner.ones.cn/) or contact us.
+        docker volume rm (volume name), may be wrong please check the documentation(https://developer.ones.com/) or contact us.
         ./onesconfigure regain --p backup package(.tar)
-If you encounter any problems, please check the documentation(https://docs.partner.ones.cn/) or contact us.
+If you encounter any problems, please check the documentation(https://developer.ones.com/) or contact us.
 ===================================================================================================================
 ```
 

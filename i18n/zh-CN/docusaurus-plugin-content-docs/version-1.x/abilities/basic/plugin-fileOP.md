@@ -80,4 +80,4 @@ export async function TestFile() {
 
 ## 相关 SDK
 
-具体参数释义请参考：[@ones-op/node-file](../../reference/packages/node-file/node-file.md)
+具体参数释义请参考：[@ones-op/node-file](../../reference/packages/node-file/node-file.mdx)

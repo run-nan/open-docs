@@ -5,8 +5,8 @@ info:
   description: |
     此资源代表工作项。使用它来获取、创建、更新和删除工作项。
 servers:
-  - url: https://ones.cn/rest/api/v1
-  - url: http://ones.cn/rest/api/v1
+  - url: https://ones.com/rest/api/v1
+  - url: http://ones.com/rest/api/v1
 paths:
   /project/team/{teamID}/issues:
     get:
@@ -593,8 +593,8 @@ components:
       type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://ones.cn/oauth2/authorize
-          tokenUrl: https://ones.cn/oauth2/token
+          authorizationUrl: https://ones.com/oauth2/authorize
+          tokenUrl: https://ones.com/oauth2/token
           scopes:
             write:project:issue: 新增、修改、删除工作项
             read:project:issue: 获取工作项信息

@@ -39,7 +39,7 @@
 
 - **_例如: 登记工时 1h, hours = 1 \* 100000_**
 
-## ~~登记工时~~ [(已不适用，参考新的方式)](https://ones.cn/project/open-api-doc/graphql/example.html#工时 '工时')
+## ~~登记工时~~ (已不适用，参考新的方式)
 
 ### URL
 
@@ -88,7 +88,7 @@ JSON
 }
 ```
 
-### ~~修改登记工时~~ [(已不适用，参考新的方式)](https://ones.cn/project/open-api-doc/graphql/example.html#工时 '工时')
+### ~~修改登记工时~~ (已不适用，参考新的方式)
 
 #### URL
 
@@ -133,7 +133,7 @@ JSON
 }
 ```
 
-### ~~删除登记工时~~ [(已不适用，参考新的方式)](https://ones.cn/project/open-api-doc/graphql/example.html#工时 '工时')
+### ~~删除登记工时~~ (已不适用，参考新的方式)
 
 #### URL
 
@@ -161,7 +161,7 @@ JSON
 }
 ```
 
-### ~~获取工作项登记工时列表~~ [(已不适用，参考新的方式)](https://ones.cn/project/open-api-doc/graphql/example.html#工时 '工时')
+### ~~获取工作项登记工时列表~~ (已不适用，参考新的方式)
 
 #### URL
 

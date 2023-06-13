@@ -5,8 +5,8 @@ info:
   description: |
     此资源代表测试用例库。使用它来获取、创建、更新和删除测试用例库。
 servers:
-  - url: https://ones.cn/rest/api/v1
-  - url: http://ones.cn/rest/api/v1
+  - url: https://ones.com/rest/api/v1
+  - url: http://ones.com/rest/api/v1
 paths:
   /testcase/team/{teamID}/library:
     get:
@@ -395,8 +395,8 @@ components:
       type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://ones.cn/oauth2/authorize
-          tokenUrl: https://ones.cn/oauth2/token
+          authorizationUrl: https://ones.com/oauth2/authorize
+          tokenUrl: https://ones.com/oauth2/token
           scopes:
             write:testcase:library: 新增、修改、删除用例库
             read:testcase:library: 获取用例库信息

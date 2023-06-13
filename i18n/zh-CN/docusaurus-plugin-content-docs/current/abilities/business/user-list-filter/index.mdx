@@ -139,7 +139,7 @@ export const userListFilterTest = async (request: PluginRequest): Promise<Plugin
 
 #### 示例
 
-根据用户 email 信息，添加自定义规则。比如，实现过滤邮箱后缀"@ones.ai"的所有用户。
+根据用户 email 信息，添加自定义规则。比如，实现过滤邮箱后缀"@ones.com"的所有用户。
 
 ```tsx
 import { Logger } from '@ones-op/node-logger'
@@ -163,7 +163,7 @@ export const userListFilterTest = async (request: PluginRequest): Promise<Plugin
 
   /**[start] custom user filter rules**/
   if (users) {
-    let reqSuffix = /@ones.ai$/
+    let reqSuffix = /@ones.com$/
     for (let idx in users) {
       if (reqSuffix.test(users[idx]['email'])) {
         data_result.push(users[idx]['uuid'] as string)

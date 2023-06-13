@@ -149,7 +149,7 @@ curl -X GET \
     "members": [
         {
             "uuid": "KtLMDi1K",
-            "email": "linhong+shkfhlksjkfssfsdf@ones.cn.wwwwwww",
+            "email": "linhong+shkfhlksjkfssfsdf@ones.com",
             "name": "",
             "name_pinyin": "",
             "title": "",
@@ -168,7 +168,7 @@ curl -X GET \
         },
         {
             "uuid": "13Jrwu7N",
-            "email": "linhong+01@ones.cn",
+            "email": "linhong+01@ones.com",
             "name": "",
             "name_pinyin": "",
             "title": "",
@@ -190,7 +190,7 @@ curl -X GET \
     "pending_members": [
         {
             "uuid": "HNvREAkV",
-            "email": "linhong+1234@ones.cn",
+            "email": "linhong+1234@ones.com",
             "name": "",
             "name_pinyin": "",
             "title": "",
@@ -209,7 +209,7 @@ curl -X GET \
         },
         {
             "uuid": "TGZ7Q17d",
-            "email": "linhong+43211234@ones.cn.cns",
+            "email": "linhong+43211234@ones.com.cns",
             "name": "",
             "name_pinyin": "",
             "title": "",

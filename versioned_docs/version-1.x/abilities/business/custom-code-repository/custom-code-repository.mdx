@@ -200,7 +200,7 @@ This page is linked with the prompt copy of the success or failure of the code r
 
 ### step3: Add repositories
 
-In order to be able to add the code repositories to the ONES system, we provide the [add code repositories](../../../reference/packages/node-ability/node-ability.md#addrepos) method in the SDK method, which can be used as follows:
+In order to be able to add the code repositories to the ONES system, we provide the [add code repositories](../../../reference/packages/node-ability/node-ability.mdx#addrepos) method in the SDK method, which can be used as follows:
 
 ```typescript
 import { addRepos } from '@ones-op/node-ability'
@@ -234,7 +234,7 @@ When calling the `getAbilityProperties` method for a team-level plugin, `teamUUI
 
 ### step4: add code repository commit and pull request
 
-After successfully link the code repository, you can call the SDK methods [add repository commits](../../../reference/packages/node-ability/node-ability.md#addrepocommits) and [add repository pull request](../../../reference/packages/node-ability/node-ability.md#addrepopullrequest) to the ONES system.
+After successfully link the code repository, you can call the SDK methods [add repository commits](../../../reference/packages/node-ability/node-ability.mdx#addrepocommits) and [add repository pull request](../../../reference/packages/node-ability/node-ability.mdx#addrepopullrequest) to the ONES system.
 
 1. add commits:
 
@@ -258,7 +258,7 @@ const pullRequest: RepoPullRequest = '{...}'
 await addRepoPullRequest(toolUUID, repoUUID, pullRequest)
 ```
 
-In order to facilitate the query of linked code repositories information, we provide the two SDK methods [query linked single code repository](../../../reference/packages/node-ability/node-ability.md#queryrepo) and [query all linked code repositories](../../../reference/packages/node-ability/node-ability.md#queryrepos):
+In order to facilitate the query of linked code repositories information, we provide the two SDK methods [query linked single code repository](../../../reference/packages/node-ability/node-ability.mdx#queryrepo) and [query all linked code repositories](../../../reference/packages/node-ability/node-ability.mdx#queryrepos):
 
 1. query linked single code repository
 

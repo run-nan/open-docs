@@ -55,8 +55,8 @@ npx op ci
 
 ```bash
 Branch name: master
-? Please enter the environment base URL: https://ones.cn
-? Username: test@ones.cn
+? Please enter the environment base URL: https://ones.com
+? Username: test@ones.com
 ? Password: [hidden]
   ✔ Converting CI deployment params
   ✔ Validating CI deployment params
@@ -83,8 +83,8 @@ Now you can commit your changes to the remote repository and deploy your project
 
 ```yaml title="/config/ci-deploy.yaml"
 default:
-  host: https://ones.cn
-  username: test@ones.cn
+  host: https://ones.com
+  username: test@ones.com
   password: test1234
   ones-check-id: 6vjJcr4L
   ones-check-point: team
@@ -112,7 +112,7 @@ GitLab CI/CD Variable 配置的 Key 必须与配置文件中保持一致
 
 ```yaml title="ci-deploy.yaml"
 default:
-  host: https://ones.cn
+  host: https://ones.com
   username: ${username}
   password: ${password}
   ones-check-id: 6vjJcr4L

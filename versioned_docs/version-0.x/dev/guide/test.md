@@ -25,7 +25,7 @@ op login
 ```
 % op login
 ? 输入登录开发环境环境url: https://devapi.myones.net/project/P8022
-? 输入用户邮箱: wangxueying@ones.cn
+? 输入用户邮箱: wangxueying@ones.com
 ? 输入密码: **********
 2022/02/23 16:22:20 登录成功!!
 

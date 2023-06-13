@@ -21,7 +21,7 @@ sidebar_label: '认证授权'
 请求示例：
 
 ```
-curl 'https://ones.cn/oauth2/authorize?client_id=CLIENT_ID&response_type=code'
+curl 'https://ones.com/oauth2/authorize?client_id=CLIENT_ID&response_type=code'
 ```
 
 [接口详细介绍](./api/auth/apply-for-authorization-code.api.mdx)
@@ -33,7 +33,7 @@ curl 'https://ones.cn/oauth2/authorize?client_id=CLIENT_ID&response_type=code'
 请求示例：
 
 ```
-curl -X POST 'https://ones.cn/oauth2/token' \
+curl -X POST 'https://ones.com/oauth2/token' \
     -H 'Content-Type: application/x-www-form-urlencoded' \
     -d 'client_id=CLIENT_ID' \
     -d 'client_secret=CLIENT_SECRET' \
@@ -46,7 +46,7 @@ curl -X POST 'https://ones.cn/oauth2/token' \
 ```
 {
     "access_token": "CN-NDd...pLW",
-    "email": "test@ones.ai",
+    "email": "test@ones.com",
     "expires_in": 86400,
     "refresh_token": "CN-MDF...TNi",
     "scope": "read:testcase:library,write:testcase:library",
@@ -64,7 +64,7 @@ access_token 是全局唯一接口调用凭据，调用 Open API 时需要使用
 请求示例：
 
 ```
-curl 'https://ones.cn/rest/api/v1/xxx' -H "Authorization: Bearer ACCESS_TOKEN"
+curl 'https://ones.com/rest/api/v1/xxx' -H "Authorization: Bearer ACCESS_TOKEN"
 ```
 
 ## 获取访问令牌详情
@@ -72,7 +72,7 @@ curl 'https://ones.cn/rest/api/v1/xxx' -H "Authorization: Bearer ACCESS_TOKEN"
 请求示例：
 
 ```
-curl "https://ones.cn/oauth2/introspect" -H "Authorization: Bearer ACCESS_TOKEN"
+curl "https://ones.com/oauth2/introspect" -H "Authorization: Bearer ACCESS_TOKEN"
 ```
 
 响应示例：
@@ -98,7 +98,7 @@ curl "https://ones.cn/oauth2/introspect" -H "Authorization: Bearer ACCESS_TOKEN"
 请求示例：
 
 ```
-curl -X POST 'https://ones.cn/oauth2/token' \
+curl -X POST 'https://ones.com/oauth2/token' \
     -H 'Content-Type: application/x-www-form-urlencoded' \
     -d 'client_id=CLIENT_ID' \
     -d 'refresh_token=REFRESH_TOKEN' \
@@ -110,7 +110,7 @@ curl -X POST 'https://ones.cn/oauth2/token' \
 ```
 {
     "access_token": "CN-NDd...pLW",
-    "email": "test@ones.ai",
+    "email": "test@ones.com",
     "expires_in": 86400,
     "refresh_token": "CN-MDF...TNi",
     "scope": "read:testcase:library,write:testcase:library",
@@ -128,7 +128,7 @@ curl -X POST 'https://ones.cn/oauth2/token' \
 请求示例：
 
 ```
-curl -X POST 'https://ones.cn/oauth2/revoke' \
+curl -X POST 'https://ones.com/oauth2/revoke' \
     -H 'Content-Type: application/json' \
     -d '{
         "client_id": CLIENT_ID,

@@ -286,8 +286,8 @@ components:
       type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://ones.cn/oauth2/authorize
-          tokenUrl: https://ones.cn/oauth2/token
+          authorizationUrl: https://ones.com/oauth2/authorize
+          tokenUrl: https://ones.com/oauth2/token
           scopes:
             read:project:issue-workflow: 获取工作项的工作流
             write:project:issue-workflow: 新增、修改、删除工作项的工作流

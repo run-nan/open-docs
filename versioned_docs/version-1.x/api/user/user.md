@@ -66,7 +66,7 @@ curl -X GET \
 ```json
 {
   "uuid": "DU6krHBN",
-  "email": "niuqiang@ones.cn",
+  "email": "niuqiang@ones.com",
   "name": "会飞的犀牛长",
   "name_pinyin": "hui4fei1dexi1niu2zhang3",
   "title": "",
@@ -166,7 +166,7 @@ curl -X POST \
   -H 'cache-control: no-cache' \
   -d '{"invite_settings":[
           {
-            "email":"123414@ones.cn"
+            "email":"123414@ones.com"
           }
         ],
         "license_types":[
