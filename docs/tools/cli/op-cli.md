@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 # OP CLI Commands
 
 This reference lists the commands that you can use to build plugin with OP CLI.
@@ -14,7 +18,7 @@ Developer need to use [npx](https://docs.npmjs.com/cli/v8/commands/npx) to execu
 | --------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | [init](#init)         | Initialize project settings.                                                                                                      |
 | [add](#add)           | Add a ability or module for the project.                                                                                          |
-| [packup](#packup)     | Pack up the plugin project and build `.opk` file in the root directory.                                                           |
+| [packup](#packup)     | Pack up the plugin project and build `.opk` file in the root directory, provide version control                                   |
 | [login](#login)       | Store the parameters used to obtain user credentials in a specific environment into `config/local.yaml`.                          |
 | [ci](#ci)             | Store the parameters used to obtain user credentials in a specific branch for (gitlab) CI into `config/ci-deploy.yaml`.           |
 | [pickteam](#pickteam) | Fetch the team list and update the config file with the team information from the team list for local debugging or CI deployment. |
@@ -62,7 +66,7 @@ npx op add ability
 
 ## packup
 
-Pack up the plugin project and build `.opk` file in the root directory.
+Pack up the plugin project and build `.opk` file in the root directory, provide version control.
 
 ```shell
 npx op packup [filename]
@@ -73,6 +77,12 @@ npx op packup [filename]
 | Argument   | Description                                                       |
 | ---------- | ----------------------------------------------------------------- |
 | `filename` | Specify the name of the `.opk` file, default is the project name. |
+
+### Options
+
+| Argument        | Description                                                                                                                                               |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--bump <mode>` | packup plug-in with bump options, `no-modify`: do not bump version, `major`: bump major version, `minor`: bump minor version, `patch`: bump patch version |
 
 ## login
 
@@ -316,9 +326,9 @@ Developer can learn more about [available life-cycle](../../guide/lifecycle.mdx)
 | `--mode <type>`                  |       | specify the mode, support mode: <ul><li>`all`</li><li>`backend`</li><li>`frontend`</li></ul> Default mode is `all`.                                                                                                                           |
 | `--webpack-stats-preset <level>` |       | Specify the webpack logging level, support level: <ul><li>`errors-only`</li><li>`errors-warnings`</li><li>`minimal`</li><li>`none`</li><li>`normal`</li><li>`verbose`</li><li>`detailed`</li><li>`summary`</li></ul> Default level is `info`. |
 
-## update
+## update (Deprecated)
 
-Update project content.
+Update project content, to be deprecated, using `upgrade` instead.
 
 ```shell
 npx op update <target>
@@ -335,3 +345,11 @@ npx op update <target>
 | name       | Alias | Description                                                                                                                  |
 | ---------- | ----- | ---------------------------------------------------------------------------------------------------------------------------- |
 | `template` |       | Update project templates `@ones/cli-ability-template` , `@ones-op/utils` to the latest version of the current major version. |
+
+## upgrade
+
+upgrade `@ones/cli-plugin` and relative dependencies to lastest version which range of current major version
+
+```shell
+npx op upgrade
+```
