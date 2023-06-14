@@ -18,7 +18,7 @@ Developer need to use [npx](https://docs.npmjs.com/cli/v8/commands/npx) to execu
 | --------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | [init](#init)         | Initialize project settings.                                                                                                      |
 | [add](#add)           | Add a ability or module for the project.                                                                                          |
-| [packup](#packup)     | Pack up the plugin project and build `.opk` file in the root directory.                                                           |
+| [packup](#packup)     | Pack up the plugin project and build `.opk` file in the root directory, provide version control                                   |
 | [login](#login)       | Store the parameters used to obtain user credentials in a specific environment into `config/local.yaml`.                          |
 | [ci](#ci)             | Store the parameters used to obtain user credentials in a specific branch for (gitlab) CI into `config/ci-deploy.yaml`.           |
 | [pickteam](#pickteam) | Fetch the team list and update the config file with the team information from the team list for local debugging or CI deployment. |
@@ -66,23 +66,23 @@ npx op add ability
 
 ## packup
 
-Pack up the plugin project and build `.opk` file in the root directory.
+Pack up the plugin project and build `.opk` file in the root directory, provide version control.
 
 ```shell
 npx op packup [filename]
 ```
-
-### 选项
-
-| 选项名称        | 选项别名 | 选项描述                                              |
-| --------------- | -------- | ----------------------------------------------------- |
-| `--bumpversion` | --       | packup plug-in with options to update plug-in version |
 
 ### Arguments
 
 | Argument   | Description                                                       |
 | ---------- | ----------------------------------------------------------------- |
 | `filename` | Specify the name of the `.opk` file, default is the project name. |
+
+### Options
+
+| Argument        | Description                                                                                                                                               |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--bump <mode>` | packup plug-in with bump options, `no-modify`: do not bump version, `major`: bump major version, `minor`: bump minor version, `patch`: bump patch version |
 
 ## login
 

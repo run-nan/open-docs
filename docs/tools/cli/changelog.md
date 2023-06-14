@@ -13,7 +13,7 @@ All notable changes to this package will be documented in this file.
 - **cli-plugin**:
   - 🌟 new `available` version hint
   - 🌟 new command `npx op upgrade` to upgrade cli
-  - 🌟 add option to update plugin version when packup
+  - 🌟 add options to update plugin version when execute `npx op packup`
 
 ## 1.2.22 (2023-05-24)
 
