@@ -326,7 +326,7 @@ Developer can learn more about [available life-cycle](../../guide/lifecycle.mdx)
 | `--mode <type>`                  |       | specify the mode, support mode: <ul><li>`all`</li><li>`backend`</li><li>`frontend`</li></ul> Default mode is `all`.                                                                                                                           |
 | `--webpack-stats-preset <level>` |       | Specify the webpack logging level, support level: <ul><li>`errors-only`</li><li>`errors-warnings`</li><li>`minimal`</li><li>`none`</li><li>`normal`</li><li>`verbose`</li><li>`detailed`</li><li>`summary`</li></ul> Default level is `info`. |
 
-## update (Deprecated)
+## update (Deprecating)
 
 Update project content, to be deprecated, using `upgrade` instead.
 
