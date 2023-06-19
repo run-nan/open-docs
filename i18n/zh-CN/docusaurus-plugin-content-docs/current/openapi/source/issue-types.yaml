@@ -5,8 +5,8 @@ info:
   description: |
     此资源代表工作项类型。使用它来获取工作项类型。
 servers:
-  - url: https://ones.com/rest/api/v1
-  - url: http://ones.com/rest/api/v1
+  - url: https://your-domain/rest/api/v1
+  - url: http://your-domain/rest/api/v1
 paths:
   /project/team/{teamID}/issueTypes:
     get:

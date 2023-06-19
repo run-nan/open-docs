@@ -41,7 +41,11 @@ import { downloadFile } from '@ones-op/node-ability'
 export async function downloadUrl() {
   const url = await downloadFile('plugin.sql')
 
-  return url
+  return {
+    body: {
+      res: url,
+    },
+  }
 }
 ```
 

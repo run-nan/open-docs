@@ -5,8 +5,8 @@ info:
   description: |
     This resource represents projects. Use it to get, create, update, and delete projects.
 servers:
-  - url: https://ones.com/rest/api/v1
-  - url: http://ones.com/rest/api/v1
+  - url: https://your-domain/rest/api/v1
+  - url: http://your-domain/rest/api/v1
 paths:
   /project/team/{teamID}/projects:
     get:
@@ -366,7 +366,7 @@ components:
         createTime:
           type: integer
           description: The createTime of project
-        onwer:
+        owner:
           type: object
           properties:
             id:
@@ -546,9 +546,6 @@ components:
       properties:
         result:
           type: string
-        data:
-          type: object
-          properties: {}
     BadResponse:
       type: object
       properties:
@@ -569,5 +566,5 @@ components:
           authorizationUrl: https://ones.com/oauth2/authorize
           tokenUrl: https://ones.com/oauth2/token
           scopes:
-            write:project:project: Add, edit, delete projects
+            write:project:project: Add, edit, delete project
             read:project:project: Access project information

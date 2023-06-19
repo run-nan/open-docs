@@ -5,8 +5,8 @@ info:
   description: |
     The ONES REST API utilizes the standard OAuth 2.0 authorization mechanism to provide secure user authorization and access tokens for third-party applications to access protected resources. OAuth 2.0 enables third-party applications to obtain limited and revocable access privileges in a secure and controlled manner, without directly using user credentials. This authorization mechanism offers a flexible and reliable way for third-party applications to securely interact with the ONES system and obtain the necessary resource access permissions.
 servers:
-  - url: https://ones.com
-  - url: http://ones.com
+  - url: https://your-domain
+  - url: http://your-domain
 paths:
   /oauth2/authorize:
     get:
@@ -167,10 +167,10 @@ components:
           description: The type of access token.
         user_id:
           type: string
-          description: The user ID associated with the requested access token.
+          description: The bot ID of the access token.
         email:
           type: string
-          description: The user email associated with the requested access token.
+          description: The bot email of the access token.
     AccessTokenResponse:
       type: object
       properties:
@@ -179,7 +179,7 @@ components:
           description: Whether the access token is valid/usable.
         sub:
           type: string
-          description: The user ID of the user who requested the access token.
+          description: The bot ID of the access token.
         scope:
           type: string
           description: The Open API scopes that are accessible, separated by commas.
@@ -201,9 +201,6 @@ components:
         error:
           type: string
           description: The error message for the current request.
-        error_code:
-          type: integer
-          description: The error code for the current request.
         error_description:
           type: string
           description: The detailed error information for the current request.

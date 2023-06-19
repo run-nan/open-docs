@@ -12,11 +12,11 @@ sidebar_position: 4
 | read:project:issue             | Access issue information             |
 | write:project:issue            | Add, edit, delete issue              |
 | read:project:project           | Access project information           |
-| write:project:project          | Add, edit, delete projects           |
+| write:project:project          | Add, edit, delete project            |
 | read:project:issueType         | Access issue type                    |
 | read:project:issueStatus       | Access issue status                  |
 | read:project:issueField        | Access issue field                   |
 | read:project:issue-workflow    | Access issue workflow                |
 | write:project:issue-workflow   | Add, edit, delete issue workflow     |
 | read:project:issue-attachment  | Access issue attachment information  |
-| write:project:issue-attachment | Add, edit, delete issue attachments  |
+| write:project:issue-attachment | Add, edit, delete issue attachment   |

@@ -5,8 +5,8 @@ info:
   description: |
     This resource represents issue types. Use it to get issue types.
 servers:
-  - url: https://ones.com/rest/api/v1
-  - url: http://ones.com/rest/api/v1
+  - url: https://your-domain/rest/api/v1
+  - url: http://your-domain/rest/api/v1
 paths:
   /project/team/{teamID}/issueTypes:
     get:

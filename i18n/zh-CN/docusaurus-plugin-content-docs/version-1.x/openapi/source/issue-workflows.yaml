@@ -4,8 +4,11 @@ info:
   version: '1.0'
   description: |
     此资源代表工作项工作流。使用它来获取、执行工作流。
+servers:
+  - url: https://your-domain/rest/api/v1
+  - url: http://your-domain/rest/api/v1
 paths:
-  /project/team/{teamID}/issue/{issueID}/executable-workflow:
+  /project/team/{teamID}/issues/{issueID}/executable-workflow:
     get:
       summary: 获取工作项工作流列表
       operationId: get-a-list-of-issue-workflows
@@ -57,7 +60,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse'
-  /project/team/{teamID}/issue/{issueID}/execute-workflow:
+  /project/team/{teamID}/issues/{issueID}/execute-workflow:
     post:
       summary: 执行工作项的工作流
       operationId: execute-workflow-for-issue
@@ -163,19 +166,6 @@ components:
           description: 工作项要关联的wiki页面
           items:
             $ref: '#/components/schemas/LinkedWikiPages'
-        removeLinkedWikiPages:
-          type: array
-          description: 工作项要取消关联的wiki页面
-          items:
-            $ref: '#/components/schemas/RemoveLinkedWikiPages'
-    RemoveLinkedWikiPages:
-      required:
-        - id
-      type: object
-      properties:
-        id:
-          type: string
-          description: wiki页面ID
     LinkedWikiPages:
       required:
         - id

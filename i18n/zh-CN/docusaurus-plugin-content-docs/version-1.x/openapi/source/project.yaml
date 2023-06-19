@@ -5,8 +5,8 @@ info:
   description: |
     此资源代表项目。使用它来获取、创建、更新和删除项目。
 servers:
-  - url: https://ones.com/rest/api/v1
-  - url: http://ones.com/rest/api/v1
+  - url: https://your-domain/rest/api/v1
+  - url: http://your-domain/rest/api/v1
 paths:
   /project/team/{teamID}/projects:
     get:
@@ -359,7 +359,7 @@ components:
         createTime:
           type: integer
           description: 项目创建时间
-        onwer:
+        owner:
           type: object
           properties:
             id:
@@ -536,9 +536,6 @@ components:
       properties:
         result:
           type: string
-        data:
-          type: object
-          properties: {}
     BadResponse:
       type: object
       properties:

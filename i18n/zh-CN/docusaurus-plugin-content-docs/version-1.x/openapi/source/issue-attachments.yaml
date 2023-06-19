@@ -5,8 +5,8 @@ info:
   description: |
     此资源代表工作项附件。使用它来获取、创建、更新和删除工作项附件。
 servers:
-  - url: https://ones.com/rest/api/v1
-  - url: http://ones.com/rest/api/v1
+  - url: https://your-domain/rest/api/v1
+  - url: http://your-domain/rest/api/v1
 paths:
   /project/team/{teamID}/issues/{issueID}/attachments:
     get:
@@ -302,6 +302,9 @@ components:
             url:
               type: string
               description: 文件url
+            version:
+              type: integer
+              description: 文件版本
     IssueAttachment:
       type: object
       properties:
@@ -332,6 +335,9 @@ components:
         sizeByte:
           type: integer
           description: 文件大小，以byte为单位
+        description:
+          type: string
+          description: 文件描述
     ListIssueAttachmentResponse:
       type: object
       properties:
@@ -391,9 +397,6 @@ components:
       properties:
         result:
           type: string
-        data:
-          type: object
-          properties: {}
     BadResponse:
       type: object
       properties:
