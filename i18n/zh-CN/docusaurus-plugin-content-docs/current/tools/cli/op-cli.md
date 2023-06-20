@@ -24,6 +24,7 @@ OP CLI 会作为项目依赖安装在插件工程中。
 | [pickteam](#pickteam) | 获取团队列表并使用团队列表中的团队信息更新配置文件，以进行本地调试或持续集成。         |
 | [invoke](#invoke)     | 在本地启动插件项目并调用插件的一个或多个生命周期。                                     |
 | [update](#update)     | 更新项目内容。                                                                         |
+| [upgrade](#upgrade)   | 升级 `@ones/cli-plugin` 及相关依赖到当前大版本的最新版本                               |
 
 ## init
 
@@ -350,6 +351,14 @@ npx op update <target>
 | `template` |      | 更新项目模版 `@ones/cli-ability-template` , `@ones-op/utils` 到非破坏性版本的最新版本。 |
 
 ## upgrade
+
+### 要求
+
+| @ones/cli-plugin |
+| :--------------- |
+| v1.13.x+         |
+
+### 概述
 
 升级 `@ones/cli-plugin` 及相关依赖到当前大版本的最新版本
 

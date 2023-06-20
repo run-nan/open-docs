@@ -24,6 +24,7 @@ Developer need to use [npx](https://docs.npmjs.com/cli/v8/commands/npx) to execu
 | [pickteam](#pickteam) | Fetch the team list and update the config file with the team information from the team list for local debugging or CI deployment. |
 | [invoke](#invoke)     | Start the plugin project locally and invoke one or several life-cycles of the plugin.                                             |
 | [update](#update)     | Update project content.                                                                                                           |
+| [upgrade](#upgrade)   | Upgrade `@ones/cli-plugin` and relative dependencies to lastest version which range of current major version.content.             |
 
 ## init
 
@@ -348,7 +349,15 @@ npx op update <target>
 
 ## upgrade
 
-upgrade `@ones/cli-plugin` and relative dependencies to lastest version which range of current major version
+### Requirements
+
+| @ones/cli-plugin |
+| :--------------- |
+| v1.13.x+         |
+
+### Overview
+
+Upgrade `@ones/cli-plugin` and relative dependencies to lastest version which range of current major version
 
 ```shell
 npx op upgrade
