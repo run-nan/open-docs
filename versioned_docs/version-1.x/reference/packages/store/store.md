@@ -597,7 +597,7 @@ Get the code repository info that the current user selected.
 
 #### Types
 
-> `CodeRepositoryInfo.uuid` is consistent with the [`toolUUID`](../../../reference/packages/node-ability/node-ability.md#addrepocommits)
+> `CodeRepositoryInfo.uuid` is consistent with the [`toolUUID`](../../../reference/packages/node-ability/node-ability.mdx#addrepocommits)
 > of the ability's function `addRepoCommits`.
 
 ```tsx

@@ -324,4 +324,9 @@
   display: none;
 }
 
+/* fix: 示例代码过长时出现双滚动条 */
+.tabs-container pre[class*='language-'] {
+  max-height: 450px;
+}
+
 /* Open API 👆 */

@@ -112,7 +112,7 @@ JSON
 | &emsp;token       | string | len<=64  |                                  | token 用户接口登录                     |
 | teams             | array  |          |                                  | 用户当前所属团队信息(目前只有一个团队) |
 | &emsp;uuid        | string | len<=8   | WNiMa6DR                         | 用户当前所属团队 uuid                  |
-| &emsp;name        | string | len<=255 | ones.cn                          | 用户当前所属团队名称                   |
+| &emsp;name        | string | len<=255 | ones.com                         | 用户当前所属团队名称                   |
 | &emsp;status      | int    |          | 1:正常,3:过期                    | 团队状态                               |
 | org               | object |          |                                  | 组织简略信息                           |
 | &emsp;uuid        | string |          |                                  | 组织 UUID                              |
@@ -179,7 +179,7 @@ http_status_code=813
   "is_owner": true,
   "expire_time": 1578053867,
   "csm": {
-    "email": "lianxun@ones.cn",
+    "email": "lianxun@ones.com",
     "name": "??",
     "title": "??????",
     "phone": "???????????"
@@ -230,7 +230,7 @@ JSON
 | &emsp;token       | string | len<=64  |                                  | token 用户接口登录                     |
 | teams             | array  |          |                                  | 用户当前所属团队信息(目前只有一个团队) |
 | &emsp;uuid        | string | len<=8   | WNiMa6DR                         | 用户当前所属团队 uuid                  |
-| &emsp;name        | string | len<=255 | ones.cn                          | 用户当前所属团队名称                   |
+| &emsp;name        | string | len<=255 | ones.com                         | 用户当前所属团队名称                   |
 | &emsp;status      | int    |          | 1:正常,3:过期                    | 团队状态                               |
 | org               | object |          |                                  | 组织简略信息                           |
 | &emsp;uuid        | string |          |                                  | 组织 UUID                              |

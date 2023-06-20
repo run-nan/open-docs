@@ -4,6 +4,9 @@ info:
   version: '1.0'
   description: |
     此资源代表工作项状态。使用它来获取工作项状态。
+servers:
+  - url: https://your-domain/rest/api/v1
+  - url: http://your-domain/rest/api/v1
 paths:
   /project/team/{teamID}/issueStatuses:
     get:
@@ -129,7 +132,7 @@ components:
       type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://ones.cn/oauth2/authorize
-          tokenUrl: https://ones.cn/oauth2/token
+          authorizationUrl: https://ones.com/oauth2/authorize
+          tokenUrl: https://ones.com/oauth2/token
           scopes:
             read:project:issueStatus: 获取工作项状态

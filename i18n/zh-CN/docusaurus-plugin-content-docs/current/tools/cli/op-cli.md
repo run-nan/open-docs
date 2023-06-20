@@ -151,22 +151,22 @@ scopes:
 npx op login
 ```
 
-2. 指定登录环境为 `https://dev.ones.ai` 并进入交互式问答流程输入剩余的参数：`hostURL`, `username`, `password`。
+2. 指定登录环境为 `https://dev.ones.com` 并进入交互式问答流程输入剩余的参数：`hostURL`, `username`, `password`。
 
 ```shell
-npx op login https://dev.ones.ai
+npx op login https://dev.ones.com
 ```
 
-3. 指定登录环境为 `https://dev.ones.ai` 并将 `hostURL` 设置为 `tcp://dev.ones.ai:9006`，同时指定用户凭证信息，这将直接执行登录操作。
+3. 指定登录环境为 `https://dev.ones.com` 并将 `hostURL` 设置为 `tcp://dev.ones.com:9006`，同时指定用户凭证信息，这将直接执行登录操作。
 
 ```shell
-npx op login https://dev.ones.ai tcp://dev.ones.ai:9006 -u test@ones.ai -p password
+npx op login https://dev.ones.com tcp://dev.ones.com:9006 -u test@ones.com -p password
 ```
 
-4. 指定登录环境为 `https://partnerdev.ones.ai`，但使用 `https://dev.ones.ai` scope 下保存的用户凭证。
+4. 指定登录环境为 `https://partnerdev.ones.com`，但使用 `https://dev.ones.com` scope 下保存的用户凭证。
 
 ```shell
-npx op login https://partnerdev.ones.ai tcp://dev.ones.ai:9006 -s https://dev.ones.ai
+npx op login https://partnerdev.ones.com tcp://dev.ones.com:9006 -s https://dev.ones.com
 ```
 
 ## ci
@@ -206,22 +206,22 @@ npx op ci [options] [url]
 npx op ci
 ```
 
-2. 指定持续集成的环境地址为 `https://dev.ones.ai`，然后进入交互式问答流程输入剩余参数：`branch` `username` `password`
+2. 指定持续集成的环境地址为 `https://dev.ones.com`，然后进入交互式问答流程输入剩余参数：`branch` `username` `password`
 
 ```shell
-npx op ci https://dev.ones.ai
+npx op ci https://dev.ones.com
 ```
 
-3. 指定持续集成的环境地址为 `https://dev.ones.ai`，并指定用户凭证信息
+3. 指定持续集成的环境地址为 `https://dev.ones.com`，并指定用户凭证信息
 
 ```shell
-npx op ci https://dev.ones.ai -b next -u test@ones.ai -p password
+npx op ci https://dev.ones.com -b next -u test@ones.com -p password
 ```
 
-4. 使用 `https://dev.ones.ai` 作用域参数，指定部署的环境地址为 `https://partnerdev.ones.ai`，指定持续集成的环境地址为 `https://partnerdev.ones.ai`，但使用 `https://dev.ones.ai` scope 下保存的用户凭证。
+4. 使用 `https://dev.ones.com` 作用域参数，指定部署的环境地址为 `https://partnerdev.ones.com`，指定持续集成的环境地址为 `https://partnerdev.ones.com`，但使用 `https://dev.ones.com` scope 下保存的用户凭证。
 
 ```shell
-npx op ci https://partnerdev.ones.ai -b next -s https://dev.ones.ai
+npx op ci https://partnerdev.ones.com -b next -s https://dev.ones.com
 ```
 
 ## pickteam

@@ -5,8 +5,8 @@ info:
   description: |
     This resource represents testcase libraries. Use it to get, create, update, and delete testcase libraries.
 servers:
-  - url: https://ones.com/rest/api/v1
-  - url: http://ones.com/rest/api/v1
+  - url: https://your-domain/rest/api/v1
+  - url: http://your-domain/rest/api/v1
 paths:
   /testcase/team/{teamID}/libraries:
     get:
@@ -307,7 +307,26 @@ components:
           type: string
           description: The result of this request.
         data:
-          $ref: '#/components/schemas/ListItem'
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the test case library.
+            id:
+              type: string
+              description: The id of the test case library.
+            createTime:
+              type: integer
+              description: The create time of the test case library.
+            updateTime:
+              type: integer
+              description: The update time of the test case library.
+            stickToTop:
+              type: boolean
+              description: Whether the test case library is at the top.
+            caseFieldConfigurationID:
+              type: string
+              description: Test case library configuration ID.
     ListItem:
       type: object
       properties:

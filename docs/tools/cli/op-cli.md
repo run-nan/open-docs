@@ -149,22 +149,22 @@ It should be noted that when executing the `login` command and using the `scope`
 npx op login
 ```
 
-2. Login to `https://dev.ones.ai` environment. And then enter the inquiry session flow input rest parameters: `hostURL`, `username`, `password`.
+2. Login to `https://dev.ones.com` environment. And then enter the inquiry session flow input rest parameters: `hostURL`, `username`, `password`.
 
 ```shell
-npx op login https://dev.ones.ai
+npx op login https://dev.ones.com
 ```
 
-3. Login to `https://dev.ones.ai` environment and set `hostURL` to `tcp://dev.ones.ai:9006` with two parameters and not enter the interactive Q&A process.
+3. Login to `https://dev.ones.com` environment and set `hostURL` to `tcp://dev.ones.com:9006` with two parameters and not enter the interactive Q&A process.
 
 ```shell
-npx op login https://dev.ones.ai tcp://dev.ones.ai:9006 -u test@ones.ai -p password
+npx op login https://dev.ones.com tcp://dev.ones.com:9006 -u test@ones.com -p password
 ```
 
-4. Use `https://dev.ones.ai` scope parameters to login to `https://partnerdev.ones.ai` environment.
+4. Use `https://dev.ones.com` scope parameters to login to `https://partnerdev.ones.com` environment.
 
 ```shell
-npx op login https://partnerdev.ones.ai tcp://dev.ones.ai:9006 -s https://dev.ones.ai
+npx op login https://partnerdev.ones.com tcp://dev.ones.com:9006 -s https://dev.ones.com
 ```
 
 ## ci
@@ -204,22 +204,22 @@ npx op ci [options] [url]
 npx op ci
 ```
 
-2. Specify the environment address for the CI deployment as `https://dev.ones.ai`, and then enter the interactive Q&A process input rest parameters: `branch`, `username` and `password`.
+2. Specify the environment address for the CI deployment as `https://dev.ones.com`, and then enter the interactive Q&A process input rest parameters: `branch`, `username` and `password`.
 
 ```shell
-npx op ci https://dev.ones.ai
+npx op ci https://dev.ones.com
 ```
 
-3. Specify the environment address for the CI deployment as `https://dev.ones.ai`, and not enter the interactive Q&A process input rest parameters.
+3. Specify the environment address for the CI deployment as `https://dev.ones.com`, and not enter the interactive Q&A process input rest parameters.
 
 ```shell
-npx op ci https://dev.ones.ai -b next -u test@ones.ai -p password
+npx op ci https://dev.ones.com -b next -u test@ones.com -p password
 ```
 
-4. Use `https://dev.ones.ai` scope parameters and specify the environment address for the CI deployment as `https://partnerdev.ones.ai`.
+4. Use `https://dev.ones.com` scope parameters and specify the environment address for the CI deployment as `https://partnerdev.ones.com`.
 
 ```shell
-npx op ci https://partnerdev.ones.ai -b next -s https://dev.ones.ai
+npx op ci https://partnerdev.ones.com -b next -s https://dev.ones.com
 ```
 
 ## pickteam

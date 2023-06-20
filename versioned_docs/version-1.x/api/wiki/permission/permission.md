@@ -100,13 +100,13 @@ json
 
 #### 参数列表
 
-| 参数名            | 是否必须 | 值类型 | 取值范围 | 默认值 | 取值例子 | 说明                                                                                              |
-| ----------------- | -------- | ------ | -------- | ------ | -------- | ------------------------------------------------------------------------------------------------- |
-| space_uuid        | 是       | string |          |        |          | 页面组 UUID                                                                                       |
-| context_type      | 是       | string |          |        |          | 权限规则适用的[上下文类型](https://docs.partner.ones.cn/docs/ones/permission/context/#上下文类型) |
-| permission        | 是       | string |          |        |          | 权限规则                                                                                          |
-| user_domain_param | 是       | string |          |        |          | 用户域参数                                                                                        |
-| user_domain_type  | 是       | string |          |        |          | 用户域类型                                                                                        |
+| 参数名            | 是否必须 | 值类型 | 取值范围 | 默认值 | 取值例子 | 说明                                                                        |
+| ----------------- | -------- | ------ | -------- | ------ | -------- | --------------------------------------------------------------------------- |
+| space_uuid        | 是       | string |          |        |          | 页面组 UUID                                                                 |
+| context_type      | 是       | string |          |        |          | 权限规则适用的[上下文类型](../../permission/context/context.md##上下文类型) |
+| permission        | 是       | string |          |        |          | 权限规则                                                                    |
+| user_domain_param | 是       | string |          |        |          | 用户域参数                                                                  |
+| user_domain_type  | 是       | string |          |        |          | 用户域类型                                                                  |
 
 #### 请求参数
 

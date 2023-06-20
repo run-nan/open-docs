@@ -198,7 +198,7 @@ modules:
 
 ### 第三步：新增关联代码仓
 
-为了能够将插件关联的代码仓同步到 ONES 系统中来，我们在 SDK 中提供了 [添加代码仓](../../../reference/packages/node-ability/node-ability.md#addrepos) 方法：
+为了能够将插件关联的代码仓同步到 ONES 系统中来，我们在 SDK 中提供了 [添加代码仓](../../../reference/packages/node-ability/node-ability.mdx#addrepos) 方法：
 
 ```typescript
 import { addRepos } from '@ones-op/node-ability'
@@ -232,7 +232,7 @@ export async function getRepoToolUUID(): Promise<string> {
 
 ### 第四步：新增代码仓提交（Commit）和合并请求（Pull Request）
 
-关联代码仓成功后，可以调用 SDK 的 [新增代码仓提交](../../../reference/packages/node-ability/node-ability.md#addrepocommits) 和 [新增代码仓合并请求](../../../reference/packages/node-ability/node-ability.md#addrepopullrequest) 同步数据到 ONES 系统。
+关联代码仓成功后，可以调用 SDK 的 [新增代码仓提交](../../../reference/packages/node-ability/node-ability.mdx#addrepocommits) 和 [新增代码仓合并请求](../../../reference/packages/node-ability/node-ability.mdx#addrepopullrequest) 同步数据到 ONES 系统。
 
 1. 新增代码仓提交（Commit）：
 
@@ -256,7 +256,7 @@ const pullRequest: RepoPullRequest = '{...}'
 await addRepoPullRequest(toolUUID, repoUUID, pullRequest)
 ```
 
-为了方便查询已关联的代码仓信息，我们提供在 SDK 中提供了 [查询已关联单个代码仓](../../../reference/packages/node-ability/node-ability.md#queryrepo) 和 [查询已关联所有代码仓](../../../reference/packages/node-ability/node-ability.md#queryrepos) 2 个方法：
+为了方便查询已关联的代码仓信息，我们提供在 SDK 中提供了 [查询已关联单个代码仓](../../../reference/packages/node-ability/node-ability.mdx#queryrepo) 和 [查询已关联所有代码仓](../../../reference/packages/node-ability/node-ability.mdx#queryrepos) 2 个方法：
 
 1. 查询已关联的单个代码仓
 

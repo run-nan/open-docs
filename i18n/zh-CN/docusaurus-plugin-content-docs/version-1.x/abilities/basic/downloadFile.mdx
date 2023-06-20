@@ -41,10 +41,14 @@ import { downloadFile } from '@ones-op/node-ability'
 export async function downloadUrl() {
   const url = await downloadFile('plugin.sql')
 
-  return url
+  return {
+    body: {
+      res: url,
+    },
+  }
 }
 ```
 
 ## 相关 SDK
 
-具体参数释义请参考：[@ones-op/node-ability](../../reference/packages/node-ability/node-ability.md)
+具体参数释义请参考：[@ones-op/node-ability](../../reference/packages/node-ability/node-ability.mdx)

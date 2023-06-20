@@ -28,7 +28,7 @@ sidebar_position: 6
 ➜ npx op login
 ? Please enter the environment base URL: http://120.76.45.123
 ? Please enter the environment host URL: tcp://120.76.45.123:9006
-? Username: test1@ones.cn
+? Username: test1@ones.com
 ? Password: [hidden]
   ✔ Converting inputted answers to login params
   ✔ Fetching user profile
@@ -102,7 +102,7 @@ op 工具的 invoke 指令会为后端启动一个开发服务，第一次启动
 本地调试返回值: {"instance_uuid":"1d99926e"}
 ```
 
-插件接口我们大致分为了两种：[**接口注册**](#)和[**接口劫持**](../abilities/business/ONES-API/ONES-API-interception.md)。你在使用 [Postman](https://learning.postman.com/docs/getting-started/introduction/) 对这些接口进行调试的时候，需要按照这两种类型加入不同的请求头。
+插件接口我们大致分为了两种：[**接口注册**](#)和[**接口劫持**](../abilities/business/ONES-API/ONES-API-interception.mdx)。你在使用 [Postman](https://learning.postman.com/docs/getting-started/introduction/) 对这些接口进行调试的时候，需要按照这两种类型加入不同的请求头。
 
 当你的接口调试出现意料之外的结果，你可以参考我们提供的[**断点调试**](./advanced/debugger.mdx)方法进行单步调试，进一步定位问题所在。
 

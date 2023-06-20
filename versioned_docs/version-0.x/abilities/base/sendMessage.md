@@ -41,7 +41,7 @@ export async function test5(request: PluginRequest): Promise<PluginResponse> {
         MessageBody: [
             {
                 Body: '我在测试, 如果谁收到了，请在群里说一下',
-                Url: 'https://ones.cn/',
+                Url: 'https://ones.com/',
             },
         ],
         Ext: 'ext string',

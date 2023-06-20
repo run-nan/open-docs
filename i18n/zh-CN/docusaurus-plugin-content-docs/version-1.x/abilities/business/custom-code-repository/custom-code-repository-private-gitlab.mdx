@@ -195,7 +195,7 @@ export async function listGitlabRepo(): Promise<GitlabRepo[]> {
 
 **2. 新增代码仓到 ONES 系统**
 
-当获取到可添加的代码仓列表后，可以调用 [添加代码仓](../../../reference/packages/node-ability/node-ability.md#addrepos) 方法进行添加，需要注意代码仓添加成功与否的结果做文案提示。同时为了避免重复关联代码仓，开发者可以调用 [查询已关联所有代码仓](../../../reference/packages/node-ability/node-ability.md#queryrepos) 方法来查询并过滤。
+当获取到可添加的代码仓列表后，可以调用 [添加代码仓](../../../reference/packages/node-ability/node-ability.mdx#addrepos) 方法进行添加，需要注意代码仓添加成功与否的结果做文案提示。同时为了避免重复关联代码仓，开发者可以调用 [查询已关联所有代码仓](../../../reference/packages/node-ability/node-ability.mdx#queryrepos) 方法来查询并过滤。
 
 #### 第四步：新增代码仓提交（Commit）和合并请求（Pull Request）
 

@@ -80,4 +80,4 @@ export async function TestFile() {
 
 ## SDK
 
-Parameters reference：[@ones-op/node-file](../../reference/packages/node-file/node-file.md)
+Parameters reference：[@ones-op/node-file](../../reference/packages/node-file/node-file.mdx)

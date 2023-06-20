@@ -273,7 +273,7 @@ type FetchInheritableInterceptor<T = FetchConfig, D = any> =
 
   // `autoErrorToast` 用于控制是否自动弹窗展示插件接口或者平台接口的错误信息
   // 使用时需要插件后端配合使用对应的 `node-error` sdk
-  // `node-error` 使用方法可参考 https://docs.partner.ones.cn/zh-CN/docs/next/reference/packages/node-error/
+  // `node-error` 使用方法可参考 https://developer.ones.com/docs/reference/packages/node-error/
   // 仅应用于 `OPFetch`，`Fetch` 中不包含此配置
   autoErrorToast: true // 默认值
 

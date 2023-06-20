@@ -139,7 +139,7 @@ In userListFilterTest function, add custom rule logic based on user information 
 
 #### Example
 
-Add custom rules based on user email information. For example, to filter all users whose email suffix is "@ones.ai".
+Add custom rules based on user email information. For example, to filter all users whose email suffix is "@ones.com".
 
 ```tsx
 import { Logger } from '@ones-op/node-logger'
@@ -163,7 +163,7 @@ export const userListFilterTest = async (request: PluginRequest): Promise<Plugin
 
   /**[start] custom user filter rules**/
   if (users) {
-    let reqSuffix = /@ones.ai$/
+    let reqSuffix = /@ones.com$/
     for (let idx in users) {
       if (reqSuffix.test(users[idx]['email'])) {
         data_result.push(users[idx]['uuid'] as string)

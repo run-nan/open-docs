@@ -5,8 +5,8 @@ info:
   description: |
     This resource represents issue attachments. Use it to get, create, update, and delete issue attachments.
 servers:
-  - url: https://ones.com/rest/api/v1
-  - url: http://ones.com/rest/api/v1
+  - url: https://your-domain/rest/api/v1
+  - url: http://your-domain/rest/api/v1
 paths:
   /project/team/{teamID}/issues/{issueID}/attachments:
     get:
@@ -306,6 +306,9 @@ components:
             url:
               type: string
               description: The url of file
+            version:
+              type: integer
+              description: The version of file
     IssueAttachment:
       type: object
       properties:
@@ -336,6 +339,9 @@ components:
         sizeByte:
           type: integer
           description: The size of file with byte
+        description:
+          type: string
+          description: The description of file
     ListIssueAttachmentResponse:
       type: object
       properties:
@@ -398,9 +404,6 @@ components:
       properties:
         result:
           type: string
-        data:
-          type: object
-          properties: {}
     BadResponse:
       type: object
       properties:
@@ -422,4 +425,4 @@ components:
           tokenUrl: https://ones.com/oauth2/token
           scopes:
             read:project:issue-attachment: Access issue attachment information
-            write:project:issue-attachment: Add, edit, delete issue attachments
+            write:project:issue-attachment: Add, edit, delete issue attachment
