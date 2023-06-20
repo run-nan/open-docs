@@ -81,9 +81,9 @@ npx op packup [filename]
 
 ### Options
 
-| Argument        | Description                                                                                                                                               |
-| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--bump <mode>` | packup plug-in with bump options, `no-modify`: do not bump version, `major`: bump major version, `minor`: bump minor version, `patch`: bump patch version |
+| Argument        | Requirements                  | Description                                                                                                                                               |
+| --------------- | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--bump <mode>` | `@ones/cli-plugin` `v13.1.x+` | packup plug-in with bump options, `no-modify`: do not bump version, `major`: bump major version, `minor`: bump minor version, `patch`: bump patch version |
 
 ## login
 
