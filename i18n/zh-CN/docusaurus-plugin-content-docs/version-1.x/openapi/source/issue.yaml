@@ -5,8 +5,8 @@ info:
   description: |
     此资源代表工作项。使用它来获取、创建、更新和删除工作项。
 servers:
-  - url: https://ones.com/rest/api/v1
-  - url: http://ones.com/rest/api/v1
+  - url: https://your-domain/rest/api/v1
+  - url: http://your-domain/rest/api/v1
 paths:
   /project/team/{teamID}/issues:
     get:
@@ -31,6 +31,16 @@ paths:
         - name: cursor
           in: query
           description: 本次请求的起始位置
+          schema:
+            type: string
+        - name: projectID
+          in: query
+          description: 作为过滤条件，列表只返回是projectID的工作项，与issueTypeID配合使用
+          schema:
+            type: string
+        - name: issueTypeID
+          in: query
+          description: 作为过滤条件，列表只返回是issueTypeID的工作项，与projectID配合使用
           schema:
             type: string
       responses:
@@ -256,6 +266,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteSuccessResponse'
+        401:
+          description: 如果身份验证凭据不正确或丢失，则返回
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        403:
+          description: 如果scope检验不通过，则返回
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        404:
+          description: 如果未找到资源对象，则返回
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        500:
+          description: 内部服务器错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
 
 components:
   schemas:
@@ -285,7 +319,7 @@ components:
           type: string
           description: 工作项所属项目ID
         issueTypeID:
-          maxLength: 16
+          maxLength: 8
           minLength: 1
           type: string
           description: 工作项类型ID
@@ -510,17 +544,6 @@ components:
         id:
           type: string
           description: 工作项ID
-        linkWikis:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                description: 工作项关联的wiki页面ID
-              title:
-                type: string
-                description: 工作项关联的wiki页面标题
         attachments:
           type: array
           items:

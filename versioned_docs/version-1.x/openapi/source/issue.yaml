@@ -5,8 +5,8 @@ info:
   description: |
     This resource represents issues. Use it to get, create, update, and delete issues.
 servers:
-  - url: https://ones.com/rest/api/v1
-  - url: http://ones.com/rest/api/v1
+  - url: https://your-domain/rest/api/v1
+  - url: http://your-domain/rest/api/v1
 paths:
   /project/team/{teamID}/issues:
     get:
@@ -31,6 +31,16 @@ paths:
         - name: cursor
           in: query
           description: The starting location of this request.
+          schema:
+            type: string
+        - name: projectID
+          in: query
+          description: As a filter condition, the list only returns work items that are projectID, used in conjunction with issueTypeID.
+          schema:
+            type: string
+        - name: issueTypeID
+          in: query
+          description: As a filter condition, the list only returns work items that are issueTypeID, used in conjunction with projectID.
           schema:
             type: string
       responses:
@@ -307,7 +317,7 @@ components:
           type: string
           description: Project of the issue.
         issueTypeID:
-          maxLength: 16
+          maxLength: 8
           minLength: 1
           type: string
           description: Type of the issue.
@@ -532,17 +542,6 @@ components:
         id:
           type: string
           description: ID of the issue.
-        linkWikis:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                description: ID of the wiki page.
-              title:
-                type: string
-                description: Title of the wiki page.
         attachments:
           type: array
           items:

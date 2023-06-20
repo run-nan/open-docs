@@ -4,8 +4,11 @@ info:
   version: '1.0'
   description: |
     This resource represents issue workflows. Use it to get, execute issue workflows.
+servers:
+  - url: https://your-domain/rest/api/v1
+  - url: http://your-domain/rest/api/v1
 paths:
-  /project/team/{teamID}/issue/{issueID}/executable-workflow:
+  /project/team/{teamID}/issues/{issueID}/executable-workflow:
     get:
       summary: Get a list of issue workflows
       operationId: get-a-list-of-issue-workflows
@@ -57,7 +60,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse'
-  /project/team/{teamID}/issue/{issueID}/execute-workflow:
+  /project/team/{teamID}/issues/{issueID}/execute-workflow:
     post:
       summary: Execute workflow for issue
       operationId: execute-workflow-for-issue
@@ -163,19 +166,6 @@ components:
           description: The linkedWikiPages of the issue.
           items:
             $ref: '#/components/schemas/LinkedWikiPages'
-        removeLinkedWikiPages:
-          type: array
-          description: The removeLinkedWikiPages of the issue.
-          items:
-            $ref: '#/components/schemas/RemoveLinkedWikiPages'
-    RemoveLinkedWikiPages:
-      required:
-        - id
-      type: object
-      properties:
-        id:
-          type: string
-          description: The id of wiki page.
     LinkedWikiPages:
       required:
         - id
