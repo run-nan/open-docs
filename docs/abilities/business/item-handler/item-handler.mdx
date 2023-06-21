@@ -221,6 +221,23 @@ abilities:
 
   ```
 
+- **Special note**：If you want the page to pop a custom `warning toast`,you can set it in the following ways
+
+  ```typescript title="backend/src/item-handler.ts"
+  export async function itemPreAction(request: PluginRequest): Promise<PluginResponse> {
+    return {
+      body: {
+        code: 400,
+        reason: 'Test warning error',
+        type: 'warning',
+        model: 'plugin.xxx',
+      },
+    }
+  }
+  ```
+
+  <Image img={require('./images/item03.png')} />
+
 ### Step 4：Add post-processing
 
 The `itemActionDone` function is automatically generated in the `backend/src/item-handler.ts` file. This function is post-processing and will be called first after the event takes effect.
