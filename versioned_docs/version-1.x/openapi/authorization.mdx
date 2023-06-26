@@ -21,7 +21,7 @@ Creating an OAuth application requires the following information:
 Request Example：
 
 ```
-curl 'https://ones.com/oauth2/authorize?client_id=CLIENT_ID&response_type=code'
+curl 'https://your-domain/oauth2/authorize?client_id=CLIENT_ID&response_type=code'
 ```
 
 [Detailed Interface Introduction](./api/auth/apply-for-authorization-code.api.mdx)
@@ -33,7 +33,7 @@ After the request is successful, the browser will be redirected to the ONES syst
 Request Example：
 
 ```
-curl -X POST 'https://ones.com/oauth2/token' \
+curl -X POST 'https://your-domain/oauth2/token' \
     -H 'Content-Type: application/x-www-form-urlencoded' \
     -d 'client_id=CLIENT_ID' \
     -d 'client_secret=CLIENT_SECRET' \
@@ -46,7 +46,7 @@ Response Example：
 ```
 {
     "access_token": "CN-NDd...pLW",
-    "email": "test@ones.com",
+    "email": "test@ones.bot",
     "expires_in": 86400,
     "refresh_token": "CN-MDF...TNi",
     "scope": "read:testcase:library,write:testcase:library",
@@ -64,7 +64,7 @@ The 'access_token' is a globally unique credential for making API calls. It is r
 Request Example：
 
 ```
-curl 'https://ones.com/rest/api/v1/xxx' -H "Authorization: Bearer ACCESS_TOKEN"
+curl 'https://your-domain/rest/api/v1/xxx' -H "Authorization: Bearer ACCESS_TOKEN"
 ```
 
 ## Get access token details
@@ -72,7 +72,7 @@ curl 'https://ones.com/rest/api/v1/xxx' -H "Authorization: Bearer ACCESS_TOKEN"
 Request Example：
 
 ```
-curl "https://ones.com/oauth2/introspect" -H "Authorization: Bearer ACCESS_TOKEN"
+curl "https://your-domain/oauth2/introspect" -H "Authorization: Bearer ACCESS_TOKEN"
 ```
 
 Response Example：
@@ -98,7 +98,7 @@ After refreshing the access token, the previously applied access token and refre
 Request Example：
 
 ```
-curl -X POST 'https://ones.com/oauth2/token' \
+curl -X POST 'https://your-domain/oauth2/token' \
     -H 'Content-Type: application/x-www-form-urlencoded' \
     -d 'client_id=CLIENT_ID' \
     -d 'refresh_token=REFRESH_TOKEN' \
@@ -110,7 +110,7 @@ Response Example：
 ```
 {
     "access_token": "CN-NDd...pLW",
-    "email": "test@ones.com",
+    "email": "test@ones.bot",
     "expires_in": 86400,
     "refresh_token": "CN-MDF...TNi",
     "scope": "read:testcase:library,write:testcase:library",
@@ -128,7 +128,7 @@ When revoking the access token, the refresh token will also become invalid.
 Request Example：
 
 ```
-curl -X POST 'https://ones.com/oauth2/revoke' \
+curl -X POST 'https://your-domain/oauth2/revoke' \
     -H 'Content-Type: application/json' \
     -d '{
         "client_id": CLIENT_ID,
