@@ -83,7 +83,7 @@ npx op packup [filename]
 
 | Argument        | Requirements                  | Description                                                                                                                                               |
 | --------------- | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--bump <mode>` | `@ones/cli-plugin` `v13.1.x+` | packup plug-in with bump options, `no-modify`: do not bump version, `major`: bump major version, `minor`: bump minor version, `patch`: bump patch version |
+| `--bump <mode>` | `@ones/cli-plugin` `v1.14.0+` | packup plug-in with bump options, `no-modify`: do not bump version, `major`: bump major version, `minor`: bump minor version, `patch`: bump patch version |
 
 ## login
 
@@ -353,7 +353,7 @@ npx op update <target>
 
 | @ones/cli-plugin |
 | :--------------- |
-| v1.13.x+         |
+| v1.14.0+         |
 
 ### Overview
 
