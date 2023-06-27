@@ -72,4 +72,4 @@ workspace:
 ### abilities.config
 
 - The mapping of `abilities.id` to `abilities.version:abilities.type` is not allowed to be changed when the plugin is upgraded.
-- When the plugin is upgraded, `abilities.config` only supports modifying the `show` and `value` fields, other fields will not take effect even if they are modified.
+- When the plugin is upgraded, `abilities.config` only supports modifying the `show` and `value` fields.

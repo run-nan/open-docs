@@ -56,14 +56,12 @@ This ability is about to be abandoned, and future compatibility is not guarantee
     - type: replace #API type: replace
       methods: #API request mode
         - POST
-      url: /team/:teamUUID/page/:pageUUID/update_title #interception API url
+      url: /team/:teamUUID/online_page/:pageUUID/update_title #interception API url
       scope: wiki #Project or wiki API. Without this attribute, it defaults to project
       function: jackFunc #The name is consistent with the function name in the code
   ```
 
 - Add handler
-
-  In the plugin code, if the plugin also needs to request the replaced ONES API, it needs to include in the request header: `headers: { 'Replace': "replace", }`
 
   This example replaces the wiki's API for modifying the page title, and will set the page title to "plugin title"
 
@@ -87,7 +85,6 @@ This ability is about to be abandoned, and future compatibility is not guarantee
       headers: {
         'Ones-User-Id': [userUUID],
         'Ones-Auth-Token': [userToken],
-        'Replace': 'replace',
       },
       body: {
         title: 'plugin title',

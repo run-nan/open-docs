@@ -145,21 +145,58 @@ export async function uploadFileToPlugin(request: PluginRequest): Promise<Plugin
 
 ---
 
+### createLog
+
+Generate plugin audit logs
+
+#### Params
+
+| Param    | Description                                                                                                                                                                               | Type                   | Required | Default |
+| :------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- | :------- | :------ |
+| headers  | Need to include user uuid and ip address. <br /> Example: <br />{<br /> &nbsp;&nbsp;&nbsp;&nbsp;'Ones-User-Id': 'xxxxxx', <br /> &nbsp;&nbsp;&nbsp;&nbsp;'X-Real-Ip': '127.0.0.1',<br />} | Record<string, string> | Y        | -       |
+| message  | Audit log information                                                                                                                                                                     | string                 | Y        | -       |
+| teamUUID | Team uuid, required for organization-level plugins                                                                                                                                        | string                 | N        | -       |
+
+#### Returns
+
+| Param | Description | Type                |
+| :---- | :---------- | :------------------ |
+| resp  | result      | Record<string, any> |
+
+#### Example
+
+```typescript
+import { AuditLog } from '@ones-op/node-ability'
+
+export async function testAuditLog(request: PluginRequest): Promise<PluginResponse> {
+  const auditHeader = {
+    'Ones-User-Id': 'E6ZqgsSX', //This parameter is user uuid
+    'X-Real-Ip': '127.0.0.1', //IP address
+  }
+  const resp = await AuditLog.createLog(auditHeader, 'Test log')
+  return {
+    body: {
+      res: 'audit log',
+      resp: resp,
+    },
+  }
+}
+```
+
+---
+
 ### getAbilityConfig
 
 Get ability configuration information
 
-#### Requirements
-
-| ONES  | **@ones-op/node-ability** |
-| :---- | :------------------------ |
-| ready | ready                     |
+- Added in:`v0.6.3+`
 
 #### Params
 
-| Param     | Description   | Type   | Required | Default |
-| :-------- | :------------ | :----- | :------- | :------ |
-| abilityID | id of ability | string | N        | -       |
+| Param     | Description                                        | Type   | Required | Default |
+| :-------- | :------------------------------------------------- | :----- | :------- | :------ |
+| abilityID | id of ability                                      | string | N        | -       |
+| teamUUID  | Team uuid, required for organization-level plugins | string | N        | -       |
 
 #### Returns
 
@@ -172,7 +209,7 @@ Get ability configuration information
 ```typescript
 import { getAbilityConfig } from '@ones-op/node-ability'
 
-const response = await getAbilityConfig()
+const response = await getAbilityConfig('Qcf5BG5P')
 ```
 
 ---

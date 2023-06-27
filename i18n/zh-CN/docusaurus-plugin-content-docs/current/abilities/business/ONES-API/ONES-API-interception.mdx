@@ -56,14 +56,12 @@ import urlParamImg from './images/urlParam.png'
     - type: replace #接口类型： replace:替换
       methods: #接口请求方式
         - POST
-      url: /team/:teamUUID/page/:pageUUID/update_title #劫持接口url
+      url: /team/:teamUUID/online_page/:pageUUID/update_title #劫持接口url
       scope: wiki #project或wiki接口，没有该属性则默认为project
       function: jackFunc #名称与代码里的函数名保持一致
   ```
 
 - 添加处理方法
-
-  在插件代码中，如果插件还需要请求 ONES 被替换的接口，需要在请求头中带上：`headers: { 'Replace': "replace", }`
 
   该示例替换了 wiki 修改页面标题的接口，会将页面标题设置为"plugin title"
 
@@ -87,7 +85,6 @@ import urlParamImg from './images/urlParam.png'
       headers: {
         'Ones-User-Id': [userUUID],
         'Ones-Auth-Token': [userToken],
-        'Replace': 'replace',
       },
       body: {
         title: 'plugin title',

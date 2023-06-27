@@ -195,14 +195,14 @@ export async function hello1(request: PluginRequest): Promise<PluginResponse> {
   3.也提供了 sdk 错误转换为插件接口错误的函数，可对错误进行修改再二次抛出：
 
   ```typescript
-  import { SdkErrorToPluginError } from '@ones-op/node-error'
+  import { sdkErrorToPluginError } from '@ones-op/node-error'
   import { isExist } from '@ones-op/node-file'
 
   export async function testSdkErrorToPluginError(request: PluginRequest) {
     try {
-      isExist('../test.txt')
+      await isExist('../test.txt')
     } catch (e) {
-      const pluginErr = SdkErrorToPluginError(e)
+      const pluginErr = sdkErrorToPluginError(e)
       pluginErr.reason = 'test'
       throw pluginErr
     }
