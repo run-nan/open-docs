@@ -19,7 +19,7 @@ All notable changes to this package will be documented in this file.
 
 ### Features
 
-- **cli-plugin**: 1
+- **cli-plugin**:
 
   - 🔥 slots support lifecycle and virtual routing
   - 🌟 install corresponding dependencies on demand for adding capabilities
