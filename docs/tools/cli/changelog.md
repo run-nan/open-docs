@@ -6,7 +6,7 @@ sidebar_position: 3
 
 All notable changes to this package will be documented in this file.
 
-## 1.2.23 (2023-06-20)
+## 1.2.24 (2023-06-27)
 
 ### Features
 
