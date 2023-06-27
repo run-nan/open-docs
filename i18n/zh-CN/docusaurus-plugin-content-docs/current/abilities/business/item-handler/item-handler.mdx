@@ -223,6 +223,23 @@ abilities:
 
   ```
 
+- **特殊说明**：如果想页面弹一个自定义的`warning toast` 可以通过以下方式进行设置
+
+  ```typescript title="backend/src/item-handler.ts"
+  export async function itemPreAction(request: PluginRequest): Promise<PluginResponse> {
+    return {
+      body: {
+        code: 400,
+        reason: 'Test warning error',
+        type: 'warning',
+        model: 'plugin.xxx',
+      },
+    }
+  }
+  ```
+
+  <Image img={require('./images/item03.png')} />
+
 ### 第四步：添加后置处理
 
 `backend/src/item-handler.ts`文件中会自动生成`itemActionDone`函数，该函数是后置处理，在事件生效之后会先调用该函数。

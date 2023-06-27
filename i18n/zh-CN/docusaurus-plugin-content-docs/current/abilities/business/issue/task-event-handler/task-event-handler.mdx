@@ -202,6 +202,23 @@ type taskPreResponse = {
   }
   ```
 
+- **特殊说明**：如果想页面弹一个自定义的`warning toast` 可以通过以下方式进行设置
+
+```typescript title="backend/src/task-event-handler.ts"
+export async function taskPreAction(request: PluginRequest): Promise<PluginResponse> {
+  return {
+    body: {
+      code: 400,
+      reason: 'Test warning error',
+      type: 'warning',
+      model: 'plugin.xxx',
+    },
+  }
+}
+```
+
+<Image img={require('./images/task-event-handler2.png')} />
+
 ### 第三步：添加后置处理
 
 `backend/src/task-event-handler.ts`文件中会自动生成`taskActionDone`函数，该函数是后置处理，在事件生效之后会先调用该函数。

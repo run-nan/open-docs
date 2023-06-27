@@ -85,6 +85,7 @@ npx op packup [filename]
 | --------------- | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--bump <mode>` | `@ones/cli-plugin` `v1.14.0+` | packup plug-in with bump options, `no-modify`: do not bump version, `major`: bump major version, `minor`: bump minor version, `patch`: bump patch version |
 
+
 ## login
 
 Store the parameters used to obtain user credentials in a specific environment into `config/local.yaml`.
@@ -354,6 +355,7 @@ npx op update <target>
 | @ones/cli-plugin |
 | :--------------- |
 | v1.14.0+         |
+
 
 ### Overview
 
