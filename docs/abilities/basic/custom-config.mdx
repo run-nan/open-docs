@@ -6,6 +6,7 @@ description: The configuration modification method of plugin visualization.
 
 import Image from '@theme/IdealImage'
 import customConfig1 from './images/custom-config1.png'
+import customConfig2 from './images/custom-config2.png'
 
 # Plugin custom configuration
 
@@ -17,18 +18,30 @@ import customConfig1 from './images/custom-config1.png'
 
 ## Overview
 
-Through this ability, plugin can customize and add configuration items for plugin.
+Through this ability, plugin can customize and add configuration items for plugin under the route `Configuration -> plugin management`. There are two ways to achieve this:
 
-Under `Configuration -> plugin management`, the details page of each plugin contains the value of the configuration item. You can modify the value of the configuration item when the plugin is not enabled.
-The type of configuration item supports three types: single-line, multi-line text and encrypted text.
+1. The `Basic info` tab
+
+The details page of each plugin contains the value of the configuration item. You can modify the value of the configuration item when the plugin is not enabled.
+The type of configuration item supports three types: single-line, multi-line text and encrypted text and the required configuration item can't be empty before enabling the plugin.
 
 <Image img={customConfig1} />
 
 And the plugin backend can get the data of the plugin custom configuration item by calling API.
 
+2. New tab
+
+<Image img={customConfig2} />
+
+You can add a new tab before the `Log` tab by adding a slot. You need to render the configuration page and determine how to store and get the configuration data in this slot.
+
+The tab is reachable only when the plugin is enabled.
+
 ## Usage
 
-### Add custom configuration items to the plugin
+### 1. Add in the `Basic info` tab
+
+#### Add custom configuration items to the plugin
 
 > Plugin configuration item field description
 
@@ -59,9 +72,9 @@ service:
 ...
 ```
 
-### The plugin backend get the plugin custom configuration item
+#### The plugin backend get the plugin custom configuration item
 
-#### Get by calling the SDK method
+##### Get by calling the SDK method
 
 Obtain the plugin configuration directly through the `Plugin.getPluginConfig()` of the `@ones-op/node-ability` package
 
@@ -73,7 +86,7 @@ export async function configurationPageTest1() {
 }
 ```
 
-#### Get by [ONES API access](../business/ONES-API/ONES-API-access.md)
+##### Get by [ONES API access](../business/ONES-API/ONES-API-access.md)
 
 By constructing the `fetchONES` input parameter according to the following code and parameters for API access, you can obtain the relevant information about the plugin configuration item from the returned value.
 
@@ -83,7 +96,7 @@ Note that you need to convert the return parameters to json format, and then get
 
 :::
 
-```typrescript
+```typescript
 import { fetchONES } from '@ones-op/node-fetch'
 
 export async function configurationPageTest() {
@@ -118,6 +131,22 @@ export async function configurationPageTest() {
   }
 }
 ```
+
+### 2. Add in the new tab
+
+Execute the `npx op add module` instruction under the plug-in project directory, and select: `settings`.
+
+After the execution is completed, a new configuration will be added under the **modules** attribute of the `plugin.yaml` configuration file. The configuration is as follows:
+
+```yaml
+modules:
+  - id: settings-1cGv
+    title: Settings
+    moduleType: settings
+    entry: modules/settings-1cGv/index.html
+```
+
+Now you can write your configuration page.
 
 ## FAQ
 
