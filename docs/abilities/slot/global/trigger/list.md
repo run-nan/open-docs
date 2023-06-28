@@ -261,7 +261,7 @@ Post-action for the issue list's "Bulk change issue fields".
 
 Pre-action for "Bulk create issues".
 
-### action:pre:ones:taskList:batchAdd
+### action:post:ones:taskList:batchAdd
 
 #### Requirements
 
