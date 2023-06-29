@@ -45,31 +45,22 @@ import customConfig2 from './images/custom-config2.png'
 
 > 插件配置项字段说明
 
-|              | 说明           | 值                                                          |
-| :----------- | :------------- | :---------------------------------------------------------- |
-| **key**      | 该配置项的名称 | -                                                           |
-| **value**    | 配置的默认值   | -                                                           |
-| **type**     | 配置项类型     | 101: 单行输入框 <br/> 102: 多行输入框 <br/> 103: 密码输入框 |
-| **required** | 是否必填       | true/false                                                  |
+| 属性     | 说明                                                                                         | 类型      | 必填 | 默认值  |
+| -------- | -------------------------------------------------------------------------------------------- | --------- | ---- | ------- |
+| key      | 唯一标识                                                                                     | `string`  | 是   |         |
+| type     | 配置类型<br /> `Input`: 单行输入框 <br />`TextArea`: 多行输入框<br /> `Password`: 密码输入框 | `string`  | 是   |         |
+| required | 是否必填                                                                                     | `boolean` | 否   | `false` |
+| label    | 别名                                                                                         | `string`  | 否   | `key`   |
+| value    | 默认值                                                                                       | `string`  | 否   |         |
 
-在插件配置文件`plugin.yaml`下的`config`字段添加需要的内容，即可为插件新增两个配置项**configKey1**与**configkey2**，类型为多行输入框。
+在插件配置文件`plugin.yaml`下的`config`字段添加需要的内容，即可为插件新增配置项**cexampleConfigKey**，类型为单行输入框。
 
 ```yaml title="config/plugin.yaml"
 service:
-  app_id: ...
-  name: ability-customConfig
-  ...
   config:
-    - key: configKey1
-      value: ''
-      type: 102
-      required: true
-    - key: configKey2
-      value: ''
-      type: 102
-      required: true
-...
-...
+    - key: exampleConfigKey
+      label: my example key
+      type: Input
 ```
 
 #### 插件后端获取插件自定义配置项

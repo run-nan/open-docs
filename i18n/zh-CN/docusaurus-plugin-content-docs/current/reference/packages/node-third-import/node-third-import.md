@@ -67,11 +67,11 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 
 ### ThirdTaskAttachment
 
-| NES |
-| :------- |
-|  v3.13.60+ |
+| NES       |
+| :-------- |
+| v3.13.60+ |
 
-附件导入在本地调试方式已支持，但是要求文件不超过100MB。
+附件导入在本地调试方式已支持，但是要求文件不超过 100MB。
 
 | 参数           | 说明         | 类型     | 必填 |
 | :------------- | :----------- | :------- | :--- |
@@ -434,13 +434,13 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 
 ### ThirdTaskFieldValue
 
-| 参数        | 说明      | 类型                                                                    | 必填 |
-| :---------- | :-------- | :---------------------------------------------------------------------- | :--- |
-| resource_id | 资源 ID   | `string`                                                                | 是   |
-| task_id     | 工作项 ID | `string`                                                                | 是   |
-| field_id    | 属性 ID   | `string`                                                                | 是   |
-| field_type  | 属性类型  | [`ThirdTaskFieldValueFieldTypeEnum`](#ThirdTaskFieldValueFieldTypeEnum) | 是   |
-| value       | 属性值    | `any`                                                                   | 是   |
+| 参数        | 说明                                                                      | 类型                                                                    | 必填 |
+| :---------- | :------------------------------------------------------------------------ | :---------------------------------------------------------------------- | :--- |
+| resource_id | 资源 ID                                                                   | `string`                                                                | 是   |
+| task_id     | 工作项 ID                                                                 | `string`                                                                | 是   |
+| field_id    | 属性 ID                                                                   | `string`                                                                | 是   |
+| field_type  | 属性类型                                                                  | [`ThirdTaskFieldValueFieldTypeEnum`](#ThirdTaskFieldValueFieldTypeEnum) | 是   |
+| value       | 属性值, 当值为空时，`value`的值应该为`null`或者不传该字段，不能为空字符串 | `any`                                                                   | 是   |
 
 ### ThirdTask
 

@@ -45,31 +45,22 @@ The tab is reachable only when the plugin is enabled.
 
 > Plugin configuration item field description
 
-|              | Description                        | Value                                                             |
-| :----------- | :--------------------------------- | :---------------------------------------------------------------- |
-| **key**      | the name of the configuration item | -                                                                 |
-| **value**    | default values for configuration   | -                                                                 |
-| **type**     | configuration item type            | 101: single-line<br/>102: multi-line text<br/>103: encrypted text |
-| **required** | is it required                     | true/false                                                        |
+| Key      | Description                                                                                                | Type      | Required | Default |
+| -------- | ---------------------------------------------------------------------------------------------------------- | --------- | -------- | ------- |
+| key      | Unique identification                                                                                      | `string`  | Y        |         |
+| type     | Control type<br /> `Input`: single-line <br />`TextArea`: multi-line text<br /> `Password`: encrypted text | `string`  | Y        |         |
+| required | Is this required                                                                                           | `boolean` | N        | `false` |
+| label    | Alias                                                                                                      | `string`  | N        | `key`   |
+| value    | Default                                                                                                    | `string`  | N        |         |
 
-Add the required content to the `config` field under the `config/plugin.yaml` file to add two new configuration items **configKey1** and **configkey2** for the plugin,types are multi-line text.
+Add the required content to the `config` field under the plugin configuration file `plugin.yaml` to add a new configuration item **cexampleConfigKey** for the plugin, with the type of single-line.
 
 ```yaml title="config/plugin.yaml"
 service:
-  app_id: ...
-  name: ability-customConfig
-  ...
   config:
-    - key: configKey1
-      value: ''
-      type: 102
-      required: true
-    - key: configKey2
-      value: ''
-      type: 102
-      required: true
-...
-...
+    - key: exampleConfigKey
+      label: my example key
+      type: Input
 ```
 
 #### The plugin backend get the plugin custom configuration item
