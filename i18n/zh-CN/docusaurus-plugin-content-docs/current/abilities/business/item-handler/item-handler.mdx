@@ -1,6 +1,7 @@
 ---
 sidebar_position: 7
 description: Item 变更事件拦截。
+toc_max_heading_level: 4
 ---
 
 import Image from '@theme/IdealImage'
@@ -23,7 +24,7 @@ import Image from '@theme/IdealImage'
 
 | 模块                    | 模块名称         | GraphQL mutation    | 普通接口                                                                             |
 | :---------------------- | :--------------- | :------------------ | :----------------------------------------------------------------------------------- |
-| Project                 | 项目             | -                   | 新建项目、项目属性修改                                                               |
+| Project                 | 项目             | -                   | 新建项目                                                                             |
 | Manhour(普通模式)       | 登记工时         | -                   | 修改预估工时                                                                         |
 | Manhour(汇总模式)       | 登记工时         | add、update、delete | -                                                                                    |
 | RemainingHour(普通模式) | 剩余工时         | -                   | 修改剩余工时                                                                         |
@@ -33,6 +34,131 @@ import Image from '@theme/IdealImage'
 | ActivityRelationLink    | 前后置依赖关系   | add、update、delete | -                                                                                    |
 | Deliverable             | 交付物           | add、update、delete | -                                                                                    |
 | Task                    | 工作项           |                     | 具体参照[TaskEventHandler](../issue/task-event-handler/task-event-handler.mdx#scope) |
+
+<br />
+
+#### Project（项目）
+
+**触发方式：** 新增项目
+
+**url：** https://your-host/project/api/project/team/:teamUUID/projects/add
+
+##### 参数： add_project {#add_project}
+
+| 参数         | 类型     | 说明             |
+| ------------ | -------- | ---------------- |
+| uuid         | string   | 项目的`uuid`     |
+| name         | string   | 项目名称         |
+| members      | []string | 成员的`uuid`列表 |
+| template_id  | string   | 模版 `id`        |
+| program_uuid | string   | 项目集的`uuid`   |
+
+<br />
+
+#### Manhour（登记工时）
+
+- **工时模式 - 普通模式**
+
+  **触发方式：** 修改预估工时
+
+  **url：** https://your-host/project/api/project/team/:teamUUID/task/:taskUUID/assess_manhour/update
+
+  ##### 参数：estimated_manhour {#estimated_manhour}
+
+  | 参数  | 类型   | 说明               |
+  | ----- | ------ | ------------------ |
+  | task  | string | 所属工作项的`uuid` |
+  | hours | int64  | 预估工时数量       |
+  | type  | string | `estimated`        |
+
+- **工时模式 - 汇总模式**
+
+  **触发方式：** GraphQL mutation
+
+  **支持的操作：** add、update、delete
+
+<br />
+
+#### RemainingHour（剩余工时）
+
+- **工时模式 - 普通模式**
+
+  **触发方式：**修改剩余工时
+
+  **url：** https://your-host/project/api/project/team/:teamUUID/task/:taskUUID/remaining_hour/update
+
+  ##### 参数：remain_manhour {#remain_manhour}
+
+  | 参数  | 类型   | 说明                              |
+  | ----- | ------ | --------------------------------- |
+  | key   | string | `manhour-{task_uuid}-{user_uuid}` |
+  | hours | int64  | 剩余工时数量                      |
+
+- **工时模式 - 汇总模式**
+
+  **触发方式：** GraphQL mutation
+
+  **支持的操作：** add、update、delete
+
+<br />
+
+#### Activity（项目计划、里程碑）
+
+**触发方式：** GraphQL mutation
+
+**支持的操作：** add、update、delete
+
+<br />
+
+#### ActivityRelease（快照）
+
+**触发方式：** GraphQL mutation
+
+**支持的操作：** add、update、delete
+
+<br />
+
+#### ActivityRelationLink（前后置依赖关系）
+
+**触发方式：** GraphQL mutation
+
+**支持的操作：** add、update、delete
+
+<br />
+
+#### Deliverable（交付物）
+
+**触发方式：** GraphQL mutation
+
+**支持的操作：** add、update、delete
+
+<br />
+
+#### Task（工作项）
+
+触发方式：具体参照 [TaskEventHandler](../issue/task-event-handler/task-event-handler.mdx#scope)
+
+##### 参数：TaskEvent {#TaskEvent}
+
+| 参数                      | 类型                                | 必填 | 说明                                                                                                                                    |
+| ------------------------- | ----------------------------------- | ---- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| task_fields               | [[]TaskEventField](#TaskEventField) | 是   | 变更属性列表                                                                                                                            |
+| task_uuid                 | string                              | 是   | 工作项的`uuid`                                                                                                                          |
+| action                    | string                              | 是   | `update`:普通属性 `transit`：状态变更（带有步骤属性） `change_issue_type`：工作项类型变更 `publish_version`：版本发布 `add`: 新建工作项 |
+| issue_type_scope_uuid     | string                              | 是   | 在所属项目下工作项类型 UUID                                                                                                             |
+| issue_type_scope_name     | string                              | 是   | 工作项类型在项目下的名字                                                                                                                |
+| issue_type_scope_name_map | map[string]string                   | 是   | `issue_type_scope`在各个语言版本的名称                                                                                                  |
+
+##### TaskEventField {#TaskEventField}
+
+| 参数             | 类型              | 必填 | 说明                                                                                      |
+| ---------------- | ----------------- | ---- | ----------------------------------------------------------------------------------------- |
+| field_uuid       | string            | 否   | 属性`uuid`                                                                                |
+| field_type       | string            | 否   | 属性类型                                                                                  |
+| field_name       | string            | 否   | 属性名称的 `key`                                                                          |
+| field_name_map   | map[string]string | 否   | 属性各个语言版本的名称比如： en: 'Assignee/Owner' origin: '{{field.assign}}' zh: '负责人' |
+| field_value_type | string            | 否   | 字段值类型: 0 - any 1 - int 2 - string 3 - []string                                       |
+| value            | interface         | 否   | 属性值                                                                                    |
 
 ### 能力表现
 
@@ -94,47 +220,14 @@ abilities:
 
   在`request`的`body`中包含以下内容
 
-  | 参数          | 类型                                                                                                                                                                                                                                                                                                                                                                                   | 必填 | 说明                           |
-  | :------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--- | :----------------------------- |
-  | user_uuid     | string                                                                                                                                                                                                                                                                                                                                                                                 | 是   | 用户 `uuid`                    |
-  | item_type     | string                                                                                                                                                                                                                                                                                                                                                                                 | 是   | 模块类型                       |
-  | action        | string                                                                                                                                                                                                                                                                                                                                                                                 | 是   | 操作类型: `add/update/delete ` |
-  | lang          | string                                                                                                                                                                                                                                                                                                                                                                                 | 是   | 系统语言                       |
-  | graphql_query | GraphQL.Query                                                                                                                                                                                                                                                                                                                                                                          | 否   | 本次变更事件的 GraphQL 数据    |
-  | args          | 根据事件触发方式的不同，会有以下几种类型: <br />新增项目：[add_project](#add_project) <br />修改项目属性：[update_project](#update_project) <br />预估工时：[estimated_manhour](#estimated_manhour) <br />剩余工时：[remain_manhour](#remain_manhour) <br />工作项：[TaskEvent](../issue/task-event-handler/task-event-handler.mdx#TaskEvent) <br />GraphQL 方式：map[string]interface | 是   | 变更事件的参数                 |
-
-  #### add_project {#add_project}
-
-  | 参数         | 类型     | 说明             |
-  | :----------- | :------- | :--------------- |
-  | uuid         | string   | 项目的`uuid`     |
-  | name         | string   | 项目名称         |
-  | members      | []string | 成员的`uuid`列表 |
-  | template_id  | string   | 模版 `id`        |
-  | program_uuid | string   | 项目集的`uuid`   |
-
-  #### update_project {#update_project}
-
-  | 参数      | 类型   | 说明                                         |
-  | :-------- | :----- | :------------------------------------------- |
-  | key       | string | `key` 值，由`project_uuid`生成               |
-  | item_type | string | 值为`project`                                |
-  | 其他`key` | any    | 修改的项目属性不同会有不同数量和类型的键值对 |
-
-  #### estimated_manhour {#estimated_manhour}
-
-  | 参数  | 类型   | 说明               |
-  | :---- | :----- | :----------------- |
-  | task  | string | 所属工作项的`uuid` |
-  | hours | int64  | 预估工时数量       |
-  | type  | string | `estimated`        |
-
-  #### remain_manhour {#remain_manhour}
-
-  | 参数  | 类型   | 说明                              |
-  | :---- | :----- | :-------------------------------- |
-  | key   | string | `manhour-{task_uuid}-{user_uuid}` |
-  | hours | int64  | 剩余工时数量                      |
+  | 参数          | 类型                                                                                                                                                                                                                                                                                                                             | 必填 | 说明                           |
+  | :------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--- | :----------------------------- |
+  | user_uuid     | string                                                                                                                                                                                                                                                                                                                           | 是   | 用户 `uuid`                    |
+  | item_type     | string                                                                                                                                                                                                                                                                                                                           | 是   | 模块类型                       |
+  | action        | string                                                                                                                                                                                                                                                                                                                           | 是   | 操作类型: `add/update/delete ` |
+  | lang          | string                                                                                                                                                                                                                                                                                                                           | 是   | 系统语言                       |
+  | graphql_query | GraphQL.Query                                                                                                                                                                                                                                                                                                                    | 否   | 本次变更事件的 GraphQL 数据    |
+  | args          | 根据事件触发方式的不同，会有以下几种类型: <br />新增项目：[add_project](#add_project) <br />预估工时：[estimated_manhour](#estimated_manhour) <br />剩余工时：[remain_manhour](#remain_manhour) <br />工作项：[TaskEvent](../issue/task-event-handler/task-event-handler.mdx#TaskEvent) <br />GraphQL 方式：map[string]interface | 是   | 变更事件的参数                 |
 
 - **返回内容**
 
@@ -169,13 +262,13 @@ abilities:
   }
   ```
 
-  | 参数          | 类型                                                                                                                                                                                                                                                                                                                                                                                   | 必填 | 说明                                        |
-  | :------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--- | :------------------------------------------ |
-  | is_follow     | string                                                                                                                                                                                                                                                                                                                                                                                 | 是   | 是否关注                                    |
-  | is_reject     | string                                                                                                                                                                                                                                                                                                                                                                                 | 是   | 是否拒绝                                    |
-  | reject_reason | string                                                                                                                                                                                                                                                                                                                                                                                 | 否   | 拒绝原因                                    |
-  | args          | 根据事件触发方式的不同，会有以下几种类型: <br />新增项目：[add_project](#add_project) <br />修改项目属性：[update_project](#update_project) <br />预估工时：[estimated_manhour](#estimated_manhour) <br />剩余工时：[remain_manhour](#remain_manhour) <br />工作项：[TaskEvent](../issue/task-event-handler/task-event-handler.mdx#TaskEvent) <br />GraphQL 方式：map[string]interface | 是   | 变更事件的参数                              |
-  | other_data    | any                                                                                                                                                                                                                                                                                                                                                                                    | 否   | 其他数据（该数据会传递到 `itemActionDone`） |
+  | 参数          | 类型                                                                                                                                                                                                                                                                                                                             | 必填 | 说明                                        |
+  | :------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--- | :------------------------------------------ |
+  | is_follow     | string                                                                                                                                                                                                                                                                                                                           | 是   | 是否关注                                    |
+  | is_reject     | string                                                                                                                                                                                                                                                                                                                           | 是   | 是否拒绝                                    |
+  | reject_reason | string                                                                                                                                                                                                                                                                                                                           | 否   | 拒绝原因                                    |
+  | args          | 根据事件触发方式的不同，会有以下几种类型: <br />新增项目：[add_project](#add_project) <br />预估工时：[estimated_manhour](#estimated_manhour) <br />剩余工时：[remain_manhour](#remain_manhour) <br />工作项：[TaskEvent](../issue/task-event-handler/task-event-handler.mdx#TaskEvent) <br />GraphQL 方式：map[string]interface | 是   | 变更事件的参数                              |
+  | other_data    | any                                                                                                                                                                                                                                                                                                                              | 否   | 其他数据（该数据会传递到 `itemActionDone`） |
 
 - **示例**：预估工时必须是 8 的倍数，剩余工时修改上限为 72，超过上限只保留 72 个小时。
 
@@ -246,15 +339,15 @@ abilities:
 
 - **入参介绍**
 
-  | 参数          | 类型                                                                                                                                                                                                                                                                                                                                                                                   | 必填 | 说明                             |
-  | :------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--- | :------------------------------- |
-  | user_uuid     | string                                                                                                                                                                                                                                                                                                                                                                                 | 是   | 用户的`uuid`                     |
-  | item_type     | string                                                                                                                                                                                                                                                                                                                                                                                 | 是   | 模块类型                         |
-  | action        | string                                                                                                                                                                                                                                                                                                                                                                                 | 是   | 操作类型: `add/update/delete `   |
-  | lang          | string                                                                                                                                                                                                                                                                                                                                                                                 | 是   | 系统语言                         |
-  | graphql_query | GraphQL.Query                                                                                                                                                                                                                                                                                                                                                                          | 否   | 本次变更事件的 GraphQL 数据      |
-  | args          | 根据事件触发方式的不同，会有以下几种类型: <br />新增项目：[add_project](#add_project) <br />修改项目属性：[update_project](#update_project) <br />预估工时：[estimated_manhour](#estimated_manhour) <br />剩余工时：[remain_manhour](#remain_manhour) <br />工作项：[TaskEvent](../issue/task-event-handler/task-event-handler.mdx#TaskEvent) <br />GraphQL 方式：map[string]interface | 是   | 变更事件的参数                   |
-  | other_data    | any                                                                                                                                                                                                                                                                                                                                                                                    | 否   | 其他数据（来自 `itemPreAction`） |
+  | 参数          | 类型                                                                                                                                                                                                                                                                                                                             | 必填 | 说明                             |
+  | :------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--- | :------------------------------- |
+  | user_uuid     | string                                                                                                                                                                                                                                                                                                                           | 是   | 用户的`uuid`                     |
+  | item_type     | string                                                                                                                                                                                                                                                                                                                           | 是   | 模块类型                         |
+  | action        | string                                                                                                                                                                                                                                                                                                                           | 是   | 操作类型: `add/update/delete `   |
+  | lang          | string                                                                                                                                                                                                                                                                                                                           | 是   | 系统语言                         |
+  | graphql_query | GraphQL.Query                                                                                                                                                                                                                                                                                                                    | 否   | 本次变更事件的 GraphQL 数据      |
+  | args          | 根据事件触发方式的不同，会有以下几种类型: <br />新增项目：[add_project](#add_project) <br />预估工时：[estimated_manhour](#estimated_manhour) <br />剩余工时：[remain_manhour](#remain_manhour) <br />工作项：[TaskEvent](../issue/task-event-handler/task-event-handler.mdx#TaskEvent) <br />GraphQL 方式：map[string]interface | 是   | 变更事件的参数                   |
+  | other_data    | any                                                                                                                                                                                                                                                                                                                              | 否   | 其他数据（来自 `itemPreAction`） |
 
 - **示例**
 
