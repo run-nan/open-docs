@@ -67,9 +67,9 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 
 ### ThirdTaskAttachment
 
-| ONES |
-| :--- |
-|      |
+| ONES      |
+| :-------- |
+| v3.13.60+ |
 
 The local debugging mode now supports importing attachments, but files must less than 100MB in this mode.
 

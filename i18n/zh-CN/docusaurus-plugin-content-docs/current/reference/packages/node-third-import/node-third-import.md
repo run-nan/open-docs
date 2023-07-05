@@ -67,7 +67,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 
 ### ThirdTaskAttachment
 
-| NES       |
+| ONES      |
 | :-------- |
 | v3.13.60+ |
 
