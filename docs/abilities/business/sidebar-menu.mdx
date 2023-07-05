@@ -24,66 +24,55 @@ Plugin that use the **sidebar menu** support installation not only under the tea
 
 ### Step 1: Add ability
 
-Execute the `npx op add ability` instruction under the root directory of the plugin project, and select: `sidebar-menu@ 1.0.0`.
+1. Select the ability.
 
-After the execution is completed, a new configuration will be added under the **abilities** attribute of the `plugin.yaml` configuration file. The configuration is as follows:
+   Execute the `npx op add ability` instruction under the root directory of the plugin project, and select: `sidebar-menu@ 1.0.0`.
 
-```yaml title="config/plugin.yaml"
-abilities:
-  - id: 8k5frAw6
-    name: SidebarMenu
-    version: 1.0.0
-    abilityType: SidebarMenu
-    relateModule:
-      systemMenu: ''
-```
-
-### Step 2: Add slot
-
-Execute the `npx op add module` instruction under the plug-in project directory, and select: `ones:app:new`.
-
-After the execution is completed, a new configuration will be added under the **modules** attribute of the `plugin.yaml` configuration file. The configuration is as follows:
-
-```yaml title="config/plugin.yaml"
-modules:
-  - id: ones-app-new-aBFM
-    title: Sidebar Menu Item
-    moduleType: ones:app:new
-    modules:
-      - id: ones-app-new-JusW
-        title: Topbar
-        entry: modules/ones-app-new-aBFM/ones-app-new-JusW/index.html
-```
+2. According to the prompt, fill in the name of the associated slot `ones:app:new` and create a submodule.
 
 :::caution notice
 The slot supports first level submodules, so you must add first level submodules, otherwise it will behave abnormally.
 :::
 
-At the same time, the following templates will be added to the `/web/src/modules` directory:
+{' '}
+<Image img={require('./images/add-relate-module.png')} />
 
-<Image img={require('./images/catalogue-en.png')} />
+3. After the execution is completed, the `plugin.yaml` configuration will be automatically updated and a module template file will be generated.
 
-You can write your plugin logic here. For the specific configuration items supported by this slot, please refer to: [ones:app:new](../slot/app/index.mdx#onesappnew).
+   <Image img={require('./images/add-ability.png')} />
 
-### Step 3: Abilities are associated with slots
+   - A new configuration will be added under the **abilities** attribute. The configuration is as follows:
 
-You need to add the `id` of the **ones:app:new** module to the `relateModule.systemMenu` of abilities, as follows:
+   ```yaml title="config/plugin.yaml"
+   abilities:
+     - id: 8k5frAw6
+       name: SidebarMenu
+       version: 1.0.0
+       abilityType: SidebarMenu
+       relateModule:
+         systemMenu: 'ones-app-new-aBFM'
+   ```
 
-```yaml title="config/plugin.yaml"
-abilities:
-  - id: 8k5frAw6
-    name: SidebarMenu
-    version: 1.0.0
-    abilityType: SidebarMenu
-    relateModule:
-      systemMenu: 'ones-app-new-aBFM' // populate id here
-```
+   - A new configuration will be added under the **modules** attribute. The configuration is as follows:
 
-:::caution notice
-This ability requires the ability to be linked to the slot, so these two parts must exist in the same plugin. And need to follow the above steps to establish the relationship, otherwise the plugin will not work properly.
-:::
+   ```yaml title="config/plugin.yaml"
+   modules:
+     - id: ones-app-new-aBFM
+       title: Sidebar Menu Item
+       moduleType: ones:app:new
+       modules:
+         - id: ones-app-new-JusW
+           title: Topbar
+           entry: modules/ones-app-new-aBFM/ones-app-new-JusW/index.html
+   ```
 
-### Step 4: Use in ONES
+   - The following templates will be added to the `/web/src/modules` directory:
+
+     <Image img={require('./images/catalogue-en.png')} />
+
+     You can write your plugin logic here. For the specific configuration items supported by this slot, please refer to: [ones:app:new](../slot/app/index.mdx#onesappnew).
+
+### Step 2: Use in ONES
 
 After you have finished writing your plugin, package the plugin and install it into ONES so you can see the performance of this ability. Click enable, and refresh the page after successful enabling. You will see the following figure: the entry of the plugin is added to the left menu bar, and there is also a **Open** button on the details page, which can open the plugin page directly.
 
@@ -95,13 +84,13 @@ After you have finished writing your plugin, package the plugin and install it i
 If you create an organization level plugin, there will be no **Open** button on the plugin details page.
 :::
 
-### Step 5: Control the display and hiding
+### Step 3: Control the display and hiding
 
 We have built some abilities to control the entry in ONES. First, you need to go to [Configuration]-[System preferences settings]-[Sidebar menu]. You can display the **Display name**, **Display order**, **Display in sidebar** of the plugin entry on this page.
 
 <Image img={require('./images/menu-setting-en.png')} />
 
-### Step 6: Settings
+### Step 4: Settings
 
 While supporting this ability, we also support the permission configuration of this ability, so you can configure a separate permission point for each new module. In order to make it easier for you to configure permissions, we provide you with a **Settings** button in the top column, which can jump directly to the corresponding plugin details page.
 
