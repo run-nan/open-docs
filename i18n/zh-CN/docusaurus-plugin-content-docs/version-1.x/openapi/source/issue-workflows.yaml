@@ -161,23 +161,6 @@ components:
           description: 工作项已登记工时
           items:
             $ref: '#/components/schemas/TimeSpent'
-        linkedWikiPages:
-          type: array
-          description: 工作项要关联的wiki页面
-          items:
-            $ref: '#/components/schemas/LinkedWikiPages'
-    LinkedWikiPages:
-      required:
-        - id
-        - position
-      type: object
-      properties:
-        id:
-          type: string
-          description: wiki页面ID
-        position:
-          type: integer
-          description: wiki页面排序位置
     TimeSpent:
       required:
         - hours

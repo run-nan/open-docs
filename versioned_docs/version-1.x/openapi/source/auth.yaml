@@ -44,6 +44,24 @@ paths:
       responses:
         302:
           description: Redirect to the Redirect URI, and add the code and state parameters to the URL parameters.
+        400:
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        401:
+          description: If the authorization type is incorrect, then return.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        500:
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
   /oauth2/token:
     post:
       summary: Apply for or refresh access token
@@ -118,6 +136,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccessTokenResponse'
+        400:
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        401:
+          description: If the authentication credentials are incorrect or missing, then return.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        500:
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
   /oauth2/revoke:
     post:
       summary: Revoke access token
@@ -145,6 +181,24 @@ paths:
       responses:
         200:
           description: Request successful.
+        400:
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        401:
+          description: If the authentication credentials are incorrect or missing, then return.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        500:
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
 components:
   schemas:
     ApplyTokenSuccessResponse:
@@ -204,3 +258,21 @@ components:
         error_description:
           type: string
           description: The detailed error information for the current request.
+        code:
+          type: integer
+          description: HTTP status code of the current response.
+        errcode:
+          type: integer
+          description: Error code of the current response.
+        type:
+          type: string
+          description: Error type of the current response.
+        model:
+          type: string
+          description: Error module of the current response.
+        field:
+          type: string
+          description: Error field of the current response.
+        reason:
+          type: string
+          description: Error reason of the current response.
