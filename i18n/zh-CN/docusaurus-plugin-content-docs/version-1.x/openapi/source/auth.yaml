@@ -44,6 +44,24 @@ paths:
       responses:
         302:
           description: 重定向至Redirect URI，并且在URL参数中添加code、state两个参数
+        400:
+          description: 无效的请求
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        401:
+          description: 如果授权类型不对，则返回
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        500:
+          description: 内部服务错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
   /oauth2/token:
     post:
       summary: 申请或者刷新访问令牌
@@ -118,6 +136,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccessTokenResponse'
+        400:
+          description: 无效的请求
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        401:
+          description: 如果身份验证凭据不正确或丢失，则返回
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        500:
+          description: 内部服务错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
   /oauth2/revoke:
     post:
       summary: 注销访问令牌
@@ -145,6 +181,24 @@ paths:
       responses:
         200:
           description: 请求成功
+        400:
+          description: 无效的请求
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        401:
+          description: 如果身份验证凭据不正确或丢失，则返回
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        500:
+          description: 内部服务错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
 components:
   schemas:
     ApplyTokenSuccessResponse:
@@ -179,7 +233,7 @@ components:
           description: 访问令牌是否可用
         sub:
           type: string
-          description: 申请访问令牌的机器人ID
+          description: 访问令牌的机器人ID
         scope:
           type: string
           description: 可访问的Open API范围（逗号,分隔）
@@ -204,3 +258,21 @@ components:
         error_description:
           type: string
           description: 本次请求错误信息详情
+        code:
+          type: integer
+          description: 本次请求响应的httpStatusCode
+        errcode:
+          type: integer
+          description: 本次请求响应的错误码
+        type:
+          type: string
+          description: 本次请求响应的错误类型
+        model:
+          type: string
+          description: 本次请求响应的错误模块
+        field:
+          type: string
+          description: 本次请求响应的错误字段
+        reason:
+          type: string
+          description: 本次请求响应的错误原因

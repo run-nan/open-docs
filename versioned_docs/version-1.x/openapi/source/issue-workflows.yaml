@@ -161,23 +161,6 @@ components:
           description: The timeSpent of the issue.
           items:
             $ref: '#/components/schemas/TimeSpent'
-        linkedWikiPages:
-          type: array
-          description: The linkedWikiPages of the issue.
-          items:
-            $ref: '#/components/schemas/LinkedWikiPages'
-    LinkedWikiPages:
-      required:
-        - id
-        - position
-      type: object
-      properties:
-        id:
-          type: string
-          description: The id of wiki page.
-        position:
-          type: integer
-          description: The position of wiki page.
     TimeSpent:
       required:
         - hours

@@ -17,6 +17,17 @@ The response body of the error response is structured as follows:
 }
 ```
 
-- result：The result of the current request， SUCCESS | FAIL。
+- result：The result of the current request， SUCCESS | FAIL.
 - errorCode：Error code.
 - errorMsg：Error message.
+
+| Error Code            | Description                        |
+| --------------------- | ---------------------------------- |
+| Unauthorized          | Unauthorized、Invalid access token |
+| Forbidden             | Forbidden、Invalid scope           |
+| BadGateway            | Gateway Service Error              |
+| Internal Server Error | Internal Server Error              |
+| InvalidParameter      | Invalid parameters                 |
+| NotFound              | Resource Not Found、API Not Found  |
+| InvalidFileExt        | Invalid file extension             |
+| ConstraintViolation   | Constraint Violation               |
