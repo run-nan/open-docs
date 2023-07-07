@@ -12,31 +12,38 @@ import Image from '@theme/IdealImage'
 
 <Image img={require('./images/default.png')} />
 
-We have provided slots for "Configuration" - "Pipeline settings" - "[Default group](../../index.mdx#slot-hierarchy)" to customize the page module for the application.
+We have provided slots for "Configuration" - "Pipeline Integration settings" - "[Default group](../../index.mdx#slot-hierarchy)" to customize the page module for the application.
 
 The slots currently supported are as follows:
 
-- [ones:settings:pipeline:default:new](#onessettingspipelinedefaultnew)
-- [ones:settings:pipeline:default:jenkins](#onessettingspipelinedefaultjenkins)
-- [ones:settings:pipeline:default:repo](#onessettingspipelinedefaultrepo)
+- [ones:settings:pipeline_integration:default:new](#onessettingspipeline_integrationdefaultnew)
+- [ones:settings:pipeline_integration:default:jenkins](#onessettingspipeline_integrationdefaultjenkins)
+- [ones:settings:pipeline:default:new (deprecated)](#onessettingspipelinedefaultnew-deprecated)
+- [ones:settings:pipeline:default:jenkins (deprecated)](#onessettingspipelinedefaultjenkins-deprecated)
 
 ## Slots
 
-#### ones:settings:pipeline:default:new
+#### ones:settings:pipeline_integration:default:new
+
+**Module path：** Configuration / Pipeline Integration settings / [Default group](../../index.mdx#slot-hierarchy) / new module
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
+
+#### ones:settings:pipeline_integration:default:jenkins
+
+**Module path：** Configuration / Pipeline Integration settings / [Default group](../../index.mdx#slot-hierarchy) / Link pipeline tools
+
+**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
+
+#### ones:settings:pipeline:default:new (deprecated)
 
 **Module path：** Configuration / Pipeline settings / [Default group](../../index.mdx#slot-hierarchy) / new module
 
 **Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
 
-#### ones:settings:pipeline:default:jenkins
+#### ones:settings:pipeline:default:jenkins (deprecated)
 
 **Module path：** Configuration / Pipeline settings / [Default group](../../index.mdx#slot-hierarchy) / Link Jenkins
-
-**Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
-
-#### ones:settings:pipeline:default:repo
-
-**Module path：** Configuration / Pipeline settings / [Default group](../../index.mdx#slot-hierarchy) / Manage repositories
 
 **Number limit：** Declare a maximum of **1** slots in each plugin, and up to **1** slots in the system.
 
@@ -44,10 +51,10 @@ The slots currently supported are as follows:
 
 ```yaml
 modules:
-  - id: ones-settings-pipeline-default-jenkins-YA0a
+  - id: ones-settings-pipeline_integration-default-jenkins-YA0a
     title: Link Jenkins
-    moduleType: ones:settings:pipeline:default:jenkins
-    entry: modules/ones-settings-pipeline-default-jenkins-YA0a/index.html
+    moduleType: ones:settings:pipeline_integration:default:jenkins
+    entry: modules/ones-settings-pipeline_integration-default-jenkins-YA0a/index.html
 ```
 
 **Supported config options：**

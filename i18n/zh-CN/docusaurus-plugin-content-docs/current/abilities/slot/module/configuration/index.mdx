@@ -26,10 +26,12 @@ import Image from '@theme/IdealImage'
 - [ones:settings:project](#onessettingsproject)
 - [ones:settings:wiki](#onessettingswiki)
 - [ones:settings:testcase](#onessettingstestcase)
-- [ones:settings:pipeline](#onessettingspipeline)
+- [ones:settings:pipeline_integration](#onessettingspipeline_integration)
+- [ones:settings:code_integration](#onessettingscode_integration)
 - [ones:settings:plan](#onessettingsplan)
 - [ones:settings:performance](#onessettingsperformance)
 - [ones:settings:automation](#onessettingsautomation)
+- [ones:settings:pipeline（已废弃）](#onessettingspipeline已废弃)
 
 ## 插槽
 
@@ -93,9 +95,19 @@ import Image from '@theme/IdealImage'
 
 **个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
 
-#### ones:settings:pipeline
+#### ones:settings:pipeline_integration
 
-**模块路径：** 配置中心 / 流水线管理配置
+**ONES 要求：** v3.14.0+
+
+**模块路径：** 配置中心 / 流水线集成配置
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:settings:code_integration
+
+**ONES 要求：** v3.14.0+
+
+**模块路径：** 配置中心 / 代码集成配置
 
 **个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
 
@@ -114,6 +126,12 @@ import Image from '@theme/IdealImage'
 #### ones:settings:automation
 
 **模块路径：** 配置中心 / 流程自动化配置
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:settings:pipeline（已废弃）
+
+**模块路径：** 配置中心 / 流水线管理配置
 
 **个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
 
