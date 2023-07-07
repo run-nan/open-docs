@@ -215,11 +215,16 @@ const config = {
             position: 'left',
             items: [
               openAPIConfig.navbarItem,
-              {
-                type: 'docSidebar',
-                label: 'API Docs',
-                sidebarId: 'api',
-              },
+              // 正式版本隐藏 `API Docs`, 未来 OpenAPI 完全覆盖时可去掉
+              ...(isPublic
+                ? []
+                : [
+                    {
+                      type: 'docSidebar',
+                      label: 'API Docs',
+                      sidebarId: 'api',
+                    },
+                  ]),
               {
                 type: 'docSidebar',
                 label: 'ONES Open Platform',
@@ -314,10 +319,14 @@ const config = {
                 label: 'Open API',
                 to: 'docs/openapi',
               },
-              {
-                label: 'API Docs',
-                to: 'docs/api/readme',
-              },
+              ...(isPublic
+                ? []
+                : [
+                    {
+                      label: 'API Docs',
+                      to: 'docs/api/readme',
+                    },
+                  ]),
               {
                 label: 'ONES Open Platform',
                 to: 'docs/guide/overview',
