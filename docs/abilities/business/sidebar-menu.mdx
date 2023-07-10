@@ -29,13 +29,11 @@ Plugin that use the **sidebar menu** support installation not only under the tea
    Execute the `npx op add ability` instruction under the root directory of the plugin project, and select: `sidebar-menu@ 1.0.0`.
 
 2. According to the prompt, fill in the name of the associated slot `ones:app:new` and create a submodule.
+   :::caution notice
+   The slot supports first level submodules, so you must add first level submodules, otherwise it will behave abnormally.
+   :::
 
-:::caution notice
-The slot supports first level submodules, so you must add first level submodules, otherwise it will behave abnormally.
-:::
-
-{' '}
-<Image img={require('./images/add-relate-module.png')} />
+   <Image img={require('./images/add-relate-module.png')} />
 
 3. After the execution is completed, the `plugin.yaml` configuration will be automatically updated and a module template file will be generated.
 

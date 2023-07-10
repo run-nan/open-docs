@@ -8,6 +8,7 @@ import libImg from './images/lib.png'
 import renderImg from './images/render.png'
 import settingImg from './images/setting.png'
 import exportImg from './images/export.png'
+import addAbility from './images/add-ability.png'
 
 # 自定义测试报告组件
 
@@ -52,76 +53,38 @@ import exportImg from './images/export.png'
 npm i @ones-op/store
 ```
 
-### 添加模块
-
-1. 执行`npx op add module`命令，选中`ones:testcase:report:component:new` ，添加一个模块
-2. 执行`npx op add sub-module` 命令，在刚刚添加的`ones:testcase:report:component:new` 模块下添加子模块
-3. 在 `/config/plugin.yaml` 中对模块进行手动配置
-
-```yaml
-service:
-  app_id: Wr1aVwZS
-  ...
-modules:
-  - id: ones-testcase-report-component-new-5cZd
-    title: 测试报告组件
-    moduleType: ones:testcase:report:component:new
-    modules:
-      - id: ones-testcase-report-component-new-U06I
-        title: 自定义测试报告组件
-        scene: render # 需要手动填写，scene为render表示该模块负责渲染组件卡片内容，该模块必须添加
-        entry: >-
-          modules/ones-testcase-report-component-new-5cZd/ones-testcase-report-component-new-U06I/index.html
-      - id: ones-testcase-report-component-new-NQD6
-        title: 配置弹窗
-        scene: setting # 需要手动填写，scene为setting表示该模块负责渲染配置弹窗，如果组件不需要配置，该模块可不添加
-        entry: >-
-          modules/ones-testcase-report-component-new-5cZd/ones-testcase-report-component-new-NQD6/index.html
-```
-
-一个自定义组件模块包含两个子模块
-
-- 组件卡片：`scene` 为`render`，用来渲染自定义组件在测试报告中的卡片内容，必须添加
-- 配置弹窗：`scene` 为`setting` ，用来渲染自定义组件的配置弹窗内容，如果组件不支持配置，可以不添加
-
 ### 添加能力
 
-1. 执行`npx op add ability`命令，选中`testcase-report-custom-component@1.0.0`
-2. 在 `/config/plugin.yaml` 中对能力进行手动配置
+1. 执行 `npx op add ability` 命令，选中 `testcase-report-custom-component@1.0.0`
 
-```yaml
-service:
-  app_id: Wr1aVwZS
-  ...
-modules:
-  - id: ones-testcase-report-component-new-5cZd
-    title: 测试报告组件
-    moduleType: ones:testcase:report:component:new
-    modules:
-      - id: ones-testcase-report-component-new-U06I
-        title: 自定义测试报告组件
-        scene: render # 需要手动填写，scene为render表示该模块负责渲染组件卡片内容，该模块必须添加
-        entry: >-
-          modules/ones-testcase-report-component-new-5cZd/ones-testcase-report-component-new-U06I/index.html
-      - id: ones-testcase-report-component-new-NQD6
-        title: 配置弹窗
-        scene: setting # 需要手动填写，scene为setting表示该模块负责渲染配置弹窗，如果组件不需要配置，该模块可不添加
-        entry: >-
-          modules/ones-testcase-report-component-new-5cZd/ones-testcase-report-component-new-NQD6/index.html
-abilities:
-    - id: testcase-report-custom-component
-      name: testcase-report-custom-component
-      version: 1.0.0
-      abilityType: TestcaseReportCustomComponent
-      relateModule:
-        componentModule: 'ones-testcase-report-component-new-5cZd' # 需要手动填写，必须填写moduleType为ones:testcase:report:component:new的模块的ID
-      config:
-        - key: component_name
-          label: testcase-report-custom-component-name
-          value: 自定义插件组件
-          fieldType: Input
-          show: false
-```
+2. 根据提示, 填写关联插槽 `ones:testcase:report:component:new` 名称，并创建子模块，用来渲染自定义组件在测试报告中的卡片内容
+
+   <Image img={addAbility} />
+
+3. 如果组件不需要支持配置弹窗内容功能，直接跳到下一步。执行 `npx op add sub-module` 命令，在刚刚添加的`ones:testcase:report:component:new` 模块下添加子模块
+
+4. 在 `/config/plugin.yaml` 中对模块进行手动配置
+
+   ```yaml
+   service:
+     app_id: Wr1aVwZS
+     ...
+   modules:
+     - id: ones-testcase-report-component-new-5cZd
+       title: 测试报告组件
+       moduleType: ones:testcase:report:component:new
+       modules:
+         - id: ones-testcase-report-component-new-U06I
+           title: 自定义测试报告组件
+           scene: render # 需要手动填写，scene为render表示该模块负责渲染组件卡片内容，该模块必须添加
+           entry: >-
+             modules/ones-testcase-report-component-new-5cZd/ones-testcase-report-component-new-U06I/index.html
+         - id: ones-testcase-report-component-new-NQD6
+           title: 配置弹窗
+           scene: setting # 需要手动填写，scene为setting表示该模块负责渲染配置弹窗，如果组件不需要配置，该模块可不添加
+           entry: >-
+             modules/ones-testcase-report-component-new-5cZd/ones-testcase-report-component-new-NQD6/index.html
+   ```
 
 ### 自定义组件卡片内容
 
