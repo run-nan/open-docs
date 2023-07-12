@@ -93,21 +93,21 @@ service:
 
 - 正常
 
-| 参数              | 说明           | 类型   |
-| :---------------- | :------------- | :----- |
-| organization_uuid | 组织 uuid      | string |
-| team_uuid         | 团队 uuid      | string |
-| instance_uuid     | 插件示例 id    | string |
-| permission_name   | 权限点名称     | string |
-| permission_desc   | 权限点描述     | string |
-| permission_field  | 权限点唯一标识 | string |
-| permission_id     | 权限点 id      | string |
-| check_mode        | 校验类型       | string |
-| ability_id        | 能力 id        | string |
+  | 参数              | 说明           | 类型   |
+  | :---------------- | :------------- | :----- |
+  | organization_uuid | 组织 uuid      | string |
+  | team_uuid         | 团队 uuid      | string |
+  | instance_uuid     | 插件示例 id    | string |
+  | permission_name   | 权限点名称     | string |
+  | permission_desc   | 权限点描述     | string |
+  | permission_field  | 权限点唯一标识 | string |
+  | permission_id     | 权限点 id      | string |
+  | check_mode        | 校验类型       | string |
+  | ability_id        | 能力 id        | string |
 
 - 错误
 
-当添加的权限点已经存在时返回：permission_field of plugin already exists
+  当添加的权限点已经存在时返回：permission_field of plugin already exists
 
 **示例：**
 
@@ -261,25 +261,25 @@ export async function deletePermission(request: PluginRequest): Promise<PluginRe
 
 - 正常
 
-包含本次添加权限规则的信息
+  包含本次添加权限规则的信息
 
-| 参数              | 说明        | 类型   |
-| :---------------- | :---------- | :----- |
-| org_uuid          | 组织 uuid   | string |
-| team_uuid         | 团队 uuid   | string |
-| id                | 权限规则 id | string |
-| deleted           | 是否删除    | Bool   |
-| permission_id     | 权限点 id   | string |
-| context_type      | 上下文类型  | string |
-| context_param_1   | 上下文参数  | string |
-| context_param_2   | 上下文参数  | string |
-| user_domain_type  | 用户域类型  | string |
-| user_domain_param | 用户域参数  | string |
-| position          | 位置        | string |
+  | 参数              | 说明        | 类型   |
+  | :---------------- | :---------- | :----- |
+  | org_uuid          | 组织 uuid   | string |
+  | team_uuid         | 团队 uuid   | string |
+  | id                | 权限规则 id | string |
+  | deleted           | 是否删除    | Bool   |
+  | permission_id     | 权限点 id   | string |
+  | context_type      | 上下文类型  | string |
+  | context_param_1   | 上下文参数  | string |
+  | context_param_2   | 上下文参数  | string |
+  | user_domain_type  | 用户域类型  | string |
+  | user_domain_param | 用户域参数  | string |
+  | position          | 位置        | string |
 
 - 错误
 
-当添加的权限点规则用户域类型不对时返回：`<UserDomainNotExist> UserDomainNotExist`
+  当添加的权限点规则用户域类型不对时返回：`<UserDomainNotExist> UserDomainNotExist`
 
 **示例：**
 

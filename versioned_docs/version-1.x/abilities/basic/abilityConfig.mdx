@@ -1,0 +1,60 @@
+---
+id: ability-config
+sidebar_position: 6
+description: get plugin ability configuration info
+---
+
+import Image from '@theme/IdealImage'
+import customConfig1 from './images/custom-config1.png'
+
+# Get plugin ability configuration
+
+## Requirements
+
+| ONES             |
+| :--------------- |
+| ready to publish |
+
+## Overview
+
+The plugin can obtain the ability configuration information through this ability.
+
+The ability configuration is located in the plugin configuration file `plugin.yaml`
+
+## Usage
+
+### Step1：Installing dependencies
+
+Enter the `backend` directory of the plugin project, and execute the following command for dependent installation:
+
+```shell
+npm i @ones-op/node-ability
+```
+
+### Step2：Get ability configuration information
+
+Obtain the ability configuration information through the `getAbilityConfig` method
+
+```typescript
+import { getAbilityConfig } from '@ones-op/node-ability'
+
+const response = await getAbilityConfig()
+```
+
+This ability allows you to obtain the specified ability configuration information by abilityID.
+
+:::info
+
+The abilityID can be obtained in the plugin configuration file `plugin.yaml`
+
+:::
+
+```typescript
+import { getAbilityConfig } from '@ones-op/node-ability'
+
+const response = await getAbilityConfig(abilityID)
+```
+
+## SDK
+
+reference: [@ones-op/node-ability](../../reference/packages/node-ability/node-ability.mdx)

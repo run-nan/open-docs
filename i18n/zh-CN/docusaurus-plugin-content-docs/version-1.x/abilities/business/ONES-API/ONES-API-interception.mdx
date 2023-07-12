@@ -2,6 +2,9 @@
 sidebar_position: 4
 ---
 
+import Image from '@theme/IdealImage'
+import urlParamImg from './images/urlParam.png'
+
 # ONES 接口劫持
 
 ## 要求
@@ -53,14 +56,12 @@ sidebar_position: 4
     - type: replace #接口类型： replace:替换
       methods: #接口请求方式
         - POST
-      url: /team/:teamUUID/page/:pageUUID/update_title #劫持接口url
+      url: /team/:teamUUID/online_page/:pageUUID/update_title #劫持接口url
       scope: wiki #project或wiki接口，没有该属性则默认为project
       function: jackFunc #名称与代码里的函数名保持一致
   ```
 
 - 添加处理方法
-
-  在插件代码中，如果插件还需要请求 ONES 被替换的接口，需要在请求头中带上：`headers: { 'Replace': "replace", }`
 
   该示例替换了 wiki 修改页面标题的接口，会将页面标题设置为"plugin title"
 
@@ -84,7 +85,6 @@ sidebar_position: 4
       headers: {
         'Ones-User-Id': [userUUID],
         'Ones-Auth-Token': [userToken],
-        'Replace': 'replace',
       },
       body: {
         title: 'plugin title',
@@ -135,7 +135,7 @@ sidebar_position: 4
     - type: prefix #接口类型： prefix:前置劫持
       methods:
         - POST
-      url: /team/:teamUUID/page/:pageUUID/update_title
+      url: /team/:teamUUID/online_page/:pageUUID/update_title
       scope: wiki
       function: prefixFunc
   ```
@@ -212,6 +212,51 @@ sidebar_position: 4
     }
   }
   ```
+
+### 自定义 query 参数
+
+支持带有自定义 query 参数的接口劫持，对于同一个 url，允许通过请求的 query 参数做不同的接口劫持方法处理。你可以在`config/plugin.yaml`中的`apis`字段内设置自定义的 query 参数，
+所有对于该接口的请求如果带有这些设定好的参数则该请求被劫持，否则不劫持。
+
+<Image img={urlParamImg} />
+
+- 劫持规则
+
+1. 一个接口只能由一个插件进行一种类型的接口劫持（prefix,replace,suffix），但允许一个接口定义不同的 query 参数，匹配不同的函数处理方法
+
+2. 自定义 query 参数为一个 key 和 value 都为 string 的 map，当对于该接口的请求中包含了 map 中的所有 key 和 value 则触发劫持
+
+3. 当一个请求满足多个带有自定义 query 参数的接口劫持规则时，按照`config/plugin.yaml`文件中 apis 声明的先后顺序优先匹配对应方法
+
+- 配置示例
+
+  在插件配置文件中的 `apis` 字段加上以下配置：
+
+  ```yaml title='/config/plugin.yaml'
+  apis:
+    - type: replace
+      methods:
+        - POST
+      scope: project
+      url: /users/me
+      function: replaceFunc1
+      query:
+        k1: v1
+    - type: replace
+      methods:
+        - POST
+      scope: project
+      url: /users/me
+      function: replaceFunc2
+      query:
+        k2: v2
+  ```
+
+  - 请求 url: `/users/me?k2=v2` 命中: replaceFunc2
+
+  - 请求 url: `/users/me?k1=v1&k2=v2&k3=v3` 按照声明顺序匹配，命中: replaceFunc1
+
+  - 请求 url: `/users/me` 无命中，不进行接口劫持，走原处理逻辑
 
 ### 调试方式
 
