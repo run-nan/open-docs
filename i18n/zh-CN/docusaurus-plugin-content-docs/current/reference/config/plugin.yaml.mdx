@@ -491,7 +491,7 @@ modules:
 
 :::caution
 
-如果您需要延迟销毁模块，您的插件将在 ONES 中激活一段时间。该插件仍然可以从 ONES 接收消息或将消息发送到 ONES（例如，`op-store` 和 `op-event`）。您可以卸载插件的根组件以取消监听来自 ONES 的消息，除了 `@ones-design` 的 provider，其可以用来弹出 toast 消息。
+如果您需要延迟销毁模块，您的插件将在 ONES 中激活一段时间。该插件可能会继续从 ONES 接收消息或将消息发送到 ONES（例如，`op-store` 和 `op-event`）。您应该卸载插件的根组件来取消这些操作，除了 `@ones-design` 的 provider，其可以用来弹出 toast 消息。可能你需要使用到[`OPProvider`](../packages/bridge/bridge.mdx#opprovider)来实现这个功能。
 
 :::
 

@@ -491,7 +491,7 @@ Whether the module should be delayed to destroy, which only works with the plugi
 
 :::caution
 
-If you need to delay destroying the module, your plugin will be activated in ONES for some time. The plugin still can receive the message from the ONES or send the message to the ONES(For example, the `op-store` and the `op-event`). You can uninstall the plugin's root component to cancel listening to the message from the ONES except for the provider of `@ones-design` which can be used to toast a message.
+If you need to delay destroying the module, your plugin is still activated in ONES for some time. The plugin maybe still can receive the message from the ONES or send the message to the ONES(For example, the `op-store` and the `op-event`). You should uninstall the plugin's root component to cancel this actions except for the provider of `@ones-design` which can be used to toast a message, maybe you need the [`OPProvider`](../packages/bridge/bridge.mdx#opprovider) to do this.
 
 :::
 
