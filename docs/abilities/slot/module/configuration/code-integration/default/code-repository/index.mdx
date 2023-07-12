@@ -16,28 +16,13 @@ We have provided slots for "Configuration" - "Code Integration settings" - "Link
 
 The slots currently supported are as follows:
 
-- [ones:settings:code_integration:default:repo:link](#onessettingscode_integrationdefaultrepolink)
-- [ones:settings:pipeline:default:repo:link (deprecated)](#onessettingspipelinedefaultrepolink-deprecated)
+- [ones:settings:pipeline:default:repo:link](#onessettingspipelinedefaultrepolink)
 
 ## Slots
 
-#### ones:settings:code_integration:default:repo:link
-
-**ONES Requirement:** v3.14.0+
+#### ones:settings:pipeline:default:repo:link
 
 **Module path：** Configuration / Code Integration settings / Link repositories / Link Repository / select repository / Open the plugin modal by clicking the next button
-
-**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
-
-:::caution
-
-This slot need the ability [custom code repository](../../../../../../business/custom-code-repository/custom-code-repository.mdx).
-
-:::
-
-#### ones:settings:pipeline:default:repo:link (deprecated)
-
-**Module path：** Configuration / Pipeline settings / Manage repositories / Create linked repository / select repository / Open the plugin modal by clicking the next button
 
 **Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
 
@@ -51,12 +36,12 @@ This slot need the ability [custom code repository](../../../../../../business/c
 
 ```yaml
 modules:
-  - id: ones-settings-code_integration-default-repo-link-JnJi
+  - id: ones-settings-pipeline-default-repo-link-JnJi
     title: GitHub
-    moduleType: ones:settings:code_integration:default:repo:link
+    moduleType: ones:settings:pipeline:default:repo:link
     preload: true
     manual: true
-    entry: modules/ones-settings-code_integration-default-repo-link-JnJi/index.html
+    entry: modules/ones-settings-pipeline-default-repo-link-JnJi/index.html
 ```
 
 **Supported config options：**
