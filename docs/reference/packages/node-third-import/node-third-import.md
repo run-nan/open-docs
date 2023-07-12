@@ -69,7 +69,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 
 | ONES      |
 | :-------- |
-| v3.13.60+ |
+| v3.14.0+ |
 
 The local debugging mode now supports importing attachments, but files must less than 100MB in this mode.
 

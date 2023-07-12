@@ -5,18 +5,17 @@ description: File storage for the plugin itself.
 
 # Plugin file operation
 
-
 ## Requirements
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 <Tabs>
-<TabItem value="2" label="3.13.60+">
+<TabItem value="2" label="3.14.0+">
 
-| ONES    | @ones-op/node-fs |
-| :------ | :--------------- |
-| v3.13.60+ |    v0.0.1+              |
+| ONES     | @ones-op/node-fs |
+| :------- | :--------------- |
+| v3.14.0+ | v0.0.1+          |
 
 </TabItem>
 <TabItem value="1" label="3.6.0+ ">
@@ -31,7 +30,7 @@ import TabItem from '@theme/TabItem'
 ## Overview
 
 <Tabs>
-<TabItem value="2" label="3.13.60+">
+<TabItem value="2" label="3.14.0+">
 
 Each plugin has its own file workspace, which allows the plugin to create, read, write and preset its own files, which is located under `{{plugin root directory}}/workspace`.
 
@@ -63,7 +62,7 @@ local:
 Enter the `/backend` directory of the plugin project, and execute the following command for dependent installation:
 
 <Tabs>
-<TabItem value="2" label="3.13.60+">
+<TabItem value="2" label="3.14.0+">
 
 ```shell
 npm i @ones-op/node-fs
@@ -82,10 +81,10 @@ npm i @ones-op/node-file
 ### Step 2: Example
 
 <Tabs>
-<TabItem value="2" label="3.13.60+">
+<TabItem value="2" label="3.14.0+">
 
 ```javascript
-import {promises} from '@ones-op/node-fs'
+import { promises } from '@ones-op/node-fs'
 import { Logger } from '@ones-op/node-logger'
 import { String2Unit8Array, Object2Unit8Array, Unit8Array2String } from '@ones-op/node-utils'
 
@@ -101,55 +100,52 @@ const file21_copy_symlink_name = './dir1/dir2/file21_copy_symlink'
 const file22_name = './dir1/dir2/file22.txt'
 const file23_name = './dir1/dir2/file23.txt'
 
-
 export async function TestFile() {
   let res
   try {
-      await promises.mkdir(dir1_name)
-      await promises.mkdir(dir3_name, {recursive: true}) //Returns the top-level parent directory created
-      await promises.mkdtemp(path.join(dir2_name, 'foo-'))
-      await promises.writeFile(file21_name, '')
+    await promises.mkdir(dir1_name)
+    await promises.mkdir(dir3_name, { recursive: true }) //Returns the top-level parent directory created
+    await promises.mkdtemp(path.join(dir2_name, 'foo-'))
+    await promises.writeFile(file21_name, '')
 
-      await promises.writeFile(file21_name, 'hello world\n')
-      await promises.appendFile(file21_name, "this is append content\n")
-      await promises.copyFile(file21_name, file21_copy_name)
-      await promises.copyFile(file21_name, file22_name)
-      await promises.copyFile(file21_name, file23_name)
-      await promises.cp(file21_name, file21_cp_name)
-      await promises.rename(file21_name, file21_rename_name)
+    await promises.writeFile(file21_name, 'hello world\n')
+    await promises.appendFile(file21_name, 'this is append content\n')
+    await promises.copyFile(file21_name, file21_copy_name)
+    await promises.copyFile(file21_name, file22_name)
+    await promises.copyFile(file21_name, file23_name)
+    await promises.cp(file21_name, file21_cp_name)
+    await promises.rename(file21_name, file21_rename_name)
 
-      res = await promises.readFile(file22_name)
-      Logger.info("readFile:", Unit8Array2String(res))
-      const dir = await promises.opendir(dir2_name);
-      for await (const dirent of dir)
-          Logger.info("opendir dirent:", dirent.name);
-      const files = await promises.readdir(dir2_name);
-      for (const file of files)
-          Logger.info("readdir file:", file);
+    res = await promises.readFile(file22_name)
+    Logger.info('readFile:', Unit8Array2String(res))
+    const dir = await promises.opendir(dir2_name)
+    for await (const dirent of dir) Logger.info('opendir dirent:', dirent.name)
+    const files = await promises.readdir(dir2_name)
+    for (const file of files) Logger.info('readdir file:', file)
 
-      await promises.access(file21_copy_name)
-      await promises.realpath(file21_copy_name)
-      await promises.link(file21_copy_name, file21_copy_link_name)
-      await promises.symlink(file21_copy_name, file21_copy_symlink_name)
-      await promises.readlink(file21_copy_symlink_name)
-      await promises.unlink(file21_copy_symlink_name)
-      
-      await promises.truncate(file22_name, 2)
+    await promises.access(file21_copy_name)
+    await promises.realpath(file21_copy_name)
+    await promises.link(file21_copy_name, file21_copy_link_name)
+    await promises.symlink(file21_copy_name, file21_copy_symlink_name)
+    await promises.readlink(file21_copy_symlink_name)
+    await promises.unlink(file21_copy_symlink_name)
 
-      await promises.stat(file22_name)
-      await promises.lstat(file22_name)
+    await promises.truncate(file22_name, 2)
 
-      await promises.utimes(file22_name, 1684339200, 1684339200)
-      await promises.lutimes(file23_name, 1684252800, 1684252800)
+    await promises.stat(file22_name)
+    await promises.lstat(file22_name)
 
-      await promises.chmod(file22_name, '777')
-      await promises.lchmod(file23_name, '644')
+    await promises.utimes(file22_name, 1684339200, 1684339200)
+    await promises.lutimes(file23_name, 1684252800, 1684252800)
 
-      await promises.chown(file22_name, 2, 1)
-      await promises.lchown(file23_name, 2, 1)
+    await promises.chmod(file22_name, '777')
+    await promises.lchmod(file23_name, '644')
 
-      await promises.rmdir(dir3_name)
-      await promises.rm(dir1_name, {recursive: true})
+    await promises.chown(file22_name, 2, 1)
+    await promises.lchown(file23_name, 2, 1)
+
+    await promises.rmdir(dir3_name)
+    await promises.rm(dir1_name, { recursive: true })
   } catch (error) {
     Logger.error('ERROR: testFile callback:', error)
   }
@@ -212,7 +208,7 @@ export async function TestFile() {
 ## SDK
 
 <Tabs>
-<TabItem value="2" label="3.13.60+">
+<TabItem value="2" label="3.14.0+">
 
 Parameters reference：[@ones-op/node-fs](../../reference/packages/node-fs/node-fs.mdx)
 

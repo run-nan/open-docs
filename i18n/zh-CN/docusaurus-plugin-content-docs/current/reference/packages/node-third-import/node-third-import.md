@@ -69,7 +69,7 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 
 | ONES      |
 | :-------- |
-| v3.13.60+ |
+| v3.14.0+ |
 
 附件导入在本地调试方式已支持，但是要求文件不超过 100MB。
 
