@@ -1,3 +1,6 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
 # Trigger 插槽
 
 ## 要求
@@ -30,15 +33,12 @@ modules:
     entry: modules/ones-global-trigger-QIOs/index.html
     preload: true
     manual: true
+    enableDelayDestroy: true
     actions:
       - action:pre:ones:task:fields:update
 ```
 
 **支持的配置项：**
-
-- [preload](../../../../reference/config/plugin.yaml#preload)
-
-  此选项建议设置为 `true`。
 
 - [manual（必填）](../../../../reference/config/plugin.yaml#manual)
 
@@ -54,6 +54,14 @@ modules:
   当插件被激活时，你必须使用下述 [可访问的上下文数据](#context) 中的 `useVariablesInfo` 或 `useAction` 方法，获取 `next` 或者 `cancel` 函数并调用，否则系统操作（Action）将永久陷入 pending 状态。
   :::
 
+- [preload](../../../../reference/config/plugin.yaml#preload)
+
+  此选项建议设置为 `true`。
+
+- [enableDelayDestroy](../../../../reference/config/plugin.yaml#enabledelaydestroy)
+
+  此选项建议设置为 `true`。
+
 ### 可访问的上下文数据{#context}
 
 #### [useVariablesInfo](../../../../reference/packages/store/store.md#useVariablesInfo)
@@ -66,6 +74,46 @@ modules:
 - 没有参数，通过范型推断返回值。
 - 此方法拿到的 `next` 与 `cancel` 方法并没有绑定插件销毁操作，而是由插件通过调用 `lifecycle.destroy` 方法自行控制模块销毁时机。
 - 新增 `actionType` 返回，用于判断是什么操作（Action）触发了当前插件模块。
+
+<Tabs>
+<TabItem value="1" label="enableDelayDestroy: true">
+
+```tsx
+import { useVariablesInfo } from '@ones-op/store'
+import { lifecycle } from '@ones-op/bridge'
+
+function TriggerPlugin() {
+  const [visible, setVisible] = useState(true)
+
+  const moduleData = useVariablesInfo<'ones:global:trigger'>()
+
+  const { sessionID, next, cancel, data: payload, actionType } = moduleData
+
+  const handleOk = useCallback(() => {
+    setVisible(false)
+    next?.(payload)
+    lifecycle.destroy()
+  }, [next, payload])
+
+  const handleCancel = useCallback(() => {
+    cancel?.()
+    toast.warning('cancel')
+    setVisible(false)
+    lifecycle.destroy()
+  }, [cancel])
+
+  return (
+    <Modal visible={visible} title="Confirm Data" onOk={handleOk} onCancel={handleCancel}>
+      <p>sessionID: {sessionID}</p>
+      <p>data: </p>
+      <p>{JSON.stringify(payload?.data)}</p>
+    </Modal>
+  )
+}
+```
+
+</TabItem>
+<TabItem value="2" label="enableDelayDestroy: false">
 
 :::warning
 当插件调用 `next` 或者 `cancel` 后，需要尽可能快的时间内调用 `lifecycle.destroy` 方法将自身销毁，避免用户再次触发时无法重新激活插件。
@@ -89,11 +137,13 @@ function TriggerPlugin() {
   }, [next, payload])
 
   const handleCancel = useCallback(() => {
-    setVisible(false)
+    cancel?.()
     toast.warning('cancel')
+    // highlight-next-line
     setTimeout(() => {
-      cancel?.()
+      setVisible(false)
       lifecycle.destroy()
+      // highlight-next-line
     }, 1100)
   }, [cancel])
 
@@ -107,7 +157,13 @@ function TriggerPlugin() {
 }
 ```
 
-#### [useAction](../../../../reference/packages/store/store.md#useAction)（已废弃）
+</TabItem>
+</Tabs>
+
+#### [useAction](../../../../reference/packages/store/store.md#useAction)（已废弃）{#useAction}
+
+<details>
+<summary>展示更多</summary>
 
 ```tsx
 import { useAction } from '@ones-op/store'
@@ -150,6 +206,8 @@ function TriggerPlugin() {
   )
 }
 ```
+
+</details>
 
 ## FAQ
 
