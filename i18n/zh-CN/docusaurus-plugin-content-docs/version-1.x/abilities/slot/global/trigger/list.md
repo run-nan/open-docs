@@ -260,7 +260,7 @@ import Image from '@theme/IdealImage'
 
 「批量新建工作项」前置操作
 
-### action:pre:ones:taskList:batchAdd
+### action:post:ones:taskList:batchAdd
 
 #### 要求
 
