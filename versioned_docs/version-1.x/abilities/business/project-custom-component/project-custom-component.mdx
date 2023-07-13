@@ -5,7 +5,6 @@ description: ----
 
 import Image from '@theme/IdealImage'
 import projectCustomComponent1 from './images/project-custom-component1.png'
-import projectCustomComponent2 from './images/project-custom-component2.png'
 import projectCustomComponent3 from './images/project-custom-component3.png'
 import projectCustomComponent4 from './images/project-custom-component4.png'
 import projectCustomComponent5 from './images/project-custom-component5.png'
@@ -53,11 +52,9 @@ This ability must be used in conjunction with the front-end slot **[ones:project
 
 ## Usage
 
-To use this ability,developers need to add the backend ability `Custom project components` and the front-end slot `ones:project:component:new` respectively，and then implement your own custom component function in the code.
+To use this ability,developers need to add the backend ability `Custom project components` and the front-end slot `ones:project:component:new`，and then implement your own custom component function in the code.
 
 ### Step 1：Add and use ability through the OP tool
-
-#### 1. Add back-end ability `Custom project components`
 
 Use the Command Line to enter the OP command in the plugin root directory to add ability (this directive requires OP tool version 1.0 or above)
 
@@ -65,132 +62,94 @@ Use the Command Line to enter the OP command in the plugin root directory to add
 npx op add ability
 ```
 
-Select and add `project-custom-component@1.0.0`
+Select and add `project-custom-component@1.0.0`, fill in the name of the relate slot `ones:project:component:new` according to the prompt.
 
 <Image img={projectCustomComponent1} />
 
 the OP tool will add the following to the plugin
 
-- The OP tool adds `abilitiy` field related paragraphs in `{{plugin root directory}}/config/plugin.yaml`
+- The OP tool adds `abilitiy`, `modules` field related paragraphs in `{{plugin root directory}}/config/plugin.yaml`
 
-```yaml
-service:
-  app_id: ...
-  name: ability-project-custom-component
-  ...
-  ...
-modules: []
-abilities:
-  - id: ...
-    name: project_custom_component_test
-    version: 1.0.0
-    abilityType: ProjectCustomComponent
-    function:
-      #Name of the plugin data copy method
-      copyPluginData: copyTest
-    relateModule:
-      #Custom component entry
-      componentModuleEnter: ''
-    config:
-      - key: component_name
-        label: project custom component
-        value: project custom component
-        fieldType: Input
-        show: true
-      - key: component_desc
-        label: custom component description
-        value: ''
-        fieldType: TextArea
-        show: true
-        props:
-          placeholder: custom component description,allow to leave blank
-      - key: is_support_copy
-        label: is_support_data_copy
-        #If the value is set to true,need to complete the copytest method
-        value: true
-        fieldType: Switch
-        show: false
-```
-
-- The `project-custom-component.ts` file is created in `backend/src` directory.If the developer wants to implement the data replication function of custom project components among multiple projects, the developer can do it in the `copyTest` method in this file.
-
-```typescript
-import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
-import { Logger } from '@ones-op/node-logger'
-
-// Wants to implement the data copy of the custom component, it needs to be done within this method.
-export const copyTest = async (request: PluginRequest): Promise<PluginResponse> => {
-  Logger.info('copyTest  enter')
-  const body = request?.body as any
-
-  let srcProjectUUID = body.srcProjectUUID
-  let dstProjectUUID = body.dstProjectUUID
-
-  Logger.info(
-    '[Plugin] copyTest',
-    'url:',
-    request.url,
-    'srcProjectUUID:',
-    srcProjectUUID,
-    'dstProjectUUID:',
-    dstProjectUUID
-  )
-
-  return {
-    body: {
-      code: 200,
-      body: {
-        state: 0,
-        message: 'success',
-      },
-    },
-  }
-}
-```
-
-#### 2. The OP tool adds front-end slot `ones:project:component:new`
-
-Use the Command Line to enter the OP command in the plugin root directory to add module (this directive requires OP tool version 1.0 or above)
-
-```shell
-npx op add module
-```
-
-Select and add `ones:project:component:new` and enter a custom title
-
-<Image img={projectCustomComponent2} />
-
-the OP tool will add the following to the plugin
-
-- The op tools adds `module` field related paragraphs in `config/plugin.yaml`
-
-```yaml
-modules:
-  - id: ones-project-component-new-weUW
-    title: customComponent1
-    moduleType: ones:project:component:new
-    entry: modules/ones-project-component-new-weUW/index.html
-```
+  ```yaml
+  service:
+    app_id: ...
+    name: ability-project-custom-component
+    ...
+    ...
+  modules:
+    - id: ones-project-component-new-weUW
+      title: customComponent1
+      moduleType: ones:project:component:new
+      entry: modules/ones-project-component-new-weUW/index.html
+  abilities:
+    - id: ...
+      name: project_custom_component_test
+      version: 1.0.0
+      abilityType: ProjectCustomComponent
+      function:
+        #Name of the plugin data copy method
+        copyPluginData: copyTest
+      relateModule:
+        #Custom component entry
+        componentModuleEnter: 'ones-project-component-new-weUW'
+      config:
+        - key: component_name
+          label: project custom component
+          value: project custom component
+          fieldType: Input
+          show: true
+        - key: component_desc
+          label: custom component description
+          value: ''
+          fieldType: TextArea
+          show: true
+          props:
+            placeholder: custom component description,allow to leave blank
+        - key: is_support_copy
+          label: is_support_data_copy
+          #If the value is set to true,need to complete the copytest method
+          value: true
+          fieldType: Switch
+          show: false
+  ```
 
 - The `ones-project-component-new-weUW` directory is created in `web/src`.
 
-#### 3. Populate the plugin configuration file `config/plugin.yaml`
+- The `project-custom-component.ts` file is created in `backend/src` directory.If the developer wants to implement the data replication function of custom project components among multiple projects, the developer can do it in the `copyTest` method in this file.
 
-In order to be able to identify the corresponding custom components,fill the field `abilities.relateModule.componentModuleEnter`
+  ```typescript
+  import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+  import { Logger } from '@ones-op/node-logger'
 
-Fill the corresponding component `modules.id` into `abilities.relateModule.componentModuleEnter`,**note that the filling value should to be added with`''`**
+  // Wants to implement the data copy of the custom component, it needs to be done within this method.
+  export const copyTest = async (request: PluginRequest): Promise<PluginResponse> => {
+    Logger.info('copyTest  enter')
+    const body = request?.body as any
 
-```yaml
-abilities:
-  - id: wrIFpkyb
-    name: project_custom_component_test
-    version: 1.0.0
-    abilityType: ProjectCustomComponent
-    function:
-      copyPluginData: copyTest
-    relateModule:
-      componentModuleEnter: 'ones-project-component-new-weUW'
-```
+    let srcProjectUUID = body.srcProjectUUID
+    let dstProjectUUID = body.dstProjectUUID
+
+    Logger.info(
+      '[Plugin] copyTest',
+      'url:',
+      request.url,
+      'srcProjectUUID:',
+      srcProjectUUID,
+      'dstProjectUUID:',
+      dstProjectUUID
+    )
+
+    return {
+      body: {
+        code: 200,
+        body: {
+          state: 0,
+          message: 'success',
+        },
+      },
+    }
+  }
+  ```
 
 ### Step 2：Complete the function of custom components
 
