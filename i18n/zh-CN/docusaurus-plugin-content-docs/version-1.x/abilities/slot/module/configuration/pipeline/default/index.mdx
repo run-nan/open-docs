@@ -12,31 +12,42 @@ import Image from '@theme/IdealImage'
 
 <Image img={require('./images/default.png')} />
 
-我们为「配置中心」-「流水线管理配置」-「[默认分组](../../index.mdx#slot-hierarchy)」提供了一些插槽，以便于为该应用定制化页面模块。
+我们为「配置中心」-「流水线集成配置」-「[默认分组](../../index.mdx#slot-hierarchy)」提供了一些插槽，以便于为该应用定制化页面模块。
 
 当前支持的插槽：
 
-- [ones:settings:pipeline:default:new](#onessettingspipelinedefaultnew)
-- [ones:settings:pipeline:default:jenkins](#onessettingspipelinedefaultjenkins)
-- [ones:settings:pipeline:default:repo](#onessettingspipelinedefaultrepo)
+- [ones:settings:pipeline_integration:default:new](#onessettingspipeline_integrationdefaultnew)
+- [ones:settings:pipeline_integration:default:jenkins](#onessettingspipeline_integrationdefaultjenkins)
+- [ones:settings:pipeline:default:new（已废弃）](#onessettingspipelinedefaultnew已废弃)
+- [ones:settings:pipeline:default:jenkins（已废弃）](#onessettingspipelinedefaultjenkins已废弃)
 
 ## 插槽
 
-#### ones:settings:pipeline:default:new
+#### ones:settings:pipeline_integration:default:new
+
+**ONES 要求：** v3.14.0+
+
+**模块路径：** 配置中心 / 流水线集成配置 / [默认分组](../../index.mdx#slot-hierarchy) / 新模块
+
+**个数限制：** 一个插件中最多可声明 **10 **个该插槽，系统中最多同时存在 **100 **个该插槽
+
+#### ones:settings:pipeline_integration:default:jenkins
+
+**ONES 要求：** v3.14.0+
+
+**模块路径：** 配置中心 / 流水线集成配置 / [默认分组](../../index.mdx#slot-hierarchy) / 流水线工具关联
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:settings:pipeline:default:new（已废弃）
 
 **模块路径：** 配置中心 / 流水线管理配置 / [默认分组](../../index.mdx#slot-hierarchy) / 新模块
 
 **个数限制：** 一个插件中最多可声明 **10 **个该插槽，系统中最多同时存在 **100 **个该插槽
 
-#### ones:settings:pipeline:default:jenkins
+#### ones:settings:pipeline:default:jenkins（已废弃）
 
 **模块路径：** 配置中心 / 流水线管理配置 / [默认分组](../../index.mdx#slot-hierarchy) / 关联 Jenkins 服务
-
-**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
-
-#### ones:settings:pipeline:default:repo
-
-**模块路径：** 配置中心 / 流水线管理配置 / [默认分组](../../index.mdx#slot-hierarchy) / 代码仓管理
 
 **个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
 
@@ -44,10 +55,10 @@ import Image from '@theme/IdealImage'
 
 ```yaml
 modules:
-  - id: ones-settings-pipeline-default-jenkins-YA0a
+  - id: ones-settings-pipeline_integration-default-jenkins-YA0a
     title: Link Jenkins
-    moduleType: ones:settings:pipeline:default:jenkins
-    entry: modules/ones-settings-pipeline-default-jenkins-YA0a/index.html
+    moduleType: ones:settings:pipeline_integration:default:jenkins
+    entry: modules/ones-settings-pipeline_integration-default-jenkins-YA0a/index.html
 ```
 
 **支持的配置项：**
