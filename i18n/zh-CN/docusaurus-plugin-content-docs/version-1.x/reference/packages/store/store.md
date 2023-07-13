@@ -635,7 +635,7 @@ interface CodeRepositoryInfo {
 | ------------------------------ | ----------------------------- |
 | 当前组件的数据以及对数据的操作 | `TestcaseReportComponentInfo` |
 
-#### Types
+#### 类型
 
 ```tsx
 interface ExportTitle {
@@ -705,6 +705,28 @@ interface WikiSpaceInfoType {
 }
 ```
 
+### useWikiPageInfo {#useWikiPageInfo}
+
+获取当前访问的页面的信息。
+
+- 可用：`v0.11.0+`
+- ONES 要求：`v3.14.0+`
+
+#### 返回
+
+| 说明           | 类型               |
+| -------------- | ------------------ |
+| 当前页面的信息 | `WikiPageInfoType` |
+
+#### 类型
+
+```tsx
+interface WikiPageInfoType {
+  uuid: string // 当前页面的 UUID
+  name: string // 当前页面的名称
+}
+```
+
 ### useVariablesInfo {#useVariablesInfo}
 
 获取当前插槽传递过来的非标准临时数据，你可以通过指定范型获得当前插槽传递数据的类型推断。
@@ -721,6 +743,7 @@ interface WikiSpaceInfoType {
 
 ```tsx
 function useVariablesInfo<T extends keyof VariablesMap>(): VariablesMap[T]
+
 type VariablesMap = TriggerActionMap & {
   // Trigger 统一类型
   'ones:global:trigger': Action<Record<PropertyKey, any>> & {
@@ -728,6 +751,7 @@ type VariablesMap = TriggerActionMap & {
   }
   // ......
 }
+
 type TriggerActionMap = {
   [T in keyof ActionType]: ActionType[T] & { actionType: T }
 }
