@@ -14,10 +14,8 @@ To provide a better and more integrated development experience, plugin projects 
 ```
 └── <Plugin name>
   ├── backend # backend resource directory
-  │   ├── node_modules
   │   ├── src
   │   │   └── index.ts
-  │   ├── package-lock.json
   │   ├── package.json
   │   └── tsconfig.json
   ├── config # plugin configuration
@@ -30,7 +28,6 @@ To provide a better and more integrated development experience, plugin projects 
   │   ├── public
   │   │   └── logo.svg # plugin Logo
   │   ├── browserslist
-  │   ├── package-lock.json
   │   ├── package.json
   │   └── tsconfig.json
   ├── workspace
@@ -41,6 +38,7 @@ To provide a better and more integrated development experience, plugin projects 
   │   └── plugin.sql
   ├── package-lock.json
   ├── package.json
+  ├── node_modules
   ├── README.md
 ```
 

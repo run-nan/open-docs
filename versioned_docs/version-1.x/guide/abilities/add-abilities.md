@@ -39,10 +39,32 @@ script-field-float@1.0.0
 script-id@1.0.0
 send-short-message@1.0.0
 simple-auth@1.0.0
-task-event-handler@1.0.0
+task-event-handler@1.0.0 (Ability does not match current system version)
 ```
 
 In the list, you can search for and select interface-related abilities or business open abilities through the arrow keys or enter the ability name.
+
+:::tip
+
+When logged in, the tool will prompt which abilities are not available according to the connected environment
+
+:::
+
+After selecting the ability version, if there are multiple templates for the ability version, you need to select a template.
+
+```
+? Please select a template: …
+1.0
+1.0-cron
+
+```
+
+If the selected ability must be bound to the template, you also need to bind the module according to the prompts.
+
+```
+? Please enter the module 'ones:global:modal' title you want to add: …
+
+```
 
 ## Examples
 

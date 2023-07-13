@@ -21,9 +21,11 @@ The following actions are completed during the packaging process:
 
 1. validating project directory structure or files status
 2. Checking module constraints
-3. Cleaning web & backend dist folders
-4. Building project dist files
-5. Generate plugin package
+3. Checking ability relate module
+4. Updating min_system_version in plugin.yaml
+5. Cleaning web & backend dist folders
+6. Building project dist files
+7. Generate plugin package
 
 After successful packaging, the console will output project related information.
 

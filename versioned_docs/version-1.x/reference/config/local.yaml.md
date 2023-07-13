@@ -24,6 +24,7 @@ local:
   web_service_ip: 127.0.0.1
   user_uuid: '********'
   log_in_local: false
+  log_level: info
   file_in_local: false
   mysql_in_local: false
   mysql_user_name: ''
@@ -139,6 +140,12 @@ Whether logs are recorded locally.
 :::note
 Logs are recorded on both local and open platforms.
 :::
+
+### log_level
+
+- Type: `'fatal' | 'error' | 'warning' | 'info' | 'debug'`
+
+Adjust console output verbosity. Default is 'info'.
 
 ### file_in_local
 

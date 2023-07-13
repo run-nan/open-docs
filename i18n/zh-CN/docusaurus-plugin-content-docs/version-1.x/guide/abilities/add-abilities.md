@@ -39,10 +39,32 @@ script-field-float@1.0.0
 script-id@1.0.0
 send-short-message@1.0.0
 simple-auth@1.0.0
-task-event-handler@1.0.0
+task-event-handler@1.0.0 (Ability does not match current system version)
 ```
 
 在列表中可以通过方向键或输入能力名称搜索并选择接口相关能力或业务开放能力。
+
+:::tip
+
+在已登录的情况下，工具会根据所连环境，提示哪些能力不可用
+
+:::
+
+选定能力版本后，如能力版本存在多模版还需选择模版
+
+```
+? Please select a template: …
+1.0
+1.0-cron
+
+```
+
+如果选定的能力必须和模版绑定使用，则还需按照提示绑定模块。
+
+```
+? Please enter the module 'ones:global:modal' title you want to add: …
+
+```
 
 ## 示例
 

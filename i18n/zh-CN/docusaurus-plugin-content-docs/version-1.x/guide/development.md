@@ -57,6 +57,8 @@ sidebar_position: 6
 ➜ npx op invoke run
   ✔ Validating command options
   ✔ Validating config/local.yaml fields
+  ✔ Checking ability relate module
+  ✔ Updating min_system_version in plugin.yaml
   ✔ Building plugin project Back-End dist files
   ✔ Initializing the plugin project front-end development server
   ✔ Initializing the node-host params

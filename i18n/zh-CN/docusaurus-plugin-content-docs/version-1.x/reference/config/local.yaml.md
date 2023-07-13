@@ -24,6 +24,7 @@ local:
   web_service_ip: 127.0.0.1
   user_uuid: '********'
   log_in_local: false
+  log_level: info
   file_in_local: false
   mysql_in_local: false
   mysql_user_name: ''
@@ -139,6 +140,12 @@ ONES 实例接口访问地址。
 :::note
 已废弃，本地与开放平台均会记录日志。
 :::
+
+### log_level
+
+- 类型: `'fatal' | 'error' | 'warning' | 'info' | 'debug'`
+
+调整控制台输出的级别，默认值为 `info`。
 
 ### file_in_local
 

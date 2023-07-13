@@ -5,12 +5,6 @@ description: A variety of capabilities are available to easily develop your ONES
 
 # Add ability
 
-:::tip
-
-To get the latest ability template, execute `npx op update template` first
-
-:::
-
 ## Overview
 
 If you want to customize some of the behaviors in ONES business module, we also provide you with a lot of "ability". These ability are the smallest units you can define and modify ONES, as well as the smallest units that can use and access ONES existing resources. The "slot" mentioned earlier is a pure frontend ability, which is not quite the same as what we are talking about now. The slot is the smallest unit in which you adjust and modify the ONES UI.
