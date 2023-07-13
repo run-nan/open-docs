@@ -677,8 +677,8 @@ interface TestcaseReportComponentInfo<T extends Record<string, any> = {}> {
 
 Get the current space information.
 
-- Added in: `v0.x.x+`
-- ONES Requirement: `v3.x.x+`
+- Added in: `v0.8.0+`
+- ONES Requirement: `v3.13.24+`
 
 #### Returns
 
@@ -699,8 +699,8 @@ interface WikiSpaceInfoType {
 
 Get the current page information.
 
-- Added in: `v0.x.x+`
-- ONES Requirement: `v3.x.x+`
+- Added in: `v0.11.0+`
+- ONES Requirement: `v3.14.0+`
 
 #### Returns
 

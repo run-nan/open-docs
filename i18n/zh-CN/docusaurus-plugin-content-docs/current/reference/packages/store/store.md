@@ -687,8 +687,8 @@ interface TestcaseReportComponentInfo<T extends Record<string, any> = {}> {
 
 获取当前访问的页面组信息。
 
-- 可用：`v0.x.x+`
-- ONES 要求：`v3.x.x+`
+- 可用：`v0.8.0+`
+- ONES 要求：`v3.13.24+`
 
 #### 返回
 
@@ -709,8 +709,8 @@ interface WikiSpaceInfoType {
 
 获取当前访问的页面的信息。
 
-- 可用：`v0.x.x+`
-- ONES 要求：`v3.x.x+`
+- 可用：`v0.11.0+`
+- ONES 要求：`v3.14.0+`
 
 #### 返回
 
