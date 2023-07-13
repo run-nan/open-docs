@@ -679,3 +679,91 @@ import Image from '@theme/IdealImage'
 「删除交付物」后置操作
 
 <Image img={require('./images/ones-deliverable-delete.png')} />
+
+### action:pre:ones:space:add
+
+#### 要求
+
+| ONES  |
+| :---: |
+| P8133 |
+
+「新建页面组」前置操作
+
+### action:post:ones:space:add
+
+#### 要求
+
+| ONES  |
+| :---: |
+| P8133 |
+
+「新建页面组」后置操作
+
+<Image img={require('./images/ones-space-add.png')} />
+
+### action:pre:ones:space:copy
+
+#### 要求
+
+| ONES  |
+| :---: |
+| P8133 |
+
+「复制页面组」前置操作
+
+### action:post:ones:space:copy
+
+#### 要求
+
+| ONES  |
+| :---: |
+| P8133 |
+
+「复制页面组」后置操作
+
+<Image img={require('./images/ones-space-copy.png')} />
+
+### action:pre:ones:space:update
+
+#### 要求
+
+| ONES  |
+| :---: |
+| P8133 |
+
+「更新页面组」前置操作
+
+### action:post:ones:space:update
+
+#### 要求
+
+| ONES  |
+| :---: |
+| P8133 |
+
+「更新页面组」后置操作
+
+<Image img={require('./images/ones-space-update.png')} />
+
+### action:pre:ones:space:delete
+
+#### 要求
+
+| ONES  |
+| :---: |
+| P8133 |
+
+「删除页面组」前置操作
+
+### action:post:ones:space:update
+
+#### 要求
+
+| ONES  |
+| :---: |
+| P8133 |
+
+「删除页面组」后置操作
+
+<Image img={require('./images/ones-space-delete.png')} />

@@ -680,3 +680,91 @@ Pre-action for deleting target deliverable.
 Post-action for deleting target deliverable.
 
 <Image img={require('./images/ones-deliverable-delete.png')} />
+
+### action:pre:ones:space:add
+
+#### Requirements
+
+| ONES  |
+| :---: |
+| P8133 |
+
+Pre-action for "Create space".
+
+### action:post:ones:space:add
+
+#### Requirements
+
+| ONES  |
+| :---: |
+| P8133 |
+
+Post-action for "Create space".
+
+<Image img={require('./images/ones-space-add.png')} />
+
+### action:pre:ones:space:copy
+
+#### Requirements
+
+| ONES  |
+| :---: |
+| P8133 |
+
+Pre-action for "Space Duplication".
+
+### action:post:ones:space:copy
+
+#### Requirements
+
+| ONES  |
+| :---: |
+| P8133 |
+
+Post-action for "Space Duplication".
+
+<Image img={require('./images/ones-space-copy.png')} />
+
+### action:pre:ones:space:update
+
+#### Requirements
+
+| ONES  |
+| :---: |
+| P8133 |
+
+Pre-action before updating the space's info.
+
+### action:post:ones:space:update
+
+#### Requirements
+
+| ONES  |
+| :---: |
+| P8133 |
+
+Post-action after updating the space's info.
+
+<Image img={require('./images/ones-space-update.png')} />
+
+### action:pre:ones:space:delete
+
+#### Requirements
+
+| ONES  |
+| :---: |
+| P8133 |
+
+Pre-action for "Delete space".
+
+### action:post:ones:space:update
+
+#### Requirements
+
+| ONES  |
+| :---: |
+| P8133 |
+
+Post-action for "Delete space".
+
+<Image img={require('./images/ones-space-delete.png')} />
