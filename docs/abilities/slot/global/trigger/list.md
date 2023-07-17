@@ -2,21 +2,14 @@ import Image from '@theme/IdealImage'
 
 # Trigger action list
 
-:::caution
-
-The following presentation omits the `action:pre` and `action:post` prefixes for ease of presentation and retrieval, please add your own prefixes according to your interception needs.
-
-The complete format is as follows:
-
-Intercept work item common attribute update **pre action**: `action:pre:ones:task:fields:update`
-
-Intercept work item common attribute **update action**: `ones:task:fields:update`
-
-:::
-
 ## ones:task:fields:update
 
 **ONES Requirement:** v3.10.20+
+
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:task:fields:update`
+- Post-interception: `action:post:ones:task:fields:update`
 
 Updating the issue's standard field except for the [status](#actionpostonestaskfieldstatusupdate).
 
@@ -25,6 +18,11 @@ Updating the issue's standard field except for the [status](#actionpostonestaskf
 ## ones:task:field:status:update
 
 **ONES Requirement:** v3.10.20+
+
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:task:field:status:update`
+- Post-interception: `action:post:ones:task:field:status:update`
 
 Updating the issue's status.
 
@@ -41,6 +39,11 @@ different from other standard fields.
 
 **ONES Requirement:** v3.10.20+
 
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:task:action:stdToStdIssueType`
+- Post-interception: `action:post:ones:task:action:stdToStdIssueType`
+
 The issue's "Change issue type".
 
 <Image img={require('./images/action-pre-ones-task-action-stdToStdIssueType.png')} />
@@ -48,6 +51,11 @@ The issue's "Change issue type".
 ## ones:task:action:stdToSubIssueType
 
 **ONES Requirement:** v3.10.20+
+
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:task:action:stdToSubIssueType`
+- Post-interception: `action:post:ones:task:action:stdToSubIssueType`
 
 The issue's "Convert to subissue".
 
@@ -57,6 +65,11 @@ The issue's "Convert to subissue".
 
 **ONES Requirement:** v3.10.20+
 
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:task:action:subToSubIssueType`
+- Post-interception: `action:post:ones:task:action:subToSubIssueType`
+
 The subissue's "Change subissue type".
 
 <Image img={require('./images/action-pre-ones-task-action-subToSubIssueType.png')} />
@@ -64,6 +77,11 @@ The subissue's "Change subissue type".
 ## ones:task:action:subToStdIssueType
 
 **ONES Requirement:** v3.10.20+
+
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:task:action:subToStdIssueType`
+- Post-interception: `action:post:ones:task:action:subToStdIssueType`
 
 The subissue's "Convert to issue".
 
@@ -73,6 +91,11 @@ The subissue's "Convert to issue".
 
 **ONES Requirement:** v3.11.25+
 
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:task:add`
+- Post-interception: `action:post:ones:task:add`
+
 The issue's "Create issue", "Create subissue", "Bulk create subissues".
 
 <Image img={require('./images/ones-task-add.png')} />
@@ -80,6 +103,11 @@ The issue's "Create issue", "Create subissue", "Bulk create subissues".
 ## ones:taskList:action:modifyIssueType
 
 **ONES Requirement:** v3.10.20+
+
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:taskList:action:modifyIssueType`
+- Post-interception: `action:post:ones:taskList:action:modifyIssueType`
 
 The issue list's "Bulk change issue types".
 
@@ -89,6 +117,11 @@ The issue list's "Bulk change issue types".
 
 **ONES Requirement:** v3.10.20+
 
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:taskList:action:stdToSubIssueType`
+- Post-interception: `action:post:ones:taskList:action:stdToSubIssueType`
+
 The issue list's "Bulk convert to subissues".
 
 <Image img={require('./images/action-pre-ones-taskList-action-stdToSubIssueType.png')} />
@@ -96,6 +129,11 @@ The issue list's "Bulk convert to subissues".
 ## ones:taskList:action:subToStdIssueType
 
 **ONES Requirement:** v3.10.20+
+
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:taskList:action:subToStdIssueType`
+- Post-interception: `action:post:ones:taskList:action:subToStdIssueType`
 
 The issue list's "Bulk convert into issues".
 
@@ -105,6 +143,11 @@ The issue list's "Bulk convert into issues".
 
 **ONES Requirement:** v3.10.20+
 
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:taskList:action:modifyFieldValues`
+- Post-interception: `action:post:ones:taskList:action:modifyFieldValues`
+
 The issue list's "Bulk change issue fields".
 
 <Image img={require('./images/action-pre-ones-taskList-action-modifyFieldValues.png')} />
@@ -112,6 +155,11 @@ The issue list's "Bulk change issue fields".
 ## ones:taskList:batchAdd
 
 **ONES Requirement:** v3.11.25+
+
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:taskList:batchAdd`
+- Post-interception: `action:post:ones:taskList:batchAdd`
 
 The issue list's "Bulk create issues".
 
@@ -121,6 +169,11 @@ The issue list's "Bulk create issues".
 
 **ONES Requirement:** v3.11.25+
 
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:project:add`
+- Post-interception: `action:post:ones:project:add`
+
 "Create project".
 
 <Image img={require('./images/ones-project-add.png')} />
@@ -128,6 +181,11 @@ The issue list's "Bulk create issues".
 ## ones:project:copy
 
 **ONES Requirement:** v3.11.25+
+
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:project:copy`
+- Post-interception: `action:post:ones:project:copy`
 
 "Duplicate from existing project".
 
@@ -137,6 +195,11 @@ The issue list's "Bulk create issues".
 
 **ONES Requirement:** v3.11.25+
 
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:project:update`
+- Post-interception: `action:post:ones:project:update`
+
 Updating the project info, for example, project name, project info, project status, project field, etc.
 
 <Image img={require('./images/ones-project-update.png')} />
@@ -145,6 +208,11 @@ Updating the project info, for example, project name, project info, project stat
 
 **ONES Requirement:** v3.11.25+
 
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:manhour:estimated:update`
+- Post-interception: `action:post:ones:manhour:estimated:update`
+
 "Time estimated" of "Worklog info" only if the worklog mode is the simple mode.
 
 <Image img={require('./images/ones-manhour-estimated-update.png')} />
@@ -152,6 +220,11 @@ Updating the project info, for example, project name, project info, project stat
 ## ones:manhour:remaining:update
 
 **ONES Requirement:** v3.11.25+
+
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:manhour:remaining:update`
+- Post-interception: `action:post:ones:manhour:remaining:update`
 
 "Time remaining" of "Worklog info".
 
@@ -167,6 +240,11 @@ In the different "Worklog mode", the data format that the Action received is dif
 
 **ONES Requirement:** v3.11.25+
 
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:manhour:add`
+- Post-interception: `action:post:ones:manhour:add`
+
 "Time estimated", "Log time".
 
 <Image img={require('./images/ones-manhour-add.png')} />
@@ -174,6 +252,11 @@ In the different "Worklog mode", the data format that the Action received is dif
 ## ones:manhour:update
 
 **ONES Requirement:** v3.11.25+
+
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:manhour:update`
+- Post-interception: `action:post:ones:manhour:update`
 
 "Modify time spent", "Modify member time estimated".
 
@@ -183,6 +266,11 @@ In the different "Worklog mode", the data format that the Action received is dif
 
 **ONES Requirement:** v3.11.25+
 
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:manhour:delete`
+- Post-interception: `action:post:ones:manhour:delete`
+
 "Delete member Time spent", "Delete member Time estimated".
 
 <Image img={require('./images/ones-manhour-delete.png')} />
@@ -190,6 +278,11 @@ In the different "Worklog mode", the data format that the Action received is dif
 ## ones:activity:add
 
 **ONES Requirement:** v3.11.25+
+
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:activity:add`
+- Post-interception: `action:post:ones:activity:add`
 
 "Create plan", "Create milestone".
 
@@ -199,6 +292,11 @@ In the different "Worklog mode", the data format that the Action received is dif
 
 **ONES Requirement:** v3.11.25+
 
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:activity:update`
+- Post-interception: `action:post:ones:activity:update`
+
 Updating the project plan and updating the milestone.
 
 <Image img={require('./images/ones-activity-update.png')} />
@@ -206,6 +304,11 @@ Updating the project plan and updating the milestone.
 ## ones:activity:delete
 
 **ONES Requirement:** v3.11.25+
+
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:activity:delete`
+- Post-interception: `action:post:ones:activity:delete`
 
 "Delete plan", "Delete milestone".
 
@@ -215,6 +318,11 @@ Updating the project plan and updating the milestone.
 
 **ONES Requirement:** v3.11.25+
 
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:activityRelationLink:add`
+- Post-interception: `action:post:ones:activityRelationLink:add`
+
 "Add predecessor" in the detail of a plan under "Project plan".
 
 <Image img={require('./images/activityRelationLink-add.png')} />
@@ -222,6 +330,11 @@ Updating the project plan and updating the milestone.
 ## ones:activityRelationLink:delete
 
 **ONES Requirement:** v3.11.25+
+
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:activityRelationLink:delete`
+- Post-interception: `action:post:ones:activityRelationLink:delete`
 
 "Delete dependency" of a predecessor in the detail of a plan under "Project plan".
 
@@ -231,6 +344,11 @@ Updating the project plan and updating the milestone.
 
 **ONES Requirement:** v3.11.25+
 
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:activityRelease:add`
+- Post-interception: `action:post:ones:activityRelease:add`
+
 "Create snapshot".
 
 <Image img={require('./images/ones-activityRelease-add.png')} />
@@ -238,6 +356,11 @@ Updating the project plan and updating the milestone.
 ## ones:activityRelease:update
 
 **ONES Requirement:** v3.11.25+
+
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:activityRelease:update`
+- Post-interception: `action:post:ones:activityRelease:update`
 
 Updating snapshot.
 
@@ -247,6 +370,11 @@ Updating snapshot.
 
 **ONES Requirement:** v3.11.25+
 
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:deliverable:add`
+- Post-interception: `action:post:ones:deliverable:add`
+
 "Create target deliverable".
 
 <Image img={require('./images/ones-deliverable-add.png')} />
@@ -254,6 +382,11 @@ Updating snapshot.
 ## ones:deliverable:update
 
 **ONES Requirement:** v3.11.25+
+
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:deliverable:update`
+- Post-interception: `action:post:ones:deliverable:update`
 
 Updating target deliverable.
 
@@ -263,6 +396,11 @@ Updating target deliverable.
 
 **ONES Requirement:** v3.11.25+
 
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:deliverable:delete`
+- Post-interception: `action:post:ones:deliverable:delete`
+
 Deleting target deliverable.
 
 <Image img={require('./images/ones-deliverable-delete.png')} />
@@ -270,6 +408,11 @@ Deleting target deliverable.
 ## ones:space:add
 
 **ONES Requirement:** P8133
+
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:space:add`
+- Post-interception: `action:post:ones:space:add`
 
 "Create space".
 
@@ -279,6 +422,11 @@ Deleting target deliverable.
 
 **ONES Requirement:** P8133
 
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:space:copy`
+- Post-interception: `action:post:ones:space:copy`
+
 "Space Duplication".
 
 <Image img={require('./images/ones-space-copy.png')} />
@@ -287,13 +435,23 @@ Deleting target deliverable.
 
 **ONES Requirement:** P8133
 
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:space:update`
+- Post-interception: `action:post:ones:space:update`
+
 Updating the space's info.
 
 <Image img={require('./images/ones-space-update.png')} />
 
-## ones:space:update
+## ones:space:delete
 
 **ONES Requirement:** P8133
+
+**Action Type:**
+
+- Pre-interception: `action:pre:ones:space:delete`
+- Post-interception: `action:post:ones:space:delete`
 
 "Delete space".
 
