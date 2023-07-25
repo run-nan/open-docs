@@ -1,0 +1,184 @@
+openapi: 3.0.1
+info:
+  title: Issue worklog
+  version: '1.0'
+  description: |
+    This resource represents issue worklog in Simple Mode. Use it to get, create, update, and delete issue worklog.
+servers:
+  - url: https://your-domain/openapi/v1
+  - url: http://your-domain/openapi/v1
+paths:
+  /project/issues/{issueID}/workLog/simple/timesEstimated:
+    post:
+      summary: Estimated time in Simple Mode.
+      operationId: estimated-time-of-issues
+      description: Estimated time in Simple Mode.
+      security:
+        - oauth2:
+            - write:project:issue-timeEstimated
+      parameters:
+        - name: teamID
+          in: query
+          description: The ID of the team.
+          required: true
+          schema:
+            type: string
+        - name: issueID
+          in: path
+          description: The issue ID.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Estimated time to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimesEstimatedRequest'
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimesEstimatedResponse'
+        401:
+          description: Returned if the authentication credentials are incorrect or missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse401'
+        403:
+          description: Returns if the scope check fails.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse403'
+        404:
+          description: Returned if the resource object was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse404'
+        500:
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse500'
+components:
+  schemas:
+    TimesEstimatedRequest:
+      type: object
+      properties:
+        hours:
+          type: integer
+          description: Estimated time,unit is hour.
+    TimesEstimatedResponse:
+      description: 'The result of estimated time.'
+      type: object
+      properties:
+        result:
+          type: string
+          description: The result of this request.
+        errorCode:
+          type: string
+          description: The error code of this request.
+        errorMsg:
+          type: string
+          description: Error message for this request.
+      example:
+        - result: SUCCESS
+        - result: FAIL
+          errorCode: Forbidden
+          errorMsg: 'Unable to times estimated in summary mode'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Issue'
+        - result: FAIL
+          errorCode: AccessDenied
+          errorMsg: 'AccessDenied Issue'
+        - result: FAIL
+          errorCode: 'Internal Server Error'
+          errorMsg: 'Internal Server Error'
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied super_administrator'
+    BadResponse500:
+      description: 'Internal Server Error.'
+      type: object
+      properties:
+        result:
+          type: string
+          description: The result of this request.
+        errorCode:
+          type: string
+          description: The error code of this request.
+        errorMsg:
+          type: string
+          description: Error message for this request.
+      example:
+        result: FAIL
+        errorCode: 'Internal Server Error'
+        errorMsg: 'Internal Server Error'
+    BadResponse401:
+      description: 'Access token is invalid.'
+      type: object
+      properties:
+        result:
+          type: string
+          description: The result of this request.
+        errorCode:
+          type: string
+          description: The error code of this request.
+        errorMsg:
+          type: string
+          description: Error message for this request.
+      example:
+        result: FAIL
+        errorCode: Unauthorized
+        errorMsg: 'Access token is invalid'
+    BadResponse403:
+      description: 'Scope is invalid'
+      type: object
+      properties:
+        result:
+          type: string
+          description: The result of this request.
+        errorCode:
+          type: string
+          description: The error code of this request.
+        errorMsg:
+          type: string
+          description: Error message for this request.
+      example:
+        result: FAIL
+        errorCode: Forbidden
+        errorMsg: 'Scope is invalid'
+    BadResponse404:
+      description: 'Not Found.'
+      type: object
+      properties:
+        result:
+          type: string
+          description: The result of this request.
+        errorCode:
+          type: string
+          description: The error code of this request.
+        errorMsg:
+          type: string
+          description: Error message for this request.
+      example:
+        result: FAIL
+        errorCode: NotFound
+        errorMsg: 'Not Found'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://your-domain/oauth2/authorize
+          tokenUrl: https://your-domain/oauth2/token
+          scopes:
+            write:project:issue-timeEstimated: Add, edit, delete issue
+            read:project:issue: Access issue information
