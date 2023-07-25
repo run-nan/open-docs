@@ -11,7 +11,7 @@ paths:
   /project/issues/{issueID}/workLog/simple/timesEstimated:
     post:
       summary: Estimated time in Simple Mode.
-      operationId: estimated-time-of-issues
+      operationId: 01-estimated-time-of-issues
       description: Estimated time in Simple Mode.
       security:
         - oauth2:
@@ -30,7 +30,7 @@ paths:
           schema:
             type: string
       requestBody:
-        description: Estimated time to be created.
+        description: Estimated time in Simple Mode.
         content:
           application/json:
             schema:
@@ -66,16 +66,540 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse500'
+  /project/issues/{issueID}/workLog/simple/timesRemaining:
+    post:
+      summary: Update remaining time in Simple Mode.
+      operationId: 02-update-remaining-time-of-issues
+      description: Update remaining time in Simple Mode.
+      security:
+        - oauth2:
+            - write:project:issue-timeRemaining
+      parameters:
+        - name: teamID
+          in: query
+          description: The ID of the team.
+          required: true
+          schema:
+            type: string
+        - name: issueID
+          in: path
+          description: The issue ID.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Remaining time to be updated.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimesRemainingRequest'
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimesRemainingResponse'
+        401:
+          description: Returned if the authentication credentials are incorrect or missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse401'
+        403:
+          description: Returns if the scope check fails.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse403'
+        404:
+          description: Returned if the resource object was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse404'
+        500:
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse500'
+  /project/issues/{issueID}/workLog/simple/timesSpent:
+    get:
+      summary: Get a list of issues worklog in Simple Mode.
+      operationId: 03-get-a-list-of-issues-worklog
+      description: Get a list of issues worklog in Simple Mode.
+      security:
+        - oauth2:
+            - read:project:issue-timeSpent
+      parameters:
+        - name: teamID
+          in: query
+          description: The ID of the team.
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: The number of test case libraries returned by this request.
+          schema:
+            type: integer
+        - name: cursor
+          in: query
+          description: The starting location of this request.
+          schema:
+            type: string
+        - name: issueID
+          in: path
+          description: The issue ID.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimesSpentListResponse'
+        401:
+          description: Returned if the authentication credentials are incorrect or missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse401'
+        403:
+          description: Returns if the scope check fails.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse403'
+        404:
+          description: Returned if the resource object was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse404'
+        500:
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse500'
+    post:
+      summary: Add spent times in Simple Mode.
+      operationId: 04-add-spent-time-of-issues
+      description: Add spent times in Simple Mode.
+      security:
+        - oauth2:
+            - write:project:issue-timeSpent
+      parameters:
+        - name: teamID
+          in: query
+          description: The ID of the team.
+          required: true
+          schema:
+            type: string
+        - name: issueID
+          in: path
+          description: The issue ID.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Add spent times to be updated.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddTimesSpentRequest'
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddTimesSpentResponse'
+        401:
+          description: Returned if the authentication credentials are incorrect or missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse401'
+        403:
+          description: Returns if the scope check fails.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse403'
+        404:
+          description: Returned if the resource object was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse404'
+        500:
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse500'
+  /project/issues/{issueID}/workLog/simple/timesSpent/{timesSpentID}:
+    put:
+      summary: Update spent times in Simple Mode.
+      operationId: 05-update-spent-time-of-issues
+      description: Update spent times in Simple Mode.
+      security:
+        - oauth2:
+            - write:project:issue-timeSpent
+      parameters:
+        - name: teamID
+          in: query
+          description: The ID of the team.
+          required: true
+          schema:
+            type: string
+        - name: issueID
+          in: path
+          description: The issue ID.
+          required: true
+          schema:
+            type: string
+        - name: timesSpentID
+          in: path
+          description: The timesSpent ID.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update spent times to be updated.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTimesSpentRequest'
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateTimesSpentResponse'
+        401:
+          description: Returned if the authentication credentials are incorrect or missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse401'
+        403:
+          description: Returns if the scope check fails.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse403'
+        404:
+          description: Returned if the resource object was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse404'
+        500:
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse500'
+    delete:
+      summary: Delete spent times in Simple Mode.
+      operationId: 06-delete-spent-time-of-issues
+      description: Delete spent times in Simple Mode.
+      security:
+        - oauth2:
+            - write:project:issue-timeSpent
+      parameters:
+        - name: teamID
+          in: query
+          description: The ID of the team.
+          required: true
+          schema:
+            type: string
+        - name: issueID
+          in: path
+          description: The issue ID.
+          required: true
+          schema:
+            type: string
+        - name: timesSpentID
+          in: path
+          description: The timesSpent ID.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteTimesSpentResponse'
+        401:
+          description: Returned if the authentication credentials are incorrect or missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse401'
+        403:
+          description: Returns if the scope check fails.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse403'
+        404:
+          description: Returned if the resource object was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse404'
+        500:
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse500'
+    get:
+      summary: Get a spent times in Simple Mode.
+      operationId: 07-get-spent-time-of-issues
+      description: Get a spent times in Simple Mode.
+      security:
+        - oauth2:
+            - read:project:issue-timeSpent
+      parameters:
+        - name: teamID
+          in: query
+          description: The ID of the team.
+          required: true
+          schema:
+            type: string
+        - name: issueID
+          in: path
+          description: The issue ID.
+          required: true
+          schema:
+            type: string
+        - name: timesSpentID
+          in: path
+          description: The timesSpent ID.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTimesSpentResponse'
+        401:
+          description: Returned if the authentication credentials are incorrect or missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse401'
+        403:
+          description: Returns if the scope check fails.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse403'
+        404:
+          description: Returned if the resource object was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse404'
+        500:
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse500'
 components:
   schemas:
+    GetTimesSpentResponse:
+      description: 'The result of get a spent time'
+      type: object
+      properties:
+        result:
+          type: string
+          description: The result of this request.
+        data:
+          type: object
+          description: The result of this request.
+        errorCode:
+          type: string
+          description: The error code of this request.
+        errorMsg:
+          type: string
+          description: Error message for this request.
+      example:
+        - result: SUCCESS
+          data:
+            hours: 1
+            description: 'Sample Description'
+            startTime: 1689055200
+            owner: UWQR89ji
+            id: kkoi976k
+    DeleteTimesSpentResponse:
+      description: 'The result of delete spent time'
+      type: object
+      properties:
+        result:
+          type: string
+          description: The result of this request.
+        errorCode:
+          type: string
+          description: The error code of this request.
+        errorMsg:
+          type: string
+          description: Error message for this request.
+      example:
+        - result: SUCCESS
+    UpdateTimesSpentRequest:
+      description: 'The request of update spent time'
+      type: object
+      properties:
+        hours:
+          type: integer
+          description: The spent time.
+        description:
+          type: string
+          description: The description of spent time.
+        startTime:
+          type: integer
+          description: The start time of spent time.
+        owner:
+          type: object
+          description: The owner of spent time.
+      example:
+        hours: 1
+        description: 'Sample Description'
+        startTime: 1689055200
+        owner: UWQR89ji
+    UpdateTimesSpentResponse:
+      description: 'The result of update spent time'
+      type: object
+      properties:
+        result:
+          type: string
+          description: The result of this request.
+        data:
+          type: object
+          description: The result of this request.
+        errorCode:
+          type: string
+          description: The error code of this request.
+        errorMsg:
+          type: string
+          description: Error message for this request.
+      example:
+        - result: SUCCESS
+          data:
+            hours: 1
+            description: 'Sample Description'
+            startTime: 1689055200
+            owner: UWQR89ji
+            id: kkoi976k
+    AddTimesSpentRequest:
+      description: 'The request of add spent time'
+      type: object
+      properties:
+        hours:
+          type: integer
+          description: The spent time.
+        description:
+          type: string
+          description: The description of spent time.
+        startTime:
+          type: integer
+          description: The start time of spent time.
+        owner:
+          type: object
+          description: The owner of spent time.
+      example:
+        hours: 1
+        description: 'Sample Description'
+        startTime: 1689055200
+        owner: UWQR89ji
+    AddTimesSpentResponse:
+      description: 'The result of add spent time'
+      type: object
+      properties:
+        result:
+          type: string
+          description: The result of this request.
+        data:
+          type: object
+          description: The result of this request.
+        errorCode:
+          type: string
+          description: The error code of this request.
+        errorMsg:
+          type: string
+          description: Error message for this request.
+      example:
+        - result: SUCCESS
+          data:
+            hours: 1
+            description: 'Sample Description'
+            startTime: 1689055200
+            owner: UWQR89ji
+            id: kkoi976k
+    TimesSpentListResponse:
+      description: 'The result of estimated time.'
+      type: object
+      properties:
+        result:
+          type: string
+          description: The result of this request.
+        data:
+          type: object
+          description: The result of this request.
+        errorCode:
+          type: string
+          description: The error code of this request.
+        errorMsg:
+          type: string
+          description: Error message for this request.
+      example:
+        - result: SUCCESS
+          data:
+            list:
+              - description: 'Sample Description 1'
+                hours: 1
+                owner:
+                  id: 'xx'
+                  name: 'xx'
+                startTime: 1689055200
+              - description: 'Sample Description 2'
+                hours: 2
+                owner:
+                  id: 'yy'
+                  name: 'yy'
+                startTime: 1689055300
+            pageInfo:
+              count: 2
+              endCursor: 'sample_end_cursor'
+              hasNextPage: false
+              startCursor: 'sample_start_cursor'
+              totalCount: 2
     TimesEstimatedRequest:
       type: object
       properties:
         hours:
           type: integer
           description: Estimated time,unit is hour.
+      example:
+        hours: 1
     TimesEstimatedResponse:
-      description: 'The result of estimated time.'
+      description: 'The result of estimated time'
       type: object
       properties:
         result:
@@ -104,8 +628,31 @@ components:
         - result: FAIL
           errorCode: PermissionDenied
           errorMsg: 'PermissionDenied super_administrator'
+    TimesRemainingRequest:
+      type: object
+      properties:
+        hours:
+          type: integer
+          description: Remaining time,unit is hour.
+      example:
+        hours: 1
+    TimesRemainingResponse:
+      description: 'The result of update remaining time'
+      type: object
+      properties:
+        result:
+          type: string
+          description: The result of this request.
+        errorCode:
+          type: string
+          description: The error code of this request.
+        errorMsg:
+          type: string
+          description: Error message for this request.
+      example:
+        - result: SUCCESS
     BadResponse500:
-      description: 'Internal Server Error.'
+      description: 'Internal Server Error'
       type: object
       properties:
         result:
@@ -122,7 +669,7 @@ components:
         errorCode: 'Internal Server Error'
         errorMsg: 'Internal Server Error'
     BadResponse401:
-      description: 'Access token is invalid.'
+      description: 'Access token is invalid'
       type: object
       properties:
         result:
@@ -156,7 +703,7 @@ components:
         errorCode: Forbidden
         errorMsg: 'Scope is invalid'
     BadResponse404:
-      description: 'Not Found.'
+      description: 'Not Found'
       type: object
       properties:
         result:
@@ -181,4 +728,4 @@ components:
           tokenUrl: https://your-domain/oauth2/token
           scopes:
             write:project:issue-timeEstimated: Add, edit, delete issue
-            read:project:issue: Access issue information
+            write:project:issue-timeRemaining: Add, edit, delete issue
