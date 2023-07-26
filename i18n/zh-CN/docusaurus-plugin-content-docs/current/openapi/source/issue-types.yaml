@@ -96,7 +96,6 @@ components:
         endCursor:
           type: string
           description: 本页最后一个光标，用于翻页
-            backwards.
         endPos:
           type: integer
           description: 本页最后一个位置
@@ -106,7 +105,6 @@ components:
         startCursor:
           type: string
           description: 本页第一个光标，用于翻页
-            backwards.
         startPos:
           type: integer
           description: 本页第一个位置

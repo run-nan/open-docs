@@ -1,18 +1,18 @@
 openapi: 3.0.1
 info:
-  title: Issue worklog
+  title: Simple mode issue worklog
   version: '1.0'
   description: |
-    This resource represents issue worklog in Simple Mode. Use it to get, create, update, and delete issue worklog.
+    This resource represents issue worklog in simple mode. Use it to get, create, update, and delete issue worklog.
 servers:
   - url: https://your-domain/openapi/v1
   - url: http://your-domain/openapi/v1
 paths:
   /project/issues/{issueID}/workLog/simple/timesEstimated:
     post:
-      summary: Estimated time in Simple Mode.
+      summary: Estimated time in simple mode
       operationId: 01-estimated-time-of-issues
-      description: Estimated time in Simple Mode.
+      description: Estimated time in simple mode.
       security:
         - oauth2:
             - write:project:issue-timeEstimated
@@ -30,7 +30,7 @@ paths:
           schema:
             type: string
       requestBody:
-        description: Estimated time in Simple Mode.
+        description: Estimated time in simple mode.
         content:
           application/json:
             schema:
@@ -68,9 +68,9 @@ paths:
                 $ref: '#/components/schemas/BadResponse500'
   /project/issues/{issueID}/workLog/simple/timesRemaining:
     post:
-      summary: Update remaining time in Simple Mode.
+      summary: Update remaining time in simple mode
       operationId: 02-update-remaining-time-of-issues
-      description: Update remaining time in Simple Mode.
+      description: Update remaining time in simple mode.
       security:
         - oauth2:
             - write:project:issue-timeRemaining
@@ -126,9 +126,9 @@ paths:
                 $ref: '#/components/schemas/BadResponse500'
   /project/issues/{issueID}/workLog/simple/timesSpent:
     get:
-      summary: Get a list of issues worklog in Simple Mode.
+      summary: Get a list of issues worklog in simple mode
       operationId: 03-get-a-list-of-issues-worklog
-      description: Get a list of issues worklog in Simple Mode.
+      description: Get a list of issues worklog in simple mode.
       security:
         - oauth2:
             - read:project:issue-timeSpent
@@ -187,9 +187,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/BadResponse500'
     post:
-      summary: Add spent times in Simple Mode.
+      summary: Add spent times in simple mode
       operationId: 04-add-spent-time-of-issues
-      description: Add spent times in Simple Mode.
+      description: Add spent times in simple mode.
       security:
         - oauth2:
             - write:project:issue-timeSpent
@@ -245,9 +245,9 @@ paths:
                 $ref: '#/components/schemas/BadResponse500'
   /project/issues/{issueID}/workLog/simple/timesSpent/{timesSpentID}:
     put:
-      summary: Update spent times in Simple Mode.
+      summary: Update spent times in simple mode
       operationId: 05-update-spent-time-of-issues
-      description: Update spent times in Simple Mode.
+      description: Update spent times in simple mode.
       security:
         - oauth2:
             - write:project:issue-timeSpent
@@ -308,9 +308,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/BadResponse500'
     delete:
-      summary: Delete spent times in Simple Mode.
+      summary: Delete spent times in simple mode
       operationId: 06-delete-spent-time-of-issues
-      description: Delete spent times in Simple Mode.
+      description: Delete spent times in simple mode.
       security:
         - oauth2:
             - write:project:issue-timeSpent
@@ -365,9 +365,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/BadResponse500'
     get:
-      summary: Get a spent times in Simple Mode.
+      summary: Get a spent times in simple mode
       operationId: 07-get-spent-time-of-issues
-      description: Get a spent times in Simple Mode.
+      description: Get a spent times in simple mode.
       security:
         - oauth2:
             - read:project:issue-timeSpent
