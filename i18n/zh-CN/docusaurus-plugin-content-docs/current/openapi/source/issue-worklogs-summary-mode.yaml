@@ -1,422 +1,485 @@
 openapi: 3.0.1
 info:
-  title: Simple mode issue worklog
+  title: Summary mode issue worklog
   version: '1.0'
   description: |
-    This resource represents issue worklog in simple mode. Use it to get, create, update, and delete issue worklog.
+    此资源代表工作项工时。使用它来获取、创建、更新和删除工作项工时。
 servers:
   - url: https://your-domain/openapi/v1
   - url: http://your-domain/openapi/v1
 paths:
-  /project/issues/{issueID}/workLog/simple/timesEstimated:
+  /project/issues/{issueID}/workLog/summary/timesEstimated:
     post:
-      summary: Estimated time in simple mode
-      operationId: 01-estimated-time-of-issues
-      description: Estimated time in simple mode.
+      summary: 汇总模式添加工作项预估工时
+      operationId: 01-add-estimated-time-of-issues
+      description: 汇总模式添加工作项预估工时
       security:
         - oauth2:
             - write:project:issue-timeEstimated
       parameters:
         - name: teamID
           in: query
-          description: The ID of the team.
+          description: 团队ID
           required: true
           schema:
             type: string
         - name: issueID
           in: path
-          description: The issue ID.
+          description: 工作项ID
           required: true
           schema:
             type: string
       requestBody:
-        description: Estimated time in simple mode.
+        description: 汇总模式添加工作项预估工时的请求参数
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TimesEstimatedRequest'
+              $ref: '#/components/schemas/AddTimesEstimatedRequest'
       responses:
         200:
-          description: Request is successful.
+          description: 请求成功
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TimesEstimatedResponse'
+                $ref: '#/components/schemas/AddTimesEstimatedResponse'
         401:
-          description: Returned if the authentication credentials are incorrect or missing.
+          description: 如果身份验证凭据不正确或丢失，则返回
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse401'
         403:
-          description: Returns if the scope check fails.
+          description: 如果scope检验不通过，则返回
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse403'
         404:
-          description: Returned if the resource object was not found.
+          description: 如果未找到资源对象，则返回
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse404'
         500:
-          description: Internal Server Error.
+          description: 内部服务器错误
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse500'
-  /project/issues/{issueID}/workLog/simple/timesRemaining:
-    post:
-      summary: Update remaining time in simple mode
-      operationId: 02-update-remaining-time-of-issues
-      description: Update remaining time in simple mode.
+  /project/issues/{issueID}/workLog/summary/timesEstimated/{timesEstimatedID}:
+    put:
+      summary: 汇总模式修改工作项预估工时
+      operationId: 02-update-estimated-time-of-issues
+      description: 汇总模式修改工作项预估工时
       security:
         - oauth2:
-            - write:project:issue-timeRemaining
+            - write:project:issue-timeEstimated
       parameters:
         - name: teamID
           in: query
-          description: The ID of the team.
+          description: 团队ID
           required: true
           schema:
             type: string
         - name: issueID
           in: path
-          description: The issue ID.
+          description: 工作项ID
+          required: true
+          schema:
+            type: string
+        - name: timesEstimatedID
+          in: path
+          description: 预估工时ID
           required: true
           schema:
             type: string
       requestBody:
-        description: Remaining time to be updated.
+        description: 汇总模式修改工作项预估工时的请求参数
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TimesRemainingRequest'
+              $ref: '#/components/schemas/UpdateTimesEstimatedRequest'
       responses:
         200:
-          description: Request is successful.
+          description: 请求成功
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TimesRemainingResponse'
+                $ref: '#/components/schemas/UpdateTimesEstimatedResponse'
         401:
-          description: Returned if the authentication credentials are incorrect or missing.
+          description: 如果身份验证凭据不正确或丢失，则返回
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse401'
         403:
-          description: Returns if the scope check fails.
+          description: 如果scope检验不通过，则返回
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse403'
         404:
-          description: Returned if the resource object was not found.
+          description: 如果未找到资源对象，则返回
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse404'
         500:
-          description: Internal Server Error.
+          description: 内部服务器错误
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse500'
-  /project/issues/{issueID}/workLog/simple/timesSpent:
+    delete:
+      summary: 汇总模式删除工作项预估工时
+      operationId: 03-delete-estimated-time-of-issues
+      description: 汇总模式删除工作项预估工时
+      security:
+        - oauth2:
+            - write:project:issue-timeEstimated
+      parameters:
+        - name: teamID
+          in: query
+          description: 团队ID
+          required: true
+          schema:
+            type: string
+        - name: issueID
+          in: path
+          description: 工作项ID
+          required: true
+          schema:
+            type: string
+        - name: timesEstimatedID
+          in: path
+          description: 预估工时ID
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteTimesEstimatedResponse'
+        401:
+          description: 如果身份验证凭据不正确或丢失，则返回
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse401'
+        403:
+          description: 如果scope检验不通过，则返回
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse403'
+        404:
+          description: 如果未找到资源对象，则返回
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse404'
+        500:
+          description: 内部服务器错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse500'
+  /project/issues/{issueID}/workLog/summary/timesSpent:
     get:
-      summary: Get a list of issues worklog in simple mode
-      operationId: 03-get-a-list-of-issues-worklog
-      description: Get a list of issues worklog in simple mode.
+      summary: 汇总模式工作项工时列表
+      operationId: 04-get-a-list-of-issues-worklog
+      description: 汇总模式工作项工时列表
       security:
         - oauth2:
             - read:project:issue-timeSpent
       parameters:
         - name: teamID
           in: query
-          description: The ID of the team.
+          description: 团队ID
           required: true
           schema:
             type: string
         - name: limit
           in: query
-          description: The number of test case libraries returned by this request.
+          description: 本次请求要返回的工作项工时数量
           schema:
             type: integer
         - name: cursor
           in: query
-          description: The starting location of this request.
+          description: 本次请求的起始位置
           schema:
             type: string
         - name: issueID
           in: path
-          description: The issue ID.
+          description: 工作项ID
           required: true
           schema:
             type: string
       responses:
         200:
-          description: Request is successful.
+          description: 请求成功
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TimesSpentListResponse'
         401:
-          description: Returned if the authentication credentials are incorrect or missing.
+          description: 如果身份验证凭据不正确或丢失，则返回
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse401'
         403:
-          description: Returns if the scope check fails.
+          description: 如果scope检验不通过，则返回
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse403'
         404:
-          description: Returned if the resource object was not found.
+          description: 如果未找到资源对象，则返回
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse404'
         500:
-          description: Internal Server Error.
+          description: 内部服务器错误
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse500'
     post:
-      summary: Add spent times in simple mode
-      operationId: 04-add-spent-time-of-issues
-      description: Add spent times in simple mode.
+      summary: 汇总模式添加工作项工时
+      operationId: 05-add-spent-time-of-issues
+      description: 汇总模式添加工作项工时
       security:
         - oauth2:
             - write:project:issue-timeSpent
       parameters:
         - name: teamID
           in: query
-          description: The ID of the team.
+          description: 团队ID
           required: true
           schema:
             type: string
         - name: issueID
           in: path
-          description: The issue ID.
+          description: 工作项ID
           required: true
           schema:
             type: string
       requestBody:
-        description: Add spent times to be updated.
+        description: 汇总模式添加工作项工时的请求参数
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/AddTimesSpentRequest'
       responses:
         200:
-          description: Request is successful.
+          description: 请求成功
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddTimesSpentResponse'
         401:
-          description: Returned if the authentication credentials are incorrect or missing.
+          description: 如果身份验证凭据不正确或丢失，则返回
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse401'
         403:
-          description: Returns if the scope check fails.
+          description: 如果scope检验不通过，则返回
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse403'
         404:
-          description: Returned if the resource object was not found.
+          description: 如果未找到资源对象，则返回
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse404'
         500:
-          description: Internal Server Error.
+          description: 内部服务器错误
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse500'
-  /project/issues/{issueID}/workLog/simple/timesSpent/{timesSpentID}:
+  /project/issues/{issueID}/workLog/summary/timesSpent/{timesSpentID}:
     put:
-      summary: Update spent times in simple mode
-      operationId: 05-update-spent-time-of-issues
-      description: Update spent times in simple mode.
+      summary: 汇总模式修改工作项工时
+      operationId: 06-update-spent-time-of-issues
+      description: 汇总模式修改工作项工时
       security:
         - oauth2:
             - write:project:issue-timeSpent
       parameters:
         - name: teamID
           in: query
-          description: The ID of the team.
+          description: 团队ID
           required: true
           schema:
             type: string
         - name: issueID
           in: path
-          description: The issue ID.
+          description: 工作项ID
           required: true
           schema:
             type: string
         - name: timesSpentID
           in: path
-          description: The timesSpent ID.
+          description: 工时ID
           required: true
           schema:
             type: string
       requestBody:
-        description: Update spent times to be updated.
+        description: 汇总模式修改工作项工时的请求参数
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateTimesSpentRequest'
       responses:
         200:
-          description: Request is successful.
+          description: 请求成功
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/UpdateTimesSpentResponse'
         401:
-          description: Returned if the authentication credentials are incorrect or missing.
+          description: 如果身份验证凭据不正确或丢失，则返回
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse401'
         403:
-          description: Returns if the scope check fails.
+          description: 如果scope检验不通过，则返回
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse403'
         404:
-          description: Returned if the resource object was not found.
+          description: 如果未找到资源对象，则返回
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse404'
         500:
-          description: Internal Server Error.
+          description: 内部服务器错误
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse500'
     delete:
-      summary: Delete spent times in simple mode
-      operationId: 06-delete-spent-time-of-issues
-      description: Delete spent times in simple mode.
+      summary: 汇总模式删除工作项工时
+      operationId: 07-delete-spent-time-of-issues
+      description: 汇总模式删除工作项工时
       security:
         - oauth2:
             - write:project:issue-timeSpent
       parameters:
         - name: teamID
           in: query
-          description: The ID of the team.
+          description: 团队ID
           required: true
           schema:
             type: string
         - name: issueID
           in: path
-          description: The issue ID.
+          description: 工作项ID
           required: true
           schema:
             type: string
         - name: timesSpentID
           in: path
-          description: The timesSpent ID.
+          description: 工时ID
           required: true
           schema:
             type: string
       responses:
         200:
-          description: Request is successful.
+          description: 请求成功
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteTimesSpentResponse'
         401:
-          description: Returned if the authentication credentials are incorrect or missing.
+          description: 如果身份验证凭据不正确或丢失，则返回
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse401'
         403:
-          description: Returns if the scope check fails.
+          description: 如果scope检验不通过，则返回
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse403'
         404:
-          description: Returned if the resource object was not found.
+          description: 如果未找到资源对象，则返回
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse404'
         500:
-          description: Internal Server Error.
+          description: 内部服务器错误
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse500'
     get:
-      summary: Get a spent times in simple mode
-      operationId: 07-get-spent-time-of-issues
-      description: Get a spent times in simple mode.
+      summary: 汇总模式工作项工时详情
+      operationId: 08-get-spent-time-of-issues
+      description: 汇总模式获取工作项工时详情
       security:
         - oauth2:
             - read:project:issue-timeSpent
       parameters:
         - name: teamID
           in: query
-          description: The ID of the team.
+          description: 团队ID
           required: true
           schema:
             type: string
         - name: issueID
           in: path
-          description: The issue ID.
+          description: 工作项ID
           required: true
           schema:
             type: string
         - name: timesSpentID
           in: path
-          description: The timesSpent ID.
+          description: 工时ID
           required: true
           schema:
             type: string
       responses:
         200:
-          description: Request is successful.
+          description: 请求成功
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetTimesSpentResponse'
         401:
-          description: Returned if the authentication credentials are incorrect or missing.
+          description: 如果身份验证凭据不正确或丢失，则返回
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse401'
         403:
-          description: Returns if the scope check fails.
+          description: 如果scope检验不通过，则返回
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse403'
         404:
-          description: Returned if the resource object was not found.
+          description: 如果未找到资源对象，则返回
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse404'
         500:
-          description: Internal Server Error.
+          description: 内部服务器错误
           content:
             application/json:
               schema:
@@ -424,21 +487,21 @@ paths:
 components:
   schemas:
     GetTimesSpentResponse:
-      description: 'The result of get a spent time'
+      description: 获取汇总模式下的工作项工时详情
       type: object
       properties:
         result:
           type: string
-          description: The result of this request.
+          description: 本次请求结果,SUCCESS|FAIL
         data:
           type: object
-          description: The result of this request.
+          description: 本次请求返回的数据
         errorCode:
           type: string
-          description: The error code of this request.
+          description: 本次请求错误码
         errorMsg:
           type: string
-          description: Error message for this request.
+          description: 本次请求错误信息
       example:
         - result: SUCCESS
           data:
@@ -448,57 +511,57 @@ components:
             owner: UWQR89ji
             id: kkoi976k
     DeleteTimesSpentResponse:
-      description: 'The result of delete spent time'
+      description: 汇总模式下删除工作项工时的返回结果
       type: object
       properties:
         result:
           type: string
-          description: The result of this request.
+          description: 本次请求结果,SUCCESS|FAIL
         errorCode:
           type: string
-          description: The error code of this request.
+          description: 本次请求错误码
         errorMsg:
           type: string
-          description: Error message for this request.
+          description: 本次请求错误信息
       example:
         - result: SUCCESS
     UpdateTimesSpentRequest:
-      description: 'The request of update spent time'
+      description: 汇总模式下更新工作项工时的请求参数
       type: object
       properties:
         hours:
           type: integer
-          description: The spent time,unit is hour.
+          description: 工时，单位（小时）
         description:
           type: string
-          description: The description of spent time.
+          description: 工时的描述
         startTime:
           type: integer
-          description: The start time of spent time.
+          description: 工时开始时间，单位（时间戳）
         owner:
           type: object
-          description: The owner of spent time.
+          description: 工时登记人
       example:
         hours: 1
         description: 'Sample Description'
         startTime: 1689055200
         owner: UWQR89ji
     UpdateTimesSpentResponse:
-      description: 'The result of update spent time'
+      description: 汇总模式下更新工作项工时的返回结果
       type: object
       properties:
         result:
           type: string
-          description: The result of this request.
+          description: 本次请求结果,SUCCESS|FAIL
         data:
           type: object
-          description: The result of this request.
+          description: 本次请求返回的数据
         errorCode:
           type: string
-          description: The error code of this request.
+          description: 本次请求错误码
         errorMsg:
           type: string
-          description: Error message for this request.
+          description: 本次请求错误信息
       example:
         - result: SUCCESS
           data:
@@ -508,42 +571,42 @@ components:
             owner: UWQR89ji
             id: kkoi976k
     AddTimesSpentRequest:
-      description: 'The request of add spent time'
+      description: 汇总模式下更新工作项工时的请求参数
       type: object
       properties:
         hours:
           type: integer
-          description: The spent time,unit is hour.
+          description: 工时，单位（小时）
         description:
           type: string
-          description: The description of spent time.
+          description: 工时的描述
         startTime:
           type: integer
-          description: The start time of spent time.
+          description: 工时开始时间，单位（时间戳）
         owner:
           type: object
-          description: The owner of spent time.
+          description: 工时登记人
       example:
         hours: 1
         description: 'Sample Description'
         startTime: 1689055200
         owner: UWQR89ji
     AddTimesSpentResponse:
-      description: 'The result of add spent time'
+      description: 汇总模式下更新工作项工时的返回结果
       type: object
       properties:
         result:
           type: string
-          description: The result of this request.
+          description: 本次请求结果,SUCCESS|FAIL
         data:
           type: object
-          description: The result of this request.
+          description: 本次请求返回的数据
         errorCode:
           type: string
-          description: The error code of this request.
+          description: 本次请求错误码
         errorMsg:
           type: string
-          description: Error message for this request.
+          description: 本次请求错误信息
       example:
         - result: SUCCESS
           data:
@@ -553,21 +616,21 @@ components:
             owner: UWQR89ji
             id: kkoi976k
     TimesSpentListResponse:
-      description: 'The result of estimated time.'
+      description: 获取汇总模式下的工作项工时列表
       type: object
       properties:
         result:
           type: string
-          description: The result of this request.
+          description: 本次请求结果,SUCCESS|FAIL
         data:
           type: object
-          description: The result of this request.
+          description: 本次请求返回的数据
         errorCode:
           type: string
-          description: The error code of this request.
+          description: 本次请求错误码
         errorMsg:
           type: string
-          description: Error message for this request.
+          description: 本次请求错误信息
       example:
         - result: SUCCESS
           data:
@@ -590,131 +653,181 @@ components:
               hasNextPage: false
               startCursor: 'sample_start_cursor'
               totalCount: 2
-    TimesEstimatedRequest:
+    AddTimesEstimatedRequest:
+      description: 汇总模式下添加预估工时的请求参数
       type: object
       properties:
         hours:
           type: integer
-          description: Estimated time,unit is hour.
+          description: 添加预估工时，单位（小时）
+        startDate:
+          type: string
+          description: 预估工时开始时间，格式为YYYY-MM-DD
+        endDate:
+          type: string
+          description: 预估工时结束时间，格式为YYYY-MM-DD
+        owner:
+          type: object
+          description: 预估工时登记人
+        includeNonWorkingDays:
+          type: boolean
+          description: 是否包含非工作日
+        timesEstimatedMode:
+          type: string
+          description: '预计工时的方式，可选值：daily、total，daily：从开始日期到结束日期每天的预计时间、total：从开始日期到结束日期的预计总时间。'
       example:
         hours: 1
-    TimesEstimatedResponse:
-      description: 'The result of estimated time'
+        startDate: '2023-01-01'
+        endDate: '2023-01-31'
+        owner: UWQR89ji
+        includeNonWorkingDays: true
+        timesEstimatedMode: daily
+    AddTimesEstimatedResponse:
+      description: 汇总模式下添加预估工时的返回结果
       type: object
       properties:
         result:
           type: string
-          description: The result of this request.
+          description: 本次请求结果,SUCCESS|FAIL
+        data:
+          type: object
+          description: 本次请求返回的数据
         errorCode:
           type: string
-          description: The error code of this request.
+          description: 本次请求错误码
         errorMsg:
           type: string
-          description: Error message for this request.
+          description: 本次请求错误信息
       example:
         - result: SUCCESS
-        - result: FAIL
-          errorCode: Forbidden
-          errorMsg: 'Unable to times estimated in summary mode'
-        - result: FAIL
-          errorCode: NotFound
-          errorMsg: 'NotFound Issue'
-        - result: FAIL
-          errorCode: AccessDenied
-          errorMsg: 'AccessDenied Issue'
-        - result: FAIL
-          errorCode: 'Internal Server Error'
-          errorMsg: 'Internal Server Error'
-        - result: FAIL
-          errorCode: PermissionDenied
-          errorMsg: 'PermissionDenied super_administrator'
-    TimesRemainingRequest:
+          data:
+            hours: 1
+            startDate: '2023-01-01'
+            endDate: '2023-01-31'
+            owner: UWQR89ji
+            includeNonWorkingDays: true
+            timesEstimatedMode: daily
+    UpdateTimesEstimatedRequest:
+      description: 汇总模式下更新预估工时的请求参数
       type: object
       properties:
         hours:
           type: integer
-          description: Remaining time,unit is hour.
+          description: 更新预估工时，单位（小时）
+        startDate:
+          type: string
+          description: 预估工时开始时间，格式为YYYY-MM-DD
+        owner:
+          type: object
+          description: 预估工时登记人
       example:
         hours: 1
-    TimesRemainingResponse:
-      description: 'The result of update remaining time'
+        startDate: '2023-01-02'
+        owner: UWQR89ji
+    UpdateTimesEstimatedResponse:
+      description: 汇总模式下更新预估工时的返回结果
       type: object
       properties:
         result:
           type: string
-          description: The result of this request.
+          description: 本次请求结果,SUCCESS|FAIL
+        data:
+          type: object
+          description: 本次请求返回的数据
         errorCode:
           type: string
-          description: The error code of this request.
+          description: 本次请求错误码
         errorMsg:
           type: string
-          description: Error message for this request.
+          description: 本次请求错误信息
+      example:
+        - result: SUCCESS
+          data:
+            hours: 1
+            startDate: '2023-01-02'
+            endDate: '2023-01-31'
+            owner: UWQR89ji
+            includeNonWorkingDays: true
+            timesEstimatedMode: daily
+    DeleteTimesEstimatedResponse:
+      description: 汇总模式下删除预估工时的返回结果
+      type: object
+      properties:
+        result:
+          type: string
+          description: 本次请求结果,SUCCESS|FAIL
+        errorCode:
+          type: string
+          description: 本次请求错误码
+        errorMsg:
+          type: string
+          description: 本次请求错误信息
       example:
         - result: SUCCESS
     BadResponse500:
-      description: 'Internal Server Error'
+      description: 内部服务错误
       type: object
       properties:
         result:
           type: string
-          description: The result of this request.
+          description: 本次请求结果,SUCCESS|FAIL
         errorCode:
           type: string
-          description: The error code of this request.
+          description: 本次请求错误码
         errorMsg:
           type: string
-          description: Error message for this request.
+          description: 本次请求错误信息
       example:
         result: FAIL
         errorCode: 'Internal Server Error'
         errorMsg: 'Internal Server Error'
     BadResponse401:
-      description: 'Access token is invalid'
+      description: Access token 无效
       type: object
       properties:
         result:
           type: string
-          description: The result of this request.
+          description: 本次请求结果,SUCCESS|FAIL
         errorCode:
           type: string
-          description: The error code of this request.
+          description: 本次请求错误码
         errorMsg:
           type: string
-          description: Error message for this request.
+          description: 本次请求错误信息
       example:
         result: FAIL
         errorCode: Unauthorized
         errorMsg: 'Access token is invalid'
     BadResponse403:
-      description: 'Scope is invalid'
+      description: scope 无效
       type: object
       properties:
         result:
           type: string
-          description: The result of this request.
+          description: 本次请求结果,SUCCESS|FAIL
         errorCode:
           type: string
-          description: The error code of this request.
+          description: 本次请求错误码
         errorMsg:
           type: string
-          description: Error message for this request.
+          description: 本次请求错误信息
       example:
         result: FAIL
         errorCode: Forbidden
         errorMsg: 'Scope is invalid'
     BadResponse404:
-      description: 'Not Found'
+      description: 未找到对应的资源｜接口不存在
       type: object
       properties:
         result:
           type: string
-          description: The result of this request.
+          description: 本次请求结果,SUCCESS|FAIL
         errorCode:
           type: string
-          description: The error code of this request.
+          description: 本次请求错误码
         errorMsg:
           type: string
-          description: Error message for this request.
+          description: 本次请求错误信息
       example:
         result: FAIL
         errorCode: NotFound

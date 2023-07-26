@@ -1,18 +1,18 @@
 openapi: 3.0.1
 info:
-  title: Simple mode issue worklog
+  title: Summary mode issue worklog
   version: '1.0'
   description: |
-    This resource represents issue worklog in simple mode. Use it to get, create, update, and delete issue worklog.
+    This resource represents issue worklog in summary mode. Use it to get, create, update, and delete issue worklog.
 servers:
   - url: https://your-domain/openapi/v1
   - url: http://your-domain/openapi/v1
 paths:
-  /project/issues/{issueID}/workLog/simple/timesEstimated:
+  /project/issues/{issueID}/workLog/summary/timesEstimated:
     post:
-      summary: Estimated time in simple mode
-      operationId: 01-estimated-time-of-issues
-      description: Estimated time in simple mode.
+      summary: Add Estimated time in summary mode
+      operationId: 01-add-estimated-time-of-issues
+      description: Add Estimated time in summary mode.
       security:
         - oauth2:
             - write:project:issue-timeEstimated
@@ -30,18 +30,18 @@ paths:
           schema:
             type: string
       requestBody:
-        description: Estimated time in simple mode.
+        description: Add estimated time in summary mode.
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TimesEstimatedRequest'
+              $ref: '#/components/schemas/AddTimesEstimatedRequest'
       responses:
         200:
           description: Request is successful.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TimesEstimatedResponse'
+                $ref: '#/components/schemas/AddTimesEstimatedResponse'
         401:
           description: Returned if the authentication credentials are incorrect or missing.
           content:
@@ -66,14 +66,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse500'
-  /project/issues/{issueID}/workLog/simple/timesRemaining:
-    post:
-      summary: Update remaining time in simple mode
-      operationId: 02-update-remaining-time-of-issues
-      description: Update remaining time in simple mode.
+  /project/issues/{issueID}/workLog/summary/timesEstimated/{timesEstimatedID}:
+    put:
+      summary: Update estimated time in summary mode
+      operationId: 02-update-estimated-time-of-issues
+      description: Update estimated time in summary mode.
       security:
         - oauth2:
-            - write:project:issue-timeRemaining
+            - write:project:issue-timeEstimated
       parameters:
         - name: teamID
           in: query
@@ -87,19 +87,25 @@ paths:
           required: true
           schema:
             type: string
+        - name: timesEstimatedID
+          in: path
+          description: The timesEstimated ID.
+          required: true
+          schema:
+            type: string
       requestBody:
-        description: Remaining time to be updated.
+        description: Update estimated time in summary mode.
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TimesRemainingRequest'
+              $ref: '#/components/schemas/UpdateTimesEstimatedRequest'
       responses:
         200:
           description: Request is successful.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TimesRemainingResponse'
+                $ref: '#/components/schemas/UpdateTimesEstimatedResponse'
         401:
           description: Returned if the authentication credentials are incorrect or missing.
           content:
@@ -124,11 +130,68 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse500'
-  /project/issues/{issueID}/workLog/simple/timesSpent:
+    delete:
+      summary: Delete estimated time in summary mode
+      operationId: 03-delete-estimated-time-of-issues
+      description: Delete estimated time in summary mode.
+      security:
+        - oauth2:
+            - write:project:issue-timeEstimated
+      parameters:
+        - name: teamID
+          in: query
+          description: The ID of the team.
+          required: true
+          schema:
+            type: string
+        - name: issueID
+          in: path
+          description: The issue ID.
+          required: true
+          schema:
+            type: string
+        - name: timesEstimatedID
+          in: path
+          description: The timesEstimated ID.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteTimesEstimatedResponse'
+        401:
+          description: Returned if the authentication credentials are incorrect or missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse401'
+        403:
+          description: Returns if the scope check fails.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse403'
+        404:
+          description: Returned if the resource object was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse404'
+        500:
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse500'
+  /project/issues/{issueID}/workLog/summary/timesSpent:
     get:
-      summary: Get a list of issues worklog in simple mode
-      operationId: 03-get-a-list-of-issues-worklog
-      description: Get a list of issues worklog in simple mode.
+      summary: Get a list of issues worklog in summary mode
+      operationId: 04-get-a-list-of-issues-worklog
+      description: Get a list of issues worklog in summary mode.
       security:
         - oauth2:
             - read:project:issue-timeSpent
@@ -187,9 +250,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/BadResponse500'
     post:
-      summary: Add spent times in simple mode
-      operationId: 04-add-spent-time-of-issues
-      description: Add spent times in simple mode.
+      summary: Add spent times in summary mode
+      operationId: 05-add-spent-time-of-issues
+      description: Add spent times in summary mode.
       security:
         - oauth2:
             - write:project:issue-timeSpent
@@ -243,11 +306,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse500'
-  /project/issues/{issueID}/workLog/simple/timesSpent/{timesSpentID}:
+  /project/issues/{issueID}/workLog/summary/timesSpent/{timesSpentID}:
     put:
-      summary: Update spent times in simple mode
-      operationId: 05-update-spent-time-of-issues
-      description: Update spent times in simple mode.
+      summary: Update spent times in summary mode
+      operationId: 06-update-spent-time-of-issues
+      description: Update spent times in summary mode.
       security:
         - oauth2:
             - write:project:issue-timeSpent
@@ -308,9 +371,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/BadResponse500'
     delete:
-      summary: Delete spent times in simple mode
-      operationId: 06-delete-spent-time-of-issues
-      description: Delete spent times in simple mode.
+      summary: Delete spent times in summary mode
+      operationId: 07-delete-spent-time-of-issues
+      description: Delete spent times in summary mode.
       security:
         - oauth2:
             - write:project:issue-timeSpent
@@ -365,9 +428,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/BadResponse500'
     get:
-      summary: Get a spent times in simple mode
-      operationId: 07-get-spent-time-of-issues
-      description: Get a spent times in simple mode.
+      summary: Get a spent times in summary mode
+      operationId: 08-get-spent-time-of-issues
+      description: Get a spent times in summary mode.
       security:
         - oauth2:
             - read:project:issue-timeSpent
@@ -468,7 +531,7 @@ components:
       properties:
         hours:
           type: integer
-          description: The spent time,unit is hour.
+          description: The spent time.
         description:
           type: string
           description: The description of spent time.
@@ -513,7 +576,7 @@ components:
       properties:
         hours:
           type: integer
-          description: The spent time,unit is hour.
+          description: The spent time.
         description:
           type: string
           description: The description of spent time.
@@ -590,20 +653,44 @@ components:
               hasNextPage: false
               startCursor: 'sample_start_cursor'
               totalCount: 2
-    TimesEstimatedRequest:
+    AddTimesEstimatedRequest:
+      description: 'The request of add estimated time'
       type: object
       properties:
         hours:
           type: integer
           description: Estimated time,unit is hour.
+        startDate:
+          type: string
+          description: The start time of spent time,Format is YYYY-MM-DD.
+        endDate:
+          type: string
+          description: The end time of spent time,Format is YYYY-MM-DD.
+        owner:
+          type: object
+          description: The owner of spent time.
+        includeNonWorkingDays:
+          type: boolean
+          description: Whether to include non-working days.
+        timesEstimatedMode:
+          type: string
+          description: 'The mode of times estimated,optional value: daily、total,daily:Estimated time per day from start date to end date、total：total estimated time from start date to end date.'
       example:
         hours: 1
-    TimesEstimatedResponse:
-      description: 'The result of estimated time'
+        startDate: '2023-01-01'
+        endDate: '2023-01-31'
+        owner: UWQR89ji
+        includeNonWorkingDays: true
+        timesEstimatedMode: daily
+    AddTimesEstimatedResponse:
+      description: 'The result of add estimated time'
       type: object
       properties:
         result:
           type: string
+          description: The result of this request.
+        data:
+          type: object
           description: The result of this request.
         errorCode:
           type: string
@@ -613,31 +700,57 @@ components:
           description: Error message for this request.
       example:
         - result: SUCCESS
-        - result: FAIL
-          errorCode: Forbidden
-          errorMsg: 'Unable to times estimated in summary mode'
-        - result: FAIL
-          errorCode: NotFound
-          errorMsg: 'NotFound Issue'
-        - result: FAIL
-          errorCode: AccessDenied
-          errorMsg: 'AccessDenied Issue'
-        - result: FAIL
-          errorCode: 'Internal Server Error'
-          errorMsg: 'Internal Server Error'
-        - result: FAIL
-          errorCode: PermissionDenied
-          errorMsg: 'PermissionDenied super_administrator'
-    TimesRemainingRequest:
+          data:
+            hours: 1
+            startDate: '2023-01-01'
+            endDate: '2023-01-31'
+            owner: UWQR89ji
+            includeNonWorkingDays: true
+            timesEstimatedMode: daily
+    UpdateTimesEstimatedRequest:
+      description: 'The request of update estimated time'
       type: object
       properties:
         hours:
           type: integer
-          description: Remaining time,unit is hour.
+          description: Estimated time,unit is hour.
+        startDate:
+          type: string
+          description: The start time of spent time,Format is YYYY-MM-DD.
+        owner:
+          type: object
+          description: The owner of spent time.
       example:
         hours: 1
-    TimesRemainingResponse:
-      description: 'The result of update remaining time'
+        startDate: '2023-01-02'
+        owner: UWQR89ji
+    UpdateTimesEstimatedResponse:
+      description: 'The result of update estimated time'
+      type: object
+      properties:
+        result:
+          type: string
+          description: The result of this request.
+        data:
+          type: object
+          description: The result of this request.
+        errorCode:
+          type: string
+          description: The error code of this request.
+        errorMsg:
+          type: string
+          description: Error message for this request.
+      example:
+        - result: SUCCESS
+          data:
+            hours: 1
+            startDate: '2023-01-02'
+            endDate: '2023-01-31'
+            owner: UWQR89ji
+            includeNonWorkingDays: true
+            timesEstimatedMode: daily
+    DeleteTimesEstimatedResponse:
+      description: 'The result of delete estimated time'
       type: object
       properties:
         result:
