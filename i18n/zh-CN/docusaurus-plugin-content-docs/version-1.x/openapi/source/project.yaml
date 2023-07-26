@@ -515,7 +515,7 @@ components:
           description: 本次返回的数量
         endCursor:
           type: string
-          description: 本页最后一个光标，用于翻页 backwards.
+          description: 本页最后一个光标，用于翻页
         endPos:
           type: integer
           description: 本页最后一个位置
@@ -524,7 +524,7 @@ components:
           description: 是否有下一页
         startCursor:
           type: string
-          description: 本页第一个光标，用于翻页 backwards.
+          description: 本页第一个光标，用于翻页
         startPos:
           type: integer
           description: 本页第一个位置

@@ -365,7 +365,6 @@ components:
         endCursor:
           type: string
           description: The last cursor on this page is generally used to turn pages.
-            backwards.
         endPos:
           type: integer
           description: The last position on this page.
@@ -375,7 +374,6 @@ components:
         startCursor:
           type: string
           description: The first cursor on this page is generally used to turn pages.
-            backwards.
         startPos:
           type: integer
           description: The first position on this page.

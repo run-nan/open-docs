@@ -236,6 +236,9 @@
   "sidebar.openapi.category.Issue Workflows": {
     "message": "工作流"
   },
+  "sidebar.openapi.category.Simple Mode Issue Worklog": {
+    "message": "简单模式 工作项工时"
+  },
   "sidebar.openapi.category.Project": {
     "message": "项目"
   },
