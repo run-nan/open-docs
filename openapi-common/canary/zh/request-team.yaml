@@ -1,0 +1,6 @@
+name: teamID
+in: path
+description: 团队ID
+required: true
+schema:
+  type: string

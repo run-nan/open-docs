@@ -1,0 +1,5 @@
+name: cursor
+in: query
+description: 本次请求的起始位置
+schema:
+  type: string
