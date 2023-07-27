@@ -42,30 +42,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddTimesEstimatedResponse'
-        401:
-          description: 如果身份验证凭据不正确或丢失，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse401'
-        403:
-          description: 如果scope检验不通过，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse403'
-        404:
-          description: 如果未找到资源对象，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse404'
-        500:
-          description: 内部服务器错误
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse500'
+        $ref: ../../../../../../openapi-common/canary/zh/response.yaml
   /project/issues/{issueID}/workLog/summary/timesEstimated/{timesEstimatedID}:
     put:
       summary: 汇总模式修改工作项预估工时
@@ -106,30 +83,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UpdateTimesEstimatedResponse'
-        401:
-          description: 如果身份验证凭据不正确或丢失，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse401'
-        403:
-          description: 如果scope检验不通过，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse403'
-        404:
-          description: 如果未找到资源对象，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse404'
-        500:
-          description: 内部服务器错误
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse500'
+        $ref: ../../../../../../openapi-common/canary/zh/response.yaml
     delete:
       summary: 汇总模式删除工作项预估工时
       operationId: 03-delete-estimated-time-of-issues
@@ -163,30 +117,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteTimesEstimatedResponse'
-        401:
-          description: 如果身份验证凭据不正确或丢失，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse401'
-        403:
-          description: 如果scope检验不通过，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse403'
-        404:
-          description: 如果未找到资源对象，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse404'
-        500:
-          description: 内部服务器错误
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse500'
+        $ref: ../../../../../../openapi-common/canary/zh/response.yaml
   /project/issues/{issueID}/workLog/summary/timesSpent:
     get:
       summary: 汇总模式工作项工时列表
@@ -225,30 +156,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TimesSpentListResponse'
-        401:
-          description: 如果身份验证凭据不正确或丢失，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse401'
-        403:
-          description: 如果scope检验不通过，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse403'
-        404:
-          description: 如果未找到资源对象，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse404'
-        500:
-          description: 内部服务器错误
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse500'
+        $ref: ../../../../../../openapi-common/canary/zh/response.yaml
     post:
       summary: 汇总模式添加工作项工时
       operationId: 05-add-spent-time-of-issues
@@ -282,30 +190,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddTimesSpentResponse'
-        401:
-          description: 如果身份验证凭据不正确或丢失，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse401'
-        403:
-          description: 如果scope检验不通过，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse403'
-        404:
-          description: 如果未找到资源对象，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse404'
-        500:
-          description: 内部服务器错误
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse500'
+        $ref: ../../../../../../openapi-common/canary/zh/response.yaml
   /project/issues/{issueID}/workLog/summary/timesSpent/{timesSpentID}:
     put:
       summary: 汇总模式修改工作项工时
@@ -346,30 +231,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UpdateTimesSpentResponse'
-        401:
-          description: 如果身份验证凭据不正确或丢失，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse401'
-        403:
-          description: 如果scope检验不通过，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse403'
-        404:
-          description: 如果未找到资源对象，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse404'
-        500:
-          description: 内部服务器错误
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse500'
+        $ref: ../../../../../../openapi-common/canary/zh/response.yaml
     delete:
       summary: 汇总模式删除工作项工时
       operationId: 07-delete-spent-time-of-issues
@@ -403,30 +265,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteTimesSpentResponse'
-        401:
-          description: 如果身份验证凭据不正确或丢失，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse401'
-        403:
-          description: 如果scope检验不通过，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse403'
-        404:
-          description: 如果未找到资源对象，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse404'
-        500:
-          description: 内部服务器错误
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse500'
+        $ref: ../../../../../../openapi-common/canary/zh/response.yaml
     get:
       summary: 汇总模式工作项工时详情
       operationId: 08-get-spent-time-of-issues
@@ -460,30 +299,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetTimesSpentResponse'
-        401:
-          description: 如果身份验证凭据不正确或丢失，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse401'
-        403:
-          description: 如果scope检验不通过，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse403'
-        404:
-          description: 如果未找到资源对象，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse404'
-        500:
-          description: 内部服务器错误
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse500'
+        $ref: ../../../../../../openapi-common/canary/zh/response.yaml
 components:
   schemas:
     GetTimesSpentResponse:
@@ -764,74 +580,7 @@ components:
           description: 本次请求错误信息
       example:
         - result: SUCCESS
-    BadResponse500:
-      description: 内部服务错误
-      type: object
-      properties:
-        result:
-          type: string
-          description: 本次请求结果,SUCCESS|FAIL
-        errorCode:
-          type: string
-          description: 本次请求错误码
-        errorMsg:
-          type: string
-          description: 本次请求错误信息
-      example:
-        result: FAIL
-        errorCode: 'Internal Server Error'
-        errorMsg: 'Internal Server Error'
-    BadResponse401:
-      description: Access token 无效
-      type: object
-      properties:
-        result:
-          type: string
-          description: 本次请求结果,SUCCESS|FAIL
-        errorCode:
-          type: string
-          description: 本次请求错误码
-        errorMsg:
-          type: string
-          description: 本次请求错误信息
-      example:
-        result: FAIL
-        errorCode: Unauthorized
-        errorMsg: 'Access token is invalid'
-    BadResponse403:
-      description: scope 无效
-      type: object
-      properties:
-        result:
-          type: string
-          description: 本次请求结果,SUCCESS|FAIL
-        errorCode:
-          type: string
-          description: 本次请求错误码
-        errorMsg:
-          type: string
-          description: 本次请求错误信息
-      example:
-        result: FAIL
-        errorCode: Forbidden
-        errorMsg: 'Scope is invalid'
-    BadResponse404:
-      description: 未找到对应的资源｜接口不存在
-      type: object
-      properties:
-        result:
-          type: string
-          description: 本次请求结果,SUCCESS|FAIL
-        errorCode:
-          type: string
-          description: 本次请求错误码
-        errorMsg:
-          type: string
-          description: 本次请求错误信息
-      example:
-        result: FAIL
-        errorCode: NotFound
-        errorMsg: 'Not Found'
+    $ref: ../../../../../../openapi-common/canary/zh/response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2

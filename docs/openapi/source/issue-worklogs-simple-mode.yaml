@@ -42,30 +42,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TimesEstimatedResponse'
-        401:
-          description: Returned if the authentication credentials are incorrect or missing.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse401'
-        403:
-          description: Returns if the scope check fails.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse403'
-        404:
-          description: Returned if the resource object was not found.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse404'
-        500:
-          description: Internal Server Error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse500'
+        $ref: ../../../openapi-common/canary/en/response.yaml
   /project/issues/{issueID}/workLog/simple/timesRemaining:
     post:
       summary: Update remaining time in simple mode
@@ -100,30 +77,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TimesRemainingResponse'
-        401:
-          description: Returned if the authentication credentials are incorrect or missing.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse401'
-        403:
-          description: Returns if the scope check fails.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse403'
-        404:
-          description: Returned if the resource object was not found.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse404'
-        500:
-          description: Internal Server Error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse500'
+        $ref: ../../../openapi-common/canary/en/response.yaml
   /project/issues/{issueID}/workLog/simple/timesSpent:
     get:
       summary: Get a list of issues worklog in simple mode
@@ -162,30 +116,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TimesSpentListResponse'
-        401:
-          description: Returned if the authentication credentials are incorrect or missing.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse401'
-        403:
-          description: Returns if the scope check fails.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse403'
-        404:
-          description: Returned if the resource object was not found.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse404'
-        500:
-          description: Internal Server Error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse500'
+        $ref: ../../../openapi-common/canary/en/response.yaml
     post:
       summary: Add spent times in simple mode
       operationId: 04-add-spent-time-of-issues
@@ -219,30 +150,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddTimesSpentResponse'
-        401:
-          description: Returned if the authentication credentials are incorrect or missing.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse401'
-        403:
-          description: Returns if the scope check fails.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse403'
-        404:
-          description: Returned if the resource object was not found.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse404'
-        500:
-          description: Internal Server Error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse500'
+        $ref: ../../../openapi-common/canary/en/response.yaml
   /project/issues/{issueID}/workLog/simple/timesSpent/{timesSpentID}:
     put:
       summary: Update spent times in simple mode
@@ -283,30 +191,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UpdateTimesSpentResponse'
-        401:
-          description: Returned if the authentication credentials are incorrect or missing.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse401'
-        403:
-          description: Returns if the scope check fails.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse403'
-        404:
-          description: Returned if the resource object was not found.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse404'
-        500:
-          description: Internal Server Error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse500'
+        $ref: ../../../openapi-common/canary/en/response.yaml
     delete:
       summary: Delete spent times in simple mode
       operationId: 06-delete-spent-time-of-issues
@@ -340,30 +225,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteTimesSpentResponse'
-        401:
-          description: Returned if the authentication credentials are incorrect or missing.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse401'
-        403:
-          description: Returns if the scope check fails.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse403'
-        404:
-          description: Returned if the resource object was not found.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse404'
-        500:
-          description: Internal Server Error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse500'
+        $ref: ../../../openapi-common/canary/en/response.yaml
     get:
       summary: Get a spent times in simple mode
       operationId: 07-get-spent-time-of-issues
@@ -397,30 +259,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetTimesSpentResponse'
-        401:
-          description: Returned if the authentication credentials are incorrect or missing.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse401'
-        403:
-          description: Returns if the scope check fails.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse403'
-        404:
-          description: Returned if the resource object was not found.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse404'
-        500:
-          description: Internal Server Error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse500'
+        $ref: ../../../openapi-common/canary/en/response.yaml
 components:
   schemas:
     GetTimesSpentResponse:
@@ -651,74 +490,7 @@ components:
           description: Error message for this request.
       example:
         - result: SUCCESS
-    BadResponse500:
-      description: 'Internal Server Error'
-      type: object
-      properties:
-        result:
-          type: string
-          description: The result of this request.
-        errorCode:
-          type: string
-          description: The error code of this request.
-        errorMsg:
-          type: string
-          description: Error message for this request.
-      example:
-        result: FAIL
-        errorCode: 'Internal Server Error'
-        errorMsg: 'Internal Server Error'
-    BadResponse401:
-      description: 'Access token is invalid'
-      type: object
-      properties:
-        result:
-          type: string
-          description: The result of this request.
-        errorCode:
-          type: string
-          description: The error code of this request.
-        errorMsg:
-          type: string
-          description: Error message for this request.
-      example:
-        result: FAIL
-        errorCode: Unauthorized
-        errorMsg: 'Access token is invalid'
-    BadResponse403:
-      description: 'Scope is invalid'
-      type: object
-      properties:
-        result:
-          type: string
-          description: The result of this request.
-        errorCode:
-          type: string
-          description: The error code of this request.
-        errorMsg:
-          type: string
-          description: Error message for this request.
-      example:
-        result: FAIL
-        errorCode: Forbidden
-        errorMsg: 'Scope is invalid'
-    BadResponse404:
-      description: 'Not Found'
-      type: object
-      properties:
-        result:
-          type: string
-          description: The result of this request.
-        errorCode:
-          type: string
-          description: The error code of this request.
-        errorMsg:
-          type: string
-          description: Error message for this request.
-      example:
-        result: FAIL
-        errorCode: NotFound
-        errorMsg: 'Not Found'
+    $ref: ../../../openapi-common/canary/en/response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2

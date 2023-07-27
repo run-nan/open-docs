@@ -5,8 +5,8 @@ info:
   description: |
     This resource represents issue fields. Use it to get issue fields.
 servers:
-  - url: https://your-domain/rest/api/v1
-  - url: http://your-domain/rest/api/v1
+  - url: https://your-domain/openapi/v1
+  - url: http://your-domain/openapi/v1
 paths:
   /project/team/{teamID}/issueFields:
     get:
