@@ -42,7 +42,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddTimesEstimatedResponse'
-        $ref: ../../../openapi-common/canary/en/response.yaml
+        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
   /project/issues/{issueID}/workLog/summary/timesEstimated/{timesEstimatedID}:
     put:
       summary: Update estimated time in summary mode
@@ -83,7 +83,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UpdateTimesEstimatedResponse'
-        $ref: ../../../openapi-common/canary/en/response.yaml
+        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
     delete:
       summary: Delete estimated time in summary mode
       operationId: 03-delete-estimated-time-of-issues
@@ -117,7 +117,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteTimesEstimatedResponse'
-        $ref: ../../../openapi-common/canary/en/response.yaml
+        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
   /project/issues/{issueID}/workLog/summary/timesSpent:
     get:
       summary: Get a list of issues worklog in summary mode
@@ -156,7 +156,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TimesSpentListResponse'
-        $ref: ../../../openapi-common/canary/en/response.yaml
+        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
     post:
       summary: Add spent times in summary mode
       operationId: 05-add-spent-time-of-issues
@@ -190,7 +190,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddTimesSpentResponse'
-        $ref: ../../../openapi-common/canary/en/response.yaml
+        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
   /project/issues/{issueID}/workLog/summary/timesSpent/{timesSpentID}:
     put:
       summary: Update spent times in summary mode
@@ -231,7 +231,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UpdateTimesSpentResponse'
-        $ref: ../../../openapi-common/canary/en/response.yaml
+        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
     delete:
       summary: Delete spent times in summary mode
       operationId: 07-delete-spent-time-of-issues
@@ -265,7 +265,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteTimesSpentResponse'
-        $ref: ../../../openapi-common/canary/en/response.yaml
+        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
     get:
       summary: Get a spent times in summary mode
       operationId: 08-get-spent-time-of-issues
@@ -299,7 +299,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetTimesSpentResponse'
-        $ref: ../../../openapi-common/canary/en/response.yaml
+        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
 components:
   schemas:
     GetTimesSpentResponse:
@@ -490,7 +490,12 @@ components:
           description: Whether to include non-working days.
         timesEstimatedMode:
           type: string
-          description: 'The mode of times estimated,optional value: daily、total,daily:Estimated time per day from start date to end date、total：total estimated time from start date to end date.'
+          enum:
+            - total
+            - daily
+          description: |
+            - total: Total estimated time from start date to end date.
+            - daily: Estimated time per day from start date to end date.
       example:
         hours: 1
         startDate: '2023-01-01'
@@ -580,7 +585,7 @@ components:
           description: Error message for this request.
       example:
         - result: SUCCESS
-    $ref: ../../../openapi-common/canary/en/response-schemas.yaml
+    $ref: ../../../openapi-common/canary/en/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2

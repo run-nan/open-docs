@@ -490,7 +490,12 @@ components:
           description: 是否包含非工作日
         timesEstimatedMode:
           type: string
-          description: '预计工时的方式，可选值：daily、total，daily：从开始日期到结束日期每天的预计时间、total：从开始日期到结束日期的预计总时间。'
+          enum:
+            - total
+            - daily
+          description: |
+            - total: 从开始日期到结束日期的预计总时间
+            - daily: 从开始日期到结束日期每天的预计时间
       example:
         hours: 1
         startDate: '2023-01-01'

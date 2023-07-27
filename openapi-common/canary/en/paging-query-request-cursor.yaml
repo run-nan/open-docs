@@ -1,0 +1,5 @@
+name: cursor
+in: query
+description: The starting location of this request.
+schema:
+  type: string
