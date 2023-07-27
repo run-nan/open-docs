@@ -60,12 +60,26 @@ Embed an existing service into the ONES, and the effect is as follows:
 
   1. Build a private deployment environment and copy the binaries of the web service into the container of the private deployment environment to try to run it to ensure that it can be executed
 
-  2. On the **Linux amd64** machine, copy the binaries of the web service to the docker container with the underlying image `node:16.13.1` and try to run it to ensure that it can be executed.
-
-  3. On a `Linux amd64` machine run the following command
+  2. Build test image test_env based on `node:16.13.1` docker image
 
   ```shell
-   docker run -itd --name=node16  node:16.13.1
+  FROM node:16.13.1
+
+  RUN wget -O /usr/local/jdk.tar.gz  https://k8s.myones.net/jdk-1.8-linux-x64.tar.gz \
+  && mkdir /usr/lib/jvm \
+  && tar zxvf /usr/local/jdk.tar.gz -C /usr/lib/jvm \
+  && mv /usr/lib/jvm/jdk1.8.0_371 /usr/lib/jvm/jdk8
+
+  ENV JAVA_HOME=/usr/lib/jvm/jdk8
+  ENV JRE_HOME=/usr/lib/jvm/jdk8/jre
+  ENV CLASSPATH=.:/usr/lib/jvm/jdk8/lib:/usr/lib/jvm/jdk8/jre/lib
+  ENV PATH=/usr/lib/jvm/jdk8/bin:$PATH
+  ```
+
+  3. On the **Linux amd64** machine, copy the binaries of the web service to the docker container with the underlying image `test_env:latest` and try to run it to ensure that it can be executed.
+
+  ```shell
+   docker run -itd --name=node16  test_env
    docker cp ./web_service node16:/web_service
    docker exec -it node16 bash
    ./web_service

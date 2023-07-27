@@ -60,11 +60,26 @@ import TabItem from '@theme/TabItem'
 
   1. 构建一个私有部署环境，并将 web 服务 的二进制文件拷贝进私有部署环境的容器中尝试运行，确保可以执行
 
-  2. 在 `Linux amd64` 的机器上，将 web 服务 的二进制文件拷贝到基础镜像为 `node:16.13.1` 的 docker 容器中尝试运行，确保可以执行
+  2. 基于`node:16.13.1`的 docker 镜像构建测试镜像 test_env
 
-  3. 在 `Linux amd64` 的机器中运行以下命令
+  ```shell
+  FROM node:16.13.1
+
+  RUN wget -O /usr/local/jdk.tar.gz  https://k8s.myones.net/jdk-1.8-linux-x64.tar.gz \
+    && mkdir /usr/lib/jvm \
+    && tar zxvf /usr/local/jdk.tar.gz -C /usr/lib/jvm \
+    && mv /usr/lib/jvm/jdk1.8.0_371 /usr/lib/jvm/jdk8
+
+  ENV JAVA_HOME=/usr/lib/jvm/jdk8
+  ENV JRE_HOME=/usr/lib/jvm/jdk8/jre
+  ENV CLASSPATH=.:/usr/lib/jvm/jdk8/lib:/usr/lib/jvm/jdk8/jre/lib
+  ENV PATH=/usr/lib/jvm/jdk8/bin:$PATH
+  ```
+
+  3. 在 `Linux amd64` 的机器上，将 web 服务 的二进制文件拷贝到基础镜像为 `test_env` 的 docker 容器中尝试运行。
+
      ```shell
-     docker run -itd --name=node16  node:16.13.1
+     docker run -itd --name=node16  test_env:latest
      docker cp ./web_service node16:/web_service
      docker exec -it node16 bash
      ./web_service
