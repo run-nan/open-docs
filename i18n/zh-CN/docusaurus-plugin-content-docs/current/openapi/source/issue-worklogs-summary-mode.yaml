@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: Simple mode issue worklog
+  title: Summary mode issue worklog
   version: '1.0'
   description: |
     此资源代表工作项工时。使用它来获取、创建、更新和删除工作项工时。
@@ -8,11 +8,11 @@ servers:
   - url: https://your-domain/openapi/v1
   - url: http://your-domain/openapi/v1
 paths:
-  /project/issues/{issueID}/workLog/simple/timesEstimated:
+  /project/issues/{issueID}/workLog/summary/timesEstimated:
     post:
-      summary: 简单模式预估工时
-      operationId: 01-estimated-time-of-issues
-      description: 简单模式修改预估工时
+      summary: 汇总模式添加工作项预估工时
+      operationId: 01-add-estimated-time-of-issues
+      description: 汇总模式添加工作项预估工时
       security:
         - oauth2:
             - write:project:issue-timeEstimated
@@ -30,27 +30,27 @@ paths:
           schema:
             type: string
       requestBody:
-        description: 简单模式修改工作项预估工时的请求参数
+        description: 汇总模式添加工作项预估工时的请求参数
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TimesEstimatedRequest'
+              $ref: '#/components/schemas/AddTimesEstimatedRequest'
       responses:
         200:
           description: 请求成功
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TimesEstimatedResponse'
+                $ref: '#/components/schemas/AddTimesEstimatedResponse'
         $ref: ../../../../../../openapi-common/canary/zh/response.yaml
-  /project/issues/{issueID}/workLog/simple/timesRemaining:
-    post:
-      summary: 简单模式剩余工时
-      operationId: 02-update-remaining-time-of-issues
-      description: 简单模式修改剩余工时
+  /project/issues/{issueID}/workLog/summary/timesEstimated/{timesEstimatedID}:
+    put:
+      summary: 汇总模式修改工作项预估工时
+      operationId: 02-update-estimated-time-of-issues
+      description: 汇总模式修改工作项预估工时
       security:
         - oauth2:
-            - write:project:issue-timeRemaining
+            - write:project:issue-timeEstimated
       parameters:
         - name: teamID
           in: query
@@ -64,25 +64,65 @@ paths:
           required: true
           schema:
             type: string
+        - name: timesEstimatedID
+          in: path
+          description: 预估工时ID
+          required: true
+          schema:
+            type: string
       requestBody:
-        description: 简单模式修改工作项剩余工时的请求参数
+        description: 汇总模式修改工作项预估工时的请求参数
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TimesRemainingRequest'
+              $ref: '#/components/schemas/UpdateTimesEstimatedRequest'
       responses:
         200:
           description: 请求成功
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TimesRemainingResponse'
+                $ref: '#/components/schemas/UpdateTimesEstimatedResponse'
         $ref: ../../../../../../openapi-common/canary/zh/response.yaml
-  /project/issues/{issueID}/workLog/simple/timesSpent:
+    delete:
+      summary: 汇总模式删除工作项预估工时
+      operationId: 03-delete-estimated-time-of-issues
+      description: 汇总模式删除工作项预估工时
+      security:
+        - oauth2:
+            - write:project:issue-timeEstimated
+      parameters:
+        - name: teamID
+          in: query
+          description: 团队ID
+          required: true
+          schema:
+            type: string
+        - name: issueID
+          in: path
+          description: 工作项ID
+          required: true
+          schema:
+            type: string
+        - name: timesEstimatedID
+          in: path
+          description: 预估工时ID
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteTimesEstimatedResponse'
+        $ref: ../../../../../../openapi-common/canary/zh/response.yaml
+  /project/issues/{issueID}/workLog/summary/timesSpent:
     get:
-      summary: 简单模式工作项工时列表
-      operationId: 03-get-a-list-of-issues-worklog
-      description: 简单模式工作项工时列表
+      summary: 汇总模式工作项工时列表
+      operationId: 04-get-a-list-of-issues-worklog
+      description: 汇总模式工作项工时列表
       security:
         - oauth2:
             - read:project:issue-timeSpent
@@ -118,9 +158,9 @@ paths:
                 $ref: '#/components/schemas/TimesSpentListResponse'
         $ref: ../../../../../../openapi-common/canary/zh/response.yaml
     post:
-      summary: 简单模式添加工作项工时
-      operationId: 04-add-spent-time-of-issues
-      description: 简单模式添加工作项工时
+      summary: 汇总模式添加工作项工时
+      operationId: 05-add-spent-time-of-issues
+      description: 汇总模式添加工作项工时
       security:
         - oauth2:
             - write:project:issue-timeSpent
@@ -138,7 +178,7 @@ paths:
           schema:
             type: string
       requestBody:
-        description: 简单模式添加工作项工时的请求参数
+        description: 汇总模式添加工作项工时的请求参数
         content:
           application/json:
             schema:
@@ -151,11 +191,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/AddTimesSpentResponse'
         $ref: ../../../../../../openapi-common/canary/zh/response.yaml
-  /project/issues/{issueID}/workLog/simple/timesSpent/{timesSpentID}:
+  /project/issues/{issueID}/workLog/summary/timesSpent/{timesSpentID}:
     put:
-      summary: 简单模式修改工作项工时
-      operationId: 05-update-spent-time-of-issues
-      description: 简单模式修改工作项工时
+      summary: 汇总模式修改工作项工时
+      operationId: 06-update-spent-time-of-issues
+      description: 汇总模式修改工作项工时
       security:
         - oauth2:
             - write:project:issue-timeSpent
@@ -179,7 +219,7 @@ paths:
           schema:
             type: string
       requestBody:
-        description: 简单模式修改工作项工时的请求参数
+        description: 汇总模式修改工作项工时的请求参数
         content:
           application/json:
             schema:
@@ -193,9 +233,9 @@ paths:
                 $ref: '#/components/schemas/UpdateTimesSpentResponse'
         $ref: ../../../../../../openapi-common/canary/zh/response.yaml
     delete:
-      summary: 简单模式删除工作项工时
-      operationId: 06-delete-spent-time-of-issues
-      description: 简单模式删除工作项工时
+      summary: 汇总模式删除工作项工时
+      operationId: 07-delete-spent-time-of-issues
+      description: 汇总模式删除工作项工时
       security:
         - oauth2:
             - write:project:issue-timeSpent
@@ -227,9 +267,9 @@ paths:
                 $ref: '#/components/schemas/DeleteTimesSpentResponse'
         $ref: ../../../../../../openapi-common/canary/zh/response.yaml
     get:
-      summary: 简单模式工作项工时详情
-      operationId: 07-get-spent-time-of-issues
-      description: 简单模式获取工作项工时详情
+      summary: 汇总模式工作项工时详情
+      operationId: 08-get-spent-time-of-issues
+      description: 汇总模式获取工作项工时详情
       security:
         - oauth2:
             - read:project:issue-timeSpent
@@ -263,7 +303,7 @@ paths:
 components:
   schemas:
     GetTimesSpentResponse:
-      description: 获取简单模式下的工作项工时详情
+      description: 获取汇总模式下的工作项工时详情
       type: object
       properties:
         result:
@@ -287,7 +327,7 @@ components:
             owner: UWQR89ji
             id: kkoi976k
     DeleteTimesSpentResponse:
-      description: 简单模式下删除工作项工时的返回结果
+      description: 汇总模式下删除工作项工时的返回结果
       type: object
       properties:
         result:
@@ -302,7 +342,7 @@ components:
       example:
         - result: SUCCESS
     UpdateTimesSpentRequest:
-      description: 简单模式下更新工作项工时的请求参数
+      description: 汇总模式下更新工作项工时的请求参数
       type: object
       properties:
         hours:
@@ -323,7 +363,7 @@ components:
         startTime: 1689055200
         owner: UWQR89ji
     UpdateTimesSpentResponse:
-      description: 简单模式下更新工作项工时的返回结果
+      description: 汇总模式下更新工作项工时的返回结果
       type: object
       properties:
         result:
@@ -347,7 +387,7 @@ components:
             owner: UWQR89ji
             id: kkoi976k
     AddTimesSpentRequest:
-      description: 简单模式下更新工作项工时的请求参数
+      description: 汇总模式下更新工作项工时的请求参数
       type: object
       properties:
         hours:
@@ -368,7 +408,7 @@ components:
         startTime: 1689055200
         owner: UWQR89ji
     AddTimesSpentResponse:
-      description: 简单模式下更新工作项工时的返回结果
+      description: 汇总模式下更新工作项工时的返回结果
       type: object
       properties:
         result:
@@ -392,7 +432,7 @@ components:
             owner: UWQR89ji
             id: kkoi976k
     TimesSpentListResponse:
-      description: 获取简单模式下的工作项工时列表
+      description: 获取汇总模式下的工作项工时列表
       type: object
       properties:
         result:
@@ -429,21 +469,45 @@ components:
               hasNextPage: false
               startCursor: 'sample_start_cursor'
               totalCount: 2
-    TimesEstimatedRequest:
+    AddTimesEstimatedRequest:
+      description: 汇总模式下添加预估工时的请求参数
       type: object
       properties:
         hours:
           type: integer
-          description: 预估工时，单位（小时）
+          description: 添加预估工时，单位（小时）
+        startDate:
+          type: string
+          description: 预估工时开始时间，格式为YYYY-MM-DD
+        endDate:
+          type: string
+          description: 预估工时结束时间，格式为YYYY-MM-DD
+        owner:
+          type: object
+          description: 预估工时登记人
+        includeNonWorkingDays:
+          type: boolean
+          description: 是否包含非工作日
+        timesEstimatedMode:
+          type: string
+          description: '预计工时的方式，可选值：daily、total，daily：从开始日期到结束日期每天的预计时间、total：从开始日期到结束日期的预计总时间。'
       example:
         hours: 1
-    TimesEstimatedResponse:
-      description: 简单模式下更新工作项预估工时的返回结果
+        startDate: '2023-01-01'
+        endDate: '2023-01-31'
+        owner: UWQR89ji
+        includeNonWorkingDays: true
+        timesEstimatedMode: daily
+    AddTimesEstimatedResponse:
+      description: 汇总模式下添加预估工时的返回结果
       type: object
       properties:
         result:
           type: string
           description: 本次请求结果,SUCCESS|FAIL
+        data:
+          type: object
+          description: 本次请求返回的数据
         errorCode:
           type: string
           description: 本次请求错误码
@@ -452,31 +516,57 @@ components:
           description: 本次请求错误信息
       example:
         - result: SUCCESS
-        - result: FAIL
-          errorCode: Forbidden
-          errorMsg: 'Unable to times estimated in summary mode'
-        - result: FAIL
-          errorCode: NotFound
-          errorMsg: 'NotFound Issue'
-        - result: FAIL
-          errorCode: AccessDenied
-          errorMsg: 'AccessDenied Issue'
-        - result: FAIL
-          errorCode: 'Internal Server Error'
-          errorMsg: 'Internal Server Error'
-        - result: FAIL
-          errorCode: PermissionDenied
-          errorMsg: 'PermissionDenied super_administrator'
-    TimesRemainingRequest:
+          data:
+            hours: 1
+            startDate: '2023-01-01'
+            endDate: '2023-01-31'
+            owner: UWQR89ji
+            includeNonWorkingDays: true
+            timesEstimatedMode: daily
+    UpdateTimesEstimatedRequest:
+      description: 汇总模式下更新预估工时的请求参数
       type: object
       properties:
         hours:
           type: integer
-          description: 剩余工时，单位（小时）
+          description: 更新预估工时，单位（小时）
+        startDate:
+          type: string
+          description: 预估工时开始时间，格式为YYYY-MM-DD
+        owner:
+          type: object
+          description: 预估工时登记人
       example:
         hours: 1
-    TimesRemainingResponse:
-      description: 简单模式下更新工作项剩余工时的返回结果
+        startDate: '2023-01-02'
+        owner: UWQR89ji
+    UpdateTimesEstimatedResponse:
+      description: 汇总模式下更新预估工时的返回结果
+      type: object
+      properties:
+        result:
+          type: string
+          description: 本次请求结果,SUCCESS|FAIL
+        data:
+          type: object
+          description: 本次请求返回的数据
+        errorCode:
+          type: string
+          description: 本次请求错误码
+        errorMsg:
+          type: string
+          description: 本次请求错误信息
+      example:
+        - result: SUCCESS
+          data:
+            hours: 1
+            startDate: '2023-01-02'
+            endDate: '2023-01-31'
+            owner: UWQR89ji
+            includeNonWorkingDays: true
+            timesEstimatedMode: daily
+    DeleteTimesEstimatedResponse:
+      description: 汇总模式下删除预估工时的返回结果
       type: object
       properties:
         result:

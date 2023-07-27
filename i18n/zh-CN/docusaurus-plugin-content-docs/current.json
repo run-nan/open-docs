@@ -239,6 +239,9 @@
   "sidebar.openapi.category.Simple Mode Issue Worklog": {
     "message": "简单模式 工作项工时"
   },
+  "sidebar.openapi.category.Summary Mode Issue Worklog": {
+    "message": "汇总模式 工作项工时"
+  },
   "sidebar.openapi.category.Project": {
     "message": "项目"
   },
