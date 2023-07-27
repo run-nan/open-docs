@@ -42,7 +42,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TimesEstimatedResponse'
-        $ref: ../../../../../../openapi-common/canary/zh/response.yaml
+        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
   /project/issues/{issueID}/workLog/simple/timesRemaining:
     post:
       summary: 简单模式剩余工时
@@ -77,7 +77,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TimesRemainingResponse'
-        $ref: ../../../../../../openapi-common/canary/zh/response.yaml
+        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
   /project/issues/{issueID}/workLog/simple/timesSpent:
     get:
       summary: 简单模式工作项工时列表
@@ -116,7 +116,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TimesSpentListResponse'
-        $ref: ../../../../../../openapi-common/canary/zh/response.yaml
+        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
     post:
       summary: 简单模式添加工作项工时
       operationId: 04-add-spent-time-of-issues
@@ -150,7 +150,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddTimesSpentResponse'
-        $ref: ../../../../../../openapi-common/canary/zh/response.yaml
+        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
   /project/issues/{issueID}/workLog/simple/timesSpent/{timesSpentID}:
     put:
       summary: 简单模式修改工作项工时
@@ -191,7 +191,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UpdateTimesSpentResponse'
-        $ref: ../../../../../../openapi-common/canary/zh/response.yaml
+        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
     delete:
       summary: 简单模式删除工作项工时
       operationId: 06-delete-spent-time-of-issues
@@ -225,7 +225,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteTimesSpentResponse'
-        $ref: ../../../../../../openapi-common/canary/zh/response.yaml
+        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
     get:
       summary: 简单模式工作项工时详情
       operationId: 07-get-spent-time-of-issues
@@ -259,7 +259,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetTimesSpentResponse'
-        $ref: ../../../../../../openapi-common/canary/zh/response.yaml
+        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
 components:
   schemas:
     GetTimesSpentResponse:
@@ -490,7 +490,7 @@ components:
           description: 本次请求错误信息
       example:
         - result: SUCCESS
-    $ref: ../../../../../../openapi-common/canary/zh/response-schemas.yaml
+    $ref: ../../../../../../openapi-common/canary/zh/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2
