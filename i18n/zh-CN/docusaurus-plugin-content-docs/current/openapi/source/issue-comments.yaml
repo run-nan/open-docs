@@ -1,0 +1,246 @@
+openapi: 3.0.1
+info:
+  title: Issue comments
+  version: '1.0'
+  description: |
+    此资源代表工作项评论。使用它来获取、创建和删除工作项评论。
+servers:
+  - url: https://your-domain/openapi/v1
+  - url: http://your-domain/rest/api/v1
+paths:
+  /project/issues/{issueID}/comments:
+    get:
+      summary: 获取评论列表
+      operationId: 01-get-a-list-of-issues-comment
+      description: 获取评论列表，
+      security:
+        - oauth2:
+            - read:project:issue-comment
+      parameters:
+        - name: issueID
+          in: path
+          description: 工作项ID
+          required: true
+          schema:
+            type: string
+        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
+      responses:
+        200:
+          description: 成功发送评论到工作项
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCommentSuccessResponse'
+        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
+    post:
+      summary: 发送评论到工作项
+      operationId: 02-send-issue-comment
+      description: 发送评论到工作项
+      security:
+        - oauth2:
+            - write:project:issue-comment
+      parameters:
+        - name: issueID
+          in: path
+          description: 工作项ID
+          required: true
+          schema:
+            type: string
+        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
+      requestBody:
+        description: 要发送的评论信息
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendCommentRequest'
+        required: true
+      responses:
+        200:
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendCommentResponse'
+        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
+  /project/issues/{issueID}/comments/{commentsID}:
+    post:
+      summary: 删除评论
+      operationId: 03-delete-issue-comment
+      description: 删除评论
+      security:
+        - oauth2:
+            - write:project:issue-comment
+      parameters:
+        - name: issueID
+          in: path
+          description: 工作项ID
+          required: true
+          schema:
+            type: string
+        - name: commentsID
+          in: path
+          description: 待删除评论的ID
+          required: true
+          schema:
+            type: string
+        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
+      responses:
+        200:
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteCommentResponse'
+        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
+    put:
+      summary: 修改评论信息
+      operationId: 04-update-issue-comment
+      description: 修改评论信息
+      security:
+        - oauth2:
+            - write:project:issue-comment
+      parameters:
+        - name: issueID
+          in: path
+          description: 工作项ID
+          required: true
+          schema:
+            type: string
+        - name: commentsID
+          in: path
+          description: 待修改评论的ID
+          required: true
+          schema:
+            type: string
+        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
+      requestBody:
+        description: 要修改的评论信息
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCommentRequest'
+      responses:
+        200:
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateCommentResponse'
+        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
+components:
+  schemas:
+    SendCommentRequest:
+      required:
+        - text
+      type: object
+      properties:
+        text:
+          maxLength: 128
+          minLength: 1
+          type: string
+          description: 评论信息
+        repliedMessageID:
+          type: string
+          description: 本次评论所回复评论的ID
+    UpdateCommentRequest:
+      required:
+        - text
+      type: object
+      properties:
+        text:
+          maxLength: 128
+          minLength: 1
+          type: string
+          description: 评论信息
+    ListCommentSuccessResponse:
+      type: object
+      properties:
+        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+        data:
+          type: object
+          properties:
+            list:
+              type: array
+              items:
+                $ref: '#/components/schemas/CommentDetail'
+            $ref: ../../../../../../openapi-common/canary/zh/paging-query-response-pageInfo-schemas.yaml
+      required:
+        - result
+      example:
+        result: success
+        data:
+          list:
+            - id: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
+              createTime: 1595616000000
+              commenter:
+                id: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
+                name: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
+              type: 1
+              ext:
+                text: 评论内容
+          pageInfo:
+            count: 1
+            endCursor: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
+            endPos: 1
+            hasNextPage: false
+            startCursor: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
+    CommentDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          description: 评论ID
+        createTime:
+          type: integer
+          description: 创建时间
+        commenter:
+          type: object
+          description: 评论者
+          properties:
+            id:
+              type: string
+              description: 用户ID
+            name:
+              type: string
+              description: 用户名称
+        type:
+          type: integer
+          description: 评论的文本类型
+        ext:
+          type: object
+    SendCommentResponse:
+      type: object
+      properties:
+        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+      required:
+        - result
+      example:
+        - result: SUCCESS
+    DeleteCommentResponse:
+      type: object
+      properties:
+        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+      required:
+        - result
+      example:
+        - result: SUCCESS
+    UpdateCommentResponse:
+      type: object
+      properties:
+        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+      required:
+        - result
+      example:
+        - result: SUCCESS
+    $ref: ../../../../../../openapi-common/canary/zh/no-200-response-schemas.yaml
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://ones.com/oauth2/authorize
+          tokenUrl: https://ones.com/oauth2/token
+          scopes:
+            write:project:issue-comment: 发送、修改和删除工作项评论
+            read:project:issue-comment: 获取工作项评论列表.

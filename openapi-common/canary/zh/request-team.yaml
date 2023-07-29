@@ -1,5 +1,5 @@
 name: teamID
-in: path
+in: query
 description: 团队ID
 required: true
 schema:

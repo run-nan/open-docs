@@ -1,0 +1,643 @@
+openapi: 3.0.1
+info:
+  title: Issue operations
+  version: '1.0'
+  description: |
+    此资源代表工作项的操作。使用它来创建、移动、复制和删除工作项。
+servers:
+  - url: https://your-domain/rest/api/v1
+  - url: http://your-domain/rest/api/v1
+paths:
+  /project/publishers/issues/batchDelete:
+    post:
+      summary: 批量删除工作项
+      operationId: 01-batch-delete-issue
+      description: 批量删除工作项
+      security:
+        - oauth2:
+            - write:project:issue
+      parameters:
+        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
+      requestBody:
+        description: 要删除的工作项
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchDeleteIssueRequest'
+        required: true
+      responses:
+        200:
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchDeleteIssueResponse'
+        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
+  /project/publishers/issues/batchMove:
+    post:
+      summary: 批量移动工作项
+      operationId: 02-batch-move-issue
+      description: 批量移动工作项
+      security:
+        - oauth2:
+            - write:project:issue
+      parameters:
+        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
+      requestBody:
+        description: 需要移动的工作项信息
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchMoveIssueRequest'
+        required: true
+      responses:
+        200:
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchMoveIssueResponse'
+        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
+  /project/publishers/issues/batchAdd:
+    post:
+      summary: 批量添加工作项
+      operationId: 03-batch-add-issue
+      description: 批量添加工作项
+      security:
+        - oauth2:
+            - write:project:issue
+      parameters:
+        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
+      requestBody:
+        description: 需要添加的工作项信息
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchAddIssueRequest'
+        required: true
+      responses:
+        200:
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchAddIssueResponse'
+        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
+  /project/publishers/issues/batchDuplicate:
+    post:
+      summary: 批量复制工作项
+      operationId: 04-batch-duplicate-issue
+      description: 批量复制工作项
+      security:
+        - oauth2:
+            - write:project:issue
+      parameters:
+        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
+      requestBody:
+        description: 需要复制的工作项信息
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchDuplicateIssueRequest'
+        required: true
+      responses:
+        200:
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/batchDuplicateIssueResponse'
+        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
+  /project/issues/{issueID}/Duplicate:
+    post:
+      summary: 复制工作项
+      operationId: 05-duplicate-issue
+      description: 复制工作项
+      security:
+        - oauth2:
+            - write:project:issue
+      parameters:
+        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
+        - name: issueID
+          in: path
+          description: 工作项ID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 需要复制的工作项信息
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DuplicateIssueRequest'
+        required: true
+      responses:
+        200:
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DuplicateIssueResponse'
+        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
+  /project/issues/batchJobInfo:
+    get:
+      summary: 批量获取批量任务信息
+      operationId: 06-get-batch-job-info
+      description: 批量获取批量任务信息
+      security:
+        - oauth2:
+            - read:project:issue
+      parameters:
+        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
+      requestBody:
+        description: 批量获取批量任务信息
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                jobID:
+                  type: string
+                  description: 批量任务的ID
+        required: true
+      responses:
+        200:
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchJobInfoResponse'
+        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
+components:
+  schemas:
+    BatchDeleteIssueRequest:
+      type: object
+      properties:
+        issueIDs:
+          type: array
+          description: 要删除的工作项ID列表
+          items:
+            type: string
+    UnLinkIssueRequest:
+      type: object
+      properties:
+        issueIDs:
+          type: array
+          description: 要关联的工作项ID列表
+          items:
+            type: string
+    BatchMoveIssueRequest:
+      type: object
+      properties:
+        issueIDs:
+          type: array
+          description: 要移动的工作项ID列表
+          items:
+            type: string
+        rules:
+          type: array
+          description: 移动规则
+          items:
+            type: object
+            properties:
+              sourceProjectID:
+                type: string
+                description: 移动前的工作项状态
+              targetProjectID:
+                type: string
+                description: 移动后的工作项状态
+              sourceIssueTypeID:
+                type: string
+                description: 移动前的工作项类型
+              targetIssueTypeID:
+                type: string
+                description: 移动后的工作项类型
+              sourceStatusID:
+                type: string
+                description: 移动前的工作项状态
+              targetStatusID:
+                type: string
+                description: 移动后的工作项状态
+              sourceSubIssueTypeID:
+                type: string
+                description: 移动前的子工作项类型
+              targetSubIssueTypeID:
+                type: string
+                description: 移动后的子工作项类型
+        issueRelationship:
+          type: array
+          description: 工作项关联关系
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: 工作项关联关系ID
+              subIssueIDs:
+                type: array
+                description: 子工作项ID列表
+                items:
+                  type: string
+    BatchAddIssueRequest:
+      type: object
+      description: 批量添加工作项请求
+      properties:
+        assignee:
+          type: string
+          description: 工作项负责人
+        title:
+          type: string
+          description: 工作项标题
+        projectID:
+          type: string
+          description: 工作项所属项目ID
+        issueTypeID:
+          type: string
+          description: 工作项类型ID
+        fieldValues:
+          type: array
+          description: 工作项字段值
+          items:
+            type: object
+            properties:
+              fieldID:
+                type: string
+                description: 字段ID
+              value:
+                type: object
+                description: 字段值
+              type:
+                type: string
+                description: 字段类型
+        watchers:
+          type: array
+          description: 工作项关注者
+          items:
+            type: string
+            description: 用户ID
+        parentID:
+          type: string
+          description: 父工作项ID
+        timesEstimated:
+          type: array
+          description: 预估时间列表
+          items:
+            type: object
+            properties:
+              owner:
+                type: integer
+                description: 预估时间
+              hours:
+                type: integer
+                description: 预估工时数量
+              includeNonWorkingDays:
+                type: boolean
+                description: 是否包含非工作日
+              startTime:
+                type: string
+                description: 预估开始时间
+              endTime:
+                type: string
+                description: 预估结束时间
+              timesEstimatedMode:
+                type: string
+                description: 工时模式
+    BatchDuplicateIssueRequest:
+      type: object
+      description: 批量复制工作项请求
+      properties:
+        issues:
+          type: array
+          description: 工作项列表
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: 工作项ID
+              project:
+                type: string
+                description: 工作项所属项目ID
+              issueType:
+                type: string
+                description: 工作项类型ID
+              status:
+                type: string
+                description: 更改的状态
+        duplicateFields:
+          type: array
+          description: 复制的字段列表
+    DuplicateIssueRequest:
+      type: object
+      description: 复制工作项请求
+      properties:
+        id:
+          type: string
+          description: 工作项ID
+        project:
+          type: string
+          description: 工作项所属项目ID
+        issueType:
+          type: string
+          description: 工作项类型ID
+        status:
+          type: string
+          description: 更改的状态
+        copyFields:
+          type: array
+          description: 复制的字段列表
+        linkIssue:
+          type: object
+          description: 关联的工作项
+          properties:
+            linkType:
+              type: string
+              description: 关联类型
+            link_desc_type:
+              type: string
+              description: 关联描述类型
+    DuplicateIssueResponse:
+      type: object
+      description: 复制工作项响应
+      properties:
+        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+        data:
+          $ref: '#/components/schemas/IssueDetail'
+      required:
+        - result
+    IssueDetail:
+      type: object
+      description: 工作项详情
+      properties:
+        assignee:
+          type: object
+          description: 工作项负责人
+          properties:
+            id:
+              type: string
+              description: 用户ID
+            name:
+              type: string
+              description: 用户名
+        createTime:
+          type: integer
+          description: 创建时间
+        dueDate:
+          type: string
+          description:
+        timeEstimatedHour:
+          type: integer
+          description: 预估时间
+        issueType:
+          type: object
+          description: 工作项类型
+          properties:
+            id:
+              type: string
+              description: 工作项类型ID
+            name:
+              type: string
+              description: 工作项类型名称
+        title:
+          type: string
+          description: 工作项标题
+        number:
+          type: integer
+          description: 工作项编号
+        creator:
+          type: object
+          description: 工作项创建者
+          properties:
+            id:
+              type: string
+              description: 用户ID
+            name:
+              type: string
+              description: 用户名
+        parent:
+          type: object
+          description: 父工作项
+          properties:
+            id:
+              type: string
+              description: 工作项ID
+            title:
+              type: string
+              description: 工作项标题
+        priority:
+          type: object
+          description: 工作项优先级
+          properties:
+            id:
+              type: string
+              description: 优先级ID
+            name:
+              type: string
+              description: 优先级名称
+        project:
+          type: object
+          description: 工作项所属项目
+          properties:
+            id:
+              type: string
+              description: 项目ID
+            name:
+              type: string
+              description: 项目名称
+        timeRemainingHour:
+          type: integer
+          description: 剩余工时
+        sprint:
+          type: object
+          description: 工作项所属迭代
+          properties:
+            id:
+              type: string
+              description: 迭代ID
+            name:
+              type: string
+              description: 迭代名称
+        status:
+          type: object
+          description: 工作项状态
+          properties:
+            id:
+              type: string
+              description: 状态ID
+            name:
+              type: string
+              description: 状态名称
+            category:
+              type: string
+              description: 状态类别
+        subIssueType:
+          type: object
+          description: 工作项子类型
+          properties:
+            id:
+              type: string
+              description: 子类型ID
+            name:
+              type: string
+              description: 子类型名称
+        subIssueCount:
+          type: integer
+          description: 子工作项数量
+        subIssueDoneCount:
+          type: integer
+          description: 子工作项完成数量
+        subIssues:
+          type: object
+          description: 子工作项列表
+          properties:
+            id:
+              type: string
+              description: 子工作项ID
+            title:
+              type: string
+              description: 子工作项标题
+        totalTimeEstimatedHour:
+          type: integer
+          description: 总预估时间
+        timeSpentHour:
+          type: integer
+          description: 总花费时间
+        totalTimeRemainingHour:
+          type: integer
+          description: 总剩余时间
+        id:
+          type: string
+          description: 工作项ID
+        attachments:
+          type: array
+          description: 工作项附件列表
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: 附件ID
+              name:
+                type: string
+                description: 附件名称
+              createTime:
+                type: integer
+                description: 附件创建时间
+    BatchJobInfoResponse:
+      type: object
+      description: 批量任务信息响应
+      properties:
+        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+        data:
+          type: object
+          description: 批量任务信息
+          properties:
+            id:
+              type: string
+              description: 批量任务ID
+            teamID:
+              type: string
+              description: 团队ID
+            owner:
+              type: string
+              description: 批量任务创建者
+            status:
+              type: string
+              description: 批量任务状态
+            startTime:
+              type: integer
+              description: 批量任务开始时间
+            endTime:
+              type: integer
+              description: 批量任务结束时间
+            successful:
+              type: integer
+              description: 批量任务成功数量
+            failed:
+              type: integer
+              description: 批量任务失败数量
+            unprocessed:
+              type: integer
+              description: 批量任务未处理数量
+            successfulIssues:
+              type: array
+              description: 成功工作项列表
+              items:
+                type: string
+      required:
+        - result
+    BatchDeleteIssueResponse:
+      type: object
+      properties:
+        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+        data:
+          type: object
+          properties:
+            jobID:
+              type: string
+              description: 批量任务ID
+      required:
+        - result
+      example:
+        - result: SUCCESS
+          data:
+            jobID: 123456
+    BatchMoveIssueResponse:
+      type: object
+      properties:
+        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+        data:
+          type: object
+          properties:
+            jobID:
+              type: string
+              description: 批量任务ID
+      required:
+        - result
+      example:
+        - result: SUCCESS
+          data:
+            jobID: 123456
+    BatchAddIssueResponse:
+      type: object
+      properties:
+        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+        data:
+          type: object
+          properties:
+            jobID:
+              type: string
+              description: 批量任务ID
+      required:
+        - result
+      example:
+        - result: SUCCESS
+          data:
+            jobID: 123456
+    batchDuplicateIssueResponse:
+      type: object
+      properties:
+        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+        data:
+          type: object
+          properties:
+            jobID:
+              type: string
+              description: 批量任务ID
+      required:
+        - result
+      example:
+        - result: SUCCESS
+          data:
+            jobID: 123456
+    $ref: ../../../../../../openapi-common/canary/zh/no-200-response-schemas.yaml
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://ones.com/oauth2/authorize
+          tokenUrl: https://ones.com/oauth2/token
+          scopes:
+            write:project:issue: 批量关联工作项、取消关联
+            read:project:issue: 获取工作项信息

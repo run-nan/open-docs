@@ -1,0 +1,123 @@
+openapi: 3.0.1
+info:
+  title: Issue link
+  version: '1.0'
+  description: |
+    This resource represents issue association relationships. Use it to create and delete issue associations.
+servers:
+  - url: https://your-domain/rest/api/v1
+  - url: http://your-domain/rest/api/v1
+paths:
+  /project/issues/{issueID}/link:
+    post:
+      summary: Batch linking issues
+      operationId: 01-batch-link-issue
+      description: Batch linking issues
+      security:
+        - oauth2:
+            - write:project:issue
+      parameters:
+        - name: issueID
+          in: path
+          description: ID of the issue
+          required: true
+          schema:
+            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
+      requestBody:
+        description: List of issues to be linked.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkIssueRequest'
+        required: true
+      responses:
+        200:
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkIssuesResponse'
+        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+  /project/issues/{issueID}/unlink:
+    post:
+      summary: Batch unlinking issues
+      operationId: 02-batch-unlink-issue
+      description: Batch unlinking issues
+      security:
+        - oauth2:
+            - write:project:issue
+      parameters:
+        - name: issueID
+          in: path
+          description: ID of the issue
+          required: true
+          schema:
+            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
+      requestBody:
+        description: List of issues to be unlinked.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UnLinkIssueRequest'
+        required: true
+      responses:
+        200:
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnLinkIssuesResponse'
+        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+components:
+  schemas:
+    LinkIssueRequest:
+      type: object
+      properties:
+        issueIDs:
+          type: array
+          description: Issue ID list.
+          items:
+            type: string
+        linkType:
+          type: string
+          description: Issue link type.
+          enum:
+            - 'relates to'
+            - 'duplicate'
+    UnLinkIssueRequest:
+      type: object
+      properties:
+        issueIDs:
+          type: array
+          description: Issue ID list.
+          items:
+            type: string
+    LinkIssuesResponse:
+      type: object
+      properties:
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+      required:
+        - result
+      example:
+        - result: SUCCESS
+    UnLinkIssuesResponse:
+      type: object
+      properties:
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+      required:
+        - result
+      example:
+        - result: SUCCESS
+    $ref: ../../../openapi-common/canary/en/no-200-response-schemas.yaml
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://ones.com/oauth2/authorize
+          tokenUrl: https://ones.com/oauth2/token
+          scopes:
+            write:project:issue: 批量关联、取消关联工作项
+            read:project:issue: 获取工作项信息
