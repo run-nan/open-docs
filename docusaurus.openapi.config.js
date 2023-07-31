@@ -1,4 +1,5 @@
 const fs = require('fs')
+const path = require('path')
 const { createInfoPageMD } = require('docusaurus-plugin-openapi-docs/lib/markdown')
 
 const VERSION_BASE_PATH = 'versioned_docs'
@@ -8,11 +9,9 @@ const ZH_BASE_PATH = 'i18n/zh-CN/docusaurus-plugin-content-docs'
  * 所有 OpenAPI 文档的源文件路径
  * 会从该路径下的 source 目录读取 OpenAPI 配置文件
  * 生成的文档会根据配置文件名，创建文件夹，放到 api 目录下
- * 配置后，支持如下命令（以 issue.yaml 文件为例）：
- * - npx docusaurus gen-api-docs canary:issue
- * - npx docusaurus gen-api-docs canary:zh:issue
- * - npx docusaurus clean-api-docs canary:issue
- * - npx docusaurus clean-api-docs canary:zh:issue
+ * 配置后，支持如下命令：
+ * - npx docusaurus gen-api-docs all
+ * - npx docusaurus clean-api-docs all
  */
 const openAPIPathConfig = {
   canary: 'docs/openapi',
@@ -40,24 +39,39 @@ const markdownGenerators = {
 function generatorConfig(dirConfig, language = 'en') {
   /** @type {Record<string, import('docusaurus-plugin-openapi-docs').Options} */
   const config = {}
-  const openAPIFileSuffixRE = /\.ya?ml$|\.json$/
-  Object.entries(dirConfig).forEach(([version, dir]) => {
-    const files = fs.readdirSync(`${dir}/source`, {})
-    if (!files.length) return
-    files.forEach((fullName) => {
-      if (!openAPIFileSuffixRE.test(fullName)) return
-      const name = fullName.replace(openAPIFileSuffixRE, '')
-      const specPath = `${dir}/source/${fullName}`
-      // 输出到同名目录下
-      const outputDir = `${dir}/api/${name}`
-      config[`${version}:${name}`] = {
-        specPath,
-        outputDir,
-        template: language === 'zh' ? 'openapi.zh.mustache' : 'openapi.mustache',
-        markdownGenerators,
-      }
-    })
+  const openAPIFileSuffixRE = /\.ya?ml$/
+  /** 不以文件名作为输出文件夹名称的格式 */
+  const flatOpenAPIFileSuffixRE = /\.flat\.ya?ml$/
+
+  Object.entries(dirConfig).forEach(([version, dirPath]) => {
+    scanAndBuildDir(path.join(dirPath, 'source'), path.join(dirPath, 'api'))
+
+    /** 递归扫描特定文件夹，递归生成配置 */
+    function scanAndBuildDir(sourceDir, outputDir) {
+      const files = fs.readdirSync(sourceDir, {})
+      if (!files.length) return
+
+      files.forEach((fullName) => {
+        const stats = fs.statSync(path.join(sourceDir, fullName))
+        if (stats.isDirectory()) {
+          scanAndBuildDir(path.join(sourceDir, fullName), path.join(outputDir, fullName))
+          return
+        }
+
+        if (!openAPIFileSuffixRE.test(fullName)) return
+        const name = fullName.replace(openAPIFileSuffixRE, '')
+        config[`${version}:${name}:${Math.round(10 ** 10 * Math.random())}`] = {
+          specPath: path.join(sourceDir, fullName),
+          outputDir: flatOpenAPIFileSuffixRE.test(fullName)
+            ? outputDir
+            : path.join(outputDir, name),
+          template: language === 'zh' ? 'openapi.zh.mustache' : 'openapi.mustache',
+          markdownGenerators,
+        }
+      })
+    }
   })
+
   return config
 }
 
