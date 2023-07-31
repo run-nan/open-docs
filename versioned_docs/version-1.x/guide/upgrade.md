@@ -61,3 +61,15 @@ workspace:
     - a.txt
     - temp/*
 ```
+
+## Constraints
+
+### service.config
+
+- The declaration of `service.config` is not allowed to be modified when the plugin is upgraded, even if it is modified, it will not take effect.
+- Adding and deleting `service.config` is allowed when the plugin is upgraded.
+
+### abilities.config
+
+- The mapping of `abilities.id` to `abilities.version:abilities.type` is not allowed to be changed when the plugin is upgraded.
+- When the plugin is upgraded, `abilities.config` only supports modifying the `show` and `value` fields.

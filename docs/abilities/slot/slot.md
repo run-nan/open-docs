@@ -20,6 +20,7 @@ The supported configuration options by a slot will only list the configuration t
   - [id](../../reference/config/plugin.yaml#moduleId)
   - [title](../../reference/config/plugin.yaml#title)
   - [entry](../../reference/config/plugin.yaml#entry)
+  - [enableMemoryRouter](../../reference/config/plugin.yaml#enablememoryrouter)
 
 - The configuration supported by all the slots by default (that are not supported will be noted on the slot page):
   - [permission](../../reference/config/plugin.yaml#modulePermission)

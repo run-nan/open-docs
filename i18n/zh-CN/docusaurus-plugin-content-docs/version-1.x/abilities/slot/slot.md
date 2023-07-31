@@ -20,6 +20,7 @@
   - [id](../../reference/config/plugin.yaml#moduleId)
   - [title](../../reference/config/plugin.yaml#title)
   - [entry](../../reference/config/plugin.yaml#entry)
+  - [enableMemoryRouter](../../reference/config/plugin.yaml#enablememoryrouter)
 
 - 默认所有的插槽都支持的配置项（不支持的插槽，会在插槽页面特殊说明）
   - [permission](../../reference/config/plugin.yaml#modulePermission)

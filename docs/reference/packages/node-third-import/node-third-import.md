@@ -67,9 +67,9 @@ await startImport(user_uuid, abilityId, password, server_id, teamUUID)
 
 ### ThirdTaskAttachment
 
-| ONES |
-| :--- |
-|      |
+| ONES      |
+| :-------- |
+| v3.14.0+ |
 
 The local debugging mode now supports importing attachments, but files must less than 100MB in this mode.
 
@@ -434,13 +434,13 @@ The local debugging mode now supports importing attachments, but files must less
 
 ### ThirdTaskFieldValue
 
-| Param       | Description     | Type                                                                    | Required |
-| :---------- | :-------------- | :---------------------------------------------------------------------- | :------- |
-| resource_id | resource ID     | `string`                                                                | Y        |
-| task_id     | issue ID        | `string`                                                                | Y        |
-| field_id    | attribute ID    | `string`                                                                | Y        |
-| field_type  | attribute type  | [`ThirdTaskFieldValueFieldTypeEnum`](#ThirdTaskFieldValueFieldTypeEnum) | Y        |
-| value       | attribute value | `any`                                                                   | Y        |
+| Param       | Description                                                                                                              | Type                                                                    | Required |
+| :---------- | :----------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------- | :------- |
+| resource_id | resource ID                                                                                                              | `string`                                                                | Y        |
+| task_id     | issue ID                                                                                                                 | `string`                                                                | Y        |
+| field_id    | attribute ID                                                                                                             | `string`                                                                | Y        |
+| field_type  | attribute type                                                                                                           | [`ThirdTaskFieldValueFieldTypeEnum`](#ThirdTaskFieldValueFieldTypeEnum) | Y        |
+| value       | attribute value, when the value is null, the value of `value` should be `null` or ignore the field, not the empty string | `any`                                                                   | Y        |
 
 ### ThirdTask
 

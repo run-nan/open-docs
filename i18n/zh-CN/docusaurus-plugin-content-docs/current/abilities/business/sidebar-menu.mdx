@@ -24,66 +24,53 @@ import Image from '@theme/IdealImage'
 
 ### 第一步：添加能力
 
-在插件工程根目录下执行 `npx op add ability` 指令，并选择：`sidebar-menu@1.0.0`。
+1. 选择能力。
 
-执行完成后，会在 `plugin.yaml` 配置文件的 **abilities** 属性下新增一段配置。配置如下：
+   在插件工程根目录下执行 `npx op add ability` 指令，并选择：`sidebar-menu@1.0.0`。
 
-```yaml title="config/plugin.yaml"
-abilities:
-  - id: 8k5frAw6
-    name: 左侧菜单栏
-    version: 1.0.0
-    abilityType: SidebarMenu
-    relateModule:
-      systemMenu: ''
-```
+2. 根据提示, 填写关联插槽 `ones:app:new` 名称，并创建子模块。
+   :::caution 注意
+   该插槽支持一级子模块，所以你必须添加第一级的子模块，否则将会表现不正常。
+   :::
 
-### 第二步：添加插槽
+   <Image img={require('./images/add-relate-module.png')} />
 
-在插件工程目录下执行 `npx op add module` 指令，并选择：`ones:app:new`。
+3. 前两步执行完成后，会自动更新 `plugin.yaml` 配置，并生成模块模版文件。
 
-执行完成后，会在 `plugin.yaml` 配置文件的 **modules** 属性下新增一段配置。配置如下：
+   <Image img={require('./images/add-ability.png')} />
 
-```yaml title="config/plugin.yaml"
-modules:
-  - id: ones-app-new-aBFM
-    title: 新增侧边栏
-    moduleType: ones:app:new
-    modules:
-      - id: ones-app-new-JusW
-        title: 顶栏
-        entry: modules/ones-app-new-aBFM/ones-app-new-JusW/index.html
-```
+   - 自动在 **abilities** 属性下新增一段配置。配置如下：
 
-:::caution 注意
-该插槽支持一级子模块，所以你必须添加第一级的子模块，否则将会表现不正常。
-:::
+     ```yaml title="config/plugin.yaml"
+     abilities:
+       - id: 8k5frAw6
+         name: 左侧菜单栏
+         version: 1.0.0
+         abilityType: SidebarMenu
+         relateModule:
+           systemMenu: 'ones-app-new-aBFM'
+     ```
 
-并且同时还会在 `/web/src/modules` 目录下新增如下模版：
+   - 自动在 **modules** 属性下新增一段配置，配置如下：
 
-<Image img={require('./images/catalogue.png')} />
+   ```yaml title="config/plugin.yaml"
+   modules:
+     - id: ones-app-new-aBFM
+       title: 新增侧边栏
+       moduleType: ones:app:new
+       modules:
+         - id: ones-app-new-JusW
+           title: 顶栏
+           entry: modules/ones-app-new-aBFM/ones-app-new-JusW/index.html
+   ```
 
-你可以在此处编写你的插件逻辑。该插槽具体支持配置项请参考：[ones:app:new](../slot/app/index.mdx#onesappnew)。
+   - 自动在 `/web/src/modules` 目录下新增如下模版：
 
-### 第三步：能力与插槽关联
+   <Image img={require('./images/catalogue.png')} />
 
-你需要将 **ones:app:new** 模块的 `id` 添加到 abilities 的 `relateModule.systemMenu` 中，如下所示：
+   你可以在此处编写你的插件逻辑。该插槽具体支持配置项请参考：[ones:app:new](../slot/app/index.mdx#onesappnew)。
 
-```yaml title="config/plugin.yaml"
-abilities:
-  - id: 8k5frAw6
-    name: 左侧菜单栏
-    version: 1.0.0
-    abilityType: SidebarMenu
-    relateModule:
-      systemMenu: 'ones-app-new-aBFM' // 将 id 填充到此处
-```
-
-:::caution 注意
-该能力是要求能力和插槽联动的，所以在同一个插件中，这两部分必须存在。且需要按照上述步骤建立关联关系，否则插件将不能正常工作。
-:::
-
-### 第四步：在 ONES 中使用
+### 第二步：在 ONES 中使用
 
 完成你的插件编写之后，将插件打包并安装到 ONES 中，这样你就可以看到这个能力的表现了。点击启用，启用成功之后刷新页面。你会看到如下图所示：左侧菜单栏新增了该插件的入口，并且详情页也有**打开**按钮，可以直接打开插件页面。
 
@@ -95,13 +82,13 @@ abilities:
 如果你新建的是一个组织级别插件，那么在插件详情页面将不会有**打开**这个按钮。
 :::
 
-### 第五步：控制入口的显示和隐藏
+### 第三步：控制入口的显示和隐藏
 
 我们在 ONES 内置了一些控制该入口的一些能力，首先你需要进入【配置中心】-【系统偏好设置】-【侧边栏菜单】。你可以在这个页面对插件入口的**显示名称**、**显示顺序**、**是否显示**等。
 
 <Image img={require('./images/menu-setting.png')} />
 
-### 第六步：设置
+### 第四步：设置
 
 在支持该能力的同时，我们也支持了这个能力的权限配置，所以你可以对新增的每一个模块做单独的权限点配置。为了方便你做权限的配置我们在顶栏给你提供了**设置**按钮，可以直接跳转到对应插件详情页面。
 

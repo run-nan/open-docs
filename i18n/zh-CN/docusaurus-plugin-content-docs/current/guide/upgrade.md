@@ -72,4 +72,4 @@ workspace:
 ### 能力配置 - abilities.config
 
 - 插件升级时，`abilities.id` 与 `abilities.version:abilities.type` 的映射不允许发生改变。
-- 插件升级时，`abilities.config` 仅支持修改 `show` 和 `value` 字段，其他字段即使修改了也不会生效。
+- 插件升级时，`abilities.config` 仅支持修改 `show` 和 `value` 字段。

@@ -151,10 +151,11 @@ export async function uploadFileToPlugin(request: PluginRequest): Promise<Plugin
 
 #### Params
 
-| 参数    | 说明                         | 类型                   | 必填 | 默认值 |
-| :------ | :--------------------------- | :--------------------- | :--- | :----- |
-| headers | 需包含操作人 uuid 及 ip 地址 | Record<string, string> | 是   | -      |
-| message | 审计日志信息                 | string                 | 是   | -      |
+| 参数     | 说明                                                                                                                                                                     | 类型                   | 必填 | 默认值 |
+| :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- | :--- | :----- |
+| headers  | 需包含用户 uuid 及 ip 地址。<br /> 示例: <br />{<br /> &nbsp;&nbsp;&nbsp;&nbsp;'Ones-User-Id': 'xxxxxx', <br /> &nbsp;&nbsp;&nbsp;&nbsp;'X-Real-Ip': '127.0.0.1',<br />} | Record<string, string> | 是   | -      |
+| message  | 审计日志信息                                                                                                                                                             | string                 | 是   | -      |
+| teamUUID | 团队 uuid, 组织级别插件该参数必填                                                                                                                                        | string                 | 否   | -      |
 
 #### Returns
 
@@ -165,9 +166,21 @@ export async function uploadFileToPlugin(request: PluginRequest): Promise<Plugin
 #### Example
 
 ```typescript
-import { getAbilityConfig } from '@ones-op/node-ability'
+import { AuditLog } from '@ones-op/node-ability'
 
-const response = await getAbilityConfig()
+export async function testAuditLog(request: PluginRequest): Promise<PluginResponse> {
+  const auditHeader = {
+    'Ones-User-Id': 'E6ZqgsSX', //该参数为用户uuid
+    'X-Real-Ip': '127.0.0.1', //IP地址
+  }
+  const resp = await AuditLog.createLog(auditHeader, 'Test log') //写入审计信息
+  return {
+    body: {
+      res: 'audit log',
+      resp: resp,
+    },
+  }
+}
 ```
 
 ---
@@ -176,17 +189,14 @@ const response = await getAbilityConfig()
 
 获取能力配置信息
 
-#### 要求
-
-| ONES   | **@ones-op/node-ability** |
-| :----- | :------------------------ |
-| 待发布 | 待发布                    |
+- 可用：`v0.6.3+`
 
 #### Params
 
-| 参数      | 说明    | 类型   | 必填 | 默认值 |
-| :-------- | :------ | :----- | :--- | :----- |
-| abilityID | 能力 id | string | 否   | -      |
+| 参数      | 说明                              | 类型   | 必填 | 默认值 |
+| :-------- | :-------------------------------- | :----- | :--- | :----- |
+| abilityID | 能力 id                           | string | 否   | -      |
+| teamUUID  | 团队 uuid, 组织级别插件该参数必填 | string | 否   | -      |
 
 #### Returns
 
@@ -199,7 +209,7 @@ const response = await getAbilityConfig()
 ```typescript
 import { getAbilityConfig } from '@ones-op/node-ability'
 
-const response = await getAbilityConfig()
+const response = await getAbilityConfig('Qcf5BG5P')
 ```
 
 ---

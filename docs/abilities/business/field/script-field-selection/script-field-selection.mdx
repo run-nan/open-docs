@@ -28,7 +28,7 @@ This capability allows plugins to add script fields with the type **single-selec
 
 ### Scope
 
-Single-select/multi-select menu script fields can be added as **issue fields**, **project fields**, and **product fields**.
+Single-select/multi-select menu script fields can be added as **issue fields**, **project fields**, and **product fields**.The script properties of issue and project are supported for use in **Performance**.
 
 ### Performace
 
@@ -522,7 +522,7 @@ const UpdateFieldOptionRes = await Field.UpdateFieldOption([
 | FieldUUID  | string | Script field UUID                                                                              |
 | UUID       | string | UUID of the field option                                                                       |
 | Value      | string | Value of the field option                                                                      |
-| ObjectType | int    | Entity type, can have the following values:<br />- 1: Project<br />- 2: Task<br />- 3: Product |
+| ObjectType | int    | Entity type, can have the following values:<br />- 1: Product<br />- 2: Project<br />- 3: Task |
 
 #### Sequence Diagram
 

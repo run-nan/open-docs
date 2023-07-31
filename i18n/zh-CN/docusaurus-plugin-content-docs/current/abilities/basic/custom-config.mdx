@@ -6,6 +6,7 @@ description: 插件可视化的配置修改方式。
 
 import Image from '@theme/IdealImage'
 import customConfig1 from './images/custom-config1.png'
+import customConfig2 from './images/custom-config2.png'
 
 # 插件自定义配置
 
@@ -17,53 +18,56 @@ import customConfig1 from './images/custom-config1.png'
 
 ## 概述
 
-插件可以通过该能力自定义添加插件的配置项。
+通过下面两种方式，插件可以使用该能力在`配置中心 -> 插件管理`下自定义添加插件的配置项：
 
-在`配置中心 -> 插件管理`下，每个插件的详情页面中包含了配置项的值。在插件未启用时，可以修改配置项的值。
-配置项的类型支持单行，多行文本，密码文本三种类型。
+1. `基本信息` 选项卡
+
+每个插件的详情页面中包含了配置项的值。在插件未启用时，可以修改配置项的值。
+配置项的类型支持单行，多行文本，密码文本三种类型，其中如果有必填项，且没有填写，则无法启用插件。
 
 <Image img={customConfig1} />
 
 并且插件后端可以通过调用 API 获取插件自定义配置项的数据。
 
+2. 新建选项卡
+
+<Image img={customConfig2} />
+
+你可以在`日志`选项卡前面添加一个插槽。在插槽中你需要自定义渲染配置页面，并确定如何存储和获取这些配置数据。
+
+这个选项卡只有在插件启用后才能访问。
+
 ## 使用
 
-### 给插件添加自定义配置项
+### 1. 在`基本信息`选项卡中添加
+
+#### 给插件添加自定义配置项
 
 > 插件配置项字段说明
 
-|              | 说明           | 值                                                          |
-| :----------- | :------------- | :---------------------------------------------------------- |
-| **key**      | 该配置项的名称 | -                                                           |
-| **value**    | 配置的默认值   | -                                                           |
-| **type**     | 配置项类型     | 101: 单行输入框 <br/> 102: 多行输入框 <br/> 103: 密码输入框 |
-| **required** | 是否必填       | true/false                                                  |
+| 属性     | 说明                                                                                         | 类型      | 必填 | 默认值  |
+| -------- | -------------------------------------------------------------------------------------------- | --------- | ---- | ------- |
+| key      | 唯一标识                                                                                     | `string`  | 是   |         |
+| type     | 配置类型<br /> `Input`: 单行输入框 <br />`TextArea`: 多行输入框<br /> `Password`: 密码输入框 | `string`  | 是   |         |
+| required | 是否必填                                                                                     | `boolean` | 否   | `false` |
+| label    | 别名                                                                                         | `string`  | 否   | `key`   |
+| value    | 默认值                                                                                       | `string`  | 否   |         |
 
-在插件配置文件`plugin.yaml`下的`config`字段添加需要的内容，即可为插件新增两个配置项**configKey1**与**configkey2**，类型为多行输入框。
+在插件配置文件`plugin.yaml`下的`config`字段添加需要的内容，即可为插件新增配置项**cexampleConfigKey**，类型为单行输入框。
 
 ```yaml title="config/plugin.yaml"
 service:
-  app_id: ...
-  name: ability-customConfig
-  ...
   config:
-    - key: configKey1
-      value: ''
-      type: 102
-      required: true
-    - key: configKey2
-      value: ''
-      type: 102
-      required: true
-...
-...
+    - key: exampleConfigKey
+      label: my example key
+      type: Input
 ```
 
-### 插件后端获取插件自定义配置项
+#### 插件后端获取插件自定义配置项
 
-#### 通过调用 SDK 方法获取
+##### 通过调用 SDK 方法获取
 
-通过`@ones-op/node-ability'`包的`Plugin.getPluginConfig()`直接获取插件配置
+通过`@ones-op/node-ability`包的`Plugin.getPluginConfig()`直接获取插件配置
 
 ```typescript
 import { Plugin } from '@ones-op/node-ability'
@@ -73,7 +77,7 @@ export async function configurationPageTest1() {
 }
 ```
 
-#### 通过 [ONES 接口访问](../business/ONES-API/ONES-API-access.md) 获取
+##### 通过 [ONES 接口访问](../business/ONES-API/ONES-API-access.md) 获取
 
 按以下代码及参数构造`fetchONES`入参进行接口访问，即可从返回值中获取插件配置项相关信息。
 
@@ -119,6 +123,22 @@ export async function configurationPageTest2() {
   }
 }
 ```
+
+### 2. 在新建选项卡中添加
+
+在插件工程目录下执行 `npx op add module` 指令，并选择：`settings`。
+
+执行完成后，会在 `plugin.yaml` 配置文件的 **modules** 属性下新增一段配置。配置如下：
+
+```yaml
+modules:
+  - id: settings-1cGv
+    title: Settings
+    moduleType: settings
+    entry: modules/settings-1cGv/index.html
+```
+
+现在你可以开始编写你的配置页面了。
 
 ## 常见问题
 

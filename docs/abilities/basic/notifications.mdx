@@ -63,7 +63,6 @@ export async function sendEmail(request: PluginRequest): Promise<PluginResponse>
       },
     ],
     Ext: 'ext string',
-    Source: 'source string',
   })
   return {
     body: {
@@ -82,8 +81,13 @@ export async function sendEmail(request: PluginRequest): Promise<PluginResponse>
 | ToUsers     | string[]       | Array of users to receive notifications                                                                                                                                                         | Y            | -           |
 | NotifyWay   | NotifyWay      | Notification type, optional values:<br />- Email: NotifyWay.Email<br />- Lark: NotifyWay.Lark<br />- YouDu: NotifyWay.YouDu<br />- WeChat: NotifyWay.WeChat<br />- DingDing: NotifyWay.DingDing | Y            | -           |
 | MessageBody | IMessageBody[] | Array of message bodies, each message body contains:<br />- Body: notification content<br />- url：notification jump link                                                                       | Y            | -           |
-| Ext         | string         | Extension field                                                                                                                                                                                 | Y            | -           |
-| Source      | string         | Source, for the record                                                                                                                                                                          | Y            | -           |
+| Ext         | string         | MessageType, supports:<br/>When NotifyWay Field is `NotifyWay.YouDu`, optional values are:<br/>- `text`: Text<br />- `exlink`: External link                                                    | N            | -           |
+
+**Return**
+
+| **Parameter** | **Type**     | **Description**                                                                                                                                | **Required** | **Default** |
+| :------------ | :----------- | :--------------------------------------------------------------------------------------------------------------------------------------------- | :----------- | :---------- |
+| Error         | ErrorMessage | Contains the following fields:<br />- Code: Fixed value: `11046`<br />- Msg: Fixed value: `NotifyEventFailure 11046`<br />- Err: Error message | N            | -           |
 
 The effect of sending mail is as shown in the figure:
 

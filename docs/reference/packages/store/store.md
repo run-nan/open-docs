@@ -317,13 +317,17 @@ Get the information of the currently access testcase library list.
 | --------------------------------------------------------- | ---------------------- |
 | Information of the currently access testcase library list | `TestCaseListInfoType` |
 
+:::tip
+When the total number of test cases exceeds `10000`, a prompt button `Select all test cases` will appear after the checkbox.
+:::
+
 #### Types
 
 ```tsx
 interface TestCaseListInfoType {
   selectedUUIDs: Array<string> // The current selected testcase information
-  isFullSelected?: boolean // Whether to full selected
-  fullSelectedParams?: { [key: string]: any } // Search parameters and identifiers in full selected
+  isFullSelected?: boolean // Whether the number of test cases exceeds 10000 and full selected
+  fullSelectedParams?: { [key: string]: any } // Search parameters and identifiers when the total number of test cases exceeds `10000` and full selected
 }
 ```
 
@@ -673,8 +677,8 @@ interface TestcaseReportComponentInfo<T extends Record<string, any> = {}> {
 
 Get the current space information.
 
-- Added in: `v0.x.x+`
-- ONES Requirement: `v3.x.x+`
+- Added in: `v0.8.0+`
+- ONES Requirement: `v3.13.24+`
 
 #### Returns
 
@@ -695,8 +699,8 @@ interface WikiSpaceInfoType {
 
 Get the current page information.
 
-- Added in: `v0.x.x+`
-- ONES Requirement: `v3.x.x+`
+- Added in: `v0.11.0+`
+- ONES Requirement: `v3.14.0+`
 
 #### Returns
 

@@ -1,0 +1,57 @@
+import Image from '@theme/IdealImage'
+
+# 默认分组
+
+## 要求
+
+|   ONES   |
+| :------: |
+| v3.14.0+ |
+
+## 概述
+
+<Image img={require('./images/default.png')} />
+
+我们为「配置中心」-「代码集成配置」-「[默认分组](../../index.mdx#slot-hierarchy)」提供了一些插槽，以便于为该应用定制化页面模块。
+
+当前支持的插槽：
+
+- [ones:settings:code_integration:default:new](#onessettingscode_integrationdefaultnew)
+- [ones:settings:code_integration:default:repo](#onessettingscode_integrationdefaultrepo)
+- [ones:settings:pipeline:default:repo（已废弃）](#onessettingspipelinedefaultrepo已废弃)
+
+## 插槽
+
+#### ones:settings:code_integration:default:new
+
+**模块路径：** 配置中心 / 代码集成配置 / [默认分组](../../index.mdx#slot-hierarchy) / 新模块
+
+**个数限制：** 一个插件中最多可声明 **10 **个该插槽，系统中最多同时存在 **100 **个该插槽
+
+#### ones:settings:code_integration:default:repo
+
+**模块路径：** 配置中心 / 代码集成配置 / [默认分组](../../index.mdx#slot-hierarchy) / 代码仓库关联
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:settings:pipeline:default:repo（已废弃）
+
+**ONES 要求：** v3.11.15+
+
+**模块路径：** 配置中心 / 流水线管理配置 / [默认分组](../../index.mdx#slot-hierarchy) / 代码仓管理
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+## 使用
+
+```yaml
+modules:
+  - id: ones-settings-code_integration-default-repo-YA0a
+    title: Link repositories
+    moduleType: ones:settings:code_integration:default:repo
+    entry: modules/ones-settings-code_integration-default-repo-YA0a/index.html
+```
+
+**支持的配置项：**
+
+- [disabled](../../../../../../reference/config/plugin.yaml#disabled)

@@ -40,6 +40,9 @@
 
   /* icon */
   --ifm--menu-customer-up-arrow: url('/homepage/up-arrow.svg');
+
+  /** 代码行高亮色 */
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -51,6 +54,7 @@
   --ifm-color-primary-light: #99c7f2;
   --ifm-color-primary-lighter: #d6e9fa;
   --ifm-color-primary-lightest: #eaf3fc;
+  --docusaurus-highlighted-code-line-bg: rgb(72 77 91);
 }
 
 .docusaurus-highlight-code-line {
@@ -319,9 +323,14 @@
  * 因为 name 的路径跳转不正确，干脆去掉
  * flows 只是 JSON.stringify(securitySchemes) 的结果，不易阅读，也去掉
 */
-.openapi-method-endpoint + .details__demo-panel pre span:first-child,
-.openapi-method-endpoint + .details__demo-panel pre span:last-child {
+.theme-api-markdown .openapi-method-endpoint + .details__demo-panel pre span:first-child,
+.theme-api-markdown .openapi-method-endpoint + .details__demo-panel pre span:last-child {
   display: none;
+}
+
+/* fix: 示例代码过长时出现双滚动条 */
+.theme-api-markdown .tabs-container pre[class*='language-'] {
+  max-height: 450px;
 }
 
 /* Open API 👆 */

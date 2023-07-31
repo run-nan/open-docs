@@ -57,6 +57,8 @@ After logging in and selecting the team, you can execute `npx op invoke run` und
 ➜ npx op invoke run
   ✔ Validating command options
   ✔ Validating config/local.yaml fields
+  ✔ Checking ability relate module
+  ✔ Updating min_system_version in plugin.yaml
   ✔ Building plugin project Back-End dist files
   ✔ Initializing the plugin project front-end development server
   ✔ Initializing the node-host params
@@ -102,7 +104,7 @@ Local debug return value: {
 }
 ```
 
-Plugin api are roughly divided into two types: [**api registration**](#) and [**api interception**](../abilities/business/ONES-API/ONES-API-interception.md). When you use [Postman](https://learning.postman.com/docs/getting-started/introduction/) to debug these api, you need to add different request headers according to these two types.
+Plugin api are roughly divided into two types: [**api registration**](../abilities/business/ONES-API/ONES-API-registration.md) and [**api interception**](../abilities/business/ONES-API/ONES-API-interception.mdx). When you use [Postman](https://learning.postman.com/docs/getting-started/introduction/) to debug these api, you need to add different request headers according to these two types.
 
 When your interface debugging shows unexpected results, you can refer to our provided [**Debugging**](./advanced/debugger.mdx) method for single-step debugging to further locate the problem.
 

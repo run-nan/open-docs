@@ -8,6 +8,7 @@ import libImg from './images/lib.png'
 import renderImg from './images/render.png'
 import settingImg from './images/setting.png'
 import exportImg from './images/export.png'
+import addAbilityImg from './images/add-ability.png'
 
 # Custom test reporting components
 
@@ -52,11 +53,19 @@ If you have configured custom component export content, the exported test report
 npm i @ones-op/store
 ```
 
-### Add modules
+### Add Ability
 
-1. Execute `npx op add module` , select `ones:testcase:report:component:new` to add a module
-2. Excute `npx op add sub-module` , add a sub-module under the `ones:testcase:report:component:new module` just added
-3. Manually configure the module in `/config/plugin.yaml`
+1. Execute `npx op add ability` , select `testcase-report-custom-component@1.0.0` to add an ability
+
+2. As prompted, fill in the associated slot `ones:testcase:report:component:new` name and create a sub-module to render the card content of the custom component in the test report
+
+   <Image img={addAbilityImg} />{' '}
+
+3. If the component does not need to support the ability to configure pop-up content, skip to the next step. Excute `npx op add sub-module` , add a sub-module under the `ones:testcase:report:component:new module` just added
+
+4. Manually configure the ability in `/config/plugin.yaml`. A custom component module contains two submodules:
+   - component card: `scene` is `render`, which is used to `render` the card content of the custom component in the test report, which must be added
+   - setting popup: `scene` is `setting`, which is used to render the configuration pop-up window content of the custom component. If the component does not support configuration, you can choose not to add it
 
 ```yaml
 modules:
@@ -74,50 +83,6 @@ modules:
         scene: setting # unnecessary
         entry: >-
           modules/ones-testcase-report-component-new-5cZd/ones-testcase-report-component-new-NQD6/index.html
-```
-
-A custom component module contains two submodules
-
-- component card: `scene` is `render`, which is used to `render` the card content of the custom component in the test report, which must be added
-- setting popup: `scene` is `setting`, which is used to render the configuration pop-up window content of the custom component. If the component does not support configuration, you can choose not to add it
-
-### Add Ability
-
-1. Execute `npx op add ability` , select `testcase-report-custom-component@1.0.0` to add an ability
-2. Manually configure the ability in `/config/plugin.yaml`
-
-```yaml
-service:
-  app_id: Wr1aVwZS
-  ...
-modules:
-  - id: ones-testcase-report-component-new-5cZd
-    title: Test report component
-    moduleType: ones:testcase:report:component:new
-    modules:
-      - id: ones-testcase-report-component-new-U06I
-        title: Custom Plugin Render
-        scene: render
-        entry: >-
-          modules/ones-testcase-report-component-new-5cZd/ones-testcase-report-component-new-U06I/index.html
-      - id: ones-testcase-report-component-new-NQD6
-        title: Custom Plugin Setting Modal
-        scene: setting
-        entry: >-
-          modules/ones-testcase-report-component-new-5cZd/ones-testcase-report-component-new-NQD6/index.html
-abilities:
-    - id: testcase-report-custom-component
-      name: testcase-report-custom-component
-      version: 1.0.0
-      abilityType: TestcaseReportCustomComponent
-      relateModule:
-        componentModule: 'ones-testcase-report-component-new-5cZd' # the moduleID of the module whose moduleType is ones:testcase:report:component:new
-      config:
-        - key: component_name
-          label: testcase-report-custom-component-name
-          value: plugin Custom Component
-          fieldType: Input
-          show: false
 ```
 
 ### Custom component card content

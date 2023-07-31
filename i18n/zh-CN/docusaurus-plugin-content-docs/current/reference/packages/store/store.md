@@ -317,13 +317,17 @@ interface TestCaseLibraryInfoType {
 | ---------------------- | ---------------------- |
 | 当前访问的用例库的信息 | `TestCaseListInfoType` |
 
+:::tip
+当前模块的总用例数超过`10000`条时，全选框后会出现`选择全部用例`的提示按钮。
+:::
+
 #### 类型
 
 ```tsx
 interface TestCaseListInfoType {
   selectedUUIDs: Array<string> // 当前选中的用例信息
-  isFullSelected?: boolean // 当前用例是否全选
-  fullSelectedParams?: { [key: string]: any } // 全选场景下的查询条件以及标识
+  isFullSelected?: boolean // 总用例数超过 10000 时，当前用例是否全选
+  fullSelectedParams?: { [key: string]: any } // 总用例数超过 10000 时，全选时的查询条件以及标识
 }
 ```
 
@@ -683,8 +687,8 @@ interface TestcaseReportComponentInfo<T extends Record<string, any> = {}> {
 
 获取当前访问的页面组信息。
 
-- 可用：`v0.x.x+`
-- ONES 要求：`v3.x.x+`
+- 可用：`v0.8.0+`
+- ONES 要求：`v3.13.24+`
 
 #### 返回
 
@@ -705,8 +709,8 @@ interface WikiSpaceInfoType {
 
 获取当前访问的页面的信息。
 
-- 可用：`v0.x.x+`
-- ONES 要求：`v3.x.x+`
+- 可用：`v0.11.0+`
+- ONES 要求：`v3.14.0+`
 
 #### 返回
 

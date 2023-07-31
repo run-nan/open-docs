@@ -195,14 +195,14 @@ The caller of the plug-in registration interface is generally the front-end of t
   3. It also provides a function to convert sdk errors into plug-in interface errors, which can be modified and thrown again:
 
   ```typescript
-  import { SdkErrorToPluginError } from '@ones-op/node-error'
+  import { sdkErrorToPluginError } from '@ones-op/node-error'
   import { isExist } from '@ones-op/node-file'
 
   export async function testSdkErrorToPluginError(request: PluginRequest) {
     try {
-      isExist('../test.txt')
+      await isExist('../test.txt')
     } catch (e) {
-      const pluginErr = SdkErrorToPluginError(e)
+      const pluginErr = sdkErrorToPluginError(e)
       pluginErr.reason = 'test'
       throw pluginErr
     }

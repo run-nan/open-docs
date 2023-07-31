@@ -5,7 +5,6 @@ description: ----
 
 import Image from '@theme/IdealImage'
 import projectCustomComponent1 from './images/project-custom-component1.png'
-import projectCustomComponent2 from './images/project-custom-component2.png'
 import projectCustomComponent3 from './images/project-custom-component3.png'
 import projectCustomComponent4 from './images/project-custom-component4.png'
 import projectCustomComponent5 from './images/project-custom-component5.png'
@@ -53,11 +52,9 @@ import projectCustomComponent5 from './images/project-custom-component5.png'
 
 ## 用法
 
-使用该能力需要分别添加后端能力`插件承载project自定义组件`和前端插槽`ones:project:component:new`，然后在代码中实现自己的自定义组件功能。
+使用该能力需要添加后端能力`插件承载project自定义组件`和前端插槽`ones:project:component:new`，然后在代码中实现自己的自定义组件功能。
 
 ### 第一步：通过 OP 工具添加并使用能力
-
-#### 1. 添加后端能力`插件承载 project 自定义组件`
 
 在`插件根目录`使用命令行输入 OP 命令添加能力（该指令需要 OP 工具版本 1.0 及以上）
 
@@ -65,13 +62,13 @@ import projectCustomComponent5 from './images/project-custom-component5.png'
 npx op add ability
 ```
 
-选中并添加`project-custom-component@1.0.0`
+选中并添加`project-custom-component@1.0.0`, 根据提示, 填写关联插槽 `ones:project:component:new` 名称。
 
 <Image img={projectCustomComponent1} />
 
 OP 工具会为插件添加如下内容
 
-- `config/plugin.yaml`中 abilities 字段新增相关段落
+- `config/plugin.yaml`中 abilities, modules 字段新增相关段落
 
 ```yaml
 service:
@@ -79,7 +76,11 @@ service:
   name: ability-project-custom-component
   ...
   ...
-modules: []
+modules:
+  - id: ones-project-component-new-weUW
+    title: customComponent1
+    moduleType: ones:project:component:new
+    entry: modules/ones-project-component-new-weUW/index.html
 abilities:
   - id: ...
     name: project自定义组件
@@ -90,7 +91,7 @@ abilities:
       copyPluginData: copyTest
     relateModule:
       #自定义组件入口
-      componentModuleEnter: ''
+      componentModuleEnter: 'ones-project-component-new-weUW'
     config:
       - key: component_name
         label: 自定义组件名称
@@ -112,85 +113,43 @@ abilities:
         show: false
 ```
 
-- `backend/src`目录下新增`project-custom-component.ts`文件，如果开发者想要实现自定义项目组件在多个项目间的数据复制功能，开发者可以在该文件中的`copyTest`方法中完成。
+- `web/src` 下新增 `ones-project-component-new-weUW` 文件夹
 
-```typescript
-import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
-import { Logger } from '@ones-op/node-logger'
+- `backend/src`目录下新增 `project-custom-component.ts` 文件，如果开发者想要实现自定义项目组件在多个项目间的数据复制功能，开发者可以在该文件中的`copyTest`方法中完成。
 
-// 插件开发者如果要实现自定义组件的数据复制，需要在该方法内完成。
-export const copyTest = async (request: PluginRequest): Promise<PluginResponse> => {
-  Logger.info('copyTest  enter')
-  const body = request?.body as any
+  ```typescript
+  import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+  import { Logger } from '@ones-op/node-logger'
 
-  let srcProjectUUID = body.srcProjectUUID
-  let dstProjectUUID = body.dstProjectUUID
+  // 插件开发者如果要实现自定义组件的数据复制，需要在该方法内完成。
+  export const copyTest = async (request: PluginRequest): Promise<PluginResponse> => {
+    Logger.info('copyTest  enter')
+    const body = request?.body as any
 
-  Logger.info(
-    '[Plugin] copyTest',
-    'url:',
-    request.url,
-    'srcProjectUUID:',
-    srcProjectUUID,
-    'dstProjectUUID:',
-    dstProjectUUID
-  )
+    let srcProjectUUID = body.srcProjectUUID
+    let dstProjectUUID = body.dstProjectUUID
 
-  return {
-    body: {
-      code: 200,
+    Logger.info(
+      '[Plugin] copyTest',
+      'url:',
+      request.url,
+      'srcProjectUUID:',
+      srcProjectUUID,
+      'dstProjectUUID:',
+      dstProjectUUID
+    )
+
+    return {
       body: {
-        state: 0,
-        message: 'success',
+        code: 200,
+        body: {
+          state: 0,
+          message: 'success',
+        },
       },
-    },
+    }
   }
-}
-```
-
-#### 2. 添加前端插槽`ones:project:component:new`
-
-在`插件根目录`使用命令行输入 OP 命令添加插槽（该指令需要 OP 工具版本 1.0 及以上）
-
-```shell
-npx op add module
-```
-
-选中并添加`ones:project:component:new`，输入自定义的 title
-
-<Image img={projectCustomComponent2} />
-
-OP 工具会为插件添加如下内容
-
-- `config/plugin.yaml`中 modules 字段新增相关段落
-
-```yaml
-modules:
-  - id: ones-project-component-new-weUW
-    title: customComponent1
-    moduleType: ones:project:component:new
-    entry: modules/ones-project-component-new-weUW/index.html
-```
-
-- `web/src`下新增`ones-project-component-new-weUW`文件夹
-
-#### 3. 补充插件配置文件`config/plugin.yaml`
-
-为了能力识别出对应的自定义组件，需要补充`abilities.relateModule.componentModuleEnter`字段
-
-将对应组件的`modules.id`填入`abilities.relateModule.componentModuleEnter`中,**注意填充值需加`''`**
-
-```yaml
-abilities:
-  - id: wrIFpkyb
-    name: project自定义组件
-    version: 1.0.0
-    abilityType: ProjectCustomComponent
-    function:
-      copyPluginData: copyTest
-    relateModule:
-      componentModuleEnter: 'ones-project-component-new-weUW'
-```
+  ```
 
 ### 第二步：完成自定义组件的功能
 

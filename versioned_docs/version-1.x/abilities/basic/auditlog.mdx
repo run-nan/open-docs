@@ -36,22 +36,21 @@ npm i @ones-op/node-ability
 
 > The `createLog` method requires two input parameters, one of which contains the structure of the `X-Real-Ip` and `Ones-User-Id` fields, as well as the audit information to be recorded `message`. `Ones-User-Id` is the uuid of the operator,`X-Real-Ip` is the IP address of the operator.
 
-As shown in the following code, construct a structure `auditData` with `Ones-User-Id` and `Ones-User-Id` as the first input parameter, and take the audit information you want to record `message` as the second input parameter, and call the `createLog` method to write to the plugin audit log.
+As shown in the following code, construct a structure `auditData` with `X-Real-Ip` and `Ones-User-Id` as the first input parameter, and take the audit information you want to record `message` as the second input parameter, and call the `createLog` method to write to the plugin audit log. If it is an organization-level plugin, it needs the team's unique identifier `teamUUID` as the third entry.
 
 ```typescript
 import { AuditLog } from '@ones-op/node-ability'
 
-export async function hello(request: PluginRequest): Promise<PluginResponse> {
-  const body = request.body || {}
-  let auditData = {
-    'Ones-User-Id': 'icNcsEpo', //user uuid
+export async function testAuditLog(request: PluginRequest): Promise<PluginResponse> {
+  const auditHeader = {
+    'Ones-User-Id': 'E6ZqgsSX', //This parameter is user uuid
     'X-Real-Ip': '127.0.0.1', //IP address
   }
-  const user = await AuditLog.createLog(auditData, 'audit log from plugin') //write audit information
+  const resp = await AuditLog.createLog(auditHeader, 'Test log')
   return {
     body: {
       res: 'audit log',
-      requestBody: body,
+      resp: resp,
     },
   }
 }
@@ -64,7 +63,7 @@ import { AuditLog } from '@ones-op/node-ability'
 
 export async function hello(request: PluginRequest): Promise<PluginResponse> {
   const body = request.body || {}
-  await AuditLog.createLog(request.headers, 'audit log from plugin') //write audit information
+  await AuditLog.createLog(request.headers, 'Audit log from plugin') //write audit information
   return {
     body: {
       res: 'audit log',

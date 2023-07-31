@@ -24,6 +24,7 @@ Developer need to use [npx](https://docs.npmjs.com/cli/v8/commands/npx) to execu
 | [pickteam](#pickteam) | Fetch the team list and update the config file with the team information from the team list for local debugging or CI deployment. |
 | [invoke](#invoke)     | Start the plugin project locally and invoke one or several life-cycles of the plugin.                                             |
 | [update](#update)     | Update project content.                                                                                                           |
+| [upgrade](#upgrade)   | Upgrade `@ones/cli-plugin` and relative dependencies to lastest version which range of current major version.content.             |
 
 ## init
 
@@ -80,9 +81,10 @@ npx op packup [filename]
 
 ### Options
 
-| Argument        | Description                                                                                                                                               |
-| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--bump <mode>` | packup plug-in with bump options, `no-modify`: do not bump version, `major`: bump major version, `minor`: bump minor version, `patch`: bump patch version |
+| Argument        | Requirements                  | Description                                                                                                                                               |
+| --------------- | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--bump <mode>` | `@ones/cli-plugin` `v1.14.0+` | packup plug-in with bump options, `no-modify`: do not bump version, `major`: bump major version, `minor`: bump minor version, `patch`: bump patch version |
+
 
 ## login
 
@@ -326,7 +328,7 @@ Developer can learn more about [available life-cycle](../../guide/lifecycle.mdx)
 | `--mode <type>`                  |       | specify the mode, support mode: <ul><li>`all`</li><li>`backend`</li><li>`frontend`</li></ul> Default mode is `all`.                                                                                                                           |
 | `--webpack-stats-preset <level>` |       | Specify the webpack logging level, support level: <ul><li>`errors-only`</li><li>`errors-warnings`</li><li>`minimal`</li><li>`none`</li><li>`normal`</li><li>`verbose`</li><li>`detailed`</li><li>`summary`</li></ul> Default level is `info`. |
 
-## update (Deprecated)
+## update (Deprecating)
 
 Update project content, to be deprecated, using `upgrade` instead.
 
@@ -348,7 +350,16 @@ npx op update <target>
 
 ## upgrade
 
-upgrade `@ones/cli-plugin` and relative dependencies to lastest version which range of current major version
+### Requirements
+
+| @ones/cli-plugin |
+| :--------------- |
+| v1.14.0+         |
+
+
+### Overview
+
+Upgrade `@ones/cli-plugin` and relative dependencies to lastest version which range of current major version
 
 ```shell
 npx op upgrade

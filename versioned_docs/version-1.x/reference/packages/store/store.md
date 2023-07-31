@@ -317,13 +317,17 @@ Get the information of the currently access testcase library list.
 | --------------------------------------------------------- | ---------------------- |
 | Information of the currently access testcase library list | `TestCaseListInfoType` |
 
+:::tip
+When the total number of test cases exceeds `10000`, a prompt button `Select all test cases` will appear after the checkbox.
+:::
+
 #### Types
 
 ```tsx
 interface TestCaseListInfoType {
   selectedUUIDs: Array<string> // The current selected testcase information
-  isFullSelected?: boolean // Whether to full selected
-  fullSelectedParams?: { [key: string]: any } // Search parameters and identifiers in full selected
+  isFullSelected?: boolean // Whether the number of test cases exceeds 10000 and full selected
+  fullSelectedParams?: { [key: string]: any } // Search parameters and identifiers when the total number of test cases exceeds `10000` and full selected
 }
 ```
 
@@ -691,6 +695,28 @@ interface WikiSpaceInfoType {
 }
 ```
 
+### useWikiPageInfo {#useWikiPageInfo}
+
+Get the current page information.
+
+- Added in: `v0.11.0+`
+- ONES Requirement: `v3.14.0+`
+
+#### Returns
+
+| Description              | Type               |
+| ------------------------ | ------------------ |
+| Current page information | `WikiPageInfoType` |
+
+#### Types
+
+```tsx
+interface WikiPageInfoType {
+  uuid: string // Current page UUID
+  name: string // Current page name
+}
+```
+
 ### useVariablesInfo {#useVariablesInfo}
 
 Get the non-standard temporary data passed by the current slot. You can get the type inference of the data passed by the current slot by specifying the paradigm.
@@ -707,6 +733,7 @@ Get the non-standard temporary data passed by the current slot. You can get the 
 
 ```tsx
 function useVariablesInfo<T extends keyof VariablesMap>(): VariablesMap[T]
+
 type VariablesMap = TriggerActionMap & {
   // Unified Trigger type
   'ones:global:trigger': Action<Record<PropertyKey, any>> & {
@@ -714,6 +741,7 @@ type VariablesMap = TriggerActionMap & {
   }
   // ......
 }
+
 type TriggerActionMap = {
   [T in keyof ActionType]: ActionType[T] & { actionType: T }
 }

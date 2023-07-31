@@ -250,7 +250,7 @@ const { useCustomMenus } = dashboardCard
 const Card = () => {
   const dashboardCardInfo = useDashboardCardInfo<{ text: string }>()
   const { text } = dashboardCardInfo.cardData || {}
-  const customMenus = React.useMemo<CustomMenus>(
+  const customMenus = React.useMemo(
     () => [
       {
         label: 'Show the text',
@@ -310,7 +310,7 @@ const Setting = () => {
     <Form initialValues={cardConfig} form={form}>
       <Form.Item
         name={['text']}
-        label={t('content')}
+        label="content"
         rules={[
           {
             required: true,

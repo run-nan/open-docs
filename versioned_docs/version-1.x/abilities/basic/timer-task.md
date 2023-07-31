@@ -24,7 +24,7 @@ The timer supports two definition methods of fixed frequency and timing: the fre
 
 #### Step 1: Add configuration
 
-Use `npx op add ability` to add the ability of `timer-task` type, which will add the ability configuration to the plugin configuration file and generate `timer-task.ts` file. In the configuration, the value of the `key` field in the fixed frequency mode is `interval`, and the value of the `value` field is the interval time, in **second**.
+Use `npx op add ability` to add the ability of `timer-task` type and select `1.0.0` template, which will add the ability configuration to the plugin configuration file and generate `timer-task.ts` file. In the configuration, the value of the `key` field in the fixed frequency mode is `interval`, and the value of the `value` field is the interval time, in **second**.
 
 Example: execute the `taskAction` function every 30 seconds.
 
@@ -58,7 +58,7 @@ export async function taskAction() {
 
 #### Step 1: Add configuration
 
-Add the ability configuration to the configuration file of the plugin. In the configuration, the value of the `key` field of the timing method is `cron`, and the value of the `value` field is `cron` expression.
+Use `npx op add ability` to add the ability of `timer-task` type and select `1.0.0-cron` template, which will add the ability configuration to the plugin configuration file and generate `timer-task.ts` file. In the configuration, the value of the `key` field of the timing method is `cron`, and the value of the `value` field is `cron` expression.
 
 Example: execute the `cronTaskAction` function every 30th second of the minute
 

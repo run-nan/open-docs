@@ -1,6 +1,7 @@
 ---
 sidebar_position: 7
 description: Item change event interception.
+toc_max_heading_level: 4
 ---
 
 import Image from '@theme/IdealImage'
@@ -23,7 +24,7 @@ When we make changes through GraphQL mutation or common API, the events that sup
 
 | Module                      | Module name                        | GraphQL mutation    | Common API                                                                                  |
 | :-------------------------- | :--------------------------------- | :------------------ | :------------------------------------------------------------------------------------------ |
-| Project                     | Project                            | -                   | Create project、Batch create project、Update project field                                  |
+| Project                     | Project                            | -                   | Create project                                                                              |
 | Manhour(Simple mode)        | Time spent                         | -                   | Modify time estimated                                                                       |
 | Manhour(Summary mode)       | Time spent                         | add、update、delete | -                                                                                           |
 | RemainingHour(Simple mode)  | Time remaining                     | -                   | Modify time remaining                                                                       |
@@ -33,6 +34,131 @@ When we make changes through GraphQL mutation or common API, the events that sup
 | ActivityRelationLink        | Predecessor and Successor relation | add、update、delete | -                                                                                           |
 | Deliverable                 | Deliverable                        | add、update、delete | -                                                                                           |
 | Task                        | Issue                              |                     | Scope Reference [TaskEventHandle](../issue/task-event-handler/task-event-handler.mdx#scope) |
+
+<br />
+
+#### Project
+
+**Trigger：** Create project
+
+**url：** https://your-host/project/api/project/team/:teamUUID/projects/add
+
+##### Param： add_project {#add_project}
+
+| Param        | Type     | Description                 |
+| :----------- | :------- | :-------------------------- |
+| uuid         | string   | The `uuid` of the project   |
+| name         | string   | project name                |
+| members      | []string | List of `uuid`s for members |
+| template_id  | string   | Template `id`               |
+| program_uuid | string   | The `uuid` of the itemset   |
+
+<br />
+
+#### Manhour
+
+- **Worklog mode - Simple mode**
+
+  **Trigger：** Modify time estimated
+
+  **url：** https://your-host/project/api/project/team/:teamUUID/task/:taskUUID/assess_manhour/update
+
+  ##### Param：estimated_manhour {#estimated_manhour}
+
+  | Param | Type   | Description                                 |
+  | :---- | :----- | :------------------------------------------ |
+  | task  | string | The `uuid` of the issue to which it belongs |
+  | hours | int64  | time estimated                              |
+  | type  | string | `estimated`                                 |
+
+- **Worklog mode - Summary mode**
+
+  **Trigger：** GraphQL mutation
+
+  **Supported Operation：** add、update、delete
+
+<br />
+
+#### RemainingHour
+
+- **Worklog mode - Simple mode**
+
+  **Trigger：**Modify time remaining
+
+  **url：** https://your-host/project/api/project/team/:teamUUID/task/:taskUUID/remaining_hour/update
+
+  ##### Param：remain_manhour {#remain_manhour}
+
+  | Param | Type   | Description                       |
+  | :---- | :----- | :-------------------------------- |
+  | key   | string | `manhour-{task_uuid}-{user_uuid}` |
+  | hours | int64  | time remaining                    |
+
+- **Worklog mode - Summary mode**
+
+  **Trigger：** GraphQL mutation
+
+  **Supported：** add、update、delete
+
+<br />
+
+#### Activity
+
+**Trigger：** GraphQL mutation
+
+**Supported：** add、update、delete
+
+<br />
+
+#### ActivityRelease
+
+**Trigger：** GraphQL mutation
+
+**Supported：** add、update、delete
+
+<br />
+
+#### ActivityRelationLink
+
+**Trigger：** GraphQL mutation
+
+**Supported：** add、update、delete
+
+<br />
+
+#### Deliverable
+
+**Trigger：** GraphQL mutation
+
+**Supported：** add、update、delete
+
+<br />
+
+#### Task
+
+Trigger：Scope Reference [TaskEventHandle](../issue/task-event-handler/task-event-handler.mdx#scope)
+
+##### Param：TaskEvent {#TaskEvent}
+
+| Param                     | Type                                | Required | Description                                                                                                                                                                                 |
+| ------------------------- | ----------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| task_fields               | [[]TaskEventField](#TaskEventField) | Y        | Change field list                                                                                                                                                                           |
+| task_uuid                 | string                              | Y        | The `uuid` of the issue                                                                                                                                                                     |
+| action                    | string                              | Y        | `update`: general field<br />`transit`: status change (with step field)<br />`change_issue_type`: issue type change<br />`publish_version`: version release<br />`add `: create a new issue |
+| issue_type_scope_uuid     | string                              | Y        | Issue type `UUID` under the project to which it belongs                                                                                                                                     |
+| issue_type_scope_name     | string                              | Y        | The name of the issue type under the project                                                                                                                                                |
+| issue_type_scope_name_map | map[string]string                   | Y        | The name of `issue_type_scope` in each language version                                                                                                                                     |
+
+##### TaskEventField {#TaskEventField}
+
+| Param            | Type              | Required | Description                                                                                                                             |
+| :--------------- | :---------------- | :------- | :-------------------------------------------------------------------------------------------------------------------------------------- |
+| field_uuid       | string            | N        | The `uuid` of the field                                                                                                                 |
+| field_type       | string            | N        | Field type                                                                                                                              |
+| field_name       | string            | N        | The `key` for the field name                                                                                                            |
+| field_name_map   | map[string]string | N        | The name of each language version of the field, such as: <br />en: 'Assignee/Owner' <br />origin: '{{field.assign}}' <br />zh: '负责人' |
+| field_value_type | string            | N        | Field value type:<br />0 - any<br />1 - int<br />2 - string<br />3 - []string                                                           |
+| value            | interface         | N        | Field value                                                                                                                             |
 
 ### Performance
 
@@ -94,47 +220,14 @@ abilities:
 
   Include the following in the `body` of `request`
 
-  | Param         | Type                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Required | Description                        |
-  | :------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------- | :--------------------------------- |
-  | user_uuid     | string                                                                                                                                                                                                                                                                                                                                                                                                                                               | Y        | User's `uuid`                      |
-  | item_type     | string                                                                                                                                                                                                                                                                                                                                                                                                                                               | Y        | module type                        |
-  | action        | string                                                                                                                                                                                                                                                                                                                                                                                                                                               | Y        | action type: `add/update/delete `  |
-  | lang          | string                                                                                                                                                                                                                                                                                                                                                                                                                                               | Y        | system language                    |
-  | graphql_query | GraphQL.Query                                                                                                                                                                                                                                                                                                                                                                                                                                        | N        | GraphQL data of this change event  |
-  | args          | Depending on the way the event is triggered, there are the following types: <br />Add project: [add_project](#add_project) <br />Modify project field: [update_project](#update_project) <br />time estimated: [estimated_manhour](#estimated_manhour) <br />time remaining: [remain_manhour](#remain_manhour) <br />TaskEvent: [TaskEvent](../issue/task-event-handler/task-event-handler.mdx#TaskEvent) <br />GraphQL method: map[string]interface | Y        | Change the parameters of the event |
-
-  #### add_project {#add_project}
-
-  | Param        | Type     | Description                 |
-  | :----------- | :------- | :-------------------------- |
-  | uuid         | string   | The `uuid` of the project   |
-  | name         | string   | project name                |
-  | members      | []string | List of `uuid`s for members |
-  | template_id  | string   | Template `id`               |
-  | program_uuid | string   | The `uuid` of the itemset   |
-
-  #### update_project {#update_project}
-
-  | Param        | Type   | Description                                                                           |
-  | :----------- | :----- | :------------------------------------------------------------------------------------ |
-  | key          | string | `key` value, generated by `project_uuid`                                              |
-  | item_type    | string | The value is `project`                                                                |
-  | Other `keys` | any    | The modified item properties will have different numbers and types of key-value pairs |
-
-  #### estimated_manhour {#estimated_manhour}
-
-  | Param | Type   | Description                                 |
-  | :---- | :----- | :------------------------------------------ |
-  | task  | string | The `uuid` of the issue to which it belongs |
-  | hours | int64  | time estimated                              |
-  | type  | string | `estimated`                                 |
-
-  #### remain_manhour {#remain_manhour}
-
-  | Param | Type   | Description                       |
-  | :---- | :----- | :-------------------------------- |
-  | key   | string | `manhour-{task_uuid}-{user_uuid}` |
-  | hours | int64  | time remaining                    |
+  | Param         | Type                                                                                                                                                                                                                                                                                                                                                                                   | Required | Description                        |
+  | :------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------- | :--------------------------------- |
+  | user_uuid     | string                                                                                                                                                                                                                                                                                                                                                                                 | Y        | User's `uuid`                      |
+  | item_type     | string                                                                                                                                                                                                                                                                                                                                                                                 | Y        | module type                        |
+  | action        | string                                                                                                                                                                                                                                                                                                                                                                                 | Y        | action type: `add/update/delete `  |
+  | lang          | string                                                                                                                                                                                                                                                                                                                                                                                 | Y        | system language                    |
+  | graphql_query | GraphQL.Query                                                                                                                                                                                                                                                                                                                                                                          | N        | GraphQL data of this change event  |
+  | args          | Depending on the way the event is triggered, there are the following types: <br />Add project: [add_project](#add_project) <br />time estimated: [estimated_manhour](#estimated_manhour) <br />time remaining: [remain_manhour](#remain_manhour) <br />TaskEvent: [TaskEvent](../issue/task-event-handler/task-event-handler.mdx#TaskEvent) <br />GraphQL method: map[string]interface | Y        | Change the parameters of the event |
 
 - **Return**
 
@@ -169,13 +262,13 @@ abilities:
   }
   ```
 
-  | Param         | Type                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Required | Description                                               |
-  | :------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------- | :-------------------------------------------------------- |
-  | is_follow     | string                                                                                                                                                                                                                                                                                                                                                                                                                                               | Y        | Express concern                                           |
-  | is_reject     | string                                                                                                                                                                                                                                                                                                                                                                                                                                               | Y        | Whether to refuse                                         |
-  | reject_reason | string                                                                                                                                                                                                                                                                                                                                                                                                                                               | N        | Reject reason                                             |
-  | args          | Depending on the way the event is triggered, there are the following types: <br />Add project: [add_project](#add_project) <br />Modify project field: [update_project](#update_project) <br />time estimated: [estimated_manhour](#estimated_manhour) <br />time remaining: [remain_manhour](#remain_manhour) <br />TaskEvent: [TaskEvent](../issue/task-event-handler/task-event-handler.mdx#TaskEvent) <br />GraphQL method: map[string]interface | Y        | Change the parameters of the event                        |
-  | other_data    | any                                                                                                                                                                                                                                                                                                                                                                                                                                                  | N        | Other data (this data will be passed to `itemActionDone`) |
+  | Param         | Type                                                                                                                                                                                                                                                                                                                                                                                   | Required | Description                                               |
+  | :------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------- | :-------------------------------------------------------- |
+  | is_follow     | string                                                                                                                                                                                                                                                                                                                                                                                 | Y        | Express concern                                           |
+  | is_reject     | string                                                                                                                                                                                                                                                                                                                                                                                 | Y        | Whether to refuse                                         |
+  | reject_reason | string                                                                                                                                                                                                                                                                                                                                                                                 | N        | Reject reason                                             |
+  | args          | Depending on the way the event is triggered, there are the following types: <br />Add project: [add_project](#add_project) <br />time estimated: [estimated_manhour](#estimated_manhour) <br />time remaining: [remain_manhour](#remain_manhour) <br />TaskEvent: [TaskEvent](../issue/task-event-handler/task-event-handler.mdx#TaskEvent) <br />GraphQL method: map[string]interface | Y        | Change the parameters of the event                        |
+  | other_data    | any                                                                                                                                                                                                                                                                                                                                                                                    | N        | Other data (this data will be passed to `itemActionDone`) |
 
 - **Example**: The time estimated must be a multiple of 8, the upper limit of the time remaining is 72, and only 72 hours are reserved if the upper limit is exceeded.
 
@@ -221,21 +314,38 @@ abilities:
 
   ```
 
+- **Special note**：If you want the page to pop a custom `warning toast`,you can set it in the following ways
+
+  ```typescript title="backend/src/item-handler.ts"
+  export async function itemPreAction(request: PluginRequest): Promise<PluginResponse> {
+    return {
+      body: {
+        code: 400,
+        reason: 'Test warning error',
+        type: 'warning',
+        model: 'plugin.xxx',
+      },
+    }
+  }
+  ```
+
+  <Image img={require('./images/item03.png')} />
+
 ### Step 4：Add post-processing
 
 The `itemActionDone` function is automatically generated in the `backend/src/item-handler.ts` file. This function is post-processing and will be called first after the event takes effect.
 
 - **Params**
 
-  | Param         | Type                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Required | Description                            |
-  | :------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------- | :------------------------------------- |
-  | user_uuid     | string                                                                                                                                                                                                                                                                                                                                                                                                                                               | Y        | User's `uuid`                          |
-  | item_type     | string                                                                                                                                                                                                                                                                                                                                                                                                                                               | Y        | module type                            |
-  | action        | string                                                                                                                                                                                                                                                                                                                                                                                                                                               | Y        | action type: `add/update/delete`       |
-  | lang          | string                                                                                                                                                                                                                                                                                                                                                                                                                                               | Y        | system language                        |
-  | graphql_query | GraphQL.Query                                                                                                                                                                                                                                                                                                                                                                                                                                        | N        | GraphQL data of this change event      |
-  | args          | Depending on the way the event is triggered, there are the following types: <br />Add project: [add_project](#add_project) <br />Modify project field: [update_project](#update_project) <br />time estimated: [estimated_manhour](#estimated_manhour) <br />time remaining: [remain_manhour](#remain_manhour) <br />TaskEvent: [TaskEvent](../issue/task-event-handler/task-event-handler.mdx#TaskEvent) <br />GraphQL method: map[string]interface | Y        | Change the parameters of the event     |
-  | other_data    | any                                                                                                                                                                                                                                                                                                                                                                                                                                                  | N        | Additional data (from `itemPreAction`) |
+  | Param         | Type                                                                                                                                                                                                                                                                                                                                                                                   | Required | Description                            |
+  | :------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------- | :------------------------------------- |
+  | user_uuid     | string                                                                                                                                                                                                                                                                                                                                                                                 | Y        | User's `uuid`                          |
+  | item_type     | string                                                                                                                                                                                                                                                                                                                                                                                 | Y        | module type                            |
+  | action        | string                                                                                                                                                                                                                                                                                                                                                                                 | Y        | action type: `add/update/delete`       |
+  | lang          | string                                                                                                                                                                                                                                                                                                                                                                                 | Y        | system language                        |
+  | graphql_query | GraphQL.Query                                                                                                                                                                                                                                                                                                                                                                          | N        | GraphQL data of this change event      |
+  | args          | Depending on the way the event is triggered, there are the following types: <br />Add project: [add_project](#add_project) <br />time estimated: [estimated_manhour](#estimated_manhour) <br />time remaining: [remain_manhour](#remain_manhour) <br />TaskEvent: [TaskEvent](../issue/task-event-handler/task-event-handler.mdx#TaskEvent) <br />GraphQL method: map[string]interface | Y        | Change the parameters of the event     |
+  | other_data    | any                                                                                                                                                                                                                                                                                                                                                                                    | N        | Additional data (from `itemPreAction`) |
 
 - **Example**
 

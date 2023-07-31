@@ -25,7 +25,7 @@ export const guideCardData = [
       'Find out what is possible with ONES  API and how to realize data connection.'
     ),
     tips: translateWraperFn('Learn details'),
-    url: 'docs/api/readme',
+    url: 'docs/openapi',
   },
   {
     title: translateWraperFn('Get to know the abilities'),
