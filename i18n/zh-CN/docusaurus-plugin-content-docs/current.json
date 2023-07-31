@@ -218,7 +218,7 @@
   "sidebar.openapi.category.Auth": {
     "message": "授权"
   },
-  "sidebar.openapi.category.Issue": {
+  "sidebar.openapi.category.Issues": {
     "message": "工作项"
   },
   "sidebar.openapi.category.Issue Attachments": {
@@ -236,25 +236,22 @@
   "sidebar.openapi.category.Issue Workflows": {
     "message": "工作流"
   },
-  "sidebar.openapi.category.Simple Mode Issue Worklog": {
+  "sidebar.openapi.category.Simple Mode Issue Worklogs": {
     "message": "简单模式 工作项工时"
   },
-  "sidebar.openapi.category.Summary Mode Issue Worklog": {
+  "sidebar.openapi.category.Summary Mode Issue Worklogs": {
     "message": "汇总模式 工作项工时"
   },
   "sidebar.openapi.category.Issue Comments": {
     "message": "工作项评论"
   },
-  "sidebar.openapi.category.Issue Link": {
+  "sidebar.openapi.category.Issue Links": {
     "message": "关联工作项"
   },
-  "sidebar.openapi.category.Issue Operations": {
-    "message": "操作工作项"
-  },
-  "sidebar.openapi.category.Project": {
+  "sidebar.openapi.category.Projects": {
     "message": "项目"
   },
-  "sidebar.openapi.category.Testcase Library": {
+  "sidebar.openapi.category.Testcase Librarys": {
     "message": "用例库"
   }
 }
