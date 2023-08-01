@@ -79,7 +79,7 @@ const config = {
   tagline: 'ONES 全面开放基座能力，助力客户与合作伙伴构建企业数字化平台，加速企业发布产品。',
   url,
   onBrokenLinks: 'log',
-  baseUrl: '/',
+  baseUrl: '/open-docs',
   favicon: 'images/favicon.ico',
   organizationName: 'BangWork', // Usually your GitHub org/user name.
   projectName: 'open-docs', // Usually your repo name.
