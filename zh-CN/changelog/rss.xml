@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
         <title>开放平台 Blog</title>
-        <link>https://docs.partner.ones.cn/zh-CN/changelog</link>
+        <link>https://docs.partner.ones.cn/open-docs/zh-CN/changelog</link>
         <description>开放平台 Blog</description>
         <lastBuildDate>Tue, 18 Apr 2023 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
@@ -10,7 +10,7 @@
         <language>zh-CN</language>
         <item>
             <title><![CDATA[2023.04.18]]></title>
-            <link>https://docs.partner.ones.cn/zh-CN/changelog/2023/04/18/</link>
+            <link>https://docs.partner.ones.cn/open-docs/zh-CN/changelog/2023/04/18/</link>
             <guid>/2023/04/18/</guid>
             <pubDate>Tue, 18 Apr 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[ONES v3.13.35]]></description>
@@ -21,7 +21,7 @@
         </item>
         <item>
             <title><![CDATA[2023.02.28]]></title>
-            <link>https://docs.partner.ones.cn/zh-CN/changelog/2023/02/28/</link>
+            <link>https://docs.partner.ones.cn/open-docs/zh-CN/changelog/2023/02/28/</link>
             <guid>/2023/02/28/</guid>
             <pubDate>Tue, 28 Feb 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[ONES v3.13.31]]></description>
@@ -34,7 +34,7 @@
         </item>
         <item>
             <title><![CDATA[2022.11.28]]></title>
-            <link>https://docs.partner.ones.cn/zh-CN/changelog/2022/11/28/</link>
+            <link>https://docs.partner.ones.cn/open-docs/zh-CN/changelog/2022/11/28/</link>
             <guid>/2022/11/28/</guid>
             <pubDate>Mon, 28 Nov 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[ONES v3.11.40]]></description>
@@ -46,7 +46,7 @@
         </item>
         <item>
             <title><![CDATA[2022.11.14]]></title>
-            <link>https://docs.partner.ones.cn/zh-CN/changelog/2022/11/14/</link>
+            <link>https://docs.partner.ones.cn/open-docs/zh-CN/changelog/2022/11/14/</link>
             <guid>/2022/11/14/</guid>
             <pubDate>Mon, 14 Nov 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[ONES v3.11.30]]></description>
@@ -57,7 +57,7 @@
         </item>
         <item>
             <title><![CDATA[2022.10.27]]></title>
-            <link>https://docs.partner.ones.cn/zh-CN/changelog/2022/10/27/</link>
+            <link>https://docs.partner.ones.cn/open-docs/zh-CN/changelog/2022/10/27/</link>
             <guid>/2022/10/27/</guid>
             <pubDate>Thu, 27 Oct 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[ONES v3.11.25]]></description>
@@ -67,7 +67,7 @@
         </item>
         <item>
             <title><![CDATA[2022.10.25]]></title>
-            <link>https://docs.partner.ones.cn/zh-CN/changelog/2022/10/25/</link>
+            <link>https://docs.partner.ones.cn/open-docs/zh-CN/changelog/2022/10/25/</link>
             <guid>/2022/10/25/</guid>
             <pubDate>Tue, 25 Oct 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[ONES v3.11.16]]></description>
@@ -77,7 +77,7 @@
         </item>
         <item>
             <title><![CDATA[2022.09.27]]></title>
-            <link>https://docs.partner.ones.cn/zh-CN/changelog/2022/09/27/</link>
+            <link>https://docs.partner.ones.cn/open-docs/zh-CN/changelog/2022/09/27/</link>
             <guid>/2022/09/27/</guid>
             <pubDate>Tue, 27 Sep 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[ONES v3.10.52]]></description>
@@ -87,7 +87,7 @@
         </item>
         <item>
             <title><![CDATA[2022.09.13]]></title>
-            <link>https://docs.partner.ones.cn/zh-CN/changelog/2022/09/13/</link>
+            <link>https://docs.partner.ones.cn/open-docs/zh-CN/changelog/2022/09/13/</link>
             <guid>/2022/09/13/</guid>
             <pubDate>Tue, 13 Sep 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[ONES v3.10.14]]></description>
@@ -97,7 +97,7 @@
         </item>
         <item>
             <title><![CDATA[2022.07.11]]></title>
-            <link>https://docs.partner.ones.cn/zh-CN/changelog/2022/07/11/</link>
+            <link>https://docs.partner.ones.cn/open-docs/zh-CN/changelog/2022/07/11/</link>
             <guid>/2022/07/11/</guid>
             <pubDate>Mon, 11 Jul 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[ONES v3.7.54]]></description>
@@ -110,7 +110,7 @@
         </item>
         <item>
             <title><![CDATA[2022.07.07]]></title>
-            <link>https://docs.partner.ones.cn/zh-CN/changelog/2022/07/07/</link>
+            <link>https://docs.partner.ones.cn/open-docs/zh-CN/changelog/2022/07/07/</link>
             <guid>/2022/07/07/</guid>
             <pubDate>Thu, 07 Jul 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[ONES v3.7.51]]></description>
@@ -120,7 +120,7 @@
         </item>
         <item>
             <title><![CDATA[2022.06.06]]></title>
-            <link>https://docs.partner.ones.cn/zh-CN/changelog/2022/06/06/</link>
+            <link>https://docs.partner.ones.cn/open-docs/zh-CN/changelog/2022/06/06/</link>
             <guid>/2022/06/06/</guid>
             <pubDate>Mon, 06 Jun 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[ONES v3.7.1]]></description>

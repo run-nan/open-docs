@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkopen_docs=self.webpackChunkopen_docs||[]).push([[17978],{90754:e=>{e.exports=JSON.parse('{"permalink":"/open-docs/zh-CN/changelog","page":1,"postsPerPage":10,"totalPages":2,"totalCount":11,"nextPage":"/open-docs/zh-CN/changelog/page/2","blogDescription":"\u66f4\u65b0\u65e5\u5fd7","blogTitle":"\u66f4\u65b0\u65e5\u5fd7"}')}}]);

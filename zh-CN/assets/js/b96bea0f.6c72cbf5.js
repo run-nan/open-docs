@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkopen_docs=self.webpackChunkopen_docs||[]).push([[53574],{88467:e=>{e.exports=JSON.parse('{"label":"ONES","permalink":"/zh-CN/changelog/tags/ones","allTagsPath":"/zh-CN/changelog/tags","count":11}')}}]);
