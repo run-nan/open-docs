@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkopen_docs=self.webpackChunkopen_docs||[]).push([[45019],{65186:e=>{e.exports=JSON.parse('{"permalink":"/changelog/page/2","page":2,"postsPerPage":10,"totalPages":2,"totalCount":11,"previousPage":"/changelog","blogDescription":"Changelog","blogTitle":"Changelog"}')}}]);

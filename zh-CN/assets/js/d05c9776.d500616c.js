@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkopen_docs=self.webpackChunkopen_docs||[]).push([[46976],{98179:e=>{e.exports=JSON.parse('{"label":"@ones-op/event","permalink":"/zh-CN/changelog/tags/ones-op-event","allTagsPath":"/zh-CN/changelog/tags","count":1}')}}]);
