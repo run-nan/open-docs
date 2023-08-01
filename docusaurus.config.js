@@ -77,7 +77,7 @@ const url = isPublic ? 'https://developer.ones.com' : 'https://docs.partner.ones
 const config = {
   title: 'ONES Open Platform',
   tagline: 'ONES 全面开放基座能力，助力客户与合作伙伴构建企业数字化平台，加速企业发布产品。',
-  url,
+  url: 'https://run-nan.github.io',
   onBrokenLinks: 'log',
   baseUrl: '/open-docs',
   favicon: 'images/favicon.ico',
