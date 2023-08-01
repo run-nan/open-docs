@@ -1,0 +1,568 @@
+openapi: 3.0.1
+info:
+  title: Project
+  version: '1.0'
+  description: |
+    This resource represents projects. Use it to get, create, update, and delete projects.
+servers:
+  - url: https://your-domain/rest/api/v1
+  - url: http://your-domain/rest/api/v1
+paths:
+  /project/team/{teamID}/projects:
+    get:
+      summary: Get team project list
+      operationId: get-team-project-list
+      description: Get team project list
+      security:
+        - oauth2:
+            - read:project:project
+      parameters:
+        - name: teamID
+          in: path
+          description: The team ID
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: The number of data to return
+          schema:
+            type: integer
+        - name: cursor
+          in: query
+          description: The starting location of this request.
+          schema:
+            type: string
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListProjectSuccessResponse'
+        401:
+          description: Returned if the authentication credentials are incorrect or
+            missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        403:
+          description: Returns if the scope check fails.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        404:
+          description: Returned if the resource object was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+    post:
+      summary: Create a new project
+      operationId: create-a-new-project
+      description: Create a new project
+      security:
+        - oauth2:
+            - write:project:project
+      parameters:
+        - name: teamID
+          in: path
+          description: The team ID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Create project request param
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddProjectRequest'
+        required: true
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddProjectResponse'
+        401:
+          description: Returned if the authentication credentials are incorrect or
+            missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        403:
+          description: Returns if the scope check fails.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        404:
+          description: Returned if the resource object was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+      x-codegen-request-body-name: body
+  /project/team/{teamID}/projects/{projectID}:
+    get:
+      summary: Get project detail by project ID
+      operationId: get-project-detail-by-project-id
+      description: Get project detail by project ID
+      security:
+        - oauth2:
+            - read:project:project
+      parameters:
+        - name: teamID
+          in: path
+          description: The team ID
+          required: true
+          schema:
+            type: string
+        - name: projectID
+          in: path
+          description: The project ID
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProjectDetailResponse'
+        401:
+          description: Returned if the authentication credentials are incorrect or
+            missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        403:
+          description: Returns if the scope check fails.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        404:
+          description: Returned if the resource object was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+    put:
+      summary: Update project by project ID
+      operationId: update-project-by-project-id
+      description: Update project by project ID
+      security:
+        - oauth2:
+            - write:project:project
+      parameters:
+        - name: teamID
+          in: path
+          description: The team ID
+          required: true
+          schema:
+            type: string
+        - name: projectID
+          in: path
+          description: The project ID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update project request param.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProjectRequest'
+        required: true
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateProjectResponse'
+        401:
+          description: Returned if the authentication credentials are incorrect or
+            missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        403:
+          description: Returns if the scope check fails.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        404:
+          description: Returned if the resource object was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+      x-codegen-request-body-name: body
+    delete:
+      summary: Delete a project
+      operationId: delete-a-project
+      description: Delete a project
+      security:
+        - oauth2:
+            - write:project:project
+      parameters:
+        - name: teamID
+          in: path
+          description: The team ID
+          required: true
+          schema:
+            type: string
+        - name: projectID
+          in: path
+          description: The project ID
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteSuccessResponse'
+        401:
+          description: Returned if the authentication credentials are incorrect or
+            missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        403:
+          description: Returns if the scope check fails.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        404:
+          description: Returned if the resource object was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadResponse'
+components:
+  schemas:
+    AddProjectRequest:
+      required:
+        - membersID
+        - name
+      type: object
+      properties:
+        name:
+          maxLength: 128
+          minLength: 1
+          type: string
+          description: The name of project
+        templateID:
+          type: string
+          description: Project template ID
+          enum:
+            - project-t1
+            - project-t2
+            - project-t4
+            - project-t5
+            - project-t6
+            - comagile
+            - comwater
+          x-enum-descriptions:
+            project-t1: Agile project management 敏捷项目管理
+            project-t2: General task management 通用任务管理
+            project-t4: Waterfall project planning 瀑布项目规划
+            project-t5: Agile project management_v2 敏捷项目管理_v2
+            project-t6: Kanban task management 看板项目模板
+        membersID:
+          type: array
+          description: Project member ID
+          items:
+            type: string
+    AddProjectResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The project ID
+            name:
+              type: string
+              description: The project name
+            owner:
+              type: string
+              description: The project owner ID
+            status:
+              type: string
+              description: The ID of project status
+            statusCategory:
+              type: string
+              description: The category of project status
+            stickToTop:
+              type: boolean
+              description: Whether the project is at the top
+            isArchive:
+              type: boolean
+              description: Archived project or not
+            archiveTime:
+              type: integer
+              description: Time when the project was archived
+            archiveUser:
+              type: string
+              description: The ID of people who archived project
+    ProjectDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The project ID
+        name:
+          type: string
+          description: The project Name
+        createTime:
+          type: integer
+          description: The createTime of project
+        owner:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The project owner ID
+            name:
+              type: string
+              description: The project owner name
+        creator:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The project creator ID
+            name:
+              type: string
+              description: The project creator name
+        status:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The ID of project status
+            name:
+              type: string
+              description: The name of project status
+            category:
+              type: string
+              description: The category of project status
+        statusCategory:
+          type: string
+          description: The category of project status
+        stickToTop:
+          type: boolean
+          description: Whether the project is at the top
+        isArchive:
+          type: boolean
+          description: Archived project or not
+        archiveUser:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The ID of people who archived project
+            name:
+              type: string
+              description: The name of people who archived project
+        archiveTime:
+          type: integer
+          description: Time when the project was archived
+        plannedStartDate:
+          type: integer
+          description: The date of project planned to start,sample as 2023-05-06
+        plannedEndDate:
+          type: integer
+          description: The date of project planned to end,sample as 2023-05-06
+    GetProjectDetailResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        data:
+          $ref: '#/components/schemas/ProjectDetail'
+    ListProjectSuccessResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          description: The result of this request.
+        data:
+          type: object
+          properties:
+            list:
+              type: array
+              items:
+                $ref: '#/components/schemas/ProjectDetail'
+            pageInfo:
+              $ref: '#/components/schemas/PageInfo'
+    UpdateProjectRequest:
+      type: object
+      properties:
+        owner:
+          type: string
+          description: The project owner ID.
+        name:
+          maxLength: 128
+          minLength: 1
+          type: string
+          description: The name of project.
+        isArchive:
+          type: boolean
+          description: Archived project or not
+        status:
+          type: string
+          description: The ID of project status.
+        plannedStartDate:
+          type: string
+          description: The date of project planned to start,sample as 2023-05-06
+        plannedEndDate:
+          type: string
+          description: The date of project planned to end,sample as 2023-05-06
+        customField:
+          type: object
+          properties: {}
+          description: Project customed field id
+    UpdateProjectResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The project ID.
+            name:
+              type: string
+              description: The name of project.
+            owner:
+              type: string
+              description: The project owner ID.
+            createTime:
+              type: integer
+              description: The createTime of project
+            isArchive:
+              type: boolean
+              description: Archived project or not
+            archiveUser:
+              type: string
+              description: The ID of people who archived project
+            archiveTime:
+              type: integer
+              description: Time when the project was archived
+            status:
+              type: string
+              description: The ID of project status.
+            plannedStartDate:
+              type: string
+              description: The date of project planned to start,sample as 2023-05-06
+            plannedEndDate:
+              type: string
+              description: The date of project planned to end,sample as 2023-05-06
+            customField:
+              type: object
+              properties: {}
+              description: Project customed field
+    PageInfo:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The number returned this time.
+        endCursor:
+          type: string
+          description: The last cursor on this page is generally used to turn pages.
+        endPos:
+          type: integer
+          description: The last position on this page.
+        hasNextPage:
+          type: boolean
+          description: Is there a next page.
+        startCursor:
+          type: string
+          description: The first cursor on this page is generally used to turn pages.
+        startPos:
+          type: integer
+          description: The first position on this page.
+        totalCount:
+          type: integer
+          description: The total number of items available in the entire collection,
+            including those that are  returned in the current response.
+    DeleteSuccessResponse:
+      type: object
+      properties:
+        result:
+          type: string
+    BadResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          description: The result of this request.
+        errorCode:
+          type: string
+          description: The error code of this request.
+        errorMsg:
+          type: string
+          description: Error message for this request.
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://ones.com/oauth2/authorize
+          tokenUrl: https://ones.com/oauth2/token
+          scopes:
+            write:project:project: Add, edit, delete project
+            read:project:project: Access project information

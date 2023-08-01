@@ -1,0 +1,24 @@
+401:
+  description: Returned if the authentication credentials are incorrect or missing.
+  content:
+    application/json:
+      schema:
+        $ref: '#/components/schemas/BadResponse401'
+403:
+  description: Returns if the scope check fails.
+  content:
+    application/json:
+      schema:
+        $ref: '#/components/schemas/BadResponse403'
+404:
+  description: Returned if the resource object was not found.
+  content:
+    application/json:
+      schema:
+        $ref: '#/components/schemas/BadResponse404'
+500:
+  description: Internal Server Error.
+  content:
+    application/json:
+      schema:
+        $ref: '#/components/schemas/BadResponse500'

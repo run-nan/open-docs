@@ -1,0 +1,102 @@
+openapi: 3.0.1
+info:
+  title: Issues
+  version: '1.0'
+  description: |
+    This resource represents issues. Use it to get, create, update, and delete issues.
+servers:
+  - url: https://your-domain/rest/api/v1
+  - url: http://your-domain/rest/api/v1
+paths:
+  /project/issues:
+    get:
+      summary: 批量获取批量任务信息
+      operationId: 11-get-batch-job-info
+      description: 批量获取批量任务信息
+      security:
+        - oauth2:
+            - read:project:issue
+      parameters:
+        - name: action
+          in: query
+          required: true
+          schema:
+            type: string
+          description: |
+            - action: 操作工作项,支持 `batchJobInfo`.
+        - $ref: ../../../../../../../openapi-common/canary/zh/request-team.yaml
+      requestBody:
+        description: 批量获取批量任务信息
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                jobID:
+                  type: string
+                  description: 批量任务的ID
+        required: true
+      responses:
+        200:
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchJobInfoResponse'
+        $ref: ../../../../../../../openapi-common/canary/zh/no-200-response.yaml
+components:
+  schemas:
+    BatchJobInfoResponse:
+      type: object
+      description: 批量任务信息响应
+      properties:
+        $ref: ../../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+        data:
+          type: object
+          description: 批量任务信息
+          properties:
+            id:
+              type: string
+              description: 批量任务ID
+            teamID:
+              type: string
+              description: 团队ID
+            owner:
+              type: string
+              description: 批量任务创建者
+            status:
+              type: string
+              description: 批量任务状态
+            startTime:
+              type: integer
+              description: 批量任务开始时间
+            endTime:
+              type: integer
+              description: 批量任务结束时间
+            successful:
+              type: integer
+              description: 批量任务成功数量
+            failed:
+              type: integer
+              description: 批量任务失败数量
+            unprocessed:
+              type: integer
+              description: 批量任务未处理数量
+            successfulIssues:
+              type: array
+              description: 成功工作项列表
+              items:
+                type: string
+      required:
+        - result
+    $ref: ../../../../../../../openapi-common/canary/zh/no-200-response-schemas.yaml
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https:///your-domain/oauth2/authorize
+          tokenUrl: https:///your-domain/oauth2/token
+          scopes:
+            write:project:issue: 批量关联工作项、取消关联
+            read:project:issue: 获取工作项信息

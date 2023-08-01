@@ -1,0 +1,246 @@
+openapi: 3.0.1
+info:
+  title: Issue comments
+  version: '1.0'
+  description: |
+    This resource represents issue comments. Use it to get, create, and delete issue comments.
+servers:
+  - url: https://your-domain/openapi/v1
+  - url: http://your-domain/rest/api/v1
+paths:
+  /project/issues/{issueID}/comments:
+    get:
+      summary: Get a list of comments
+      operationId: 01-get-a-list-of-issues-comment
+      description: Get a list of comments
+      security:
+        - oauth2:
+            - read:project:issue-comment
+      parameters:
+        - name: issueID
+          in: path
+          description: The ID of the issue
+          required: true
+          schema:
+            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
+      responses:
+        200:
+          description: Request successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCommentSuccessResponse'
+        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+    post:
+      summary: Send comment to issue
+      operationId: 02-send-issue-comment
+      description: Send comment to issue
+      security:
+        - oauth2:
+            - write:project:issue-comment
+      parameters:
+        - name: issueID
+          in: path
+          description: The ID of the issue
+          required: true
+          schema:
+            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
+      requestBody:
+        description: The comment information to be sent
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendCommentRequest'
+        required: true
+      responses:
+        200:
+          description: Request successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendCommentResponse'
+        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+  /project/issues/{issueID}/comments/{commentsID}:
+    post:
+      summary: Delete comment
+      operationId: 03-delete-issue-comment
+      description: Delete comment
+      security:
+        - oauth2:
+            - write:project:issue-comment
+      parameters:
+        - name: issueID
+          in: path
+          description: The ID of the issue
+          required: true
+          schema:
+            type: string
+        - name: commentsID
+          in: path
+          description: The ID of the comment to be deleted
+          required: true
+          schema:
+            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
+      responses:
+        200:
+          description: Request successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteCommentResponse'
+        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+    put:
+      summary: Modify comment information
+      operationId: 04-update-issue-comment
+      description: Modify comment information
+      security:
+        - oauth2:
+            - write:project:issue-comment
+      parameters:
+        - name: issueID
+          in: path
+          description: The ID of the issue
+          required: true
+          schema:
+            type: string
+        - name: commentsID
+          in: path
+          description: The ID of the comment to be modified
+          required: true
+          schema:
+            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
+      requestBody:
+        description: The comment information to be modified
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCommentRequest'
+      responses:
+        200:
+          description: Request successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateCommentResponse'
+        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+components:
+  schemas:
+    SendCommentRequest:
+      required:
+        - text
+      type: object
+      properties:
+        text:
+          maxLength: 128
+          minLength: 1
+          type: string
+          description: Content of comments
+        repliedMessageID:
+          type: string
+          description: The ID of the comment to be replied to
+    UpdateCommentRequest:
+      required:
+        - text
+      type: object
+      properties:
+        text:
+          maxLength: 128
+          minLength: 1
+          type: string
+          description: Content of comments
+    ListCommentSuccessResponse:
+      type: object
+      properties:
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+        data:
+          type: object
+          properties:
+            list:
+              type: array
+              items:
+                $ref: '#/components/schemas/CommentDetail'
+            $ref: ../../../openapi-common/canary/en/paging-query-response-pageInfo-schemas.yaml
+      required:
+        - result
+      example:
+        result: success
+        data:
+          list:
+            - id: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
+              createTime: 1595616000000
+              commenter:
+                id: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
+                name: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
+              type: 1
+              ext:
+                text: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
+          pageInfo:
+            count: 1
+            endCursor: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
+            endPos: 1
+            hasNextPage: false
+            startCursor: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
+    CommentDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the comment
+        createTime:
+          type: integer
+          description: The time when the comment was created
+        commenter:
+          type: object
+          description: The user who commented
+          properties:
+            id:
+              type: string
+              description: The ID of the user
+            name:
+              type: string
+              description: The name of the user
+        type:
+          type: integer
+          description: The type of the comment
+        ext:
+          type: object
+    SendCommentResponse:
+      type: object
+      properties:
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+      required:
+        - result
+      example:
+        - result: SUCCESS
+    DeleteCommentResponse:
+      type: object
+      properties:
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+      required:
+        - result
+      example:
+        - result: SUCCESS
+    UpdateCommentResponse:
+      type: object
+      properties:
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+      required:
+        - result
+      example:
+        - result: SUCCESS
+    $ref: ../../../openapi-common/canary/en/no-200-response-schemas.yaml
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://ones.com/oauth2/authorize
+          tokenUrl: https://ones.com/oauth2/token
+          scopes:
+            write:project:issue-comment: 发送、修改和删除工作项评论
+            read:project:issue-comment: 获取工作项评论列表.

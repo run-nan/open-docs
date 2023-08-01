@@ -1,0 +1,125 @@
+openapi: 3.0.1
+info:
+  title: Issues
+  version: '1.0'
+  description: |
+    This resource represents issues. Use it to get, create, update, and delete issues.
+servers:
+  - url: https://your-domain/rest/api/v1
+  - url: http://your-domain/rest/api/v1
+paths:
+  /project/publishers/issues:
+    post:
+      summary: Batch duplicate issues
+      operationId: 09-batch-duplicate-issues
+      description: Batch duplicate issues.
+      security:
+        - oauth2:
+            - write:project:issue
+      parameters:
+        - name: action
+          in: query
+          required: true
+          schema:
+            type: string
+          description: |
+            - action: Actions on issue,support `batchDuplicate`.
+        - $ref: ../../../../openapi-common/canary/en/request-team.yaml
+      requestBody:
+        description: The issues to be duplicated.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchDuplicateIssueRequest'
+        required: true
+      responses:
+        200:
+          description: Request successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchDuplicateIssueResponse'
+        $ref: ../../../../openapi-common/canary/en/no-200-response.yaml
+components:
+  schemas:
+    BatchDuplicateIssueRequest:
+      type: object
+      description: The issues to be duplicated.
+      properties:
+        issues:
+          type: array
+          description: The issues to be duplicated.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: The ID of the issue.
+              project:
+                type: string
+                description: Project ID of the issue.
+              issueType:
+                type: string
+                description: Issue type ID of the issue.
+              status:
+                type: string
+                description: Status to be changed.
+        duplicateFields:
+          type: array
+          description: The fields to be duplicated.
+    DuplicateIssueRequest:
+      type: object
+      description: The issue to be duplicated.
+      properties:
+        id:
+          type: string
+          description: The ID of the issue.
+        project:
+          type: string
+          description: Project ID of the issue.
+        issueType:
+          type: string
+          description: Issue type ID of the issue.
+        status:
+          type: string
+          description: Status to be changed.
+        copyFields:
+          type: array
+          description: The fields to be duplicated.
+        linkIssue:
+          type: object
+          description: The issue to be linked.
+          properties:
+            linkType:
+              type: string
+              description: The type of the link.
+            link_desc_type:
+              type: string
+              description: The description type of the link.
+    BatchDuplicateIssueResponse:
+      type: object
+      properties:
+        $ref: ../../../../openapi-common/canary/en/200-response-schemas.yaml
+        data:
+          type: object
+          properties:
+            jobID:
+              type: string
+              description: Batch issue ID
+      required:
+        - result
+      example:
+        - result: SUCCESS
+          data:
+            jobID: 123456
+    $ref: ../../../../openapi-common/canary/en/no-200-response-schemas.yaml
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https:///your-domain/oauth2/authorize
+          tokenUrl: https:///your-domain/oauth2/token
+          scopes:
+            write:project:issue: 批量关联工作项、取消关联
+            read:project:issue: 获取工作项信息
