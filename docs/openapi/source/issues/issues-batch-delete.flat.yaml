@@ -11,7 +11,7 @@ paths:
   /project/publishers/issues:
     post:
       summary: Batch delete issues
-      operationId: 06-batch-delete-issue
+      operationId: 06-batch-delete-issues
       description: Batch delete issues.
       security:
         - oauth2:

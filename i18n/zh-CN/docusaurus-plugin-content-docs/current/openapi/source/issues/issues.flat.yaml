@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: Issue
+  title: Issues
   version: '1.0'
   description: |
     此资源代表工作项。使用它来获取、创建、更新和删除工作项。
@@ -11,7 +11,7 @@ paths:
   /project/team/{teamID}/issues:
     get:
       summary: 获取工作项列表
-      operationId: get-a-list-of-issues
+      operationId: 01-get-a-list-of-issues
       description: 获取工作项列表
       security:
         - oauth2:
@@ -76,7 +76,7 @@ paths:
                 $ref: '#/components/schemas/BadResponse'
     post:
       summary: 新建工作项
-      operationId: create-a-new-issue
+      operationId: 02-create-a-new-issue
       description: 新建工作项
       security:
         - oauth2:
@@ -131,7 +131,7 @@ paths:
   /project/team/{teamID}/issues/{issueID}:
     get:
       summary: 获取工作项详细信息
-      operationId: get-a-issue-details
+      operationId: 03-get-a-issue-details
       description: 获取工作项详细信息
       security:
         - oauth2:
@@ -182,7 +182,7 @@ paths:
                 $ref: '#/components/schemas/BadResponse'
     put:
       summary: 更新工作项
-      operationId: update-a-issue
+      operationId: 04-update-a-issue
       description: 更新工作项
       security:
         - oauth2:
@@ -241,7 +241,7 @@ paths:
       x-codegen-request-body-name: body
     delete:
       summary: 删除工作项
-      operationId: delete-a-issue
+      operationId: 05-delete-a-issue
       description: 删除工作项
       security:
         - oauth2:
@@ -290,7 +290,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadResponse'
-
 components:
   schemas:
     AddIssueRequest:

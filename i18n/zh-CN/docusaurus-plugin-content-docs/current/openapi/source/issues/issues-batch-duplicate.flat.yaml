@@ -10,9 +10,9 @@ servers:
 paths:
   /project/publishers/issues:
     post:
-      summary: Batch duplicate issues
-      operationId: 09-batch-duplicate-issue
-      description: Batch duplicate issues.
+      summary: 批量复制工作项
+      operationId: 09-batch-duplicate-issues
+      description: 批量复制工作项
       security:
         - oauth2:
             - write:project:issue
@@ -23,10 +23,10 @@ paths:
           schema:
             type: string
           description: |
-            - action: Actions on issue,support `batchDuplicate`.
-        - $ref: ../../../../openapi-common/canary/en/request-team.yaml
+            - action: 操作工作项,支持 `batchDuplicate`.
+        - $ref: ../../../../../../../openapi-common/canary/zh/request-team.yaml
       requestBody:
-        description: The issues to be duplicated.
+        description: 需要复制的工作项信息
         content:
           application/json:
             schema:
@@ -34,85 +34,56 @@ paths:
         required: true
       responses:
         200:
-          description: Request successful.
+          description: 请求成功
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BatchDuplicateIssueResponse'
-        $ref: ../../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../../../../../openapi-common/canary/zh/no-200-response.yaml
 components:
   schemas:
     BatchDuplicateIssueRequest:
       type: object
-      description: The issues to be duplicated.
+      description: 批量复制工作项请求
       properties:
         issues:
           type: array
-          description: The issues to be duplicated.
+          description: 工作项列表
           items:
             type: object
             properties:
               id:
                 type: string
-                description: The ID of the issue.
+                description: 工作项ID
               project:
                 type: string
-                description: Project ID of the issue.
+                description: 工作项所属项目ID
               issueType:
                 type: string
-                description: Issue type ID of the issue.
+                description: 工作项类型ID
               status:
                 type: string
-                description: Status to be changed.
+                description: 更改的状态
         duplicateFields:
           type: array
-          description: The fields to be duplicated.
-    DuplicateIssueRequest:
-      type: object
-      description: The issue to be duplicated.
-      properties:
-        id:
-          type: string
-          description: The ID of the issue.
-        project:
-          type: string
-          description: Project ID of the issue.
-        issueType:
-          type: string
-          description: Issue type ID of the issue.
-        status:
-          type: string
-          description: Status to be changed.
-        copyFields:
-          type: array
-          description: The fields to be duplicated.
-        linkIssue:
-          type: object
-          description: The issue to be linked.
-          properties:
-            linkType:
-              type: string
-              description: The type of the link.
-            link_desc_type:
-              type: string
-              description: The description type of the link.
+          description: 复制的字段列表
     BatchDuplicateIssueResponse:
       type: object
       properties:
-        $ref: ../../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
         data:
           type: object
           properties:
             jobID:
               type: string
-              description: Batch issue ID
+              description: 批量任务ID
       required:
         - result
       example:
         - result: SUCCESS
           data:
             jobID: 123456
-    $ref: ../../../../openapi-common/canary/en/no-200-response-schemas.yaml
+    $ref: ../../../../../../../openapi-common/canary/zh/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2

@@ -10,9 +10,9 @@ servers:
 paths:
   /project/publishers/issues:
     post:
-      summary: Batch add issues
+      summary: 批量添加工作项
       operationId: 08-batch-add-issues
-      description: Batch add issues.
+      description: 批量添加工作项
       security:
         - oauth2:
             - write:project:issue
@@ -23,10 +23,10 @@ paths:
           schema:
             type: string
           description: |
-            - action: Actions on issue,support `batchAdd`.
-        - $ref: ../../../../openapi-common/canary/en/request-team.yaml
+            - action: 操作工作项,支持 `batchAdd`.
+        - $ref: ../../../../../../../openapi-common/canary/zh/request-team.yaml
       requestBody:
-        description: The issues to be created.
+        description: 需要添加的工作项信息
         content:
           application/json:
             schema:
@@ -34,95 +34,95 @@ paths:
         required: true
       responses:
         200:
-          description: Request successful.
+          description: 请求成功
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BatchAddIssueResponse'
-        $ref: ../../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../../../../../openapi-common/canary/zh/no-200-response.yaml
 components:
   schemas:
     BatchAddIssueRequest:
       type: object
-      description: The issues to be created.
+      description: 批量添加工作项请求
       properties:
         assignee:
           type: string
-          description: The assignee of the issue.
+          description: 工作项负责人
         title:
           type: string
-          description: The title of the issue.
+          description: 工作项标题
         projectID:
           type: string
-          description: The ID of the project where the issue will be created.
+          description: 工作项所属项目ID
         issueTypeID:
           type: string
-          description: The ID of the issue type.
+          description: 工作项类型ID
         fieldValues:
           type: array
-          description: The field values of the issue.
+          description: 工作项字段值
           items:
             type: object
             properties:
               fieldID:
                 type: string
-                description: The ID of the field.
+                description: 字段ID
               value:
                 type: object
-                description: The value of the field.
+                description: 字段值
               type:
                 type: string
-                description: The type of the field.
+                description: 字段类型
         watchers:
           type: array
-          description: The watchers of the issue.
+          description: 工作项关注者
           items:
             type: string
-            description: The ID of the watcher.
+            description: 用户ID
         parentID:
           type: string
-          description: The ID of the parent issue.
+          description: 父工作项ID
         timesEstimated:
           type: array
-          description: The estimated time of the issue.
+          description: 预估时间列表
           items:
             type: object
             properties:
               owner:
-                type: string
-                description: The ID of the user who estimates the time.
+                type: integer
+                description: 预估时间
               hours:
                 type: integer
-                description: The estimated time.
+                description: 预估工时数量
               includeNonWorkingDays:
                 type: boolean
-                description: Whether to include non-working days.
+                description: 是否包含非工作日
               startTime:
                 type: string
-                description: The start time of the estimated time.
+                description: 预估开始时间
               endTime:
                 type: string
-                description: The end time of the estimated time.
+                description: 预估结束时间
               timesEstimatedMode:
                 type: string
-                description: The mode of the estimated time.
+                description: 工时模式
     BatchAddIssueResponse:
       type: object
       properties:
-        $ref: ../../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
         data:
           type: object
           properties:
             jobID:
               type: string
-              description: Batch issue ID
+              description: 批量任务ID
       required:
         - result
       example:
         - result: SUCCESS
           data:
             jobID: 123456
-    $ref: ../../../../openapi-common/canary/en/no-200-response-schemas.yaml
+    $ref: ../../../../../../../openapi-common/canary/zh/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2

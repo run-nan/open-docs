@@ -10,9 +10,9 @@ servers:
 paths:
   /project/issues/{issueID}:
     post:
-      summary: Duplicate issue
-      operationId: 10-duplicate-issue
-      description: Duplicate issue.
+      summary: Duplicate issues
+      operationId: 10-duplicate-issues
+      description: Duplicate issues.
       security:
         - oauth2:
             - write:project:issue

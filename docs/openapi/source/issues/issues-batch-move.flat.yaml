@@ -11,7 +11,7 @@ paths:
   /project/publishers/issues:
     post:
       summary: Batch move issues
-      operationId: 07-batch-move-issue
+      operationId: 07-batch-move-issues
       description: Batch move issues.
       security:
         - oauth2:

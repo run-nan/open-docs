@@ -11,7 +11,7 @@ paths:
   /project/publishers/issues:
     post:
       summary: Batch duplicate issues
-      operationId: 09-batch-duplicate-issue
+      operationId: 09-batch-duplicate-issues
       description: Batch duplicate issues.
       security:
         - oauth2:
