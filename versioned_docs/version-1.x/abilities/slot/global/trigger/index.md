@@ -1,3 +1,6 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
 # Trigger slot
 
 ## Requirements
@@ -36,10 +39,6 @@ modules:
 
 **Supported config options：**
 
-- [preload](../../../../reference/config/plugin.yaml#preload)
-
-  This option is recommended to be set to `true`.
-
 - [manual(required)](../../../../reference/config/plugin.yaml#manual)
 
   This option must be set to `true`.
@@ -54,6 +53,14 @@ modules:
   When the plugin is activated, you must use the `useVariablesInfo` or `useAction` method in [accessible context data](#context) below to get the `next` or `cancel` function and call it, otherwise the system action (Action) will be permanently in the pending state.
   :::
 
+- [preload](../../../../reference/config/plugin.yaml#preload)
+
+  This option is recommended to be set to `true`.
+
+- [enableDelayDestroy](../../../../reference/config/plugin.yaml#enabledelaydestroy)
+
+  This option is recommended to be set to `true`.
+
 ### Available Hook API {#context}
 
 #### [useVariablesInfo](../../../../reference/packages/store/store.md#useVariablesInfo)
@@ -67,30 +74,33 @@ Similarities and differences with `useAction`.
 - The `next` and `cancel` methods of this method do not bind to the plugin destruction operation, but let the plugin control the module destruction timing by calling the `lifecycle.destroy` method.
 - A new `actionType` return is added to determine what Action triggered the current plugin module.
 
-:::warning
-When the plugin calls `next` or `cancel`, it needs to call the `lifecycle.destroy` method to destroy itself as soon as possible, so that the user can't reactivate the plugin when it is triggered again.
-:::
+<Tabs>
+<TabItem value="1" label="enableDelayDestroy: true">
 
 ```tsx
 import { useVariablesInfo } from '@ones-op/store'
 import { lifecycle } from '@ones-op/bridge'
+
 function TriggerPlugin() {
   const [visible, setVisible] = useState(true)
+
   const moduleData = useVariablesInfo<'ones:global:trigger'>()
+
   const { sessionID, next, cancel, data: payload, actionType } = moduleData
+
   const handleOk = useCallback(() => {
     setVisible(false)
     next?.(payload)
     lifecycle.destroy()
   }, [next, payload])
+
   const handleCancel = useCallback(() => {
-    setVisible(false)
+    cancel?.()
     toast.warning('cancel')
-    setTimeout(() => {
-      cancel?.()
-      lifecycle.destroy()
-    }, 1100)
+    setVisible(false)
+    lifecycle.destroy()
   }, [cancel])
+
   return (
     <Modal visible={visible} title="Confirm Data" onOk={handleOk} onCancel={handleCancel}>
       <p>sessionID: {sessionID}</p>
@@ -101,7 +111,58 @@ function TriggerPlugin() {
 }
 ```
 
-#### [useAction](../../../../reference/packages/store/store.md#useAction) (Deprecated)
+</TabItem>
+<TabItem value="2" label="enableDelayDestroy: false">
+
+:::warning
+When the plugin calls `next` or `cancel`, it needs to call the `lifecycle.destroy` method to destroy itself as soon as possible, so that the user can't reactivate the plugin when it is triggered again.
+:::
+
+```tsx
+import { useVariablesInfo } from '@ones-op/store'
+import { lifecycle } from '@ones-op/bridge'
+
+function TriggerPlugin() {
+  const [visible, setVisible] = useState(true)
+
+  const moduleData = useVariablesInfo<'ones:global:trigger'>()
+
+  const { sessionID, next, cancel, data: payload, actionType } = moduleData
+
+  const handleOk = useCallback(() => {
+    setVisible(false)
+    next?.(payload)
+    lifecycle.destroy()
+  }, [next, payload])
+
+  const handleCancel = useCallback(() => {
+    setVisible(false)
+    toast.warning('cancel')
+    // highlight-next-line
+    setTimeout(() => {
+      cancel?.()
+      lifecycle.destroy()
+      // highlight-next-line
+    }, 1100)
+  }, [cancel])
+
+  return (
+    <Modal visible={visible} title="Confirm Data" onOk={handleOk} onCancel={handleCancel}>
+      <p>sessionID: {sessionID}</p>
+      <p>data: </p>
+      <p>{JSON.stringify(payload?.data)}</p>
+    </Modal>
+  )
+}
+```
+
+</TabItem>
+</Tabs>
+
+#### [useAction](../../../../reference/packages/store/store.md#useAction) (Deprecated){#useAction}
+
+<details>
+<summary>Show More</summary>
 
 ```tsx
 import { useAction } from '@ones-op/store'
@@ -144,6 +205,8 @@ function TriggerPlugin() {
   )
 }
 ```
+
+</details>
 
 ## FAQ
 

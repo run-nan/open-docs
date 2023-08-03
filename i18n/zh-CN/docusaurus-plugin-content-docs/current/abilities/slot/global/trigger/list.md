@@ -406,7 +406,7 @@ import Image from '@theme/IdealImage'
 
 ## ones:space:add
 
-**ONES 要求：**P8133
+**ONES 要求：**v3.14.0+
 
 **Action 类型：**
 
@@ -419,7 +419,7 @@ import Image from '@theme/IdealImage'
 
 ## ones:space:copy
 
-**ONES 要求：**P8133
+**ONES 要求：**v3.14.0+
 
 **Action 类型：**
 
@@ -432,7 +432,7 @@ import Image from '@theme/IdealImage'
 
 ## ones:space:update
 
-**ONES 要求：**P8133
+**ONES 要求：**v3.14.0+
 
 **Action 类型：**
 
@@ -445,7 +445,7 @@ import Image from '@theme/IdealImage'
 
 ## ones:space:delete
 
-**ONES 要求：**P8133
+**ONES 要求：**v3.14.0+
 
 **Action 类型：**
 

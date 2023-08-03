@@ -407,7 +407,7 @@ Deleting target deliverable.
 
 ## ones:space:add
 
-**ONES Requirement:** P8133
+**ONES Requirement:** v3.14.0+
 
 **Action Type:**
 
@@ -420,7 +420,7 @@ Deleting target deliverable.
 
 ## ones:space:copy
 
-**ONES Requirement:** P8133
+**ONES Requirement:** v3.14.0+
 
 **Action Type:**
 
@@ -433,7 +433,7 @@ Deleting target deliverable.
 
 ## ones:space:update
 
-**ONES Requirement:** P8133
+**ONES Requirement:** v3.14.0+
 
 **Action Type:**
 
@@ -446,7 +446,7 @@ Updating the space's info.
 
 ## ones:space:delete
 
-**ONES Requirement:** P8133
+**ONES Requirement:** v3.14.0+
 
 **Action Type:**
 
