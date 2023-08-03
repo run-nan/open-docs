@@ -17,12 +17,7 @@ paths:
         - oauth2:
             - write:project:issue-timeEstimated
       parameters:
-        - name: teamID
-          in: query
-          description: The ID of the team.
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
         - name: issueID
           in: path
           description: The issue ID.
@@ -52,12 +47,7 @@ paths:
         - oauth2:
             - write:project:issue-timeRemaining
       parameters:
-        - name: teamID
-          in: query
-          description: The ID of the team.
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
         - name: issueID
           in: path
           description: The issue ID.
@@ -87,22 +77,9 @@ paths:
         - oauth2:
             - read:project:issue-timeSpent
       parameters:
-        - name: teamID
-          in: query
-          description: The ID of the team.
-          required: true
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: The number of test case libraries returned by this request.
-          schema:
-            type: integer
-        - name: cursor
-          in: query
-          description: The starting location of this request.
-          schema:
-            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../openapi-common/canary/en/paging-query-request-limit.yaml
+        - $ref: ../../../openapi-common/canary/en/paging-query-request-cursor.yaml
         - name: issueID
           in: path
           description: The issue ID.
@@ -125,12 +102,7 @@ paths:
         - oauth2:
             - write:project:issue-timeSpent
       parameters:
-        - name: teamID
-          in: query
-          description: The ID of the team.
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
         - name: issueID
           in: path
           description: The issue ID.
@@ -160,12 +132,7 @@ paths:
         - oauth2:
             - write:project:issue-timeSpent
       parameters:
-        - name: teamID
-          in: query
-          description: The ID of the team.
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
         - name: issueID
           in: path
           description: The issue ID.
@@ -351,17 +318,23 @@ components:
       type: object
       properties:
         hours:
-          type: integer
           description: The spent time,unit is hour.
+          type: number
+          format: float
+          pattern: "^\\d+(\\.\\d{1,5})?$"
         description:
           type: string
           description: The description of spent time.
         startTime:
           type: integer
-          description: The start time of spent time.
+          description: 'The start time of spent time,Format: 1691043051'
         owner:
           type: object
           description: The owner of spent time.
+      required:
+        - hours
+        - startTime
+        - owner
       example:
         hours: 1
         description: 'Sample Description'
@@ -377,6 +350,31 @@ components:
         data:
           type: object
           description: The result of this request.
+          properties:
+            id:
+              type: string
+              description: The id of spent time.
+            hours:
+              description: The spent time,unit is hour.
+              type: number
+              format: float
+              pattern: "^\\d+(\\.\\d{1,5})?$"
+            description:
+              type: string
+              description: The description of spent time.
+            startTime:
+              type: integer
+              description: 'The start time of spent time,Format: 1691043051'
+            owner:
+              type: object
+              description: The owner of spent time.
+              properties:
+                id:
+                  type: string
+                  description: The id of spent time.
+                name:
+                  type: string
+                  description: The name of spent time.
         errorCode:
           type: string
           description: The error code of this request.
@@ -389,8 +387,37 @@ components:
             hours: 1
             description: 'Sample Description'
             startTime: 1689055200
-            owner: UWQR89ji
+            owner:
+              id: UWQR89ji
+              name: 'Sample Name'
             id: kkoi976k
+        - result: FAIL
+          errorCode: Forbidden
+          errorMsg: 'Unable to times estimated in summary mode'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter teamID'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours TooLong'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Issue'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Container'
+        - result: FAIL
+          errorCode: AccessDenied
+          errorMsg: 'AccessDenied Issue'
+        - result: FAIL
+          errorCode: 'Internal Server Error'
+          errorMsg: 'Internal Server Error'
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied super_administrator'
     TimesSpentListResponse:
       description: 'The result of estimated time.'
       type: object
@@ -401,6 +428,35 @@ components:
         data:
           type: object
           description: The result of this request.
+          properties:
+            list:
+              description: 'List of items.'
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: 'Worklog id'
+                  description:
+                    description: 'Worklog description'
+                    type: string
+                  hours:
+                    type: integer
+                    description: 'Worklog hours,unit is hour'
+                  owner:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        description: 'Times spent owner id'
+                      name:
+                        type: string
+                        description: 'Times spent owner name'
+                  startTime:
+                    type: integer
+                    description: 'Worklog start time'
+            $ref: ../../../openapi-common/canary/en/paging-query-response-pageInfo-schemas.yaml
         errorCode:
           type: string
           description: The error code of this request.
@@ -411,16 +467,18 @@ components:
         - result: SUCCESS
           data:
             list:
-              - description: 'Sample Description 1'
+              - id: 'yuhbf780'
+                description: 'Sample Description 1'
                 hours: 1
                 owner:
-                  id: 'xx'
+                  id: 'hgbko876'
                   name: 'xx'
                 startTime: 1689055200
-              - description: 'Sample Description 2'
+              - id: 'yuhbf781'
+                description: 'Sample Description 2'
                 hours: 2
                 owner:
-                  id: 'yy'
+                  id: 'hgbko877'
                   name: 'yy'
                 startTime: 1689055300
             pageInfo:
@@ -433,8 +491,12 @@ components:
       type: object
       properties:
         hours:
-          type: integer
+          type: number
+          format: float
+          pattern: "^\\d+(\\.\\d{1,5})?$"
           description: Estimated time,unit is hour.
+      required:
+        - hours
       example:
         hours: 1
     TimesEstimatedResponse:
@@ -456,8 +518,20 @@ components:
           errorCode: Forbidden
           errorMsg: 'Unable to times estimated in summary mode'
         - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter teamID'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours TooLong'
+        - result: FAIL
           errorCode: NotFound
           errorMsg: 'NotFound Issue'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Container'
         - result: FAIL
           errorCode: AccessDenied
           errorMsg: 'AccessDenied Issue'
@@ -471,8 +545,12 @@ components:
       type: object
       properties:
         hours:
-          type: integer
+          type: number
+          format: float
+          pattern: "^\\d+(\\.\\d{1,5})?$"
           description: Remaining time,unit is hour.
+      required:
+        - hours
       example:
         hours: 1
     TimesRemainingResponse:
@@ -490,6 +568,33 @@ components:
           description: Error message for this request.
       example:
         - result: SUCCESS
+        - result: FAIL
+          errorCode: Forbidden
+          errorMsg: 'Unable to times estimated in summary mode'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter teamID'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours TooLong'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Issue'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Container'
+        - result: FAIL
+          errorCode: AccessDenied
+          errorMsg: 'AccessDenied Issue'
+        - result: FAIL
+          errorCode: 'Internal Server Error'
+          errorMsg: 'Internal Server Error'
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied super_administrator'
     $ref: ../../../openapi-common/canary/en/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
