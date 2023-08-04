@@ -47,12 +47,7 @@ paths:
         - oauth2:
             - write:project:issue-timeRemaining
       parameters:
-        - name: teamID
-          in: query
-          description: 团队ID
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -82,22 +77,9 @@ paths:
         - oauth2:
             - read:project:issue-timeSpent
       parameters:
-        - name: teamID
-          in: query
-          description: 团队ID
-          required: true
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: 本次请求要返回的工作项工时数量
-          schema:
-            type: integer
-        - name: cursor
-          in: query
-          description: 本次请求的起始位置
-          schema:
-            type: string
+        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
+        - $ref: ../../../../../../openapi-common/canary/zh/paging-query-request-limit.yaml
+        - $ref: ../../../../../../openapi-common/canary/zh/paging-query-request-cursor.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -120,12 +102,7 @@ paths:
         - oauth2:
             - write:project:issue-timeSpent
       parameters:
-        - name: teamID
-          in: query
-          description: 团队ID
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -155,12 +132,7 @@ paths:
         - oauth2:
             - write:project:issue-timeSpent
       parameters:
-        - name: teamID
-          in: query
-          description: 团队ID
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -195,12 +167,7 @@ paths:
         - oauth2:
             - write:project:issue-timeSpent
       parameters:
-        - name: teamID
-          in: query
-          description: 团队ID
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -229,12 +196,7 @@ paths:
         - oauth2:
             - read:project:issue-timeSpent
       parameters:
-        - name: teamID
-          in: query
-          description: 团队ID
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -267,6 +229,31 @@ components:
         data:
           type: object
           description: 本次请求返回的数据
+          properties:
+            id:
+              type: string
+              description: 工时ID
+            hours:
+              description: 登记的工时，单位（小时）
+              type: number
+              format: float
+              pattern: "^\\d+(\\.\\d{1,5})?$"
+            description:
+              type: string
+              description: 登记的工时描述
+            startTime:
+              type: integer
+              description: 登记的工时开始时间，单位（时间戳），精确到秒
+            owner:
+              type: object
+              description: 登记的工时的所有者
+              properties:
+                id:
+                  type: string
+                  description: 登记的工时的所有者ID
+                name:
+                  type: string
+                  description: 登记的工时的所有者名称
         errorCode:
           type: string
           description: 本次请求错误码
@@ -279,8 +266,40 @@ components:
             hours: 1
             description: 'Sample Description'
             startTime: 1689055200
-            owner: UWQR89ji
+            owner:
+              id: UWQR89ji
+              name: 'Sample Name'
             id: kkoi976k
+        - result: FAIL
+          errorCode: Forbidden
+          errorMsg: 'Unable to times estimated in summary mode'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter teamID'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours TooLong'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Issue'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound timesSpentID'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Container'
+        - result: FAIL
+          errorCode: AccessDenied
+          errorMsg: 'AccessDenied Issue'
+        - result: FAIL
+          errorCode: 'Internal Server Error'
+          errorMsg: 'Internal Server Error'
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied super_administrator'
     DeleteTimesSpentResponse:
       description: 简单模式下删除工作项工时的返回结果
       type: object
@@ -296,22 +315,58 @@ components:
           description: 本次请求错误信息
       example:
         - result: SUCCESS
+        - result: FAIL
+          errorCode: Forbidden
+          errorMsg: 'Unable to times estimated in summary mode'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter teamID'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours TooLong'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Issue'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound timesSpentID'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Container'
+        - result: FAIL
+          errorCode: AccessDenied
+          errorMsg: 'AccessDenied Issue'
+        - result: FAIL
+          errorCode: 'Internal Server Error'
+          errorMsg: 'Internal Server Error'
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied super_administrator'
     UpdateTimesSpentRequest:
       description: 简单模式下更新工作项工时的请求参数
       type: object
       properties:
         hours:
-          type: integer
-          description: 工时，单位（小时）
+          description: 登记的工时，单位（小时）
+          type: number
+          format: float
+          pattern: "^\\d+(\\.\\d{1,5})?$"
         description:
           type: string
-          description: 工时的描述
+          description: 登记的工时描述
         startTime:
           type: integer
-          description: 工时开始时间，单位（时间戳）
+          description: 登记的工时开始时间，单位（时间戳）
         owner:
           type: object
-          description: 工时登记人
+          description: The owner of spent time.
+      required:
+        - hours
+        - startTime
+        - owner
       example:
         hours: 1
         description: 'Sample Description'
@@ -327,6 +382,31 @@ components:
         data:
           type: object
           description: 本次请求返回的数据
+          properties:
+            id:
+              type: string
+              description: 工时ID
+            hours:
+              description: 登记的工时，单位（小时）
+              type: number
+              format: float
+              pattern: "^\\d+(\\.\\d{1,5})?$"
+            description:
+              type: string
+              description: 登记的工时描述
+            startTime:
+              type: integer
+              description: 登记的工时开始时间，单位（时间戳），精确到秒
+            owner:
+              type: object
+              description: 登记的工时的所有者
+              properties:
+                id:
+                  type: string
+                  description: 登记的工时的所有者ID
+                name:
+                  type: string
+                  description: 登记的工时的所有者名称
         errorCode:
           type: string
           description: 本次请求错误码
@@ -339,8 +419,40 @@ components:
             hours: 1
             description: 'Sample Description'
             startTime: 1689055200
-            owner: UWQR89ji
+            owner:
+              id: UWQR89ji
+              name: 'Sample Name'
             id: kkoi976k
+        - result: FAIL
+          errorCode: Forbidden
+          errorMsg: 'Unable to times estimated in summary mode'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter teamID'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours TooLong'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Issue'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound timesSpentID'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Container'
+        - result: FAIL
+          errorCode: AccessDenied
+          errorMsg: 'AccessDenied Issue'
+        - result: FAIL
+          errorCode: 'Internal Server Error'
+          errorMsg: 'Internal Server Error'
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied super_administrator'
     AddTimesSpentRequest:
       description: 简单模式下更新工作项工时的请求参数
       type: object
@@ -419,6 +531,33 @@ components:
               id: UWQR89ji
               name: 'Sample Name'
             id: kkoi976k
+        - result: FAIL
+          errorCode: Forbidden
+          errorMsg: 'Unable to times estimated in summary mode'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter teamID'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours TooLong'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Issue'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Container'
+        - result: FAIL
+          errorCode: AccessDenied
+          errorMsg: 'AccessDenied Issue'
+        - result: FAIL
+          errorCode: 'Internal Server Error'
+          errorMsg: 'Internal Server Error'
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied super_administrator'
     TimesSpentListResponse:
       description: 获取简单模式下的工作项工时列表
       type: object

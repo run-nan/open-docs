@@ -167,12 +167,7 @@ paths:
         - oauth2:
             - write:project:issue-timeSpent
       parameters:
-        - name: teamID
-          in: query
-          description: The ID of the team.
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
         - name: issueID
           in: path
           description: The issue ID.
@@ -201,12 +196,7 @@ paths:
         - oauth2:
             - read:project:issue-timeSpent
       parameters:
-        - name: teamID
-          in: query
-          description: The ID of the team.
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
         - name: issueID
           in: path
           description: The issue ID.
@@ -239,6 +229,31 @@ components:
         data:
           type: object
           description: The result of this request.
+          properties:
+            id:
+              type: string
+              description: The id of spent time.
+            hours:
+              description: The spent time,unit is hour.
+              type: number
+              format: float
+              pattern: "^\\d+(\\.\\d{1,5})?$"
+            description:
+              type: string
+              description: The description of spent time.
+            startTime:
+              type: integer
+              description: 'The start time of spent time,Format: 1691043051'
+            owner:
+              type: object
+              description: The owner of spent time.
+              properties:
+                id:
+                  type: string
+                  description: The id of spent time.
+                name:
+                  type: string
+                  description: The name of spent time.
         errorCode:
           type: string
           description: The error code of this request.
@@ -253,6 +268,36 @@ components:
             startTime: 1689055200
             owner: UWQR89ji
             id: kkoi976k
+        - result: FAIL
+          errorCode: Forbidden
+          errorMsg: 'Unable to times estimated in summary mode'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter teamID'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours TooLong'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Issue'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound timesSpentID'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Container'
+        - result: FAIL
+          errorCode: AccessDenied
+          errorMsg: 'AccessDenied Issue'
+        - result: FAIL
+          errorCode: 'Internal Server Error'
+          errorMsg: 'Internal Server Error'
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied super_administrator'
     DeleteTimesSpentResponse:
       description: 'The result of delete spent time'
       type: object
@@ -268,22 +313,58 @@ components:
           description: Error message for this request.
       example:
         - result: SUCCESS
+        - result: FAIL
+          errorCode: Forbidden
+          errorMsg: 'Unable to times estimated in summary mode'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter teamID'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours TooLong'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Issue'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound timesSpentID'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Container'
+        - result: FAIL
+          errorCode: AccessDenied
+          errorMsg: 'AccessDenied Issue'
+        - result: FAIL
+          errorCode: 'Internal Server Error'
+          errorMsg: 'Internal Server Error'
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied super_administrator'
     UpdateTimesSpentRequest:
       description: 'The request of update spent time'
       type: object
       properties:
         hours:
-          type: integer
           description: The spent time,unit is hour.
+          type: number
+          format: float
+          pattern: "^\\d+(\\.\\d{1,5})?$"
         description:
           type: string
           description: The description of spent time.
         startTime:
           type: integer
-          description: The start time of spent time.
+          description: 'The start time of spent time,Format: 1691043051'
         owner:
           type: object
           description: The owner of spent time.
+      required:
+        - hours
+        - startTime
+        - owner
       example:
         hours: 1
         description: 'Sample Description'
@@ -293,26 +374,70 @@ components:
       description: 'The result of update spent time'
       type: object
       properties:
-        result:
+        id:
           type: string
-          description: The result of this request.
-        data:
+          description: The id of spent time.
+        hours:
+          description: The spent time,unit is hour.
+          type: number
+          format: float
+          pattern: "^\\d+(\\.\\d{1,5})?$"
+        description:
+          type: string
+          description: The description of spent time.
+        startTime:
+          type: integer
+          description: 'The start time of spent time,Format: 1691043051'
+        owner:
           type: object
-          description: The result of this request.
-        errorCode:
-          type: string
-          description: The error code of this request.
-        errorMsg:
-          type: string
-          description: Error message for this request.
+          description: The owner of spent time.
+          properties:
+            id:
+              type: string
+              description: The id of spent time.
+            name:
+              type: string
+              description: The name of spent time.
       example:
         - result: SUCCESS
           data:
             hours: 1
             description: 'Sample Description'
             startTime: 1689055200
-            owner: UWQR89ji
+            owner:
+              id: UWQR89ji
+              name: 'Sample Name'
             id: kkoi976k
+        - result: FAIL
+          errorCode: Forbidden
+          errorMsg: 'Unable to times estimated in summary mode'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter teamID'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours TooLong'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Issue'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound timesSpentID'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Container'
+        - result: FAIL
+          errorCode: AccessDenied
+          errorMsg: 'AccessDenied Issue'
+        - result: FAIL
+          errorCode: 'Internal Server Error'
+          errorMsg: 'Internal Server Error'
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied super_administrator'
     AddTimesSpentRequest:
       description: 'The request of add spent time'
       type: object
