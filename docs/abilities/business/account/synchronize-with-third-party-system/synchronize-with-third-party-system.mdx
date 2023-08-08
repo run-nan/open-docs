@@ -235,3 +235,12 @@ After the addition is successful, you can enable the required function points.
 ## Examples
 
 - [ ONES integrate with Ding Talk](sample-synchronize-with-third-party-system1.mdx)
+
+## Q&A
+
+** If I want to use the message sending capability of the account capability, but I don't want to implement the login capability of the plugin to synchronize with the departmental information, how can I do it? **
+
+1. After adding the three parties to "Account Integration", edit the basic information, and select the account binding method to automatically bind the same system account as "Mailbox".
+2. The plug-in needs to realize the ability of user synchronization, the email parameter in the user must be returned, the system will bind the system user with the three-party user according to the email.
+3. After completing the above actions, the system will synchronize the user information every 10 minutes to bind the user information.
+4. When an event in the system triggers a message notification, and the notifier has to do user information binding, the message will be pushed to the plug-in send message function, the plug-in then forward the message.

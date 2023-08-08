@@ -234,3 +234,12 @@ export async function SendMessage(request: PluginRequest): Promise<PluginRespons
 ## 示例
 
 - [ ONES 对接钉钉系统](sample-synchronize-with-third-party-system1.mdx)
+
+## Q&A
+
+** 如果我想用 account 能力的消息发送能力，但是又不想实现插件的登录能力，跟同步部门信息，怎么做？ **
+
+1. 把三方添加到"帐号集成"后，编辑基础信息，把选择帐号绑定方式选定为，自动绑定「邮箱」相同的系统帐号。
+2. 插件需要实现用户同步的能力，user 中的 email 参数一定要返回，系统会根据 email 进行对系统用户跟三方用户的一个绑定。
+3. 完成上面动作后，系统会每隔 10 分钟，进行一次用户信息的同步，进行用户信息绑定。
+4. 当系统内的某个事件触发了消息通知，且通知者有做用户信息绑定时，消息就会推送到插件的发送消息函数，插件再进行消息的转发即可。
