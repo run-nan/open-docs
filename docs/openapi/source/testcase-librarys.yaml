@@ -8,31 +8,18 @@ servers:
   - url: https://your-domain/rest/api/v1
   - url: http://your-domain/rest/api/v1
 paths:
-  /testcase/team/{teamID}/libraries:
+  /testcase/libraries:
     get:
       summary: Get a list of test case libraries
-      operationId: get-a-list-of-test-case-libraries
+      operationId: 01-get-a-list-of-test-case-libraries
       description: Get a list of test case libraries.
       security:
         - oauth2:
             - read:testcase:library
       parameters:
-        - name: teamID
-          in: path
-          description: The team ID.
-          required: true
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: The number of test case libraries returned by this request.
-          schema:
-            type: integer
-        - name: cursor
-          in: query
-          description: The starting location of this request.
-          schema:
-            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../openapi-common/canary/en/paging-query-request-limit.yaml
+        - $ref: ../../../openapi-common/canary/en/paging-query-request-cursor.yaml
       responses:
         200:
           description: Request is successful.
@@ -40,44 +27,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AllSuccessResponse'
-        401:
-          description: Returned if the authentication credentials are incorrect or missing.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: Returns if the scope check fails.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: Returned if the resource object was not found.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: Internal Server Error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
+        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
     post:
       summary: Create a new test case library
-      operationId: create-a-new-test-case-library
+      operationId: 02-create-a-new-test-case-library
       description: Create a new test case library.
       security:
         - oauth2:
             - write:testcase:library
       parameters:
-        - name: teamID
-          in: path
-          description: The team ID.
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
       requestBody:
         description: The test case library information to be created.
         content:
@@ -92,46 +51,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddOrUpdateSuccessResponse'
-        401:
-          description: Returned if the authentication credentials are incorrect or missing.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: Returns if the scope check fails.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: Returned if the resource object was not found.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: Internal Server Error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
+        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
       x-codegen-request-body-name: body
-  /testcase/team/{teamID}/libraries/{libraryID}:
+  /testcase/libraries/{libraryID}:
     get:
       summary: Get a test case library details
-      operationId: get-a-test-case-library-details
+      operationId: 03-get-a-test-case-library-details
       description: Get a test case library details.
       security:
         - oauth2:
             - read:testcase:library
       parameters:
-        - name: teamID
-          in: path
-          description: The team ID.
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
         - name: libraryID
           in: path
           description: The id of the test case library.
@@ -145,44 +76,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddOrUpdateSuccessResponse'
-        401:
-          description: Returned if the authentication credentials are incorrect or missing.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: Returns if the scope check fails.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: Returned if the resource object was not found.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: Internal Server Error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
+        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
     put:
       summary: Update a test case library
-      operationId: update-a-test-case-library
+      operationId: 04-update-a-test-case-library
       description: Update a test case library.
       security:
         - oauth2:
             - write:testcase:library
       parameters:
-        - name: teamID
-          in: path
-          description: The team ID.
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
         - name: libraryID
           in: path
           description: The id of the test case library.
@@ -203,45 +106,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddOrUpdateSuccessResponse'
-        401:
-          description: Returned if the authentication credentials are incorrect or missing.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: Returns if the scope check fails.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: Returned if the resource object was not found.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: Internal Server Error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
+        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
       x-codegen-request-body-name: body
     delete:
       summary: Delete a test case library
-      operationId: delete-a-test-case-library
+      operationId: 05-delete-a-test-case-library
       description: Delete a test case library.
       security:
         - oauth2:
             - write:testcase:library
       parameters:
-        - name: teamID
-          in: path
-          description: The team ID.
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
         - name: libraryID
           in: path
           description: The id of the test case library.
@@ -255,33 +130,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteSuccessResponse'
-        401:
-          description: Returned if the authentication credentials are incorrect or missing.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: Returns if the scope check fails.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: Returned if the resource object was not found.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: Internal Server Error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
+        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
 components:
   schemas:
     RequestLibrary:
+      description: The test case library information to be created.
       type: object
       properties:
         caseFieldConfigurationID:
@@ -294,18 +147,21 @@ components:
           minLength: 1
           type: string
           description: The name of the test case library.
+      example:
+        name: Testcase Library
+        caseFieldConfigurationID: safia765
     DeleteSuccessResponse:
+      description: The response of the delete request.
       type: object
       properties:
-        result:
-          type: string
-          description: The result of this request.
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+      example:
+        - result: SUCCESS
     AddOrUpdateSuccessResponse:
+      description: The response of the add or update request.
       type: object
       properties:
-        result:
-          type: string
-          description: The result of this request.
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -327,7 +183,17 @@ components:
             caseFieldConfigurationID:
               type: string
               description: Test case library configuration ID.
+      example:
+        - result: SUCCESS
+          data:
+            name: Testcase Library
+            id: safia765
+            createTime: 1616592000
+            updateTime: 1616592000
+            stickToTop: false
+            caseFieldConfigurationID: safia765
     ListItem:
+      description: Test case library list item information.
       type: object
       properties:
         name:
@@ -355,37 +221,10 @@ components:
               type: string
               description: Test case library configuration ID.
           description: Test case library field configuration information.
-    PageInfo:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The number returned this time.
-        endCursor:
-          type: string
-          description: The last cursor on this page is generally used to turn pages.
-        endPos:
-          type: integer
-          description: The last position on this page.
-        hasNextPage:
-          type: boolean
-          description: Is there a next page.
-        startCursor:
-          type: string
-          description: The first cursor on this page is generally used to turn pages.
-        startPos:
-          type: integer
-          description: The first position on this page.
-        totalCount:
-          type: integer
-          description: The total number of items available in the entire collection,
-            including those that are  returned in the current response.
     AllSuccessResponse:
       type: object
       properties:
-        result:
-          type: string
-          description: The result of this request.
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -393,27 +232,33 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/ListItem'
+            $ref: ../../../openapi-common/canary/en/paging-query-response-pageInfo-schemas.yaml
+      example:
+        - result: SUCCESS
+          data:
+            list:
+              - name: Testcase Library
+                id: safia765
+                createTime: 1616592000
+                updateTime: 1616592000
+                stickToTop: false
+                testcaseFieldConfig:
+                  name: Testcase Library
+                  id: safia765
             pageInfo:
-              $ref: '#/components/schemas/PageInfo'
-    BadResponse:
-      type: object
-      properties:
-        result:
-          type: string
-          description: The result of this request.
-        errorCode:
-          type: string
-          description: The error code of this request.
-        errorMsg:
-          type: string
-          description: Error message for this request.
+              count: 2
+              endCursor: 'sample_end_cursor'
+              hasNextPage: false
+              startCursor: 'sample_start_cursor'
+              totalCount: 2
+    $ref: ../../../openapi-common/canary/en/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://ones.com/oauth2/authorize
-          tokenUrl: https://ones.com/oauth2/token
+          authorizationUrl: https://your-domain/oauth2/authorize
+          tokenUrl: https://your-domain/oauth2/token
           scopes:
             write:testcase:library: Add, edit, delete test case library
             read:testcase:library: Access test case library information

@@ -17,12 +17,7 @@ paths:
         - oauth2:
             - write:project:issue-timeEstimated
       parameters:
-        - name: teamID
-          in: query
-          description: The ID of the team.
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
         - name: issueID
           in: path
           description: The issue ID.
@@ -52,12 +47,7 @@ paths:
         - oauth2:
             - write:project:issue-timeEstimated
       parameters:
-        - name: teamID
-          in: query
-          description: The ID of the team.
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
         - name: issueID
           in: path
           description: The issue ID.
@@ -92,12 +82,7 @@ paths:
         - oauth2:
             - write:project:issue-timeEstimated
       parameters:
-        - name: teamID
-          in: query
-          description: The ID of the team.
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
         - name: issueID
           in: path
           description: The issue ID.
@@ -127,22 +112,9 @@ paths:
         - oauth2:
             - read:project:issue-timeSpent
       parameters:
-        - name: teamID
-          in: query
-          description: The ID of the team.
-          required: true
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: The number of test case libraries returned by this request.
-          schema:
-            type: integer
-        - name: cursor
-          in: query
-          description: The starting location of this request.
-          schema:
-            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../openapi-common/canary/en/paging-query-request-limit.yaml
+        - $ref: ../../../openapi-common/canary/en/paging-query-request-cursor.yaml
         - name: issueID
           in: path
           description: The issue ID.
@@ -165,12 +137,7 @@ paths:
         - oauth2:
             - write:project:issue-timeSpent
       parameters:
-        - name: teamID
-          in: query
-          description: The ID of the team.
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
         - name: issueID
           in: path
           description: The issue ID.
@@ -200,12 +167,7 @@ paths:
         - oauth2:
             - write:project:issue-timeSpent
       parameters:
-        - name: teamID
-          in: query
-          description: The ID of the team.
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
         - name: issueID
           in: path
           description: The issue ID.
@@ -240,12 +202,7 @@ paths:
         - oauth2:
             - write:project:issue-timeSpent
       parameters:
-        - name: teamID
-          in: query
-          description: The ID of the team.
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
         - name: issueID
           in: path
           description: The issue ID.
@@ -274,12 +231,7 @@ paths:
         - oauth2:
             - read:project:issue-timeSpent
       parameters:
-        - name: teamID
-          in: query
-          description: The ID of the team.
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
         - name: issueID
           in: path
           description: The issue ID.
@@ -306,18 +258,10 @@ components:
       description: 'The result of get a spent time'
       type: object
       properties:
-        result:
-          type: string
-          description: The result of this request.
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
         data:
           type: object
           description: The result of this request.
-        errorCode:
-          type: string
-          description: The error code of this request.
-        errorMsg:
-          type: string
-          description: Error message for this request.
       example:
         - result: SUCCESS
           data:
@@ -330,15 +274,7 @@ components:
       description: 'The result of delete spent time'
       type: object
       properties:
-        result:
-          type: string
-          description: The result of this request.
-        errorCode:
-          type: string
-          description: The error code of this request.
-        errorMsg:
-          type: string
-          description: Error message for this request.
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
       example:
         - result: SUCCESS
     UpdateTimesSpentRequest:
@@ -366,18 +302,10 @@ components:
       description: 'The result of update spent time'
       type: object
       properties:
-        result:
-          type: string
-          description: The result of this request.
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
         data:
           type: object
           description: The result of this request.
-        errorCode:
-          type: string
-          description: The error code of this request.
-        errorMsg:
-          type: string
-          description: Error message for this request.
       example:
         - result: SUCCESS
           data:
@@ -411,18 +339,10 @@ components:
       description: 'The result of add spent time'
       type: object
       properties:
-        result:
-          type: string
-          description: The result of this request.
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
         data:
           type: object
           description: The result of this request.
-        errorCode:
-          type: string
-          description: The error code of this request.
-        errorMsg:
-          type: string
-          description: Error message for this request.
       example:
         - result: SUCCESS
           data:
@@ -435,59 +355,114 @@ components:
       description: 'The result of estimated time.'
       type: object
       properties:
-        result:
-          type: string
-          description: The result of this request.
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
         data:
           type: object
           description: The result of this request.
-        errorCode:
-          type: string
-          description: The error code of this request.
-        errorMsg:
-          type: string
-          description: Error message for this request.
+          properties:
+            list:
+              type: array
+              description: 'List of items.'
+              properties:
+                id:
+                  type: string
+                  description: 'Worklog id'
+                description:
+                  description: 'Worklog description'
+                  type: string
+                hours:
+                  type: integer
+                  description: 'Worklog hours,unit is hour'
+                owner:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: 'Times spent owner id'
+                    name:
+                      type: string
+                      description: 'Times spent owner name'
+                workLogRecordType:
+                  type: string
+                  description: 'Worklog record type'
+                startTime:
+                  type: integer
+                  description: 'Worklog start time'
+                startDate:
+                  type: string
+                  description: 'Worklog start date,Format is YYYY-MM-DD.'
+              required:
+                - id
+                - description
+                - hours
+                - owner
+                - workLogRecordType
+            $ref: ../../../openapi-common/canary/en/paging-query-response-pageInfo-schemas.yaml
       example:
         - result: SUCCESS
           data:
             list:
-              - description: 'Sample Description 1'
+              - id: saihi890
+                description: 'Sample Description 1'
                 hours: 1
                 owner:
                   id: 'xx'
                   name: 'xx'
                 startTime: 1689055200
-              - description: 'Sample Description 2'
+                workLogRecordType: 'timesSpent'
+              - id: wqytf675
+                description: 'Sample Description 2'
                 hours: 2
                 owner:
                   id: 'yy'
                   name: 'yy'
-                startTime: 1689055300
+                startDate: '2023-01-01'
+                workLogRecordType: 'timesEstimated'
             pageInfo:
               count: 2
-              endCursor: 'sample_end_cursor'
+              endCursor: 'adsgfa8hsd0hdf'
               hasNextPage: false
-              startCursor: 'sample_start_cursor'
+              startCursor: 'dsoijioew09ewqkjb'
               totalCount: 2
+        - result: FAIL
+          errorCode: Forbidden
+          errorMsg: 'Unable to times estimated in simple mode'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter teamID'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Issue'
+        - result: FAIL
+          errorCode: AccessDenied
+          errorMsg: 'AccessDenied Issue'
+        - result: FAIL
+          errorCode: 'Internal Server Error'
+          errorMsg: 'Internal Server Error'
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied super_administrator'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter limit InvalidType'
     AddTimesEstimatedRequest:
       description: 'The request of add estimated time'
       type: object
       properties:
+        owner:
+          type: string
+          description: The owner of times estimated.
         hours:
-          type: integer
-          description: Estimated time,unit is hour.
+          description: The times estimated,unit is hour.
+          type: number
+          format: float
+          pattern: "^\\d+(\\.\\d{1,5})?$"
         startDate:
           type: string
-          description: The start time of spent time,Format is YYYY-MM-DD.
+          description: The start time of times estimated,Format is YYYY-MM-DD.
         endDate:
           type: string
-          description: The end time of spent time,Format is YYYY-MM-DD.
-        owner:
-          type: object
-          description: The owner of spent time.
-        includeNonWorkingDays:
-          type: boolean
-          description: Whether to include non-working days.
+          description: The end time of times estimated,Format is YYYY-MM-DD.
         timesEstimatedMode:
           type: string
           enum:
@@ -496,38 +471,109 @@ components:
           description: |
             - total: Total estimated time from start date to end date.
             - daily: Estimated time per day from start date to end date.
+        includeNonWorkingDays:
+          type: boolean
+          description: Whether to include non-working days.
+      required:
+        - owner
+        - hours
+        - startDate
+        - endDate
+        - timesEstimatedMode
       example:
         hours: 1
         startDate: '2023-01-01'
         endDate: '2023-01-31'
         owner: UWQR89ji
-        includeNonWorkingDays: true
         timesEstimatedMode: daily
+        includeNonWorkingDays: true
     AddTimesEstimatedResponse:
       description: 'The result of add estimated time'
       type: object
       properties:
-        result:
-          type: string
-          description: The result of this request.
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
         data:
           type: object
           description: The result of this request.
-        errorCode:
-          type: string
-          description: The error code of this request.
-        errorMsg:
-          type: string
-          description: Error message for this request.
+          properties:
+            id:
+              type: string
+              description: The id of times estimated.
+            hours:
+              description: The times estimated,unit is hour.
+              type: number
+              format: float
+              pattern: "^\\d+(\\.\\d{1,5})?$"
+            startDate:
+              type: integer
+              description: 'The start time of times estimated,Format is YYYY-MM-DD.'
+            owner:
+              type: object
+              description: The owner of times estimated.
+              properties:
+                id:
+                  type: string
+                  description: The id of times estimated.
+                name:
+                  type: string
+                  description: The name of times estimated.
       example:
         - result: SUCCESS
           data:
+            id: ashiuqwe
             hours: 1
             startDate: '2023-01-01'
-            endDate: '2023-01-31'
-            owner: UWQR89ji
-            includeNonWorkingDays: true
-            timesEstimatedMode: daily
+            owner:
+              id: UWQR89ji
+              name: 'Sample Name'
+        - result: FAIL
+          errorCode: Forbidden
+          errorMsg: 'Unable to times estimated in simple mode'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog owner Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog owner InvalidFormat'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog startDate Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog startDate InvalidFormat'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog endDate Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog endDate InvalidFormat'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog timesEstimatedMode Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog timesEstimatedMode Invalid'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter teamID'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours TooLong'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Issue'
+        - result: FAIL
+          errorCode: AccessDenied
+          errorMsg: 'AccessDenied Issue'
+        - result: FAIL
+          errorCode: 'Internal Server Error'
+          errorMsg: 'Internal Server Error'
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied super_administrator'
     UpdateTimesEstimatedRequest:
       description: 'The request of update estimated time'
       type: object
@@ -549,42 +595,102 @@ components:
       description: 'The result of update estimated time'
       type: object
       properties:
-        result:
-          type: string
-          description: The result of this request.
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
         data:
           type: object
           description: The result of this request.
-        errorCode:
-          type: string
-          description: The error code of this request.
-        errorMsg:
-          type: string
-          description: Error message for this request.
+          properties:
+            id:
+              type: string
+              description: The id of times estimated.
+            hours:
+              description: The times estimated,unit is hour.
+              type: number
+              format: float
+              pattern: "^\\d+(\\.\\d{1,5})?$"
+            startDate:
+              type: integer
+              description: 'The start time of times estimated,Format is YYYY-MM-DD.'
+            owner:
+              type: object
+              description: The owner of times estimated.
+              properties:
+                id:
+                  type: string
+                  description: The id of times estimated.
+                name:
+                  type: string
+                  description: The name of times estimated.
       example:
         - result: SUCCESS
           data:
+            id: ashiuqwe
             hours: 1
-            startDate: '2023-01-02'
-            endDate: '2023-01-31'
-            owner: UWQR89ji
-            includeNonWorkingDays: true
-            timesEstimatedMode: daily
+            startDate: '2023-01-01'
+            owner:
+              id: UWQR89ji
+              name: 'Sample Name'
+        - result: FAIL
+          errorCode: Forbidden
+          errorMsg: 'Unable to times estimated in simple mode'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog owner Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog owner InvalidFormat'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog startDate Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog startDate InvalidFormat'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter teamID'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours TooLong'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Issue'
+        - result: FAIL
+          errorCode: AccessDenied
+          errorMsg: 'AccessDenied Issue'
+        - result: FAIL
+          errorCode: 'Internal Server Error'
+          errorMsg: 'Internal Server Error'
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied super_administrator'
     DeleteTimesEstimatedResponse:
       description: 'The result of delete estimated time'
       type: object
       properties:
-        result:
-          type: string
-          description: The result of this request.
-        errorCode:
-          type: string
-          description: The error code of this request.
-        errorMsg:
-          type: string
-          description: Error message for this request.
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
       example:
         - result: SUCCESS
+        - result: FAIL
+          errorCode: Forbidden
+          errorMsg: 'Unable to times estimated in simple mode'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter teamID'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Issue'
+        - result: FAIL
+          errorCode: AccessDenied
+          errorMsg: 'AccessDenied Issue'
+        - result: FAIL
+          errorCode: 'Internal Server Error'
+          errorMsg: 'Internal Server Error'
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied super_administrator'
     $ref: ../../../openapi-common/canary/en/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
@@ -594,5 +700,6 @@ components:
           authorizationUrl: https://your-domain/oauth2/authorize
           tokenUrl: https://your-domain/oauth2/token
           scopes:
-            write:project:issue-timeEstimated: Add, edit, delete issue
-            write:project:issue-timeRemaining: Add, edit, delete issue
+            write:project:issue-timeEstimated: Add, edit, delete time estimated for an issue
+            write:project:issue-timeSpent: Add, edit, delete time spent for an issue
+            read:project:issue-timeSpent: Obtain the worklog information for an issue

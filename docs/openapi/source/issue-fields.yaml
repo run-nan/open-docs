@@ -577,13 +577,26 @@ components:
               hasNextPage: false
               startCursor: 'sample_start_cursor'
               totalCount: 2
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter teamID'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter issueID'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter user_id'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter limit InvalidType'
     $ref: ../../../openapi-common/canary/en/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://ones.com/oauth2/authorize
-          tokenUrl: https://ones.com/oauth2/token
+          authorizationUrl: https://your-domain/oauth2/authorize
+          tokenUrl: https://your-domain/oauth2/token
           scopes:
             read:project:issueField: Access issue field
+            write:project:issueField: Add, edit, delete issue field

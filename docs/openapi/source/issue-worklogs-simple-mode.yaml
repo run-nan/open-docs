@@ -223,9 +223,7 @@ components:
       description: 'The result of get a spent time'
       type: object
       properties:
-        result:
-          type: string
-          description: The result of this request.
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
         data:
           type: object
           description: The result of this request.
@@ -254,12 +252,6 @@ components:
                 name:
                   type: string
                   description: The name of spent time.
-        errorCode:
-          type: string
-          description: The error code of this request.
-        errorMsg:
-          type: string
-          description: Error message for this request.
       example:
         - result: SUCCESS
           data:
@@ -302,15 +294,7 @@ components:
       description: 'The result of delete spent time'
       type: object
       properties:
-        result:
-          type: string
-          description: The result of this request.
-        errorCode:
-          type: string
-          description: The error code of this request.
-        errorMsg:
-          type: string
-          description: Error message for this request.
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
       example:
         - result: SUCCESS
         - result: FAIL
@@ -374,30 +358,35 @@ components:
       description: 'The result of update spent time'
       type: object
       properties:
-        id:
-          type: string
-          description: The id of spent time.
-        hours:
-          description: The spent time,unit is hour.
-          type: number
-          format: float
-          pattern: "^\\d+(\\.\\d{1,5})?$"
-        description:
-          type: string
-          description: The description of spent time.
-        startTime:
-          type: integer
-          description: 'The start time of spent time,Format: 1691043051'
-        owner:
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+        data:
           type: object
-          description: The owner of spent time.
+          description: The result of this request.
           properties:
             id:
               type: string
               description: The id of spent time.
-            name:
+            hours:
+              description: The spent time,unit is hour.
+              type: number
+              format: float
+              pattern: "^\\d+(\\.\\d{1,5})?$"
+            description:
               type: string
-              description: The name of spent time.
+              description: The description of spent time.
+            startTime:
+              type: integer
+              description: 'The start time of spent time,Format: 1691043051'
+            owner:
+              type: object
+              description: The owner of spent time.
+              properties:
+                id:
+                  type: string
+                  description: The id of spent time.
+                name:
+                  type: string
+                  description: The name of spent time.
       example:
         - result: SUCCESS
           data:
@@ -469,9 +458,7 @@ components:
       description: 'The result of add spent time'
       type: object
       properties:
-        result:
-          type: string
-          description: The result of this request.
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
         data:
           type: object
           description: The result of this request.
@@ -500,12 +487,6 @@ components:
                 name:
                   type: string
                   description: The name of spent time.
-        errorCode:
-          type: string
-          description: The error code of this request.
-        errorMsg:
-          type: string
-          description: Error message for this request.
       example:
         - result: SUCCESS
           data:
@@ -547,18 +528,15 @@ components:
       description: 'The result of estimated time.'
       type: object
       properties:
-        result:
-          type: string
-          description: The result of this request.
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
         data:
           type: object
           description: The result of this request.
           properties:
             list:
-              description: 'List of items.'
               type: array
+              description: 'List of items.'
               items:
-                type: object
                 properties:
                   id:
                     type: string
@@ -582,12 +560,6 @@ components:
                     type: integer
                     description: 'Worklog start time'
             $ref: ../../../openapi-common/canary/en/paging-query-response-pageInfo-schemas.yaml
-        errorCode:
-          type: string
-          description: The error code of this request.
-        errorMsg:
-          type: string
-          description: Error message for this request.
       example:
         - result: SUCCESS
           data:
@@ -608,11 +580,33 @@ components:
                 startTime: 1689055300
             pageInfo:
               count: 2
-              endCursor: 'sample_end_cursor'
+              endCursor: 'adsgfa8hsd0hdf'
               hasNextPage: false
-              startCursor: 'sample_start_cursor'
+              startCursor: 'dsoijioew09ewqkjb'
               totalCount: 2
+        - result: FAIL
+          errorCode: Forbidden
+          errorMsg: 'Unable to times estimated in simple mode'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter teamID'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Issue'
+        - result: FAIL
+          errorCode: AccessDenied
+          errorMsg: 'AccessDenied Issue'
+        - result: FAIL
+          errorCode: 'Internal Server Error'
+          errorMsg: 'Internal Server Error'
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied super_administrator'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter limit InvalidType'
     TimesEstimatedRequest:
+      description: 'The request of estimated time'
       type: object
       properties:
         hours:
@@ -628,15 +622,7 @@ components:
       description: 'The result of estimated time'
       type: object
       properties:
-        result:
-          type: string
-          description: The result of this request.
-        errorCode:
-          type: string
-          description: The error code of this request.
-        errorMsg:
-          type: string
-          description: Error message for this request.
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
       example:
         - result: SUCCESS
         - result: FAIL
@@ -667,6 +653,7 @@ components:
           errorCode: PermissionDenied
           errorMsg: 'PermissionDenied super_administrator'
     TimesRemainingRequest:
+      description: 'The request of update remaining time'
       type: object
       properties:
         hours:
@@ -682,15 +669,7 @@ components:
       description: 'The result of update remaining time'
       type: object
       properties:
-        result:
-          type: string
-          description: The result of this request.
-        errorCode:
-          type: string
-          description: The error code of this request.
-        errorMsg:
-          type: string
-          description: Error message for this request.
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
       example:
         - result: SUCCESS
         - result: FAIL
@@ -729,5 +708,7 @@ components:
           authorizationUrl: https://your-domain/oauth2/authorize
           tokenUrl: https://your-domain/oauth2/token
           scopes:
-            write:project:issue-timeEstimated: Add, edit, delete issue
-            write:project:issue-timeRemaining: Add, edit, delete issue
+            write:project:issue-timeEstimated: Add, edit, delete time estimated for an issue
+            write:project:issue-timeRemaining: Add, edit, delete time remaining for an issue
+            write:project:issue-timeSpent: Add, edit, delete time spent for an issue
+            read:project:issue-timeSpent: Obtain the worklog information for an issue

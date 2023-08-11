@@ -79,5 +79,4 @@ components:
           authorizationUrl: https://your-domain/oauth2/authorize
           tokenUrl: https://your-domain/oauth2/token
           scopes:
-            write:project:issue: 批量关联、取消关联工作项
-            read:project:issue: 获取工作项信息
+            write:project:issue: Add, edit, delete issue
