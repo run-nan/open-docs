@@ -5,8 +5,8 @@ info:
   description: |
     This resource represents testcase libraries. Use it to get, create, update, and delete testcase libraries.
 servers:
-  - url: https://your-domain/rest/api/v1
-  - url: http://your-domain/rest/api/v1
+  - url: https://your-domain/openapi/v1
+  - url: http://your-domain/openapi/v1
 paths:
   /testcase/libraries:
     get:

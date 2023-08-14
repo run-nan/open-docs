@@ -5,8 +5,8 @@ info:
   description: |
     This resource represents issue association relationships. Use it to create and delete issue associations.
 servers:
-  - url: https://your-domain/rest/api/v1
-  - url: http://your-domain/rest/api/v1
+  - url: https://your-domain/openapi/v1
+  - url: http://your-domain/openapi/v1
 paths:
   /project/issues/{issueID}:
     post:

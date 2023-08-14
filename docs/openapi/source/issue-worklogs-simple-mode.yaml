@@ -537,6 +537,7 @@ components:
               type: array
               description: 'List of items.'
               items:
+                type: object
                 properties:
                   id:
                     type: string
@@ -559,7 +560,26 @@ components:
                   startTime:
                     type: integer
                     description: 'Worklog start time'
-            $ref: ../../../openapi-common/canary/en/paging-query-response-pageInfo-schemas.yaml
+            pageInfo:
+              type: object
+              description: 'Page information.'
+              properties:
+                count:
+                  type: integer
+                  description: The number returned this time.
+                endCursor:
+                  type: string
+                  description: The last cursor on this page is generally used to turn pages.
+                hasNextPage:
+                  type: boolean
+                  description: Is there a next page.
+                startCursor:
+                  type: string
+                  description: The first cursor on this page is generally used to turn pages.
+                totalCount:
+                  type: integer
+                  description: The total number of items available in the entire collection,
+                    including those that are  returned in the current response.
       example:
         - result: SUCCESS
           data:

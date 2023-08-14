@@ -5,24 +5,21 @@ info:
   description: |
     此资源代表工作项附件。使用它来获取、创建、更新和删除工作项附件。
 servers:
-  - url: https://your-domain/rest/api/v1
-  - url: http://your-domain/rest/api/v1
+  - url: https://your-domain/openapi/v1
+  - url: http://your-domain/openapi/v1
 paths:
-  /project/team/{teamID}/issues/{issueID}/attachments:
+  /project/issues/{issueID}/attachments:
     get:
       summary: 获取工作项附件列表
-      operationId: get-attachment-list-by-issue-id
+      operationId: 01-get-attachment-list-by-issue-id
       description: 获取工作项附件列表
       security:
         - oauth2:
             - read:project:issue-attachment
       parameters:
-        - name: teamID
-          in: path
-          description: 团队ID
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
+        - $ref: ../../../../../../openapi-common/canary/zh/paging-query-request-limit.yaml
+        - $ref: ../../../../../../openapi-common/canary/zh/paging-query-request-cursor.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -39,16 +36,6 @@ paths:
           description: 文件创建时间最大值
           schema:
             type: integer
-        - name: limit
-          in: query
-          description: 本次请求要返回的数据数量
-          schema:
-            type: integer
-        - name: cursor
-          in: query
-          description: 本次请求的起始位置
-          schema:
-            type: string
       responses:
         200:
           description: 请求成功
@@ -56,44 +43,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListIssueAttachmentResponse'
-        401:
-          description: 如果身份验证凭据不正确或丢失，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: 如果scope检验不通过，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: 如果未找到资源对象，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: 内部服务错误
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
+        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
     post:
       summary: 上传文件到工作项
-      operationId: upload-a-file-to-the-issue
+      operationId: 02-upload-a-file-to-the-issue
       description: 上传文件到工作项
       security:
         - oauth2:
             - write:project:issue-attachment
       parameters:
-        - name: teamID
-          in: path
-          description: 团队ID
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -128,45 +87,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddIssueAttachmentResponse'
-        401:
-          description: 如果身份验证凭据不正确或丢失，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: 如果scope检验不通过，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: 如果未找到资源对象，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: 内部服务错误
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-  /project/team/{teamID}/issues/{issueID}/attachments/{attachmentID}:
+        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
+  /project/issues/{issueID}/attachments/{attachmentID}:
     put:
       summary: 更新工作项附件
-      operationId: update-a-issue-attachment
+      operationId: 03-update-a-issue-attachment
       description: 更新工作项附件
       security:
         - oauth2:
             - write:project:issue-attachment
       parameters:
-        - name: teamID
-          in: path
-          description: 团队ID
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -192,45 +123,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UpdateIssueAttachmentResponse'
-        401:
-          description: 如果身份验证凭据不正确或丢失，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: 如果scope检验不通过，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: 如果未找到资源对象，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: 内部服务错误
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
+        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
       x-codegen-request-body-name: body
     delete:
       summary: 删除工作性附件
-      operationId: delete-a-issue-attachment
+      operationId: 04-delete-a-issue-attachment
       description: 删除工作性附件
       security:
         - oauth2:
             - write:project:issue-attachment
       parameters:
-        - name: teamID
-          in: path
-          description: 团队ID
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -250,37 +153,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteSuccessResponse'
-        401:
-          description: 如果身份验证凭据不正确或丢失，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: 如果scope检验不通过，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: 如果未找到资源对象，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: 内部服务错误
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
+        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
 components:
   schemas:
     AddIssueAttachmentResponse:
+      description: 上传工作项附件响应
       type: object
       properties:
-        result:
-          type: string
+        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -305,7 +185,18 @@ components:
             version:
               type: integer
               description: 文件版本
+      example:
+        - result: SUCCESS
+          data:
+            id: 5f1b0a3b
+            name: 1.png
+            hash: 5f1b0a3b5b3b4e0001a3b3b4
+            mime: image/png
+            sizeByte: 123456
+            url: https://xxx.com/1.png
+            version: 1
     IssueAttachment:
+      description: 工作项附件
       type: object
       properties:
         id:
@@ -341,8 +232,7 @@ components:
     ListIssueAttachmentResponse:
       type: object
       properties:
-        result:
-          type: string
+        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -350,32 +240,27 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/IssueAttachment'
+            $ref: ../../../../../../openapi-common/canary/zh/paging-query-response-pageInfo-schemas.yaml
+      example:
+        - result: SUCCESS
+          data:
+            list:
+              - id: 5f1b0a3b
+                createTime: 1595625600
+                name: 1.png
+                mime: image/png
+                hash: 5f1b0a3b5b3b4e0001a3b3b4
+                sizeByte: 123456
+                description: 1.png
+                creator:
+                  id: 5f1b0a32
+                  name: 张三
             pageInfo:
-              $ref: '#/components/schemas/PageInfo'
-    PageInfo:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: 本次返回的数量
-        endCursor:
-          type: string
-          description: 本页最后一个光标，用于翻页
-        endPos:
-          type: integer
-          description: 本页最后一个位置
-        hasNextPage:
-          type: boolean
-          description: 是否有下一页
-        startCursor:
-          type: string
-          description: 本页第一个光标，用于翻页
-        startPos:
-          type: integer
-          description: 本页第一个位置
-        totalCount:
-          type: integer
-          description: 整个集合总数，包括本次响应中返回的
+              count: 1
+              endCursor: eyJ0eXBlIjoiQ3VycmVudCIsIm5hbWUiOiJ0ZXN0IiwidmVyc2lvbiI6IjEuMCIsImNvdW50IjoxLCJzdGFydEN1cnJlbnRDb2RlIjoiNWYxYjBhM2I1YjNiNGUwMDAxYTNiM2I0Iiwic3RhcnRDb2RlIjoiNWYxYjBhM2I1YjNiNGUwMDAxYTNiM2I0Iiwic3RhcnREYXRlIjoiMTU5NTYyNTYwMDAwMCJ9
+              hasNextPage: false
+              startCursor: eyJ0eXBlIjoiQ3VycmVudCIsIm5hbWUiOiJ0ZXN0IiwidmVyc2lvbiI6IjEuMCIsImNvdW50IjoxLCJzdGFydEN1cnJlbnRDb2RlIjoiNWYxYjBhM2I1YjNiNGUwMDAxYTNiM2I0Iiwic3RhcnRDb2RlIjoiNWYxYjBhM2I1YjNiNGUwMDAxYTNiM2I0Iiwic3RhcnREYXRlIjoiMTU5NTYyNTYwMDAwMCJ9
+              totalCount: 1
     UpdateIssueAttachmentRequest:
       type: object
       properties:
@@ -387,35 +272,29 @@ components:
           maxLength: 64
           type: string
           description: 文件描述
+      example:
+        name: 1.png
+        description: 1.png
     UpdateIssueAttachmentResponse:
       type: object
       properties:
-        result:
-          type: string
+        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+      example:
+        - result: SUCCESS
     DeleteSuccessResponse:
       type: object
       properties:
-        result:
-          type: string
-    BadResponse:
-      type: object
-      properties:
-        result:
-          type: string
-          description: 本次请求结果,SUCCESS|FAIL
-        errorCode:
-          type: string
-          description: 本次请求错误码
-        errorMsg:
-          type: string
-          description: 本次请求错误信息
+        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+      example:
+        - result: SUCCESS
+    $ref: ../../../../../../openapi-common/canary/zh/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://ones.com/oauth2/authorize
-          tokenUrl: https://ones.com/oauth2/token
+          authorizationUrl: https://your-domain/oauth2/authorize
+          tokenUrl: https://your-domain/oauth2/token
           scopes:
             read:project:issue-attachment: 获取工作项附件信息
             write:project:issue-attachment: 新增、修改、删除工作项附件

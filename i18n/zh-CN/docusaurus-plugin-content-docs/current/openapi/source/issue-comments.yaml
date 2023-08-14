@@ -6,7 +6,7 @@ info:
     此资源代表工作项评论。使用它来获取、创建和删除工作项评论。
 servers:
   - url: https://your-domain/openapi/v1
-  - url: http://your-domain/rest/api/v1
+  - url: http://your-domain/openapi/v1
 paths:
   /project/issues/{issueID}/comments:
     get:
@@ -143,6 +143,10 @@ components:
         repliedMessageID:
           type: string
           description: 本次评论所回复评论的ID
+      example:
+        - text: 评论内容
+          repliedMessageID: 5f1b0b3b
+        - text: 评论内容
     UpdateCommentRequest:
       required:
         - text
@@ -153,6 +157,8 @@ components:
           minLength: 1
           type: string
           description: 评论信息
+      example:
+        text: 评论内容
     ListCommentSuccessResponse:
       type: object
       properties:
@@ -171,14 +177,12 @@ components:
         result: success
         data:
           list:
-            - id: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
-              createTime: 1595616000000
-              commenter:
-                id: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
-                name: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
-              type: 1
-              ext:
-                text: 评论内容
+            - id: b9c6d4e0
+              createTime: 1691993352
+              owner:
+                id: 5f1b0b3b
+                name: 'test'
+              text: 评论内容
           pageInfo:
             count: 1
             endCursor: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
@@ -194,7 +198,7 @@ components:
         createTime:
           type: integer
           description: 创建时间
-        commenter:
+        owner:
           type: object
           description: 评论者
           properties:
@@ -204,11 +208,9 @@ components:
             name:
               type: string
               description: 用户名称
-        type:
-          type: integer
-          description: 评论的文本类型
-        ext:
-          type: object
+        text:
+          type: string
+          description: 评论信息
     SendCommentResponse:
       type: object
       properties:
@@ -239,8 +241,8 @@ components:
       type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://ones.com/oauth2/authorize
-          tokenUrl: https://ones.com/oauth2/token
+          authorizationUrl: https://your-domain/oauth2/authorize
+          tokenUrl: https://your-domain/oauth2/token
           scopes:
             write:project:issue-comment: 发送、修改和删除工作项评论
             read:project:issue-comment: 获取工作项评论列表.

@@ -5,10 +5,10 @@ info:
   description: |
     此资源代表工作项。使用它来获取、创建、更新和删除工作项。
 servers:
-  - url: https://your-domain/rest/api/v1
-  - url: http://your-domain/rest/api/v1
+  - url: https://your-domain/openapi/v1
+  - url: http://your-domain/openapi/v1
 paths:
-  /project/team/{teamID}/issues:
+  /project/issues:
     get:
       summary: 获取工作项列表
       operationId: 01-get-a-list-of-issues
@@ -17,22 +17,9 @@ paths:
         - oauth2:
             - read:project:issue
       parameters:
-        - name: teamID
-          in: path
-          description: 团队ID
-          required: true
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: 本次请求要返回的工作项数量
-          schema:
-            type: integer
-        - name: cursor
-          in: query
-          description: 本次请求的起始位置
-          schema:
-            type: string
+        - $ref: ../../../../../../../openapi-common/canary/zh/request-team.yaml
+        - $ref: ../../../../../../../openapi-common/canary/zh/paging-query-request-limit.yaml
+        - $ref: ../../../../../../../openapi-common/canary/zh/paging-query-request-cursor.yaml
         - name: projectID
           in: query
           description: 作为过滤条件，列表只返回是projectID的工作项，与issueTypeID配合使用
@@ -50,30 +37,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListSuccessResponse'
-        401:
-          description: 如果身份验证凭据不正确或丢失，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: 如果scope检验不通过，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: 如果未找到资源对象，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: 内部服务器错误
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
+        $ref: ../../../../../../../openapi-common/canary/zh/no-200-response.yaml
     post:
       summary: 新建工作项
       operationId: 02-create-a-new-issue
@@ -82,12 +46,7 @@ paths:
         - oauth2:
             - write:project:issue
       parameters:
-        - name: teamID
-          in: path
-          description: 团队ID
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../../../../../openapi-common/canary/zh/request-team.yaml
       requestBody:
         description: 要新建的工作项信息
         content:
@@ -102,33 +61,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddOrUpdateSuccessResponse'
-        401:
-          description: 如果身份验证凭据不正确或丢失，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: 如果scope检验不通过，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: 如果未找到资源对象，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: 内部服务器错误
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
+        $ref: ../../../../../../../openapi-common/canary/zh/no-200-response.yaml
       x-scope: write:project:issue
       x-codegen-request-body-name: body
-  /project/team/{teamID}/issues/{issueID}:
+  /project/issues/{issueID}:
     get:
       summary: 获取工作项详细信息
       operationId: 03-get-a-issue-details
@@ -137,12 +73,7 @@ paths:
         - oauth2:
             - read:project:issue
       parameters:
-        - name: teamID
-          in: path
-          description: 团队ID
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../../../../../openapi-common/canary/zh/request-team.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -156,30 +87,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListItem'
-        401:
-          description: 如果身份验证凭据不正确或丢失，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: 如果scope检验不通过，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: 如果未找到资源对象，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: 内部服务器错误
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
+        $ref: ../../../../../../../openapi-common/canary/zh/no-200-response.yaml
     put:
       summary: 更新工作项
       operationId: 04-update-a-issue
@@ -188,12 +96,7 @@ paths:
         - oauth2:
             - write:project:issue
       parameters:
-        - name: teamID
-          in: path
-          description: 团队ID
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../../../../../openapi-common/canary/zh/request-team.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -214,30 +117,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddOrUpdateSuccessResponse'
-        401:
-          description: 如果身份验证凭据不正确或丢失，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: 如果scope检验不通过，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: 如果未找到资源对象，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: 内部服务器错误
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
+        $ref: ../../../../../../../openapi-common/canary/zh/no-200-response.yaml
       x-codegen-request-body-name: body
     delete:
       summary: 删除工作项
@@ -247,12 +127,7 @@ paths:
         - oauth2:
             - write:project:issue
       parameters:
-        - name: teamID
-          in: path
-          description: 团队ID
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../../../../../openapi-common/canary/zh/request-team.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -266,30 +141,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteSuccessResponse'
-        401:
-          description: 如果身份验证凭据不正确或丢失，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: 如果scope检验不通过，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: 如果未找到资源对象，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: 内部服务器错误
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
+        $ref: ../../../../../../../openapi-common/canary/zh/no-200-response.yaml
 components:
   schemas:
     AddIssueRequest:
@@ -339,6 +191,16 @@ components:
           minLength: 1
           type: string
           description: 父工作项ID
+      example:
+        assignee: 5f1f3b91
+        title: 测试工作项
+        projectID: 5f1f3b913b9b9c87
+        issueTypeID: njkib897
+        fieldValues:
+          - fieldID: 3b9b9c87
+            value: '测试属性'
+        watchers:
+          - 5f1f3b91
     UpdateIssueRequest:
       type: object
       properties:
@@ -357,6 +219,12 @@ components:
           description: 工作项属性信息
           items:
             $ref: '#/components/schemas/FieldValues'
+      example:
+        assignee: 5f1f3b91
+        title: 测试工作项
+        fieldValues:
+          - fieldID: 3b9b9c87
+            value: '测试属性'
     FieldValues:
       required:
         - fieldID
@@ -379,15 +247,13 @@ components:
     DeleteSuccessResponse:
       type: object
       properties:
-        result:
-          type: string
-          description: 本次请求结果,SUCCESS|FAIL
+        $ref: ../../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+      example:
+        - result: SUCCESS
     AddOrUpdateSuccessResponse:
       type: object
       properties:
-        result:
-          type: string
-          description: 本次请求结果,SUCCESS|FAIL
+        $ref: ../../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -409,6 +275,15 @@ components:
             parentID:
               type: string
               description: 父工作项ID
+      example:
+        - result: SUCCESS
+          data:
+            id: 5f1f3b93
+            number: 1
+            title: 测试工作项
+            projectID: 5f1f3b93kijun654
+            issueTypeID: njkib897
+            parentID: tgmlo876
     ListItem:
       type: object
       properties:
@@ -584,9 +459,7 @@ components:
     ListSuccessResponse:
       type: object
       properties:
-        result:
-          type: string
-          description: 本次请求结果,SUCCESS|FAIL
+        $ref: ../../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -594,27 +467,15 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/ListItem'
-            pageInfo:
-              $ref: '#/components/schemas/PageInfo'
-    BadResponse:
-      type: object
-      properties:
-        result:
-          type: string
-          description: 本次请求结果,SUCCESS|FAIL
-        errorCode:
-          type: string
-          description: 本次请求错误码
-        errorMsg:
-          type: string
-          description: 本次请求错误信息
+            $ref: ../../../../../../../openapi-common/canary/zh/paging-query-response-pageInfo-schemas.yaml
+    $ref: ../../../../../../../openapi-common/canary/zh/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://ones.com/oauth2/authorize
-          tokenUrl: https://ones.com/oauth2/token
+          authorizationUrl: https://your-domain/oauth2/authorize
+          tokenUrl: https://your-domain/oauth2/token
           scopes:
             write:project:issue: 新增、修改、删除工作项
             read:project:issue: 获取工作项信息

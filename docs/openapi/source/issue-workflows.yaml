@@ -5,13 +5,13 @@ info:
   description: |
     This resource represents issue workflows. Use it to get, execute issue workflows.
 servers:
-  - url: https://your-domain/rest/api/v1
-  - url: http://your-domain/rest/api/v1
+  - url: https://your-domain/openapi/v1
+  - url: http://your-domain/openapi/v1
 paths:
   /project/team/{teamID}/issues/{issueID}/executable-workflow:
     get:
       summary: Get a list of issue workflows
-      operationId: get-a-list-of-issue-workflows
+      operationId: 01-get-a-list-of-issue-workflows
       description: Get a list of issue workflows.
       security:
         - oauth2:
@@ -35,7 +35,7 @@ paths:
   /project/team/{teamID}/issues/{issueID}/execute-workflow:
     post:
       summary: Execute workflow for issue
-      operationId: execute-workflow-for-issue
+      operationId: 02-execute-workflow-for-issue
       description: Execute workflow for issue.
       security:
         - oauth2:

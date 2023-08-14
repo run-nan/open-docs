@@ -5,8 +5,8 @@ info:
   description: |
     This resource represents issues. Use it to get, create, update, and delete issues.
 servers:
-  - url: https://your-domain/rest/api/v1
-  - url: http://your-domain/rest/api/v1
+  - url: https://your-domain/openapi/v1
+  - url: http://your-domain/openapi/v1
 paths:
   /project/issues:
     get:

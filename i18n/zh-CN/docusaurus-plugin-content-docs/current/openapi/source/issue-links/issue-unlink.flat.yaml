@@ -56,6 +56,10 @@ components:
           description: 要关联的工作项ID列表
           items:
             type: string
+      example:
+        - issueIDs:
+            - 1joijk01
+            - 1joijk02
     UnLinkIssuesResponse:
       type: object
       properties:
@@ -74,4 +78,3 @@ components:
           tokenUrl: https://your-domain/oauth2/token
           scopes:
             write:project:issue: 批量关联、取消关联工作项
-            read:project:issue: 获取工作项信息
