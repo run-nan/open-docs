@@ -133,7 +133,7 @@ components:
   schemas:
     AddProjectRequest:
       required:
-        - membersID
+        - members
         - name
       type: object
       properties:
@@ -160,7 +160,7 @@ components:
             - project-t6: 看板项目模板
             - comagile: 敏捷项目管理
             - comwater: 瀑布项目规划
-        membersID:
+        members:
           type: array
           description: 项目成员ID
           items:
