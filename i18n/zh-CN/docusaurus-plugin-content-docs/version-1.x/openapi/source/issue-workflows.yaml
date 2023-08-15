@@ -5,30 +5,32 @@ info:
   description: |
     此资源代表工作项工作流。使用它来获取、执行工作流。
 servers:
-  - url: https://your-domain/rest/api/v1
-  - url: http://your-domain/rest/api/v1
+  - url: https://your-domain/openapi/v1
+  - url: http://your-domain/openapi/v1
 paths:
-  /project/team/{teamID}/issues/{issueID}/executable-workflow:
+  /project/issues/{issueID}:
     get:
       summary: 获取工作项工作流列表
-      operationId: get-a-list-of-issue-workflows
+      operationId: 01-get-a-list-of-issue-workflows
       description: 获取工作项工作流列表
       security:
         - oauth2:
             - read:project:issue-workflow
       parameters:
-        - name: teamID
-          in: path
-          description: 团队ID
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../../../../openapi-common/latest/zh/request-team.yaml
         - name: issueID
           in: path
           description: 工作项ID
           required: true
           schema:
             type: string
+        - name: action
+          in: query
+          required: true
+          schema:
+            type: string
+          description: |
+            - action: 获取工作项工作流,支持 `executableWorkflow`.
       responses:
         200:
           description: 请求成功
@@ -36,45 +38,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AllSuccessResponse'
-        401:
-          description: 如果身份验证凭据不正确或丢失，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: 如果scope检验不通过，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: 如果未找到资源对象，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: 内部服务器错误
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-  /project/team/{teamID}/issues/{issueID}/execute-workflow:
+        $ref: ../../../../../../openapi-common/latest/zh/no-200-response.yaml
     post:
       summary: 执行工作项的工作流
-      operationId: execute-workflow-for-issue
+      operationId: 02-execute-workflow-for-issue
       description: 执行工作项的工作流
       security:
         - oauth2:
             - write:project:issue-workflow
       parameters:
-        - name: teamID
-          in: path
-          description: 团队ID
+        - $ref: ../../../../../../openapi-common/latest/zh/request-team.yaml
+        - name: action
+          in: query
           required: true
           schema:
             type: string
+          description: |
+            - action: 执行工作项工作流,支持 `executeWorkflow`.
         - name: issueID
           in: path
           description: 工作项ID
@@ -95,30 +75,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ExecuteWorkflowResponse'
-        401:
-          description: 如果身份验证凭据不正确或丢失，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: 如果scope检验不通过，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: 如果未找到资源对象，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: 内部服务器错误
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
+        $ref: ../../../../../../openapi-common/latest/zh/no-200-response.yaml
       x-codegen-request-body-name: body
 components:
   schemas:
@@ -214,9 +171,9 @@ components:
     ExecuteWorkflowResponse:
       type: object
       properties:
-        result:
-          type: string
-          description: 本次请求结果,SUCCESS|FAIL
+        $ref: ../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
+      example:
+        - result: SUCCESS
     ListItem:
       type: object
       properties:
@@ -242,25 +199,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ListItem'
-    BadResponse:
-      type: object
-      properties:
-        result:
-          type: string
-          description: 本次请求结果,SUCCESS|FAIL
-        errorCode:
-          type: string
-          description: 本次请求错误码
-        errorMsg:
-          type: string
-          description: 本次请求错误信息
+    $ref: ../../../../../../openapi-common/latest/zh/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://ones.com/oauth2/authorize
-          tokenUrl: https://ones.com/oauth2/token
+          authorizationUrl: https://your-domain/oauth2/authorize
+          tokenUrl: https://your-domain/oauth2/token
           scopes:
             read:project:issue-workflow: 获取工作项的工作流
             write:project:issue-workflow: 新增、修改、删除工作项的工作流

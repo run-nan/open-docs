@@ -1,0 +1,95 @@
+openapi: 3.0.1
+info:
+  title: Issues
+  version: '1.0'
+  description: |
+    This resource represents issues. Use it to get, create, update, and delete issues.
+servers:
+  - url: https://your-domain/openapi/v1
+  - url: http://your-domain/openapi/v1
+paths:
+  /project/publishers/issues:
+    post:
+      summary: 批量复制工作项
+      operationId: 09-batch-duplicate-issues
+      description: 批量复制工作项
+      security:
+        - oauth2:
+            - write:project:issue
+      parameters:
+        - name: action
+          in: query
+          required: true
+          schema:
+            type: string
+          description: |
+            - action: 操作工作项,支持 `batchDuplicate`.
+        - $ref: ../../../../../../../openapi-common/latest/zh/request-team.yaml
+      requestBody:
+        description: 需要复制的工作项信息
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchDuplicateIssueRequest'
+        required: true
+      responses:
+        200:
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchDuplicateIssueResponse'
+        $ref: ../../../../../../../openapi-common/latest/zh/no-200-response.yaml
+components:
+  schemas:
+    BatchDuplicateIssueRequest:
+      type: object
+      description: 批量复制工作项请求
+      properties:
+        issues:
+          type: array
+          description: 工作项列表
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: 工作项ID
+              project:
+                type: string
+                description: 工作项所属项目ID
+              issueType:
+                type: string
+                description: 工作项类型ID
+              status:
+                type: string
+                description: 更改的状态
+        duplicateFields:
+          type: array
+          description: 复制的字段列表
+    BatchDuplicateIssueResponse:
+      type: object
+      properties:
+        $ref: ../../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
+        data:
+          type: object
+          properties:
+            jobID:
+              type: string
+              description: 批量任务ID
+      required:
+        - result
+      example:
+        - result: SUCCESS
+          data:
+            jobID: 123456
+    $ref: ../../../../../../../openapi-common/latest/zh/no-200-response-schemas.yaml
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https:///your-domain/oauth2/authorize
+          tokenUrl: https:///your-domain/oauth2/token
+          scopes:
+            write:project:issue: 批量关联工作项、取消关联

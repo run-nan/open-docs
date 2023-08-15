@@ -1,0 +1,122 @@
+openapi: 3.0.1
+info:
+  title: Issues
+  version: '1.0'
+  description: |
+    This resource represents issues. Use it to get, create, update, and delete issues.
+servers:
+  - url: https://your-domain/openapi/v1
+  - url: http://your-domain/openapi/v1
+paths:
+  /project/publishers/issues:
+    post:
+      summary: 批量移动工作项
+      operationId: 07-batch-move-issues
+      description: 批量移动工作项
+      security:
+        - oauth2:
+            - write:project:issue
+      parameters:
+        - name: action
+          in: query
+          required: true
+          schema:
+            type: string
+          description: |
+            - action: 操作工作项,支持 `batchMove`.
+        - $ref: ../../../../../../../openapi-common/latest/zh/request-team.yaml
+      requestBody:
+        description: 需要移动的工作项信息
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchMoveIssueRequest'
+        required: true
+      responses:
+        200:
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchMoveIssueResponse'
+        $ref: ../../../../../../../openapi-common/latest/zh/no-200-response.yaml
+components:
+  schemas:
+    BatchMoveIssueRequest:
+      type: object
+      properties:
+        issueIDs:
+          type: array
+          description: 要移动的工作项ID列表
+          items:
+            type: string
+        rules:
+          type: array
+          description: 移动规则
+          items:
+            type: object
+            properties:
+              sourceProjectID:
+                type: string
+                description: 移动前的工作项状态
+              targetProjectID:
+                type: string
+                description: 移动后的工作项状态
+              sourceIssueTypeID:
+                type: string
+                description: 移动前的工作项类型
+              targetIssueTypeID:
+                type: string
+                description: 移动后的工作项类型
+              sourceStatusID:
+                type: string
+                description: 移动前的工作项状态
+              targetStatusID:
+                type: string
+                description: 移动后的工作项状态
+              sourceSubIssueTypeID:
+                type: string
+                description: 移动前的子工作项类型
+              targetSubIssueTypeID:
+                type: string
+                description: 移动后的子工作项类型
+        issueRelationship:
+          type: array
+          description: 工作项关联关系
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: 工作项关联关系ID
+              subIssueIDs:
+                type: array
+                description: 子工作项ID列表
+                items:
+                  type: string
+    BatchMoveIssueResponse:
+      type: object
+      properties:
+        $ref: ../../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
+        data:
+          type: object
+          properties:
+            jobID:
+              type: string
+              description: 批量任务ID
+      required:
+        - result
+      example:
+        - result: SUCCESS
+          data:
+            jobID: 123456
+    $ref: ../../../../../../../openapi-common/latest/zh/no-200-response-schemas.yaml
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https:///your-domain/oauth2/authorize
+          tokenUrl: https:///your-domain/oauth2/token
+          scopes:
+            write:project:issue: 批量关联工作项、取消关联

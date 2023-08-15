@@ -1,0 +1,122 @@
+openapi: 3.0.1
+info:
+  title: Issues
+  version: '1.0'
+  description: |
+    This resource represents issues. Use it to get, create, update, and delete issues.
+servers:
+  - url: https://your-domain/openapi/v1
+  - url: http://your-domain/openapi/v1
+paths:
+  /project/publishers/issues:
+    post:
+      summary: Batch move issues
+      operationId: 07-batch-move-issues
+      description: Batch move issues.
+      security:
+        - oauth2:
+            - write:project:issue
+      parameters:
+        - name: action
+          in: query
+          required: true
+          schema:
+            type: string
+          description: |
+            - action: Actions on issue,support `batchMove`.
+        - $ref: ../../../../../openapi-common/latest/en/request-team.yaml
+      requestBody:
+        description: The issues to be moved.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchMoveIssueRequest'
+        required: true
+      responses:
+        200:
+          description: Request successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchMoveIssueResponse'
+        $ref: ../../../../../openapi-common/latest/en/no-200-response.yaml
+components:
+  schemas:
+    BatchMoveIssueRequest:
+      type: object
+      properties:
+        issueIDs:
+          type: array
+          description: The issue IDs to be moved
+          items:
+            type: string
+        rules:
+          type: array
+          description: The rules for moving issues
+          items:
+            type: object
+            properties:
+              sourceProjectID:
+                type: string
+                description: The ID of the project where the issue is located.
+              targetProjectID:
+                type: string
+                description: The ID of the project where the issue will be moved to.
+              sourceIssueTypeID:
+                type: string
+                description: Issue type before moving
+              targetIssueTypeID:
+                type: string
+                description: Issue type after moving
+              sourceStatusID:
+                type: string
+                description: Issue status before moving
+              targetStatusID:
+                type: string
+                description: Issue status after moving
+              sourceSubIssueTypeID:
+                type: string
+                description: Sub-issue type before moving
+              targetSubIssueTypeID:
+                type: string
+                description: Sub-issue type after moving
+        issueRelationship:
+          type: array
+          description: The relationship between issues
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: The ID of the issue
+              subIssueIDs:
+                type: array
+                description: The IDs of the sub-issues
+                items:
+                  type: string
+    BatchMoveIssueResponse:
+      type: object
+      properties:
+        $ref: ../../../../../openapi-common/latest/en/200-response-schemas.yaml
+        data:
+          type: object
+          properties:
+            jobID:
+              type: string
+              description: Batch issue ID
+      required:
+        - result
+      example:
+        - result: SUCCESS
+          data:
+            jobID: 123456
+    $ref: ../../../../../openapi-common/latest/en/no-200-response-schemas.yaml
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https:///your-domain/oauth2/authorize
+          tokenUrl: https:///your-domain/oauth2/token
+          scopes:
+            write:project:issue: Add, edit, delete issue

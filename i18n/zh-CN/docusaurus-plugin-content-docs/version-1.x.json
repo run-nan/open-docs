@@ -408,6 +408,18 @@
   "sidebar.openapi.category.Issue Workflows": {
     "message": "工作流"
   },
+  "sidebar.openapi.category.Simple Mode Issue Worklogs": {
+    "message": "简单模式 工作项工时"
+  },
+  "sidebar.openapi.category.Summary Mode Issue Worklogs": {
+    "message": "汇总模式 工作项工时"
+  },
+  "sidebar.openapi.category.Issue Comments": {
+    "message": "工作项评论"
+  },
+  "sidebar.openapi.category.Issue Links": {
+    "message": "关联工作项"
+  },
   "sidebar.openapi.category.Projects": {
     "message": "项目"
   },

@@ -1,0 +1,724 @@
+openapi: 3.0.1
+info:
+  title: Summary mode issue worklog
+  version: '1.0'
+  description: |
+    This resource represents issue worklog in summary mode. Use it to get, create, update, and delete issue worklog.
+servers:
+  - url: https://your-domain/openapi/v1
+  - url: http://your-domain/openapi/v1
+paths:
+  /project/issues/{issueID}/workLog/summary/timesEstimated:
+    post:
+      summary: Add Estimated time in summary mode
+      operationId: 01-add-estimated-time-of-issues
+      description: Add Estimated time in summary mode.
+      security:
+        - oauth2:
+            - write:project:issue-timeEstimated
+      parameters:
+        - $ref: ../../../../openapi-common/latest/en/request-team.yaml
+        - name: issueID
+          in: path
+          description: The issue ID.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Add estimated time in summary mode.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddTimesEstimatedRequest'
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddTimesEstimatedResponse'
+        $ref: ../../../../openapi-common/latest/en/no-200-response.yaml
+  /project/issues/{issueID}/workLog/summary/timesEstimated/{timesEstimatedID}:
+    put:
+      summary: Update estimated time in summary mode
+      operationId: 02-update-estimated-time-of-issues
+      description: Update estimated time in summary mode.
+      security:
+        - oauth2:
+            - write:project:issue-timeEstimated
+      parameters:
+        - $ref: ../../../../openapi-common/latest/en/request-team.yaml
+        - name: issueID
+          in: path
+          description: The issue ID.
+          required: true
+          schema:
+            type: string
+        - name: timesEstimatedID
+          in: path
+          description: The timesEstimated ID.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update estimated time in summary mode.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTimesEstimatedRequest'
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateTimesEstimatedResponse'
+        $ref: ../../../../openapi-common/latest/en/no-200-response.yaml
+    delete:
+      summary: Delete estimated time in summary mode
+      operationId: 03-delete-estimated-time-of-issues
+      description: Delete estimated time in summary mode.
+      security:
+        - oauth2:
+            - write:project:issue-timeEstimated
+      parameters:
+        - $ref: ../../../../openapi-common/latest/en/request-team.yaml
+        - name: issueID
+          in: path
+          description: The issue ID.
+          required: true
+          schema:
+            type: string
+        - name: timesEstimatedID
+          in: path
+          description: The timesEstimated ID.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteTimesEstimatedResponse'
+        $ref: ../../../../openapi-common/latest/en/no-200-response.yaml
+  /project/issues/{issueID}/workLog/summary/timesSpent:
+    get:
+      summary: Get a list of issues worklog in summary mode
+      operationId: 04-get-a-list-of-issues-worklog
+      description: Get a list of issues worklog in summary mode.
+      security:
+        - oauth2:
+            - read:project:issue-timeSpent
+      parameters:
+        - $ref: ../../../../openapi-common/latest/en/request-team.yaml
+        - $ref: ../../../../openapi-common/latest/en/paging-query-request-limit.yaml
+        - $ref: ../../../../openapi-common/latest/en/paging-query-request-cursor.yaml
+        - name: issueID
+          in: path
+          description: The issue ID.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimesSpentListResponse'
+        $ref: ../../../../openapi-common/latest/en/no-200-response.yaml
+    post:
+      summary: Add spent times in summary mode
+      operationId: 05-add-spent-time-of-issues
+      description: Add spent times in summary mode.
+      security:
+        - oauth2:
+            - write:project:issue-timeSpent
+      parameters:
+        - $ref: ../../../../openapi-common/latest/en/request-team.yaml
+        - name: issueID
+          in: path
+          description: The issue ID.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Add spent times to be updated.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddTimesSpentRequest'
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddTimesSpentResponse'
+        $ref: ../../../../openapi-common/latest/en/no-200-response.yaml
+  /project/issues/{issueID}/workLog/summary/timesSpent/{timesSpentID}:
+    put:
+      summary: Update spent times in summary mode
+      operationId: 06-update-spent-time-of-issues
+      description: Update spent times in summary mode.
+      security:
+        - oauth2:
+            - write:project:issue-timeSpent
+      parameters:
+        - $ref: ../../../../openapi-common/latest/en/request-team.yaml
+        - name: issueID
+          in: path
+          description: The issue ID.
+          required: true
+          schema:
+            type: string
+        - name: timesSpentID
+          in: path
+          description: The timesSpent ID.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update spent times to be updated.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTimesSpentRequest'
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateTimesSpentResponse'
+        $ref: ../../../../openapi-common/latest/en/no-200-response.yaml
+    delete:
+      summary: Delete spent times in summary mode
+      operationId: 07-delete-spent-time-of-issues
+      description: Delete spent times in summary mode.
+      security:
+        - oauth2:
+            - write:project:issue-timeSpent
+      parameters:
+        - $ref: ../../../../openapi-common/latest/en/request-team.yaml
+        - name: issueID
+          in: path
+          description: The issue ID.
+          required: true
+          schema:
+            type: string
+        - name: timesSpentID
+          in: path
+          description: The timesSpent ID.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteTimesSpentResponse'
+        $ref: ../../../../openapi-common/latest/en/no-200-response.yaml
+    get:
+      summary: Get a spent times in summary mode
+      operationId: 08-get-spent-time-of-issues
+      description: Get a spent times in summary mode.
+      security:
+        - oauth2:
+            - read:project:issue-timeSpent
+      parameters:
+        - $ref: ../../../../openapi-common/latest/en/request-team.yaml
+        - name: issueID
+          in: path
+          description: The issue ID.
+          required: true
+          schema:
+            type: string
+        - name: timesSpentID
+          in: path
+          description: The timesSpent ID.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTimesSpentResponse'
+        $ref: ../../../../openapi-common/latest/en/no-200-response.yaml
+components:
+  schemas:
+    GetTimesSpentResponse:
+      description: 'The result of get a spent time'
+      type: object
+      properties:
+        $ref: ../../../../openapi-common/latest/en/200-response-schemas.yaml
+        data:
+          type: object
+          description: The result of this request.
+      example:
+        - result: SUCCESS
+          data:
+            hours: 1
+            description: 'Sample Description'
+            startTime: 1689055200
+            owner: UWQR89ji
+            id: kkoi976k
+    DeleteTimesSpentResponse:
+      description: 'The result of delete spent time'
+      type: object
+      properties:
+        $ref: ../../../../openapi-common/latest/en/200-response-schemas.yaml
+      example:
+        - result: SUCCESS
+    UpdateTimesSpentRequest:
+      description: 'The request of update spent time'
+      type: object
+      properties:
+        hours:
+          type: integer
+          description: The spent time.
+        description:
+          type: string
+          description: The description of spent time.
+        startTime:
+          type: integer
+          description: The start time of spent time.
+        owner:
+          type: object
+          description: The owner of spent time.
+      example:
+        hours: 1
+        description: 'Sample Description'
+        startTime: 1689055200
+        owner: UWQR89ji
+    UpdateTimesSpentResponse:
+      description: 'The result of update spent time'
+      type: object
+      properties:
+        $ref: ../../../../openapi-common/latest/en/200-response-schemas.yaml
+        data:
+          type: object
+          description: The result of this request.
+      example:
+        - result: SUCCESS
+          data:
+            hours: 1
+            description: 'Sample Description'
+            startTime: 1689055200
+            owner: UWQR89ji
+            id: kkoi976k
+    AddTimesSpentRequest:
+      description: 'The request of add spent time'
+      type: object
+      properties:
+        hours:
+          type: integer
+          description: The spent time.
+        description:
+          type: string
+          description: The description of spent time.
+        startTime:
+          type: integer
+          description: The start time of spent time.
+        owner:
+          type: object
+          description: The owner of spent time.
+      example:
+        hours: 1
+        description: 'Sample Description'
+        startTime: 1689055200
+        owner: UWQR89ji
+    AddTimesSpentResponse:
+      description: 'The result of add spent time'
+      type: object
+      properties:
+        $ref: ../../../../openapi-common/latest/en/200-response-schemas.yaml
+        data:
+          type: object
+          description: The result of this request.
+      example:
+        - result: SUCCESS
+          data:
+            hours: 1
+            description: 'Sample Description'
+            startTime: 1689055200
+            owner: UWQR89ji
+            id: kkoi976k
+    TimesSpentListResponse:
+      description: 'The result of estimated time.'
+      type: object
+      properties:
+        $ref: ../../../../openapi-common/latest/en/200-response-schemas.yaml
+        data:
+          type: object
+          description: The result of this request.
+          properties:
+            list:
+              type: array
+              description: 'List of items.'
+              properties:
+                id:
+                  type: string
+                  description: 'Worklog id'
+                description:
+                  description: 'Worklog description'
+                  type: string
+                hours:
+                  type: integer
+                  description: 'Worklog hours,unit is hour'
+                owner:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: 'Times spent owner id'
+                    name:
+                      type: string
+                      description: 'Times spent owner name'
+                workLogRecordType:
+                  type: string
+                  description: 'Worklog record type'
+                startTime:
+                  type: integer
+                  description: 'Worklog start time'
+                startDate:
+                  type: string
+                  description: 'Worklog start date,Format is YYYY-MM-DD.'
+              required:
+                - id
+                - description
+                - hours
+                - owner
+                - workLogRecordType
+            pageInfo:
+              type: object
+              description: 'Page information.'
+              properties:
+                count:
+                  type: integer
+                  description: The number returned this time.
+                endCursor:
+                  type: string
+                  description: The last cursor on this page is generally used to turn pages.
+                hasNextPage:
+                  type: boolean
+                  description: Is there a next page.
+                startCursor:
+                  type: string
+                  description: The first cursor on this page is generally used to turn pages.
+                totalCount:
+                  type: integer
+                  description: The total number of items available in the entire collection,
+                    including those that are  returned in the current response.
+      example:
+        - result: SUCCESS
+          data:
+            list:
+              - id: saihi890
+                description: 'Sample Description 1'
+                hours: 1
+                owner:
+                  id: 'xx'
+                  name: 'xx'
+                startTime: 1689055200
+                workLogRecordType: 'timesSpent'
+              - id: wqytf675
+                description: 'Sample Description 2'
+                hours: 2
+                owner:
+                  id: 'yy'
+                  name: 'yy'
+                startDate: '2023-01-01'
+                workLogRecordType: 'timesEstimated'
+            pageInfo:
+              count: 2
+              endCursor: 'adsgfa8hsd0hdf'
+              hasNextPage: false
+              startCursor: 'dsoijioew09ewqkjb'
+              totalCount: 2
+        - result: FAIL
+          errorCode: Forbidden
+          errorMsg: 'Unable to times estimated in simple mode'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter teamID'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Issue'
+        - result: FAIL
+          errorCode: AccessDenied
+          errorMsg: 'AccessDenied Issue'
+        - result: FAIL
+          errorCode: 'Internal Server Error'
+          errorMsg: 'Internal Server Error'
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied super_administrator'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter limit InvalidType'
+    AddTimesEstimatedRequest:
+      description: 'The request of add estimated time'
+      type: object
+      properties:
+        owner:
+          type: string
+          description: The owner of times estimated.
+        hours:
+          description: The times estimated,unit is hour.
+          type: number
+          format: float
+          pattern: "^\\d+(\\.\\d{1,5})?$"
+        startDate:
+          type: string
+          description: The start time of times estimated,Format is YYYY-MM-DD.
+        endDate:
+          type: string
+          description: The end time of times estimated,Format is YYYY-MM-DD.
+        timesEstimatedMode:
+          type: string
+          enum:
+            - total
+            - daily
+          description: |
+            - total: Total estimated time from start date to end date.
+            - daily: Estimated time per day from start date to end date.
+        includeNonWorkingDays:
+          type: boolean
+          description: Whether to include non-working days.
+      required:
+        - owner
+        - hours
+        - startDate
+        - endDate
+        - timesEstimatedMode
+      example:
+        hours: 1
+        startDate: '2023-01-01'
+        endDate: '2023-01-31'
+        owner: UWQR89ji
+        timesEstimatedMode: daily
+        includeNonWorkingDays: true
+    AddTimesEstimatedResponse:
+      description: 'The result of add estimated time'
+      type: object
+      properties:
+        $ref: ../../../../openapi-common/latest/en/200-response-schemas.yaml
+        data:
+          type: object
+          description: The result of this request.
+          properties:
+            id:
+              type: string
+              description: The id of times estimated.
+            hours:
+              description: The times estimated,unit is hour.
+              type: number
+              format: float
+              pattern: "^\\d+(\\.\\d{1,5})?$"
+            startDate:
+              type: integer
+              description: 'The start time of times estimated,Format is YYYY-MM-DD.'
+            owner:
+              type: object
+              description: The owner of times estimated.
+              properties:
+                id:
+                  type: string
+                  description: The id of times estimated.
+                name:
+                  type: string
+                  description: The name of times estimated.
+      example:
+        - result: SUCCESS
+          data:
+            id: ashiuqwe
+            hours: 1
+            startDate: '2023-01-01'
+            owner:
+              id: UWQR89ji
+              name: 'Sample Name'
+        - result: FAIL
+          errorCode: Forbidden
+          errorMsg: 'Unable to times estimated in simple mode'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog owner Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog owner InvalidFormat'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog startDate Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog startDate InvalidFormat'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog endDate Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog endDate InvalidFormat'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog timesEstimatedMode Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog timesEstimatedMode Invalid'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter teamID'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours TooLong'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Issue'
+        - result: FAIL
+          errorCode: AccessDenied
+          errorMsg: 'AccessDenied Issue'
+        - result: FAIL
+          errorCode: 'Internal Server Error'
+          errorMsg: 'Internal Server Error'
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied super_administrator'
+    UpdateTimesEstimatedRequest:
+      description: 'The request of update estimated time'
+      type: object
+      properties:
+        hours:
+          type: integer
+          description: Estimated time,unit is hour.
+        startDate:
+          type: string
+          description: The start time of spent time,Format is YYYY-MM-DD.
+        owner:
+          type: object
+          description: The owner of spent time.
+      example:
+        hours: 1
+        startDate: '2023-01-02'
+        owner: UWQR89ji
+    UpdateTimesEstimatedResponse:
+      description: 'The result of update estimated time'
+      type: object
+      properties:
+        $ref: ../../../../openapi-common/latest/en/200-response-schemas.yaml
+        data:
+          type: object
+          description: The result of this request.
+          properties:
+            id:
+              type: string
+              description: The id of times estimated.
+            hours:
+              description: The times estimated,unit is hour.
+              type: number
+              format: float
+              pattern: "^\\d+(\\.\\d{1,5})?$"
+            startDate:
+              type: integer
+              description: 'The start time of times estimated,Format is YYYY-MM-DD.'
+            owner:
+              type: object
+              description: The owner of times estimated.
+              properties:
+                id:
+                  type: string
+                  description: The id of times estimated.
+                name:
+                  type: string
+                  description: The name of times estimated.
+      example:
+        - result: SUCCESS
+          data:
+            id: ashiuqwe
+            hours: 1
+            startDate: '2023-01-01'
+            owner:
+              id: UWQR89ji
+              name: 'Sample Name'
+        - result: FAIL
+          errorCode: Forbidden
+          errorMsg: 'Unable to times estimated in simple mode'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog owner Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog owner InvalidFormat'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog startDate Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog startDate InvalidFormat'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter teamID'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter IssueWorkLog Hours TooLong'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Issue'
+        - result: FAIL
+          errorCode: AccessDenied
+          errorMsg: 'AccessDenied Issue'
+        - result: FAIL
+          errorCode: 'Internal Server Error'
+          errorMsg: 'Internal Server Error'
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied super_administrator'
+    DeleteTimesEstimatedResponse:
+      description: 'The result of delete estimated time'
+      type: object
+      properties:
+        $ref: ../../../../openapi-common/latest/en/200-response-schemas.yaml
+      example:
+        - result: SUCCESS
+        - result: FAIL
+          errorCode: Forbidden
+          errorMsg: 'Unable to times estimated in simple mode'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter teamID'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound Issue'
+        - result: FAIL
+          errorCode: AccessDenied
+          errorMsg: 'AccessDenied Issue'
+        - result: FAIL
+          errorCode: 'Internal Server Error'
+          errorMsg: 'Internal Server Error'
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied super_administrator'
+    $ref: ../../../../openapi-common/latest/en/no-200-response-schemas.yaml
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://your-domain/oauth2/authorize
+          tokenUrl: https://your-domain/oauth2/token
+          scopes:
+            write:project:issue-timeEstimated: Add, edit, delete time estimated for an issue
+            write:project:issue-timeSpent: Add, edit, delete time spent for an issue
+            read:project:issue-timeSpent: Obtain the worklog information for an issue
