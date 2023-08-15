@@ -1,0 +1,6 @@
+name: teamID
+in: query
+description: The team ID
+required: true
+schema:
+  type: string

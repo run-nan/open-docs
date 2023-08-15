@@ -1,0 +1,24 @@
+401:
+  description: 如果身份验证凭据不正确或丢失，则返回
+  content:
+    application/json:
+      schema:
+        $ref: '#/components/schemas/BadResponse401'
+403:
+  description: 如果scope检验不通过，则返回
+  content:
+    application/json:
+      schema:
+        $ref: '#/components/schemas/BadResponse403'
+404:
+  description: 如果未找到资源对象，则返回
+  content:
+    application/json:
+      schema:
+        $ref: '#/components/schemas/BadResponse404'
+500:
+  description: 内部服务器错误
+  content:
+    application/json:
+      schema:
+        $ref: '#/components/schemas/BadResponse500'
