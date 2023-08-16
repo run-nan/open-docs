@@ -109,7 +109,9 @@ import urlParamImg from './images/urlParam.png'
 
   - 确认被替换接口本身是 `POST` 请求还是 `GET` 请求；
 
-  - 确认被替换接口请求头需要设置什么参数，请参考 [ONES API](../../../api/readme) 文档。
+  - 确认被替换接口请求头需要设置什么参数，请参考 [ONES API](../../../api/readme) 文档；
+
+  - 插件使用 replace 能力的时候，如果对原有的劫持接口进使用 fetch、fetchONES、axios 请求时，请勿使用原有的请求头，一般只提取 UserID 和 UserToken，其次如果是多团队的环境下，使用 fetchONES 注意在请求头上加上【teamUUID】参数，避免插件出现 403 问题。
 
 ### prefix 前置接口劫持
 

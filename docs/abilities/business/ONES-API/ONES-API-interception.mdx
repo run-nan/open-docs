@@ -109,7 +109,9 @@ This ability is about to be abandoned, and future compatibility is not guarantee
 
   - Confirm whether the replaced API itself is a `POST` request or a `GET` request;
 
-  - Please refer to [ONES API](../../../api/readme) document to confirm what parameters need to be set in the request header of the replaced API.
+  - Please refer to [ONES API](../../../api/readme) document to confirm what parameters need to be set in the request header of the replaced API;
+
+  - When the plug-in uses the replace capability, if you use fetch, fetchONES, or axios to request the original hijacking interface, do not use the original request header. Generally, only UserID and UserToken are extracted. Secondly, if it is a multi-team environment, When using fetchONES, pay attention to adding the [teamUUID] parameter to the request header to avoid 403 problems in the plugin.
 
 ### prefix
 
