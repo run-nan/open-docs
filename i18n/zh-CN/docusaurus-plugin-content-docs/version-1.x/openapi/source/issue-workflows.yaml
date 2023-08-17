@@ -174,6 +174,33 @@ components:
         $ref: ../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
       example:
         - result: SUCCESS
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound parentissue'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter workflow manhour'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter workflow attachment'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter workflow comment'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter workflow relatedwikiPage'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter workflow assign'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter workflow fieldvalue'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter workflow fieldValue'
     ListItem:
       type: object
       properties:
@@ -192,13 +219,18 @@ components:
     AllSuccessResponse:
       type: object
       properties:
-        result:
-          type: string
-          description: 本次请求结果,SUCCESS|FAIL
+        $ref: ../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
         data:
           type: array
           items:
             $ref: '#/components/schemas/ListItem'
+      example:
+        - result: SUCCESS
+          data:
+            - id: '2gUfHXsV'
+              name: '关闭'
+              start: 'LS1jaMvi'
+              end: 'QXSKmnQQ'
     $ref: ../../../../../../openapi-common/latest/zh/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
