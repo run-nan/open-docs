@@ -24,7 +24,7 @@ paths:
             type: string
           description: |
             - action: Actions on issue,support `batchDelete`.
-        - $ref: ../../../../../openapi-common/latest/en/request-team.yaml
+        - $ref: ../../../../../openapi-common/canary/en/request-team.yaml
       requestBody:
         description: The issues to be deleted.
         content:
@@ -39,7 +39,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BatchDeleteIssueResponse'
-        $ref: ../../../../../openapi-common/latest/en/no-200-response.yaml
+        $ref: ../../../../../openapi-common/canary/en/no-200-response.yaml
 components:
   schemas:
     BatchDeleteIssueRequest:
@@ -53,7 +53,7 @@ components:
     BatchDeleteIssueResponse:
       type: object
       properties:
-        $ref: ../../../../../openapi-common/latest/en/200-response-schemas.yaml
+        $ref: ../../../../../openapi-common/canary/en/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -66,7 +66,10 @@ components:
         - result: SUCCESS
           data:
             jobID: 123456
-    $ref: ../../../../../openapi-common/latest/en/no-200-response-schemas.yaml
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
+    $ref: ../../../../../openapi-common/canary/en/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2

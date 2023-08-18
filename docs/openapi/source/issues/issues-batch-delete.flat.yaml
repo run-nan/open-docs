@@ -66,6 +66,9 @@ components:
         - result: SUCCESS
           data:
             jobID: 123456
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
     $ref: ../../../../openapi-common/canary/en/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:

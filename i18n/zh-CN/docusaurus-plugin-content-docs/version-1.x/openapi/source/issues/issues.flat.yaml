@@ -17,9 +17,9 @@ paths:
         - oauth2:
             - read:project:issue
       parameters:
-        - $ref: ../../../../../../../openapi-common/latest/zh/request-team.yaml
-        - $ref: ../../../../../../../openapi-common/latest/zh/paging-query-request-limit.yaml
-        - $ref: ../../../../../../../openapi-common/latest/zh/paging-query-request-cursor.yaml
+        - $ref: ../../../../../../../openapi-common/canary/zh/request-team.yaml
+        - $ref: ../../../../../../../openapi-common/canary/zh/paging-query-request-limit.yaml
+        - $ref: ../../../../../../../openapi-common/canary/zh/paging-query-request-cursor.yaml
         - name: projectID
           in: query
           description: 作为过滤条件，列表只返回是projectID的工作项，与issueTypeID配合使用
@@ -37,7 +37,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListSuccessResponse'
-        $ref: ../../../../../../../openapi-common/latest/zh/no-200-response.yaml
+        $ref: ../../../../../../../openapi-common/canary/zh/no-200-response.yaml
     post:
       summary: 新建工作项
       operationId: 02-create-a-new-issue
@@ -46,7 +46,7 @@ paths:
         - oauth2:
             - write:project:issue
       parameters:
-        - $ref: ../../../../../../../openapi-common/latest/zh/request-team.yaml
+        - $ref: ../../../../../../../openapi-common/canary/zh/request-team.yaml
       requestBody:
         description: 要新建的工作项信息
         content:
@@ -60,8 +60,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AddOrUpdateSuccessResponse'
-        $ref: ../../../../../../../openapi-common/latest/zh/no-200-response.yaml
+                $ref: '#/components/schemas/AddSuccessResponse'
+        $ref: ../../../../../../../openapi-common/canary/zh/no-200-response.yaml
       x-scope: write:project:issue
       x-codegen-request-body-name: body
   /project/issues/{issueID}:
@@ -73,7 +73,7 @@ paths:
         - oauth2:
             - read:project:issue
       parameters:
-        - $ref: ../../../../../../../openapi-common/latest/zh/request-team.yaml
+        - $ref: ../../../../../../../openapi-common/canary/zh/request-team.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -87,7 +87,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListItem'
-        $ref: ../../../../../../../openapi-common/latest/zh/no-200-response.yaml
+        $ref: ../../../../../../../openapi-common/canary/zh/no-200-response.yaml
     put:
       summary: 更新工作项
       operationId: 04-update-a-issue
@@ -96,7 +96,7 @@ paths:
         - oauth2:
             - write:project:issue
       parameters:
-        - $ref: ../../../../../../../openapi-common/latest/zh/request-team.yaml
+        - $ref: ../../../../../../../openapi-common/canary/zh/request-team.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -116,8 +116,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AddOrUpdateSuccessResponse'
-        $ref: ../../../../../../../openapi-common/latest/zh/no-200-response.yaml
+                $ref: '#/components/schemas/UpdateSuccessResponse'
+        $ref: ../../../../../../../openapi-common/canary/zh/no-200-response.yaml
       x-codegen-request-body-name: body
     delete:
       summary: 删除工作项
@@ -127,7 +127,7 @@ paths:
         - oauth2:
             - write:project:issue
       parameters:
-        - $ref: ../../../../../../../openapi-common/latest/zh/request-team.yaml
+        - $ref: ../../../../../../../openapi-common/canary/zh/request-team.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -141,7 +141,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteSuccessResponse'
-        $ref: ../../../../../../../openapi-common/latest/zh/no-200-response.yaml
+        $ref: ../../../../../../../openapi-common/canary/zh/no-200-response.yaml
 components:
   schemas:
     AddIssueRequest:
@@ -247,13 +247,16 @@ components:
     DeleteSuccessResponse:
       type: object
       properties:
-        $ref: ../../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
+        $ref: ../../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
       example:
         - result: SUCCESS
-    AddOrUpdateSuccessResponse:
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
+    AddSuccessResponse:
       type: object
       properties:
-        $ref: ../../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
+        $ref: ../../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -284,6 +287,52 @@ components:
             projectID: 5f1f3b93kijun654
             issueTypeID: njkib897
             parentID: tgmlo876
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
+        - result: FAIL
+          errorCode: AlreadyExists
+          errorMsg: 'AlreadyExists issue'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound parentIssue'
+    UpdateSuccessResponse:
+      type: object
+      properties:
+        $ref: ../../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              description: 工作项ID
+            number:
+              type: integer
+              description: 工作项编号
+            title:
+              type: string
+              description: 工作项标题
+            projectID:
+              type: string
+              description: 工作项所属项目ID
+            issueTypeID:
+              type: string
+              description: 工作项类型ID
+            parentID:
+              type: string
+              description: 父工作项ID
+      example:
+        - result: SUCCESS
+          data:
+            id: 5f1f3b93
+            number: 1
+            title: 测试工作项
+            projectID: 5f1f3b93kijun654
+            issueTypeID: njkib897
+            parentID: tgmlo876
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
     ListItem:
       type: object
       properties:
@@ -459,7 +508,7 @@ components:
     ListSuccessResponse:
       type: object
       properties:
-        $ref: ../../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
+        $ref: ../../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -467,8 +516,8 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/ListItem'
-            $ref: ../../../../../../../openapi-common/latest/zh/paging-query-response-pageInfo-schemas.yaml
-    $ref: ../../../../../../../openapi-common/latest/zh/no-200-response-schemas.yaml
+            $ref: ../../../../../../../openapi-common/canary/zh/paging-query-response-pageInfo-schemas.yaml
+    $ref: ../../../../../../../openapi-common/canary/zh/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2

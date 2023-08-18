@@ -68,6 +68,12 @@ components:
         - result
       example:
         - result: SUCCESS
+          errorLinkTasks:
+            - issueID: TWoRwdmh7T6yFpc3
+              reason: 'PermissionDenied ViewIssues'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
     $ref: ../../../../../../../openapi-common/canary/zh/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:

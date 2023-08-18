@@ -30,7 +30,7 @@ paths:
           required: true
           schema:
             type: string
-        - $ref: ../../../../../openapi-common/latest/en/request-team.yaml
+        - $ref: ../../../../../openapi-common/canary/en/request-team.yaml
       requestBody:
         description: List of issues to be unlinked.
         content:
@@ -45,7 +45,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UnLinkIssuesResponse'
-        $ref: ../../../../../openapi-common/latest/en/no-200-response.yaml
+        $ref: ../../../../../openapi-common/canary/en/no-200-response.yaml
 components:
   schemas:
     UnLinkIssueRequest:
@@ -59,12 +59,12 @@ components:
     UnLinkIssuesResponse:
       type: object
       properties:
-        $ref: ../../../../../openapi-common/latest/en/200-response-schemas.yaml
+        $ref: ../../../../../openapi-common/canary/en/200-response-schemas.yaml
       required:
         - result
       example:
         - result: SUCCESS
-    $ref: ../../../../../openapi-common/latest/en/no-200-response-schemas.yaml
+    $ref: ../../../../../openapi-common/canary/en/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2

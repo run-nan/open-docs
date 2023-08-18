@@ -60,7 +60,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AddOrUpdateSuccessResponse'
+                $ref: '#/components/schemas/AddSuccessResponse'
         $ref: ../../../../../../../openapi-common/canary/zh/no-200-response.yaml
       x-scope: write:project:issue
       x-codegen-request-body-name: body
@@ -116,7 +116,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AddOrUpdateSuccessResponse'
+                $ref: '#/components/schemas/UpdateSuccessResponse'
         $ref: ../../../../../../../openapi-common/canary/zh/no-200-response.yaml
       x-codegen-request-body-name: body
     delete:
@@ -250,7 +250,10 @@ components:
         $ref: ../../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
       example:
         - result: SUCCESS
-    AddOrUpdateSuccessResponse:
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
+    AddSuccessResponse:
       type: object
       properties:
         $ref: ../../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
@@ -284,6 +287,52 @@ components:
             projectID: 5f1f3b93kijun654
             issueTypeID: njkib897
             parentID: tgmlo876
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
+        - result: FAIL
+          errorCode: AlreadyExists
+          errorMsg: 'AlreadyExists issue'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound parentIssue'
+    UpdateSuccessResponse:
+      type: object
+      properties:
+        $ref: ../../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              description: 工作项ID
+            number:
+              type: integer
+              description: 工作项编号
+            title:
+              type: string
+              description: 工作项标题
+            projectID:
+              type: string
+              description: 工作项所属项目ID
+            issueTypeID:
+              type: string
+              description: 工作项类型ID
+            parentID:
+              type: string
+              description: 父工作项ID
+      example:
+        - result: SUCCESS
+          data:
+            id: 5f1f3b93
+            number: 1
+            title: 测试工作项
+            projectID: 5f1f3b93kijun654
+            issueTypeID: njkib897
+            parentID: tgmlo876
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
     ListItem:
       type: object
       properties:

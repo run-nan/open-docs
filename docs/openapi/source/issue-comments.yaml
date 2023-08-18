@@ -157,25 +157,25 @@ components:
         - result: SUCCESS
         - result: FAIL
           errorCode: NotFound
-          errorMsg: NotFound IssueComment
+          errorMsg: NotFound issueComment
         - result: FAIL
           errorCode: NotFound
           errorMsg: NotFound issue
         - result: FAIL
-          errorCode: Internal Server Error
-          errorMsg: Internal Server Error
+          errorCode: Internal server error
+          errorMsg: Internal server error
         - result: FAIL
           errorCode: InvalidParameter
-          errorMsg: InvalidParameter Text maximum length of 65535
+          errorMsg: InvalidParameter text maximum length of 65535
         - result: FAIL
           errorCode: PermissionDenied
           errorMsg: PermissionDenied view_tasks
         - result: FAIL
           errorCode: InvalidParameter
-          errorMsg: InvalidParameter IssueComment Text Empty
+          errorMsg: InvalidParameter issueComment text empty
         - result: FAIL
           errorCode: InvalidParameter
-          errorMsg: InvalidParameter IssueComment Text TooLong
+          errorMsg: InvalidParameter issueComment text tooLong
     UpdateCommentRequest:
       description: The comment information to be modified
       type: object
@@ -197,6 +197,12 @@ components:
         - result
       example:
         - result: SUCCESS
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issueComment'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
     ListCommentSuccessResponse:
       description: Get a list of comments successfully
       type: object
@@ -239,13 +245,13 @@ components:
           errorMsg: PermissionDenied super_administrator
         - result: FAIL
           errorCode: InvalidParameter
-          errorMsg: InvalidParameter limit InvalidType
+          errorMsg: InvalidParameter limit invalidType
         - result: FAIL
           errorCode: NotFound
           errorMsg: NotFound issue
         - result: FAIL
-          errorCode: Internal Server Error
-          errorMsg: Internal Server Error
+          errorCode: Internal server error
+          errorMsg: Internal server error
     CommentDetail:
       type: object
       properties:
@@ -288,6 +294,12 @@ components:
         - result: FAIL
           errorCode: MissingParameter
           errorMsg: MissingParameter commentID
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issueComment'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
     $ref: ../../../openapi-common/canary/en/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:

@@ -186,6 +186,16 @@ components:
             version:
               type: integer
               description: The version of file
+      example:
+        - result: SUCCESS
+          data:
+            id: 5f1b0a3b
+            name: 1.png
+            hash: 5f1b0a3b5b3b4e0001a3b3b4
+            mime: image/png
+            sizeByte: 123456
+            url: https://xxx.com/1.png
+            version: 1
     IssueAttachment:
       description: The issue attachment
       type: object
@@ -233,6 +243,26 @@ components:
               items:
                 $ref: '#/components/schemas/IssueAttachment'
             $ref: ../../../openapi-common/canary/en/paging-query-response-pageInfo-schemas.yaml
+      example:
+        - result: SUCCESS
+          data:
+            list:
+              - id: 5f1b0a3b
+                createTime: 1595625600
+                name: 1.png
+                mime: image/png
+                hash: 5f1b0a3b5b3b4e0001a3b3b4
+                sizeByte: 123456
+                description: 1.png
+                creator:
+                  id: 5f1b0a32
+                  name: 张三
+            pageInfo:
+              count: 1
+              endCursor: eyJ0eXBlIjoiQ3VycmVudCIsIm5hbWUiOiJ0ZXN0IiwidmVyc2lvbiI6IjEuMCIsImNvdW50IjoxLCJzdGFydEN1cnJlbnRDb2RlIjoiNWYxYjBhM2I1YjNiNGUwMDAxYTNiM2I0Iiwic3RhcnRDb2RlIjoiNWYxYjBhM2I1YjNiNGUwMDAxYTNiM2I0Iiwic3RhcnREYXRlIjoiMTU5NTYyNTYwMDAwMCJ9
+              hasNextPage: false
+              startCursor: eyJ0eXBlIjoiQ3VycmVudCIsIm5hbWUiOiJ0ZXN0IiwidmVyc2lvbiI6IjEuMCIsImNvdW50IjoxLCJzdGFydEN1cnJlbnRDb2RlIjoiNWYxYjBhM2I1YjNiNGUwMDAxYTNiM2I0Iiwic3RhcnRDb2RlIjoiNWYxYjBhM2I1YjNiNGUwMDAxYTNiM2I0Iiwic3RhcnREYXRlIjoiMTU5NTYyNTYwMDAwMCJ9
+              totalCount: 1
     UpdateIssueAttachmentRequest:
       description: The request of update issue attachment
       type: object
@@ -250,6 +280,11 @@ components:
       type: object
       properties:
         $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+      example:
+        - result: SUCCESS
+        - result: FAIL
+          errorCode: 'NotFound'
+          errorMsg: 'NotFound attachment'
     DeleteSuccessResponse:
       description: The response of delete issue attachment
       type: object

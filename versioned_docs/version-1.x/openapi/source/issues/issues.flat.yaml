@@ -17,9 +17,9 @@ paths:
         - oauth2:
             - read:project:issue
       parameters:
-        - $ref: ../../../../../openapi-common/latest/en/request-team.yaml
-        - $ref: ../../../../../openapi-common/latest/en/paging-query-request-limit.yaml
-        - $ref: ../../../../../openapi-common/latest/en/paging-query-request-cursor.yaml
+        - $ref: ../../../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../../../openapi-common/canary/en/paging-query-request-limit.yaml
+        - $ref: ../../../../../openapi-common/canary/en/paging-query-request-cursor.yaml
         - name: projectID
           in: query
           description: As a filter condition, the list only returns work items that are projectID, used in conjunction with issueTypeID.
@@ -37,7 +37,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListSuccessResponse'
-        $ref: ../../../../../openapi-common/latest/en/no-200-response.yaml
+        $ref: ../../../../../openapi-common/canary/en/no-200-response.yaml
     post:
       summary: Create a new issue
       operationId: 02-create-a-new-issue
@@ -46,7 +46,7 @@ paths:
         - oauth2:
             - write:project:issue
       parameters:
-        - $ref: ../../../../../openapi-common/latest/en/request-team.yaml
+        - $ref: ../../../../../openapi-common/canary/en/request-team.yaml
       requestBody:
         description: The issue information to be created.
         content:
@@ -60,8 +60,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AddOrUpdateSuccessResponse'
-        $ref: ../../../../../openapi-common/latest/en/no-200-response.yaml
+                $ref: '#/components/schemas/AddSuccessResponse'
+        $ref: ../../../../../openapi-common/canary/en/no-200-response.yaml
       x-codegen-request-body-name: body
   /project/issues/{issueID}:
     get:
@@ -72,7 +72,7 @@ paths:
         - oauth2:
             - read:project:issue
       parameters:
-        - $ref: ../../../../../openapi-common/latest/en/request-team.yaml
+        - $ref: ../../../../../openapi-common/canary/en/request-team.yaml
         - name: issueID
           in: path
           description: The id of the issue.
@@ -86,7 +86,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListItem'
-        $ref: ../../../../../openapi-common/latest/en/no-200-response.yaml
+        $ref: ../../../../../openapi-common/canary/en/no-200-response.yaml
     put:
       summary: Update a issue
       operationId: 04-update-a-issue
@@ -95,7 +95,7 @@ paths:
         - oauth2:
             - write:project:issue
       parameters:
-        - $ref: ../../../../../openapi-common/latest/en/request-team.yaml
+        - $ref: ../../../../../openapi-common/canary/en/request-team.yaml
         - name: issueID
           in: path
           description: The id of the issue.
@@ -115,8 +115,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AddOrUpdateSuccessResponse'
-        $ref: ../../../../../openapi-common/latest/en/no-200-response.yaml
+                $ref: '#/components/schemas/UpdateSuccessResponse'
+        $ref: ../../../../../openapi-common/canary/en/no-200-response.yaml
       x-codegen-request-body-name: body
     delete:
       summary: Delete a issue
@@ -126,7 +126,7 @@ paths:
         - oauth2:
             - write:project:issue
       parameters:
-        - $ref: ../../../../../openapi-common/latest/en/request-team.yaml
+        - $ref: ../../../../../openapi-common/canary/en/request-team.yaml
         - name: issueID
           in: path
           description: The id of the issue.
@@ -140,7 +140,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteSuccessResponse'
-        $ref: ../../../../../openapi-common/latest/en/no-200-response.yaml
+        $ref: ../../../../../openapi-common/canary/en/no-200-response.yaml
 components:
   schemas:
     AddIssueRequest:
@@ -242,13 +242,16 @@ components:
     DeleteSuccessResponse:
       type: object
       properties:
-        $ref: ../../../../../openapi-common/latest/en/200-response-schemas.yaml
+        $ref: ../../../../../openapi-common/canary/en/200-response-schemas.yaml
       example:
         - result: SUCCESS
-    AddOrUpdateSuccessResponse:
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
+    AddSuccessResponse:
       type: object
       properties:
-        $ref: ../../../../../openapi-common/latest/en/200-response-schemas.yaml
+        $ref: ../../../../../openapi-common/canary/en/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -270,15 +273,61 @@ components:
             parentID:
               type: string
               description: Parent issue ID.
-        example:
-          - result: SUCCESS
-            data:
-              id: 5f1b8a16
-              number: 1
-              title: test
-              projectID: 5f1b8a158765h
-              issueTypeID: 9c6d4c01
-              parentID: 7f1b8a18
+      example:
+        - result: SUCCESS
+          data:
+            id: 5f1b8a16
+            number: 1
+            title: test
+            projectID: 5f1b8a158765h
+            issueTypeID: 9c6d4c01
+            parentID: 7f1b8a18
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
+        - result: FAIL
+          errorCode: AlreadyExists
+          errorMsg: 'AlreadyExists issue'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound parentIssue'
+    UpdateSuccessResponse:
+      type: object
+      properties:
+        $ref: ../../../../../openapi-common/canary/en/200-response-schemas.yaml
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              description: ID of the issue.
+            number:
+              type: integer
+              description: Number of the issue.
+            title:
+              type: string
+              description: Title of the issue.
+            projectID:
+              type: string
+              description: Project of the issue.
+            issueTypeID:
+              type: string
+              description: Type of the issue.
+            parentID:
+              type: string
+              description: Parent issue ID.
+      example:
+        - result: SUCCESS
+          data:
+            id: 5f1b8a16
+            number: 1
+            title: test
+            projectID: 5f1b8a158765h
+            issueTypeID: 9c6d4c01
+            parentID: 7f1b8a18
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
     ListItem:
       type: object
       properties:
@@ -430,7 +479,7 @@ components:
     ListSuccessResponse:
       type: object
       properties:
-        $ref: ../../../../../openapi-common/latest/en/200-response-schemas.yaml
+        $ref: ../../../../../openapi-common/canary/en/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -438,7 +487,7 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/ListItem'
-            $ref: ../../../../../openapi-common/latest/en/paging-query-response-pageInfo-schemas.yaml
+            $ref: ../../../../../openapi-common/canary/en/paging-query-response-pageInfo-schemas.yaml
       example:
         - result: SUCCESS
           data:
@@ -496,7 +545,7 @@ components:
               hasNextPage: false
               startCursor: 'sample_start_cursor'
               totalCount: 1
-    $ref: ../../../../../openapi-common/latest/en/no-200-response-schemas.yaml
+    $ref: ../../../../../openapi-common/canary/en/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2

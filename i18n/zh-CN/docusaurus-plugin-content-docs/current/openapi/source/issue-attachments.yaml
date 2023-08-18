@@ -281,6 +281,9 @@ components:
         $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
       example:
         - result: SUCCESS
+        - result: FAIL
+          errorCode: 'NotFound'
+          errorMsg: 'NotFound attachment'
     DeleteSuccessResponse:
       type: object
       properties:

@@ -60,7 +60,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AddOrUpdateSuccessResponse'
+                $ref: '#/components/schemas/AddSuccessResponse'
         $ref: ../../../../openapi-common/canary/en/no-200-response.yaml
       x-codegen-request-body-name: body
   /project/issues/{issueID}:
@@ -115,7 +115,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AddOrUpdateSuccessResponse'
+                $ref: '#/components/schemas/UpdateSuccessResponse'
         $ref: ../../../../openapi-common/canary/en/no-200-response.yaml
       x-codegen-request-body-name: body
     delete:
@@ -245,7 +245,10 @@ components:
         $ref: ../../../../openapi-common/canary/en/200-response-schemas.yaml
       example:
         - result: SUCCESS
-    AddOrUpdateSuccessResponse:
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
+    AddSuccessResponse:
       type: object
       properties:
         $ref: ../../../../openapi-common/canary/en/200-response-schemas.yaml
@@ -270,15 +273,61 @@ components:
             parentID:
               type: string
               description: Parent issue ID.
-        example:
-          - result: SUCCESS
-            data:
-              id: 5f1b8a16
-              number: 1
-              title: test
-              projectID: 5f1b8a158765h
-              issueTypeID: 9c6d4c01
-              parentID: 7f1b8a18
+      example:
+        - result: SUCCESS
+          data:
+            id: 5f1b8a16
+            number: 1
+            title: test
+            projectID: 5f1b8a158765h
+            issueTypeID: 9c6d4c01
+            parentID: 7f1b8a18
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
+        - result: FAIL
+          errorCode: AlreadyExists
+          errorMsg: 'AlreadyExists issue'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound parentIssue'
+    UpdateSuccessResponse:
+      type: object
+      properties:
+        $ref: ../../../../openapi-common/canary/en/200-response-schemas.yaml
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              description: ID of the issue.
+            number:
+              type: integer
+              description: Number of the issue.
+            title:
+              type: string
+              description: Title of the issue.
+            projectID:
+              type: string
+              description: Project of the issue.
+            issueTypeID:
+              type: string
+              description: Type of the issue.
+            parentID:
+              type: string
+              description: Parent issue ID.
+      example:
+        - result: SUCCESS
+          data:
+            id: 5f1b8a16
+            number: 1
+            title: test
+            projectID: 5f1b8a158765h
+            issueTypeID: 9c6d4c01
+            parentID: 7f1b8a18
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
     ListItem:
       type: object
       properties:

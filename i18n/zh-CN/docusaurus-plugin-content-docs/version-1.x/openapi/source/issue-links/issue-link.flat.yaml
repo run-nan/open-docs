@@ -30,7 +30,7 @@ paths:
           required: true
           schema:
             type: string
-        - $ref: ../../../../../../../openapi-common/latest/zh/request-team.yaml
+        - $ref: ../../../../../../../openapi-common/canary/zh/request-team.yaml
       requestBody:
         description: 要关联的工作项列表
         content:
@@ -45,7 +45,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LinkIssuesResponse'
-        $ref: ../../../../../../../openapi-common/latest/zh/no-200-response.yaml
+        $ref: ../../../../../../../openapi-common/canary/zh/no-200-response.yaml
 components:
   schemas:
     LinkIssueRequest:
@@ -70,12 +70,18 @@ components:
     LinkIssuesResponse:
       type: object
       properties:
-        $ref: ../../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
+        $ref: ../../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
       required:
         - result
       example:
         - result: SUCCESS
-    $ref: ../../../../../../../openapi-common/latest/zh/no-200-response-schemas.yaml
+          errorLinkTasks:
+            - issueID: TWoRwdmh7T6yFpc3
+              reason: 'Duplicate link'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
+    $ref: ../../../../../../../openapi-common/canary/zh/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2
