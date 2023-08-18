@@ -8,7 +8,7 @@ servers:
   - url: https://your-domain/openapi/v1
   - url: http://your-domain/openapi/v1
 paths:
-  /project/team/{teamID}/issues/{issueID}:
+  /project/issues/{issueID}:
     get:
       summary: Get a list of issue workflows
       operationId: 01-get-a-list-of-issue-workflows
