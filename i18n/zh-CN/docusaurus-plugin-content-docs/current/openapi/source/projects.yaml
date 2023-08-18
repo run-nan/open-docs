@@ -165,6 +165,12 @@ components:
           description: 项目成员ID
           items:
             type: string
+      example:
+        name: Project name
+        templateID: project-t1
+        members:
+          - b9b0b056
+          - 5f1b876g
     AddProjectResponse:
       type: object
       properties:
@@ -211,6 +217,21 @@ components:
             isArchive: false
             archiveTime: 0
             archiveUser: 0
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'invalid project members'
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied add_project'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter Project'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter Project UUID Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter Project Member InvalidFormat'
     ProjectDetail:
       type: object
       properties:
@@ -286,6 +307,31 @@ components:
         $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
         data:
           $ref: '#/components/schemas/ProjectDetail'
+      example:
+        - result: SUCCESS
+          data:
+            id: 5f1b0b5b
+            name: project1
+            createTime: 1691726809
+            owner:
+              id: 1b2b2b29
+              name: owner
+            creator:
+              id: 1b2b2b29
+              name: creator
+            status:
+              id: 'to_do'
+              name: To Do
+              category: 'to_do'
+            statusCategory: 'to_do'
+            stickToTop: false
+            isArchive: false
+            archiveUser:
+              id: 5h2b2b29
+              name: archiveUser
+            archiveTime: 1691726809
+            plannedStartDate: '2023-01-01'
+            plannedEndDate: '2023-01-31'
     ListProjectSuccessResponse:
       type: object
       properties:
@@ -298,6 +344,38 @@ components:
               items:
                 $ref: '#/components/schemas/ProjectDetail'
             $ref: ../../../../../../openapi-common/canary/zh/paging-query-response-pageInfo-schemas.yaml
+      example:
+        - result: SUCCESS
+          data:
+            list:
+              - id: 5f1b0b5b
+                name: project1
+                createTime: 1691726809
+                owner:
+                  id: 1b2b2b29
+                  name: owner
+                creator:
+                  id: 1b2b2b29
+                  name: creator
+                status:
+                  id: 'to_do'
+                  name: To Do
+                  category: 'to_do'
+                statusCategory: 'to_do'
+                stickToTop: false
+                isArchive: false
+                archiveUser:
+                  id: 5h2b2b29
+                  name: archiveUser
+                archiveTime: 1691726809
+                plannedStartDate: '2023-01-01'
+                plannedEndDate: '2023-01-31'
+            pageInfo:
+              count: 1
+              endCursor: 'sample_end_cursor'
+              hasNextPage: false
+              startCursor: 'sample_start_cursor'
+              totalCount: 1
     UpdateProjectRequest:
       type: object
       properties:
@@ -325,6 +403,15 @@ components:
           type: object
           properties: {}
           description: 自定义属性
+      example:
+        owner: 1b2b2b29
+        name: project1
+        isArchive: false
+        status: 'to_do'
+        plannedStartDate: '2023-01-01'
+        plannedEndDate: '2023-01-31'
+        customField:
+          “V8FZJ24R”: “customFieldValue”
     UpdateProjectResponse:
       type: object
       properties:
@@ -368,12 +455,35 @@ components:
               description: 项目自定义属性
       example:
         - result: SUCCESS
+          data:
+            id: 5f1b0b5b
+            name: project1
+            owner:
+              id: 1b2b2b29
+              name: owner
+            createTime: 1691726809
+            isArchive: false
+            archiveUser:
+              id: 5h2b2b29
+              name: archiveUser
+            archiveTime: 1691726809
+            status:
+              id: 'to_do'
+              name: To Do
+              category: 'to_do'
+            plannedStartDate: '2023-01-01'
+            plannedEndDate: '2023-01-31'
+            customField:
+              “V8FZJ24R”: “customFieldValue”
     DeleteSuccessResponse:
       type: object
       properties:
         $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
       example:
         - result: SUCCESS
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied administer_do'
     $ref: ../../../../../../openapi-common/canary/zh/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:

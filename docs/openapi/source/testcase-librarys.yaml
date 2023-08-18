@@ -26,7 +26,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AllSuccessResponse'
+                $ref: '#/components/schemas/ListResponse'
         $ref: ../../../openapi-common/canary/en/no-200-response.yaml
     post:
       summary: Create a new test case library
@@ -50,7 +50,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AddOrUpdateSuccessResponse'
+                $ref: '#/components/schemas/AddResponse'
         $ref: ../../../openapi-common/canary/en/no-200-response.yaml
       x-codegen-request-body-name: body
   /testcase/libraries/{libraryID}:
@@ -75,7 +75,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AddOrUpdateSuccessResponse'
+                $ref: '#/components/schemas/GetResponse'
         $ref: ../../../openapi-common/canary/en/no-200-response.yaml
     put:
       summary: Update a test case library
@@ -105,7 +105,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AddOrUpdateSuccessResponse'
+                $ref: '#/components/schemas/UpdateResponse'
         $ref: ../../../openapi-common/canary/en/no-200-response.yaml
       x-codegen-request-body-name: body
     delete:
@@ -129,7 +129,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteSuccessResponse'
+                $ref: '#/components/schemas/DeleteResponse'
         $ref: ../../../openapi-common/canary/en/no-200-response.yaml
 components:
   schemas:
@@ -150,14 +150,23 @@ components:
       example:
         name: Testcase Library
         caseFieldConfigurationID: safia765
-    DeleteSuccessResponse:
+    DeleteResponse:
       description: The response of the delete request.
       type: object
       properties:
         $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
       example:
         - result: SUCCESS
-    AddOrUpdateSuccessResponse:
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied delete_library'
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied testcase_view_library'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound TestCaseLibrary'
+    GetResponse:
       description: The response of the add or update request.
       type: object
       properties:
@@ -192,6 +201,112 @@ components:
             updateTime: 1616592000
             stickToTop: false
             caseFieldConfigurationID: safia765
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound TestCaseLibrary'
+    AddResponse:
+      description: The response of the add or update request.
+      type: object
+      properties:
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+        data:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the test case library.
+            id:
+              type: string
+              description: The id of the test case library.
+            createTime:
+              type: integer
+              description: The create time of the test case library.
+            updateTime:
+              type: integer
+              description: The update time of the test case library.
+            stickToTop:
+              type: boolean
+              description: Whether the test case library is at the top.
+            caseFieldConfigurationID:
+              type: string
+              description: Test case library configuration ID.
+      example:
+        - result: SUCCESS
+          data:
+            name: Testcase Library
+            id: safia765
+            createTime: 1616592000
+            updateTime: 1616592000
+            stickToTop: false
+            caseFieldConfigurationID: safia765
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied manage_library'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound caseFieldConfigurationID'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter TestCaseLibrary Library Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter TestCaseLibrary Name TooLong'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter TestCaseLibrary caseFieldConfigurationID InvalidFormat'
+    UpdateResponse:
+      description: The response of the add or update request.
+      type: object
+      properties:
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+        data:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the test case library.
+            id:
+              type: string
+              description: The id of the test case library.
+            createTime:
+              type: integer
+              description: The create time of the test case library.
+            updateTime:
+              type: integer
+              description: The update time of the test case library.
+            stickToTop:
+              type: boolean
+              description: Whether the test case library is at the top.
+            caseFieldConfigurationID:
+              type: string
+              description: Test case library configuration ID.
+      example:
+        - result: SUCCESS
+          data:
+            name: Testcase Library
+            id: safia765
+            createTime: 1616592000
+            updateTime: 1616592000
+            stickToTop: false
+            caseFieldConfigurationID: safia765
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied manage_library'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound caseFieldConfigurationID'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound TestCaseLibrary'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter TestCaseLibrary Library Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter TestCaseLibrary Name TooLong'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter TestCaseLibrary caseFieldConfigurationID InvalidFormat'
     ListItem:
       description: Test case library list item information.
       type: object
@@ -221,7 +336,7 @@ components:
               type: string
               description: Test case library configuration ID.
           description: Test case library field configuration information.
-    AllSuccessResponse:
+    ListResponse:
       type: object
       properties:
         $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml

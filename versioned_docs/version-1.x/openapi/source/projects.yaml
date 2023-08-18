@@ -222,6 +222,21 @@ components:
             isArchive: false
             archiveTime: 1691726809
             archiveUser: '5h2b2b29'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'invalid project members'
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied add_project'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter Project'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter Project UUID Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter Project Member InvalidFormat'
     ProjectDetail:
       type: object
       properties:
@@ -469,6 +484,9 @@ components:
         $ref: ../../../../openapi-common/latest/en/200-response-schemas.yaml
       example:
         - result: SUCCESS
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied administer_do'
     $ref: ../../../../openapi-common/latest/en/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
