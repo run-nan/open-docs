@@ -25,6 +25,9 @@ service:
   config:
     - key: MyCustomConfigKey
       type: Input
+  policy:
+    policy: simple
+    target: ''
 abilities:
   - id: Simple-login-SXgh
     name: SimpleLoginVerification
@@ -240,6 +243,28 @@ If you need to modify the plugin LOGO, modify the `web/public/logo.svg` file und
 - **Deprecated**
 
 Plugin authorization statement.
+
+### policy
+
+- **Type:**`Policy`
+
+the [policy](../../guide/policy.mdx) of the plugin
+
+** `Policy` Params:**
+
+| Key    | Description                                          | Type                       | Required | Default |
+| ------ | ---------------------------------------------------- | -------------------------- | -------- | ------- |
+| policy | the plugin policy                                    | `'simple'` \| `'standard'` | Y        |         |
+| target | temporarily useless field, just keep the empty value | `string`                   | Y        |         |
+
+**Example:**
+
+```yaml title="/config/plugin.yaml"
+service:
+  policy:
+    policy: standard
+    target: ''
+```
 
 ## abilities
 

@@ -25,6 +25,9 @@ service:
   config:
     - key: MyCustomConfigKey
       type: Input
+  policy:
+    policy: simple
+    target: ''
 abilities:
   - id: Simple-login-SXgh
     name: SimpleLoginVerification
@@ -240,6 +243,28 @@ service:
 - **已废弃**
 
 插件授权声明。
+
+### policy
+
+- **类型：**`Policy`
+
+插件的[售卖策略](../../guide/policy.mdx)
+
+** `Policy`参数：**
+
+| 属性   | 说明                   | 类型                       | 必填 | 默认值 |
+| ------ | ---------------------- | -------------------------- | ---- | ------ |
+| policy | 售卖策略               | `'simple'` \| `'standard'` | 是   |        |
+| target | 保留字段，保持空值即可 | `string`                   | 是   |        |
+
+**示例：**
+
+```yaml title="/config/plugin.yaml"
+service:
+  policy:
+    policy: standard
+    target: ''
+```
 
 ## abilities
 
