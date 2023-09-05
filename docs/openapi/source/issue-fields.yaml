@@ -28,105 +28,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/IssueFieldsListResponse'
         $ref: ../../../openapi-common/canary/en/no-200-response.yaml
-    post:
-      summary: Create a new issue field
-      operationId: 02-create-a-new-issue-field
-      description: Create a new issue field.
-      security:
-        - oauth2:
-            - write:project:issueField
-      parameters:
-        - $ref: ../../../openapi-common/canary/en/request-team.yaml
-      requestBody:
-        description: The issue field information to be created.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AddIssueFieldRequest'
-      responses:
-        200:
-          description: Request is successful.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AddIssueFieldsResponse'
-        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
-  /project/issueFields/{fieldID}:
-    put:
-      summary: Update a issue field
-      operationId: 03-update-a-issue-field
-      description: Update an issue field.
-      security:
-        - oauth2:
-            - write:project:issueField
-      parameters:
-        - $ref: ../../../openapi-common/canary/en/request-team.yaml
-        - name: fieldID
-          in: path
-          description: The field ID.
-          required: true
-          schema:
-            type: string
-      requestBody:
-        description: Update issue field to be updated..
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateIssueFieldRequest'
-      responses:
-        200:
-          description: Request is successful.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdateIssueFieldsResponse'
-        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
-    delete:
-      summary: Delete an issue field
-      operationId: 04-delete-a-issue-field
-      description: Delete an issue field.
-      security:
-        - oauth2:
-            - write:project:issueField
-      parameters:
-        - $ref: ../../../openapi-common/canary/en/request-team.yaml
-        - name: fieldID
-          in: path
-          description: The field ID.
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: Request is successful.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeleteIssueFieldsResponse'
-        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
-    get:
-      summary: Get an issue field
-      operationId: 05-get-a-issue-field
-      description: Get an issue field.
-      security:
-        - oauth2:
-            - read:project:issueField
-      parameters:
-        - $ref: ../../../openapi-common/canary/en/request-team.yaml
-        - name: fieldID
-          in: path
-          description: The field ID.
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: Request is successful.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetIssueFieldsResponse'
-        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
 components:
   schemas:
     GetIssueFieldsResponse:
@@ -577,13 +478,26 @@ components:
               hasNextPage: false
               startCursor: 'sample_start_cursor'
               totalCount: 2
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter teamID'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter issueID'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter user_id'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter limit InvalidType'
     $ref: ../../../openapi-common/canary/en/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://ones.com/oauth2/authorize
-          tokenUrl: https://ones.com/oauth2/token
+          authorizationUrl: https://your-domain/oauth2/authorize
+          tokenUrl: https://your-domain/oauth2/token
           scopes:
             read:project:issueField: Access issue field
+            write:project:issueField: Add, edit, delete issue field

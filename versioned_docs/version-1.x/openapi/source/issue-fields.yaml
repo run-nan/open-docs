@@ -3,160 +3,501 @@ info:
   title: Issue fields
   version: '1.0'
   description: |
-    This resource represents issue fields. Use it to get issue fields.
+    This resource represents issue fields. Use it to get, create, update, and delete issue fields.
 servers:
-  - url: https://your-domain/rest/api/v1
-  - url: http://your-domain/rest/api/v1
+  - url: https://your-domain/openapi/v1
+  - url: http://your-domain/openapi/v1
 paths:
-  /project/team/{teamID}/issueFields:
+  /project/issueFields:
     get:
       summary: Get a list of issue fields
-      operationId: get-a-list-of-issue-fields
+      operationId: 01-get-a-list-of-issue-fields
       description: Get a list of issue fields.
       security:
         - oauth2:
             - read:project:issueField
       parameters:
-        - name: teamID
-          in: path
-          description: The team ID
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../../openapi-common/latest/en/request-team.yaml
+        - $ref: ../../../../openapi-common/latest/en/paging-query-request-limit.yaml
+        - $ref: ../../../../openapi-common/latest/en/paging-query-request-cursor.yaml
       responses:
         200:
           description: Request is successful.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AllSuccessResponse'
-        401:
-          description: Returned if the authentication credentials are incorrect or missing.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: Returns if the scope check fails.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: Returned if the resource object was not found.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: Internal Server Error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
+                $ref: '#/components/schemas/IssueFieldsListResponse'
+        $ref: ../../../../openapi-common/latest/en/no-200-response.yaml
 components:
   schemas:
-    ListItem:
+    GetIssueFieldsResponse:
+      description: 'The result of an issue field'
+      type: object
+      properties:
+        $ref: ../../../../openapi-common/latest/en/200-response-schemas.yaml
+        data:
+          type: object
+          description: The result of this request.
+      required:
+        - result
+      example:
+        - result: SUCCESS
+          data:
+            id: 'oqj6QDc1'
+            name: '2511'
+            type: 1
+            renderer: 1
+            filterOption: 0
+            searchOption: 1
+            createTime: 1689162602
+            builtIn: false
+            fixed: false
+            options:
+              - id: 'PjfLYi6c'
+                value: '215412'
+                background_color: '#307fe2'
+                color: '#fff'
+            intervalTime:
+              earliestEntryTime:
+                fieldType: 17
+                fieldID: 'ilkj987j'
+                fieldOptionID: 'to_do'
+                timepoint: 'first_at'
+              latestEntryTime:
+                fieldType: 17
+                fieldID: 'yfcg57yy'
+                fieldOptionID: 'to_do'
+                timepoint: 'first_at'
+            frequencySettings:
+              fieldtype: 1
+              fieldID: 'Uqi36QDc'
+              fieldOptionID: 'M7voizYP'
+            timeAppearanceSettings:
+              fieldID: 'field017'
+              timepoint: 'last_at'
+              fieldOptionID: 'to_do'
+    DeleteIssueFieldsResponse:
+      description: 'The result of delete issue field'
+      type: object
+      properties:
+        $ref: ../../../../openapi-common/latest/en/200-response-schemas.yaml
+      required:
+        - result
+      example:
+        - result: SUCCESS
+    UpdateIssueFieldRequest:
+      description: 'The request of update issue field'
       type: object
       properties:
         name:
           type: string
-          description: The name of the issue field.
-        id:
-          type: string
-          description: The id of the issue field.
-        buildIn:
-          type: boolean
-          description: Whether it is a system built-in issue status.
-        createTime:
-          type: integer
-          description: The createTime of the issue field.
-        defaultValue:
-          type: object
-          description: The defaultValue of the issue field.
-        aliases:
-          type: array
-          description: The alias of the issue field.
-          items:
-            type: string
-        typeLabel:
-          type: string
-          description: The type label of the issue field.
-        typeEnum:
-          type: integer
-          description: The type enum of the issue field.
+          description: The name of issue field.
         options:
           type: array
-          description: The options of the issue field.
-          items:
-            $ref: '#/components/schemas/Option'
-    Option:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The id of the option.
-        value:
+          description: The options of issue field.
+          properties:
+            value:
+              type: string
+              description: The option value of issue field.
+            backgroundColor:
+              type: string
+              description: The background color of issue field.
+            color:
+              type: string
+              description: The color of issue field.
+        intervalTimeSetting:
           type: object
-          description: The value of the option.
-    PageInfo:
+          description: The interval time setting of issue field.
+          properties:
+            earliestEntryTime:
+              type: object
+              description: The earlies entry time of issue field.
+              properties:
+                fieldType:
+                  type: integer
+                  description: The type of issue field.
+                fieldID:
+                  type: string
+                  description: The id of issue field.
+                fieldOptionID:
+                  type: string
+                  description: The option id of issue field.
+                timepoint:
+                  type: string
+                  description: The timepoint of issue field.
+            latestEntryTime:
+              type: object
+              description: The latest entry time of issue field.
+              properties:
+                fieldType:
+                  type: integer
+                  description: The type of issue field.
+                fieldID:
+                  type: string
+                  description: The id of issue field.
+                fieldOptionID:
+                  type: string
+                  description: The option id of issue field.
+                timepoint:
+                  type: string
+                  description: The timepoint of issue field.
+        frequencySetting:
+          type: object
+          description: The frequency setting of issue field.
+          properties:
+            fieldType:
+              type: integer
+              description: The type of issue field.
+            fieldID:
+              type: string
+              description: The ID of issue field.
+            fieldOptionID:
+              type: string
+              description: The option ID unit of issue field.
+        timeAppearanceSetting:
+          type: object
+          description: The time appearance setting of issue field.
+          properties:
+            fieldID:
+              type: string
+              description: The ID of issue field.
+            timepoint:
+              type: string
+              description: The timepoint of issue field.
+            fieldOptionID:
+              type: string
+              description: The option ID unit of issue field.
+            type: object
+            description: The time appearance setting of issue field.
+      example:
+        name: 'Sample Name'
+        options:
+          - value: 'Sample Value'
+            backgroundColor: '#000000'
+            color: '#ffffff'
+        intervalTimeSetting:
+          earliestEntryTime:
+            fieldType: 1
+            fieldID: 'Sample ID'
+            fieldOptionID: 'Sample Option ID'
+            timepoint: 'Sample Timepoint'
+          latestEntryTime:
+            fieldType: 1
+            fieldID: 'Sample ID'
+            fieldOptionID: 'Sample Option ID'
+            timepoint: 'Sample Timepoint'
+        frequencySetting:
+          fieldType: 1
+          fieldID: 'Sample ID'
+          fieldOptionID: 'Sample Option ID'
+        timeAppearanceSetting:
+          fieldID: 'Sample ID'
+          timepoint: 'Sample Timepoint'
+          fieldOptionID: 'Sample Option ID'
+    UpdateIssueFieldsResponse:
+      description: 'The result of update issue field'
       type: object
       properties:
-        count:
-          type: integer
-          description: The number returned this time.
-        endCursor:
-          type: string
-          description: The last cursor on this page is generally used to turn pages.
-        endPos:
-          type: integer
-          description: The last position on this page.
-        hasNextPage:
-          type: boolean
-          description: Is there a next page.
-        startCursor:
-          type: string
-          description: The first cursor on this page is generally used to turn pages.
-        startPos:
-          type: integer
-          description: The first position on this page.
-        totalCount:
-          type: integer
-          description: The total number of items available in the entire collection,
-            including those that are  returned in the current response.
-    AllSuccessResponse:
-      type: object
-      properties:
-        result:
-          type: string
-          description: The result of this request.
+        $ref: ../../../../openapi-common/latest/en/200-response-schemas.yaml
         data:
           type: object
+          description: The result of this request.
+      required:
+        - result
+      example:
+        - result: SUCCESS
+          data:
+            id: 'oqj6QDc1'
+            name: '2511'
+            type: 1
+            renderer: 1
+            filterOption: 0
+            searchOption: 1
+            createTime: 1689162602
+            builtIn: false
+            fixed: false
+            options:
+              - id: 'PjfLYi6c'
+                value: '215412'
+                background_color: '#307fe2'
+                color: '#fff'
+            intervalTime:
+              earliestEntryTime:
+                fieldType: 17
+                fieldID: 'ilkj987j'
+                fieldOptionID: 'to_do'
+                timepoint: 'first_at'
+              latestEntryTime:
+                fieldType: 17
+                fieldID: 'yfcg57yy'
+                fieldOptionID: 'to_do'
+                timepoint: 'first_at'
+            frequencySettings:
+              fieldtype: 1
+              fieldID: 'Uqi36QDc'
+              fieldOptionID: 'M7voizYP'
+            timeAppearanceSettings:
+              fieldID: 'field017'
+              timepoint: 'last_at'
+              fieldOptionID: 'to_do'
+    AddIssueFieldRequest:
+      description: 'The request of add issue field'
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of issue field.
+        type:
+          type: integer
+          description: The type of issue field.
+        options:
+          type: array
+          description: The options of issue field.
+          properties:
+            value:
+              type: string
+              description: The option value of issue field.
+            backgroundColor:
+              type: string
+              description: The background color of issue field.
+            color:
+              type: string
+              description: The color of issue field.
+        intervalTimeSetting:
+          type: object
+          description: The interval time setting of issue field.
+          properties:
+            earliestEntryTime:
+              type: object
+              description: The earlies entry time of issue field.
+              properties:
+                fieldType:
+                  type: integer
+                  description: The type of issue field.
+                fieldID:
+                  type: string
+                  description: The id of issue field.
+                fieldOptionID:
+                  type: string
+                  description: The option id of issue field.
+                timepoint:
+                  type: string
+                  description: The timepoint of issue field.
+            latestEntryTime:
+              type: object
+              description: The latest entry time of issue field.
+              properties:
+                fieldType:
+                  type: integer
+                  description: The type of issue field.
+                fieldID:
+                  type: string
+                  description: The id of issue field.
+                fieldOptionID:
+                  type: string
+                  description: The option id of issue field.
+                timepoint:
+                  type: string
+                  description: The timepoint of issue field.
+        frequencySetting:
+          type: object
+          description: The frequency setting of issue field.
+          properties:
+            fieldType:
+              type: integer
+              description: The type of issue field.
+            fieldID:
+              type: string
+              description: The ID of issue field.
+            fieldOptionID:
+              type: string
+              description: The option ID unit of issue field.
+        timeAppearanceSetting:
+          type: object
+          description: The time appearance setting of issue field.
+          properties:
+            fieldID:
+              type: string
+              description: The ID of issue field.
+            timepoint:
+              type: string
+              description: The timepoint of issue field.
+            fieldOptionID:
+              type: string
+              description: The option ID unit of issue field.
+      required:
+        - name
+        - type
+      example:
+        name: 'Sample Name'
+        type: 1
+        options:
+          - value: 'Sample Value'
+            backgroundColor: '#000000'
+            color: '#ffffff'
+        intervalTimeSetting:
+          earliestEntryTime:
+            fieldType: 1
+            fieldID: 'Sample ID'
+            fieldOptionID: 'Sample Option ID'
+            timepoint: 'Sample Timepoint'
+          latestEntryTime:
+            fieldType: 1
+            fieldID: 'Sample ID'
+            fieldOptionID: 'Sample Option ID'
+            timepoint: 'Sample Timepoint'
+        frequencySetting:
+          fieldType: 1
+          fieldID: 'Sample ID'
+          fieldOptionID: 'Sample Option ID'
+        timeAppearanceSetting:
+          fieldID: 'Sample ID'
+          timepoint: 'Sample Timepoint'
+          fieldOptionID: 'Sample Option ID'
+    AddIssueFieldsResponse:
+      description: 'The result of add issue field'
+      type: object
+      properties:
+        $ref: ../../../../openapi-common/latest/en/200-response-schemas.yaml
+        data:
+          type: object
+          description: The result of this request.
+      required:
+        - result
+      example:
+        - result: SUCCESS
+          data:
+            id: 'oqj6QDc1'
+            name: '2511'
+            type: 1
+            renderer: 1
+            filterOption: 0
+            searchOption: 1
+            createTime: 1689162602
+            builtIn: false
+            fixed: false
+            options:
+              - id: 'PjfLYi6c'
+                value: '215412'
+                background_color: '#307fe2'
+                color: '#fff'
+            intervalTime:
+              earliestEntryTime:
+                fieldType: 17
+                fieldID: 'ilkj987j'
+                fieldOptionID: 'to_do'
+                timepoint: 'first_at'
+              latestEntryTime:
+                fieldType: 17
+                fieldID: 'yfcg57yy'
+                fieldOptionID: 'to_do'
+                timepoint: 'first_at'
+            frequencySettings:
+              fieldtype: 1
+              fieldID: 'Uqi36QDc'
+              fieldOptionID: 'M7voizYP'
+            timeAppearanceSettings:
+              fieldID: 'field017'
+              timepoint: 'last_at'
+              fieldOptionID: 'to_do'
+    IssueFieldsListResponse:
+      description: 'The result of issue fields.'
+      type: object
+      properties:
+        $ref: ../../../../openapi-common/latest/en/200-response-schemas.yaml
+        data:
+          type: object
+          description: 'Data object containing a list of items and page information.'
           properties:
             list:
               type: array
+              description: 'List of items.'
               items:
-                $ref: '#/components/schemas/ListItem'
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: 'Name of the item.'
+                  id:
+                    type: string
+                    description: 'ID of the item.'
+                  buildIn:
+                    type: boolean
+                    description: 'Flag indicating if the item is built-in.'
+                  createTime:
+                    type: integer
+                    description: 'Timestamp of item creation.'
+                  defaultValue:
+                    type: object
+                    description: 'Default value of the item.'
+                  aliases:
+                    type: array
+                    description: 'List of aliases for the item.'
+                    items:
+                      type: string
+                      description: 'Alias string.'
+                  typeLabel:
+                    type: string
+                    description: 'Label for the item type.'
+                  typeEnum:
+                    type: integer
+                    description: 'Enumeration value for the item type.'
+                  options:
+                    type: array
+                    description: 'List of options for the item.'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: 'ID of the option.'
+                        value:
+                          type: object
+                          description: 'Value of the option.'
+            $ref: ../../../../openapi-common/latest/en/paging-query-response-pageInfo-schemas.yaml
+      required:
+        - result
+      example:
+        - result: SUCCESS
+          data:
+            list:
+              - name: 'string'
+                id: 'string'
+                buildIn: true
+                createTime: 0
+                defaultValue: {}
+                aliases: ['string']
+                typeLabel: 'string'
+                typeEnum: 0
+                options:
+                  - id: 'string'
+                    value: {}
             pageInfo:
-              $ref: '#/components/schemas/PageInfo'
-    BadResponse:
-      type: object
-      properties:
-        result:
-          type: string
-          description: The result of this request.
-        errorCode:
-          type: string
-          description: The error code of this request.
-        errorMsg:
-          type: string
-          description: Error message for this request.
+              count: 2
+              endCursor: 'sample_end_cursor'
+              hasNextPage: false
+              startCursor: 'sample_start_cursor'
+              totalCount: 2
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter teamID'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter issueID'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter user_id'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter limit InvalidType'
+    $ref: ../../../../openapi-common/latest/en/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://ones.com/oauth2/authorize
-          tokenUrl: https://ones.com/oauth2/token
+          authorizationUrl: https://your-domain/oauth2/authorize
+          tokenUrl: https://your-domain/oauth2/token
           scopes:
             read:project:issueField: Access issue field
+            write:project:issueField: Add, edit, delete issue field

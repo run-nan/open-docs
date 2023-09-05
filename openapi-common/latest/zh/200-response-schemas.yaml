@@ -1,0 +1,9 @@
+result:
+  type: string
+  description: 本次请求结果,SUCCESS|FAIL
+errorCode:
+  type: string
+  description: 本次请求错误码
+errorMsg:
+  type: string
+  description: 本次请求错误信息

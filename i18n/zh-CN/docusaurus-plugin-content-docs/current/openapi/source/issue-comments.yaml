@@ -6,7 +6,7 @@ info:
     此资源代表工作项评论。使用它来获取、创建和删除工作项评论。
 servers:
   - url: https://your-domain/openapi/v1
-  - url: http://your-domain/rest/api/v1
+  - url: http://your-domain/openapi/v1
 paths:
   /project/issues/{issueID}/comments:
     get:
@@ -143,6 +143,10 @@ components:
         repliedMessageID:
           type: string
           description: 本次评论所回复评论的ID
+      example:
+        - text: 评论内容
+          repliedMessageID: 5f1b0b3b
+        - text: 评论内容
     UpdateCommentRequest:
       required:
         - text
@@ -153,6 +157,8 @@ components:
           minLength: 1
           type: string
           description: 评论信息
+      example:
+        text: 评论内容
     ListCommentSuccessResponse:
       type: object
       properties:
@@ -168,23 +174,39 @@ components:
       required:
         - result
       example:
-        result: success
-        data:
-          list:
-            - id: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
-              createTime: 1595616000000
-              commenter:
-                id: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
-                name: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
-              type: 1
-              ext:
-                text: 评论内容
-          pageInfo:
-            count: 1
-            endCursor: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
-            endPos: 1
-            hasNextPage: false
-            startCursor: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
+        - result: success
+          data:
+            list:
+              - id: hiohi431
+                createTime: 1595616876
+                owner:
+                  id: oin90klo
+                  name: owner-name
+                text: test-common1
+              - id: hiohi432
+                createTime: 1595616879
+                owner:
+                  id: oin90klo
+                  name: owner-name
+                text: test-common2
+            pageInfo:
+              count: 1
+              endCursor: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
+              hasNextPage: false
+              startCursor: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
+              totalCount: 1
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: PermissionDenied super_administrator
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: InvalidParameter limit invalidType
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: NotFound issue
+        - result: FAIL
+          errorCode: Internal server error
+          errorMsg: Internal server error
     CommentDetail:
       type: object
       properties:
@@ -194,7 +216,7 @@ components:
         createTime:
           type: integer
           description: 创建时间
-        commenter:
+        owner:
           type: object
           description: 评论者
           properties:
@@ -204,11 +226,9 @@ components:
             name:
               type: string
               description: 用户名称
-        type:
-          type: integer
-          description: 评论的文本类型
-        ext:
-          type: object
+        text:
+          type: string
+          description: 评论信息
     SendCommentResponse:
       type: object
       properties:
@@ -217,6 +237,27 @@ components:
         - result
       example:
         - result: SUCCESS
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: NotFound issueComment
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: NotFound issue
+        - result: FAIL
+          errorCode: Internal server error
+          errorMsg: Internal server error
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: InvalidParameter text maximum length of 65535
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: PermissionDenied view_tasks
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: InvalidParameter issueComment text empty
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: InvalidParameter issueComment text tooLong
     DeleteCommentResponse:
       type: object
       properties:
@@ -225,6 +266,24 @@ components:
         - result
       example:
         - result: SUCCESS
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: MissingParameter teamID
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: MissingParameter issueID
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: MissingParameter user_id
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: MissingParameter commentID
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issueComment'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
     UpdateCommentResponse:
       type: object
       properties:
@@ -233,14 +292,20 @@ components:
         - result
       example:
         - result: SUCCESS
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issueComment'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
     $ref: ../../../../../../openapi-common/canary/zh/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://ones.com/oauth2/authorize
-          tokenUrl: https://ones.com/oauth2/token
+          authorizationUrl: https://your-domain/oauth2/authorize
+          tokenUrl: https://your-domain/oauth2/token
           scopes:
             write:project:issue-comment: 发送、修改和删除工作项评论
             read:project:issue-comment: 获取工作项评论列表.

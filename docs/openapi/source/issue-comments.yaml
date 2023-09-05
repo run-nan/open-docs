@@ -6,7 +6,7 @@ info:
     This resource represents issue comments. Use it to get, create, and delete issue comments.
 servers:
   - url: https://your-domain/openapi/v1
-  - url: http://your-domain/rest/api/v1
+  - url: http://your-domain/openapi/v1
 paths:
   /project/issues/{issueID}/comments:
     get:
@@ -131,8 +131,7 @@ paths:
 components:
   schemas:
     SendCommentRequest:
-      required:
-        - text
+      description: The comment information to be sent
       type: object
       properties:
         text:
@@ -143,9 +142,42 @@ components:
         repliedMessageID:
           type: string
           description: The ID of the comment to be replied to
-    UpdateCommentRequest:
+      example:
+        text: test-common
+        repliedMessageID: asghau87
       required:
         - text
+    SendCommentResponse:
+      type: object
+      properties:
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+      required:
+        - result
+      example:
+        - result: SUCCESS
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: NotFound issueComment
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: NotFound issue
+        - result: FAIL
+          errorCode: Internal server error
+          errorMsg: Internal server error
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: InvalidParameter text maximum length of 65535
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: PermissionDenied view_tasks
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: InvalidParameter issueComment text empty
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: InvalidParameter issueComment text tooLong
+    UpdateCommentRequest:
+      description: The comment information to be modified
       type: object
       properties:
         text:
@@ -153,7 +185,26 @@ components:
           minLength: 1
           type: string
           description: Content of comments
+      example:
+        text: test-common
+      required:
+        - text
+    UpdateCommentResponse:
+      type: object
+      properties:
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+      required:
+        - result
+      example:
+        - result: SUCCESS
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issueComment'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
     ListCommentSuccessResponse:
+      description: Get a list of comments successfully
       type: object
       properties:
         $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
@@ -168,23 +219,39 @@ components:
       required:
         - result
       example:
-        result: success
-        data:
-          list:
-            - id: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
-              createTime: 1595616000000
-              commenter:
-                id: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
-                name: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
-              type: 1
-              ext:
-                text: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
-          pageInfo:
-            count: 1
-            endCursor: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
-            endPos: 1
-            hasNextPage: false
-            startCursor: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
+        - result: success
+          data:
+            list:
+              - id: hiohi431
+                createTime: 1595616876
+                owner:
+                  id: oin90klo
+                  name: owner-name
+                text: test-common1
+              - id: hiohi432
+                createTime: 1595616879
+                owner:
+                  id: oin90klo
+                  name: owner-name
+                text: test-common2
+            pageInfo:
+              count: 1
+              endCursor: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
+              hasNextPage: false
+              startCursor: 5f1b0b3b9c6d4e0001b0b3b9c6d4e000
+              totalCount: 1
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: PermissionDenied super_administrator
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: InvalidParameter limit invalidType
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: NotFound issue
+        - result: FAIL
+          errorCode: Internal server error
+          errorMsg: Internal server error
     CommentDetail:
       type: object
       properties:
@@ -194,7 +261,7 @@ components:
         createTime:
           type: integer
           description: The time when the comment was created
-        commenter:
+        owner:
           type: object
           description: The user who commented
           properties:
@@ -204,19 +271,9 @@ components:
             name:
               type: string
               description: The name of the user
-        type:
-          type: integer
-          description: The type of the comment
-        ext:
-          type: object
-    SendCommentResponse:
-      type: object
-      properties:
-        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
-      required:
-        - result
-      example:
-        - result: SUCCESS
+        text:
+          type: string
+          description: Content of comments
     DeleteCommentResponse:
       type: object
       properties:
@@ -225,22 +282,32 @@ components:
         - result
       example:
         - result: SUCCESS
-    UpdateCommentResponse:
-      type: object
-      properties:
-        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
-      required:
-        - result
-      example:
-        - result: SUCCESS
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: MissingParameter teamID
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: MissingParameter issueID
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: MissingParameter user_id
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: MissingParameter commentID
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issueComment'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
     $ref: ../../../openapi-common/canary/en/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://ones.com/oauth2/authorize
-          tokenUrl: https://ones.com/oauth2/token
+          authorizationUrl: https://your-domain/oauth2/authorize
+          tokenUrl: https://your-domain/oauth2/token
           scopes:
-            write:project:issue-comment: 发送、修改和删除工作项评论
-            read:project:issue-comment: 获取工作项评论列表.
+            write:project:issue-comment: Add, edit, delete issue comments
+            read:project:issue-comment: Access issue comment

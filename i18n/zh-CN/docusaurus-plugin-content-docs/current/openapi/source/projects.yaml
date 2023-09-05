@@ -5,34 +5,21 @@ info:
   description: |
     此资源代表项目。使用它来获取、创建、更新和删除项目。
 servers:
-  - url: https://your-domain/rest/api/v1
-  - url: http://your-domain/rest/api/v1
+  - url: https://your-domain/openapi/v1
+  - url: http://your-domain/openapi/v1
 paths:
-  /project/team/{teamID}/projects:
+  /project/projects:
     get:
       summary: 获取团队下项目列表
-      operationId: get-team-project-list
+      operationId: 01-get-team-project-list
       description: 获取团队下项目列表
       security:
         - oauth2:
             - read:project:project
       parameters:
-        - name: teamID
-          in: path
-          description: 团队ID
-          required: true
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: 本次请求要返回的数据数量
-          schema:
-            type: integer
-        - name: cursor
-          in: query
-          description: 本次请求的起始位置
-          schema:
-            type: string
+        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
+        - $ref: ../../../../../../openapi-common/canary/zh/paging-query-request-limit.yaml
+        - $ref: ../../../../../../openapi-common/canary/zh/paging-query-request-cursor.yaml
       responses:
         200:
           description: 请求成功
@@ -40,44 +27,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListProjectSuccessResponse'
-        401:
-          description: 如果身份验证凭据不正确或丢失，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: 如果scope检验不通过，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: 如果未找到资源对象，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: 内部服务器错误
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
+        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
     post:
       summary: 创建一个新项目
-      operationId: create-a-new-project
+      operationId: 02-create-a-new-project
       description: 创建一个新项目
       security:
         - oauth2:
             - write:project:project
       parameters:
-        - name: teamID
-          in: path
-          description: 团队ID
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
       requestBody:
         content:
           application/json:
@@ -91,46 +50,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddProjectResponse'
-        401:
-          description: 如果身份验证凭据不正确或丢失，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: 如果scope检验不通过，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: 如果未找到资源对象，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: 内部服务器错误
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
+        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
       x-codegen-request-body-name: body
-  /project/team/{teamID}/projects/{projectID}:
+  /project/projects/{projectID}:
     get:
       summary: 获取项目详情
-      operationId: get-project-detail-by-project-id
+      operationId: 03-get-project-detail-by-project-id
       description: 获取项目详情
       security:
         - oauth2:
             - read:project:project
       parameters:
-        - name: teamID
-          in: path
-          description: 团队ID
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
         - name: projectID
           in: path
           description: 项目ID
@@ -144,44 +75,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetProjectDetailResponse'
-        401:
-          description: 如果身份验证凭据不正确或丢失，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: 如果scope检验不通过，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: 如果未找到资源对象，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: 内部服务器错误
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
+        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
     put:
       summary: 更新项目
-      operationId: update-project-by-project-id
+      operationId: 04-update-project-by-project-id
       description: 更新项目
       security:
         - oauth2:
             - write:project:project
       parameters:
-        - name: teamID
-          in: path
-          description: 团队ID
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
         - name: projectID
           in: path
           description: 项目ID
@@ -201,45 +104,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UpdateProjectResponse'
-        401:
-          description: 如果身份验证凭据不正确或丢失，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: 如果scope检验不通过，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: 如果未找到资源对象，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: 内部服务器错误
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
+        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
       x-codegen-request-body-name: body
     delete:
       summary: 删除项目
-      operationId: delete-a-project
+      operationId: 05-delete-a-project
       description: 删除项目
       security:
         - oauth2:
             - write:project:project
       parameters:
-        - name: teamID
-          in: path
-          description: 团队ID
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
         - name: projectID
           in: path
           description: 项目ID
@@ -253,35 +128,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteSuccessResponse'
-        401:
-          description: 如果身份验证凭据不正确或丢失，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: 如果scope检验不通过，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: 如果未找到资源对象，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: 内部服务器错误
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
+        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
 components:
   schemas:
     AddProjectRequest:
       required:
-        - membersID
+        - members
         - name
       type: object
       properties:
@@ -292,7 +144,6 @@ components:
           description: 项目名称
         templateID:
           type: string
-          description: 项目模版ID
           enum:
             - project-t1
             - project-t2
@@ -301,22 +152,29 @@ components:
             - project-t6
             - comagile
             - comwater
-          x-enum-descriptions:
-            project-t1: 敏捷项目管理
-            project-t2: 通用任务管理
-            project-t4: 瀑布项目规划
-            project-t5: 敏捷项目管理_v2
-            project-t6: 看板项目模板
-        membersID:
+          description: |
+            - project-t1: 敏捷项目管理
+            - project-t2: 通用任务管理
+            - project-t4: 瀑布项目规划
+            - project-t5: 敏捷项目管理_v2
+            - project-t6: 看板项目模板
+            - comagile: 敏捷项目管理
+            - comwater: 瀑布项目规划
+        members:
           type: array
           description: 项目成员ID
           items:
             type: string
+      example:
+        name: Project name
+        templateID: project-t1
+        members:
+          - b9b0b056
+          - 5f1b876g
     AddProjectResponse:
       type: object
       properties:
-        result:
-          type: string
+        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -347,6 +205,33 @@ components:
             archiveUser:
               type: string
               description: 归档人ID
+      example:
+        - result: SUCCESS
+          data:
+            id: '5f1b0b0b'
+            name: '项目1'
+            owner: '0b9c0a9c'
+            status: 'to_do'
+            statusCategory: 'to_do'
+            stickToTop: false
+            isArchive: false
+            archiveTime: 0
+            archiveUser: 0
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'invalid project members'
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied add_project'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter Project'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter Project UUID Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter Project Member InvalidFormat'
     ProjectDetail:
       type: object
       properties:
@@ -419,16 +304,38 @@ components:
     GetProjectDetailResponse:
       type: object
       properties:
-        result:
-          type: string
+        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
         data:
           $ref: '#/components/schemas/ProjectDetail'
+      example:
+        - result: SUCCESS
+          data:
+            id: 5f1b0b5b
+            name: project1
+            createTime: 1691726809
+            owner:
+              id: 1b2b2b29
+              name: owner
+            creator:
+              id: 1b2b2b29
+              name: creator
+            status:
+              id: 'to_do'
+              name: To Do
+              category: 'to_do'
+            statusCategory: 'to_do'
+            stickToTop: false
+            isArchive: false
+            archiveUser:
+              id: 5h2b2b29
+              name: archiveUser
+            archiveTime: 1691726809
+            plannedStartDate: '2023-01-01'
+            plannedEndDate: '2023-01-31'
     ListProjectSuccessResponse:
       type: object
       properties:
-        result:
-          type: string
-          description: 本次请求的结果
+        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -436,8 +343,39 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/ProjectDetail'
+            $ref: ../../../../../../openapi-common/canary/zh/paging-query-response-pageInfo-schemas.yaml
+      example:
+        - result: SUCCESS
+          data:
+            list:
+              - id: 5f1b0b5b
+                name: project1
+                createTime: 1691726809
+                owner:
+                  id: 1b2b2b29
+                  name: owner
+                creator:
+                  id: 1b2b2b29
+                  name: creator
+                status:
+                  id: 'to_do'
+                  name: To Do
+                  category: 'to_do'
+                statusCategory: 'to_do'
+                stickToTop: false
+                isArchive: false
+                archiveUser:
+                  id: 5h2b2b29
+                  name: archiveUser
+                archiveTime: 1691726809
+                plannedStartDate: '2023-01-01'
+                plannedEndDate: '2023-01-31'
             pageInfo:
-              $ref: '#/components/schemas/PageInfo'
+              count: 1
+              endCursor: 'sample_end_cursor'
+              hasNextPage: false
+              startCursor: 'sample_start_cursor'
+              totalCount: 1
     UpdateProjectRequest:
       type: object
       properties:
@@ -465,11 +403,19 @@ components:
           type: object
           properties: {}
           description: 自定义属性
+      example:
+        owner: 1b2b2b29
+        name: project1
+        isArchive: false
+        status: 'to_do'
+        plannedStartDate: '2023-01-01'
+        plannedEndDate: '2023-01-31'
+        customField:
+          “V8FZJ24R”: “customFieldValue”
     UpdateProjectResponse:
       type: object
       properties:
-        result:
-          type: string
+        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -507,54 +453,45 @@ components:
               type: object
               properties: {}
               description: 项目自定义属性
-    PageInfo:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: 本次返回的数量
-        endCursor:
-          type: string
-          description: 本页最后一个光标，用于翻页
-        endPos:
-          type: integer
-          description: 本页最后一个位置
-        hasNextPage:
-          type: boolean
-          description: 是否有下一页
-        startCursor:
-          type: string
-          description: 本页第一个光标，用于翻页
-        startPos:
-          type: integer
-          description: 本页第一个位置
-        totalCount:
-          type: integer
-          description: 整个集合总数，包括本次响应中返回的
+      example:
+        - result: SUCCESS
+          data:
+            id: 5f1b0b5b
+            name: project1
+            owner:
+              id: 1b2b2b29
+              name: owner
+            createTime: 1691726809
+            isArchive: false
+            archiveUser:
+              id: 5h2b2b29
+              name: archiveUser
+            archiveTime: 1691726809
+            status:
+              id: 'to_do'
+              name: To Do
+              category: 'to_do'
+            plannedStartDate: '2023-01-01'
+            plannedEndDate: '2023-01-31'
+            customField:
+              “V8FZJ24R”: “customFieldValue”
     DeleteSuccessResponse:
       type: object
       properties:
-        result:
-          type: string
-    BadResponse:
-      type: object
-      properties:
-        result:
-          type: string
-          description: 本次请求结果,SUCCESS|FAIL
-        errorCode:
-          type: string
-          description: 本次请求错误码
-        errorMsg:
-          type: string
-          description: 本次请求错误信息
+        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+      example:
+        - result: SUCCESS
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied administer_do'
+    $ref: ../../../../../../openapi-common/canary/zh/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://ones.com/oauth2/authorize
-          tokenUrl: https://ones.com/oauth2/token
+          authorizationUrl: https://your-domain/oauth2/authorize
+          tokenUrl: https://your-domain/oauth2/token
           scopes:
             write:project:project: 新增、修改、删除项目
             read:project:project: 获取项目信息

@@ -5,8 +5,8 @@ info:
   description: |
     This resource represents issue association relationships. Use it to create and delete issue associations.
 servers:
-  - url: https://your-domain/rest/api/v1
-  - url: http://your-domain/rest/api/v1
+  - url: https://your-domain/openapi/v1
+  - url: http://your-domain/openapi/v1
 paths:
   /project/issues/{issueID}:
     post:
@@ -70,6 +70,12 @@ components:
         - result
       example:
         - result: SUCCESS
+          errorLinkTasks:
+            - issueID: TWoRwdmh7T6yFpc3
+              reason: 'Duplicate link'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
     $ref: ../../../../openapi-common/canary/en/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
@@ -79,5 +85,4 @@ components:
           authorizationUrl: https://your-domain/oauth2/authorize
           tokenUrl: https://your-domain/oauth2/token
           scopes:
-            write:project:issue: 批量关联、取消关联工作项
-            read:project:issue: 获取工作项信息
+            write:project:issue: Add, edit, delete issue

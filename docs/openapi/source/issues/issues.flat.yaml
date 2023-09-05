@@ -5,10 +5,10 @@ info:
   description: |
     This resource represents issues. Use it to get, create, update, and delete issues.
 servers:
-  - url: https://your-domain/rest/api/v1
-  - url: http://your-domain/rest/api/v1
+  - url: https://your-domain/openapi/v1
+  - url: http://your-domain/openapi/v1
 paths:
-  /project/team/{teamID}/issues:
+  /project/issues:
     get:
       summary: Get a list of issues
       operationId: 01-get-a-list-of-issues
@@ -17,22 +17,9 @@ paths:
         - oauth2:
             - read:project:issue
       parameters:
-        - name: teamID
-          in: path
-          description: The team ID.
-          required: true
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: The number of test case libraries returned by this request.
-          schema:
-            type: integer
-        - name: cursor
-          in: query
-          description: The starting location of this request.
-          schema:
-            type: string
+        - $ref: ../../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../../openapi-common/canary/en/paging-query-request-limit.yaml
+        - $ref: ../../../../openapi-common/canary/en/paging-query-request-cursor.yaml
         - name: projectID
           in: query
           description: As a filter condition, the list only returns work items that are projectID, used in conjunction with issueTypeID.
@@ -50,30 +37,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListSuccessResponse'
-        401:
-          description: Returned if the authentication credentials are incorrect or missing.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: Returns if the scope check fails.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: Returned if the resource object was not found.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: Internal Server Error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
+        $ref: ../../../../openapi-common/canary/en/no-200-response.yaml
     post:
       summary: Create a new issue
       operationId: 02-create-a-new-issue
@@ -82,12 +46,7 @@ paths:
         - oauth2:
             - write:project:issue
       parameters:
-        - name: teamID
-          in: path
-          description: The team ID
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../../openapi-common/canary/en/request-team.yaml
       requestBody:
         description: The issue information to be created.
         content:
@@ -101,33 +60,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AddOrUpdateSuccessResponse'
-        401:
-          description: Returned if the authentication credentials are incorrect or missing.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: Returns if the scope check fails.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: Returned if the resource object was not found.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: Internal Server Error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
+                $ref: '#/components/schemas/AddSuccessResponse'
+        $ref: ../../../../openapi-common/canary/en/no-200-response.yaml
       x-codegen-request-body-name: body
-  /project/team/{teamID}/issues/{issueID}:
+  /project/issues/{issueID}:
     get:
       summary: Get a issue details
       operationId: 03-get-a-issue-details
@@ -136,12 +72,7 @@ paths:
         - oauth2:
             - read:project:issue
       parameters:
-        - name: teamID
-          in: path
-          description: The team ID.
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../../openapi-common/canary/en/request-team.yaml
         - name: issueID
           in: path
           description: The id of the issue.
@@ -155,30 +86,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListItem'
-        401:
-          description: Returned if the authentication credentials are incorrect or missing.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: Returns if the scope check fails.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: Returned if the resource object was not found.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: Internal Server Error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
+        $ref: ../../../../openapi-common/canary/en/no-200-response.yaml
     put:
       summary: Update a issue
       operationId: 04-update-a-issue
@@ -187,12 +95,7 @@ paths:
         - oauth2:
             - write:project:issue
       parameters:
-        - name: teamID
-          in: path
-          description: The team ID.
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../../openapi-common/canary/en/request-team.yaml
         - name: issueID
           in: path
           description: The id of the issue.
@@ -212,31 +115,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AddOrUpdateSuccessResponse'
-        401:
-          description: Returned if the authentication credentials are incorrect or missing.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: Returns if the scope check fails.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: Returned if the resource object was not found.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: Internal Server Error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
+                $ref: '#/components/schemas/UpdateSuccessResponse'
+        $ref: ../../../../openapi-common/canary/en/no-200-response.yaml
       x-codegen-request-body-name: body
     delete:
       summary: Delete a issue
@@ -246,12 +126,7 @@ paths:
         - oauth2:
             - write:project:issue
       parameters:
-        - name: teamID
-          in: path
-          description: The team ID.
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../../openapi-common/canary/en/request-team.yaml
         - name: issueID
           in: path
           description: The id of the issue.
@@ -265,30 +140,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteSuccessResponse'
-        401:
-          description: Returned if the authentication credentials are incorrect or missing.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: Returns if the scope check fails.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: Returned if the resource object was not found.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: Internal Server Error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
+        $ref: ../../../../openapi-common/canary/en/no-200-response.yaml
 components:
   schemas:
     AddIssueRequest:
@@ -338,6 +190,17 @@ components:
           minLength: 1
           type: string
           description: Parent issue ID.
+      example:
+        assignee: 5f1b8a1b
+        title: test
+        projectID: 5f1b8a1b1d1b2b24
+        issueTypeID: 9c6d4c01
+        fieldValues:
+          - fieldID: b8a1b9c6
+            value:
+              name: test
+        watchers:
+          - 5f1b8a1b9c6d4c0001d1b2b2
     UpdateIssueRequest:
       type: object
       properties:
@@ -356,10 +219,15 @@ components:
           description: Issue Property Information.
           items:
             $ref: '#/components/schemas/FieldValues'
+      example:
+        assignee: 5f1b8a1b
+        title: test
+        fieldValues:
+          - fieldID: b8a1b9c6
+            value: test
     FieldValues:
       required:
         - fieldID
-        - type
         - value
       type: object
       properties:
@@ -367,10 +235,6 @@ components:
           description: ID of the field.
           minLength: 8
           type: string
-        type:
-          minimum: 1
-          type: integer
-          description: Type of the field.
         value:
           type: object
           properties: {}
@@ -378,15 +242,16 @@ components:
     DeleteSuccessResponse:
       type: object
       properties:
-        result:
-          type: string
-          description: The result of this request.
-    AddOrUpdateSuccessResponse:
+        $ref: ../../../../openapi-common/canary/en/200-response-schemas.yaml
+      example:
+        - result: SUCCESS
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
+    AddSuccessResponse:
       type: object
       properties:
-        result:
-          type: string
-          description: The result of this request.
+        $ref: ../../../../openapi-common/canary/en/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -408,6 +273,61 @@ components:
             parentID:
               type: string
               description: Parent issue ID.
+      example:
+        - result: SUCCESS
+          data:
+            id: 5f1b8a16
+            number: 1
+            title: test
+            projectID: 5f1b8a158765h
+            issueTypeID: 9c6d4c01
+            parentID: 7f1b8a18
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
+        - result: FAIL
+          errorCode: AlreadyExists
+          errorMsg: 'AlreadyExists issue'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound parentIssue'
+    UpdateSuccessResponse:
+      type: object
+      properties:
+        $ref: ../../../../openapi-common/canary/en/200-response-schemas.yaml
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              description: ID of the issue.
+            number:
+              type: integer
+              description: Number of the issue.
+            title:
+              type: string
+              description: Title of the issue.
+            projectID:
+              type: string
+              description: Project of the issue.
+            issueTypeID:
+              type: string
+              description: Type of the issue.
+            parentID:
+              type: string
+              description: Parent issue ID.
+      example:
+        - result: SUCCESS
+          data:
+            id: 5f1b8a16
+            number: 1
+            title: test
+            projectID: 5f1b8a158765h
+            issueTypeID: 9c6d4c01
+            parentID: 7f1b8a18
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
     ListItem:
       type: object
       properties:
@@ -556,37 +476,10 @@ components:
               createTime:
                 type: integer
                 description: Create time of the attachment.
-    PageInfo:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The number returned this time.
-        endCursor:
-          type: string
-          description: The last cursor on this page is generally used to turn pages.
-        endPos:
-          type: integer
-          description: The last position on this page.
-        hasNextPage:
-          type: boolean
-          description: Is there a next page.
-        startCursor:
-          type: string
-          description: The first cursor on this page is generally used to turn pages.
-        startPos:
-          type: integer
-          description: The first position on this page.
-        totalCount:
-          type: integer
-          description: The total number of items available in the entire collection,
-            including those that are  returned in the current response.
     ListSuccessResponse:
       type: object
       properties:
-        result:
-          type: string
-          description: The result of this request.
+        $ref: ../../../../openapi-common/canary/en/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -594,20 +487,65 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/ListItem'
+            $ref: ../../../../openapi-common/canary/en/paging-query-response-pageInfo-schemas.yaml
+      example:
+        - result: SUCCESS
+          data:
+            list:
+              - assignee:
+                  id: 5f1b8a1b
+                  name: test
+                createTime: 1595555555
+                dueDate: 1595555555
+                timeEstimatedHour: 1
+                issueType:
+                  id: 9c6d4c01
+                  name: test
+                title: test
+                number: 1
+                creator:
+                  id: 5f1b8a1b
+                  name: test
+                parent:
+                  id: 5f1b8a1b
+                  title: test
+                priority:
+                  id: 9c6d4c01
+                  name: test
+                project:
+                  id: 5f1b8a1b
+                  name: test
+                timeRemainingHour: 1
+                sprint:
+                  id: 5f1b8a1b
+                  name: test
+                status:
+                  id: 5f1b8a1b
+                  name: test
+                  category: test
+                subIssueType:
+                  id: 5f1b8a1b
+                  name: test
+                subIssueCount: 1
+                subIssueDoneCount: 1
+                subIssues:
+                  - id: 5f1b8a1b
+                    name: test
+                totalTimeEstimatedHour: 1
+                timeSpentHour: 1
+                totalTimeRemainingHour: 1
+                id: 5f1b8a1b
+                attachments:
+                  - id: 5f1b8a1b
+                    name: test
+                    createTime: 1595555555
             pageInfo:
-              $ref: '#/components/schemas/PageInfo'
-    BadResponse:
-      type: object
-      properties:
-        result:
-          type: string
-          description: The result of this request.
-        errorCode:
-          type: string
-          description: The error code of this request.
-        errorMsg:
-          type: string
-          description: Error message for this request.
+              count: 1
+              endCursor: 'sample_end_cursor'
+              hasNextPage: false
+              startCursor: 'sample_start_cursor'
+              totalCount: 1
+    $ref: ../../../../openapi-common/canary/en/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2
