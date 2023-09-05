@@ -220,7 +220,7 @@ modules:
 
 - 类型：`string`
 
-模块图标名称，可选值为 [ONES Design 图标库](https://bangwork.github.io/ones-design/?path=/docs/icons--icon%E5%9B%BE%E6%A0%87%E5%BA%93) 中的图标
+模块图标名称，可选值为 [ONES Design 图标库](https://bangwork.github.io/ones-design/?path=/docs/icons--docs) 中的图标
 
 ### link
 

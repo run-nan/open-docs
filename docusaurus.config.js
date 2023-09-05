@@ -238,7 +238,7 @@ const config = {
             items: [
               {
                 label: 'ONES Design',
-                to: 'https://bangwork.github.io/ones-design/?path=/story/ones-design--page',
+                to: 'https://bangwork.github.io/ones-design/',
               },
               {
                 label: 'Learning map',
@@ -351,7 +351,7 @@ const config = {
             items: [
               {
                 label: 'ONES Design',
-                href: 'https://bangwork.github.io/ones-design/?path=/story/ones-design--page',
+                href: 'https://bangwork.github.io/ones-design/',
               },
               {
                 label: 'Learning map',

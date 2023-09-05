@@ -18,6 +18,7 @@ module.exports = {
   ignorePatterns: ['packages/icons'],
   extends: [
     'eslint:recommended',
+    'plugin:mdx/recommended',
     'plugin:react-hooks/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:@docusaurus/recommended',
@@ -31,9 +32,7 @@ module.exports = {
       },
     ],
     'no-constant-binary-expression': 'error',
-    'no-use-before-define': ['error', {
-      functions: false
-    }],
+    "no-use-before-define": "off",
     'object-shorthand': ['error', 'always', {
       avoidQuotes: true
     }],
@@ -61,6 +60,7 @@ module.exports = {
     }],
     '@typescript-eslint/no-redundant-type-constituents': ['warn'],
     '@typescript-eslint/no-this-alias': 'off',
+    "@typescript-eslint/no-use-before-define": "warn",
     '@typescript-eslint/prefer-optional-chain': ['error'],
   },
 }

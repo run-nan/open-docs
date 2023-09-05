@@ -149,22 +149,23 @@ Pre-require tasks run successfully
 每个插槽模块的 `index.tsx` 文件形如：
 
 ```tsx title="index.tsx"
+import { ConfigProvider } from '@ones-design/core'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { ConfigProvider } from '@ones-design/core'
+
 import './index.css'
 
 ReactDOM.render(
   <ConfigProvider>you module title</ConfigProvider>,
-  document.getElementById('ones-mf-root')
+  document.getElementById('ones-mf-root'),
 )
 ```
 
 :::caution
-你必须保留 index.tsx 中的 `<ConfigProvider>` 组件，否则插件将无法按照你预期的方式运行。详情请见 ONES Design 的 [ConfigProvider 全局化配置](https://bangwork.github.io/ones-design/?path=/docs/core-configprovider--config-provider%E5%85%A8%E5%B1%80%E5%8C%96%E9%85%8D%E7%BD%AE)组件文档。
+你必须保留 index.tsx 中的 `<ConfigProvider>` 组件，否则插件将无法按照你预期的方式运行。详情请见 ONES Design 的 [ConfigProvider 全局化配置](https://bangwork.github.io/ones-design/?path=/docs/core-configprovider--docs)组件文档。
 :::
 
-有关于组件库的具体使用，请参照：[ONES Design](https://bangwork.github.io/ones-design/?path=/story/ones-design--page)。
+有关于组件库的具体使用，请参照：[ONES Design](https://bangwork.github.io/ones-design/)。
 
 ### 添加插槽示例
 
