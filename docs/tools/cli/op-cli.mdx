@@ -2,6 +2,11 @@
 sidebar_position: 2
 ---
 
+import Image from '@theme/IdealImage'
+
+import triggerPatternImg from './images/trigger-regx.png'
+import urlPatternImg from './images/url-regx.png'
+
 # OP CLI Commands
 
 This reference lists the commands that you can use to build plugin with OP CLI.
@@ -84,7 +89,6 @@ npx op packup [filename]
 | Argument        | Requirements                  | Description                                                                                                                                               |
 | --------------- | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--bump <mode>` | `@ones/cli-plugin` `v1.14.0+` | packup plug-in with bump options, `no-modify`: do not bump version, `major`: bump major version, `minor`: bump minor version, `patch`: bump patch version |
-
 
 ## login
 
@@ -356,11 +360,160 @@ npx op update <target>
 | :--------------- |
 | v1.14.0+         |
 
-
 ### Overview
 
 Upgrade `@ones/cli-plugin` and relative dependencies to lastest version which range of current major version
 
 ```shell
 npx op upgrade
+```
+
+## scan
+
+Scan the interface URLs used in the plugin project.
+
+```shell
+npx op scan [target]
+```
+
+### Arguments
+
+| Argument | Description                                                                                                                                                                        |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `target` | The target type to scan, supported types are:<ul><li>`api`: API declarations in plugin code</li><li>`trigger`: [Trigger slots](../../abilities/slot/global/trigger) used</li></ul> |
+
+When `target` parameter is not provided, it will scan both `api` and `trigger` by default.
+
+### Options
+
+| Option   | Alias | Description                                                                                                                                               |
+| -------- | ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| --config | -c    | Path to the scan configuration file, default is `op-san.config.mjs`, if the configuration file doesn't exist, the default scan configuration will be used |
+
+### Scanning and Matching Rules
+
+#### api
+
+The op tool scans for **strings**, **string templates**, and **string concatenation expressions** in the plugin source code. When a string literal contains the character `/`, the scanning program considers it as a URL and converts it into a regular expression consisting of pre regex fragment, URL regex fragment, placeholder regex fragment, and post regex fragment.
+
+<Image img={urlPatternImg} />
+
+Additionally, for cases where the scanning tool fails to detect an API, you can manually specify the API using the `@ones-api` comment:
+
+```ts
+import APIs from 'apis'
+
+import { request } from './utils'
+
+// @ones-api: /api/project/users/me
+request(APIs.getUsers())
+```
+
+For cases where the scanning tool erroneously detects an API, you can manually exclude the API using the `@ones-api-ignore` comment:
+
+```tsx
+const Routes = () => {
+  return (
+    <Switch>
+      {/* @ones-api-ignore */}
+      <Route path="/login" component={Login} />
+      {/* @ones-api-ignore */}
+      <Route path="/register" component={Register} />
+    </Switch>
+  )
+}
+```
+
+Or you can manually exclude the entire file from scanning using the `@ones-api-ignore-file` comment:
+
+```tsx
+// @ones-api-ignore-file
+
+const Routes = () => {
+  return (
+    <Switch>
+      <Route path="/login" component={Login} />
+      <Route path="/register" component={Register} />
+    </Switch>
+  )
+}
+```
+
+#### trigger
+
+The op tool scans the [Trigger slots](../../abilities/slot/global/trigger) in the [plugin.yaml](../../reference/config/plugin.yaml.mdx), collects the corresponding APIs, and converts them into URL regular expressions.
+
+<Image img={triggerPatternImg} />
+
+After the scan is complete, the op tool performs regex matching between the collected URL regular expressions and the API set in the [scan configuration](#scan-configuration), and outputs the matched APIs.
+
+### Scan Configuration
+
+You can customize the scanning behavior using a configuration file. The path to the configuration file can be specified using the `--config` option, default is `op-san.config.mjs`, if the configuration file doesn't exist, the default scan configuration will be used.
+
+The scan configuration structure is as follows:
+
+```ts
+interface ScanConfigSchema {
+  roots?: string[]
+  exclude?: (string | RegExp)[]
+  apis?: string[]
+  output?: {
+    level?: 'matched' | 'all'
+    file?: string | undefined
+  }
+  patternFragment?: {
+    pre?: string
+    placeholder?: string
+    post?: string
+  }
+  checkIsPathLikeString?: (value: string) => boolean
+}
+```
+
+| Field Name                    | Field Type                   | Default                          | Description                                                                                                                       |
+| ----------------------------- | ---------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `roots`                       | `string[]`                   | `["web","backend"]`              | Root directories to scan                                                                                                          |
+| `exclude`                     | `(string｜RegExp)[]`         | `[/node_modules/]`               | Paths to exclude from scanning                                                                                                    |
+| `apis`                        | `string[]`                   | `[]`                             | The set of APIs to match                                                                                                          |
+| `output.level`                | `"matched"｜"all"`           | `"all"`                          | Output level of scan results:<ul><li>matched: Output only the matched scan results</li><li>all: Output all scan results</li></ul> |
+| `output.file`                 | `string`                     | `undefined`                      | Path to export scan results (in YAML format), if not specified, output to console only                                            |
+| `patternFragment.pre`         | `string`                     | `"(?:[^\n]*)"`                   | Pre-regex fragment of URL regular expression                                                                                      |
+| `patternFragment.placeholder` | `string`                     | `"(?:[^\n/]*)"`                  | Placeholder regex fragment of URL regular expression                                                                              |
+| `patternFragment.post`        | `string`                     | `"(?:[^\n]*)"`                   | Post-regex fragment of URL regular expression                                                                                     |
+| `checkIsPathLikeString`       | `(value: string) => boolean` | `(value) => value.includes("/")` | Custom function to determine whether a string is a URL                                                                            |
+
+To export the scan configuration in the configuration file, you can use the following code:
+
+```js
+/** @type {import("@ones/cli-plugin").ScanConfigSchema} */
+const config = {
+  apis: ['/api/project/users/me'],
+  output: {
+    level: 'matched',
+    file: 'api.yaml',
+  },
+}
+
+export default config
+```
+
+Alternatively, you can export a function that returns the scan configuration:
+
+```js
+export default async () => {
+  /** @type {import("@ones/cli-plugin").ScanConfigSchema} */
+  const config = {
+    output: {
+      level: 'all',
+      file: 'api.yaml',
+    },
+  }
+
+  if (process.env.NODE_ENV === 'production') {
+    config.apis = await getONESApis()
+  }
+
+  return config
+}
 ```
