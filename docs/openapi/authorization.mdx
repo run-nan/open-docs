@@ -10,8 +10,8 @@ sidebar_label: 'Authorization'
 
 According to the type of your organization:
 
-- Administrators of multi-team organizations create it in the ONES system in "Configuration Center" - "Organization Configuration" - "Custom OAuth Application". 
-- Administrators of single-team organizations create it in the ONES system in "Configuration Center" - "Team Configuration" - "Custom OAuth Application". 
+- Administrators of multi-team organizations create it in the ONES system in "Organization admin" - "Organization settings" - "Custom OAuth Application".
+- Administrators of single-team organizations create it in the ONES system in "Configuration Center" - "Team Configuration" - "Custom OAuth Application".
 
 After creating the OAuth application, you will receive a Client ID and Client Secret, which developers need to store securely.
 
@@ -19,8 +19,8 @@ Creating an OAuth application requires the following information:
 
 - Application Name: The name of the OAuth application.
 - Delegation Type:
-    - personal: apps of this type can be authorized by any ONES users, and after authoriztion the app gets a token that will act on behalf of the authorizing user. 
-    - organization: apps of this type can be authorized only by organizations fo multi-team organizations or team administrators of single-team organizations, after authorization the app gets a token that will act on behalf a virtual identity, which can access all data in the organization.
+  - personal: apps of this type can be authorized by any ONES users, and after authoriztion the app gets a token that will act on behalf of the authorizing user.
+  - organization: apps of this type can be authorized only by organizations fo multi-team organizations or team administrators of single-team organizations, after authorization the app gets a token that will act on behalf a virtual identity, which can access all data in the organization.
 - Redirect URI: Upon successful authorization code application, it will redirect to this address.
 - Scope: Select the extent of the ONES Open API that the OAuth application can access.
 
@@ -72,7 +72,7 @@ The 'access_token' is a globally unique credential for making API calls. It is r
 Request Example：
 
 ```
-curl 'https://your-domain/rest/api/v1/xxx' -H "Authorization: Bearer ACCESS_TOKEN"
+curl 'https://your-domain/openapi/v2/xxx' -H "Authorization: Bearer ACCESS_TOKEN"
 ```
 
 ## Get access token details

@@ -5,8 +5,8 @@ info:
   description: |
     此资源代表工作项状态。使用它来获取工作项状态。
 servers:
-  - url: https://your-domain/openapi/v1
-  - url: http://your-domain/openapi/v1
+  - url: https://your-domain/openapi/v2
+  - url: http://your-domain/openapi/v2
 paths:
   /project/issueStatuses:
     get:

@@ -5,8 +5,8 @@ info:
   description: |
     This resource represents issue comments. Use it to get, create, and delete issue comments.
 servers:
-  - url: https://your-domain/openapi/v1
-  - url: http://your-domain/openapi/v1
+  - url: https://your-domain/openapi/v2
+  - url: http://your-domain/openapi/v2
 paths:
   /project/issues/{issueID}/comments:
     get:

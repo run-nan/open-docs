@@ -5,14 +5,14 @@ info:
   description: |
     此资源代表工作项的关联关系。使用它来创建和删除工作项关联关系。
 servers:
-  - url: https://your-domain/openapi/v1
-  - url: http://your-domain/openapi/v1
+  - url: https://your-domain/openapi/v2
+  - url: http://your-domain/openapi/v2
 paths:
   /project/issues/{issueID}:
     post:
-      summary: 批量关联工作项
-      operationId: 01-batch-link-issue
-      description: 批量关联工作项
+      summary: 关联工作项
+      operationId: 01-link-issue
+      description: 关联工作项
       security:
         - oauth2:
             - write:project:issue
@@ -51,22 +51,33 @@ components:
     LinkIssueRequest:
       type: object
       properties:
-        issueIDs:
+        links:
           type: array
-          description: 要关联的工作项ID列表
           items:
-            type: string
-        linkType:
-          type: string
-          description: 关联类型
-          enum:
-            - 'relates to'
-            - 'duplicate'
+            type: object
+            properties:
+              issueIDs:
+                type: array
+                description: 工作项ID列表
+                items:
+                  type: string
+              linkType:
+                type: string
+                description: 工作项关联类型
+              linkDescType:
+                type: string
+                description: 工作项关联描述类型
+      required:
+        - issueIDs
+        - linkType
+        - linkDescType
       example:
-        - issueIDs:
-            - '1'
-            - '2'
-        - linkType: relates to
+        links:
+          - issueIDs:
+              - 'kikjhu18hubjin90'
+              - 'kikjhu18hubjin91'
+            linkType: 'UUID0001'
+            linkDescType: 'link_out_desc'
     LinkIssuesResponse:
       type: object
       properties:
