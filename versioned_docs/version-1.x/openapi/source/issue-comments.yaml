@@ -63,7 +63,7 @@ paths:
                 $ref: '#/components/schemas/SendCommentResponse'
         $ref: ../../../../openapi-common/latest/en/no-200-response.yaml
   /project/issues/{issueID}/comments/{commentsID}:
-    post:
+    delete:
       summary: Delete comment
       operationId: 03-delete-issue-comment
       description: Delete comment
