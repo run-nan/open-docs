@@ -4,6 +4,7 @@ sidebar_position: 2
 
 import Image from '@theme/IdealImage'
 
+import scanOutputImg from './images/scan-result.png'
 import triggerPatternImg from './images/trigger-regx.png'
 import urlPatternImg from './images/url-regx.png'
 
@@ -402,7 +403,7 @@ op工具会扫描插件源码中的**字符串**、**字符串模板**和**字�
 
 <Image img={urlPatternImg} />
 
-同时，对于扫描工具漏判的情况，你可以通过`@ones-api`注释手动指定API：
+对于扫描工具漏判的情况，你可以通过`@ones-api`注释手动指定API：
 
 ```ts
 import APIs from 'apis'
@@ -450,6 +451,8 @@ op工具会扫描[plugin.yaml](../../reference/config/plugin.yaml.mdx)中的[Tri
 <Image img={triggerPatternImg} />
 
 扫描完成后，op工具会将收集到的url正则表达式与[扫描配置](#扫描配置)中的API集合进行正则匹配，输出匹配到的API
+
+<Image img={scanOutputImg} />
 
 ### 扫描配置
 
