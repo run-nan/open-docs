@@ -10,8 +10,8 @@ sidebar_label: '认证授权'
 
 不同的组织类型创建 OAuth 应用的界面在不同的位置：
 
-- 多团队组织需组织管理员在 ONES 系统中「配置中心」-「组织配置」-「自定义 OAuth 应用」进行创建，创建 OAuth 应用。
-- 单团队组织需团队管理员在 ONES 系统中「配置中心」-「团队配置」-「自定义 OAuth 应用」进行创建，创建 OAuth 应用后。
+- 多团队组织需组织管理员在 ONES 系统中「组织管理」-「组织配置」-「自定义 OAuth 应用」进行创建，创建 OAuth 应用。
+- 单团队组织需团队管理员在 ONES 系统中「配置中心」-「团队配置」-「自定义 OAuth 应用」进行创建，创建 OAuth 应用。
 
 创建应用后会得到 Client ID、Client Secret，开发者需要进行妥善保存。
 
@@ -19,8 +19,8 @@ sidebar_label: '认证授权'
 
 - 应用名称：OAuth 应用名称。
 - 应用的授权模式：
-    - 个人授权模式，这个模式的应用可以被任意 ONES 用户进行 oauth 授权，授权后所得到的 token 代表授权用户的身份。 
-    - 组织授权模式，这个模式的应用仅可以被多团队组织的组织管理员或者单团队组织的团队管理员授权，授权后所得到的 token 代表一个虚拟身份，这个身份具有访问组织/团队内的所有数据
+  - 个人授权模式，这个模式的应用可以被任意 ONES 用户进行 oauth 授权，授权后所得到的 token 代表授权用户的身份。
+  - 组织授权模式，这个模式的应用仅可以被多团队组织的组织管理员授权。也可以被单团队组织的团队管理员或者超级管理员授权，授权后所得到的 token 代表一个虚拟身份，这个身份具有访问组织/团队内的所有数据
 - Redirect URI：申请授权码成功后，将重定向到该地址。
 - 范围：选择 OAuth 应用可访问 ONES Open API 的范围。
 
@@ -72,7 +72,7 @@ access_token 是全局唯一接口调用凭据，调用 Open API 时需要使用
 请求示例：
 
 ```
-curl 'https://your-domain/rest/api/v1/xxx' -H "Authorization: Bearer ACCESS_TOKEN"
+curl 'https://your-domain/openapi/v2/xxx' -H "Authorization: Bearer ACCESS_TOKEN"
 ```
 
 ## 获取访问令牌详情

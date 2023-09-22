@@ -5,8 +5,8 @@ info:
   description: |
     This resource represents issue status. Use it to get issue status.
 servers:
-  - url: https://your-domain/openapi/v1
-  - url: http://your-domain/openapi/v1
+  - url: https://your-domain/openapi/v2
+  - url: http://your-domain/openapi/v2
 paths:
   /project/issueStatuses:
     get:

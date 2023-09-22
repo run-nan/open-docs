@@ -5,14 +5,14 @@ info:
   description: |
     This resource represents issue association relationships. Use it to create and delete issue associations.
 servers:
-  - url: https://your-domain/openapi/v1
-  - url: http://your-domain/openapi/v1
+  - url: https://your-domain/openapi/v2
+  - url: http://your-domain/openapi/v2
 paths:
   /project/issues/{issueID}:
     post:
-      summary: Batch unlinking issues
-      operationId: 02-batch-unlink-issue
-      description: Batch unlinking issues
+      summary: Unlinking issues
+      operationId: 02-unlink-issue
+      description: Unlinking issues
       security:
         - oauth2:
             - write:project:issue
@@ -53,9 +53,25 @@ components:
       properties:
         issueIDs:
           type: array
-          description: Issue ID list.
           items:
             type: string
+          description: Issue ID list.
+        linkType:
+          type: string
+          description: Issue link type.
+        linkDescType:
+          type: string
+          description: Issue link desc type.
+      required:
+        - issueIDs
+        - linkType
+        - linkDescType
+      example:
+        issueIDs:
+          - 'kikjhu18hubjin90'
+          - 'kikjhu18hubjin91'
+        linkType: 'UUID0001'
+        linkDescType: 'link_out_desc'
     UnLinkIssuesResponse:
       type: object
       properties:

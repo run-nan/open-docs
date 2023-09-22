@@ -5,8 +5,8 @@ info:
   description: |
     此资源代表工作项属性。使用它来获取、创建、更新和删除工作项属性。
 servers:
-  - url: https://your-domain/openapi/v1
-  - url: http://your-domain/openapi/v1
+  - url: https://your-domain/openapi/v2
+  - url: http://your-domain/openapi/v2
 paths:
   /project/issueFields:
     get:

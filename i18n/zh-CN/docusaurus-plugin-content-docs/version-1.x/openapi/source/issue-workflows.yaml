@@ -5,8 +5,8 @@ info:
   description: |
     此资源代表工作项工作流。使用它来获取、执行工作流。
 servers:
-  - url: https://your-domain/openapi/v1
-  - url: http://your-domain/openapi/v1
+  - url: https://your-domain/openapi/v2
+  - url: http://your-domain/openapi/v2
 paths:
   /project/issues/{issueID}:
     get:

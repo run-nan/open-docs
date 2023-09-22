@@ -414,6 +414,9 @@
   "sidebar.openapi.category.Summary Mode Issue Worklogs": {
     "message": "汇总模式 工作项工时"
   },
+  "sidebar.openapi.category.Issue Worklogs": {
+    "message": "工作项工时"
+  },
   "sidebar.openapi.category.Issue Comments": {
     "message": "工作项评论"
   },
