@@ -45,8 +45,8 @@ modules:
 
 ### Available Hook API
 
-- [useEditor](../../../../../../reference/packages/editor/editor.md#useEditor)
-- [useEditorTools](../../../../../../reference/packages/editor/editor.md#useEditorTools)
+- [useDefaultEditor](../../../../../../reference/packages/editor/editor.md#useDefaultEditor)
+- [useDefaultEditorTools](../../../../../../reference/packages/editor/editor.md#useDefaultEditorTools)
 
 ### Register shortcut
 
@@ -59,8 +59,8 @@ import { useRegisterCommand } from '@ones-op/editor'
 
 function App() {
   const registerCommand = useRegisterCommand()
-  const editor = useEditor()
-  const tools = useEditorTools()
+  const editor = useDefaultEditor()
+  const tools = useDefaultEditorTools()
 
   useEffect(() => {
     registerCommand({
@@ -180,8 +180,8 @@ update the id in the `blockData.children` array.
 
 ```ts
 function BlockTabs(props: EditorBlockProps) {
-  const editor = useEditor()
-  const tools = useEditorTools()
+  const editor = useDefaultEditor()
+  const tools = useDefaultEditorTools()
   const containerRef = useRef<HTMLDivElement>(null)
   const activeTabKey = props.blockData.children[0]
 
@@ -235,6 +235,11 @@ function BlockTabs(props: EditorBlockProps) {
       getRangeFromPoint(block) {
         // Please implement the logic
       },
+      // Configure how to display the toolbar.
+      // The toolbar shows on the top of the block when the user hovers over it.
+      getBlockProperties() {
+        // Please implement the logic
+      }
     })
   }, [activeTabKey, editor, props, tools])
 

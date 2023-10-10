@@ -45,8 +45,8 @@ modules:
 
 ### 可访问的上下文数据
 
-- [useEditor](../../../../../../reference/packages/editor/editor.md#useEditor)
-- [useEditorTools](../../../../../../reference/packages/editor/editor.md#useEditorTools)
+- [useDefaultEditor](../../../../../../reference/packages/editor/editor.md#useDefaultEditor)
+- [useDefaultEditorTools](../../../../../../reference/packages/editor/editor.md#useDefaultEditorTools)
 
 ### 注册快捷指令
 
@@ -58,8 +58,8 @@ import { useRegisterCommand } from '@ones-op/editor'
 
 function App() {
   const registerCommand = useRegisterCommand()
-  const editor = useEditor()
-  const tools = useEditorTools()
+  const editor = useDefaultEditor()
+  const tools = useDefaultEditorTools()
 
   useEffect(() => {
     registerCommand({
@@ -168,8 +168,8 @@ function App() {
 
 ```ts
 function BlockTabs(props: EditorBlockProps) {
-  const editor = useEditor()
-  const tools = useEditorTools()
+  const editor = useDefaultEditor()
+  const tools = useDefaultEditorTools()
   const containerRef = useRef<HTMLDivElement>(null)
   const activeTabKey = props.blockData.children[0]
 
@@ -220,6 +220,11 @@ function BlockTabs(props: EditorBlockProps) {
       getRangeFromPoint(block) {
         // Please implement the logic
       },
+      // 配置如何展示工具栏。
+      // 当用户将鼠标悬停在块上方时，工具栏会显示在块的上方。
+      getBlockProperties() {
+        // Please implement the logic
+      }
     })
   }, [activeTabKey, editor, props, tools])
 

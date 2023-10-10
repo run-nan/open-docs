@@ -12,7 +12,7 @@
 
 ## 安装
 
-在插件 /web 目录，通过以下命令安装此包：
+在插件 `/web` 目录，通过以下命令安装此包：
 
 ```bash npm2yarn
 npm install @ones-op/editor
@@ -22,17 +22,15 @@ npm install @ones-op/editor
 
 导出的标准 [React Hooks](https://reactjs.org/docs/hooks-custom.html#gatsby-focus-wrapper) 用法 API，具体参数详见下述：
 
-### useEditor {#useEditor}
+### useDefaultEditor {#useDefaultEditor}
 
-Get the wiz editor instance. It's used to create/update the editor data, get the block container, etc.
-
-获取 wiz 编辑器实例。用于创建/更新编辑器数据，获取块容器等。
+获取 wiki 编辑器实例。用于创建/更新编辑器数据，获取块容器等。
 
 #### 返回
 
-| 说明                | 类型       |
-| ------------------- | ---------- |
-| 当前 wiz 编辑器实例 | `MFEditor` |
+| 说明                     | 类型       |
+| ------------------------ | ---------- |
+| 当前 wiki 协同编辑器实例 | `MFEditor` |
 
 #### 类型
 
@@ -99,17 +97,15 @@ export interface MFEditor extends MFEditorEventEmitter {
 }
 ```
 
-### useEditorTools {#useEditorTools}
+### useDefaultEditorTools {#useDefaultEditorTools}
 
-Get the wiz editor tools. It's used to create child container id, an selected range in the editor, etc.
-
-获取 wiz 编辑器工具方法。用于创建子容器 ID，编辑器中的选中范围等。
+获取 wiki 协同编辑器工具方法。用于创建子容器 ID，编辑器中的选中范围等。
 
 #### 返回
 
-| 说明               | 类型            |
-| ------------------ | --------------- |
-| wiz 编辑器工具方法 | `MFEditorTools` |
+| 说明                    | 类型            |
+| ----------------------- | --------------- |
+| wiki 协同编辑器工具方法 | `MFEditorTools` |
 
 #### 类型
 

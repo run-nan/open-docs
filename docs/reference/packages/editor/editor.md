@@ -22,15 +22,15 @@ npm install @ones-op/editor
 
 The exported standard [React Hooks](https://reactjs.org/docs/hooks-custom.html#gatsby-focus-wrapper) usage API, the specific parameters are shown in the following:
 
-### useEditor {#useEditor}
+### useDefaultEditor {#useDefaultEditor}
 
-Get the wiz editor instance. It's used to create/update the editor data, get the block container, etc.
+Get the wiki collaborative page's editor instance. It's used to create/update the editor data, get the block container, etc.
 
 #### Returns
 
-| Description                 | Type       |
-| --------------------------- | ---------- |
-| Current wiz editor instance | `MFEditor` |
+| Description                                           | Type       |
+| ----------------------------------------------------- | ---------- |
+| The current wiki collaborative page's editor instance | `MFEditor` |
 
 #### Types
 
@@ -98,15 +98,15 @@ export interface MFEditor extends MFEditorEventEmitter {
 }
 ```
 
-### useEditorTools {#useEditorTools}
+### useDefaultEditorTools {#useDefaultEditorTools}
 
-Get the wiz editor tools. It's used to create child container id, an selected range in the editor, etc.
+Get the wiki collaborative page's editor tools. It's used to create child container id, an selected range in the editor, etc.
 
 #### Returns
 
-| Description              | Type            |
-| ------------------------ | --------------- |
-| Current wiz editor tools | `MFEditorTools` |
+| Description                                        | Type            |
+| -------------------------------------------------- | --------------- |
+| The current wiki collaborative page's editor tools | `MFEditorTools` |
 
 #### Types
 
