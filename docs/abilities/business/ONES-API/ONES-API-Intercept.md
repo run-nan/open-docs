@@ -2,59 +2,59 @@
 sidebar_position: 5
 ---
 
-# ONES 接口前置拦截
+# ONES API Intercept
 
-## 要求
+## Require
 
 | ONES |
 | :--- |
 |      |
 
-## 概述
+## Overview
 
-有时候我们需要改变 ONES 系统中某些行为的表现，在某个行为前增加一些操作，插件可以对 ONES 标准系统中所有对外开放的接口进行前置拦截。
+Sometimes we need to change the performance of certain behaviors in the ONES system and add some operations before a certain behavior. The plug-in can pre-intercept all open interfaces in the ONES standard system.
 
-## 使用
+## use
 
-### 使用须知
+### Terms and Conditions
 
-1. 组织级别的接口和团队级别的接口的差别在于团队级别接口的 `url` 中包含有 `/team/:teamUUID`。
-2. 对于同一个接口在其级别的上下文中，可被多个插件同时进行前置拦截。
-3. 对于同一个接口在其级别的上下文中，前置拦截跟接口劫持能力不能同时使用。
-4. 对于同一个接口在其级别的上下文中，前置拦截跟后置订阅可同时使用。
-5. 插件可对这次请求进行拒绝，并决定接口的错误返回，但无法进行其他操作。
-6. 在本地调试中，如果修改了插件配置文件`config/plugin.yaml`，需要运行 `npx op invoke clear` 并重新运行 `npx op invoke run` 指令才能使配置生效。
+1. The difference between the organization-level interface and the team-level interface is that the `url` of the team-level interface contains `/team/:teamUUID`.
+2. The same interface can be pre-intercepted by multiple plug-ins at the same time in its level context.
+3. For the same interface in its level context, pre-interception and interface hijacking capabilities cannot be used at the same time.
+4. For the same interface in the context of its level, pre-interception and post-subscription can be used at the same time.
+5. The plug-in can reject this request and determine the error return of the interface, but it cannot perform other operations.
+6. In local debugging, if the plug-in configuration file `config/plugin.yaml` is modified, you need to run `npx op invoke clear` and re-run the `npx op invoke run` command to make the configuration take effect.
 
-### 请求流程
+### Request process
 
 ```mermaid
 sequenceDiagram
-    autonumber
-    用户前端->>+ONES: 请求
-    ONES->>+Plugin: 批量转发
-    Plugin->>Plugin: 做前置处理
-    Plugin->>-ONES: 传回请求
-    ONES->>ONES: 请求处理
-    ONES->>-用户前端: 返回
+     autonumber
+     User frontend->>+ONES: request
+     ONES->>+Plugin: Batch forwarding
+     Plugin->>Plugin: do pre-processing
+     Plugin->>-ONES: Return request
+     ONES->>ONES: request processing
+     ONES->>-User Frontend: Return
 ```
 
-### 配置文件
+### Configuration file
 
-在插件配置文件中的 `apis` 字段加上以下配置：
+Add the following configuration to the `apis` field in the plugin configuration file:
 
 ```yaml title='/config/plugin.yaml'
 apis:
-  - type: intercept #接口类型： intercept:前置拦截
-    methods: #接口请求方式
-      - GET
-    url: /users/me #劫持接口url
-    scope: project #project或wiki接口，没有该属性则默认为project
-    function: jackFunc #名称与代码里的函数名保持一致
+  - type: intercept #Interface type: intercept: pre-interception
+    methods: #Interface request method
+      -GET
+    url: /users/me #Hijack interface url
+    scope: project #project or wiki interface, without this attribute, the default is project
+    function: jackFunc #The name should be consistent with the function name in the code
 ```
 
-### 具体代码
+### Specific code
 
-该示例前置拦截了 project 获取个人信息接口，代码中的headers跟body分别是原请求的请求头跟请求体
+This example pre-intercepts the project's personal information acquisition interface. The headers and body in the code are the request header and request body of the original request respectively.
 
 ```typescript
 import { Logger } from '@ones-op/node-logger'
@@ -64,9 +64,9 @@ export async function jackFunc(
 ): Promise<PluginResponse> {
   const body = request.body as any
   const headers = request.headers as any
-  Logger.error('[Plugin] hello ======= 请求成功')
-  Logger.error('[Plugin] body ======= 请求成功', body)
-  Logger.error('[Plugin] headers ======= 请求成功', headers)
+  Logger.error('[Plugin] hello ======= Request successful')
+  Logger.error('[Plugin] body ======= Request successful', body)
+  Logger.error('[Plugin] headers ======= Request successful', headers)
   return {
     body: {
       res: 'hello world',
@@ -76,17 +76,16 @@ export async function jackFunc(
 }
 ```
 
-- 注意事项
+- Precautions
 
-  接口请求参数需要注意以下几点：
+  The following points need to be noted when using interface request parameters:
 
-  - 拦截的是 ONES API ，所以填写的 `url` 必须跟访问 ONES API 的 `url` 保持一致；
+- - What is being intercepted is the ONES API, so the `url` filled in must be consistent with the `url` used to access the ONES API;
+  - Confirm whether the intercepted interface itself is a `POST` request or a `GET` request;
 
-  - 确认被拦截接口本身是 `POST` 请求还是 `GET` 请求；
+### Debugging method
 
-### 调试方式
-
-- 使用 `curl` 工具进行访问，以`/users/me`接口为例：
+- Use the `curl` tool to access, taking the `/users/me` interface as an example:
 
   ```shell
   curl --location --request GET 'https://yourhost/users/me' \
@@ -96,10 +95,10 @@ export async function jackFunc(
   --data ''
   ```
 
-- 代码请求参数示例
+- Example of code request parameters
 
   ```
-  url：https://yourhost/users/me
+  url: https://yourhost/users/me
   headers:
       Ones-User-Id:{user_uuid}
       Ones-Auth-Token:{user_token}

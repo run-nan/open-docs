@@ -85,7 +85,6 @@ export async function jackFunc(
   接口请求参数需要注意以下几点：
 
   - 拦截的是 ONES API ，所以填写的 `url` 必须跟访问 ONES API 的 `url` 保持一致；
-
   - 确认被拦截接口本身是 `POST` 请求还是 `GET` 请求；
 
 ### 调试方式
