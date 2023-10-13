@@ -95,4 +95,4 @@ export async function getUserme(
 
 ## 其他
 
-具体参数释义请参考：[@ones-op/node-fetch](../../../reference/packages/node-fetch/node-fetch.md)
+具体参数释义请参考：[@ones-op/node-fetch](../../../reference/legacy-packages/node-fetch/node-fetch.md)

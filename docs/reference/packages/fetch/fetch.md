@@ -2,17 +2,21 @@
 
 [![](https://npm.partner.ones.cn/badge/v/@ones-op/fetch.svg)](https://npm.partner.ones.cn/package/@ones-op/fetch)
 
-We provide a set of interface request library that can help you request interfaces exposed to the backend of the plugin in the frontend of the plugin, or request external interfaces.
+We provide a set of interface request libraries that support both front and back-end interfaces, which can help you request within a plugin: ONES interfaces, plugin interfaces, or external interfaces.
+
+:::note
+Since the "@ones-op/fetch" 0.6.0 version, the "@ones-op/fetch" library integrates "@ones-op/node-fetch" functionality by means of an adapter, so you can use the same APIs in the plugin backend as in the frontend.
+:::
 
 ## Requirements
 
 | **@ones-op/fetch** |
 | ------------------ |
-| v0.4.0+            |
+| v0.6.0+            |
 
 ## Installation
 
-Install the package in the plugin `/web` directory using the following command:
+Install the package in the plugin `/web` and `/backend` directory using the following command:
 
 ```bash npm2yarn
 npm install @ones-op/fetch
@@ -20,29 +24,54 @@ npm install @ones-op/fetch
 
 ## Usage
 
-Request the ONES and plugin interfaces.
+**Backend:**
 
-```tsx
+```ts title="backend/index.ts"
 import { OPFetch } from '@ones-op/fetch'
 
-function fetchData() {
-  OPFetch('api/project/users/me').then((response) => {
-    console.log('me: ', response)
-  })
-  OPFetch('api/project/hello').then((response) => {
-    console.log('hello: ', response)
-  })
-}
+// fetch ONES API in the plugin backend
+OPFetch('/users/me').then((response) => {
+  console.log('me: ', response.data)
+})
+
+// fetch external API in the plugin backend
+OPFetch('https://jsonplaceholder.typicode.com/todos/1').then((response) => {
+  console.log('todo: ', response.data)
+})
+```
+
+**Frontend:**
+
+```tsx title="web/index.tsx"
+import { OPFetch } from '@ones-op/fetch'
+
+const fetchProject = OPFetch.create({ baseURL: '/project/api/project' })
+
+// fetch ONES API in the plugin frontend
+fetchProject('/users/me').then((response) => {
+  console.log('me: ', response.data)
+})
+
+// fetch plugin API in the plugin frontend
+fetchProject('/hello').then((response) => {
+  console.log('hello: ', response.data)
+})
+
+// fetch external API in the plugin frontend
+OPFetch('https://jsonplaceholder.typicode.com/todos/1').then((response) => {
+  console.log('todo: ', response.data)
+})
 ```
 
 ## Index
 
-| API                               | Description                                                        |
-| --------------------------------- | ------------------------------------------------------------------ |
-| [OPFetch](#OPFetch)               | Default ONES and plugin request instance                           |
-| [Fetch](#Fetch)                   | Default request instance                                           |
-| [isOPError](#isOPError)           | Determine whether it is an open platform or plugin interface error |
-| [OPErrorHandler](#OPErrorHandler) | Open platform or plugin standard interface error processing method |
+| API                               | Description                                                        | Limitations  |
+| --------------------------------- | ------------------------------------------------------------------ | ------------ |
+| [OPFetch](#OPFetch)               | Default ONES and plugin request instance                           | Unrestricted |
+| [Fetch](#Fetch)                   | Default request instance                                           | Unrestricted |
+| [isFetchError](#isFetchError)     | Determine whether a request is in error                            | Unrestricted |
+| [isOPError](#isOPError)           | Determine whether it is an open platform or plugin interface error | Browser only |
+| [OPErrorHandler](#OPErrorHandler) | Open platform or plugin standard interface error processing method | Browser only |
 
 ## APIs
 
@@ -52,15 +81,25 @@ The default request instance of **ONES standard and plugin**, inherits from [`Fe
 
 `OPFetch` instance built-in related configuration, it is inherited by the instance `create` method.
 
-#### Headers
+<details>
+<summary>Built-in internal message queue request ONES interface method adapter (backend)</summary>
 
-Built-in request header information.
+We have integrated the internal message queue request ONES interface method (formerly the `fetchONES` method of "@ones-op/node-fetch") into `OPFetch` by way of an adapter. If your request parameter is a relative path, an internal message queue request will request the ONES interface for you instead of `http`.
+
+</details>
+
+<details>
+<summary>Built-in request headers required by plugins (browser)</summary>
+
+We have built-in request headers in `OPFetch` that are necessary for requesting the current plugin, and in general you don't need to be concerned about request headers here when requesting the ONES interface and the current plugin's backend interface.
 
 | Key              | Value          | Description                                |
 | ---------------- | -------------- | ------------------------------------------ |
 | ones-check-id    | `teamUUID`     | Current team UUID                          |
 | ones-check-point | `'team'`       | `ones-check-id` type, fixed value `'team'` |
 | ones-plugin-id   | `instanceUUID` | Current plugin instance UUID               |
+
+</details>
 
 ### Fetch {#Fetch}
 
@@ -72,7 +111,8 @@ Default request instance，only common configurations and interceptors that are 
 
 Built-in inheritable interceptors, it is inherited by the instance `create` method.
 
-##### Params alias
+<details>
+<summary>GET request parameter alias</summary>
 
 In normal businesses, we don't think there should be cases where a `GET` request needs a `body`, so we've built in a `ParamsAlias` inheritable interceptor for you.
 
@@ -85,31 +125,56 @@ Examples:
 Fetch('api/project/users/me', { method: 'GET', data: { timestamp: Date.now() } })
 ```
 
-### isOPError {#isOPError}
+</details>
 
-Determine whether it is an open platform or plugin interface error.
+### isFetchError {#isFetchError}
 
-Reference for judging: `/^(plugin|platform)\./i.test(response.model)`。
+Determine if the request has an error.
 
 #### Params
 
-| Params   | Description                          | Type                        | Required | Default |
-| -------- | ------------------------------------ | --------------------------- | -------- | ------- |
-| response | Error data returned by the interface | [`OPError`](#Types.OPError) | Y        |         |
+| Parameter | Description                   | Type      | Required | Default |
+| --------- | ----------------------------- | --------- | -------- | ------- | --- |
+| error     | Error captured by the request | `unknown` | yes      |         |     |
 
 #### Returns
 
-| Description                                              | Type      |
-| -------------------------------------------------------- | --------- |
-| Whether it is an Open Platform or plugin interface error | `Boolean` |
+| Description                     | Type      |
+| ------------------------------- | --------- |
+| Whether the request is in error | `Boolean` |
 
 #### Types
 
 ```ts
-function isOPError(response: { model?: string }): boolean
+function isFetchError<T = any, D = any>(error: any): error is FetchError<T, D>
 ```
 
-### OPErrorHandler {#OPErrorHandler}
+### isOPError(Browser) {#isOPError}
+
+Based on the data of the error, determine whether it is a standard interface error of the Open
+Platform or plugin.
+
+Reference for judging: `/^(plugin|platform)\./i.test(error?.response?.data?.model ?? response.model)`。
+
+#### Params
+
+| Params                        | Description                                | Type                                             | Required | Default |
+| ----------------------------- | ------------------------------------------ | ------------------------------------------------ | -------- | ------- |
+| fetchError/fetchErrorResponse | Errors (or data) returned by the interface | `FetchError`/[`OPErrorData`](#Types.OPErrorData) | Y        |         |
+
+#### Returns
+
+| Description                                                     | Type      |
+| --------------------------------------------------------------- | --------- |
+| Is it a standard interface error for an open platform or plugin | `Boolean` |
+
+#### Types
+
+```ts
+function isOPError(error: FetchError<{ model?: string }> | { model?: string }): boolean
+```
+
+### OPErrorHandler(Browser) {#OPErrorHandler}
 
 Open Platform or plugin interface error standard handling method.
 
@@ -117,14 +182,14 @@ Based on the content of the `type` and `reason` of the standard error data, `toa
 
 #### Params
 
-| Params   | Description                   | Type                        | Required | Default |
-| -------- | ----------------------------- | --------------------------- | -------- | ------- |
-| response | Interface standard error data | [`OPError`](#Types.OPError) | Y        |         |
+| Params                        | Description                                | Type                                             | Required | Default |
+| ----------------------------- | ------------------------------------------ | ------------------------------------------------ | -------- | ------- |
+| fetchError/fetchErrorResponse | Errors (or data) returned by the interface | `FetchError`/[`OPErrorData`](#Types.OPErrorData) | Y        |         |
 
 #### Types
 
 ```ts
-function OPErrorHandler(response: OPError) => void
+function OPErrorHandler(response: OPErrorData) => void
 ```
 
 ### <Instance\> {#Instance}
@@ -216,16 +281,31 @@ const request = OPFetch.create(config, inheritableInterceptors)
 
 #### <Instance\>.<other\>
 
-`@ones-op/fetch` is ultimately inherited from the [axios](https://axios-http.com/) library. The remaining APIs that have not been listed do not involve or affect. You can directly refer to the [axios](https://github.com/axios/axios/tree/v0.x#axios-api) reference version of the API documentation.
+`@ones-op/fetch` is ultimately inherited from the [axios](https://axios-http.com/) library. The remaining APIs that have not been listed do not involve or affect. You can directly refer to the [axios](https://github.com/axios/axios/tree/v1.x#axios-api) reference version of the API documentation.
 
 ## Types
 
-### OPError {#Types.OPError}
+### FetchError {#Types.FetchError}
+
+Fetch Library Request Error Type.
+
+```tsx
+class FetchError<T = unknown, D = any> extends Error {
+  config?: FetchRequestConfig<D>
+  code?: string
+  request?: any
+  response?: FetchResponse<T, D>
+  status?: number
+  cause?: Error
+}
+```
+
+### OPErrorData {#Types.OPErrorData}
 
 Definition of the type of error types of ONES Open Platform and plugin standard.
 
 ```tsx
-interface OPError {
+interface OPErrorData {
   model: string
   reason: string
   type: 'error' | 'warning' | 'info'
@@ -259,6 +339,10 @@ type FetchInheritableInterceptor<T = FetchConfig, D = any> =
 
 These are the available config options for making requests. Only the `url` is required. Requests will default to `GET` if `method` is not specified.
 
+:::note
+Plugin backend internal message queue request ONES interface method adapter hereinafter: Plugin Node Adapter. see [OPFetch](#OPFetch) for a detailed description Introduction.
+:::
+
 ```ts
 {
   // `url` is the server URL that will be used for the request
@@ -272,10 +356,19 @@ These are the available config options for making requests. Only the `url` is re
   // to methods of that instance.
   baseURL: 'https://some-domain.com/api',
 
+  // Team `uuid`, required for organization-level plugins.
+  // Plugin Node Adapter only
+  teamUUID: 'yqwqqqwq',
+
+  // Whether to use the plugin superuser
+  // Plugin Node Adapter only
+  root: true, // default
+
   // `autoErrorToast` indicates whether or not popup a window to show error info which request plugin's interface
   // When using it, the plug-in backend needs to be used in conjunction with the corresponding `node-error` sdk
   // `node-error` can refer from https://developer.ones.com/docs/reference/packages/node-error/
   // It can deal with the plugin's interface's error automatically
+  // Browser `OPFetch` only
   autoErrorToast: true, //default
 
   // `transformRequest` allows changes to the request data before it is sent to the server
@@ -319,18 +412,14 @@ These are the available config options for making requests. Only the `url` is re
   // `data` is the data to be sent as the request body
   // Only applicable for request methods 'PUT', 'POST', 'DELETE', and 'PATCH'
   // When no `transformRequest` is set, must be of one of the following types:
-  // - string, plain object, ArrayBuffer, ArrayBufferView, URLSearchParams
-  // - `GET` method only: string, plain object
+  // - string, ArrayBuffer, ArrayBufferView, URLSearchParams
+  // - `GET` method only: plain object, string, plain object
   // - Browser only: FormData, File, Blob
-  // - Node only: Stream, Buffer
+  // - Node only: plain object, Stream, Buffer
+  // - Plugin Node Adapter: Buffer
   data: {
     firstName: 'Fred'
   },
-
-  // syntax alternative to send data into the body
-  // method post
-  // only the value is sent, not the key
-  data: 'Country=Brasil&City=Belo Horizonte',
 
   // `timeout` specifies the number of milliseconds before the request times out.
   // If the request takes longer than `timeout`, the request will be aborted.
@@ -338,6 +427,7 @@ These are the available config options for making requests. Only the `url` is re
 
   // `withCredentials` indicates whether or not cross-site Access-Control requests
   // should be made using credentials
+  // Browser only
   withCredentials: false, // default
 
   // `adapter` allows custom handling of requests which makes testing easier.
@@ -351,14 +441,16 @@ These are the available config options for making requests. Only the `url` is re
   // `Authorization` custom headers you have set using `headers`.
   // Please note that only HTTP Basic auth is configurable through this parameter.
   // For Bearer tokens and such, use `Authorization` custom headers instead.
+  // Unsupported Plugin Node Adapter
   auth: {
     username: 'janedoe',
     password: 's00pers3cret'
   },
 
   // `responseType` indicates the type of data that the server will respond with
-  // options are: 'arraybuffer', 'document', 'json', 'text', 'stream'
-  //   browser only: 'blob'
+  // options are: 'arraybuffer', 'json', 'text'
+  // browser only: 'document', 'stream', 'blob'
+  // Node.js only: 'document', 'stream'
   responseType: 'json', // default
 
   // `responseEncoding` indicates encoding to use for decoding responses (Node.js only)
@@ -366,9 +458,11 @@ These are the available config options for making requests. Only the `url` is re
   responseEncoding: 'utf8', // default
 
   // `xsrfCookieName` is the name of the cookie to use as a value for xsrf token
+  // Unsupported Plugin Node Adapter
   xsrfCookieName: 'XSRF-TOKEN', // default
 
   // `xsrfHeaderName` is the name of the http header that carries the xsrf token value
+  // Unsupported Plugin Node Adapter
   xsrfHeaderName: 'X-XSRF-TOKEN', // default
 
   // `onUploadProgress` allows handling of progress events for uploads
@@ -386,7 +480,7 @@ These are the available config options for making requests. Only the `url` is re
   // `maxContentLength` defines the max size of the http response content in bytes allowed in Node.js
   maxContentLength: 2000,
 
-  // `maxBodyLength` (Node only option) defines the max size of the http request content in bytes allowed
+  // `maxBodyLength` (Node and Plugin Node Adapter only option) defines the max size of the http request content in bytes allowed
   maxBodyLength: 2000,
 
   // `validateStatus` defines whether to resolve or reject the promise for a given
@@ -399,6 +493,7 @@ These are the available config options for making requests. Only the `url` is re
 
   // `maxRedirects` defines the maximum number of redirects to follow in node.js.
   // If set to 0, no redirects will be followed.
+  // Node.js only
   maxRedirects: 5, // default
 
   // `socketPath` defines a UNIX Socket to be used in node.js.
@@ -410,6 +505,7 @@ These are the available config options for making requests. Only the `url` is re
   // `httpAgent` and `httpsAgent` define a custom agent to be used when performing http
   // and https requests, respectively, in node.js. This allows options to be added like
   // `keepAlive` that are not enabled by default.
+  // Node.js only
   httpAgent: new http.Agent({ keepAlive: true }),
   httpsAgent: new https.Agent({ keepAlive: true }),
 
@@ -424,6 +520,7 @@ These are the available config options for making requests. Only the `url` is re
   // This will set an `Proxy-Authorization` header, overwriting any existing
   // `Proxy-Authorization` custom headers you have set using `headers`.
   // If the proxy server uses HTTPS, then you must set the protocol to `https`.
+  // Node.js only
   proxy: {
     protocol: 'https',
     host: '127.0.0.1',
@@ -453,3 +550,9 @@ These are the available config options for making requests. Only the `url` is re
 ### Why it still popup a toast without [node-error](../../packages/node-error) when catch a interface's error?
 
 When autoErrorToast set to be true, we will judge Whether to popup toast by calling isOPError method, so if you custom a response can pass the check of isOPError, it also works out.
+
+### How do I request an interface across plugins?
+
+First of all, we **strongly don't recommend** you do this, you should rather consider merging two plugins into one.
+
+However, if you have a reason why you have to do this. In the plugin front-end, you can manually pass in the target plugin's `ones-plugin-id` request header to make the request; in the plugin backend, you'll need to pass in an absolute path to the request URL, which `OPFetch` / `Fetch` will internally request for you via the `http` module (note that you'll need to pass in all of the plugin's required [request headers](#OPFetch)).

@@ -7,7 +7,7 @@ description: Multiple request schemes, request any data you want.
 
 ## Overview
 
-In the plugin project, it is necessary to request the interface to obtain data, so the platform provides the frontend request ability package [@ones-op/fetch](../../reference/packages/fetch/fetch.md) and the backend request ability package [@ones-op/node-fetch](../../reference//packages/node-fetch/node-fetch.md). So before you make a request, you need to know who you are asking for. Then choose the appropriate ability to use.
+In the plugin project, it is necessary to request the interface to obtain data, so the platform provides the frontend request ability package [@ones-op/fetch](../../reference/packages/fetch/fetch.md) and the backend request ability package [@ones-op/node-fetch](../../reference/legacy-packages/node-fetch/node-fetch.md). So before you make a request, you need to know who you are asking for. Then choose the appropriate ability to use.
 
 At the same time, in each package, we provide different request methods for you to call according to different scenarios. In this way, you don't have to write repetitive information such as request headers in each request, which simplifies your development workload.
 
@@ -150,4 +150,4 @@ You may have noticed that we brought a `root: true` when we requested it, and al
 - When making a frontend request, put `Ones-User-Id` and `Ones-Auth-Token` in the request header, and then obtain the request header from the request object.
 - Request ONES [Get login information](../../api/auth/auth.md#获取登录信息) API.
 
-For other information about super admin, you can refer to [super admin](../../abilities/basic/super-admin.md) and [@ones-op/node-fetch](../../reference/packages/node-fetch/node-fetch.md).
+For other information about super admin, you can refer to [super admin](../../abilities/basic/super-admin.md) and [@ones-op/node-fetch](../../reference/legacy-packages/node-fetch/node-fetch.md).

@@ -37,6 +37,7 @@ jobs:
           canary:
             - 'docs/**'
             - 'i18n/zh-CN/docusaurus-plugin-content-docs/current/**'
+            - 'i18n/zh-CN/docusaurus-plugin-content-docs/current.json'
     - name: Check if only the canary has been changed
       if: steps.filter.outputs.canary == 'false'
       run: |

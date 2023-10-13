@@ -1,6 +1,14 @@
-# @ones-op/node-fetch
+# @ones-op/node-fetch（已废弃）
 
-插件**后端**接口访问能力相关 API
+[![](https://npm.partner.ones.cn/badge/v/@ones-op/node-fetch.svg)](https://npm.partner.ones.cn/package/@ones-op/node-fetch)
+
+:::warning 已废弃
+
+我们已经将 “@ones-op/node-fetch” 功能集成进了 “[@ones-op/fetch](../../packages/fetch/fetch.md)” 包，此包将不会在进行维护，请优先使用 “[@ones-op/fetch](../../packages/fetch/fetch.md)” 包。
+
+:::
+
+插件**后端**接口访问能力相关 API。
 
 ## 要求
 

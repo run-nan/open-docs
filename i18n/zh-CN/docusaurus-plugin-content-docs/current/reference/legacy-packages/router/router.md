@@ -2,9 +2,9 @@
 
 [![](https://npm.partner.ones.cn/badge/v/@ones-op/router.svg)](https://npm.partner.ones.cn/package/@ones-op/router)
 
-:::caution 注意
+:::warning 已废弃
 
-此包已弃用，请改用“react-router-dom”。在替换“@ones-op/router”之前，请务必阅读有关[“enableMemoryRouter”](../../config/plugin.yaml#enablememoryrouter)配置项的文档并将其值设置为 true。
+此包已弃用，请改用 “react-router-dom”。在替换 “@ones-op/router” 之前，请务必阅读有关 [“enableMemoryRouter”](../../config/plugin.yaml#enablememoryrouter) 配置项的文档并将其值设置为 `true`。
 
 :::
 

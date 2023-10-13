@@ -7,7 +7,7 @@ description: 多种请求方案，请求任何你想要的数据。
 
 ## 概述
 
-在插件工程中，少不了需要请求接口获取数据，所以平台提供了前端请求能力包 [@ones-op/fetch](../../reference/packages/fetch/fetch.md) 以及后端请求能力包 [@ones-op/node-fetch](../../reference//packages/node-fetch/node-fetch.md)。所以在进行请求之前，你先要了解请求你请求的对象是什么？然后再选择合适的能力来使用。
+在插件工程中，少不了需要请求接口获取数据，所以平台提供了前端请求能力包 [@ones-op/fetch](../../reference/packages/fetch/fetch.md) 以及后端请求能力包 [@ones-op/node-fetch](../../reference/legacy-packages/node-fetch/node-fetch.md)。所以在进行请求之前，你先要了解请求你请求的对象是什么？然后再选择合适的能力来使用。
 
 同时在每一个包中，我们根据不同的场景提供了不同的请求方法供你调用。这样你就不需要在每个请求中编写如请求头之类的重复信息，简化了你的开发工作量。
 
@@ -152,4 +152,4 @@ export async function hello(request: PluginRequest): Promise<PluginResponse> {
 - 前端请求时，在请求头中带上 `Ones-User-Id` 和 `Ones-Auth-Token`，然后从 request 对象中获取该请求头。
 - 请求 ONES [获取登录信息](../../api/auth/auth.md#获取登录信息) API。
 
-有关超级用户的其他信息，你可以参考[超级用户](../../abilities/basic/super-admin.md) 和 [@ones-op/node-fetch](../../reference/packages/node-fetch/node-fetch.md)。
+有关超级用户的其他信息，你可以参考[超级用户](../../abilities/basic/super-admin.md) 和 [@ones-op/node-fetch](../../reference/legacy-packages/node-fetch/node-fetch.md)。
