@@ -1,0 +1,82 @@
+openapi: 3.0.1
+info:
+  title: Issue permission
+  version: '1.0'
+  description: |
+    此资源代表工作权限相关内容。目前支持检查是否拥有工作项某些权限点的权限。
+servers:
+  - url: https://your-domain/openapi/v2
+  - url: http://your-domain/openapi/v2
+paths:
+  /project/issues/{issueID}:
+    post:
+      summary: 检查工作项权限点
+      operationId: 01-check-permission
+      description: 检查是否拥有工作项某些权限点的权限
+      security:
+        - oauth2:
+            - read:project:issue
+      parameters:
+        - name: action
+          in: query
+          required: true
+          schema:
+            type: string
+          description: |
+            - action: 操作工作项,支持 `checkPermission`.
+        - name: issueID
+          in: path
+          description: 工作项ID
+          required: true
+          schema:
+            type: string
+        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
+      requestBody:
+        description: 要检查的工作项权限点列表
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckIssuePermissionRequest'
+        required: true
+      responses:
+        200:
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckIssuePermissionResponse'
+        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
+components:
+  schemas:
+    CheckIssuePermissionRequest:
+      type: object
+      properties:
+        codes:
+          type: array
+          description: 工作项权限点列表
+          items:
+            type: integer
+      example:
+        codes: [1201,1101]
+    CheckIssuePermissionResponse:
+      type: object
+      properties:
+        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+      required:
+        - result
+      example:
+        - result: SUCCESS
+          data: true
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
+    $ref: ../../../../../../openapi-common/canary/zh/no-200-response-schemas.yaml
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://your-domain/oauth2/authorize
+          tokenUrl: https://your-domain/oauth2/token
+          scopes:
+            read:project:issue: 检查是否拥有工作项某些权限点的权限

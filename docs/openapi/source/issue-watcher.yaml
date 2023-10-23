@@ -1,0 +1,115 @@
+openapi: 3.0.1
+info:
+  title: Issue watchers
+  version: '1.0'
+  description: |
+    此资源代表工作项观察者。使用它来新增和删除工作项观察者成员。
+servers:
+  - url: https://your-domain/openapi/v2
+  - url: http://your-domain/openapi/v2
+paths:
+  /project/issues/{issueID}/watchers:
+    post:
+      summary: 新增工作项的观察者成员
+      operationId: 01-add-issue-watcher
+      description: 添加用户到工作项观察者
+      security:
+        - oauth2:
+            - write:project:issue-watcher
+      parameters:
+        - name: issueID
+          in: path
+          description: 工作项ID
+          required: true
+          schema:
+            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
+      requestBody:
+        description: 要添加的观察者成员uuid
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IssueWatcherRequest'
+        required: true
+      responses:
+        200:
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssueWatcherResponse'
+        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+    delete:
+      summary: 删除工作项的观察者成员
+      operationId: 02-delete-issue-watcher
+      description: 删除工作项的观察者成员
+      security:
+        - oauth2:
+            - write:project:issue-watcher
+      parameters:
+        - name: issueID
+          in: path
+          description: 工作项ID
+          required: true
+          schema:
+            type: string
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
+      requestBody:
+        description: 要添加的观察者成员uuid
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IssueWatcherRequest'
+        required: true
+      responses:
+        200:
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssueWatcherResponse'
+        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+components:
+  schemas:
+    IssueWatcherRequest:
+      type: object
+      properties:
+        watchers:
+          type: array
+          description: 观察者成员信息
+          items:
+            maxLength: 8
+            minLength: 1
+            type: string
+      example:
+        watchers: ["UoG2xQsS","Hw7ex3bq"]
+    IssueWatcherResponse:
+      type: object
+      properties:
+        $ref: ../../../openapi-common/canary/zh/200-response-schemas.yaml
+      required:
+        - result
+      example:
+        - result: SUCCESS
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: NotFound issue
+        - result: FAIL
+          errorCode: Internal server error
+          errorMsg: Internal server error
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: PermissionDenied view_tasks
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: InvalidParameter issueComment text empty
+    $ref: ../../../openapi-common/canary/zh/no-200-response-schemas.yaml
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://your-domain/oauth2/authorize
+          tokenUrl: https://your-domain/oauth2/token
+          scopes:
+            write:project:issue-watcher: 添加和删除工作项观察者

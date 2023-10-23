@@ -260,5 +260,11 @@
   },
   "sidebar.openapi.category.Testcase Librarys": {
     "message": "用例库"
+  },
+  "sidebar.openapi.category.Issue Watchers": {
+  "message": "工作项观察者"
+  },
+  "sidebar.openapi.category.Issue Permission": {
+    "message": "工作项权限"
   }
 }
