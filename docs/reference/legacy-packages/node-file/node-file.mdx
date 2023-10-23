@@ -1,14 +1,16 @@
-# @ones-op/node-file（已废弃）
+# @ones-op/node-file(deprecated)
 
-我们提供了一套文件操作的相关接口，允许插件开发者对插件文件工作目录下的文件进行操作。
+[![](https://npm.partner.ones.cn/badge/v/@ones-op/node-file.svg)](https://npm.partner.ones.cn/package/@ones-op/node-file)
 
-:::danger（已废弃）
+:::danger deprecated
 
-由于`@ones-op/node-file`包存在 bug，当 ONES 版本超过`v3.14.0`时候，请使用[`@ones-op/node-fs`](../node-fs/node-fs.mdx)包进行替换。
+There have some bugs in the "@ones-op/node-file" package, please replace it with the "[@ones-op/node-fs](../../packages/node-fs/node-fs.mdx)" package when the ONES version exceeds v3.14.0.
 
 :::
 
-## 要求
+We provide a set of API related to file manipulation, allowing plugin developers to manipulate files under the plugin file working directory.
+
+## Requirements
 
 | ONES    |
 | :------ |
@@ -18,13 +20,13 @@
 
 ### createFile
 
-创建文件
+Create a file
 
 #### Params
 
-| **参数** | **说明** | **类型** | **默认值** | **必填** |
-| :------- | :------- | :------- | :--------- | :------- |
-| name     | 文件名称 | string   | -          | 是       |
+| **Param** | **Description** | **Type** | **Default** | **Required** |
+| :-------- | :-------------- | :------- | :---------- | :----------- |
+| name      | file name       | string   | -           | Y            |
 
 #### Error
 
@@ -34,8 +36,8 @@
 
 #### Example
 
-import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
+import Tabs from '@theme/Tabs'
 
 <Tabs>
 <TabItem value="1" label="0.4.0+">
@@ -78,13 +80,13 @@ export async function testCreateFile() {
 
 ### makeDir
 
-创建文件夹
+Create a folder
 
 #### Params
 
-| **参数** | **说明**   | **类型** | **默认值** | **必填** |
-| :------- | :--------- | :------- | :--------- | :------- |
-| name     | 文件夹名称 | string   | -          | 是       |
+| **Param** | **Description** | **Type** | **Default** | **Required** |
+| :-------- | :-------------- | :------- | :---------- | :----------- |
+| name      | folder name     | string   | -           | Y            |
 
 #### Error
 
@@ -130,19 +132,18 @@ export async function testMakeDir() {
 
 </TabItem>
 </Tabs>
-
 ---
 
 ### rename
 
-修改文件名
+Modify file name
 
 #### Params
 
-| **参数**     | **说明**           | **类型** | **默认值** | **必填** |
-| :----------- | :----------------- | :------- | :--------- | :------- |
-| originalPath | 原文件路径（名称） | string   | -          | 是       |
-| newPath      | 新文件路径（名称） | string   | -          | 是       |
+| **Param**    | **Description**           | **Type** | **Default** | **Required** |
+| :----------- | :------------------------ | :------- | :---------- | :----------- |
+| originalPath | Original file path (name) | string   | -           | Y            |
+| newPath      | New file path (name)      | string   | -           | Y            |
 
 #### Error
 
@@ -194,13 +195,13 @@ export async function testRename() {
 
 ### remove
 
-移除文件
+Remove File name
 
 #### Params
 
-| **参数** | **说明** | **类型** | **默认值** | **必填** |
-| :------- | :------- | :------- | :--------- | :------- |
-| name     | 文件名称 | string   | -          | 是       |
+| **Param** | **Description** | **Type** | **Default** | **Required** |
+| :-------- | :-------------- | :------- | :---------- | :----------- |
+| name      | file name       | string   | -           | Y            |
 
 #### Error
 
@@ -252,19 +253,19 @@ export async function testRemove() {
 
 ### isExist
 
-判断是否存在该文件或文件夹
+Determine whether the file or folder exists
 
 #### Params
 
-| **参数** | **说明** | **类型** | **默认值** | **必填** |
-| :------- | :------- | :------- | :--------- | :------- |
-| name     | 名称     | string   | -          | 是       |
+| **Param** | **Description** | **Type** | **Default** | **Required** |
+| :-------- | :-------------- | :------- | :---------- | :----------- |
+| name      | name            | string   | -           | Y            |
 
 #### Returns
 
-| **参数** | **说明**                        | **类型** |
-| :------- | :------------------------------ | :------- |
-| 是否存在 | 存在返回 true，不存在返回 false | bool     |
+| **Param** | **Description**                       | **Type** |
+| :-------- | :------------------------------------ | :------- |
+| exist     | Exist return true，empty return false | bool     |
 
 #### Error
 
@@ -315,19 +316,19 @@ export async function testIsExist() {
 
 ### isFile
 
-判断是否为文件类型
+Determine whether it is a file or not
 
 #### Params
 
-| **参数** | **说明** | **类型** | **默认值** | **必填** |
-| :------- | :------- | :------- | :--------- | :------- |
-| name     | 名称     | string   | -          | 是       |
+| **Param** | **Description** | **Type** | **Default** | **Required** |
+| :-------- | :-------------- | :------- | :---------- | :----------- |
+| name      | name            | string   | -           | Y            |
 
 #### Returns
 
-| **参数**   | **说明**                  | **类型** |
-| :--------- | :------------------------ | :------- |
-| 是否为文件 | 是返回 true，否返回 false | bool     |
+| **Param** | **Description**                  | **Type** |
+| :-------- | :------------------------------- | :------- |
+| fileExist | Yes return true，no return false | bool     |
 
 #### Error
 
@@ -378,19 +379,19 @@ export async function testIsFile() {
 
 ### isDir
 
-判断是否文件夹类型
+Determine whether it is a folder
 
 #### Params
 
-| **参数** | **说明** | **类型** | **默认值** | **必填** |
-| :------- | :------- | :------- | :--------- | :------- |
-| name     | 名称     | string   | -          | 是       |
+| **Param** | **Description** | **Type** | **Default** | **Required** |
+| :-------- | :-------------- | :------- | :---------- | :----------- |
+| name      | name            | string   | -           | Y            |
 
 #### Returns
 
-| **参数**           | **说明**                  | **类型** |
-| :----------------- | :------------------------ | :------- |
-| 判断是否文件夹类型 | 是返回 true，否返回 false | bool     |
+| **Param** | **Description**                  | **Type** |
+| :-------- | :------------------------------- | :------- |
+| isDir     | Yes return true，or return false | bool     |
 
 #### Error
 
@@ -441,14 +442,14 @@ export async function testIsDir() {
 
 ### copy
 
-复制文件
+Copy a file
 
 #### Params
 
-| **参数**     | **说明**           | **类型** | **默认值** | **必填** |
-| :----------- | :----------------- | :------- | :--------- | :------- |
-| originalPath | 文件路径（名称）   | string   | -          | 是       |
-| newPath      | 目的地路径（名称） | string   | -          | 是       |
+| **Param**    | **Description**         | **Type** | **Default** | **Required** |
+| :----------- | :---------------------- | :------- | :---------- | :----------- |
+| originalPath | File path (name)        | string   | -           | Y            |
+| newPath      | Destination path (name) | string   | -           | Y            |
 
 #### Error
 
@@ -500,19 +501,19 @@ export async function testCopy() {
 
 ### list
 
-获取文件夹目录
+Get a list of folder
 
 #### Params
 
-| **参数** | **说明** | **类型** | **默认值** | **必填** |
-| :------- | :------- | :------- | :--------- | :------- |
-| name     | 名称     | string   | -          | 是       |
+| **Param** | **Description** | **Type** | **Default** | **Required** |
+| :-------- | :-------------- | :------- | :---------- | :----------- |
+| name      | folder name     | string   | -           | Y            |
 
 #### Returns
 
-| **参数**       | **说明**       | **类型** |
-| :------------- | :------------- | :------- |
-| 文件夹目录列表 | 文件夹目录列表 | string[] |
+| **Param**  | **Description**       | **Type** |
+| :--------- | :-------------------- | :------- |
+| folderList | folder directory list | string[] |
 
 #### Error
 
@@ -563,19 +564,19 @@ export async function testList() {
 
 ### read
 
-读取文件
+Read a file
 
 #### Params
 
-| **参数** | **说明** | **类型** | **默认值** | **必填** |
-| :------- | :------- | :------- | :--------- | :------- |
-| name     | 文件路径 | string   | -          | 是       |
+| **Param** | **Description** | **Type** | **Default** | **Required** |
+| :-------- | :-------------- | :------- | :---------- | :----------- |
+| name      | file path       | string   | -           | Y            |
 
 #### Returns
 
-| **参数** | **说明** | **类型**   |
-| :------- | :------- | :--------- |
-| 文件内容 | 文件内容 | Uint8Array |
+| **Param**   | **Description** | **Type**   |
+| :---------- | :-------------- | :--------- |
+| fileContent | file content    | Uint8Array |
 
 #### Error
 
@@ -627,21 +628,21 @@ export async function testRead() {
 
 ### readLines
 
-读取文件指定行
+Read the specified line of the file
 
 #### Params
 
-| **参数**  | **说明** | **类型** | **默认值** | **必填** |
-| :-------- | :------- | :------- | :--------- | :------- |
-| name      | 文件路径 | string   | -          | 是       |
-| lineBegin | 开始行数 | number   | -          | 是       |
-| lineEnd   | 结束行数 | number   | -          | 是       |
+| **Param** | **Description**         | **Type** | **Default** | **Required** |
+| :-------- | :---------------------- | :------- | :---------- | :----------- |
+| name      | file path               | string   | -           | Y            |
+| lineBegin | number of lines started | number   | -           | Y            |
+| lineEnd   | number of lines ended   | number   | -           | Y            |
 
 #### Returns
 
-| **参数**   | **说明** | **类型** |
-| :--------- | :------- | :------- |
-| 指定行内容 | 文件信息 | string   |
+| **Param**   | **Description**  | **Type** |
+| :---------- | :--------------- | :------- |
+| lineContent | file information | string   |
 
 #### Error
 
@@ -693,14 +694,14 @@ export async function testReadLines() {
 
 ### writeStrings
 
-文件写入字符串
+Write a string to a file
 
 #### Params
 
-| **参数** | **说明** | **默认值** | **必填** | **类型** |
-| :------- | :------- | :--------- | :------- | :------- |
-| name     | 文件路径 | -          | 是       | string   |
-| content  | 写入内容 | -          | 是       | string[] |
+| **Param** | **Description** | **Type** | **Default** | **Required** |
+| :-------- | :-------------- | :------- | :---------- | :----------- |
+| name      | file path       | string   | -           | Y            |
+| content   | written content | string[] | -           | Y            |
 
 #### Error
 
@@ -751,14 +752,14 @@ export async function testWriteStrings() {
 
 ### appendStrings
 
-文件追加写入字符串
+Append string to file
 
 #### Params
 
-| **参数** | **说明** | **类型** | **默认值** | **必填** |
-| :------- | :------- | :------- | :--------- | :------- |
-| name     | 文件路径 | string   | -          | 是       |
-| content  | 开始行数 | string[] | -          | 是       |
+| **Param** | **Description**         | **Type** | **Default** | **Required** |
+| :-------- | :---------------------- | :------- | :---------- | :----------- |
+| name      | file path               | string   | -           | Y            |
+| content   | number of lines started | string[] | -           | Y            |
 
 #### Error
 
@@ -810,14 +811,14 @@ export async function testAppendStrings() {
 
 ### writeBytes
 
-文件写入字节流
+Write byte stream to file
 
 #### Params
 
-| **参数**  | **说明**     | **类型**   | **默认值** | **必填** |
-| :-------- | :----------- | :--------- | :--------- | :------- |
-| name      | 文件路径     | string     | -          | 是       |
-| byteSlice | 写入字节内容 | Uint8Array | -          | 是       |
+| **Param** | **Description**     | **Type**   | **Default** | **Required** |
+| :-------- | :------------------ | :--------- | :---------- | :----------- |
+| name      | file path           | string     | -           | Y            |
+| byteSlice | byte stream content | Uint8Array | -           | Y            |
 
 #### Error
 
@@ -868,14 +869,14 @@ export async function testWriteBytes() {
 
 ### appendBytes
 
-文件追加写入字节流
+Append byte stream to file
 
 #### Params
 
-| **参数**  | **说明**         | **类型**   | **默认值** | **必填** |
-| :-------- | :--------------- | :--------- | :--------- | :------- |
-| name      | 文件路径         | string     | -          | 是       |
-| byteSlice | 追加写入字节内容 | Uint8Array | -          | 是       |
+| **Param** | **Description**     | **Type**   | **Default** | **Required** |
+| :-------- | :------------------ | :--------- | :---------- | :----------- |
+| name      | file path           | string     | -           | Y            |
+| byteSlice | byte stream content | Uint8Array | -           | Y            |
 
 #### Error
 
@@ -927,9 +928,9 @@ export async function testAppendBytes() {
 
 ### FileError
 
-| 参数       | 说明               | 类型     |
-| :--------- | :----------------- | :------- |
-| level      | 错误等级           | `string` |
-| reason     | 错误原因           | `string` |
-| statusCode | 对应的 http 状态码 | `string` |
-| errcode    | 错误码             | `string` |
+| Param      | Description      | Type     |
+| :--------- | :--------------- | :------- |
+| level      | error level      | `string` |
+| reason     | error reason     | `string` |
+| statusCode | http status code | `string` |
+| errcode    | error code       | `string` |

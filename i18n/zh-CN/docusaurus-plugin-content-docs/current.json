@@ -167,6 +167,10 @@
     "message": "能力包",
     "description": "The label for category Packages in sidebar reference"
   },
+  "sidebar.reference.category.Legacy Packages": {
+    "message": "过时的包",
+    "description": "The label for category Packages in sidebar reference"
+  },
   "sidebar.tools.category.CLI": {
     "message": "CLI",
     "description": "The label for category CLI in sidebar tools"

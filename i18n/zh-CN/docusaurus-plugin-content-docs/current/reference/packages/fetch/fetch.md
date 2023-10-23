@@ -2,17 +2,21 @@
 
 [![](https://npm.partner.ones.cn/badge/v/@ones-op/fetch.svg)](https://npm.partner.ones.cn/package/@ones-op/fetch)
 
-我们提供了一套接口请求库，可以帮你在插件前端内请求插件后端暴露的接口，或者请求外部接口。
+我们提供了一套支持前后端的接口请求库，可以帮你在插件内请求：ONES 接口，插件接口，或者外部接口。
+
+:::note
+自 “@ones-op/fetch” 0.6.0 版本起，“@ones-op/fetch” 库通过适配器（Adapter）的方式，集成了 “@ones-op/node-fetch” 功能，你可以像前端一样在插件后端里使用相同的 API。
+:::
 
 ## 要求
 
 | **@ones-op/fetch** |
 | ------------------ |
-| v0.4.0+            |
+| v0.6.0+            |
 
 ## 安装
 
-进入 `/web` 目录，通过以下命令安装此包：
+进入 `/web` 与 `/backend` 目录，通过以下命令安装此包：
 
 ```bash npm2yarn
 npm install @ones-op/fetch
@@ -20,29 +24,54 @@ npm install @ones-op/fetch
 
 ## 使用
 
-请求 ONES 和插件接口。
+**后端：**
 
-```tsx
+```ts title="backend/index.ts"
 import { OPFetch } from '@ones-op/fetch'
 
-function fetchData() {
-  OPFetch('api/project/users/me').then((response) => {
-    console.log('me: ', response)
-  })
-  OPFetch('api/project/hello').then((response) => {
-    console.log('hello: ', response)
-  })
-}
+// fetch ONES API in the plugin backend
+OPFetch('/users/me').then((response) => {
+  console.log('me: ', response.data)
+})
+
+// fetch external API in the plugin backend
+OPFetch('https://jsonplaceholder.typicode.com/todos/1').then((response) => {
+  console.log('todo: ', response.data)
+})
+```
+
+**前端：**
+
+```tsx title="web/index.tsx"
+import { OPFetch } from '@ones-op/fetch'
+
+const fetchProject = OPFetch.create({ baseURL: '/project/api/project' })
+
+// fetch ONES API in the plugin frontend
+fetchProject('/users/me').then((response) => {
+  console.log('me: ', response.data)
+})
+
+// fetch plugin API in the plugin frontend
+fetchProject('/hello').then((response) => {
+  console.log('hello: ', response.data)
+})
+
+// fetch external API in the plugin frontend
+OPFetch('https://jsonplaceholder.typicode.com/todos/1').then((response) => {
+  console.log('todo: ', response.data)
+})
 ```
 
 ## 索引
 
-| API                               | 描述                               |
-| --------------------------------- | ---------------------------------- |
-| [OPFetch](#OPFetch)               | 默认 ONES 与插件的请求实例         |
-| [Fetch](#Fetch)                   | 默认请求实例                       |
-| [isOPError](#isOPError)           | 判断是否是开放平台或插件的接口错误 |
-| [OPErrorHandler](#OPErrorHandler) | 标准开放平台或插件接口错误处理方法 |
+| API                               | 描述                               | 限制         |
+| --------------------------------- | ---------------------------------- | ------------ |
+| [OPFetch](#OPFetch)               | 默认 ONES 与插件的请求实例         | 无           |
+| [Fetch](#Fetch)                   | 默认请求实例                       | 无           |
+| [isFetchError](#isFetchError)     | 判断请求是否出错                   | 无           |
+| [isOPError](#isOPError)           | 判断是否是开放平台或插件的接口错误 | 仅支持浏览器 |
+| [OPErrorHandler](#OPErrorHandler) | 标准开放平台或插件接口错误处理方法 | 仅支持浏览器 |
 
 ## APIs
 
@@ -50,11 +79,19 @@ function fetchData() {
 
 **ONES 标品与插件** 的默认请求实例，继承自 [`Fetch`](#Fetch)，并额外添加了 ONES 以及插件相关的配置，具体使用请参阅 [实例方法](#Instance)，此节仅作补充介绍。
 
-`OPFetch` 实例内置的相关配置，会被实例 `create` 方法继承。
+`OPFetch` 实例内置的相关配置，会被实例 `create` 方法继承至子实例。
 
-#### 请求头
+<details>
+<summary>内置内部通信请求 ONES 接口方法适配器（后端）</summary>
 
-内置添加的请求头信息。
+我们将内部通信请求 ONES 接口方法（原 “@ones-op/node-fetch” 的 `fetchONES` 方法）通过适配器的方式，集成进了 `OPFetch`。如果你的请求参数是一个相对路径，则会由内部通信请求替代 `http` 为你请求 ONES 接口。
+
+</details>
+
+<details>
+<summary>内置插件所需请求头信息（浏览器）</summary>
+
+我们在 `OPFetch` 中内置了请求当前插件所必须的请求头，一般来说，你在请求 ONES 接口以及当前插件的后端接口时，你无需关心此处的请求头。
 
 | 键名             | 值             | 描述                                  |
 | ---------------- | -------------- | ------------------------------------- |
@@ -62,17 +99,20 @@ function fetchData() {
 | ones-check-point | `'team'`       | `ones-check-id` 类型，固定值 `'team'` |
 | ones-plugin-id   | `instanceUUID` | 当前插件实例 UUID                     |
 
+</details>
+
 ### Fetch {#Fetch}
 
 默认请求实例，仅内置了与 **业务无关** 的通用配置与拦截器。你可以直接使用，或者基于它创建多个请求实例，具体使用请参阅 [实例方法](#Instance)，此节仅作补充介绍。
 
-`Fetch` 实例内置的相关配置，会被实例 `create` 方法继承。
+`Fetch` 实例内置的相关配置，会被实例 `create` 方法继承至子实例。
 
 #### 拦截器
 
-内置的可继承拦截器，会被实例 `create` 方法继承。
+内置的可继承拦截器，会被实例 `create` 方法继承至子实例。
 
-##### 参数 别名
+<details>
+<summary>GET 请求参数别名</summary>
 
 在正常的业务中，我们认为不应该会出现 `GET` 请求需要带 `body` 的情况。因此，我们为你内置了一个 `ParamsAlias` 的可继承拦截器。
 
@@ -85,31 +125,55 @@ function fetchData() {
 Fetch('api/project/users/me', { method: 'GET', data: { timestamp: Date.now() } })
 ```
 
-### isOPError {#isOPError}
+</details>
 
-判断是否是开放平台或插件的接口错误。
+### isFetchError {#isFetchError}
 
-判断依据：`/^(plugin|platform)\./i.test(response.model)`。
+判断请求是否出错。
 
 #### 参数
 
-| 参数     | 说明               | 类型                        | 必填 | 默认值 |
-| -------- | ------------------ | --------------------------- | ---- | ------ |
-| response | 接口返回的错误数据 | [`OPError`](#Types.OPError) | 是   |        |
+| 参数  | 说明           | 类型      | 必填 | 默认值 |
+| ----- | -------------- | --------- | ---- | ------ |
+| error | 请求捕获的错误 | `unknown` | 是   |        |
 
 #### 返回
 
-| 说明                           | 类型      |
-| ------------------------------ | --------- |
-| 是否是开放平台或插件的接口错误 | `Boolean` |
+| 说明         | 类型      |
+| ------------ | --------- |
+| 请求是否出错 | `Boolean` |
 
 #### 类型
 
 ```ts
-function isOPError(response: { model?: string }): boolean
+function isFetchError<T = any, D = any>(error: any): error is FetchError<T, D>
 ```
 
-### OPErrorHandler {#OPErrorHandler}
+### isOPError(浏览器) {#isOPError}
+
+根据错误的数据，判断是否是开放平台或插件的标准接口错误。
+
+判断依据：`/^(plugin|platform)\./i.test(error?.response?.data?.model ?? response.model)`。
+
+#### 参数
+
+| 参数                          | 说明                     | 类型                                             | 必填 | 默认值 |
+| ----------------------------- | ------------------------ | ------------------------------------------------ | ---- | ------ |
+| fetchError/fetchErrorResponse | 接口返回的错误（或数据） | `FetchError`/[`OPErrorData`](#Types.OPErrorData) | 是   |        |
+
+#### 返回
+
+| 说明                               | 类型      |
+| ---------------------------------- | --------- |
+| 是否是开放平台或插件的标准接口错误 | `Boolean` |
+
+#### 类型
+
+```ts
+function isOPError(error: FetchError<{ model?: string }> | { model?: string }): boolean
+```
+
+### OPErrorHandler(浏览器) {#OPErrorHandler}
 
 开放平台或插件接口错误标准处理方法。
 
@@ -117,14 +181,14 @@ function isOPError(response: { model?: string }): boolean
 
 #### 参数
 
-| 参数     | 说明             | 类型                        | 必填 | 默认值 |
-| -------- | ---------------- | --------------------------- | ---- | ------ |
-| response | 接口标准错误数据 | [`OPError`](#Types.OPError) | 是   |        |
+| 参数                          | 说明                     | 类型                                             | 必填 | 默认值 |
+| ----------------------------- | ------------------------ | ------------------------------------------------ | ---- | ------ |
+| fetchError/fetchErrorResponse | 接口返回的错误（或数据） | `FetchError`/[`OPErrorData`](#Types.OPErrorData) | 是   |        |
 
 #### 类型
 
 ```ts
-function OPErrorHandler(response: OPError) => void
+function OPErrorHandler(response: OPErrorData) => void
 ```
 
 ### <Instance\> {#Instance}
@@ -166,7 +230,7 @@ interface FetchInstance<E extends object = EmptyObj> extends AxiosInstance {
 interface FetchCreate<E extends object = EmptyObj> {
   (
     config?: FetchConfig<any, E>,
-    inheritableInterceptors?: FetchInheritableInterceptors<E>
+    inheritableInterceptors?: FetchInheritableInterceptors<E>,
   ): FetchInstance<E>
 }
 ```
@@ -216,16 +280,31 @@ const request = OPFetch.create(config, inheritableInterceptors)
 
 #### <Instance\>.<other\>
 
-`@ones-op/fetch` 最终继承自 [axios](https://axios-http.com/) 库，其余未列出的 API 代表未涉及或影响到，你可以直接参考 [axios 引用版本 API 文档](https://github.com/axios/axios/tree/v0.x#axios-api) 使用。
+`@ones-op/fetch` 最终继承自 [axios](https://axios-http.com/) 库，其余未列出的 API 代表未涉及或影响到，你可以直接参考 [axios 引用版本 API 文档](https://github.com/axios/axios/tree/v1.x#axios-api) 使用。
 
 ## 类型
 
-### OPError {#Types.OPError}
+### FetchError {#Types.FetchError}
+
+Fetch 库请求错误类型。
+
+```tsx
+class FetchError<T = unknown, D = any> extends Error {
+  config?: FetchRequestConfig<D>
+  code?: string
+  request?: any
+  response?: FetchResponse<T, D>
+  status?: number
+  cause?: Error
+}
+```
+
+### OPErrorData {#Types.OPErrorData}
 
 ONES 开放平台与插件标准错误类型定义。
 
 ```tsx
-interface OPError {
+interface OPErrorData {
   model: string
   reason: string
   type: 'error' | 'warning' | 'info'
@@ -251,13 +330,17 @@ type FetchInheritableInterceptor<T = FetchConfig, D = any> =
   | [(fulfilledValue: T, instance: FetchInstance) => T]
   | [
       (fulfilledValue: T, instance: FetchInstance) => T,
-      (rejectedError: D, instance: FetchInstance) => D
+      (rejectedError: D, instance: FetchInstance) => D,
     ]
 ```
 
 ### FetchConfig
 
 这些是创建请求时可以用的配置选项。只有 `url` 是必需的。如果没有指定 `method`，请求将默认使用 `GET` 方法。
+
+:::note
+插件后端内部通信请求 ONES 接口方法适配器下称：Plugin Node Adapter。具体描述请查看 [OPFetch](#OPFetch) 介绍。
+:::
 
 ```ts
 {
@@ -271,10 +354,18 @@ type FetchInheritableInterceptor<T = FetchConfig, D = any> =
   // 它可以通过设置一个 `baseURL` 便于为 axios 实例的方法传递相对 URL
   baseURL: 'https://some-domain.com/api/',
 
+  // 团队 `uuid`,组织级别插件需要携带该参数
+  // Plugin Node Adapter 专属
+  teamUUID: 'yqwqqwq',
+
+  // 是否使用插件超级用户
+  // Plugin Node Adapter 专属
+  root: true, // 默认值
+
   // `autoErrorToast` 用于控制是否自动弹窗展示插件接口或者平台接口的错误信息
   // 使用时需要插件后端配合使用对应的 `node-error` sdk
   // `node-error` 使用方法可参考 https://developer.ones.com/docs/reference/packages/node-error/
-  // 仅应用于 `OPFetch`，`Fetch` 中不包含此配置
+  // 浏览器 `OPFetch` 方法专属
   autoErrorToast: true // 默认值
 
   // `transformRequest` 允许在向服务器发送前，修改请求数据
@@ -312,23 +403,20 @@ type FetchInheritableInterceptor<T = FetchConfig, D = any> =
   // `data` 是作为请求体被发送的数据
   // 仅适用 'PUT', 'POST', 'DELETE 和 'PATCH' 请求方法
   // 在没有设置 `transformRequest` 时，则必须是以下类型之一:
-  // - string, plain object, ArrayBuffer, ArrayBufferView, URLSearchParams
-  // - 浏览器专属: FormData, File, Blob
-  // - Node 专属: Stream, Buffer
+  // - string, ArrayBuffer, ArrayBufferView, URLSearchParams
+  // - 浏览器专属: plain object, FormData, File, Blob
+  // - Node 专属: plain object, Stream, Buffer
+  // - Plugin Node Adapter 专属: Buffer
   data: {
     firstName: 'Fred'
   },
-
-  // 发送请求体数据的可选语法
-  // 请求方式 post
-  // 只有 value 会被发送，key 则不会
-  data: 'Country=Brasil&City=Belo Horizonte',
 
   // `timeout` 指定请求超时的毫秒数。
   // 如果请求时间超过 `timeout` 的值，则请求会被中断
   timeout: 1000, // 默认值是 `0` (永不超时)
 
   // `withCredentials` 表示跨域请求时是否需要使用凭证
+  // 浏览器专属
   withCredentials: false, // default
 
   // `adapter` 允许自定义处理请求，这使测试更加容易。
@@ -338,14 +426,16 @@ type FetchInheritableInterceptor<T = FetchConfig, D = any> =
   },
 
   // `auth` HTTP Basic Auth
+  // 不支持 Plugin Node Adapter
   auth: {
     username: 'janedoe',
     password: 's00pers3cret'
   },
 
   // `responseType` 表示浏览器将要响应的数据类型
-  // 选项包括: 'arraybuffer', 'document', 'json', 'text', 'stream'
-  // 浏览器专属：'blob'
+  // 选项包括: 'arraybuffer', 'json', 'text'
+  // 浏览器专属: 'document', 'stream', 'blob'
+  // Node.js 专属: 'document', 'stream'
   responseType: 'json', // 默认值
 
   // `responseEncoding` 表示用于解码响应的编码 (Node.js 专属)
@@ -354,9 +444,11 @@ type FetchInheritableInterceptor<T = FetchConfig, D = any> =
   responseEncoding: 'utf8', // 默认值
 
   // `xsrfCookieName` 是 xsrf token 的值，被用作 cookie 的名称
+  // 不支持 Plugin Node Adapter
   xsrfCookieName: 'XSRF-TOKEN', // 默认值
 
   // `xsrfHeaderName` 是带有 xsrf token 值的http 请求头名称
+  // 不支持 Plugin Node Adapter
   xsrfHeaderName: 'X-XSRF-TOKEN', // 默认值
 
   // `onUploadProgress` 允许为上传处理进度事件
@@ -374,7 +466,7 @@ type FetchInheritableInterceptor<T = FetchConfig, D = any> =
   // `maxContentLength` 定义了node.js中允许的HTTP响应内容的最大字节数
   maxContentLength: 2000,
 
-  // `maxBodyLength`（仅Node）定义允许的http请求内容的最大字节数
+  // `maxBodyLength`（仅 Node.js 与 Plugin Node）定义允许的http请求内容的最大字节数
   maxBodyLength: 2000,
 
   // `validateStatus` 定义了对于给定的 HTTP状态码是 resolve 还是 reject promise。
@@ -386,18 +478,21 @@ type FetchInheritableInterceptor<T = FetchConfig, D = any> =
 
   // `maxRedirects` 定义了在node.js中要遵循的最大重定向数。
   // 如果设置为0，则不会进行重定向
+  // Node.js 专属
   maxRedirects: 5, // 默认值
 
   // `socketPath` 定义了在node.js中使用的UNIX套接字。
   // e.g. '/var/run/docker.sock' 发送请求到 docker 守护进程。
   // 只能指定 `socketPath` 或 `proxy` 。
   // 若都指定，这使用 `socketPath` 。
+  // Node.js 专属
   socketPath: null, // default
 
   // `httpAgent` 和 `httpsAgent` define a custom agent to be used when performing http
   // `httpAgent` 和 `httpsAgent` 可以自定义代理
   // 浏览器或者node环境，可以配置代理，如下所示
   // `keepAlive` 不会默认开启
+  // Node.js 专属
   httpAgent: new http.Agent({ keepAlive: true }),
   httpsAgent: new https.Agent({ keepAlive: true }),
 
@@ -407,6 +502,7 @@ type FetchInheritableInterceptor<T = FetchConfig, D = any> =
   // `auth`表示应使用HTTP Basic auth连接到代理，并且提供凭据。
   // 这将设置一个 `Proxy-Authorization` 请求头，它会覆盖 `headers` 中已存在的自定义 `Proxy-Authorization` 请求头。
   // 如果代理服务器使用 HTTPS，则必须设置 protocol 为`https`
+  // Node.js 专属
   proxy: {
     protocol: 'https',
     host: '127.0.0.1',
@@ -424,7 +520,7 @@ type FetchInheritableInterceptor<T = FetchConfig, D = any> =
   // `decompress` 控制 `response body`是否需要被压缩
   // 如果设置为 `true` 将会自动移除header中的 `content-encoding`
   // 压缩所有响应
-  // - Node 专属
+  // Node.js 专属（XHR 无法关闭解压）
   decompress: true // 默认值
 }
 ```
@@ -434,3 +530,9 @@ type FetchInheritableInterceptor<T = FetchConfig, D = any> =
 ### 为什么没有使用 [node-error 错误处理](../../packages/node-error)，当接口异常时，仍然会自动弹窗？
 
 因为在 `autoErrorToast` 设置为 `true`时，会通过 `isOPError` 判断是否需要自动错误弹窗，所以当自定义返回的数据符合判断条件，也会自动错误弹窗。
+
+### 如何跨插件请求接口？
+
+首先，我们**强烈不推荐**你这么做，你更应该考虑将两个插件合并成一个插件。
+
+但是，如果你有不得不这么做的理由。在插件前端里，你可以手动传入目标插件的 `ones-plugin-id` 请求头进行请求；在插件后端里，你需要传入绝对路径的请求 URL，`OPFetch`/`Fetch` 内部将会通过 `http` 模块为你请求（注意，你需要自行传入插件所需的所有[请求头](#OPFetch)）。

@@ -14,11 +14,14 @@ import Image from '@theme/IdealImage'
 
 <Image img={require('./images/ldapLogin.png')} />
 
+<Image img={require('./images/join-team.png')} />
+
 我们为「登录」提供了一些插槽，以便于为该应用定制化页面模块。
 
 当前支持的插槽：
 
 - [ones:login](#oneslogin)
+- [ones:join:team](#onesjointeam)
 - [ones:login:ldap](#onesloginldap)
 - [ones:login:connect](#onesloginconnect)
 
@@ -29,6 +32,14 @@ import Image from '@theme/IdealImage'
 **ONES 要求：** v3.6.25+
 
 **模块路径：** 替换整个登录页面
+
+**个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
+
+#### ones:join:team
+
+**ONES 要求：** v3.6.25+
+
+**模块路径：** 替换整个“加入团队”的登录页面
 
 **个数限制：** 一个插件中最多可声明 **1 **个该插槽，系统中最多同时存在 **1 **个该插槽
 
