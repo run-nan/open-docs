@@ -46,7 +46,7 @@ Add the following configuration to the `apis` field in the plugin configuration 
 apis:
   - type: subscribe #Interface type: subscribe: post-subscription
     methods: #Interface request method
-      -GET
+      - GET
     url: /users/me #Hijack interface url
     scope: project #project or wiki interface, without this attribute, the default is project
     function: jackFunc #The name should be consistent with the function name in the code
