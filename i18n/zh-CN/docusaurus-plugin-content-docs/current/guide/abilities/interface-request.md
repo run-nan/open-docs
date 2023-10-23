@@ -69,9 +69,9 @@ export async function hello(request: PluginRequest): Promise<PluginResponse> {
 接下来我们就是用 `OPFetch` 来请求这个接口。
 
 ```tsx
-import React from 'react'
 import { Button } from '@ones-design/core'
 import { OPFetch } from '@ones-op/fetch'
+import React from 'react'
 
 export const App = () => {
   const handleFetchHello = () => {
@@ -118,8 +118,8 @@ npm install @ones-op/node-fetch
 修改 `index.ts` 的代码实现。
 
 ```tsx title="/backend/src/index.ts"
-import { Logger } from '@ones-op/node-logger'
 import { fetchONES } from '@ones-op/node-fetch'
+import { Logger } from '@ones-op/node-logger'
 import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 
 export async function hello(request: PluginRequest): Promise<PluginResponse> {

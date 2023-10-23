@@ -230,7 +230,7 @@ interface FetchInstance<E extends object = EmptyObj> extends AxiosInstance {
 interface FetchCreate<E extends object = EmptyObj> {
   (
     config?: FetchConfig<any, E>,
-    inheritableInterceptors?: FetchInheritableInterceptors<E>
+    inheritableInterceptors?: FetchInheritableInterceptors<E>,
   ): FetchInstance<E>
 }
 ```
@@ -330,7 +330,7 @@ type FetchInheritableInterceptor<T = FetchConfig, D = any> =
   | [(fulfilledValue: T, instance: FetchInstance) => T]
   | [
       (fulfilledValue: T, instance: FetchInstance) => T,
-      (rejectedError: D, instance: FetchInstance) => D
+      (rejectedError: D, instance: FetchInstance) => D,
     ]
 ```
 

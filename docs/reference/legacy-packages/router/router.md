@@ -33,7 +33,7 @@ ReactDOM.render(
   <OPHashRouter>
     <App />
   </OPHashRouter>,
-  document.getElementById('root')
+  document.getElementById('root'),
 )
 ```
 
@@ -61,7 +61,7 @@ ReactDOM.render(
   <OPHashRouter>
     <App />
   </OPHashRouter>,
-  document.getElementById('root')
+  document.getElementById('root'),
 )
 ```
 
@@ -249,6 +249,7 @@ Rendering content based on the current position. Can be nested and rendered the 
 
 ```tsx
 import { OPRoutes, OPRoute } from '@ones-op/router'
+
 ;<OPRoutes>
   <OPRoute path="/" element={<Dashboard />}>
     <OPRoute path="messages" element={<DashboardMessages />} />
@@ -273,6 +274,7 @@ Rendered anywhere in the app, `OPRoutes` will match a set of child [`OPRoute`](#
 
 ```tsx
 import { OPRoutes, OPRoute } from '@ones-op/router'
+
 ;<OPRoutes>
   <OPRoute path="/" element={<Dashboard />}>
     <OPRoute path="messages" element={<DashboardMessages />} />

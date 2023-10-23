@@ -65,7 +65,7 @@ If we do not want to request as a super admin, we should first set `root` to `fa
 import { fetchONES } from '@ones-op/node-fetch'
 
 export async function getUserme(
-  request: PluginRequest<Record<string, any>>
+  request: PluginRequest<Record<string, any>>,
 ): Promise<PluginResponse> {
   let userUUID = ''
   let userToken = ''

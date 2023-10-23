@@ -67,9 +67,9 @@ export async function hello(request: PluginRequest): Promise<PluginResponse> {
 Next, we use `OPFetch` to request this API.
 
 ```tsx
-import React from 'react'
 import { Button } from '@ones-design/core'
 import { OPFetch } from '@ones-op/fetch'
+import React from 'react'
 
 export const App = () => {
   const handleFetchHello = () => {
@@ -116,8 +116,8 @@ npm install @ones-op/node-fetch
 Modify the code implementation of `index.ts`.
 
 ```tsx title="/backend/src/index.ts"
-import { Logger } from '@ones-op/node-logger'
 import { fetchONES } from '@ones-op/node-fetch'
+import { Logger } from '@ones-op/node-logger'
 import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 
 export async function hello(request: PluginRequest): Promise<PluginResponse> {

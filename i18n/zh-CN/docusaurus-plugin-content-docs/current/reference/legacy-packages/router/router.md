@@ -35,7 +35,7 @@ ReactDOM.render(
   <OPHashRouter>
     <App />
   </OPHashRouter>,
-  document.getElementById('root')
+  document.getElementById('root'),
 )
 ```
 
@@ -63,7 +63,7 @@ ReactDOM.render(
   <OPHashRouter>
     <App />
   </OPHashRouter>,
-  document.getElementById('root')
+  document.getElementById('root'),
 )
 ```
 
@@ -251,6 +251,7 @@ function App() {
 
 ```tsx
 import { OPRoutes, OPRoute } from '@ones-op/router'
+
 ;<OPRoutes>
   <OPRoute path="/" element={<Dashboard />}>
     <OPRoute path="messages" element={<DashboardMessages />} />
@@ -275,6 +276,7 @@ import { OPRoutes, OPRoute } from '@ones-op/router'
 
 ```tsx
 import { OPRoutes, OPRoute } from '@ones-op/router'
+
 ;<OPRoutes>
   <OPRoute path="/" element={<Dashboard />}>
     <OPRoute path="messages" element={<DashboardMessages />} />

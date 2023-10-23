@@ -65,7 +65,7 @@ const response = await fetchONES({
 import { fetchONES } from '@ones-op/node-fetch'
 
 export async function getUserme(
-  request: PluginRequest<Record<string, any>>
+  request: PluginRequest<Record<string, any>>,
 ): Promise<PluginResponse> {
   let userUUID = ''
   let userToken = ''
