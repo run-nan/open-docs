@@ -71,11 +71,11 @@ export async function jackFunc(
   const respBody = request.respBody as any
   const reqHeaders = request.reqHeaders as any
   const respHeaders = request.respHeaders as any
-  Logger.error('[Plugin] hello ======= Request successful')
-  Logger.error('[Plugin] respBody ======= Request successful', respBody)
-  Logger.error('[Plugin] respHeaders ======= Request successful', respHeaders)
-  Logger.error('[Plugin] reqBody ======= Request successful', reqBody)
-  Logger.error('[Plugin] reqHeaders ======= Request successful', reqHeaders)
+  Logger.info('[Plugin] hello ======= Request successful')
+  Logger.info('[Plugin] respBody ======= Request successful', respBody)
+  Logger.info('[Plugin] respHeaders ======= Request successful', respHeaders)
+  Logger.info('[Plugin] reqBody ======= Request successful', reqBody)
+  Logger.info('[Plugin] reqHeaders ======= Request successful', reqHeaders)
   return {
     body: {
       res: 'hello world',

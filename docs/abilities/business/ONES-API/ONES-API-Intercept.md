@@ -69,9 +69,9 @@ export async function jackFunc(
 ): Promise<PluginResponse> {
   const body = request.body as any
   const headers = request.headers as any
-  Logger.error('[Plugin] hello ======= Request successful')
-  Logger.error('[Plugin] body ======= Request successful', body)
-  Logger.error('[Plugin] headers ======= Request successful', headers)
+  Logger.info('[Plugin] hello ======= Request successful')
+  Logger.info('[Plugin] body ======= Request successful', body)
+  Logger.info('[Plugin] headers ======= Request successful', headers)
   return {
     body: {
       res: 'hello world',
