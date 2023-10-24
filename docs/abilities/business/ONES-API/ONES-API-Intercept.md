@@ -4,6 +4,11 @@ sidebar_position: 5
 
 # ONES API Intercept
 
+:::danger ability deprecation instructions
+This ability is obsolete as of October 13, 2023. If relevant requirements require similar capabilities, please submit a new request form to the open platform.
+
+:::
+
 ## Require
 
 | ONES |

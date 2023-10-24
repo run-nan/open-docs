@@ -3,9 +3,15 @@ sidebar_position: 4
 ---
 
 import Image from '@theme/IdealImage'
+
 import urlParamImg from './images/urlParam.png'
 
 # ONES 接口劫持
+
+:::danger 能力废弃说明
+此能力自2023年10月13号起已废弃。相关需求需要类似能力，请向开放平台提新的需求单。
+
+:::
 
 ## 要求
 
@@ -68,8 +74,9 @@ import urlParamImg from './images/urlParam.png'
   ```typescript
   import { fetchONES } from '@ones-op/node-fetch'
   import { Logger } from '@ones-op/node-logger'
+
   export async function jackFunc(
-    request: PluginRequest<Record<string, any>>
+    request: PluginRequest<Record<string, any>>,
   ): Promise<PluginResponse> {
     Logger.info('replace success')
     let userUUID = ''
@@ -149,7 +156,7 @@ import urlParamImg from './images/urlParam.png'
   ```typescript
   //prefix 前置接口劫持
   export async function prefixFunc(
-    request: PluginRequest<Record<string, any>>
+    request: PluginRequest<Record<string, any>>,
   ): Promise<PluginResponse> {
     let body = request?.body as any
     let headers = request?.headers as any
@@ -197,13 +204,14 @@ import urlParamImg from './images/urlParam.png'
   ```typescript
   import { createFile, writeStrings } from '@ones-op/node-file'
   import { Logger } from '@ones-op/node-logger'
+
   export async function Install() {
     await createFile('./suffix.txt')
     Logger.info('[Plugin] Install')
   }
   //suffix hijacking
   export async function suffixFunc(
-    request: PluginRequest<Record<string, any>>
+    request: PluginRequest<Record<string, any>>,
   ): Promise<PluginResponse> {
     Logger.info('suffix success')
     let body = request?.body as any
