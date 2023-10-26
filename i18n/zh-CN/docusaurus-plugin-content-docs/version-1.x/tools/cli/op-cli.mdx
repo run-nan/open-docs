@@ -2,6 +2,12 @@
 sidebar_position: 2
 ---
 
+import Image from '@theme/IdealImage'
+
+import scanOutputImg from './images/scan-result.png'
+import triggerPatternImg from './images/trigger-regx.png'
+import urlPatternImg from './images/url-regx.png'
+
 # OP CLI 指令
 
 当前章节列出了可用于通过 OP CLI 构建插件的指令。
@@ -25,6 +31,7 @@ OP CLI 会作为项目依赖安装在插件工程中。
 | [invoke](#invoke)     | 在本地启动插件项目并调用插件的一个或多个生命周期。                                     |
 | [update](#update)     | 更新项目内容。                                                                         |
 | [upgrade](#upgrade)   | 升级 `@ones/cli-plugin` 及相关依赖到当前大版本的最新版本                               |
+| [scan](#scan)         | 扫描插件工程中使用到的接口url                                                          |
 
 ## init
 
@@ -364,4 +371,158 @@ npx op update <target>
 
 ```shell
 npx op upgrade
+```
+
+## scan
+
+扫描插件工程中使用到的接口url
+
+```shell
+npx op scan [target]
+```
+
+### 要求
+
+| @ones/cli-plugin |
+| :--------------- |
+| v1.19.0+         |
+
+### 参数
+
+| 参数名称 | 参数描述                                                                                                                                                 |
+| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `target` | 扫描的目标类型，支持的类型有：<ul><li>`api`: 插件代码中的api声明</li><li>`trigger`: 使用到的[Trigger插槽](../../abilities/slot/global/trigger)</li></ul> |
+
+当不传入`target`参数时，默认同时扫描`api`和`trigger`。
+
+### 选项
+
+| 选项名称 | 选项别名 | 选项描述                                                                                |
+| -------- | -------- | --------------------------------------------------------------------------------------- |
+| --config | -c       | 扫描配置文件的路径, 默认为`op-san.config.mjs`，如果配置文件不存在，则使用默认的扫描配置 |
+
+### 扫描与匹配规则
+
+#### api
+
+op工具会扫描插件源码中的**字符串**、**字符串模板**和**字符串拼接表达式**。当扫描到的字符串字面量中包含字符`/`时，扫描程序会认为这是一个url，并将其转换为一个由前置正则片段，url正则片段，占位正则片段和后置正则片段组成的正则表达式。
+
+<Image img={urlPatternImg} />
+
+对于扫描工具漏判的情况，你可以通过`@ones-api`注释手动指定API：
+
+```ts
+import APIs from 'apis'
+
+import { request } from './utils'
+
+// @ones-api: /api/project/users/me
+request(APIs.getUsers())
+```
+
+对于扫描工具误判的情况，你可以通过`@ones-api-ignore`注释手动排除API：
+
+```tsx
+const Routes = () => {
+  return (
+    <Switch>
+      {/* @ones-api-ignore */}
+      <Route path="/login" component={Login} />
+      {/* @ones-api-ignore */}
+      <Route path="/register" component={Register} />
+    </Switch>
+  )
+}
+```
+
+或者通过`@ones-api-ignore-file`注释手动排除整个文件的扫描：
+
+```tsx
+// @ones-api-ignore-file
+
+const Routes = () => {
+  return (
+    <Switch>
+      <Route path="/login" component={Login} />
+      <Route path="/register" component={Register} />
+    </Switch>
+  )
+}
+```
+
+#### trigger
+
+op工具会扫描[plugin.yaml](../../reference/config/plugin.yaml.mdx)中的[Trigger插槽](../../abilities/slot/global/trigger)，收集Action对应的API，并将其转化为url正则表达式
+
+<Image img={triggerPatternImg} />
+
+扫描完成后，op工具会将收集到的url正则表达式与[扫描配置](#扫描配置)中的API集合进行正则匹配，输出匹配到的API
+
+<Image img={scanOutputImg} />
+
+### 扫描配置
+
+你可以通过配置文件来定制扫描的行为，配置文件的路径可以通过`--config`选项指定，默认为`op-san.config.mjs`，如果配置文件不存在，则使用默认的扫描配置。
+
+扫描配置结构如下：
+
+```ts
+interface ScanConfigSchema {
+  roots?: string[]
+  exclude?: (string | RegExp)[]
+  apis?: string[]
+  output?: {
+    level?: 'matched' | 'all'
+    file?: string | undefined
+  }
+  patternFragment?: {
+    pre?: string
+    placeholder?: string
+    post?: string
+  }
+  checkIsPathLikeString?: (value: string) => boolean
+}
+```
+
+| 字段名称                      | 字段类型                     | 默认值                           | 描述                                                                                                   |
+| ----------------------------- | ---------------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `roots`                       | `string[]`                   | `["web","backend"]`              | 要扫描的代码根目录                                                                                     |
+| `exclude`                     | `(string｜RegExp)[]`         | `[/node_modules/]`               | 不扫描的路径                                                                                           |
+| `apis`                        | `string[]`                   | `[]`                             | 要匹配的API集合                                                                                        |
+| `output.level`                | `"matched"｜"all"`           | `"all"`                          | 扫描结果的输出级别：<ul><li>matched: 仅输出匹配到API的扫描结果</li><li>all: 输出所有扫描结果</li></ul> |
+| `output.file`                 | `string`                     | `undefined`                      | 扫描结果的导出文件（yaml格式）路径，如果不指定，则仅输出到控制台                                       |
+| `patternFragment.pre`         | `string`                     | `"(?:[^\n]*)"`                   | url正则表达式的前置正则片段                                                                            |
+| `patternFragment.placeholder` | `string`                     | `"(?:[^\n/]*)"`                  | url正则表达式的占位正则片段                                                                            |
+| `patternFragment.post`        | `string`                     | `"(?:[^\n]*)"`                   | url正则表达式的后置正则片段                                                                            |
+| `checkIsPathLikeString`       | `(value: string) => boolean` | `(value) => value.includes("/")` | 判断一个字符串子面量是否是url的函数                                                                    |
+
+你需要在配置文件中导出扫描配置
+
+```js
+/** @type { import("@ones/cli-plugin").ScanConfigSchema } */
+export default {
+  apis: ['/api/project/users/me'],
+  output: {
+    level: 'matched',
+    file: 'api.yaml',
+  },
+}
+```
+
+也可以导出一个返回扫描配置的函数
+
+```js
+export default async () => {
+  /** @type { import("@ones/cli-plugin").ScanConfigSchema } */
+  const config = {
+    output: {
+      level: 'all',
+      file: 'api.yaml',
+    },
+  }
+  if (process.env.NODE_ENV === 'production') {
+    config.apis = await getONESApis()
+  }
+  return config
+}
 ```

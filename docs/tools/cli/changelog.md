@@ -6,6 +6,13 @@ sidebar_position: 3
 
 All notable changes to this package will be documented in this file.
 
+## 1.2.29 (2023-10-13)
+
+### Features
+
+- **cli-plugin**:
+  - 🌟 new command `npx op scan` to scan the interface URLs used in the plugin project
+
 ## 1.2.24 (2023-06-27)
 
 ### Features
