@@ -3,29 +3,29 @@ info:
   title: Issue watchers
   version: '1.0'
   description: |
-    此资源代表工作项观察者。使用它来新增和删除工作项观察者成员。
+    This resource represents issue watchers. Use it to add and remove issue watchers.
 servers:
   - url: https://your-domain/openapi/v2
   - url: http://your-domain/openapi/v2
 paths:
   /project/issues/{issueID}/watchers:
     post:
-      summary: 新增工作项的观察者成员
+      summary: Add issue watchers
       operationId: 01-add-issue-watcher
-      description: 添加用户到工作项观察者
+      description: Add issue watchers
       security:
         - oauth2:
             - write:project:issue-watcher
       parameters:
         - name: issueID
           in: path
-          description: 工作项ID
+          description: The ID of the issue
           required: true
           schema:
             type: string
         - $ref: ../../../openapi-common/canary/en/request-team.yaml
       requestBody:
-        description: 要添加的观察者成员uuid
+        description: The users where need to add issue watchers
         content:
           application/json:
             schema:
@@ -33,29 +33,29 @@ paths:
         required: true
       responses:
         200:
-          description: 请求成功
+          description: Request successful.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/IssueWatcherResponse'
         $ref: ../../../openapi-common/canary/en/no-200-response.yaml
     delete:
-      summary: 删除工作项的观察者成员
+      summary: Remove issue watchers
       operationId: 02-delete-issue-watcher
-      description: 删除工作项的观察者成员
+      description: Remove issue watchers
       security:
         - oauth2:
             - write:project:issue-watcher
       parameters:
         - name: issueID
           in: path
-          description: 工作项ID
+          description: The ID of the issue
           required: true
           schema:
             type: string
         - $ref: ../../../openapi-common/canary/en/request-team.yaml
       requestBody:
-        description: 要添加的观察者成员uuid
+        description: The user's uuid where need to remove issue watchers
         content:
           application/json:
             schema:
@@ -63,7 +63,7 @@ paths:
         required: true
       responses:
         200:
-          description: 请求成功
+          description: Request successful.
           content:
             application/json:
               schema:
@@ -76,7 +76,7 @@ components:
       properties:
         watchers:
           type: array
-          description: 观察者成员信息
+          description: issue watchers
           items:
             maxLength: 8
             minLength: 1
@@ -86,7 +86,7 @@ components:
     IssueWatcherResponse:
       type: object
       properties:
-        $ref: ../../../openapi-common/canary/zh/200-response-schemas.yaml
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
       required:
         - result
       example:
@@ -103,7 +103,7 @@ components:
         - result: FAIL
           errorCode: InvalidParameter
           errorMsg: InvalidParameter issueComment text empty
-    $ref: ../../../openapi-common/canary/zh/no-200-response-schemas.yaml
+    $ref: ../../../openapi-common/canary/en/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2
@@ -112,4 +112,4 @@ components:
           authorizationUrl: https://your-domain/oauth2/authorize
           tokenUrl: https://your-domain/oauth2/token
           scopes:
-            write:project:issue-watcher: 添加和删除工作项观察者
+            write:project:issue-watcher: Add or remove issue watchers

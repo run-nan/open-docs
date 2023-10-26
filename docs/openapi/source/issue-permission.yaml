@@ -3,16 +3,16 @@ info:
   title: Issue permission
   version: '1.0'
   description: |
-    此资源代表工作权限相关内容。目前支持检查是否拥有工作项某些权限点的权限。
+    This resource represents work permissions related content. Currently, it supports checking whether you have permission to issue
 servers:
   - url: https://your-domain/openapi/v2
   - url: http://your-domain/openapi/v2
 paths:
   /project/issues/{issueID}:
     post:
-      summary: 检查工作项权限点
+      summary: check issue permissions
       operationId: 01-check-permission
-      description: 检查是否拥有工作项某些权限点的权限
+      description: Check whether you have permissions for the issue
       security:
         - oauth2:
             - read:project:issue
@@ -23,16 +23,16 @@ paths:
           schema:
             type: string
           description: |
-            - action: 操作工作项,支持 `checkPermission`.
+            - action: Actions on issue,support `checkPermission`.
         - name: issueID
           in: path
-          description: 工作项ID
+          description: The ID of the issue
           required: true
           schema:
             type: string
-        - $ref: ../../../openapi-common/canary/zh/request-team.yaml
+        - $ref: ../../../openapi-common/canary/en/request-team.yaml
       requestBody:
-        description: 要检查的工作项权限点列表
+        description: Check whether you have permissions for the issue
         content:
           application/json:
             schema:
@@ -40,12 +40,12 @@ paths:
         required: true
       responses:
         200:
-          description: 请求成功
+          description: Request successful.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/CheckIssuePermissionResponse'
-        $ref: ../../../openapi-common/canary/zh/no-200-response.yaml
+        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
 components:
   schemas:
     CheckIssuePermissionRequest:
@@ -53,7 +53,7 @@ components:
       properties:
         codes:
           type: array
-          description: 工作项权限点列表
+          description: List of permissions
           items:
             type: integer
       example:
@@ -61,7 +61,7 @@ components:
     CheckIssuePermissionResponse:
       type: object
       properties:
-        $ref: ../../../openapi-common/canary/zh/200-response-schemas.yaml
+        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
       required:
         - result
       example:
@@ -70,7 +70,7 @@ components:
         - result: FAIL
           errorCode: NotFound
           errorMsg: 'NotFound issue'
-    $ref: ../../../openapi-common/canary/zh/no-200-response-schemas.yaml
+    $ref: ../../../openapi-common/canary/en/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2
@@ -79,4 +79,4 @@ components:
           authorizationUrl: https://your-domain/oauth2/authorize
           tokenUrl: https://your-domain/oauth2/token
           scopes:
-            read:project:issue: 检查是否拥有工作项某些权限点的权限
+            read:project:issue: Add, edit, delete issue
