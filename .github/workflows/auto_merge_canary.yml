@@ -1,4 +1,4 @@
-# 自动合并canary内容
+# 自动合并 canary 内容
 name: AutoMergeCanary
 on:
   pull_request:

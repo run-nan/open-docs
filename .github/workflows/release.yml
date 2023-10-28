@@ -11,37 +11,41 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
       - name: Setup Node.js v16
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 16.14
 
-      - name: Cache dependencies
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: main
+          
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
         uses: actions/cache@v3
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install
 
-      # npm ci 会清空 node_modules，所以缓存需要在 npm ci 之后才运行
-      - name: Cache node_modules/.cache
-        uses: actions/cache@v3
-        with:
-          key: ${{ hashFiles('package-lock.json') }}-${{ github.run_id }}
-          path: node_modules/.cache
-          restore-keys: ${{ hashFiles('package-lock.json') }}-
-
-      - run: npm run build
+      - name: Build Docs
+        run: pnpm run build
 
       - name: Build package
         run: |
           tar -czf artifacts.tar.gz -C dist .
-
+          
       - name: Semantic release
         uses: cycjimmy/semantic-release-action@v3.4.2
         id: semantic   # Need an `id` for output variables

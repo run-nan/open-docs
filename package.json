@@ -2,17 +2,18 @@
   "name": "open-docs",
   "version": "1.0.0",
   "private": true,
+  "packageManager": "pnpm@8.8.0",
   "prettier": "@senojs/prettier-config",
   "scripts": {
     "prepare": "husky install",
     "docusaurus": "docusaurus",
-    "dev": "cross-env PRODUCTION_ENV=delopment docusaurus start --host 0.0.0.0 --port=4000 --no-minify",
-    "dev:zh": "cross-env PRODUCTION_ENV=delopment docusaurus start --host 0.0.0.0 --port=4000 --no-minify --locale zh-CN",
-    "start": "cross-env PRODUCTION_ENV=production docusaurus start --host 0.0.0.0 --port=4000 --no-minify",
-    "start:zh": "cross-env PRODUCTION_ENV=production docusaurus start --host 0.0.0.0 --port=4000 --no-minify --locale zh-CN",
-    "build:dev": "cross-env PRODUCTION_ENV=delopment docusaurus build --out-dir dist",
-    "build": "cross-env PRODUCTION_ENV=production docusaurus build --out-dir dist",
-    "production": "cross-env PRODUCTION_ENV=production docusaurus build --out-dir dist",
+    "dev": "PRODUCTION_ENV=development docusaurus start --host 0.0.0.0 --port=4000 --no-minify",
+    "dev:zh": "PRODUCTION_ENV=development docusaurus start --host 0.0.0.0 --port=4000 --no-minify --locale zh-CN",
+    "start": "PRODUCTION_ENV=production docusaurus start --host 0.0.0.0 --port=4000 --no-minify",
+    "start:zh": "PRODUCTION_ENV=production docusaurus start --host 0.0.0.0 --port=4000 --no-minify --locale zh-CN",
+    "build:dev": "PRODUCTION_ENV=development docusaurus build --out-dir dist",
+    "build": "PRODUCTION_ENV=production docusaurus build --out-dir dist",
+    "production": "PRODUCTION_ENV=production docusaurus build --out-dir dist",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -22,7 +23,7 @@
     "typecheck": "tsc",
     "gen-api": "docusaurus gen-api-docs all",
     "clean-api": "docusaurus clean-api-docs all",
-    "rebuild-api": "npm run clean-api && npm run gen-api"
+    "rebuild-api": "pnpm run clean-api && pnpm run gen-api"
   },
   "author": {
     "name": "htmlin",
@@ -40,14 +41,12 @@
     "@docusaurus/preset-classic": "~2.2.0",
     "@docusaurus/remark-plugin-npm2yarn": "~2.2.0",
     "@docusaurus/theme-mermaid": "2.2.0",
-    "@easyops-cn/docusaurus-search-local": "~0.33.5",
-    "@mdx-js/react": "~1.6.22",
-    "@senojs/prettier-config": "~0.2.2",
-    "@tsconfig/docusaurus": "~1.0.6",
+    "@easyops-cn/docusaurus-search-local": "~0.34.0",
+    "@senojs/prettier-config": "~0.3.0",
+    "@tsconfig/docusaurus": "~1.0.7",
     "@typescript-eslint/eslint-plugin": "~5.36.2",
     "@typescript-eslint/parser": "~5.36.2",
     "clsx": "~1.1.1",
-    "cross-env": "7.0.3",
     "docusaurus-plugin-openapi-docs": "1.7.3",
     "docusaurus-theme-openapi-docs": "1.7.3",
     "eslint": "~8.23.1",
@@ -60,6 +59,6 @@
     "prism-react-renderer": "~1.3.5",
     "react": "~17.0.2",
     "react-dom": "~17.0.2",
-    "typescript": "~4.6.4"
+    "typescript": "~4.9.5"
   }
 }

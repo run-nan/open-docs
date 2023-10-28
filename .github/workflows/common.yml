@@ -9,29 +9,37 @@ jobs:
     timeout-minutes: 90
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
+      - name: Setup Node.js v16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.14
+
+      - name: Checkout
         uses: actions/checkout@v3
         with:
           ref: main
-      - name: setup Node.js v16
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - name: cache dependencies
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+
+      - name: Get pnpm store directory
+                shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
         uses: actions/cache@v3
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-      - name: install dependencies
-        run: npm ci
-        # npm ci 会清空 node_modules，所以缓存需要在 npm ci 之后才运行
-      - name: cache node_modules/.cache
-        uses: actions/cache@v3
-        with:
-          key: ${{ hashFiles('package-lock.json') }}-${{ github.run_id }}
-          path: node_modules/.cache
-          restore-keys: ${{ hashFiles('package-lock.json') }}-
-      - run: npm run build:dev
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build Docs
+        run: pnpm run build:dev
+
       - uses: appleboy/scp-action@v0.1.2
         with:
           host: 120.78.193.246
@@ -41,6 +49,7 @@ jobs:
           target: /usr/share/nginx/docs
           strip_components: 1
           rm: true
+          
       - name: send notification
         run: >
           curl 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=20dc3e3c-dfa4-4d10-8900-292810e5b046' -H 'Content-Type: application/json' -d '{

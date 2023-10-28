@@ -1,15 +1,19 @@
 # Contributing Guide
 
+## Install pnpm
+
+We use pnpm to manage our packages. Please [install pnpm](https://pnpm.io/zh/installation) before contributing.
+
 ## Installation
 
 ```
-npm install
+pnpm install
 ```
 
 ## Local Development
 
 ```
-npm start
+pnpm start
 ```
 
 This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
@@ -19,7 +23,7 @@ This command starts a local development server and opens up a browser window. Mo
 以中文为例：
 
 ```
-npm run start:zh
+pnpm run start:zh
 ```
 
 #### 目录结构
@@ -41,7 +45,7 @@ Review 完成后复制一份到正式的文档目录：
 ### Build
 
 ```
-$ npm run build
+$ pnpm run build
 ```
 
 This command generates static content into the `build` directory and can be served using any static contents hosting service.
@@ -50,10 +54,10 @@ This command generates static content into the `build` directory and can be serv
 
 ```
 // run inner docs
-$ npm run dev
+$ pnpm run dev
 
 // run public docs
-$ npm run start
+$ pnpm run start
 ```
 
 ### OpenAPI
@@ -65,19 +69,19 @@ $ npm run start
 重新生成最新 OpenAPI 文档
 
 ```
-$ npm run rebuild-api
+$ pnpm run rebuild-api
 ```
 
 生成所有 OpenAPI 文档（如果存在则跳过）
 
 ```
-$ npm run gen-api
+$ pnpm run gen-api
 ```
 
 删除所有 OpenAPI 文档
 
 ```
-$ npm run clean-api
+$ pnpm run clean-api
 ```
 
 #### 维护
@@ -88,7 +92,7 @@ $ npm run clean-api
 
 如果是修改已有 yaml 内容，在更新完 yaml 后
 
-执行 `npm run rebuild-api` 命令，清空重新生成 OpenAPI 文档
+执行 `pnpm run rebuild-api` 命令，清空重新生成 OpenAPI 文档
 
 ##### 新增
 
