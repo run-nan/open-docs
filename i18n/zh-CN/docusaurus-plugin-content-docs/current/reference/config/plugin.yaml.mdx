@@ -400,7 +400,7 @@ service:
 - **类型：**`'project' | 'wiki'`
 - **默认值（含未定义）：**`'project'`
 
-当前接口是对 ONES 标品接口修改时（即 [`type`](#type) 是 `'replace' | 'prefix' | 'suffix'`），需要声明你当前修改的时 `project` 接口还是 `wiki` 接口。
+当前接口是对 ONES 标品接口修改时（即 [`type`](#type) 是 `'replace' | 'prefix' | 'suffix'`），需要声明你当前修改的是 `project` 接口还是 `wiki` 接口。
 
 :::note
 如果是插件新增的接口，此字段无意义。
@@ -542,13 +542,14 @@ modules:
 
 ```tsx
 import { BrowserRouter } from 'react-router-dom'
+
 ReactDOM.render(
   <ConfigProvider>
     <BrowserRouter basename={window.__op_router_basename__}>
       <App />
     </BrowserRouter>
   </ConfigProvider>,
-  document.getElementById('ones-mf-root')
+  document.getElementById('ones-mf-root'),
 )
 ```
 
@@ -556,13 +557,14 @@ ReactDOM.render(
 
 ```tsx
 import { HashRouter } from 'react-router-dom'
+
 ReactDOM.render(
   <ConfigProvider>
     <HashRouter>
       <App />
     </HashRouter>
   </ConfigProvider>,
-  document.getElementById('ones-mf-root')
+  document.getElementById('ones-mf-root'),
 )
 ```
 
