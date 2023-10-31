@@ -1,0 +1,223 @@
+---
+sidebar_position: 8
+description: As a plugin developer, I would like to be able to customize user rules so that when searching or modifying members in work items associated with a project, they must belong to the user rule range defined by the plugin.
+---
+
+import Image from '@theme/IdealImage'
+
+import image01 from './images/image01.png'
+import image02 from './images/image02.png'
+import image03 from './images/image03.png'
+import image04 from './images/image04.png'
+
+# Customize the selectable range of issue member field
+
+## Requirements
+
+| ONES      |
+| :-------- |
+| v3.13.35+ |
+
+## Overview
+
+As a plugin developer, I want to be able to customize user rules so that searching or modifying user in work items associated with a project must fall within the scope of the plugin's custom user rules.
+When using this ability, the content that users can customize includes:
+
+1. In the global configuration item "Optional Range of Work Item Member Attributes", add custom rule options.
+2. For project-managed work items, the user search function is controlled by the "Optional Range of Work Item Member Attributes".
+
+- Including: search for person in charge, search for solvers, search for followers, search for custom single-choice members, search for custom multi-choice members.
+
+3. For project-managed work items, the user modification function is controlled by "Optional Range of Work Item Member Attributes".
+
+- Including: modifying the person in charge, modifying the solver, modifying followers, modifying custom single-selection members, modifying custom multi-selection members, modifying attributes in batches, and adding work items.
+
+### Performance
+
+When the plug-in of this capability is enabled, a custom rule option is added in the global configuration item "Optional Range of Work Item Member Attributes".
+
+<Image img={image01} />
+
+When "Custom Rule Options" is selected, the member search function in the project management work item is controlled by the optional range.
+
+<Image img={image02} />
+
+When "Customize Rule Options" is selected, the function of modifying members in work items of project management is controlled by the optional scope.
+
+<Image img={image03} />
+
+When the plug-in for this capability is deactivated, the previously added custom rule option will disappear in the global configuration item "Optional Range of Work Item Member Attributes".
+
+<Image img={image04} />
+
+## Usage
+
+### Add Ability
+
+Execute `npx op add ability` , select `user-list-filter@1.0.0` to add an ability
+
+- `config/plugin.yaml` has follow information:
+
+```yaml
+service:
+  app_id: Wr1aVwZS
+  ...
+modules:[]
+abilities:
+  - id: saxkWEsg
+    name: Plugin Members
+    version: 1.0.0
+    abilityType: UserListFilter
+    scope: org
+    desc: plugin members which can filter all ones users.
+    function:
+      UserListFilterCallback: userListFilterTest
+    forOnesFunc: null
+    forPluginFunc: null
+    config:
+      - key: user_list_name
+        value: custom members
+        fieldType: Input
+        show: false
+```
+
+- `backend/src/user_list_filter.ts` has follow information:
+
+```tsx
+import { Logger } from '@ones-op/node-logger'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+export const userListFilterTest = async (request: PluginRequest): Promise<PluginResponse> => {
+  Logger.info('[userListFilterTest] enter')
+  const body = request?.body as any
+  let users = body['users']
+  //Logger.info("[userListFilterTest] users:", users.length)
+
+  if (users == undefined) {
+    Logger.info('[userListFilterTest] has no users')
+  } else if (users.length == 0) {
+    Logger.info('[userListFilterTest] users has no item')
+  } else {
+    Logger.info('[userListFilterTest] users[0]:', users[0])
+  }
+  //Init information
+  let data_result = new Array()
+
+  /**[start] custom user filter rules**/
+
+  /**[end] custom user filter rules**/
+
+  return {
+    body: {
+      code: 200,
+      body: {
+        state: 0,
+        message: 'success',
+        data: data_result,
+      },
+    },
+  }
+}
+```
+
+### Custom Filter Rules
+
+In userListFilterTest function, add custom rule logic based on user information to filter out users who meet the rules.
+
+#### User
+
+| parameter name | value type | Ranges   | example      | illustration                    |
+| :------------- | :--------- | :------- | :----------- | :------------------------------ |
+| uuid           | string     | len=8    | NbDQH9A9     | user uuid                       |
+| company        | string     | len<=128 | ones         | Company Name                    |
+| email          | string     | len<=128 | Tom@ones.com | user email                      |
+| inviter_uuid   | string     | len=8    | 4i4S57VG     | Inviter uuid                    |
+| name           | string     | len<=64  | Tom01        | user name                       |
+| phone          | string     | len<=32  | 15522778899  | phone                           |
+| status         | string     | len<=8   | 1            | user status, 1:normal 2.deleted |
+| team_uuid      | string     | len=8    | 9xHa5f8V     | team uuid                       |
+| title          | string     | len<=64  | manager      | user position                   |
+
+#### Example
+
+Add custom rules based on user email information. For example, to filter all users whose email suffix is "@ones.com".
+
+```tsx
+import { Logger } from '@ones-op/node-logger'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+export const userListFilterTest = async (request: PluginRequest): Promise<PluginResponse> => {
+  Logger.info('[userListFilterTest] enter')
+  const body = request?.body as any
+  let users = body['users']
+  //Logger.info("[userListFilterTest] users:", users.length)
+
+  if (users == undefined) {
+    Logger.info('[userListFilterTest] has no users')
+  } else if (users.length == 0) {
+    Logger.info('[userListFilterTest] users has no item')
+  } else {
+    Logger.info('[userListFilterTest] users[0]:', users[0])
+  }
+  //Init information
+  let data_result = new Array()
+
+  /**[start] custom user filter rules**/
+  if (users) {
+    let reqSuffix = /@ones.com$/
+    for (let idx in users) {
+      if (reqSuffix.test(users[idx]['email'])) {
+        data_result.push(users[idx]['uuid'] as string)
+      }
+    }
+  }
+  /**[end] custom user filter rules**/
+
+  return {
+    body: {
+      code: 200,
+      body: {
+        state: 0,
+        message: 'success',
+        data: data_result,
+      },
+    },
+  }
+}
+```
+
+## Q&A
+
+**How can the custom user list name be multilingual?**
+
+refer to [Plug-in multilingual support](../../../../guide/abilities/multilingual.mdx)
+
+```yaml
+service:
+  app_id: Wr1aVwZS
+  ...
+abilities:
+  - id: saxkWEsg
+    name: Plugin Members
+    version: 1.0.0
+    abilityType: UserListFilter
+    scope: org
+    desc: plugin members which can filter all ones users.
+    function:
+      UserListFilterCallback: userListFilterTest
+    forOnesFunc: null
+    forPluginFunc: null
+    config:
+      - key: user_list_name
+        value: {{.UserListName}}
+        fieldType: Input
+        show: false
+```
+
+**How to update custom user list option name?**
+
+refer to [upgrade the plug-in](../../../../guide/upgrade.md)
+
+- Modify `abilities.config.value` first
+- Modify the workspace `/lanuage/xx.yaml` multilingual translation copy
+- Upgrade the plugin

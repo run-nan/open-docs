@@ -1,0 +1,133 @@
+---
+sidebar_position: 18
+description: Receive notification messages via SMS.
+---
+
+import Image from '@theme/IdealImage'
+
+import p1 from './images/p1.png'
+import p2 from './images/p2.png'
+import p3 from './images/p3.png'
+
+# Receive notification messages via SMS
+
+## Require
+
+| ONES     |
+| :------- |
+| v3.12.0+ |
+
+## Overview
+
+In the notification method, we only need to enable the relevant configuration of the SMS sending capability, and then we can select the "SMS" sending channel. For details on how to configure it, please refer to [Enable SMS sending](https://guide.ones.pro/wiki/ #/team/LBrdb4wE/space/6XDAYB1a/page/Y9T5GFQn) , to enable the above configuration, we need to have an independent service to carry the receiving and sending of SMS messages, and also need to maintain the service, which often costs It is relatively high. If the SMS sending system is implemented through plug-ins, customers do not need to care about the operation and maintenance of the service, and plug-in developers only need to care about receiving the content of the plug-in and the number of the person receiving the SMS. Just forward the SMS, and the forwarding logic of the SMS is handled by the plug-in itself. It should be noted that this capability only supports single-team organizations, and does not support multi-team organizations, and only one plug-in under this team can use this ability.
+
+## use
+
+### Step 1: Add Capabilities
+
+Execute the `npx op add ability` command in the root directory of the plug-in project, and select: `send-short-message@1.0.0`.
+
+After the execution is completed, a section of configuration will be added under the **abilities** property of the `plugin.yaml` configuration file. The configuration is as follows:
+
+```yaml
+abilities:
+  - id: xxxxxx
+    name: SendShortMessage
+    version: 1.0.0
+    abilityType: send_short_message
+    function:
+      sendShortMessage: SendShortMessage
+```
+
+The backend code adds the following code:
+
+```typescript
+export async function SendShortMessage(request: PluginRequest): Promise<PluginResponse> {
+  return {
+    body: {
+      code: 200,
+      ResponseModel: 'Plugin.SendShortMessage',
+      Reason: 'Success',
+      Type: null,
+      Body: null,
+    },
+  }
+}
+```
+
+The above code is used to receive text messages. Once the scene that needs to send text messages is triggered, the text message context will be forwarded to this function, including the content of the text message and the number of the user who needs to receive the text message, respectively in the body of the request. content, phone_numbers parameter.
+
+### Step 2: Add external route
+
+This route mainly plays the role of enabling the SMS configuration, because only when the SMS configuration is enabled, can the SMS be selected in the message notification.
+
+Add the following content to the apis field in the plugin.yaml file:
+
+```yaml
+apis:
+   -type: external
+     methods:
+       - POST
+     url: /team/:teamUUID/open_send_short_message
+     function: OpenSendShortMessage
+```
+
+Add the following code to the backend file:
+
+```typescript
+export async function OpenSendShortMessage(request: PluginRequest): Promise<PluginResponse> {
+  // Query sms_config interface ${globalThis.onesEnv.teamUUID
+  const response = await fetchONES({
+    path: `/organization/${globalThis.onesEnv.organizationUUID}/sms_config`,
+    method: 'GET',
+    root: true, //default is true
+  })
+  Logger.info('resp:', response)
+  const { uuid, channel_uuid } = response?.body as any
+
+  // Call to open the configuration interface
+  const response2 = await fetchONES({
+    path: `/organization/${globalThis.onesEnv.organizationUUID}/sms_config/update`,
+    method: 'POST',
+    body: {
+      uuid: uuid,
+      url: '-',
+      token: '-',
+      enable_bind: 1,
+      enable_notice: 1,
+      channel_uuid: channel_uuid,
+    },
+    root: true,
+  })
+  Logger.info('resp:', response2)
+
+  return {
+    body: {
+      res: 'success',
+    },
+  }
+}
+```
+
+### Step 3: Install the plugin locally and request the added external interface
+
+### Step 4: Create an account and bind a mobile phone number to this account
+
+When we fill in the phone number on the binding page, and then click to send the verification code, if we print out the request in the OpenSendShortMessage function in the plug-in, we will see the following result:
+
+<Image img={p1} />
+The reason why sending a verification code triggers this function is that as long as there is a scene
+in the system that needs to send a text message, the content of the text message and the number of the
+user to be accepted can be intercepted through this capability, because sending a verification code is
+also a scene of calling a text message , so the function of the plug-in will be triggered, and the mobile
+phone number can be bound according to the verification code.
+
+### Step 5: Use the administrator account to log in to the system, select the text message in the message notification of creating a task, and add the newly created user to the member list
+
+<Image img={p2} />
+
+### Step 6: Create a task
+
+After creating a task, you can receive the following information in the plugin:
+
+<Image img={p3} />

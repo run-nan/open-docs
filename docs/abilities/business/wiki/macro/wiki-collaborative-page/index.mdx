@@ -1,0 +1,359 @@
+---
+id: wiki-collaborative-page
+sidebar_position: 1
+description: Insert an embed or an inline block in the wiki collaborative page.
+---
+
+import Image from '@theme/IdealImage'
+
+# Wiki collaborative page
+
+## Requirements
+
+|   ONES    |
+| :-------: |
+| v3.11.30+ |
+
+## Overview
+
+<Image img={require('./images/editor.png')} />
+
+We have provided slots for "ONES Wiki" - "Spaces" - "select a space" - "Wiki collaborative page" to customize the page module for the application.
+
+The slots currently supported are as follows:
+
+- [ones:wiki:editor:decorator](#oneswikieditordecorator)
+
+## Slots
+
+#### ones:wiki:editor:decorator
+
+**Module path：** ONES Wiki / Spaces / select a space / Wiki collaborative page
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **10** slots in the system.
+
+## Usage
+
+```yaml
+modules:
+  - id: ones-wiki-editor-decorator-lsE4
+    title: test
+    moduleType: ones:wiki:editor:decorator
+    entry: modules/ones-wiki-editor-decorator-lsE4/index.html
+    icon: logo.svg
+```
+
+### Available Hook API
+
+- [useDefaultEditor](../../../../../reference/packages/editor/editor.md#useDefaultEditor)
+- [useDefaultEditorTools](../../../../../reference/packages/editor/editor.md#useDefaultEditorTools)
+
+### Register shortcut
+
+The user can insert the plugin in three ways: click "+", entry "/", or "Insert above"/"Insert below" in the menu. You
+can register a shortcut by the hook `useRegisterCommand`, compute the position where to insert the plugin, and insert
+the data.
+
+```tsx
+import { useRegisterCommand } from '@ones-op/editor'
+
+function App() {
+  const registerCommand = useRegisterCommand()
+  const editor = useDefaultEditor()
+  const tools = useDefaultEditorTools()
+
+  useEffect(() => {
+    registerCommand({
+      commandItems: [
+        {
+          id: 'tabs',
+          name: 'tabs',
+          icon: './logo.svg',
+          subText: '/tabs',
+        },
+      ],
+      async executeCommand(options) {
+        let containerId: string | undefined
+        let blockIndex = 0
+        if (options.params.from === 'quick-menu' || options.params.from === 'add-block-menu') {
+          const block = editor.getBlockById(options.params.blockId)
+          const container = editor.getParentContainer(block)
+          containerId = tools.getContainerId(container)
+          blockIndex = editor.getBlockIndex(block)
+        }
+        if (options.params.from === 'block-menu') {
+          // Please implement the logic
+          return
+        }
+        if (options.item.id === 'tabs') {
+          const childId = tools.createEmptyContainer()
+          const blockData: MFInsertBlockData = {
+            type: 'my-tabs',
+            children: [childId],
+            data: ['tab1'],
+            exportSpec: [
+              {
+                type: 'text',
+                data: 'tab1',
+              },
+              {
+                type: 'block',
+                data: [childId],
+              },
+            ],
+          }
+          return editor.insertBlock(containerId, blockIndex, blockData)
+        }
+      },
+    })
+  }, [editor, registerCommand, tools])
+  return (
+    <>
+      <RenderEditorBlock config={config} />
+    </>
+  )
+}
+```
+
+### Render the plugin
+
+After you insert the plugin. The platform will call the `render` function by the type of the plugin data. For example,
+in the code above, the type of the plugin data is `my-tabs`, so you must register a component to render it.
+
+Every block inserted by the plugin has a border which is rendered by the platform to show the information of the block.
+The `icon` and `name` are used to configure the information.
+
+```ts
+const config: EditorBlockConfig = {
+  'my-tabs': {
+    render: BlockTabs,
+    icon: './logo.svg',
+    name: 'my-tabs',
+  },
+}
+
+function App() {
+  return (
+    <>
+      <RenderEditorBlock config={config} />
+    </>
+  )
+}
+```
+
+:::caution caution
+
+The element used to accept data from the user(e.g. `<input>`) can't be used in the block element(which intercept lots
+of DOM event, so the element can't respond to the input from the user). But the element wrapped by the `Modal` from the
+`@ones-design/core` can accept the data from the user, because the element under the `Modal` is inserted under the `document.body`.
+
+:::
+
+:::caution caution
+
+The function in the `editor` is synchronous, so try your best to put the function that changes the document in the `useLayoutEffect`.
+Otherwise, maybe the editor will throw an error.
+
+:::
+
+Now the plugin supports three types of elements in the document, there are `Block`, `Embed`, and `Box`. The main
+difference is the `Box` can be inserted into the document around the text, and the `Block` and `Embed` are the whole
+block in the document.
+
+#### Block
+
+The `Block` is the whole block in the document. You can insert the `Block` into the document by the `editor.insertBlock`
+function, and register a component to render the `Block` by the component `RenderEditorBlock`. In the block, you can
+insert an editable block that has the core functionality of the editor.
+
+For example, the table in the document is a `Block`, the developer can determine the appearance of the table, and the cell
+is the editable block. And you can determine the cursor position in the cell by the lifecycle.
+
+This is the lifecycle you can use:
+
+:::caution caution
+
+The child container id should be put into the `blockData.children` array. When the user copies the block, the editor will
+update the id in the `blockData.children` array.
+
+:::
+
+```ts
+function BlockTabs(props: EditorBlockProps) {
+  const editor = useDefaultEditor()
+  const tools = useDefaultEditorTools()
+  const containerRef = useRef<HTMLDivElement>(null)
+  const activeTabKey = props.blockData.children[0]
+
+  const tabsInfo = useMemo(() => {
+    return props.blockData.children.map((item) => {
+      return {
+        key: item,
+        label: props.blockData.pluginInfo.data[0],
+      }
+    })
+  }, [props.blockData.children, props.blockData.pluginInfo.data])
+
+  useEffect(() => {
+    props.registerLifeCycle({
+      // Return the container element of the block which is created by the `editor.createChildContainer` function.
+      // If the `options?.visibleOnly` is `true`, you should only return the container element which is visible.
+      // For example, when the user try to move the cursor to the block, the `editor` will call this function and move the
+      // cursor to the right child container.
+      getChildContainers: (_, options) => {
+        // Please implement the logic
+      },
+      // Update the selected status of a child container
+      // When a child container is selected, the `clearSelection` runs first, and then the `updateSelection` runs.
+      // If the lifecycle is not defined, The block is selected by default when needed.
+      updateSelection() {
+        // Please implement the logic
+      },
+      // Clear the selected status of all child container
+      clearSelection() {
+        // Please implement the logic
+      },
+      // Return the selected child container element.
+      getSelectedContainers(complexBlock) {
+        // Please implement the logic
+      },
+      // If the block is visible.
+      // the block has two child containers. The first container has an annotation and is unvisitable. The second
+      // container is visible. When the user clicks the annotation. The editor will ask if the block where the
+      // annotation is located is visible. If the block is not visible, the editor will call the `showChildContainer`
+      // and switch to the first block.
+      isChildContainerVisible(block) {
+        // Please implement the logic
+      },
+      // Refer to `isChildContainerVisible`.
+      // When you try to show the container, you should wrap the component state with `flushSync`, because the editor inside is synchronous.
+      showChildContainer() {
+        // Please implement the logic
+      },
+      // When the user clicks a DOM which is not an editor block that the cursor can move to, this function will be
+      // called. You can return a child container, then the editor will move the cursor to the container.
+      getRangeFromPoint(block) {
+        // Please implement the logic
+      },
+      // Configure how to display the toolbar.
+      // The toolbar shows on the top of the block when the user hovers over it.
+      getBlockProperties() {
+        // Please implement the logic
+      }
+    })
+  }, [activeTabKey, editor, props, tools])
+
+  useLayoutEffect(() => {
+    // This is used to insert a editable block in the container.
+    editor.createChildContainer(props.path, containerRef.current, props.blockData.children[0])
+  }, [editor, props.blockData.children, props.path])
+
+  return (
+    <>
+      <Tabs tabs={tabsInfo} activeTabKey={tabsInfo[0].key} />
+      <div ref={containerRef}></div>
+    </>
+  )
+}
+```
+
+#### Embed
+
+You can insert the `Embed` into the document by the `editor.insertEmbed` function, and register a component to render
+the `Embed` by the component `RenderEditorEmbed`.
+
+This is the same as the `Block`, but the `Embed` is a special block. You can't insert an editable block in the `Embed`.
+When the cursor move to the `Embed`, the whole `Embed` block is selected. The `Embed` is not editable.
+
+```ts
+function EmbedBlock(props: EditorEmbedProps) {
+  return <span>test</span>
+}
+
+const embedConfig: EditorEmbedConfig = {
+  embedType: {
+    render: EmbedBlock,
+    name: 'embed',
+    icon: './logo.svg',
+  },
+}
+
+function App() {
+  return (
+    <>
+      <RenderEditorEmbed config={embedConfig} />
+    </>
+  )
+}
+```
+
+#### Box
+
+:::caution caution
+
+Now the `Box` can't be exported to `PDF/Word`.
+
+:::
+
+You can insert the `Box` into the document by the `editor.insertBoxToBlock` function, and register a function to render
+the `Box` by the hook `useRegisterBoxConfig`.
+
+The `Box` is an inline element. You can't use the react component to render the `Box`. When the data of the block that the box
+is located is changed, the `Box` will be re-rendered. Before the editor commits the DOM, the editor first diff the new DOM with
+the old DOM. If the DOM is not changed, the new DOM will be dropped. But in some cases, the new DOM will be accepted by the editor,
+you should not depend on this algorithm, don't register the event listener in the DOM.
+
+```ts
+import { useRegisterBoxConfig } from "@ones-op/editor"
+
+function App() {
+  const getConfig = useCallback(() => {
+    return {
+      boxType: {
+        name: 'box',
+        icon: './logo.svg',
+        // This is used to listen the click event.
+        handleClickBox(box, boxData) {
+          // Please implement the logic
+        },
+        // When an box is need to render, this function will be called.
+        updateBoxContent(boxData) {
+          // Please implement the logic
+        },
+      },
+    }
+  }, [])
+  useRegisterBoxConfig(getConfig)
+
+  return (
+    <>
+      <RenderEditorBlock config={config} />
+      <RenderEditorEmbed config={embedConfig} />
+    </>
+  )
+}
+```
+
+### Export to PDF/Word
+
+While inserting and updating the data, the plugin needs to tell the editor how to export this data when the user export it to word or PDF(for example, the issue plugin will save the ID into the document. When exported to PDF, this data will render as a link). When you need to export an image, make sure the image has been uploaded to the server of the editor by calling the `editor.editor.doc.uploadResource`, the server will return the file name of the resource.
+
+```ts
+editor.doc.uploadResource(file).then((url) => {
+  editor.updateEmbedData(props.blockElement, {
+    type: 'embedType',
+    data: {
+      //
+    },
+    exportSpec: [
+      {
+        type: 'image',
+        data: url.resourceId,
+      },
+    ],
+    // If you use the `editor.doc.uploadResource` to upload your resource and not export it as an image. You should add
+    // the resource to the `resources` array. Otherwise, the resource is invalid in the new document into which it’s copied.
+    resources: [],
+  })
+})
+```

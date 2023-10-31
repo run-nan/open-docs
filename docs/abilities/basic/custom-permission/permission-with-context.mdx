@@ -1,0 +1,144 @@
+---
+sidebar_position: 2
+description: permission with context
+---
+
+import Image from '@theme/IdealImage'
+
+# Scene：Custom sprint component with context-based permission
+
+## Scene description
+
+We want to implement a custom sprint component in "ONES project" and control its access permissions. The component should only be visible when it belongs to the "Demo Project" and hidden otherwise.
+
+## Solution
+
+### Implementation idea
+
+Implement a custom sprint module and use the custom permission ability to add a plugin permission . Associate the custom sprint module with this custom permission.
+
+### Effect
+
+When the component belongs to the "Demo Project," the custom sprint module is visible.
+
+<Image img={require('./images/custom-sprint-01.png')} />
+
+When the component does not belong to the "Demo Project," the custom sprint module is hidden.
+
+<Image img={require('./images/custom-sprint-02.png')} />
+
+## Plugin development
+
+### Step 1: Add Slot
+
+Use `npx op add module` to add a slot of type `ones:project:component:sprint`.
+
+```yaml title="config/plugin.yaml"
+modules:
+  - id: ones-project-component-sprint-li88
+    title: Sprint
+    moduleType: ones:project:component:sprint
+    entry: modules/ones-project-component-sprint-li88/index.html
+```
+
+Implement the slot rendering logic:
+
+```tsx title="web/src/modules/ones-project-component-sprint-li88/index.tsx"
+ReactDOM.render(
+  <ConfigProvider>
+    <h1>Custom Sprint</h1>
+  </ConfigProvider>,
+  document.getElementById('ones-mf-root'),
+)
+```
+
+### Step 2: Add Custom Permission
+
+Use `npx op add ability` to add the `custom-permission` ability.
+
+Add the custom permission to the ability configuration:
+
+```yaml title="config/plugin.yaml"
+abilities:
+  - id: xp4rZk24fP
+    name: custom permission
+    version: 1.0.0
+    abilityType: CustomPermission
+    function:
+      customPermissionCheckFunc: customPermissionCheck
+    config:
+      - key: name
+        value: custom_sprint_permission
+        show: false
+      - key: field
+        value: custom_sprint_permission
+        show: false
+      - key: desc
+        value: custom_sprint_permission
+        show: false
+      - key: is_plugin_custom_check
+        value: true
+        show: false
+```
+
+Implement the permission validation logic in the `customPermissionCheck` function:
+
+```typescript title="backend/src/custom-permission.ts"
+import { Logger } from '@ones-op/node-logger'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+interface PermissionContext {
+  project_uuid?: string // ONES Projects -> project ID
+  filter_view_uuid?: string // My work -> Filters -> filter view ID
+  program_uuid?: string // ONES Program -> program ID
+  product_uuid?: string // Product Management -> product ID
+  testcase_library_uuid?: string // ONES TestCase -> Test case libarary -> test case library ID
+  test_plan_uuid?: string // ONES Testcase -> Test plans -> test planID
+  wiki_space_uuid?: string // ONES Wiki -> Spaces -> space ID
+  workspace_dashboard_uuid?: string // My work -> Dashboards -> dashboard ID
+  performance_dashboard_uuid?: string // ONES Performace -> Dashboard -> dashboard ID
+}
+
+interface PermissionBody {
+  user_uuid: string // User ID
+  permission_field: string // Permission Field
+  context: PermissionContext
+}
+
+const permissionResult = (is_permission: boolean) => ({
+  statusCode: 200,
+  body: {
+    code: 200,
+    body: {
+      is_permission,
+    },
+  },
+})
+
+export async function customPermissionCheck(
+  request: PluginRequest<PermissionBody>,
+): Promise<PluginResponse> {
+  Logger.info('check custom permission')
+  const { permission_field, context = {} } = request.body
+  Logger.info('body:', JSON.stringify(request.body, null, 2))
+  switch (permission_field) {
+    case 'custom_sprint_permission':
+      return permissionResult(context?.project_uuid === 'UBwog7LWV7wZcWyT') // UBwog7LWV7wZcWyT is the projectUUID of the "Demo Project"
+  }
+  return permissionResult(true)
+}
+```
+
+### Step 3: Associate Slot with Permission Point
+
+Add the `permission` and `needPermissionContext` fields to the `module` configuration. Associate them with the permission point declared in the `custom-permission` ability:
+
+```yaml title="config/plugin.yaml"
+modules:
+  - id: ones-project-component-sprint-li88
+    title: Sprint
+    moduleType: ones:project:component:sprint
+    entry: modules/ones-project-component-sprint-li88/index.html
+    permission: custom_sprint_permission
+    needPermissionContext: true # When needPermissionContext is true, permissions are revalidated when the permission context changes.
+```

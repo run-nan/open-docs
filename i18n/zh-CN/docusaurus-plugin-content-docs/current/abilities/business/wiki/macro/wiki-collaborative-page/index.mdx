@@ -1,0 +1,341 @@
+---
+id: wiki-collaborative-page
+sidebar_position: 1
+description: 插入嵌入块或内联块到 Wiki 协同页面中。
+---
+
+import Image from '@theme/IdealImage'
+
+# Wiki 协同页面
+
+## 要求
+
+|   ONES    |
+| :-------: |
+| v3.11.30+ |
+
+## 概述
+
+<Image img={require('./images/editor.png')} />
+
+我们为「知识库管理」-「页面组」-「选择页面组」-「Wiki 协同页面」提供了一些插槽，以便于为该应用定制化页面模块。
+
+当前支持的插槽：
+
+- [ones:wiki:editor:decorator](#oneswikieditordecorator)
+
+## 插槽
+
+#### ones:wiki:editor:decorator
+
+**模块路径：** 知识库管理 / 页面组 / 选择页面组 / Wiki 协同页面
+
+**个数限制：** 一个插件中最多可声明 **10 **个该插槽，系统中最多同时存在 **10 **个该插槽
+
+## 使用
+
+```yaml
+modules:
+  - id: ones-wiki-editor-decorator-lsE4
+    title: test
+    moduleType: ones:wiki:editor:decorator
+    entry: modules/ones-wiki-editor-decorator-lsE4/index.html
+    icon: logo.svg
+```
+
+### 可访问的上下文数据
+
+- [useDefaultEditor](../../../../../reference/packages/editor/editor.md#useDefaultEditor)
+- [useDefaultEditorTools](../../../../../reference/packages/editor/editor.md#useDefaultEditorTools)
+
+### 注册快捷指令
+
+用户插入插件主要有三种方式：点击"+"，输入"/"，或者在菜单中点击"上方插入"和"下方插入"。你可以用 `useRegisterCommand` 来注册一个快捷指令，
+计算插入的位置，然后插入插件数据。
+
+```tsx
+import { useRegisterCommand } from '@ones-op/editor'
+
+function App() {
+  const registerCommand = useRegisterCommand()
+  const editor = useDefaultEditor()
+  const tools = useDefaultEditorTools()
+
+  useEffect(() => {
+    registerCommand({
+      commandItems: [
+        {
+          id: 'tabs',
+          name: 'tabs',
+          icon: './logo.svg',
+          subText: '/tabs',
+        },
+      ],
+      async executeCommand(options) {
+        let containerId: string | undefined
+        let blockIndex = 0
+        if (options.params.from === 'quick-menu' || options.params.from === 'add-block-menu') {
+          const block = editor.getBlockById(options.params.blockId)
+          const container = editor.getParentContainer(block)
+          containerId = tools.getContainerId(container)
+          blockIndex = editor.getBlockIndex(block)
+        }
+        if (options.params.from === 'block-menu') {
+          // Please implement the logic
+          return
+        }
+        if (options.item.id === 'tabs') {
+          const childId = tools.createEmptyContainer()
+          const blockData: MFInsertBlockData = {
+            type: 'my-tabs',
+            children: [childId],
+            data: ['tab1'],
+            exportSpec: [
+              {
+                type: 'text',
+                data: 'tab1',
+              },
+              {
+                type: 'block',
+                data: [childId],
+              },
+            ],
+          }
+          return editor.insertBlock(containerId, blockIndex, blockData)
+        }
+      },
+    })
+  }, [editor, registerCommand, tools])
+  return (
+    <>
+      <RenderEditorBlock config={config} />
+    </>
+  )
+}
+```
+
+### 渲染插件
+
+在用户插入插件数据后，根据数据的类型，开放平台会调用 `render` 渲染函数。比如：上面的代码，插件数据的类型是 `my-tabs`，
+所以你需要为这个类型注册组件。每个插件插入的块，开放平台都会为其渲染一个边框，用来展示块的信息。`icon` 和 `name` 就是用来配置这个信息的。
+
+```ts
+const config: EditorBlockConfig = {
+  'my-tabs': {
+    render: BlockTabs,
+    icon: './logo.svg',
+    name: 'my-tabs',
+  },
+}
+
+function App() {
+  return (
+    <>
+      <RenderEditorBlock config={config} />
+    </>
+  )
+}
+```
+
+:::caution 注意
+
+渲染块里面不应该有 Input 等编辑框（在渲染界面，大部分事件会被拦截，导致用户不能输入）。但是，`@ones-design/core` 中的 `Modal` 包裹的
+元素可以接受用户输入，因为 `Modal` 包裹的元素被插入到了 `document.body` 下面。
+
+:::
+
+:::caution 注意
+
+`editor` 上的方法都是同步的，所以尽量把修改文档的方法放到 `useLayoutEffect` 中。否则，可能会导致编辑器报错。
+
+:::
+
+现在，插件支持插入三种类型的元素到文档中，分别是 `Block`，`Embed` 和 `Box`。主要的区别是 `Box` 可以插入到文本中间，而 `Block` 和 `Embed` 是整个文档块。
+
+#### Block
+
+`Block` 元素代表文档中的一块数据。你可以通过 `editor.insertBlock` 插入一个 `Block` 到文档中，然后通过 `RenderEditorBlock` 组件注册 `Block` 的渲染组件。
+
+比如：文档中的表格是一个 `Block`，开发者可以决定表格的外观，而单元格就是一个可编辑的块。你可以通过生命周期决定单元格中光标的位置。
+
+可用的生命周期方法如下：
+
+:::caution 注意
+
+子容器的 ID 应该放到 `blockData.children` 数组中。当用户复制块时，编辑器会更新 `blockData.children` 数组中的 ID。
+
+:::
+
+```ts
+function BlockTabs(props: EditorBlockProps) {
+  const editor = useDefaultEditor()
+  const tools = useDefaultEditorTools()
+  const containerRef = useRef<HTMLDivElement>(null)
+  const activeTabKey = props.blockData.children[0]
+
+  const tabsInfo = useMemo(() => {
+    return props.blockData.children.map((item) => {
+      return {
+        key: item,
+        label: props.blockData.pluginInfo.data[0],
+      }
+    })
+  }, [props.blockData.children, props.blockData.pluginInfo.data])
+
+  useEffect(() => {
+    props.registerLifeCycle({
+      // 返回由 `editor.createChildContainer` 创建的块的容器元素。
+      // 如果 `options?.visibleOnly` 为 `true`，你应该只返回可见的容器元素。
+      // 比如：当用户尝试将光标移动到块上时，`editor` 会调用这个函数并将光标移动到正确的子容器上。
+      getChildContainers: (_, options) => {
+        // Please implement the logic
+      },
+      // 更新用户选中的子容器。
+      // 当子容器选中时，会先调用 `clearSelection`，然后在调用 `updateSelection`
+      // 如果当前生命周期未定义，则在需要时，默认整个块会被选中。
+      updateSelection() {
+        // Please implement the logic
+      },
+      // 清理所有子容器的选中状态。
+      clearSelection() {
+        // Please implement the logic
+      },
+      // 返回选中的子容器元素。
+      getSelectedContainers(complexBlock) {
+        // Please implement the logic
+      },
+      // 是否这个块是可见的
+      // 比如：当前块有两个子容器，第一个容器中有一个批注，是不可见的，第二个容器是可见的。当用户点击批注时，编辑器会询问批注所在的块是否可见。
+      // 如果块不可见，编辑器会调用 `showChildContainer` 并切换到第一个块。
+      isChildContainerVisible(block) {
+        // Please implement the logic
+      },
+      // 参考 `isChildContainerVisible`.
+      // 当你尝试显示容器时，你应该用 `flushSync` 包裹组件状态，因为编辑器内部是同步执行的。
+      showChildContainer() {
+        // Please implement the logic
+      },
+      // 当用户点击了一个 DOM，但这个 DOM 不是一个可编辑的块，且光标也不能移到上去时，编辑器会调用这个函数。你可以返回一个子容器，然后编
+      // 辑器会将光标移动上去。
+      getRangeFromPoint(block) {
+        // Please implement the logic
+      },
+      // 配置如何展示工具栏。
+      // 当用户将鼠标悬停在块上方时，工具栏会显示在块的上方。
+      getBlockProperties() {
+        // Please implement the logic
+      }
+    })
+  }, [activeTabKey, editor, props, tools])
+
+  useLayoutEffect(() => {
+    // 用来插入一个可编辑的块到容器中。
+    editor.createChildContainer(props.path, containerRef.current, props.blockData.children[0])
+  }, [editor, props.blockData.children, props.path])
+
+  return (
+    <>
+      <Tabs tabs={tabsInfo} activeTabKey={tabsInfo[0].key} />
+      <div ref={containerRef}></div>
+    </>
+  )
+}
+```
+
+#### Embed
+
+你可以通过 `editor.insertEmbed` 插入一个 `Embed` 到文档中，然后通过 `RenderEditorEmbed` 组件注册 `Embed` 的渲染组件。
+
+`Embed` 和 `Block` 类似，但是 `Embed` 是一个特殊的块。你不能在 `Embed` 中插入一个可编辑的块。当光标移动到 `Embed` 时，整个 `Embed` 块会被选中。`Embed` 是不可编辑的。
+
+```ts
+function EmbedBlock(props: EditorEmbedProps) {
+  return <span>test</span>
+}
+
+const embedConfig: EditorEmbedConfig = {
+  embedType: {
+    render: EmbedBlock,
+    name: 'embed',
+    icon: './logo.svg',
+  },
+}
+
+function App() {
+  return (
+    <>
+      <RenderEditorEmbed config={embedConfig} />
+    </>
+  )
+}
+```
+
+#### Box
+
+:::caution 注意
+
+现在 `Box` 不能被导出到 `PDF/Word` 中。
+
+:::
+
+你可以通过 `editor.insertBoxToBlock` 插入一个 `Box` 到文档中，然后通过 `useRegisterCommand` 来注册 `Embed` 的渲染函数。
+
+`Box` 是一个行内元素。你不能使用 react 组件来渲染 `Box`。当包含 `Box` 的块的数据发生变化时，`Box` 会被重新渲染。在编辑器提交 DOM 之前，
+编辑器会先对比新旧 DOM。如果 DOM 没有变化，新 DOM 会被丢弃。但是在某些情况下，新 DOM 依旧会被渲染到文档中，你不应该依赖这个算法，不要在
+DOM 中注册事件监听器。
+
+```ts
+import { useRegisterBoxConfig } from "@ones-op/editor"
+
+function App() {
+  const getConfig = useCallback(() => {
+    return {
+      boxType: {
+        name: 'box',
+        icon: './logo.svg',
+        // 用来监听 `Box`` 的点击事件。
+        handleClickBox(box, boxData) {
+          // Please implement the logic
+        },
+        // 当一个 `Box` 需要被渲染时，这个函数会被调用。
+        updateBoxContent(boxData) {
+          // Please implement the logic
+        },
+      },
+    }
+  }, [])
+  useRegisterBoxConfig(getConfig)
+
+  return (
+    <>
+      <RenderEditorBlock config={config} />
+      <RenderEditorEmbed config={embedConfig} />
+    </>
+  )
+}
+```
+
+### 导出到 PDF/Word
+
+当用户插入或者更新插件数据时，插件需要告诉编辑器如何将这些数据导出到 `PDF/Word`（比如：工作项插件会将工作项的 ID 保存到文档中，当导出
+`PDF/Word` 时，会展示成一个链接）。当你需要导出一个图片时，确保图片已经通过 `editor.editor.doc.uploadResource` 上传到编辑器的服务中，
+服务会返回资源的文件名。
+
+```ts
+editor.doc.uploadResource(file).then((url) => {
+  editor.updateEmbedData(props.blockElement, {
+    type: 'embedType',
+    data: {
+      //
+    },
+    exportSpec: [
+      {
+        type: 'image',
+        data: url.resourceId,
+      },
+    ],
+    // 如果你使用 `editor.doc.uploadResource` 上传资源，并且资源不会被导出成图片，你应该将资源 ID 添加到 `resources` 数组中。
+    resources: [],
+  })
+})
+```

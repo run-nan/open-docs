@@ -1,6 +1,6 @@
 ---
 id: timer
-sidebar_position: 8
+sidebar_position: 9
 description: Provides a simple way to use timed tasks.
 ---
 
