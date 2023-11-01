@@ -1,0 +1,342 @@
+---
+sidebar_position: 1
+description: Create a custom dashboard card.
+---
+
+import Image from '@theme/IdealImage'
+
+# Dashboard card
+
+## Requirements
+
+| ONES      | @ones-op/store | @ones-op/bridge |
+| :-------- | :------------- | :-------------- |
+| v3.13.50+ | v0.10.0+       | v0.6.0+         |
+
+## Overview
+
+The open platform provides the ability to customize cards, allowing users to create a completely new type of card in the dashboard. When the currently available card types cannot meet user needs, custom cards can be created to achieve the desired functionality.
+
+Currently, users can customize the following aspects of the card:
+
+1. The card's name, description, icon, and size
+2. The card's configuration and menu
+3. The content displayed on the card
+
+Currently, custom card types can be added to the following locations:
+
+1. My Workspace - dashboard
+
+2. Project - project_component
+
+#### Performance
+
+After the plugin is enabled, when editing a dashboard, users can see the newly added custom card type by clicking "Add widget":
+
+<Image img={require('./images/classify.png')} />
+
+The configuration form for the custom card:
+
+<Image img={require('./images/setting.png')} />
+
+The declared menu items displayed in the custom card's menu:
+
+<Image img={require('./images/menus.png')} />
+
+The display effect of the custom card:
+
+<Image img={require('./images/render.png')} />
+
+## Usage
+
+### Adding a Module
+
+1. Execute the command npx op add module to add a module of type ones:dashboard:card:new.
+2. Execute the command npx op add sub-module to add a sub-module under the ones:dashboard:card:new module that was just added.
+3. Manually configure the module in `/config/plugin.yaml`.
+
+The following is an example configuration where a custom card module contains two sub-modules:
+
+- Component Card: the scene is "render" used to render the content of the custom card, this is required
+- Configuration Dialog: the scene is "setting" used to render the form content of the custom card's configuration dialog, this can be omitted if the component does not support configuration.
+
+```yaml title="plugin.yaml"
+service:
+  app_id: cgtJVhCB
+  ...
+modules:
+  - id: ones-dashboard-card-new-jIfq
+    title: Custom Card                          # Card Name
+    description: Custom Card Description               # Card Description
+    defaultCardName: Default Card Name          # Default name when adding the card
+    icon: custom-card.svg                       # Card icon
+    defaultLayout:                              # Default layout of the card
+      h: 4                                      # Height
+      w: 5                                      # Width
+    layout:
+      minH: 3                                   # Minimum height
+      minW: 3                                   # Minimum width
+      maxH: 6                                   # Maximum height
+      maxW: 6                                   # Maximum width
+    objectType:                                 # The range of card types that can be used
+      - project_component                       # Project Overview
+      - dashboard                               # My Workspace
+    moduleType: ones:dashboard:card:new
+    modules:
+      - id: ones-dashboard-card-new-C9Hs
+        title: render
+        scene: render
+        entry: >-
+          modules/ones-dashboard-card-new-jIfv/ones-dashboard-card-new-C9Hv/index.html
+      - id: ones-dashboard-card-new-kjke
+        scene: setting
+        title: setting
+        entry: >-
+          modules/ones-dashboard-card-new-jIfv/ones-dashboard-card-new-kjkK/index.html
+```
+
+#### Supported configuration items
+
+| Configuration Item | Description                                                                                                                                        |
+| :----------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
+| title              | The name of the custom card type                                                                                                                   |
+| description        | The description of the custom card                                                                                                                 |
+| defaultCardName    | The default name of the custom card                                                                                                                |
+| icon               | The URL of the custom card icon                                                                                                                    |
+| defaultLayout      | The default size of the custom card, which must be within the size limits.(Size >= 2)                                                              |
+| layout             | The minimum and maximum size limits of the custom card. If not configured, there is no limit.(Size >= 2)                                           |
+| objectType         | The dashboard types that the custom card can be applied to. Currently supports `dashboard` (dashboard) and `project_component` (project overview). |
+
+### Adding Ability
+
+1. Run the `npx op add ability` command to add the `custom-card@1.0.0` type of ability.
+2. Manually configure the ability in `/config/plugin.yaml` and associate it with modules.
+
+```yaml title="plugin.yaml"
+service:
+  app_id: cgtJVhCB
+  ...
+modules:
+  - id: ones-dashboard-card-new-jIfq
+    title: Custom Card                  # Name of the card
+    description: Custom Card Description       # Description of the card
+    defaultCardName: Default Card Name  # Default name of the card when adding
+    icon: custom-card.svg               # Icon of the card
+    defaultLayout:                      # Default layout of the card
+      h: 4                              # Height
+      w: 5                              # Width
+    layout:
+      minH: 3                           # Minimum height
+      minW: 3                           # Minimum width
+      maxH: 6                           # Maximum height
+      maxW: 6                           # Maximum width
+    objectType:                         # The range of card types that can be used
+      - project_component               # Project overview
+      - dashboard                       # My workspace
+    moduleType: ones:dashboard:card:new
+    modules:
+      - id: ones-dashboard-card-new-C9Hs
+        title: render
+        scene: render
+        entry: >-
+          modules/ones-dashboard-card-new-jIfv/ones-dashboard-card-new-C9Hv/index.html
+      - id: ones-dashboard-card-new-kjke
+        scene: setting
+        title: setting
+        entry: >-
+          modules/ones-dashboard-card-new-jIfv/ones-dashboard-card-new-kjkK/index.html
+abilities:
+  - id: bh1Fhy76
+    name: custom-card
+    version: 1.0.0
+    abilityType: CustomCard
+    function:
+      cardDataFunc: getCardData                     # Name of the function to retrieve card data
+    relateModule:
+      cardModule: ones-dashboard-card-new-jIfq      # Must be manually filled in with the module ID of moduleType ones-dashboard-card-new
+```
+
+### Writing the processing function
+
+After adding the ability, a `/backend/src/custom-card.js` file will be generated, which contains a function to get the custom card data, in which you need to write the logic to get the card data.
+
+The example function is as follows:
+
+```ts
+import { Logger } from '@ones-op/node-logger'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+interface CardRequest {
+  object_type: string
+  language: string
+  project_uuid: string
+  card_custom_config: any
+}
+
+export async function getCardData(request: PluginRequest<CardRequest>): Promise<PluginResponse> {
+  const cardRequest = request.body
+  Logger.info(cardRequest)
+  const respData: any = {
+    text: cardRequest.card_custom_config.text,
+  }
+  return {
+    body: {
+      code: 200,
+      body: respData,
+    },
+  }
+}
+```
+
+#### Reference Introduction
+
+| Parameters         | Description                                                                                            | Type   |
+| :----------------- | :----------------------------------------------------------------------------------------------------- | :----- |
+| object_type        | The type of dashboard the card belongs to, currently supported are `dashboard` and `project_component` | string |
+| language           | The front-end language of this request                                                                 | string |
+| project_uuid       | The unique identifier for the project, present when the card type is `project_component`               | string |
+| card_custom_config | Card custom configuration, in json format                                                              | any    |
+
+#### Response
+
+```js
+{
+    body: {
+      code: 200,   //Response code of this request, non-200 is request error
+      body: cardData,    // Card data that will be returned directly to the front-end
+    }
+}
+```
+
+### Customize card content
+
+In the submodule where `scene` is `render`, pass [useDashboardCardInfo](../../../../reference/packages/store/store.md#usedashboardcardinfo) to get the card data for rendering the card content.
+
+```tsx
+import { ConfigProvider } from '@ones-design/core'
+import { useDashboardCardInfo } from '@ones-op/store'
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+import './index.css'
+
+const Card = () => {
+  const dashboardCardInfo = useDashboardCardInfo<{ text: string }>()
+  const { text } = dashboardCardInfo.cardData || {}
+  return <h2>{text}</h2>
+}
+
+ReactDOM.render(
+  <ConfigProvider>
+    <Card />
+  </ConfigProvider>,
+  document.getElementById('ones-mf-root'),
+)
+```
+
+### Custom card menu
+
+In the submodule where `scene` is `render`, the submodule with [useCustomMenus](../../../../reference/packages/bridge/bridge.mdx#usecustommenus) to mount the custom menus.
+
+```tsx
+import { ConfigProvider } from '@ones-design/core'
+import { dashboardCard } from '@ones-op/bridge'
+import { useDashboardCardInfo } from '@ones-op/store'
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+import './index.css'
+
+const { useCustomMenus } = dashboardCard
+
+const Card = () => {
+  const dashboardCardInfo = useDashboardCardInfo<{ text: string }>()
+  const { text } = dashboardCardInfo.cardData || {}
+  const customMenus = React.useMemo(
+    () => [
+      {
+        label: 'Show the text',
+        key: 'showText',
+        onClick: () => {
+          alert(text)
+        },
+      },
+    ],
+    [text],
+  )
+  useCustomMenus(customMenus)
+  return <h2>{text}</h2>
+}
+
+ReactDOM.render(
+  <ConfigProvider>
+    <Card />
+  </ConfigProvider>,
+  document.getElementById('ones-mf-root'),
+)
+```
+
+### Custom card configuration pop-ups
+
+In the submodule where `scene` is `setting`, pass [useDashboardCardConfigInfo](../../../../reference/packages/store/store.md#usedashboardcardconfiginfo) to get the card context.
+Get the card context via [useOnSubmitConfig](../../../../reference/packages/bridge/bridge.mdx#useonsubmitconfig) to listen to the submit configuration event and render the card configuration popup.
+
+```tsx
+import { ConfigProvider, Form, Input } from '@ones-design/core'
+import { dashboardCard } from '@ones-op/bridge'
+import { useDashboardCardConfigInfo } from '@ones-op/store'
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+import './index.css'
+
+const { useOnSubmitConfig } = dashboardCard
+
+const Setting = () => {
+  const { cardConfig } = useDashboardCardConfigInfo<{
+    text: string
+  }>()
+  const [form] = Form.useForm<typeof cardConfig>()
+  const onSubmitConfig = React.useCallback(
+    async (submit) => {
+      try {
+        await form.validateFields()
+      } catch (e) {
+        return
+      }
+      submit(form.getFieldsValue())
+    },
+    [form],
+  )
+  useOnSubmitConfig(onSubmitConfig)
+  return (
+    <Form initialValues={cardConfig} form={form}>
+      <Form.Item
+        name={['text']}
+        label="content"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+    </Form>
+  )
+}
+
+ReactDOM.render(
+  <ConfigProvider>
+    <Setting />
+  </ConfigProvider>,
+  document.getElementById('ones-mf-root'),
+)
+```
+
+## Q&A
+
+#### How to implement multi-language for custom cards?
+
+- Configurable sections to implement multilingual, such as card name, card description, card default name, etc., can be found in [Plugin Multilanguage Support](../../../../guide/abilities/multilingual.mdx) for implementation
+- Card display content multilingual, need to be implemented in the plug-in developers themselves, processing function in the input parameters to provide the language of this request.

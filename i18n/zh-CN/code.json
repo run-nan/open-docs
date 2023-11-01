@@ -242,83 +242,8 @@
   "Take your development to the next level": {
     "message": "全面的开放能力实现高效开发"
   },
-  "Getting started": {
-    "message": "使用指南"
-  },
-  "Before you start working with ONES Open  Platform, learn our guide for more details.": {
-    "message": "在开始使用 ONES 平台之前，请阅读我们的指南以了解详细信息。"
-  },
-  "API documents": {
-    "message": "API 文档"
-  },
-  "Find out what is possible with ONES  API and how to realize data connection.": {
-    "message": "了解 ONES API 的可能性以及如何实现数据连接。"
-  },
-  "Get to know the abilities": {
-    "message": "开放能力"
-  },
-  "ONES Open Platform provides advanced customization capabilities.": {
-    "message": "通过确保灵活性的 ONES 开放平台功能创建您的理想集成。"
-  },
-  "Learn details": {
-    "message": "了解详情"
-  },
   "Explore the abilities of ONES Open Platform": {
     "message": "探索 ONES 开放平台的能力"
-  },
-  "Core": {
-    "message": "平台开放能力"
-  },
-  "ONES Open Platform provides standard infrastructure for applications.": {
-    "message": "平台能力为应用提供标准的基础设施。"
-  },
-  "Slots enable developers to add, hide, or replace custom content in navigation bars or page elements.": {
-    "message": "插槽支持开发者在导航系统或页面元素里添加、隐藏或替换自定义内容。"
-  },
-  "App modules empower developers to carry out extended development of specific features of ONES products and applications.": {
-    "message": "业务能力支持开发者在 ONES 平台应用里进行具体功能的二次开发。"
-  },
-  "App Modules": {
-    "message": "应用开放能力"
-  },
-  "Database": {
-    "message": "读写数据库"
-  },
-  "Notifications": {
-    "message": "发送通知"
-  },
-  "Audit log": {
-    "message": "更新系统日志"
-  },
-  "System sider bar slot": {
-    "message": "自定义系统边栏"
-  },
-  "My work top bar slot": {
-    "message": "自定义“我的工作台”顶栏"
-  },
-  "System configuration slot": {
-    "message": "自定义系统配置中心"
-  },
-  "Account: Simple Auth": {
-    "message": "Account：对接第三方账号目录"
-  },
-  "Project: Custom Script Field": {
-    "message": "Project: 自定义计算属性"
-  },
-  "Project: Custom Permission": {
-    "message": "Project: 自定义权限点"
-  },
-  "See more": {
-    "message": "查看更多"
-  },
-  "ONES Open Platform": {
-    "message": "ONES 开放平台"
-  },
-  "ONES fully opens the pedestal capability to help customers and partners build an enterprise digital platform and accelerate the release of products.": {
-    "message": "ONES 全面开放基座能力，助力客户与合作伙伴构建企业数字化平台，加速企业发布产品。"
-  },
-  "Basic Concept": {
-    "message": "基本概念"
   },
   "theme.SearchBar.noResultsText": {
     "message": "没有找到任何文档"
@@ -398,143 +323,14 @@
     "message": "出现错误，点击重试",
     "description": "When the image fails to load for unknown error"
   },
-  "Open Abilities": {
-    "message": "开放能力"
-  },
-  "Slots": {
-    "message": "插槽"
-  },
-  "App slot": {
-    "message": "应用插槽"
-  },
-  "Global slot": {
-    "message": "全局插槽"
-  },
-  "My work": {
-    "message": "我的工作台"
-  },
-  "ONES Project": {
-    "message": "项目管理"
-  },
-  "ONES Wiki": {
-    "message": "知识库管理"
-  },
-  "ONES Plan": {
-    "message": "项目集管理"
-  },
-  "ONES TestCase": {
-    "message": "测试管理"
-  },
-  "ONES Pipeline": {
-    "message": "流水线管理"
-  },
-  "ONES Desk": {
-    "message": "工单管理"
-  },
-  "ONES DeskHome": {
-    "message": "工单门户"
-  },
-  "ONES Performance": {
-    "message": "效能管理"
-  },
-  "ONES Title": {
-    "message": "开放平台"
-  },
-  "Product Management": {
-    "message": "产品管理"
-  },
-  "Worklog Management": {
-    "message": "工时管理"
-  },
-  "Version Management": {
-    "message": "版本管理"
-  },
-  "Configuration": {
-    "message": "配置中心"
-  },
-  "Account": {
-    "message": "个人中心"
-  },
-  "Organization settings": {
-    "message": "组织管理"
-  },
-  "Login": {
-    "message": "登录"
-  },
   "Basic": {
     "message": "基础能力"
-  },
-  "日志": {
-    "message": "日志"
-  },
-  "超级用户": {
-    "message": "超级用户"
-  },
-  "文件操作": {
-    "message": "文件操作"
-  },
-  "数据库": {
-    "message": "数据库"
-  },
-  "接口标准错误": {
-    "message": "接口标准错误"
-  },
-  "多语言": {
-    "message": "多语言"
-  },
-  "插件发送消息": {
-    "message": "插件发送消息"
-  },
-  "网络请求": {
-    "message": "网络请求"
-  },
-  "定时器": {
-    "message": "定时器"
-  },
-  "自定义配置页": {
-    "message": "自定义配置页"
-  },
-  "Business": {
-    "message": "业务能力"
-  },
-  "ONES 接口": {
-    "message": "ONES 接口"
-  },
-  "属性": {
-    "message": "属性"
-  },
-  "工作项": {
-    "message": "工作项"
-  },
-  "权限点": {
-    "message": "权限点"
-  },
-  "Item 处理器": {
-    "message": "Item 处理器"
-  },
-  "托管独立应用": {
-    "message": "托管独立应用"
-  },
-  "文件解析": {
-    "message": "文件解析"
-  },
-  "ItemHandler": {
-    "message": "Item 处理器"
-  },
-  "ONES Project 自定义组件": {
-    "message": "ONES Project 自定义组件"
-  },
-  "Tools and Resources": {
-    "message": "工具与资源"
   },
   "Overview": {
     "message": "了解概况"
   },
   "You can first understand the basics of development to facilitate a quick start.": {
     "message": "你可以首先了解开发的基础知识，以便快速入门。"
-  },
-  "Introduction": {
-    "message": "介绍"
   },
   "Basic Introduction": {
     "message": "基本介绍"
@@ -614,73 +410,10 @@
   "Understand the whole process of ONES plugin development and quickly find the information you need.": {
     "message": "了解 ONES 插件开发的整个过程，并快速找到您需要的信息。"
   },
-  "ONES CLI": {
-    "message": "ONES CLI"
+  "theme.SearchPage.searchContext.everywhere": {
+    "message": "everywhere"
   },
-  "ONES CLI is a command line interface tool that helps developers build ONES open platform plugin.": {
-    "message": "ONES CLI是一个命令行界面工具，帮助开发人员构建 ONES 开放平台插件。"
-  },
-  "ONES Diagtools": {
-    "message": "ONES Diagtools"
-  },
-  "ONES Diagtools CLI and ONES Diagtools Desktop are diagnostic tools for open platforms.": {
-    "message": "ONES Diagtools CLI 和 ONES Diagtools Desktop 是开放平台的诊断工具。"
-  },
-  "ONES Design": {
-    "message": "ONES Design"
-  },
-  "ONES Design is an Ant Design based React UI component library, which is mainly used for the research and development of enterprise level R & D management tools.": {
-    "message": "ONES Design 是基于 Ant Design 的 React UI 组件库，主要用于企业级研发管理工具的研发。"
-  },
-  "Log": {
-    "message": "日志"
-  },
-  "Super admin": {
-    "message": "超级用户"
-  },
-  "File Operation": {
-    "message": "文件操作"
-  },
-  "Error handling": {
-    "message": "错误处理"
-  },
-  "Internationalization": {
-    "message": "国际化"
-  },
-  "Request": {
-    "message": "请求"
-  },
-  "Timer": {
-    "message": "定时器"
-  },
-  "Custom configuration": {
-    "message": "自定义配置"
-  },
-  "ONES interface": {
-    "message": "ONES 接口"
-  },
-  "Field": {
-    "message": "属性"
-  },
-  "Issue": {
-    "message": "工作项"
-  },
-  "Permission": {
-    "message": "权限点"
-  },
-  "Issue processor": {
-    "message": "Issue 处理器"
-  },
-  "Independent hosting service": {
-    "message": "托管独立应用"
-  },
-  "File parsing": {
-    "message": "文件解析"
-  },
-  "ONES project Custom component": {
-    "message": "自定义 ONES 项目管理组件"
-  },
-  "Sidebar Menu": {
-    "message": "侧边栏选项"
+  "theme.SearchBar.searchInContext": {
+    "message": "在 {context} 中查看所有结果"
   }
 }

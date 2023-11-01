@@ -1,5 +1,5 @@
 ---
-sidebar_position: 12
+sidebar_position: 13
 description: File storage for the plugin itself.
 ---
 
@@ -215,7 +215,7 @@ Parameters reference：[@ones-op/node-fs](../../reference/packages/node-fs/node-
 </TabItem>
 <TabItem value="1" label="3.6.0+ ">
 
-Parameters reference：[@ones-op/node-file](../../reference/packages/node-file/node-file.mdx)
+Parameters reference：[@ones-op/node-file](../../reference/legacy-packages/node-file/node-file.mdx)
 
 </TabItem>
 </Tabs>

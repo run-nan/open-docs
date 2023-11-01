@@ -1,7 +1,7 @@
 ---
 id: super-admin
-sidebar_position: 7
-description: Plugin's virtual user in ONES.
+sidebar_position: 8
+description: Each plugin in ONES has its dedicated superuser, which has access to all data in ONES. When a plugin requires higher privileges to utilize certain capabilities, it can directly use the plugin's superuser without the need for pre-configuring specific users.
 ---
 
 # Super admin

@@ -1,0 +1,309 @@
+---
+sidebar_position: 1
+description: 支持使用进度管理器来处理队列任务或异步任务。
+toc_max_heading_level: 4
+---
+
+import Image from '@theme/IdealImage'
+import TabItem from '@theme/TabItem'
+import Tabs from '@theme/Tabs'
+
+import progressManager1 from './images/progress-manager1.png'
+import progressManager2 from './images/progress-manager2.png'
+import progressManager3 from './images/progress-manager3.png'
+import progressManager4 from './images/progress-manager4.png'
+
+# 进度管理器
+
+## 要求
+
+| ONES     | @ones-op/node-ability |
+| :------- | :-------------------- |
+| v3.11.0+ | v0.4.1+               |
+
+## 概述
+
+该能力为插件实现了一个进度管理器，在插件执行下载任务或者批量操作时，可以使用该能力将任务的执行进度可视化，并且可以定义不同语言环境下的文案展示
+
+当前包含**下载进度管理器**与**数据同步进度管理器**两种类型的进度管理器
+
+### 下载进度管理器
+
+**下载进度管理器**能够下载插件存储空间`workspace`目录下的任意指定文件
+
+通过**下载进度管理器**可以查看文件下载的情况，每个进度分为`正在生成文件`、`操作失败`、`文件生成完成，已开始导出`三种状态，当`操作失败`时可以查看失败详情
+
+:::info
+
+**下载进度管理器**在进度完成时开始下载文件
+
+:::
+
+<Image img={progressManager1} />
+
+### 数据同步进度管理器
+
+**数据同步进度管理器**能够实时展示批量操作的进展，每个进度可以看到当前任务处理的`成功数量`、`失败数量`、`待做数量`，在进度完成后（无论成功失败）均可查看详情
+
+<Image img={progressManager2} />
+
+<br />
+
+:::tip
+
+**数据同步进度管理器**支持使用 **[进度管理器插槽](../../slot/global/progress-detail/index.mdx)** 对于进度详情页面进行重构
+
+:::
+
+<br />
+
+<Image img={progressManager3} />
+
+## 使用
+
+### 插件后端方法
+
+#### 创建进度管理器
+
+通过 SDK 中提供的`create`方法创建不同类型的进度管理器，指定进度管理器的时限和标题，创建成功后会返回进度管理器的标识`processUUID`
+
+```typescript title="backend/src/index.ts"
+import { Process, LanguagePkg, ProcessType, ProcessResult } from '@ones-op/node-ability'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+export async function createProcess(request: PluginRequest): Promise<PluginResponse> {
+  //从请求中获取参数
+  const { user_uuid, title, timeout } = request?.body as any
+  //进度管理器多语言标题
+  const titlePkg: LanguagePkg = {
+    en: 'process',
+    zh: title,
+  }
+  //创建进度管理器，获取返回值processUUID
+  const processUUID = await Process.create(ProcessType.DownloadFile, user_uuid, titlePkg, timeout)
+
+  return {
+    body: {
+      process_uuid: processUUID,
+    },
+  }
+}
+```
+
+- `create`参数
+
+**Params**
+
+| 参数           | 说明                                                                                                                         | 类型                        | 必填 | 默认值 |
+| :------------- | :--------------------------------------------------------------------------------------------------------------------------- | :-------------------------- | :--- | :----- |
+| processType    | 进度管理器类型,可选值: <br /> **下载进度管理器**:ProcessType.DownloadFile <br /> **数据同步进度管理器**:ProcessType.DataSync | string                      | 是   | -      |
+| userUUID       | 用户 uuid                                                                                                                    | string                      | 是   | -      |
+| title          | 进度标题                                                                                                                     | [LanguagePkg](#LanguagePkg) | 是   | -      |
+| timeoutSeconds | 超时时间，进度管理器在时间内未完成则失败                                                                                     | number                      | 否   | 60(秒) |
+| moduleID       | 进度管理器插槽 ID（仅适用于数据同步进度管理器）                                                                              | string                      | 否   | -      |
+| teamUUID       | 进度管理器所属团队 uuid，仅当插件为组织级别下使用                                                                            | string                      | 否   | -      |
+
+##### LanguagePkg {#LanguagePkg}
+
+| 参数 | 说明     | 类型   | 必填 | 默认值 |
+| :--- | :------- | :----- | :--- | :----- |
+| zh   | 中文内容 | string | 是   | -      |
+| en   | 英文内容 | string | 是   | -      |
+
+**Returns**
+
+| 参数        | 说明            | 类型   |
+| :---------- | :-------------- | :----- |
+| processUUID | 进度管理器 UUID | string |
+
+#### 进度更新
+
+通过 SDK 中提供的`update`方法选定某一个进度管理器更新进度
+
+```typescript title="backend/src/index.ts"
+import { Process, LanguagePkg, ProcessType, ProcessResult } from '@ones-op/node-ability'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+export async function updateProgress(request: PluginRequest): Promise<PluginResponse> {
+  //从请求中获取参数
+  const { process_uuid: processUUID } = request?.body as any
+  const currentSuccessfulCount = 10
+  const currentFailedCount = 5
+  const currentRemainingCount = 30
+  //进度管理器更新
+  await Process.update(
+    processUUID,
+    currentSuccessfulCount,
+    currentFailedCount,
+    currentRemainingCount,
+  )
+  return {
+    body: {
+      status: 'ok',
+    },
+  }
+}
+```
+
+- `update`参数
+
+| 参数                   | 说明            | 类型   | 必填 | 默认值 |
+| :--------------------- | :-------------- | :----- | :--- | :----- |
+| processUUID            | 进度管理器 uuid | string | 是   | -      |
+| currentSuccessfulCount | 当前完成数      | number | 是   | -      |
+| currentFailedCount     | 当前失败数      | number | 是   | -      |
+| currentRemainingCount  | 当前剩余数      | number | 是   | -      |
+
+#### 完成进度管理器
+
+通过 SDK 中提供的`done`方法完成进度管理器，**下载进度管理器**在进度完成时开始下载文件，**数据同步进度管理器**在完成时可以查看详情内容
+
+```typescript title="backend/src/index.ts"
+import { Process, LanguagePkg, ProcessType, ProcessResult } from '@ones-op/node-ability'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+export async function doneProcess(request: PluginRequest): Promise<PluginResponse> {
+  //从请求中获取参数
+  const { process_uuid: processUUID } = request?.body as any
+  //多语言详情内容
+  const resultText: LanguagePkg = {
+    en: 'content',
+    zh: '详情内容',
+  }
+  //进度管理器完成时的动作，下载进度管理器下载指定的文件，数据同步进度管理器可以展示额外的内容
+  const payload: ProcessResult = {
+    filePath: './plugin.sql',
+  }
+
+  const isSuccess = true
+  //完成进度
+  await Process.done(processUUID, isSuccess, resultText, payload)
+
+  return {
+    body: {
+      status: 'ok',
+      process_uuid: processUUID,
+    },
+  }
+}
+```
+
+- `done`参数
+
+| 参数        | 说明            | 类型                            | 必填 | 默认值 |
+| :---------- | :-------------- | :------------------------------ | :--- | :----- |
+| processUUID | 进度管理器 uuid | string                          | 是   | -      |
+| isSuccess   | 成功或失败      | bool                            | 是   | -      |
+| resultText  | 详情内容        | [LanguagePkg](#LanguagePkg)     | 是   | -      |
+| payload     | 完成动作        | [ProcessResult](#ProcessResult) | 是   | -      |
+
+##### ProcessResult {#ProcessResult}
+
+| 参数     | 说明                                         | 类型   | 必填 | 默认值 |
+| :------- | :------------------------------------------- | :----- | :--- | :----- |
+| filePath | 文件路径，类型为**下载进度管理器**时可用     | string | 否   | -      |
+| data     | 额外内容，类型为**数据同步进度管理器**时可用 | string | 否   | -      |
+
+<Tabs>
+  <TabItem value="DonwloadProgress" label="下载进度管理器" default>
+
+```tsx
+const payload: ProcessResult = {
+  //根目录为插件目录
+  filePath: './plugin.sql',
+}
+```
+
+  </TabItem>
+  <TabItem value="DataSyncProgress" label="数据同步进度管理器">
+
+```tsx
+const payload: ProcessResult = {
+  //resultText以外的额外内容
+  data: 'anything u want',
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### 插件前端唤起进度管理器
+
+#### 第一步：安装依赖
+
+进入插件工程的`web`目录，执行以下命令进行依赖安装：
+
+```shell
+npm i @ones-op/event
+```
+
+#### 第二步：唤起全局进度管理器
+
+进度管理器只需唤起一次即可
+
+```tsx
+//调用全局进度管理器
+MFDispatch('invoke:ones:global:progressManager')
+```
+
+### 进度管理器插槽替换
+
+**数据同步进度管理器**支持使用 **[进度管理器插槽](../../slot/global/progress-detail/index.mdx)** 替换进度管理器的详情页面
+
+#### 第一步：添加[进度管理器插槽](../../slot/global/progress-detail/index.mdx)并完成插槽功能
+
+#### 第二步：在创建数据同步进度管理器时传入[进度管理器插槽](../../slot/global/progress-detail/index.mdx)的 id
+
+:::info
+
+插槽 id 在添加插槽之后，从插件配置文件`config/plugin.yaml`中获取
+
+:::
+
+```typescript
+export async funtion createDataProgress (request: PluginRequest): Promise<PluginResponse> {
+  const { user_uuid, title, timeout } = request?.body as any
+
+  const titlePkg: LanguagePkg = {
+    en: 'process title',
+    zh: title,
+  }
+
+  const processUUID = await Process.create(ProcessType.DataSync, user_uuid, titlePkg, timeout,"ones-global-progress-detail-BUTc")
+
+  return {
+    body: {
+      process_uuid: processUUID,
+      result_text: titlePkg
+    },
+  }
+}
+```
+
+#### 第三步：完成进度管理器的 done 方法，构造并传入前端需要的 payload 参数
+
+```typescript
+export async function doneDataProgress(request: PluginRequest): Promise<PluginResponse> {
+  const { process_uuid: processUUID, is_success: isSuccess } = request?.body as any
+
+  const resultText: LanguagePkg = {
+    en: 'end',
+    zh: '进度管理器结束',
+  }
+  const payload: ProcessResult = {
+    data: JSON.stringify(request?.body),
+  }
+  await Process.done(processUUID, isSuccess, resultText, payload)
+
+  return {
+    body: {
+      status: 'ok',
+      process_uuid: processUUID,
+    },
+  }
+}
+```
+
+完成以上步骤，便可完成对进度管理器详情页面的重构
+
+<Image img={progressManager4} />

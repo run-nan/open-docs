@@ -1,0 +1,282 @@
+---
+sidebar_position: 2
+description: 独立应用是一个独立完整的 web service，它可以是静态网站服务、文件存储服务或者是代理服务等常见的网络服务。使用该能力可以通过插件的形式在 ONES 中部署独立应用，并且由 ONES 内部机制统一进行维护管理。
+---
+
+import Image from '@theme/IdealImage'
+import TabItem from '@theme/TabItem'
+import Tabs from '@theme/Tabs'
+
+# 托管独立应用
+
+## 要求
+
+| ONES      |
+| --------- |
+| v3.10.28+ |
+
+## 概述
+
+开放平台提供了一种托管独立应用的能力，独立应用是一个独立完整的 `web service`，它可以是静态网站服务、文件存储服务或者是代理服务等常见的网络服务。托管独立应用，支持http协议和websocket协议。使用该能力可以通过插件的形式在 ONES 中部署独立应用，并且由 ONES 内部机制统一进行维护管理。通过使用该能力能够实现更为定制化的功能，例如以下场景：
+
+1. 当你想实现一个 ONES 内置的标准外部服务，如 API 账号同步、通用存储服务、wiki新页面类型等
+2. 将已经存在的服务部署到 ONES 内部，以便插件或者其他外部服务调用
+3. 静态网站服务，在 ONES 部署实例的子域名上内嵌一个独立网站
+
+### 能力表现
+
+将一个现有的服务内嵌到 ONES 中，效果如下图所示：
+
+- 在本地启用服务，访问服务返回结果
+
+  <Image img={require('./images/independent-service-01.png')} />
+
+- 将该服务打包到插件中并在 ONES 中安装并启用，下图为插件安装到某一环境的插件详情页：
+
+  <Image img={require('./images/independent-service-02.png')} />
+
+- [服务发现](./apis/independent-service) 。根据插件的app_id获取独立服务地址信息，后续就可以与该地址信息进行通信。
+
+  <Image img={require('./images/independent-service-04.png')} />
+
+- 如下图所示，通过特定的 URL 可以访问内置在 ONES 中的该服务，并且返回结果与本地部署无差别
+
+  <Image img={require('./images/independent-service-03.png')} />
+
+## 使用
+
+### 第一步：开发独立应用
+
+**独立应用需要实现满足以下要求**
+
+- 参数接收
+
+  平台在启动独立应用的时候，会向独立应用传递 `port` 和 `args` 两个参数，其中 `port` 参数是独立应用监听的端口，`args` 是传入独立应用的其他参数。因此在独立应用必须对这两个参数进行接收并处理。
+
+- 记录进程 PID
+
+  独立应用中必须记录进程 PID 到当前目录的 `pid.txt` 文件中
+
+- 根据运行环境的系统架构编译可执行文件
+
+  独立应用的运行环境的系统架构为 `Linux amd64`
+  推荐在原生的 `Linux amd64` 环境中进行独立应用二进制文件的编译，为确保独立应用的正常启动，需根据以下流程进行自检：
+
+  1. 构建一个私有部署环境，并将 web 服务 的二进制文件拷贝进私有部署环境的容器中尝试运行，确保可以执行
+
+  2. 基于`node:16.13.1`的 docker 镜像构建测试镜像 test_env
+
+  ```shell
+  FROM node:16.13.1
+
+  RUN wget -O /usr/local/jdk.tar.gz  https://k8s.myones.net/jdk-1.8-linux-x64.tar.gz \
+    && mkdir /usr/lib/jvm \
+    && tar zxvf /usr/local/jdk.tar.gz -C /usr/lib/jvm \
+    && mv /usr/lib/jvm/jdk1.8.0_371 /usr/lib/jvm/jdk8
+
+  ENV JAVA_HOME=/usr/lib/jvm/jdk8
+  ENV JRE_HOME=/usr/lib/jvm/jdk8/jre
+  ENV CLASSPATH=.:/usr/lib/jvm/jdk8/lib:/usr/lib/jvm/jdk8/jre/lib
+  ENV PATH=/usr/lib/jvm/jdk8/bin:$PATH
+  ```
+
+  3. 在 `Linux amd64` 的机器上，将 web 服务 的二进制文件拷贝到基础镜像为 `test_env` 的 docker 容器中尝试运行。
+
+     ```shell
+     docker run -itd --name=node16  test_env:latest
+     docker cp ./web_service node16:/web_service
+     docker exec -it node16 bash
+     ./web_service
+     ```
+
+**独立应用推荐写法**
+
+<Tabs>
+<TabItem value="go" label="Goland">
+
+```go
+package main
+import (
+    "flag"
+    "fmt"
+    "github.com/gin-gonic/gin"
+    "log"
+    "os"
+    "strconv"
+)
+
+var (
+    port int
+    args string
+)
+
+func init() {
+    flag.IntVar(&port, "port", 0, "int flag value")
+    flag.StringVar(&args, "args", "", "int flag value")
+}
+
+func main() {
+    pid := os.Getpid()
+    fmt.Printf("进程 PID: %d \n", pid)
+
+    err := os.WriteFile("./pid.txt", []byte(strconv.Itoa(pid)), 0644)
+    if err != nil {
+        log.Fatal("记录进程失败", err)
+    }
+
+    flag.Parse()
+    r := gin.Default()
+    r.GET("/", func(c *gin.Context) {
+        c.String(200, "Hello World!")
+    })
+    fmt.Println("port:", port)
+    fmt.Println("args:", args)
+    log.Fatal(r.Run(fmt.Sprintf(":%d", port)))
+}
+```
+
+</TabItem>
+
+</Tabs>
+
+### 第二步：编写独立应用管理脚本
+
+独立应用是通过 `workspace/start.sh` 脚本文件来启动和停止的，脚本需要满足以下几点要求：
+
+- 确保独立应用的二进制文件有权限执行 shell 文件
+
+- 需要支持 `start` 和 `stop` 指令
+
+- `start` 指令需要接收参数 `port`，`args`,例如： `./hello_service --port=PARAMS_PORT --args=Args`
+
+- `start` 指令在实现启动时需要后台启动,例如：`/usr/bin/nohup ./hello_service --port=$PARAMS_PORT --args=$Args >/dev/null 2>&1 &`
+
+**推荐写法**：若无特殊要求可以直接使用，只需修改启动命令中二进制文件的名称即可（替换内容中的 `hello_service`）
+
+```shell title="workspace/start.sh"
+#!/bin/bash
+
+usage() {
+    echo -e "Usage: $(basename $0) [options]"
+    echo -e " start 启动"
+
+    exit 1
+}
+
+# 处理启动服务
+start() {
+    echo "/usr/bin/nohup ./hello_service --port=$PARAMS_PORT --args=$ARGS >/dev/null 2>&1 &"
+    /usr/bin/nohup ./hello_service --port=$PARAMS_PORT --args=$ARGS > nohup.out 2>&1 &
+}
+
+# 处理停止服务
+stop() {
+  # 这里的 pid.txt 必须和服务内部保持一致
+  echo "kill -9 $(cat pid.txt)"
+  kill -9 "$(cat pid.txt)"
+}
+
+parse_config() {
+    for arg in ${ARGS}
+    do
+        case ${arg} in
+            --port=*)
+                PARAMS_PORT=${arg#*=}
+                ;;
+            --path=*)
+                PATH=${arg#*=}
+                ;;
+            --args=*)
+                ARGS=${arg#*=}
+                ;;
+        esac
+    done
+}
+
+ARGS="$@"
+# 申明指令(这里是入口)
+
+parse_config
+case $1 in
+help) usage;;
+start) start;;
+stop) stop;;
+*) usage;;
+esac
+```
+
+:::tip
+以上写法会将独立应用的标准输出重定向到`nohup.out`文件中，日志信息存储在里面时需要额外处理，防止堆积占用磁盘存储。
+:::
+
+### 第三步：添加能力配置
+
+通过使用 `npx op add ability` 添加`web-service`能力，在`plugin.yaml`配置文件的`abilities`字段新增了以下内容：
+
+```yaml title="config/plugin.yaml"
+abilities:
+  - id: qRUFfcomn
+    name: 'hello_service_plugin'
+    version: 1.0.0
+    abilityType: web_service
+    config:
+      - key: root_route
+        value: file_storage
+        fieldType: Input
+        show: false
+      - key: start_file
+        value: 'start.sh'
+        fieldType: Input
+        show: false
+      - key: is_open
+        value: false
+        fieldType: Input
+        show: false
+      - key: args
+        value: 'name'
+        fieldType: Input
+        show: false
+```
+
+其中 `abilities.config` 中各项配置的作用如下表所示，并根据各项数据中 `show` 属性决定是否在插件详情页展示：
+
+| **配置项** | **作用**                                     |
+| ---------- | -------------------------------------------- |
+| root_route | 当独立应用启动之后，会根据该配置生成访问路径 |
+| start_file | 独立应用管理脚本的名称                       |
+| is_open    | 表示是否允许外部访问                         |
+| args       | 传递给独立应用的参数                         |
+
+### 第四步：打包插件
+
+将独立应用的二进制文件及管理脚本拷贝到插件工程的 `workspace` 目录下，打包插件。目录结构如下所示：
+
+```
+workspace          //插件workspace目录
+├── hello_service  //独立应用的可执行文件
+└── start.sh       //独立应用的管理脚本
+```
+
+### 访问独立应用
+
+独立应用支持外部访问和内部访问两种访问方式，在插件成功安装并启用之后：
+
+- **外部访问**
+
+  url 拼接规则： `url = {{ONES-host}}/plugin_service/{{root_route}}`，`ONES-host` 为 ONES 系统的访问地址，`root_route` 为能力配置
+
+  eg：https://your-host:10000/plugin_service/file_storage/
+
+  - `https://your-host:10000`这一段是域名根据你的环境决定
+  - `plugin_service` 是访问独立拥有的特定前缀
+  - `file_storage` 是你在能力中声明的 `root_route` 的值
+
+- **内部访问**
+
+  单机部署： `http://127.0.0.1:9008/{{root_route}}`
+
+  高可用部署：`http://plugin-service-proxy-svc:9007/{{root_route}}`
+
+## 示例
+
+- [使用外部存储](./external-storage)

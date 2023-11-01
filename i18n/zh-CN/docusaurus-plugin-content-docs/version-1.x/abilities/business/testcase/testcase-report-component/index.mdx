@@ -1,0 +1,217 @@
+---
+sidebar_position: 1
+description: 在测试报告和测试报告模板编辑页面中添加自定义的组件卡片。
+---
+
+import Image from '@theme/IdealImage'
+
+import addAbility from './images/add-ability.png'
+import exportImg from './images/export.png'
+import libImg from './images/lib.png'
+import renderImg from './images/render.png'
+import settingImg from './images/setting.png'
+
+# 自定义测试报告组件
+
+## 要求
+
+| ONES      | @ones-op/store |
+| :-------- | :------------- |
+| v3.13.22+ | v0.7.0+        |
+
+## 概述
+
+开放平台提供了自定义测试报告组件的能力，当标品提供的测试报告组件不能满足需求时，使用该能力可以在测试报告和测试报告模板编辑页面中添加自定义的组件卡片。
+使用该能力时，用户可以自定义的内容包括：
+
+1. 组件卡片渲染内容
+2. 组件配置弹窗内容
+3. 组件导出内容
+
+### 能力表现
+
+当启用使用了该能力的插件后，在编辑测试报告或测试报告模板时，可以从左侧组件库中添加自定义组件
+
+<Image img={libImg} />
+
+添加了自定义组件后，可以通过自定义的配置弹窗配置组件的内容
+
+<Image img={settingImg} />
+
+自定义的内容将会渲染在组件卡片中
+
+<Image img={renderImg} />
+
+如果有配置自定义组件导出的内容，导出的测试报告中将包含自定义组件的内容
+
+<Image img={exportImg} />
+
+## 使用
+
+### 安装前置依赖
+
+```shell
+npm i @ones-op/store
+```
+
+### 添加能力
+
+1. 执行 `npx op add ability` 命令，选中 `testcase-report-custom-component@1.0.0`
+
+2. 根据提示, 填写关联插槽 `ones:testcase:report:component:new` 名称，并创建子模块，用来渲染自定义组件在测试报告中的卡片内容
+
+   <Image img={addAbility} />
+
+3. 如果组件不需要支持配置弹窗内容功能，直接跳到下一步。执行 `npx op add sub-module` 命令，在刚刚添加的`ones:testcase:report:component:new` 模块下添加子模块
+
+4. 在 `/config/plugin.yaml` 中对模块进行手动配置
+
+   ```yaml
+   service:
+     app_id: Wr1aVwZS
+     ...
+   modules:
+     - id: ones-testcase-report-component-new-5cZd
+       title: 测试报告组件
+       moduleType: ones:testcase:report:component:new
+       modules:
+         - id: ones-testcase-report-component-new-U06I
+           title: 自定义测试报告组件
+           scene: render # 需要手动填写，scene为render表示该模块负责渲染组件卡片内容，该模块必须添加
+           entry: >-
+             modules/ones-testcase-report-component-new-5cZd/ones-testcase-report-component-new-U06I/index.html
+         - id: ones-testcase-report-component-new-NQD6
+           title: 配置弹窗
+           scene: setting # 需要手动填写，scene为setting表示该模块负责渲染配置弹窗，如果组件不需要配置，该模块可不添加
+           entry: >-
+             modules/ones-testcase-report-component-new-5cZd/ones-testcase-report-component-new-NQD6/index.html
+   ```
+
+### 自定义组件卡片内容
+
+在`scene` 为`render` 的模块中，通过 [useTestReportComponentInfo](../../../../reference/packages/store/#useTestReportComponentInfo) 获取组件配置，然后根据组件配置渲染对应的 UI 即可
+
+```tsx
+import React from 'react'
+import { useTestReportComponentInfo } from '@ones-op/store'
+
+export const CustomComponentCard = () => {
+  // 获取组件配置
+  const { componentSetting } = useTestReportComponentInfo()
+  // 根据组件配置渲染组件内容
+  return (
+    <div>
+      <div>{JSON.stringify(componentSetting, null, 2)}</p>
+    </div>
+  )
+}
+```
+
+### 自定义组件导出内容
+
+在`scene` 为`render` 的模块中，通过 [useTestReportComponentInfo](../../../../reference/packages/store/#useTestReportComponentInfo) 获取保存导出内容的方法，然后根据组件配置更新导出内容即可
+
+```tsx
+import { useTestReportComponentInfo } from '@ones-op/store'
+import React from 'react'
+
+export const CustomComponentCard = () => {
+  // 获取组件配置和更新导出内容的方法
+  const { componentSetting, updateComponentExportContent } = useTestReportComponentInfo()
+  // 根据组件配置更新导出内容
+  React.useEffect(() => {
+    updateComponentExportContent([
+      {
+        type: 'text',
+        content: JSON.stringify(componentSetting, null, 2),
+      },
+    ])
+  }, [componentSetting, updateComponentExportContent])
+  // 省略后续内容
+}
+```
+
+### 自定义组件配置弹窗
+
+如果自定义组件需要支持配置，那么开发者需要添加`scene` 为`setting` 的模块，在该模块中，通过 [useTestReportComponentInfo](../../../../reference/packages/store/#useTestReportComponentInfo) 获取组件配置，更新组件配置的方法，以及监听弹窗提交事件的方法，然后渲染编辑配置的表单 UI 即可。
+
+```tsx
+import { Form, Input } from '@ones-design/core'
+import { useTestReportComponentInfo } from '@ones-op/store'
+import React from 'react'
+
+export const Setting = () => {
+  // 获取组件配置，更新组件配置的方法以及监听弹窗提交事件的方法
+  const { componentSetting, updateComponentSetting, addOnSubmitSettingListener } =
+    useTestReportComponentInfo()
+  const [form] = Form.useForm()
+  // 弹窗提交事件的回调
+  const onSubmitSetting = React.useCallback(
+    (next: () => void) => {
+      form
+        .validateFields()
+        .then(() => {
+          // 如果表单校验通过则更新组件配置，同时调用next执行后续逻辑
+          updateComponentSetting(form.getFieldsValue())
+          next()
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    [form, updateComponentSetting],
+  )
+  // 在组件挂载时监听弹窗提交事件，组件卸载时取消监听
+  React.useEffect(() => {
+    const unsubscribe = addOnSubmitSettingListener(onSubmitSetting)
+    return () => {
+      unsubscribe()
+    }
+  }, [onSubmitSetting])
+
+  return (
+    <Form initialValues={componentSetting} form={form}>
+      <Form.Item label="name" name={['name']} rules={[{ required: true }]}>
+        <Input />
+      </Form.Item>
+    </Form>
+  )
+}
+```
+
+## 常见问题
+
+**测试报告组件名称如何实现多语言？**
+
+参考[插件多语言支持](../../../../guide/abilities/multilingual.mdx)
+
+```yaml
+service:
+  app_id: Wr1aVwZS
+  ...
+abilities:
+    - id: testcase-report-custom-component
+      name: testcase-report-custom-component
+      version: 1.0.0
+      abilityType: TestcaseReportCustomComponent
+      relateModule:
+        componentModule: 'ones-testcase-report-component-new-5cZd'
+      config:
+        - key: component_name
+          label: testcase-report-custom-component-name
+          value: {{.ComponentName}}
+          fieldType: Input
+          show: false
+
+```
+
+**如何更新测试报告组件名称?**
+
+参考[插件升级](../../../../guide/upgrade.md)
+
+- 先修改 `abilities.config.value`，再进行插件升级
+- 先修改 `workspace/lanuage/xx.yaml` 多语言翻译文案，再进行插件升级
+
+**测试报告组件名称是否允许重名？**
+
+不允许。

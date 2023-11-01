@@ -1,0 +1,193 @@
+---
+sidebar_position: 2
+---
+
+import Image from '@theme/IdealImage'
+
+import scriptFieldFloat1 from './images/script-field-float1.png'
+import scriptFieldFloat2 from './images/script-field-float2.png'
+
+# Float
+
+## Requirements
+
+| ONES    |
+| :------ |
+| v3.6.0+ |
+
+## Overview
+
+This capability allows plugins to implement a special script field of type "**float**", where the name and value of the field are determined solely by the plugin's code and cannot be modified by users in ONES. Plugin developers can implement different calculation rules for script property values to achieve diverse business development.
+
+Use cases for float script properties:
+
+1. Statistical calculations based on a specific rule
+2. Need for accurate values that cannot be manually modified
+
+### Scope
+
+Float script fields can only be added as **issue** fields.
+
+### Performace
+
+You can add float script fields to specific issue types just like using system work issue fields.
+
+<Image img={scriptFieldFloat2} />
+
+In most scenarios, script issue fields behave similarly to the system issue fields in the ONES system. However, there are slight differences in the following scenarios:
+
+- In layout configuration, tagged fields do not support script fields.
+- In issue list view，only filtering based on script issue fields is supported, while sorting and grouping based on script issue fields are not supported.
+- Importing issues does not support importing issues that contain script issue fields.
+- In "Automation Settings", updating script issue fields and creating issues with pre-set script field values are not supported.
+- In "My Work" - "Dashboard" - "Custom Report Card", using script issue fields as analysis dimensions is not supported.
+
+## Usage
+
+Add the ability through the OP tool, modify the configuration related to the ability, and complete the business logic in the script fields method, as shown below.
+
+### step 1: Add and use ability through the OP tool：
+
+Use the Command Line to enter the OP command in the plugin root directory to add ability (this directive requires OP tool version 1.0 or above)
+
+```shell
+npx op add ability
+```
+
+Select and add `script-field-float@1.0.0`
+
+<Image img={scriptFieldFloat1} />
+
+The OP tool will ask if you want to use the default value, just choose yes, and the OP tool will add the following to the plugin
+
+- The OP tool adds `abilitiy` field related paragraphs in plugin configuration file `plugin.yaml`
+  ```yaml title="config/plugin.yaml"
+  service:
+    app_id: ...
+    name: ability-scriptFloat
+    ...
+  apis:
+    ...
+  abilities:
+    - id: ...
+      name: scriptField
+      version: 1.0.0
+      abilityType: ScriptFieldFloat
+      function:
+        calcFieldValue: calcFieldValues
+      config:
+        - key: FieldName
+          value: scriptField1
+          fieldType: Input
+          show: false
+  ```
+- The OP tool adds file `script-field-float.ts` to the plugin backend
+
+  ```typescript title="backend/src/script-field-float.ts"
+  import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+  // example function:The calculation method of script floating point
+  // Calculate field_uuid for more than one task at a time
+  // Request format::
+  // {
+  //     fieldUUID: "xxx",
+  //     taskUUIDs: ["aaa", "bbb", "ccc"]
+  // }
+
+  // Returned format:
+  // {
+  //     body:{
+  //         code: 200,
+  //         body: {
+  //             values: [
+  //                 {
+  //                     taskUUID: "aaa",
+  //                     value: 1.2
+  //                 },
+  //                 {
+  //                     taskUUID: "bbb",
+  //                     value: 2.3
+  //                 },
+  //             ]
+  //         }
+  //     }
+  // }
+  export const calcFieldValues = async (request: PluginRequest): Promise<PluginResponse> => {
+    const body = request?.body as any
+    const returnValue: any[] = []
+
+    //Uuid array of task that require calculate
+    if (body.fieldUUID && body.taskUUIDs && body.taskUUIDs.length > 0) {
+      for (const taskUUID of body.taskUUIDs) {
+        returnValue.push({
+          taskUUID: taskUUID, //Please note that the script field already exists for the task
+          value: 200000, //The specific returned value can be counted according to the business logic.
+        })
+      }
+    }
+
+    return {
+      body: {
+        code: 200,
+        body: {
+          values: returnValue,
+        },
+      },
+    }
+  }
+  ```
+
+### Step 2: Modify plugin configuration file
+
+Modify the corresponding content of the ability in the plugin configuration file, where **abilities.config** is the configuration of the script field ability, and the value of **abilities.config.value** is the name of the script field,here it is changed to "scriptField1",The value of **abilities.function.calcFieldValue** is the name of the script field calculation method, and here it is changed to "countFunc".
+
+```yaml title="config/plugin.yaml"
+service:
+  app_id: ...
+  name: ability-scriptFloat
+  ...
+apis:
+  ...
+abilities:
+  - id: ...
+    name: scriptField
+    version: 1.0.0
+    abilityType: ScriptFieldFloat
+    function:
+      calcFieldValue: countFunc
+    config:
+      - key: FieldName
+        value: scriptField1
+        fieldType: Input
+        show: false
+```
+
+### step 3: Complete the script field calculation rule
+
+Modify the script field method, which defaults to the `calcFieldValues` method of `{{plugin root directory}}/backend/src/script-field-float.ts`.
+
+The default implementation method is given here, which only follows the previous step and modifies the method name to `countFunc`
+
+:::info
+
+Note that the value in the returned parameter `returnValue` defaults to floating point, and its unit defaults to `1 / 100000`. When the returned value is **200000**, the actual value is **2**
+
+:::
+
+## Examples
+
+- [Automatically count the number of relationships of a certain link type of issue](./sample-script-field-float.mdx)
+
+## FAQ
+
+** What if you want to create multiple script fields? **
+
+The abilities in `plugin.yaml` is an array.The ability can be used many times. Note that `id` of ability should be different.
+
+** What if there is an field with the same in the system? **
+
+There are two cases of field with the same name. If you have different issue types with the same name, enabling the plugin at this time will cause an error. It can be hosted if it has the same name and there is no plugin to host the field.
+
+** Does the script property of the floating point type support use in performance management? **
+
+Not supported.

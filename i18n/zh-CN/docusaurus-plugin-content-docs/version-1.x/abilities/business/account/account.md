@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 1
 description: 账号系统相关能力。
 ---
 

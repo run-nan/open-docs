@@ -11,10 +11,6 @@
     "message": "开放能力",
     "description": "Navbar item with label Abilities"
   },
-  "item.label.API": {
-    "message": "API",
-    "description": "Navbar item with label API"
-  },
   "item.label.Tools": {
     "message": "工具",
     "description": "Navbar item with label Tools"
@@ -26,22 +22,6 @@
   "item.label.Changelog": {
     "message": "更新日志",
     "description": "Navbar item with label Changelog"
-  },
-  "item.label.Plugin Development": {
-    "message": "插件开发",
-    "description": "Navbar item with label Plugin Development"
-  },
-  "item.label.ONES Development": {
-    "message": "ONES 开发",
-    "description": "Navbar item with label ONES Development"
-  },
-  "item.label.Development": {
-    "message": "开发",
-    "description": "Navbar item with label Development"
-  },
-  "item.label.Deploy": {
-    "message": "部署",
-    "description": "Navbar item with label Deploy"
   },
   "item.label.Reference": {
     "message": "Reference",
@@ -67,8 +47,12 @@
     "message": "ONES Design",
     "description": "Navbar item with label ONES Design"
   },
-  "item.label.Open source of web code": {
-    "message": "前端开源",
-    "description": "Navbar item with label Documentation"
+  "item.label.Open API": {
+    "message": "Open API",
+    "description": "Navbar item with label Open API"
+  },
+  "item.label.eng": {
+    "message": "eng",
+    "description": "Navbar item with label eng"
   }
 }

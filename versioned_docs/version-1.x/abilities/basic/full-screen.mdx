@@ -1,0 +1,40 @@
+---
+sidebar_position: 16
+description: Hide the left sidebar and top menu bar, and emphasize the information on the central page.
+---
+
+import Image from '@theme/IdealImage'
+
+# Full Screen
+
+## Requirements
+
+| ONES      |
+| :-------- |
+| v3.13.35+ |
+
+## Overview
+
+In order to focus on the presentation of information in some scenarios, you may need to hide the left menu bar and the top menu bar to highlight the information on the middle page. We provide you with a very simple way to achieve full screen functionality.
+
+<Image img={require('./images/full-screen.png')} />
+
+## Usage
+
+The way to use it is simple, for example, to access the test plan page, you need to enter the address below in the address bar:
+
+```shell
+https://ones.com/project/#/testcase/team/${teamUUID}/plan
+```
+
+When you want to access the test plan page in full screen form, you just type:
+
+```shell
+https://ones.com/project/#/testcase/team/${teamUUID}/plan?allow=fullscreen
+```
+
+You only need to add the query parameter **`allow=fullscreen`** after the normal access address.
+
+:::tip
+If you want to exit full screen mode, you just need to clear the **`allow=fullscreen`** query parameters on the address bar and refresh the page.
+:::
