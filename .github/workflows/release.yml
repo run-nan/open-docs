@@ -62,4 +62,4 @@ jobs:
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github.everest-preview+json" \
             ${{ github.event.repository.url }}/dispatches \
-            -d '{"event_type": "DocSearch","client_payload": { "timer": 14400 }}'
+            -d '{"event_type": "DocSearch","client_payload": { "timer": 7200 }}'

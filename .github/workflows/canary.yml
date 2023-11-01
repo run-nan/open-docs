@@ -1,8 +1,8 @@
-name: Deploy
+name: Deploy Canary
 on:
   push:
     branches:
-      - main
+      - next
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   deploy:

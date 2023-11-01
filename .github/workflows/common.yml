@@ -40,7 +40,7 @@ jobs:
       - name: Build Docs
         run: pnpm run build:dev
 
-      - uses: appleboy/scp-action@v0.1.2
+      - uses: appleboy/scp-action@v0.1.4
         with:
           host: 120.78.193.246
           username: lanjin
@@ -61,7 +61,7 @@ jobs:
                 "url": "https://docs.partner.ones.cn/"
               },
               "source": {
-                "desc": "开放平台在线文档"
+                "desc": "开放平台内部文档"
               },
               "main_title": {
                 "title": "🦋 发布成功"

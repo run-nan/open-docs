@@ -1,26 +1,44 @@
-# Contributing Guide
+# 贡献指南
 
-## Install pnpm
+## 安装 pnpm
 
-We use pnpm to manage our packages. Please [install pnpm](https://pnpm.io/zh/installation) before contributing.
+> 需要安装 Node.js v16.14+
 
-## Installation
+从 v16.13 开始，Node.js 发布了 [Corepack](https://nodejs.org/api/corepack.html) 来管理包管理器。 这是一项实验性功能，因此你需要通过运行如下脚本来启用它：
+
+```
+corepack enable
+```
+
+如果你已经使用 Homebrew 安装了 Node.js，你需要单独安装Corepack：
+
+```
+brew install corepack
+```
+
+这会自动将 pnpm 安装在你的系统上。
+
+## 安装项目依赖
 
 ```
 pnpm install
 ```
 
-## Local Development
+## 本地开发
 
 ```
+# 内部文档
+pnpm run dev
+
+# 外部文档
 pnpm start
 ```
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+此命令会启动本地开发服务器并打开浏览器窗口。大多数更改都会实时反映出来，而无需重新启动服务器。
 
 ### i18n
 
-以中文为例：
+使用你所选择的语言，以开发模式启动本地化站点，以中文为例：
 
 ```
 pnpm run start:zh
@@ -42,23 +60,13 @@ Review 完成后复制一份到正式的文档目录：
 /i18n/zh-CN/docusaurus-plugin-content-docs/version-1.x # 中文文档
 ```
 
-### Build
+### 构建
 
 ```
 $ pnpm run build
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
-
-### Start
-
-```
-// run inner docs
-$ pnpm run dev
-
-// run public docs
-$ pnpm run start
-```
+该命令将静态内容生成到 `dist` 目录中，通常由 GitHub Action 执行。
 
 ### OpenAPI
 
@@ -66,19 +74,19 @@ $ pnpm run start
 
 #### 命令
 
-重新生成最新 OpenAPI 文档
+重新生成最新 OpenAPI 文档：
 
 ```
 $ pnpm run rebuild-api
 ```
 
-生成所有 OpenAPI 文档（如果存在则跳过）
+生成所有 OpenAPI 文档（如果存在则跳过）：
 
 ```
 $ pnpm run gen-api
 ```
 
-删除所有 OpenAPI 文档
+删除所有 OpenAPI 文档：
 
 ```
 $ pnpm run clean-api
@@ -86,19 +94,15 @@ $ pnpm run clean-api
 
 #### 维护
 
-`openapi/source` 目录只放 OpenAPI 源文件，不放任何 MD 文件，作为 OpenAPI 文档的构建读取目录使用
+`openapi/source` 目录只放 OpenAPI 源文件，不放任何 Markdown 文件，作为 OpenAPI 文档的构建读取目录使用
 
 ##### 更新
 
-如果是修改已有 yaml 内容，在更新完 yaml 后
-
-执行 `pnpm run rebuild-api` 命令，清空重新生成 OpenAPI 文档
+如果是修改已有 yaml 内容，在更新完 yaml 后执行 `pnpm run rebuild-api` 命令，会自动清空并重新生成 OpenAPI 文档
 
 ##### 新增
 
-如果是新增 yaml，你需要在「更新」流程的基础上，找到 api 对应的目录下，添加 `_category_.json` 目录描述
-
-并在 `i18n/zh-CN/docusaurus-plugin-content-docs/[version].json` 下添加侧边栏文案翻译
+如果是新增 yaml，你需要在「更新」流程的基础上，找到 api 对应的目录下，添加 `_category_.json` 目录描述，并在 `i18n/zh-CN/docusaurus-plugin-content-docs/[version].json` 下添加侧边栏文案翻译
 
 ##### 注意
 
