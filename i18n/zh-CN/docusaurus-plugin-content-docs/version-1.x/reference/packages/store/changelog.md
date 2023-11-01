@@ -9,14 +9,14 @@
 - **Store:** 🌟 提供 `useDashboardCardInfo` hook 获取自定义卡片的上下文数据
 - **Store:** 🌟 提供 `useDashboardCardConfigInfo` hook 获取自定义卡片配置弹窗的上下文数据
 
-# 0.x.0 (2023-x-x)
+# 0.9.0 (2023-03-31)
 
 ### 新特性
 
 - **Store:** 🌟 提供 `useVariablesInfo` hook 获取插槽传递的非标准数据
 - **Store:** 🌟 提供 `useModuleInstanceInfo` hook 获取手动激活的插件实例信息
 
-# 0.8.0 (2023-2-21)
+# 0.8.0 (2023-02-21)
 
 ### 新特性
 

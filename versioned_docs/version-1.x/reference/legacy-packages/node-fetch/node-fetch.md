@@ -1,6 +1,14 @@
-# @ones-op/node-fetch
+# @ones-op/node-fetch(deprecated)
 
-Plugin **backend** API access capability related to API
+[![](https://npm.partner.ones.cn/badge/v/@ones-op/node-fetch.svg)](https://npm.partner.ones.cn/package/@ones-op/node-fetch)
+
+:::warning DEPRECATED
+
+We have integrated the "@ones-op/node-fetch" functionality into the "[@ones-op/fetch](../../packages/fetch//fetch.md)" package, which will not be maintained, so please use the "[@ones-op/fetch](../../packages/fetch//fetch.md)" package in preference.
+
+:::
+
+Plugin **backend** API access capability related to API.
 
 ## Requirements
 

@@ -13,7 +13,7 @@ When installing ONES CLI, we have built in the plugin development scaffolding to
 
 ### Noun interpretation
 
-- **op :** the plugin development scaffolding tool has built-in all the instructions needed throughout the plugin development lifecycle. For instructions, please see: [ONES OP](../tools/cli/op-cli.md)
+- **op :** the plugin development scaffolding tool has built-in all the instructions needed throughout the plugin development lifecycle. For instructions, please see: [ONES OP](../tools/cli/op-cli.mdx)
 - **baseURL :** remote debugging environment URL
 - **hostURL :** plugin runtime URL
 - **instance_uuid：** unique identification of the plugin instance, which is generated when the plugin is installed on a specific environment. Not a fixed value.

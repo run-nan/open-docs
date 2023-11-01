@@ -34,6 +34,11 @@ OPFetch('/users/me').then((response) => {
   console.log('me: ', response.data)
 })
 
+// fetch ONES WIKI API in the plugin backend via the `/wiki` prefix
+OPFetch(`/wiki/team/${teamUUID}/space/${spaceUUID}/page/${pageUUID}`).then((response) => {
+  console.log('page: ', response.data)
+})
+
 // fetch external API in the plugin backend
 OPFetch('https://jsonplaceholder.typicode.com/todos/1').then((response) => {
   console.log('todo: ', response.data)

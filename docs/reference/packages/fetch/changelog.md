@@ -2,11 +2,11 @@
 
 All notable changes to this package will be documented in this file.
 
-# 0.6.0 (2023-xx-xx)
+# 0.6.0 (2023-10-30)
 
 ### BREAK CHANGE
 
-axios `~0.27.2` upgrade to `~1.4.0`
+axios `0.27.2` upgrade to `1.5.1`
 
 Rename export: `AxiosError` => `FetchError`, `isAxiosError` => `isFetchError`, `AxiosHeaders` => `FetchHeaders`
 

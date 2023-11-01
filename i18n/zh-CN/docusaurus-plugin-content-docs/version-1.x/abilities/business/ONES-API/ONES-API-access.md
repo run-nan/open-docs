@@ -21,21 +21,21 @@ sidebar_position: 1
 进入插件工程的`/backend`目录，执行以下命令进行依赖安装：
 
 ```shell
-npm i @ones-op/node-fetch
+npm i @ones-op/fetch
 ```
 
 ### 第二步：访问 ONES API
 
-**API：** fetchONES
+**API：** OPFetch
 
-开发者在请求 ONES API 的时候，会默认使用插件超级用户，在调用 `fetchONES` 方法时，入参中带入`root=true`，表示使用超级用户调用接口。组织级别的插件需要加上`teamUUID`参数。
+开发者在后端以相对路径请求 ONES API 的时候，会默认使用插件超级用户，在调用 `OPFetch` 方法时，入参中带入`root=true`，表示使用超级用户调用接口。组织级别的插件需要加上`teamUUID`参数。
 
 **示例 1：** 使用插件超级用户调用 ONES API
 
 ```typescript
-import { fetchONES } from '@ones-op/node-fetch'
+import { OPFetch } from '@ones-op/fetch'
 
-const response = await fetchONES({
+const response = await OPFetch({
   path: `/team/${globalThis.onesEnv.teamUUID}/items/view`,
   method: 'POST',
   body: {
@@ -62,10 +62,10 @@ const response = await fetchONES({
 **示例 2：** 使用其他用户调用 ONES API
 
 ```typescript
-import { fetchONES } from '@ones-op/node-fetch'
+import { OPFetch } from '@ones-op/fetch'
 
 export async function getUserme(
-  request: PluginRequest<Record<string, any>>
+  request: PluginRequest<Record<string, any>>,
 ): Promise<PluginResponse> {
   let userUUID = ''
   let userToken = ''
@@ -73,26 +73,19 @@ export async function getUserme(
     userUUID = request.headers['Ones-User-Id']
     userToken = request.headers['Ones-Auth-Token']
   }
-  const response = await fetchONES({
+  return OPFetch({
     path: `/users/me`,
     method: 'GET',
     headers: {
-      'Ones-User-Id': [userUUID],
+      'Ones-User-Id': userUUID,
       'Ones-Auth-Token': [userToken],
     },
     root: false, //默认为true
     teamUUID: '',
   })
-
-  if (response) {
-    return response
-  }
-  return {
-    body: {},
-  }
 }
 ```
 
 ## 其他
 
-具体参数释义请参考：[@ones-op/node-fetch](../../../reference/packages/node-fetch/node-fetch.md)
+具体参数释义请参考：[@ones-op/fetch](../../../reference/packages/fetch/fetch.md)

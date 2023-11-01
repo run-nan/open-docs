@@ -9,14 +9,14 @@ All notable changes to this package will be documented in this file.
 - **Store:** 🌟 Provide `useDashboardCardInfo` hook to get the context data of custom card
 - **Store:** 🌟 Provide `useDashboardCardConfigInfo` hook to get the context data of custom card config dialog
 
-# 0.x.0 (2023-x-x)
+# 0.9.0 (2023-03-31)
 
 ### Features
 
 - **Store:** 🌟 Provide `useVariablesInfo` hook to get the non-standard data passed by the slot
 - **Store:** 🌟 Provide `useModuleInstanceInfo` hook to get information about manually activated plugin instance
 
-# 0.x.0 (2023-x-x)
+# 0.8.0 (2023-02-21)
 
 ### Features
 

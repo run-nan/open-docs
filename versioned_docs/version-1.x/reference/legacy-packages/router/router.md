@@ -1,10 +1,10 @@
-# @ones-op/router
+# @ones-op/router(deprecated)
 
 [![](https://npm.partner.ones.cn/badge/v/@ones-op/router.svg)](https://npm.partner.ones.cn/package/@ones-op/router)
 
-:::caution
+:::warning DEPRECATED
 
-This package is deprecated, please use the "react-router-dom" instead. Before replacing "@ones-op/router", please make sure to read the document about the configuration ["enableMemoryRouter"](../../config/plugin.yaml#enablememoryrouter) and set it to true.
+This package is deprecated, please use the "react-router-dom" instead. Before replacing "@ones-op/router", please make sure to read the document about the configuration ["enableMemoryRouter"](../../config/plugin.yaml#enablememoryrouter) and set it to `true`.
 
 :::
 
@@ -33,7 +33,7 @@ ReactDOM.render(
   <OPHashRouter>
     <App />
   </OPHashRouter>,
-  document.getElementById('root')
+  document.getElementById('root'),
 )
 ```
 
@@ -61,7 +61,7 @@ ReactDOM.render(
   <OPHashRouter>
     <App />
   </OPHashRouter>,
-  document.getElementById('root')
+  document.getElementById('root'),
 )
 ```
 
@@ -249,6 +249,7 @@ Rendering content based on the current position. Can be nested and rendered the 
 
 ```tsx
 import { OPRoutes, OPRoute } from '@ones-op/router'
+
 ;<OPRoutes>
   <OPRoute path="/" element={<Dashboard />}>
     <OPRoute path="messages" element={<DashboardMessages />} />
@@ -273,6 +274,7 @@ Rendered anywhere in the app, `OPRoutes` will match a set of child [`OPRoute`](#
 
 ```tsx
 import { OPRoutes, OPRoute } from '@ones-op/router'
+
 ;<OPRoutes>
   <OPRoute path="/" element={<Dashboard />}>
     <OPRoute path="messages" element={<DashboardMessages />} />

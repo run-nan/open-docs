@@ -13,7 +13,7 @@ sidebar_position: 6
 
 ### 名词解释
 
-- **op :** 插件开发脚手架工具，内置了贯穿插件开发生命周期中所需要的所有指令，指令释义可以参见：[ONES OP](../tools/cli/op-cli.md)
+- **op :** 插件开发脚手架工具，内置了贯穿插件开发生命周期中所需要的所有指令，指令释义可以参见：[ONES OP](../tools/cli/op-cli.mdx)
 - **baseURL :** 远端调试环境 URL (实例端口)
 - **hostURL :** 插件运行时 URL （平台 host 端口）
 - **instance_uuid：** 插件实例的唯一标识，当插件安装到具体环境上时会生成此实例 uuid。并非固定值。

@@ -21,21 +21,21 @@ The ONES API access ability provides a method for plugins to access the ONES API
 Enter the `/backend` directory of the plugin project, and execute the following command for dependent installation:
 
 ```shell
-npm i @ones-op/node-fetch
+npm i @ones-op/fetch
 ```
 
 ### Step 2: Access the ONES API
 
-**API：** fetchONES
+**API：** OPFetch
 
-When developers request the ONES API, they will use the super admin by default. When calling the `fetchONES` method, enter `root=true` in the input parameter, indicating that the superuser is used to call the API.
+When the developer requested the ONES API with a relative path, they will use the super admin by default. When calling the `fetchONES` method, enter `root=true` in the input parameter, indicating that the superuser is used to call the API.
 
 **Example one**: Use super admin to call ONES API
 
 ```typescript
-import { fetchONES } from '@ones-op/node-fetch'
+import { OPFetch } from '@ones-op/fetch'
 
-const response = await fetchONES({
+const response = await OPFetch({
   path: `/team/${globalThis.onesEnv.teamUUID}/items/view`,
   method: 'POST',
   body: {
@@ -62,7 +62,7 @@ If we do not want to request as a super admin, we should first set `root` to `fa
 **Example two：** Use other role to request the ONES API
 
 ```typescript
-import { fetchONES } from '@ones-op/node-fetch'
+import { OPFetch } from '@ones-op/fetch'
 
 export async function getUserme(
   request: PluginRequest<Record<string, any>>,
@@ -73,26 +73,19 @@ export async function getUserme(
     userUUID = request.headers['Ones-User-Id']
     userToken = request.headers['Ones-Auth-Token']
   }
-  const response = await fetchONES({
+  return OPFetch({
     path: `/users/me`,
     method: 'GET',
     headers: {
-      'Ones-User-Id': [userUUID],
+      'Ones-User-Id': userUUID,
       'Ones-Auth-Token': [userToken],
     },
     root: false, //default is true
     teamUUID: '',
   })
-
-  if (response) {
-    return response
-  }
-  return {
-    body: {},
-  }
 }
 ```
 
 ## Other
 
-For detailed parameters, please refer to: [@ones-op/node-fetch](../../../reference/legacy-packages/node-fetch/node-fetch.md)
+For detailed parameters, please refer to: [@ones-op/fetch](../../../reference/packages/fetch/fetch.md)

@@ -29,12 +29,17 @@ npm install @ones-op/fetch
 ```ts title="backend/index.ts"
 import { OPFetch } from '@ones-op/fetch'
 
-// fetch ONES API in the plugin backend
+// 在插件后端请求 ONES 接口
 OPFetch('/users/me').then((response) => {
   console.log('me: ', response.data)
 })
 
-// fetch external API in the plugin backend
+// 在插件后端通过 `/wiki` 前缀，请求 ONES WIKI 接口
+OPFetch(`/wiki/team/${teamUUID}/space/${spaceUUID}/page/${pageUUID}`).then((response) => {
+  console.log('page: ', response.data)
+})
+
+// 在插件后端请求外部接口
 OPFetch('https://jsonplaceholder.typicode.com/todos/1').then((response) => {
   console.log('todo: ', response.data)
 })
@@ -47,17 +52,17 @@ import { OPFetch } from '@ones-op/fetch'
 
 const fetchProject = OPFetch.create({ baseURL: '/project/api/project' })
 
-// fetch ONES API in the plugin frontend
+// 在插件前端页面请求 ONES 接口
 fetchProject('/users/me').then((response) => {
   console.log('me: ', response.data)
 })
 
-// fetch plugin API in the plugin frontend
+// 在插件前端页面请求插件接口
 fetchProject('/hello').then((response) => {
   console.log('hello: ', response.data)
 })
 
-// fetch external API in the plugin frontend
+// 在插件前端页面请求外部接口
 OPFetch('https://jsonplaceholder.typicode.com/todos/1').then((response) => {
   console.log('todo: ', response.data)
 })

@@ -2,6 +2,10 @@ import Image from '@theme/IdealImage'
 
 # Trigger action list
 
+:::warning
+Currently Trigger intercepts requests based on the front-end interface, so when upgrading the ONES version you need to check that the interface used by the plugin hasn't changed destructively to avoid making the plugin unavailable after the upgrade.
+:::
+
 ## ones:task:fields:update
 
 **ONES Requirement:** v3.10.20+
