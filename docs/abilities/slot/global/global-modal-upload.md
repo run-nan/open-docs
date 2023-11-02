@@ -33,13 +33,13 @@ In the rich text editor (such as description), the slot will not be activated if
 
 **ONES Requirement:** v3.11.40+
 
-**description：** Global popup window module, used for global popup window interaction or [logic layer carrier](../../business/layout-custom-quick-action#2%E6%97%A0%E7%95%8C%E9%9D%A2%E7%BA%AF%E9%80%BB%E8%BE%91%E7%B1%BB%E5%9E%8B) that does not require an interface.
+**description：** Global popup window module, used for global popup window interaction or [logic layer carrier](../../business/project/layout-custom-quick-action#2%E6%97%A0%E7%95%8C%E9%9D%A2%E7%BA%AF%E9%80%BB%E8%BE%91%E7%B1%BB%E5%9E%8B) that does not require an interface.
 
 **Number limit：** Declare a maximum of **10** slots in each plugin, and up to **100** slots in the system.
 
 :::caution
 
-Currently, only the [Custom Layout Shortcut](../../business/layout-custom-quick-action) scenario is supported.
+Currently, only the [Custom Layout Shortcut](../../business/project/layout-custom-quick-action) scenario is supported.
 
 :::
 

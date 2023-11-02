@@ -9,30 +9,14 @@ const openAPIConfig = require('./docusaurus.openapi.config')
 const isPublic = process.env.PRODUCTION_ENV === 'production'
 
 // 正式版本暂只打包构建1.x版本
-const versionsConfig = isPublic
+const envDocsConfig = isPublic
   ? {
-      lastVersion: '1.x',
-      onlyIncludeVersions: ['1.x'],
+      exclude: ['**/internal-*.{md,mdx}'],
+      onlyIncludeVersions: ['current'],
     }
   : {}
 
-// 正式版本隐藏 `docVersion`
-const extraNavConfig = isPublic
-  ? []
-  : [
-      // 添加内部文档，目前暂时没有先屏蔽
-      // {
-      //   label: 'Inner',
-      //   position: 'left',
-      //   items: []
-      // },
-      {
-        type: 'docsVersionDropdown',
-        position: 'right',
-      },
-    ]
-
-// 正式环境使用algolia搜索，algolia对象有值，则会使用 `DocSearch` 组件
+// 正式环境使用 algolia 搜索，algolia 对象有值，则会使用 `DocSearch` 组件
 const algoliaConfig = isPublic
   ? {
       algolia: {
@@ -58,8 +42,8 @@ const extraSearchPluginConfig = isPublic
       ],
     ]
 
-// 正式对外文档隐藏 `ChangeLog`
-const extraQuickEntryConfig = isPublic
+// 内外部文档导航栏区分配置
+const envNavbarItems = isPublic
   ? []
   : [
       {
@@ -68,19 +52,75 @@ const extraQuickEntryConfig = isPublic
         position: 'left',
         category: 'quickEntry',
       },
+      // 添加内部文档，目前暂时没有先屏蔽
+      // {
+      //   label: 'Internal',
+      //   position: 'left',
+      //   items: []
+      // },
+      {
+        type: 'docsVersionDropdown',
+        position: 'right',
+      },
     ]
 
-const url = isPublic ? 'https://developer.ones.com' : 'https://docs.partner.ones.cn'
+// 开放平台快捷入口
+const openPlatformNavbarItems = [
+  {
+    type: 'docSidebar',
+    position: 'left',
+    label: 'Guide',
+    sidebarId: 'guide',
+    category: 'quickEntry',
+  },
+  {
+    type: 'docSidebar',
+    position: 'left',
+    label: 'Abilities',
+    sidebarId: 'abilities',
+    category: 'quickEntry',
+  },
+  {
+    type: 'docSidebar',
+    position: 'left',
+    label: 'Reference',
+    sidebarId: 'reference',
+    category: 'quickEntry',
+  },
+  {
+    type: 'docSidebar',
+    position: 'left',
+    label: 'Tools',
+    sidebarId: 'tools',
+    category: 'quickEntry',
+  },
+  {
+    type: 'docSidebar',
+    position: 'left',
+    label: 'FAQ',
+    sidebarId: 'faq',
+    category: 'quickEntry',
+  },
+  ...envNavbarItems,
+  {
+    type: 'localeDropdown',
+    position: 'right',
+    items: [
+      {
+        label: 'eng',
+      },
+    ],
+  },
+]
 
 /** @type {import('@docusaurus/types').Config} */
-
 const config = {
   title: 'ONES Open Platform',
   tagline: 'ONES 全面开放基座能力，助力客户与合作伙伴构建企业数字化平台，加速企业发布产品。',
-  url,
-  onBrokenLinks: 'log',
+  url: isPublic ? 'https://developer.ones.com' : 'https://docs.partner.ones.cn',
+  onBrokenLinks: 'warn',
   baseUrl: '/',
-  favicon: 'images/favicon.ico',
+  favicon: '/images/favicon.ico',
   organizationName: 'BangWork', // Usually your GitHub org/user name.
   projectName: 'open-docs', // Usually your repo name.
   i18n: {
@@ -130,14 +170,15 @@ const config = {
           showLastUpdateTime: true,
           sidebarPath: require.resolve('./sidebars.js'),
           remarkPlugins: [[require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }]],
+          lastVersion: 'current',
           versions: {
             current: {
-              label: '🚧 Canary',
-              noIndex: true,
+              label: '1.x',
+              badge: false,
             },
           },
-          ...openAPIConfig.docConfig,
-          ...versionsConfig,
+          ...envDocsConfig,
+          ...openAPIConfig.docs,
         },
         // 由于当前禁止了seo，打包不会生成sitemap.xml，但不影响algolia使用
         sitemap: {
@@ -177,7 +218,7 @@ const config = {
       {
         max: 2560,
         min: 1024,
-        steps: 2,
+        steps: 3,
         disableInDev: false,
       },
     ],
@@ -191,7 +232,7 @@ const config = {
       colorMode: {
         defaultMode: 'light',
         disableSwitch: true,
-        // respectPrefersColorScheme: true,
+        // respectPrefersColorScheme: true, // 跟随系统主题
       },
       ...algoliaConfig,
       docs: {
@@ -211,6 +252,7 @@ const config = {
         },
         items: [
           {
+            type: 'dropdown',
             label: 'Documentation',
             position: 'left',
             items: [
@@ -233,6 +275,7 @@ const config = {
             ],
           },
           {
+            type: 'dropdown',
             label: 'Resources',
             position: 'left',
             items: [
@@ -246,53 +289,7 @@ const config = {
               },
             ],
           },
-          // 开放平台快捷入口
-          {
-            type: 'docSidebar',
-            position: 'left',
-            label: 'Guide',
-            sidebarId: 'guide',
-            category: 'quickEntry',
-          },
-          {
-            type: 'docSidebar',
-            position: 'left',
-            label: 'Abilities',
-            sidebarId: 'abilities',
-            category: 'quickEntry',
-          },
-          {
-            type: 'docSidebar',
-            position: 'left',
-            label: 'Reference',
-            sidebarId: 'reference',
-            category: 'quickEntry',
-          },
-          {
-            type: 'docSidebar',
-            position: 'left',
-            label: 'Tools',
-            sidebarId: 'tools',
-            category: 'quickEntry',
-          },
-          {
-            type: 'docSidebar',
-            position: 'left',
-            label: 'FAQ',
-            sidebarId: 'faq',
-            category: 'quickEntry',
-          },
-          ...extraQuickEntryConfig,
-          {
-            type: 'localeDropdown',
-            position: 'right',
-            items: [
-              {
-                label: 'eng',
-              },
-            ],
-          },
-          ...extraNavConfig,
+          ...openPlatformNavbarItems,
         ],
       },
       footer: {
@@ -302,6 +299,7 @@ const config = {
           src: 'homepage/logo-footer.svg',
           href: 'https://ones.com',
         },
+        copyright: `© ${new Date().getFullYear()} ONES. All rights reserved`,
         links: [
           {
             title: 'Technologies',
@@ -360,7 +358,6 @@ const config = {
             ],
           },
         ],
-        copyright: `© ${new Date().getFullYear()} ONES. All rights reserved`,
       },
       prism: {
         theme: lightCodeTheme,

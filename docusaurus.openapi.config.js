@@ -1,8 +1,8 @@
 const fs = require('fs')
 const path = require('path')
-const { createInfoPageMD } = require('docusaurus-plugin-openapi-docs/lib/markdown')
+// const { createInfoPageMD } = require('docusaurus-plugin-openapi-docs/lib/markdown')
 
-const VERSION_BASE_PATH = 'versioned_docs'
+// const VERSION_BASE_PATH = 'versioned_docs'
 const ZH_BASE_PATH = 'i18n/zh-CN/docusaurus-plugin-content-docs'
 
 /**
@@ -14,24 +14,22 @@ const ZH_BASE_PATH = 'i18n/zh-CN/docusaurus-plugin-content-docs'
  * - npx docusaurus clean-api-docs all
  */
 const openAPIPathConfig = {
-  canary: 'docs/openapi',
-  v1: `${VERSION_BASE_PATH}/version-1.x/openapi`,
+  '1.x': 'docs/openapi',
 }
 const zhOpenAPIPathConfig = {
-  'canary:zh': `${ZH_BASE_PATH}/current/openapi`,
-  'v1:zh': `${ZH_BASE_PATH}/version-1.x/openapi`,
+  '1.x': `${ZH_BASE_PATH}/current/openapi`,
 }
 
-const markdownGenerators = {
-  createInfoPageMD: (...args) => {
-    const md = createInfoPageMD(...args)
-    // info.mdx 会出现两个版本，这里跟文档版本区分开
-    return md.replace(
-      '<span className={"theme-doc-version-badge badge badge--secondary"}>Version:',
-      '<span className={"theme-doc-version-badge badge badge--secondary"}>API Version:'
-    )
-  },
-}
+// const markdownGenerators = {
+//   createInfoPageMD: (...args) => {
+//     const md = createInfoPageMD(...args)
+//     // info.mdx 会出现两个版本，这里跟文档版本区分开
+//     return md.replace(
+//       '<span className={"theme-doc-version-badge badge badge--secondary"}>Version:',
+//       '<span className={"theme-doc-version-badge badge badge--secondary"}>API Version:',
+//     )
+//   },
+// }
 
 /**
  * @param {Record<string, string>} dirConfig
@@ -66,7 +64,8 @@ function generatorConfig(dirConfig, language = 'en') {
             ? outputDir
             : path.join(outputDir, name),
           template: language === 'zh' ? 'openapi.zh.mustache' : 'openapi.mustache',
-          markdownGenerators,
+          // [Error [ValidationError]: "config.canary:auth:2684895739.markdownGenerators" is not allowed]
+          // markdownGenerators,
         }
       })
     }
@@ -76,8 +75,7 @@ function generatorConfig(dirConfig, language = 'en') {
 }
 
 module.exports = {
-  docConfig: {
-    docLayoutComponent: '@theme/DocPage',
+  docs: {
     docItemComponent: '@theme/ApiItem', // Derived from docusaurus-theme-openapi
   },
   themes: ['docusaurus-theme-openapi-docs'],

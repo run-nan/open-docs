@@ -5,7 +5,7 @@
   },
   "theme.ErrorPageContent.tryAgain": {
     "message": "重试",
-    "description": "The label of the button to try again when the page crashed"
+    "description": "The label of the button to try again rendering when the React error boundary captures an error"
   },
   "theme.NotFound.title": {
     "message": "找不到页面",
@@ -108,7 +108,7 @@
     "description": "The default description for a category card in the generated index about how many items this category includes"
   },
   "theme.docs.paginator.navAriaLabel": {
-    "message": "文档分页导航",
+    "message": "文件选项卡",
     "description": "The ARIA label for the docs pagination"
   },
   "theme.docs.paginator.previous": {
@@ -151,7 +151,7 @@
     "description": "The link label to edit the current page"
   },
   "theme.common.headingLinkTitle": {
-    "message": "标题的直接链接",
+    "message": "{heading}的直接链接",
     "description": "Title for link to heading"
   },
   "theme.lastUpdated.atDate": {
@@ -192,7 +192,7 @@
   },
   "theme.CodeBlock.copy": {
     "message": "复制",
-    "description": "The copy button label on code blocks"
+    "description": "The exit button label on code blocks"
   },
   "theme.CodeBlock.wordWrapToggle": {
     "message": "切换自动换行",
@@ -296,11 +296,11 @@
     "description": "The title of the tag list page"
   },
   "theme.docs.sidebar.closeSidebarButtonAriaLabel": {
-    "message": "Close navigation bar",
+    "message": "关闭导航栏",
     "description": "The ARIA label for close button of mobile sidebar"
   },
   "theme.docs.sidebar.toggleSidebarButtonAriaLabel": {
-    "message": "Toggle navigation bar",
+    "message": "切换导航栏",
     "description": "The ARIA label for hamburger menu button of mobile navigation"
   },
   "theme.IdealImageMessage.loading": {
@@ -415,5 +415,32 @@
   },
   "theme.SearchBar.searchInContext": {
     "message": "在 {context} 中查看所有结果"
+  },
+  "theme.NavBar.navAriaLabel": {
+    "message": "主导航",
+    "description": "The ARIA label for the main navigation"
+  },
+  "theme.docs.sidebar.navAriaLabel": {
+    "message": "文档侧边栏",
+    "description": "The ARIA label for the sidebar navigation"
+  },
+  "theme.CodeBlock.expanded": {
+    "message": "Expanded",
+    "description": "The expanded button label on code blocks"
+  },
+  "theme.CodeBlock.expandButtonAriaLabel": {
+    "message": "Expand code to fullscreen",
+    "description": "The ARIA label for expand code blocks button"
+  },
+  "theme.CodeBlock.expand": {
+    "message": "Expand",
+    "description": "The expand button label on code blocks"
+  },
+  "theme.CodeBlock.exitButtonAriaLabel": {
+    "message": "Exit expanded view",
+    "description": "The ARIA label for exit expanded view button"
+  },
+  "theme.SearchBar.seeAllOutsideContext": {
+    "message": "See results outside {context}"
   }
 }

@@ -5,15 +5,15 @@
   },
   "link.title.Technologies": {
     "message": "技术",
-    "description": "The label of footer link with label=技术 in footer"
+    "description": "The title of the footer links column with title=技术 in the footer"
   },
   "link.title.Documentation": {
     "message": "文档",
-    "description": "The label of footer link with label=文档 in footer"
+    "description": "The title of the footer links column with title=文档 in the footer"
   },
   "link.title.Tools": {
     "message": "工具",
-    "description": "The label of footer link with label=工具 in footer"
+    "description": "The title of the footer links column with title=工具 in the footer"
   },
   "link.item.label.ONES Design": {
     "message": "ONES Design",
@@ -21,15 +21,15 @@
   },
   "link.item.label.API Docs": {
     "message": "API 文档",
-    "description": "The label of footer link with label=API 文档"
+    "description": "The label of footer link with label=API 文档 linking to docs/api/readme"
   },
   "link.item.label.ONES Open Platform": {
     "message": "开放平台",
-    "description": "The label of footer link with label=开放平台"
+    "description": "The label of footer link with label=开放平台 linking to docs/guide/overview"
   },
   "link.item.label.Learning map": {
     "message": "学习地图",
-    "description": "The label of footer link with label=学习地图"
+    "description": "The label of footer link with label=学习地图 linking to docs/learning"
   },
   "copyright": {
     "message": "© 2023 ONES. 保留所有权利.",
@@ -37,18 +37,22 @@
   },
   "link.item.label.Open capabilities": {
     "message": "平台开放能力",
-    "description": "The label of footer link with label=平台开放能力"
+    "description": "The label of footer link with label=平台开放能力 linking to docs/abilities/basic"
   },
   "link.item.label.ONES Diagtools": {
     "message": "诊断工具",
-    "description": "The label of footer link with label=诊断工具"
+    "description": "The label of footer link with label=诊断工具 linking to docs/tools/diagtools"
   },
   "link.item.label.ONES CLI": {
     "message": "脚手架",
-    "description": "The label of footer link with label=脚手架"
+    "description": "The label of footer link with label=脚手架 linking to docs/tools/cli"
   },
   "link.item.label.Open API": {
     "message": "Open API",
     "description": "The label of footer link with label=Open API linking to docs/openapi"
+  },
+  "logo.alt": {
+    "message": "ONES Logo",
+    "description": "The alt text of footer logo"
   }
 }

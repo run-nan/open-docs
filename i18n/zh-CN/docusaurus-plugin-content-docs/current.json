@@ -1,6 +1,6 @@
 {
   "version.label": {
-    "message": "🚧 Canary",
+    "message": "1.x",
     "description": "The label for version current"
   },
   "sidebar.api.category.Permission": {
@@ -93,11 +93,11 @@
   },
   "sidebar.reference.category.Plugin Config": {
     "message": "插件配置",
-    "description": "The label for category Plugin Config in sidebar reference"
+    "description": "The label for category 插件配置 in sidebar reference"
   },
   "sidebar.reference.category.Packages": {
     "message": "能力包",
-    "description": "The label for category Packages in sidebar reference"
+    "description": "The label for category 能力包 in sidebar reference"
   },
   "sidebar.reference.category.Legacy Packages": {
     "message": "过时的包",
@@ -109,7 +109,7 @@
   },
   "sidebar.faq.category.Environment": {
     "message": "环境相关",
-    "description": "The label for category Environment in sidebar faq"
+    "description": "The label for category 环境相关 in sidebar faq"
   },
   "sidebar.abilities.category.个人中心": {
     "message": "个人中心",
@@ -149,7 +149,7 @@
   },
   "sidebar.guide.category.Advanced Guide": {
     "message": "进阶指南",
-    "description": "The label for category Advanced Guide in sidebar guide"
+    "description": "The label for category 进阶指南 in sidebar guide"
   },
   "sidebar.openapi.category.Auth": {
     "message": "授权",

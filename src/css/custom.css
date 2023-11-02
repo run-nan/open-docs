@@ -315,22 +315,3 @@
     background: #fff var(--ifm-navbar-search-input-icon) no-repeat 0.75rem center / 1rem 1rem;
   }
 }
-
-/* Open API 👇 */
-
-/**
- * xxx.api.mdx 中的 Authorization 的 name 以及 flows 处理
- * 因为 name 的路径跳转不正确，干脆去掉
- * flows 只是 JSON.stringify(securitySchemes) 的结果，不易阅读，也去掉
-*/
-.theme-api-markdown .openapi-method-endpoint + .details__demo-panel pre span:first-child,
-.theme-api-markdown .openapi-method-endpoint + .details__demo-panel pre span:last-child {
-  display: none;
-}
-
-/* fix: 示例代码过长时出现双滚动条 */
-.theme-api-markdown .tabs-container pre[class*='language-'] {
-  max-height: 450px;
-}
-
-/* Open API 👆 */

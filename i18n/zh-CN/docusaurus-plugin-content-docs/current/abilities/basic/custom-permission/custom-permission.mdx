@@ -32,7 +32,7 @@ import Image from '@theme/IdealImage'
 
 ## 使用
 
-自定义权限能力支持通过 **自定义的标准权限配置**、**自定义权限点 API** 和 **自定义权限点能力** 三种方式使用自定义权限点。自定义的权限点目前只能配合前端插槽使用，具体使用方法请参照：[permission](../../../../reference/config/plugin.yaml#modulePermission)
+自定义权限能力支持通过 **自定义的标准权限配置**、**自定义权限点 API** 和 **自定义权限点能力** 三种方式使用自定义权限点。自定义的权限点目前只能配合前端插槽使用，具体使用方法请参照：[permission](../../../reference/config/plugin.yaml#modulePermission)
 
 :::caution 注意
 
@@ -68,7 +68,7 @@ service:
 
 :::note
 
-示例中均通过 [ONES 接口注册](../../ONES-API/ONES-API-registration.md)能力添加 `addition` 接口进行调试
+示例中均通过 [ONES 接口注册](../ones-api/registration.md) 能力添加 `addition` 接口进行调试
 
 :::
 
@@ -678,7 +678,7 @@ interface PermissionContext {
 ```
 
 :::caution
-如果权限校验逻辑依赖权限上下文参数，还需要在使用权限点的模块下配置 [needPermissionContext](../../../../reference/config/plugin.yaml#needPermissionContext) 为`true`，只有这样才会在权限上下文变动时重新校验权限。
+如果权限校验逻辑依赖权限上下文参数，还需要在使用权限点的模块下配置 [needPermissionContext](../../../reference/config/plugin.yaml#needPermissionContext) 为`true`，只有这样才会在权限上下文变动时重新校验权限。
 :::
 
 **返回内容: **通过返回体中的`is_permission`字段的值来决定权限校验是否通过

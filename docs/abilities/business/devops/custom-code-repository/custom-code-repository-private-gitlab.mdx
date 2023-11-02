@@ -12,7 +12,7 @@ After the ONES system installs the plugin, you can view the newly added custom G
 
 <Image img={require('./images/code-repo-example-connector-en.png')} style={{ maxWidth: 700 }} />
 
-Developers can modify the [ones:settings:pipeline:default:repo:link](../../slot/module/configuration/code-integration/default/code-repository/index.mdx#onessettingspipelinedefaultrepolink) module to customize the following linked code repository pages to implement Gitlab Authentication logic and add code repository logic.
+Developers can modify the [ones:settings:pipeline:default:repo:link](../../../slot/module/configuration/code-integration/default/code-repository/index.mdx#onessettingspipelinedefaultrepolink) module to customize the following linked code repository pages to implement Gitlab Authentication logic and add code repository logic.
 
 <Image img={require('./images/code-repo-example-add-repo-en.png')} style={{ maxWidth: 700 }} />
 
@@ -108,7 +108,7 @@ Then the access rule of `aboud-blank` module page is:
 - Team level plugin: `{{host}}/plugin/{{org_UUID}}/{{team_UUID}}/{{app_ID}}/1.0.0/modules/about-blank-BE8t/index.html`
 - Organization level plugin: `{{host}}/plugin/{{org_UUID}}/{{app_ID}}/1.0.0/modules/about-blank-BE8t/index.html`
 
-Then on the [ones:settings:pipeline:default:repo:link](../../slot/module/configuration/code-integration/default/code-repository/index.mdx#onessettingspipelinedefaultrepolink) module page, splice the redirect url according to the above rules.
+Then on the [ones:settings:pipeline:default:repo:link](../../../slot/module/configuration/code-integration/default/code-repository/index.mdx#onessettingspipelinedefaultrepolink) module page, splice the redirect url according to the above rules.
 
 **2. Gitlab Create Application**
 
@@ -138,7 +138,7 @@ sequenceDiagram
 - Plugin authentication page: corresponding to `ones:settings:pipeline:default:repo:link` module;
 - Plugin redirection page: corresponds to `about-blank` module.
 
-The `about-blank` module receives the authorization code and synchronizes it to the implementation of the `ones:settings:pipeline:default:repo:link` module, please refer to [Code repository management-third-party authentication](../../slot/module/configuration/code-integration/default/code-repository/index.mdx#third-party-authentication).
+The `about-blank` module receives the authorization code and synchronizes it to the implementation of the `ones:settings:pipeline:default:repo:link` module, please refer to [Code repository management-third-party authentication](../../../slot/module/configuration/code-integration/default/code-repository/index.mdx#third-party-authentication).
 
 #### Step 3: add repositories
 

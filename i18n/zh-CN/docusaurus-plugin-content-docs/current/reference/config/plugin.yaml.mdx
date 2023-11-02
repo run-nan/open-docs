@@ -174,7 +174,7 @@ service:
 
 - **类型：**`Permission[]`
 
-插件自定义的标准权限点配置项数组，你可以通过此配置快速搭建自己的插件权限体系，具体使用文档请查阅 [插件自定义权限点](../../abilities/business/permission/custom-permission/custom-permission.mdx)。
+插件自定义的标准权限点配置项数组，你可以通过此配置快速搭建自己的插件权限体系，具体使用文档请查阅 [插件自定义权限点](../../abilities/basic/custom-permission/custom-permission.mdx)。
 
 **`Permission` 参数：**
 
@@ -366,15 +366,12 @@ service:
 
 ### type
 
-- **类型：**`'external' ｜ 'addition' | 'replace' | 'prefix' | 'suffix'`
+- **类型：**`'external' | 'addition'`
 
-接口的类型，具体使用详见 [接口注册](../../abilities/business/ONES-API/ONES-API-registration.md)。
+接口的类型，具体使用详见 [接口注册](../../abilities/basic/ones-api/registration.md)。
 
 - `'external'`：团队级别新增接口（会对登录进行校验，并且 URL 需要带上 `team/{teamUUID}` 前缀）
 - `'addition'`：插件级别新增接口
-- `'replace'`：替换 ONES 标品接口（待废弃）
-- `'prefix'`：ONES 标品接口前置拦截（待废弃）
-- `'suffix'`：ONES 标品接口后置拦截（待废弃）
 
 ### methods
 
@@ -479,7 +476,7 @@ service:
 
 - **类型：**`string`
 
-权限标识，与插件 [自定义的标准权限点配置](#permission) 或插件自定义权限点能力配合使用，详情见 [插件自定义权限点](../../abilities/business/permission/custom-permission/custom-permission.mdx)。
+权限标识，与插件 [自定义的标准权限点配置](#permission) 或插件自定义权限点能力配合使用，详情见 [插件自定义权限点](../../abilities/basic/custom-permission/custom-permission.mdx)。
 
 **示例：**
 
@@ -504,7 +501,7 @@ modules:
 - **类型：**`boolean`
 - **ONES 要求**: v3.13.59+
 
-权限校验是否依赖页面上下文，为`true`时，会在页面上下文变动时重新校验一次模块权限，否则，只在首次进入页面时校验一次模块权限，需要与插件自定义权限点能力配合使用，详情见 [插件自定义权限点](../../abilities/business/permission/custom-permission/custom-permission.mdx)。
+权限校验是否依赖页面上下文，为`true`时，会在页面上下文变动时重新校验一次模块权限，否则，只在首次进入页面时校验一次模块权限，需要与插件自定义权限点能力配合使用，详情见 [插件自定义权限点](../../abilities/basic/custom-permission/custom-permission.mdx)。
 
 ### enableDelayDestroy
 

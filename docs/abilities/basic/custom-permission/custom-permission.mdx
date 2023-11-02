@@ -32,7 +32,7 @@ After using the ability to add permissions, there are related permission configu
 
 ## Usage
 
-The custom permission ability supports the use of custom permission points in three ways: **customized standard permission configuration**, **custom permission API** and **custom permission point ability**. Currently, custom permission points can only be used with front-end slots. For specific usage methods, please refer to: [permission](../../../../reference/config/plugin.yaml#modulePermission)
+The custom permission ability supports the use of custom permission points in three ways: **customized standard permission configuration**, **custom permission API** and **custom permission point ability**. Currently, custom permission points can only be used with front-end slots. For specific usage methods, please refer to: [permission](../../../reference/config/plugin.yaml#modulePermission)
 
 :::caution NOTICE
 
@@ -68,7 +68,7 @@ Provides non-declarative permission point definition and configuration methods, 
 
 :::note
 
-In the examples, the `addition` interface is added through the [ONES API registration](../../ONES-API/ONES-API-registration.md) ability for debugging
+In the examples, the `addition` interface is added through the [ONES API registration](../ones-api/registration.md) ability for debugging
 
 :::
 
@@ -679,7 +679,7 @@ interface PermissionContext {
 
 :::caution
 
-If the permission verification logic relies on permission context parameters, you also need to configure [needPermissionContext](../../../../reference/config/plugin.yaml#needPermissionContext) as `true` in the module that uses the permission point. Only in this way will the permission be re-verified when there are changes in the permission context.
+If the permission verification logic relies on permission context parameters, you also need to configure [needPermissionContext](../../../reference/config/plugin.yaml#needPermissionContext) as `true` in the module that uses the permission point. Only in this way will the permission be re-verified when there are changes in the permission context.
 
 :::
 

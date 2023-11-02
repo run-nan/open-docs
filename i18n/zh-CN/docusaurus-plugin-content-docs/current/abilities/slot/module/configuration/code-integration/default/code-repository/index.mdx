@@ -24,12 +24,10 @@ import Image from '@theme/IdealImage'
 
 **模块路径：** 配置中心 / 代码集成配置 / 代码仓库关联 / 关联代码仓 / 选择插件代码仓 / 下一步的弹窗
 
-**个数限制：** 一个插件中最多可声明 **10 **个该插槽，系统中最多同时存在 **100 **个该插槽
+**个数限制：** 一个插件中最多可声明 **10** 个该插槽，系统中最多同时存在 **100** 个该插槽
 
 :::caution 注意
-
-当前插槽需要使用[自定义代码仓](../../../../../../business/custom-code-repository/custom-code-repository.mdx)能力。
-
+当前插槽需要使用 [集成代码仓](../../../../../../business/devops/custom-code-repository/custom-code-repository.mdx) 能力。
 :::
 
 ## 使用
@@ -60,6 +58,7 @@ modules:
 
 ```ts
 import { useCodeRepositoryInfo } from '@ones-op/store'
+
 const codeRepositoryInfo = useCodeRepositoryInfo()
 ```
 
