@@ -23,7 +23,7 @@ paths:
           required: true
           schema:
             type: string
-        - $ref: ../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
       responses:
         200:
           description: Request successful.
@@ -31,7 +31,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListCommentSuccessResponse'
-        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
     post:
       summary: Send comment to issue
       operationId: 02-send-issue-comment
@@ -46,7 +46,7 @@ paths:
           required: true
           schema:
             type: string
-        - $ref: ../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
       requestBody:
         description: The comment information to be sent
         content:
@@ -61,7 +61,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SendCommentResponse'
-        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
   /project/issues/{issueID}/comments/{commentsID}:
     delete:
       summary: Delete comment
@@ -83,7 +83,7 @@ paths:
           required: true
           schema:
             type: string
-        - $ref: ../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
       responses:
         200:
           description: Request successful.
@@ -91,7 +91,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteCommentResponse'
-        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
     put:
       summary: Modify comment information
       operationId: 04-update-issue-comment
@@ -112,7 +112,7 @@ paths:
           required: true
           schema:
             type: string
-        - $ref: ../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
       requestBody:
         description: The comment information to be modified
         required: true
@@ -127,7 +127,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UpdateCommentResponse'
-        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
 components:
   schemas:
     SendCommentRequest:
@@ -150,7 +150,7 @@ components:
     SendCommentResponse:
       type: object
       properties:
-        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
       required:
         - result
       example:
@@ -192,7 +192,7 @@ components:
     UpdateCommentResponse:
       type: object
       properties:
-        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
       required:
         - result
       example:
@@ -207,7 +207,7 @@ components:
       description: Get a list of comments successfully
       type: object
       properties:
-        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -215,7 +215,7 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/CommentDetail'
-            $ref: ../../../openapi-common/canary/en/paging-query-response-pageInfo-schemas.yaml
+            $ref: ../../../openapi-common/latest/en/paging-query-response-pageInfo-schemas.yaml
       required:
         - result
       example:
@@ -277,7 +277,7 @@ components:
     DeleteCommentResponse:
       type: object
       properties:
-        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
       required:
         - result
       example:
@@ -300,7 +300,7 @@ components:
         - result: FAIL
           errorCode: NotFound
           errorMsg: 'NotFound issue'
-    $ref: ../../../openapi-common/canary/en/no-200-response-schemas.yaml
+    $ref: ../../../openapi-common/latest/en/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2

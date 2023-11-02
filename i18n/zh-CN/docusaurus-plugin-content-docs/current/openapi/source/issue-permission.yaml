@@ -30,7 +30,7 @@ paths:
           required: true
           schema:
             type: string
-        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
+        - $ref: ../../../../../../openapi-common/latest/zh/request-team.yaml
       requestBody:
         description: 要检查的工作项权限点列表
         content:
@@ -45,7 +45,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CheckIssuePermissionResponse'
-        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
+        $ref: ../../../../../../openapi-common/latest/zh/no-200-response.yaml
 components:
   schemas:
     CheckIssuePermissionRequest:
@@ -57,11 +57,11 @@ components:
           items:
             type: integer
       example:
-        codes: [1201,1101]
+        codes: [1201, 1101]
     CheckIssuePermissionResponse:
       type: object
       properties:
-        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+        $ref: ../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
       required:
         - result
       example:
@@ -70,7 +70,7 @@ components:
         - result: FAIL
           errorCode: NotFound
           errorMsg: 'NotFound issue'
-    $ref: ../../../../../../openapi-common/canary/zh/no-200-response-schemas.yaml
+    $ref: ../../../../../../openapi-common/latest/zh/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2

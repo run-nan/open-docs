@@ -17,9 +17,9 @@ paths:
         - oauth2:
             - read:testcase:library
       parameters:
-        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
-        - $ref: ../../../../../../openapi-common/canary/zh/paging-query-request-limit.yaml
-        - $ref: ../../../../../../openapi-common/canary/zh/paging-query-request-cursor.yaml
+        - $ref: ../../../../../../openapi-common/latest/zh/request-team.yaml
+        - $ref: ../../../../../../openapi-common/latest/zh/paging-query-request-limit.yaml
+        - $ref: ../../../../../../openapi-common/latest/zh/paging-query-request-cursor.yaml
       responses:
         200:
           description: 请求成功
@@ -27,7 +27,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListResponse'
-        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
+        $ref: ../../../../../../openapi-common/latest/zh/no-200-response.yaml
     post:
       summary: 新建测试用例库
       operationId: 02-create-a-new-test-case-library
@@ -36,7 +36,7 @@ paths:
         - oauth2:
             - write:testcase:library
       parameters:
-        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
+        - $ref: ../../../../../../openapi-common/latest/zh/request-team.yaml
       requestBody:
         description: 要新建的测试用例库信息
         content:
@@ -51,7 +51,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddResponse'
-        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
+        $ref: ../../../../../../openapi-common/latest/zh/no-200-response.yaml
       x-codegen-request-body-name: body
   /testcase/libraries/{libraryID}:
     get:
@@ -62,7 +62,7 @@ paths:
         - oauth2:
             - read:testcase:library
       parameters:
-        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
+        - $ref: ../../../../../../openapi-common/latest/zh/request-team.yaml
         - name: libraryID
           in: path
           description: 测试用例库ID
@@ -76,7 +76,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetResponse'
-        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
+        $ref: ../../../../../../openapi-common/latest/zh/no-200-response.yaml
     put:
       summary: 更新测试用例库
       operationId: 04-update-a-test-case-library
@@ -85,7 +85,7 @@ paths:
         - oauth2:
             - write:testcase:library
       parameters:
-        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
+        - $ref: ../../../../../../openapi-common/latest/zh/request-team.yaml
         - name: libraryID
           in: path
           description: 测试用例库ID
@@ -106,7 +106,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UpdateResponse'
-        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
+        $ref: ../../../../../../openapi-common/latest/zh/no-200-response.yaml
       x-codegen-request-body-name: body
     delete:
       summary: 删除测试用例库
@@ -116,7 +116,7 @@ paths:
         - oauth2:
             - write:testcase:library
       parameters:
-        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
+        - $ref: ../../../../../../openapi-common/latest/zh/request-team.yaml
         - name: libraryID
           in: path
           description: 测试用例库ID
@@ -130,7 +130,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteResponse'
-        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
+        $ref: ../../../../../../openapi-common/latest/zh/no-200-response.yaml
       x-scope: write:testcase:library
 components:
   schemas:
@@ -153,7 +153,7 @@ components:
     DeleteResponse:
       type: object
       properties:
-        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+        $ref: ../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
       example:
         - result: SUCCESS
         - result: FAIL
@@ -169,7 +169,7 @@ components:
       description: 测试用例库详细信息
       type: object
       properties:
-        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+        $ref: ../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -213,7 +213,7 @@ components:
     AddResponse:
       type: object
       properties:
-        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+        $ref: ../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -262,7 +262,7 @@ components:
     UpdateResponse:
       type: object
       properties:
-        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+        $ref: ../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -342,7 +342,7 @@ components:
     ListResponse:
       type: object
       properties:
-        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+        $ref: ../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -350,8 +350,8 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/ListItem'
-            $ref: ../../../../../../openapi-common/canary/zh/paging-query-response-pageInfo-schemas.yaml
-    $ref: ../../../../../../openapi-common/canary/zh/no-200-response-schemas.yaml
+            $ref: ../../../../../../openapi-common/latest/zh/paging-query-response-pageInfo-schemas.yaml
+    $ref: ../../../../../../openapi-common/latest/zh/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2

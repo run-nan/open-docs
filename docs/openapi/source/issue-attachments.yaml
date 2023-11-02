@@ -17,7 +17,7 @@ paths:
         - oauth2:
             - read:project:issue-attachment
       parameters:
-        - $ref: ../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
         - name: issueID
           in: path
           description: The issue ID
@@ -34,8 +34,8 @@ paths:
           description: The end of attachment created time
           schema:
             type: integer
-        - $ref: ../../../openapi-common/canary/en/paging-query-request-limit.yaml
-        - $ref: ../../../openapi-common/canary/en/paging-query-request-cursor.yaml
+        - $ref: ../../../openapi-common/latest/en/paging-query-request-limit.yaml
+        - $ref: ../../../openapi-common/latest/en/paging-query-request-cursor.yaml
       responses:
         200:
           description: Request is successful
@@ -43,7 +43,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListIssueAttachmentResponse'
-        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
     post:
       summary: Upload a file to the issue
       operationId: 02-upload-a-file-to-the-issue
@@ -52,7 +52,7 @@ paths:
         - oauth2:
             - write:project:issue-attachment
       parameters:
-        - $ref: ../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
         - name: issueID
           in: path
           description: The issue ID
@@ -87,7 +87,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddIssueAttachmentResponse'
-        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
   /project/issues/{issueID}/attachments/{attachmentID}:
     put:
       summary: Update a issue attachment
@@ -97,7 +97,7 @@ paths:
         - oauth2:
             - write:project:issue-attachment
       parameters:
-        - $ref: ../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
         - name: issueID
           in: path
           description: The issue ID
@@ -123,7 +123,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UpdateIssueAttachmentResponse'
-        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
       x-codegen-request-body-name: body
     delete:
       summary: Delete a issue attachment
@@ -133,7 +133,7 @@ paths:
         - oauth2:
             - write:project:issue-attachment
       parameters:
-        - $ref: ../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
         - name: issueID
           in: path
           description: The issue ID
@@ -153,14 +153,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteSuccessResponse'
-        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
 components:
   schemas:
     AddIssueAttachmentResponse:
       description: The response of add issue attachment
       type: object
       properties:
-        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
         data:
           type: object
           description: The result of this request.
@@ -234,7 +234,7 @@ components:
       description: The response of list issue attachment
       type: object
       properties:
-        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -242,7 +242,7 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/IssueAttachment'
-            $ref: ../../../openapi-common/canary/en/paging-query-response-pageInfo-schemas.yaml
+            $ref: ../../../openapi-common/latest/en/paging-query-response-pageInfo-schemas.yaml
       example:
         - result: SUCCESS
           data:
@@ -279,7 +279,7 @@ components:
       description: The response of update issue attachment
       type: object
       properties:
-        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
       example:
         - result: SUCCESS
         - result: FAIL
@@ -289,8 +289,8 @@ components:
       description: The response of delete issue attachment
       type: object
       properties:
-        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
-    $ref: ../../../openapi-common/canary/en/no-200-response-schemas.yaml
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
+    $ref: ../../../openapi-common/latest/en/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2

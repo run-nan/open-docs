@@ -17,9 +17,9 @@ paths:
         - oauth2:
             - read:project:issueStatus
       parameters:
-        - $ref: ../../../openapi-common/canary/en/request-team.yaml
-        - $ref: ../../../openapi-common/canary/en/paging-query-request-limit.yaml
-        - $ref: ../../../openapi-common/canary/en/paging-query-request-cursor.yaml
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
+        - $ref: ../../../openapi-common/latest/en/paging-query-request-limit.yaml
+        - $ref: ../../../openapi-common/latest/en/paging-query-request-cursor.yaml
       responses:
         200:
           description: Request is successful.
@@ -27,13 +27,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListIssueStatusResponse'
-        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
 components:
   schemas:
     ListIssueStatusResponse:
       type: object
       properties:
-        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -57,7 +57,7 @@ components:
                   buildIn:
                     type: boolean
                     description: Whether it is a system built-in issue status.
-            $ref: ../../../openapi-common/canary/en/paging-query-response-pageInfo-schemas.yaml
+            $ref: ../../../openapi-common/latest/en/paging-query-response-pageInfo-schemas.yaml
       example:
         - result: SUCCESS
           data:
@@ -73,7 +73,7 @@ components:
               hasNextPage: false
               startCursor: 'sample_start_cursor'
               totalCount: 2
-    $ref: ../../../openapi-common/canary/en/no-200-response-schemas.yaml
+    $ref: ../../../openapi-common/latest/en/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2

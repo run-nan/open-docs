@@ -1,5 +1,0 @@
-name: limit
-in: query
-description: The number of test case libraries returned by this request.
-schema:
-  type: integer

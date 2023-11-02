@@ -17,9 +17,9 @@ paths:
         - oauth2:
             - read:project:project
       parameters:
-        - $ref: ../../../openapi-common/canary/en/request-team.yaml
-        - $ref: ../../../openapi-common/canary/en/paging-query-request-limit.yaml
-        - $ref: ../../../openapi-common/canary/en/paging-query-request-cursor.yaml
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
+        - $ref: ../../../openapi-common/latest/en/paging-query-request-limit.yaml
+        - $ref: ../../../openapi-common/latest/en/paging-query-request-cursor.yaml
       responses:
         200:
           description: Request is successful.
@@ -27,7 +27,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListProjectSuccessResponse'
-        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
     post:
       summary: Create a new project
       operationId: 02-create-a-new-project
@@ -36,7 +36,7 @@ paths:
         - oauth2:
             - write:project:project
       parameters:
-        - $ref: ../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
       requestBody:
         description: Create project request param
         content:
@@ -51,7 +51,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddProjectResponse'
-        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
       x-codegen-request-body-name: body
   /project/projects/{projectID}:
     get:
@@ -62,7 +62,7 @@ paths:
         - oauth2:
             - read:project:project
       parameters:
-        - $ref: ../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
         - name: projectID
           in: path
           description: The project ID
@@ -76,7 +76,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetProjectDetailResponse'
-        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
     put:
       summary: Update project by project ID
       operationId: 04-update-project-by-project-id
@@ -85,7 +85,7 @@ paths:
         - oauth2:
             - write:project:project
       parameters:
-        - $ref: ../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
         - name: projectID
           in: path
           description: The project ID
@@ -106,7 +106,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UpdateProjectResponse'
-        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
       x-codegen-request-body-name: body
     delete:
       summary: Delete a project
@@ -116,7 +116,7 @@ paths:
         - oauth2:
             - write:project:project
       parameters:
-        - $ref: ../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
         - name: projectID
           in: path
           description: The project ID
@@ -130,7 +130,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteSuccessResponse'
-        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
 components:
   schemas:
     AddProjectRequest:
@@ -179,7 +179,7 @@ components:
       description: Create project response
       type: object
       properties:
-        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -309,7 +309,7 @@ components:
     GetProjectDetailResponse:
       type: object
       properties:
-        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
         data:
           $ref: '#/components/schemas/ProjectDetail'
       example:
@@ -340,7 +340,7 @@ components:
     ListProjectSuccessResponse:
       type: object
       properties:
-        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -348,7 +348,7 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/ProjectDetail'
-            $ref: ../../../openapi-common/canary/en/paging-query-response-pageInfo-schemas.yaml
+            $ref: ../../../openapi-common/latest/en/paging-query-response-pageInfo-schemas.yaml
       example:
         - result: SUCCESS
           data:
@@ -419,7 +419,7 @@ components:
     UpdateProjectResponse:
       type: object
       properties:
-        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -481,13 +481,13 @@ components:
     DeleteSuccessResponse:
       type: object
       properties:
-        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
       example:
         - result: SUCCESS
         - result: FAIL
           errorCode: PermissionDenied
           errorMsg: 'PermissionDenied administer_do'
-    $ref: ../../../openapi-common/canary/en/no-200-response-schemas.yaml
+    $ref: ../../../openapi-common/latest/en/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2

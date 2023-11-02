@@ -17,7 +17,7 @@ paths:
         - oauth2:
             - write:project:issue-timeEstimated
       parameters:
-        - $ref: ../../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../../openapi-common/latest/en/request-team.yaml
         - name: issueID
           in: path
           description: The issue ID.
@@ -37,7 +37,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TimesEstimatedResponse'
-        $ref: ../../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../../openapi-common/latest/en/no-200-response.yaml
   /project/issues/{issueID}/workLog/simple/timesRemaining:
     post:
       summary: Update remaining time in simple mode
@@ -47,7 +47,7 @@ paths:
         - oauth2:
             - write:project:issue-timeRemaining
       parameters:
-        - $ref: ../../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../../openapi-common/latest/en/request-team.yaml
         - name: issueID
           in: path
           description: The issue ID.
@@ -67,7 +67,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TimesRemainingResponse'
-        $ref: ../../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../../openapi-common/latest/en/no-200-response.yaml
   /project/issues/{issueID}/workLog/simple/timesSpent:
     get:
       summary: Get a list of issues worklog in simple mode
@@ -77,9 +77,9 @@ paths:
         - oauth2:
             - read:project:issue-timeSpent
       parameters:
-        - $ref: ../../../../openapi-common/canary/en/request-team.yaml
-        - $ref: ../../../../openapi-common/canary/en/paging-query-request-limit.yaml
-        - $ref: ../../../../openapi-common/canary/en/paging-query-request-cursor.yaml
+        - $ref: ../../../../openapi-common/latest/en/request-team.yaml
+        - $ref: ../../../../openapi-common/latest/en/paging-query-request-limit.yaml
+        - $ref: ../../../../openapi-common/latest/en/paging-query-request-cursor.yaml
         - name: issueID
           in: path
           description: The issue ID.
@@ -93,7 +93,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TimesSpentListResponse'
-        $ref: ../../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../../openapi-common/latest/en/no-200-response.yaml
     post:
       summary: Add spent times in simple mode
       operationId: 04-add-spent-time-of-issues
@@ -102,7 +102,7 @@ paths:
         - oauth2:
             - write:project:issue-timeSpent
       parameters:
-        - $ref: ../../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../../openapi-common/latest/en/request-team.yaml
         - name: issueID
           in: path
           description: The issue ID.
@@ -122,7 +122,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddTimesSpentResponse'
-        $ref: ../../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../../openapi-common/latest/en/no-200-response.yaml
   /project/issues/{issueID}/workLog/simple/timesSpent/{timesSpentID}:
     put:
       summary: Update spent times in simple mode
@@ -132,7 +132,7 @@ paths:
         - oauth2:
             - write:project:issue-timeSpent
       parameters:
-        - $ref: ../../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../../openapi-common/latest/en/request-team.yaml
         - name: issueID
           in: path
           description: The issue ID.
@@ -158,7 +158,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UpdateTimesSpentResponse'
-        $ref: ../../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../../openapi-common/latest/en/no-200-response.yaml
     delete:
       summary: Delete spent times in simple mode
       operationId: 06-delete-spent-time-of-issues
@@ -167,7 +167,7 @@ paths:
         - oauth2:
             - write:project:issue-timeSpent
       parameters:
-        - $ref: ../../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../../openapi-common/latest/en/request-team.yaml
         - name: issueID
           in: path
           description: The issue ID.
@@ -187,7 +187,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteTimesSpentResponse'
-        $ref: ../../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../../openapi-common/latest/en/no-200-response.yaml
     get:
       summary: Get a spent times in simple mode
       operationId: 07-get-spent-time-of-issues
@@ -196,7 +196,7 @@ paths:
         - oauth2:
             - read:project:issue-timeSpent
       parameters:
-        - $ref: ../../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../../openapi-common/latest/en/request-team.yaml
         - name: issueID
           in: path
           description: The issue ID.
@@ -216,14 +216,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetTimesSpentResponse'
-        $ref: ../../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../../openapi-common/latest/en/no-200-response.yaml
 components:
   schemas:
     GetTimesSpentResponse:
       description: 'The result of get a spent time'
       type: object
       properties:
-        $ref: ../../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../../openapi-common/latest/en/200-response-schemas.yaml
         data:
           type: object
           description: The result of this request.
@@ -294,7 +294,7 @@ components:
       description: 'The result of delete spent time'
       type: object
       properties:
-        $ref: ../../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../../openapi-common/latest/en/200-response-schemas.yaml
       example:
         - result: SUCCESS
         - result: FAIL
@@ -358,7 +358,7 @@ components:
       description: 'The result of update spent time'
       type: object
       properties:
-        $ref: ../../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../../openapi-common/latest/en/200-response-schemas.yaml
         data:
           type: object
           description: The result of this request.
@@ -458,7 +458,7 @@ components:
       description: 'The result of add spent time'
       type: object
       properties:
-        $ref: ../../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../../openapi-common/latest/en/200-response-schemas.yaml
         data:
           type: object
           description: The result of this request.
@@ -528,7 +528,7 @@ components:
       description: 'The result of estimated time.'
       type: object
       properties:
-        $ref: ../../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../../openapi-common/latest/en/200-response-schemas.yaml
         data:
           type: object
           description: The result of this request.
@@ -642,7 +642,7 @@ components:
       description: 'The result of estimated time'
       type: object
       properties:
-        $ref: ../../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../../openapi-common/latest/en/200-response-schemas.yaml
       example:
         - result: SUCCESS
         - result: FAIL
@@ -689,7 +689,7 @@ components:
       description: 'The result of update remaining time'
       type: object
       properties:
-        $ref: ../../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../../openapi-common/latest/en/200-response-schemas.yaml
       example:
         - result: SUCCESS
         - result: FAIL
@@ -719,7 +719,7 @@ components:
         - result: FAIL
           errorCode: PermissionDenied
           errorMsg: 'PermissionDenied super_administrator'
-    $ref: ../../../../openapi-common/canary/en/no-200-response-schemas.yaml
+    $ref: ../../../../openapi-common/latest/en/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2

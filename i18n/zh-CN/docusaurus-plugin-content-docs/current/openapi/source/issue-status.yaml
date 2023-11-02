@@ -17,7 +17,7 @@ paths:
         - oauth2:
             - read:project:issueStatus
       parameters:
-        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
+        - $ref: ../../../../../../openapi-common/latest/zh/request-team.yaml
       responses:
         200:
           description: 请求成功
@@ -25,13 +25,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListIssueStatusResponse'
-        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
+        $ref: ../../../../../../openapi-common/latest/zh/no-200-response.yaml
 components:
   schemas:
     ListIssueStatusResponse:
       type: object
       properties:
-        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+        $ref: ../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -55,8 +55,8 @@ components:
                   buildIn:
                     type: boolean
                     description: 是否是系统内置的工作项状态
-            $ref: ../../../../../../openapi-common/canary/zh/paging-query-response-pageInfo-schemas.yaml
-    $ref: ../../../../../../openapi-common/canary/zh/no-200-response-schemas.yaml
+            $ref: ../../../../../../openapi-common/latest/zh/paging-query-response-pageInfo-schemas.yaml
+    $ref: ../../../../../../openapi-common/latest/zh/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2

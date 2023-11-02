@@ -17,7 +17,7 @@ paths:
         - oauth2:
             - write:project:issue-timeEstimated
       parameters:
-        - $ref: ../../../../../../../openapi-common/canary/zh/request-team.yaml
+        - $ref: ../../../../../../../openapi-common/latest/zh/request-team.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -37,7 +37,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TimesEstimatedResponse'
-        $ref: ../../../../../../../openapi-common/canary/zh/no-200-response.yaml
+        $ref: ../../../../../../../openapi-common/latest/zh/no-200-response.yaml
   /project/issues/{issueID}/workLog/simple/timesRemaining:
     post:
       summary: 简单模式剩余工时
@@ -47,7 +47,7 @@ paths:
         - oauth2:
             - write:project:issue-timeRemaining
       parameters:
-        - $ref: ../../../../../../../openapi-common/canary/zh/request-team.yaml
+        - $ref: ../../../../../../../openapi-common/latest/zh/request-team.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -67,7 +67,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TimesRemainingResponse'
-        $ref: ../../../../../../../openapi-common/canary/zh/no-200-response.yaml
+        $ref: ../../../../../../../openapi-common/latest/zh/no-200-response.yaml
   /project/issues/{issueID}/workLog/simple/timesSpent:
     get:
       summary: 简单模式工作项工时列表
@@ -77,9 +77,9 @@ paths:
         - oauth2:
             - read:project:issue-timeSpent
       parameters:
-        - $ref: ../../../../../../../openapi-common/canary/zh/request-team.yaml
-        - $ref: ../../../../../../../openapi-common/canary/zh/paging-query-request-limit.yaml
-        - $ref: ../../../../../../../openapi-common/canary/zh/paging-query-request-cursor.yaml
+        - $ref: ../../../../../../../openapi-common/latest/zh/request-team.yaml
+        - $ref: ../../../../../../../openapi-common/latest/zh/paging-query-request-limit.yaml
+        - $ref: ../../../../../../../openapi-common/latest/zh/paging-query-request-cursor.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -93,7 +93,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TimesSpentListResponse'
-        $ref: ../../../../../../../openapi-common/canary/zh/no-200-response.yaml
+        $ref: ../../../../../../../openapi-common/latest/zh/no-200-response.yaml
     post:
       summary: 简单模式添加工作项工时
       operationId: 04-add-spent-time-of-issues
@@ -102,7 +102,7 @@ paths:
         - oauth2:
             - write:project:issue-timeSpent
       parameters:
-        - $ref: ../../../../../../../openapi-common/canary/zh/request-team.yaml
+        - $ref: ../../../../../../../openapi-common/latest/zh/request-team.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -122,7 +122,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddTimesSpentResponse'
-        $ref: ../../../../../../../openapi-common/canary/zh/no-200-response.yaml
+        $ref: ../../../../../../../openapi-common/latest/zh/no-200-response.yaml
   /project/issues/{issueID}/workLog/simple/timesSpent/{timesSpentID}:
     put:
       summary: 简单模式修改工作项工时
@@ -132,7 +132,7 @@ paths:
         - oauth2:
             - write:project:issue-timeSpent
       parameters:
-        - $ref: ../../../../../../../openapi-common/canary/zh/request-team.yaml
+        - $ref: ../../../../../../../openapi-common/latest/zh/request-team.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -158,7 +158,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UpdateTimesSpentResponse'
-        $ref: ../../../../../../../openapi-common/canary/zh/no-200-response.yaml
+        $ref: ../../../../../../../openapi-common/latest/zh/no-200-response.yaml
     delete:
       summary: 简单模式删除工作项工时
       operationId: 06-delete-spent-time-of-issues
@@ -167,7 +167,7 @@ paths:
         - oauth2:
             - write:project:issue-timeSpent
       parameters:
-        - $ref: ../../../../../../../openapi-common/canary/zh/request-team.yaml
+        - $ref: ../../../../../../../openapi-common/latest/zh/request-team.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -187,7 +187,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteTimesSpentResponse'
-        $ref: ../../../../../../../openapi-common/canary/zh/no-200-response.yaml
+        $ref: ../../../../../../../openapi-common/latest/zh/no-200-response.yaml
     get:
       summary: 简单模式工作项工时详情
       operationId: 07-get-spent-time-of-issues
@@ -196,7 +196,7 @@ paths:
         - oauth2:
             - read:project:issue-timeSpent
       parameters:
-        - $ref: ../../../../../../../openapi-common/canary/zh/request-team.yaml
+        - $ref: ../../../../../../../openapi-common/latest/zh/request-team.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -216,7 +216,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetTimesSpentResponse'
-        $ref: ../../../../../../../openapi-common/canary/zh/no-200-response.yaml
+        $ref: ../../../../../../../openapi-common/latest/zh/no-200-response.yaml
 components:
   schemas:
     GetTimesSpentResponse:
@@ -596,7 +596,7 @@ components:
                   startTime:
                     type: integer
                     description: 工时开始时间，单位（时间戳）
-            $ref: ../../../../../../../openapi-common/canary/zh/paging-query-response-pageInfo-schemas.yaml
+            $ref: ../../../../../../../openapi-common/latest/zh/paging-query-response-pageInfo-schemas.yaml
         errorCode:
           type: string
           description: 本次请求错误码
@@ -735,7 +735,7 @@ components:
         - result: FAIL
           errorCode: PermissionDenied
           errorMsg: 'PermissionDenied super_administrator'
-    $ref: ../../../../../../../openapi-common/canary/zh/no-200-response-schemas.yaml
+    $ref: ../../../../../../../openapi-common/latest/zh/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2

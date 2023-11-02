@@ -17,9 +17,9 @@ paths:
         - oauth2:
             - read:project:issueField
       parameters:
-        - $ref: ../../../openapi-common/canary/en/request-team.yaml
-        - $ref: ../../../openapi-common/canary/en/paging-query-request-limit.yaml
-        - $ref: ../../../openapi-common/canary/en/paging-query-request-cursor.yaml
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
+        - $ref: ../../../openapi-common/latest/en/paging-query-request-limit.yaml
+        - $ref: ../../../openapi-common/latest/en/paging-query-request-cursor.yaml
       responses:
         200:
           description: Request is successful.
@@ -27,14 +27,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/IssueFieldsListResponse'
-        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
 components:
   schemas:
     GetIssueFieldsResponse:
       description: 'The result of an issue field'
       type: object
       properties:
-        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
         data:
           type: object
           description: The result of this request.
@@ -80,7 +80,7 @@ components:
       description: 'The result of delete issue field'
       type: object
       properties:
-        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
       required:
         - result
       example:
@@ -198,7 +198,7 @@ components:
       description: 'The result of update issue field'
       type: object
       properties:
-        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
         data:
           type: object
           description: The result of this request.
@@ -358,7 +358,7 @@ components:
       description: 'The result of add issue field'
       type: object
       properties:
-        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
         data:
           type: object
           description: The result of this request.
@@ -404,7 +404,7 @@ components:
       description: 'The result of issue fields.'
       type: object
       properties:
-        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
         data:
           type: object
           description: 'Data object containing a list of items and page information.'
@@ -454,7 +454,7 @@ components:
                         value:
                           type: object
                           description: 'Value of the option.'
-            $ref: ../../../openapi-common/canary/en/paging-query-response-pageInfo-schemas.yaml
+            $ref: ../../../openapi-common/latest/en/paging-query-response-pageInfo-schemas.yaml
       required:
         - result
       example:
@@ -490,7 +490,7 @@ components:
         - result: FAIL
           errorCode: InvalidParameter
           errorMsg: 'InvalidParameter limit InvalidType'
-    $ref: ../../../openapi-common/canary/en/no-200-response-schemas.yaml
+    $ref: ../../../openapi-common/latest/en/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2

@@ -17,9 +17,9 @@ paths:
         - oauth2:
             - read:project:issue-attachment
       parameters:
-        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
-        - $ref: ../../../../../../openapi-common/canary/zh/paging-query-request-limit.yaml
-        - $ref: ../../../../../../openapi-common/canary/zh/paging-query-request-cursor.yaml
+        - $ref: ../../../../../../openapi-common/latest/zh/request-team.yaml
+        - $ref: ../../../../../../openapi-common/latest/zh/paging-query-request-limit.yaml
+        - $ref: ../../../../../../openapi-common/latest/zh/paging-query-request-cursor.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -43,7 +43,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListIssueAttachmentResponse'
-        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
+        $ref: ../../../../../../openapi-common/latest/zh/no-200-response.yaml
     post:
       summary: 上传文件到工作项
       operationId: 02-upload-a-file-to-the-issue
@@ -52,7 +52,7 @@ paths:
         - oauth2:
             - write:project:issue-attachment
       parameters:
-        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
+        - $ref: ../../../../../../openapi-common/latest/zh/request-team.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -87,7 +87,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddIssueAttachmentResponse'
-        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
+        $ref: ../../../../../../openapi-common/latest/zh/no-200-response.yaml
   /project/issues/{issueID}/attachments/{attachmentID}:
     put:
       summary: 更新工作项附件
@@ -97,7 +97,7 @@ paths:
         - oauth2:
             - write:project:issue-attachment
       parameters:
-        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
+        - $ref: ../../../../../../openapi-common/latest/zh/request-team.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -123,7 +123,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UpdateIssueAttachmentResponse'
-        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
+        $ref: ../../../../../../openapi-common/latest/zh/no-200-response.yaml
       x-codegen-request-body-name: body
     delete:
       summary: 删除工作性附件
@@ -133,7 +133,7 @@ paths:
         - oauth2:
             - write:project:issue-attachment
       parameters:
-        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
+        - $ref: ../../../../../../openapi-common/latest/zh/request-team.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -153,14 +153,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteSuccessResponse'
-        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
+        $ref: ../../../../../../openapi-common/latest/zh/no-200-response.yaml
 components:
   schemas:
     AddIssueAttachmentResponse:
       description: 上传工作项附件响应
       type: object
       properties:
-        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+        $ref: ../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -232,7 +232,7 @@ components:
     ListIssueAttachmentResponse:
       type: object
       properties:
-        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+        $ref: ../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -240,7 +240,7 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/IssueAttachment'
-            $ref: ../../../../../../openapi-common/canary/zh/paging-query-response-pageInfo-schemas.yaml
+            $ref: ../../../../../../openapi-common/latest/zh/paging-query-response-pageInfo-schemas.yaml
       example:
         - result: SUCCESS
           data:
@@ -278,7 +278,7 @@ components:
     UpdateIssueAttachmentResponse:
       type: object
       properties:
-        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+        $ref: ../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
       example:
         - result: SUCCESS
         - result: FAIL
@@ -287,10 +287,10 @@ components:
     DeleteSuccessResponse:
       type: object
       properties:
-        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+        $ref: ../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
       example:
         - result: SUCCESS
-    $ref: ../../../../../../openapi-common/canary/zh/no-200-response-schemas.yaml
+    $ref: ../../../../../../openapi-common/latest/zh/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2

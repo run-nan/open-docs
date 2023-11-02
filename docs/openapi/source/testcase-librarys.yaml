@@ -17,9 +17,9 @@ paths:
         - oauth2:
             - read:testcase:library
       parameters:
-        - $ref: ../../../openapi-common/canary/en/request-team.yaml
-        - $ref: ../../../openapi-common/canary/en/paging-query-request-limit.yaml
-        - $ref: ../../../openapi-common/canary/en/paging-query-request-cursor.yaml
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
+        - $ref: ../../../openapi-common/latest/en/paging-query-request-limit.yaml
+        - $ref: ../../../openapi-common/latest/en/paging-query-request-cursor.yaml
       responses:
         200:
           description: Request is successful.
@@ -27,7 +27,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListResponse'
-        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
     post:
       summary: Create a new test case library
       operationId: 02-create-a-new-test-case-library
@@ -36,7 +36,7 @@ paths:
         - oauth2:
             - write:testcase:library
       parameters:
-        - $ref: ../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
       requestBody:
         description: The test case library information to be created.
         content:
@@ -51,7 +51,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddResponse'
-        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
       x-codegen-request-body-name: body
   /testcase/libraries/{libraryID}:
     get:
@@ -62,7 +62,7 @@ paths:
         - oauth2:
             - read:testcase:library
       parameters:
-        - $ref: ../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
         - name: libraryID
           in: path
           description: The id of the test case library.
@@ -76,7 +76,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetResponse'
-        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
     put:
       summary: Update a test case library
       operationId: 04-update-a-test-case-library
@@ -85,7 +85,7 @@ paths:
         - oauth2:
             - write:testcase:library
       parameters:
-        - $ref: ../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
         - name: libraryID
           in: path
           description: The id of the test case library.
@@ -106,7 +106,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UpdateResponse'
-        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
       x-codegen-request-body-name: body
     delete:
       summary: Delete a test case library
@@ -116,7 +116,7 @@ paths:
         - oauth2:
             - write:testcase:library
       parameters:
-        - $ref: ../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
         - name: libraryID
           in: path
           description: The id of the test case library.
@@ -130,7 +130,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteResponse'
-        $ref: ../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
 components:
   schemas:
     RequestLibrary:
@@ -154,7 +154,7 @@ components:
       description: The response of the delete request.
       type: object
       properties:
-        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
       example:
         - result: SUCCESS
         - result: FAIL
@@ -170,7 +170,7 @@ components:
       description: The response of the add or update request.
       type: object
       properties:
-        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -208,7 +208,7 @@ components:
       description: The response of the add or update request.
       type: object
       properties:
-        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -258,7 +258,7 @@ components:
       description: The response of the add or update request.
       type: object
       properties:
-        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -339,7 +339,7 @@ components:
     ListResponse:
       type: object
       properties:
-        $ref: ../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
         data:
           type: object
           properties:
@@ -347,7 +347,7 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/ListItem'
-            $ref: ../../../openapi-common/canary/en/paging-query-response-pageInfo-schemas.yaml
+            $ref: ../../../openapi-common/latest/en/paging-query-response-pageInfo-schemas.yaml
       example:
         - result: SUCCESS
           data:
@@ -366,7 +366,7 @@ components:
               hasNextPage: false
               startCursor: 'sample_start_cursor'
               totalCount: 2
-    $ref: ../../../openapi-common/canary/en/no-200-response-schemas.yaml
+    $ref: ../../../openapi-common/latest/en/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2

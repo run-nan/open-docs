@@ -30,7 +30,7 @@ paths:
           required: true
           schema:
             type: string
-        - $ref: ../../../../openapi-common/canary/en/request-team.yaml
+        - $ref: ../../../../openapi-common/latest/en/request-team.yaml
       requestBody:
         description: List of issues to be linked.
         content:
@@ -45,7 +45,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LinkIssuesResponse'
-        $ref: ../../../../openapi-common/canary/en/no-200-response.yaml
+        $ref: ../../../../openapi-common/latest/en/no-200-response.yaml
 components:
   schemas:
     LinkIssueRequest:
@@ -74,7 +74,7 @@ components:
     LinkIssuesResponse:
       type: object
       properties:
-        $ref: ../../../../openapi-common/canary/en/200-response-schemas.yaml
+        $ref: ../../../../openapi-common/latest/en/200-response-schemas.yaml
       required:
         - result
       example:
@@ -85,7 +85,7 @@ components:
         - result: FAIL
           errorCode: NotFound
           errorMsg: 'NotFound issue'
-    $ref: ../../../../openapi-common/canary/en/no-200-response-schemas.yaml
+    $ref: ../../../../openapi-common/latest/en/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2

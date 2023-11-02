@@ -17,7 +17,7 @@ paths:
         - oauth2:
             - read:project:issue-workflow
       parameters:
-        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
+        - $ref: ../../../../../../openapi-common/latest/zh/request-team.yaml
         - name: issueID
           in: path
           description: 工作项ID
@@ -38,7 +38,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AllSuccessResponse'
-        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
+        $ref: ../../../../../../openapi-common/latest/zh/no-200-response.yaml
     post:
       summary: 执行工作项的工作流
       operationId: 02-execute-workflow-for-issue
@@ -47,7 +47,7 @@ paths:
         - oauth2:
             - write:project:issue-workflow
       parameters:
-        - $ref: ../../../../../../openapi-common/canary/zh/request-team.yaml
+        - $ref: ../../../../../../openapi-common/latest/zh/request-team.yaml
         - name: action
           in: query
           required: true
@@ -75,7 +75,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ExecuteWorkflowResponse'
-        $ref: ../../../../../../openapi-common/canary/zh/no-200-response.yaml
+        $ref: ../../../../../../openapi-common/latest/zh/no-200-response.yaml
       x-codegen-request-body-name: body
 components:
   schemas:
@@ -171,7 +171,7 @@ components:
     ExecuteWorkflowResponse:
       type: object
       properties:
-        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+        $ref: ../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
       example:
         - result: SUCCESS
         - result: FAIL
@@ -219,7 +219,7 @@ components:
     AllSuccessResponse:
       type: object
       properties:
-        $ref: ../../../../../../openapi-common/canary/zh/200-response-schemas.yaml
+        $ref: ../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
         data:
           type: array
           items:
@@ -231,7 +231,7 @@ components:
               name: '关闭'
               start: 'LS1jaMvi'
               end: 'QXSKmnQQ'
-    $ref: ../../../../../../openapi-common/canary/zh/no-200-response-schemas.yaml
+    $ref: ../../../../../../openapi-common/latest/zh/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2
