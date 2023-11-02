@@ -41,24 +41,24 @@ pnpm start
 使用你所选择的语言，以开发模式启动本地化站点，以中文为例：
 
 ```
+# 内部文档
+pnpm run dev:zh
+
+# 外部文档
 pnpm run start:zh
 ```
 
 #### 目录结构
 
-开发中的文档目录：
+最新版本文档目录：
 
 ```
 /docs # 英文文档
 /i18n/zh-CN/docusaurus-plugin-content-docs/current # 中文文档
 ```
 
-Review 完成后复制一份到正式的文档目录：
-
-```
-/versioned_docs/version-1.x # 英文文档
-/i18n/zh-CN/docusaurus-plugin-content-docs/version-1.x # 中文文档
-```
+- 未上线的迭代文档提交 PR 到 next 分支，会自动 merge 并发布至 [docs.partner.ones.cn](https://docs.partner.ones.cn/)
+- 迭代上线后再提交 PR 到 main 分支
 
 ### 构建
 

@@ -3,10 +3,7 @@ name: AutoMergeCanary
 on:
   pull_request:
     branches:
-      - main
-    paths:
-      - 'docs/**'
-      - 'i18n/zh-CN/docusaurus-plugin-content-docs/current/**'
+      - next
     types:
       - labeled
 jobs:
