@@ -8,17 +8,16 @@ const openAPIConfig = require('./docusaurus.openapi.config')
 // 是否是正式版
 const isPublic = process.env.PRODUCTION_ENV === 'production'
 
-// 正式版本暂只打包构建1.x版本
+// 区分内外部文档
 const envDocsConfig = isPublic
   ? {
       exclude: ['**/internal-*.{md,mdx}'],
-      onlyIncludeVersions: ['current'],
     }
   : {}
 
-// 正式环境使用 algolia 搜索，algolia 对象有值，则会使用 `DocSearch` 组件
-const algoliaConfig = isPublic
+const envThemeConfig = isPublic
   ? {
+      // 正式环境使用 algolia 搜索，algolia 对象有值，则会使用 `DocSearch` 组件
       algolia: {
         // Application ID
         appId: 'N2DTG7C9DS',
@@ -27,7 +26,15 @@ const algoliaConfig = isPublic
         indexName: 'open_docs_prod',
       },
     }
-  : {}
+  : {
+      announcementBar: {
+        content:
+          '当前正在访问的是内部文档，<a href="https://developer.ones.com/">访问正式文档</a>。',
+        backgroundColor: '#F59300',
+        textColor: '#fff',
+        isCloseable: false,
+      },
+    }
 
 // 内部文档使用本地搜索
 const extraSearchPluginConfig = isPublic
@@ -58,10 +65,6 @@ const envNavbarItems = isPublic
       //   position: 'left',
       //   items: []
       // },
-      {
-        type: 'docsVersionDropdown',
-        position: 'right',
-      },
     ]
 
 // 开放平台快捷入口
@@ -177,6 +180,7 @@ const config = {
               badge: false,
             },
           },
+          disableVersioning: true, // 只包含当前版本
           ...envDocsConfig,
           ...openAPIConfig.docs,
         },
@@ -234,7 +238,7 @@ const config = {
         disableSwitch: true,
         // respectPrefersColorScheme: true, // 跟随系统主题
       },
-      ...algoliaConfig,
+      ...envThemeConfig,
       docs: {
         sidebar: {
           hideable: true,
