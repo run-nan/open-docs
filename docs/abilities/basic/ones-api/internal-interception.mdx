@@ -1,0 +1,295 @@
+---
+sidebar_position: 3
+---
+
+import Image from '@theme/IdealImage'
+
+import urlParamImg from './images/urlParam.png'
+
+# ONES API interception
+
+:::danger ability deprecation instructions
+This ability is obsolete as of October 13, 2023. If relevant requirements require similar capabilities, please submit a new request form to the open platform.
+
+:::
+
+## Requirements
+
+| ONES    |
+| :------ |
+| v3.6.0+ |
+
+## Overview
+
+Sometimes we need to change the performance of certain behaviors in the ONES, add some operations before and after a certain behavior or replace the behavior itself to meet business. The plugin can use the ONES API interception ability to support all ONES API, such as prefix interception, subffix interception and replace API;
+
+- **Replace**: The plugin can "replace" an ONES API , allowing the plugin to completely customize an API of the ONES.
+- **Prefix interception**: It means that when a request enters ONES, it will be forwarded to the plugin before it is processed. After the plugin modifies the request, it will be sent back to ONES and continue to execute the original logic. Generally used to modify the parameters of the request, or to verify the request;
+- **Suffix interception**: It means that when the request is processed in ONES, it will send a notification to the plugin. The plugin can perform some suffix processing at this time, but cannot modify the response content.
+
+**interception** and **replace** are relatively low-level operations, which may cause unknown risks to ONES function. Generally speaking, the use of ONES API interception ability is considered only if other abilities do not meet the requirements.
+
+:::caution NOTICE
+This ability is about to be abandoned, and future compatibility is not guaranteed!
+:::
+
+## Usage
+
+### Instruction for use
+
+1. The difference between the organization-level API and the team-level API is that the `url` of the team-level API contains `/team/:teamUUID`. For the same API: the organization-level API only allows one plugin to intercept; the team-level API allows one plugin in each team to intercept, but only one plugin in the same team is allowed to intercept.
+2. In local debugging, if you modify the plugin configuration file `config/plugin.yaml`, you need to run `npx op invoke clear` and re-run the `npx op invoke run` command to make the configuration take effect.
+
+### replace
+
+- Request flow
+
+  ```mermaid
+  sequenceDiagram
+      autonumber
+      User->>ONES: Request
+      ONES->>+Plugin: Forwarding
+      Plugin->>-ONES: Return
+      ONES->>User: Return
+  ```
+
+- Sample configuration
+
+  Add the following configuration to the `apis` field in the plugin configuration file:
+
+  ```yaml title='/config/plugin.yaml'
+  apis:
+    - type: replace #API type: replace
+      methods: #API request mode
+        - POST
+      url: /team/:teamUUID/online_page/:pageUUID/update_title #interception API url
+      scope: wiki #Project or wiki API. Without this attribute, it defaults to project
+      function: jackFunc #The name is consistent with the function name in the code
+  ```
+
+- Add handler
+
+  This example replaces the wiki's API for modifying the page title, and will set the page title to "plugin title"
+
+  ```typescript
+  import { fetchONES } from '@ones-op/node-fetch'
+  import { Logger } from '@ones-op/node-logger'
+
+  export async function jackFunc(
+    request: PluginRequest<Record<string, any>>,
+  ): Promise<PluginResponse> {
+    Logger.info('replace success')
+    let userUUID = ''
+    let userToken = ''
+    if (request.headers['Ones-User-Id'] != null) {
+      userUUID = request.headers['Ones-User-Id']
+      userToken = request.headers['Ones-Auth-Token']
+    }
+    Logger.info('url:', request.url)
+    let response = await fetchONES({
+      path: '/wiki' + request.url,
+      method: 'POST',
+      headers: {
+        'Ones-User-Id': [userUUID],
+        'Ones-Auth-Token': [userToken],
+      },
+      body: {
+        title: 'plugin title',
+      },
+      root: false,
+    })
+    Logger.info(JSON.stringify(response, undefined, 2))
+    if (response) {
+      return response
+    }
+    return {
+      body: {},
+    }
+  }
+  ```
+
+- Precautions
+
+  The API request parameters need to pay attention to the following points:
+
+  - The ONES API is being intercepted, so the filled `url` must be consistent with the `url` used to access the ONES API;
+
+  - Confirm whether the replaced API itself is a `POST` request or a `GET` request;
+
+  - Please refer to [ONES API](../../../api/readme) document to confirm what parameters need to be set in the request header of the replaced API;
+
+  - When the plug-in uses the replace capability, if you use fetch, fetchONES, or axios to request the original hijacking interface, do not use the original request header. Generally, only UserID and UserToken are extracted. Secondly, if it is a multi-team environment, When using fetchONES, pay attention to adding the [teamUUID] parameter to the request header to avoid 403 problems in the plugin.
+
+### prefix
+
+- Request flow
+
+  ```mermaid
+  sequenceDiagram
+      autonumber
+      User->>+ONES: Request
+      ONES->>+Plugin: Return
+      Plugin->>Plugin: Do prefix processing.
+      Plugin->>-ONES: Return request
+      ONES->>ONES: Request processing
+      ONES->>-User: Return
+  ```
+
+- Sample configuration
+
+  Add the following configuration to the `apis` field in the plugin configuration file:
+
+  ```yaml title='/config/plugin.yaml'
+  apis:
+    - type: prefix #API type: suffix
+      methods:
+        - POST
+      url: /team/:teamUUID/online_page/:pageUUID/update_title
+      scope: wiki
+      function: prefixFunc
+  ```
+
+- Add handler
+
+  This example pre-intercepts the API for modifying the page title of the wiki, and adds a suffix to the title of this modification
+
+  ```typescript
+  //Prefix interception
+  export async function prefixFunc(
+    request: PluginRequest<Record<string, any>>,
+  ): Promise<PluginResponse> {
+    let body = request?.body as any
+    let headers = request?.headers as any
+    body.title = body.title + '-plugin'
+    return {
+      headers: headers,
+      body: body,
+    }
+  }
+  ```
+
+### suffix
+
+- Request flow
+
+  ```mermaid
+  sequenceDiagram
+      autonumber
+      User->>+ONES: Request
+      ONES->>ONES: Request processing
+      ONES->>+Plugin: Forwarding
+      Plugin->>Plugin: Do subfix processing
+      Plugin->>-ONES: Return
+      ONES->>-User: Return
+  ```
+
+- Sample configuration
+
+  Add the following configuration to the `apis` field in the plugin configuration file:
+
+  ```yaml title='/config/plugin.yaml'
+  apis:
+    - type: suffix #API type: suffix
+      methods:
+        - GET
+      url: /users/me
+      scope: project
+      function: suffixFunc
+  ```
+
+- Add handler
+
+  This example means that when the interface finishes processing, record some content to the `workspace/suffix.txt` file
+
+  ```typescript
+  import { createFile, writeStrings } from '@ones-op/node-file'
+  import { Logger } from '@ones-op/node-logger'
+
+  export async function Install() {
+    await createFile('./suffix.txt')
+    Logger.info('[Plugin] Install')
+  }
+  //suffix interception
+  export async function suffixFunc(
+    request: PluginRequest<Record<string, any>>,
+  ): Promise<PluginResponse> {
+    Logger.info('suffix success')
+    let body = request?.body as any
+    await writeStrings('./suffix.txt', [JSON.stringify(request, undefined, 2)])
+    return {
+      body: {},
+    }
+  }
+  ```
+
+### custom query param
+
+Support interface interception with custom query parameters allowing different interface interception functions to be used for the same URL based on the request's query parameters.
+You can set custom query parameters in the apis field in the `config/plugin.yaml` file.
+All requests to this interface will be intercepted if they contain these pre-set parameters, otherwise they will not be intercepted.
+
+<Image img={urlParamImg} />
+
+- interception rule
+
+1. An interface can only be intercepted by one plugin for one type of interface interception (prefix, replace, suffix),
+   but it allows an interface to define different query parameters to match different handling functions.
+
+2. Custom query parameters are represented as a map with both the key and value being strings.
+   Interface interception will be triggered if all the keys and values in the map are included in the request to this interface.
+
+3. When a request satisfies multiple interface interception rules with custom query parameters,
+   the corresponding function will be matched based on the order declared in the `config/plugin.yaml` file.
+
+- Sample configuration
+
+  Add the following configuration to the `apis` field in the plugin configuration file:
+
+  ```yaml title='/config/plugin.yaml'
+  apis:
+    - type: replace
+      methods:
+        - POST
+      scope: project
+      url: /users/me
+      function: replaceFunc1
+      query:
+        k1: v1
+    - type: replace
+      methods:
+        - POST
+      scope: project
+      url: /users/me
+      function: replaceFunc2
+      query:
+        k2: v2
+  ```
+
+  - request url: `/users/me?k2=v2` match: replaceFunc2
+
+  - request url: `/users/me?k1=v1&k2=v2&k3=v3` based on declared order，match: replaceFunc1
+
+  - request url: `/users/me` no match，do not intercepted the interface and follow the original processing logic
+
+### Debug
+
+- Use the `curl` tool to access the API `/users/ me` as an example:
+
+  ```shell
+  curl --location --request GET 'https://yourhost/users/me' \
+  --header 'Ones-User-Id: {user_uuid}' \
+  --header 'Ones-Auth-Token: {user_token}' \
+  --header 'Content-Type: application/json' \
+  --data ''
+  ```
+
+- Code request parameter example
+
+  ```
+  url：https://yourhost/users/me
+  headers:
+      Ones-User-Id:{user_uuid}
+      Ones-Auth-Token:{user_token}
+      ...
+  method: GET
+  ```
