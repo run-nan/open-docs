@@ -22,26 +22,8 @@ jobs:
         run: |
             only deal with canary label
             exit 1
-  pathchecker:
-    needs: labelchecker
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - uses: MikeCxx/paths-filter-strict@v1.0.8
-      id: filter
-      with:
-        filters: |
-          canary:
-            - 'docs/**'
-            - 'i18n/zh-CN/docusaurus-plugin-content-docs/current/**'
-            - 'i18n/zh-CN/docusaurus-plugin-content-docs/current.json'
-    - name: Check if only the canary has been changed
-      if: steps.filter.outputs.canary == 'false'
-      run: |
-          found the unnecessary files changes in the pull request
-          exit 1
   mergepullrequest:
-    needs: pathchecker
+    needs: labelchecker
     runs-on: ubuntu-latest
     env:
       pr_number: ${{ format('{0}', github.event.pull_request.number) }}
@@ -81,6 +63,4 @@ jobs:
           exit 1
   deploy:
     needs: mergepullrequest
-    uses: ./.github/workflows/common.yml
-    secrets:
-      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+    uses: ./.github/workflows/canary.yml

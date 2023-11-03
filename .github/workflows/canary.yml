@@ -1,8 +1,7 @@
 name: Deploy Canary
+
 on:
-  push:
-    branches:
-      - next
+  workflow_call:
 
 jobs:
   deploy:
