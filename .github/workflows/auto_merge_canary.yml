@@ -1,11 +1,9 @@
 # 自动合并 canary 内容
 name: AutoMergeCanary
+
 on:
-  pull_request:
-    branches:
-      - next
-    types:
-      - labeled
+  workflow_dispatch:
+
 jobs:
   labelchecker:
     runs-on: ubuntu-latest
