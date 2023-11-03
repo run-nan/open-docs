@@ -1,7 +1,9 @@
 name: Deploy Canary
 
 on:
-  workflow_call:
+  push:
+    branches:
+      - next
 
 jobs:
   deploy:
@@ -46,3 +48,29 @@ jobs:
           
       - name: Deploy to S3
         run: aws s3 sync ./dist s3://ones-com-developer-static-test
+
+      - name: send notification
+        run: >
+          curl 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=20dc3e3c-dfa4-4d10-8900-292810e5b046' -H 'Content-Type: application/json' -d '{
+            "msgtype": "template_card",
+            "template_card": {
+              "card_type": "text_notice",
+              "card_action": {
+                "type": 1,
+                "url": "https://developer.dev-ones.site/"
+              },
+              "source": {
+                "desc": "开放平台内部文档"
+              },
+              "main_title": {
+                "title": "🦋 发布成功"
+              },
+              "jump_list": [
+                {
+                  "type": 1,
+                  "url": "https://developer.ones.com/",
+                  "title": "访问正式文档"
+                }
+              ]
+            }
+          }'
