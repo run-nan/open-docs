@@ -1,27 +1,12 @@
-# 自动合并 canary 内容
-name: AutoMergeCanary
+name: Auto Merge Canary
 
 on:
-  workflow_dispatch:
+  pull_request:
+    branches:
+      - next
 
 jobs:
-  labelchecker:
-    runs-on: ubuntu-latest
-    env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:
-      - name: Get pull request labels
-        id: label
-        run: |
-            labels=$(gh api -H "Accept: application/vnd.github+json" /repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels | jq --compact-output '[.[].name]')
-            echo "res=$labels" >> $GITHUB_OUTPUT
-      - name: Check the label
-        if: ${{ !contains(steps.label.outputs.res, 'canary') }}
-        run: |
-            only deal with canary label
-            exit 1
   mergepullrequest:
-    needs: labelchecker
     runs-on: ubuntu-latest
     env:
       pr_number: ${{ format('{0}', github.event.pull_request.number) }}
@@ -38,16 +23,9 @@ jobs:
           title-regex-flags: 'm'
           error-message: 'pull request title shoud like this [build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test: ***] or [build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test(Opfetch): ***]'
 
-      - name: Approval pull request
-        uses: pwei1018/bcrs-ci-action@v1.0.1
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          pr-approval: true
-          pr-message: "auto merge for canary"
-
       - name: Merge pull request
         id: automerge
-        uses: pascalgn/automerge-action@v0.15.5
+        uses: pascalgn/automerge-action@v0.15.6
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           MERGE_LABELS: "canary"
@@ -59,6 +37,3 @@ jobs:
         run: |
           merge failed: ${{ steps.automerge.outputs.mergeResult }}
           exit 1
-  deploy:
-    needs: mergepullrequest
-    uses: ./.github/workflows/canary.yml
