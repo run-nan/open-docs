@@ -5,6 +5,11 @@ on:
     branches:
       - next
 
+# Allow one concurrent deployment
+concurrency:
+  group: "canary"
+  cancel-in-progress: true
+
 jobs:
   deploy:
     timeout-minutes: 90
