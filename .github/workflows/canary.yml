@@ -59,6 +59,12 @@ jobs:
               "main_title": {
                 "title": "🦋 发布成功"
               },
+              "horizontal_content_list": [
+                {
+                  "keyname": "发布人",
+                  "value": ${{ github.actor }}
+                }
+              ],
               "jump_list": [
                 {
                   "type": 1,
