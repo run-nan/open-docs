@@ -62,7 +62,7 @@ jobs:
               "horizontal_content_list": [
                 {
                   "keyname": "发布人",
-                  "value": ${{ github.actor }}
+                  "value": "${{ github.actor }}"
                 }
               ],
               "jump_list": [
