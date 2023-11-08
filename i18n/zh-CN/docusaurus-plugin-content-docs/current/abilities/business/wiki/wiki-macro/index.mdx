@@ -1,14 +1,14 @@
 ---
 id: wiki-macro
 sidebar_position: 2
-description: 插入嵌入块到 Wiki 协同页面中。
+description: 快速添加块元素（Embed）宏。
 ---
 
 import Image from '@theme/IdealImage'
 import TabItem from '@theme/TabItem'
 import Tabs from '@theme/Tabs'
 
-# Wiki 宏
+# 简易宏
 
 ## 要求
 
@@ -70,7 +70,7 @@ modules:
 
 **支持的配置项：**
 
-- [icon](../../../../../reference/config/plugin.yaml#icon)
+- [icon](../../../../reference/config/plugin.yaml#icon)
 - macroShortcut
 
   - type: `string`
@@ -79,7 +79,7 @@ modules:
 
     比如：`macroShortcut: issue`，当用户在编辑页面时，用户输入`/issue`即可快速插入当前插件到文档中。
 
-- [description](../../../../../reference/config/plugin.yaml#moduleDescription)
+- [description](../../../../reference/config/plugin.yaml#moduleDescription)
 
 - enableCollaborative
 
@@ -89,7 +89,7 @@ modules:
 
     允许多个用户同时编辑相同的文档数据。 默认情况下，当一个用户单击工具栏时，其他用户无法编辑该块。
 
-- [modules（必填）](../../../../../reference/config/plugin.yaml#subModule)
+- [modules（必填）](../../../../reference/config/plugin.yaml#subModule)
 - modules[*].scene（必填）
 
   - type: `"toolbar"|"render"`
@@ -110,21 +110,21 @@ modules:
 
     - 编辑界面（`scene: toolbar`），可选项，通过 `toolbar` 触发。每次打开，编辑界面会初始化，关闭时，编辑界面实例会被销毁。
 
-- [modules[\*].icon](../../../../../reference/config/plugin.yaml#icon)
+- [modules[\*].icon](../../../../reference/config/plugin.yaml#icon)
 
   当 `modules[*].scene === 'toolbar'` 时，通过这个字段可以设置 `toolbar` 的图标。
 
-- [modules[\*].manual](../../../../../reference/config/plugin.yaml#manual)
+- [modules[\*].manual](../../../../reference/config/plugin.yaml#manual)
 
   当 `modules[*].scene === 'toolbar'` 时，此选项必须设置为 `true`。
 
-- [modules[\*].preload](../../../../../reference/config/plugin.yaml#manual)
+- [modules[\*].preload](../../../../reference/config/plugin.yaml#manual)
 
   当 `modules[*].scene === 'toolbar'` 时，此选项建议设置为 `true`。
 
 ### 可访问的上下文数据
 
-- [useDocumentInfo](../../../../../reference/packages/store/store.md#useDocumentInfo)
+- [useDocumentInfo](../../../../reference/packages/store/store.md#useDocumentInfo)
 
 ```ts
 import { useDocumentInfo } from '@ones-op/store'

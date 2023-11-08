@@ -1,14 +1,14 @@
 ---
 id: wiki-macro
 sidebar_position: 2
-description: Insert an embed block in the wiki collaborative page.
+description: Quickly add block element (Embed) macro
 ---
 
 import Image from '@theme/IdealImage'
 import TabItem from '@theme/TabItem'
 import Tabs from '@theme/Tabs'
 
-# Wiki macro
+# Simple macro
 
 ## Requirements
 
@@ -67,7 +67,7 @@ modules:
 
 **Supported config options：**
 
-- [icon](../../../../../reference/config/plugin.yaml#icon)
+- [icon](../../../../reference/config/plugin.yaml#icon)
 - macroShortcut
 
   - type: `string`
@@ -76,7 +76,7 @@ modules:
 
     For example: `macroShortcut: issue`, when the user is editing the document, the user can insert the plugin into the current document by just typing `/issue`.
 
-- [description](../../../../../reference/config/plugin.yaml#moduleDescription)
+- [description](../../../../reference/config/plugin.yaml#moduleDescription)
 
 - enableCollaborative
 
@@ -86,7 +86,7 @@ modules:
 
     Enable multiple users to edit the same document data at the same time. By default, the other users can't edit the block when one user clicks the toolbar.
 
-- [modules(required)](../../../../../reference/config/plugin.yaml#subModule)
+- [modules(required)](../../../../reference/config/plugin.yaml#subModule)
 - modules[*].scene(required)
 
   - type: `"toolbar"|"render"`
@@ -111,21 +111,21 @@ modules:
     - Editable interface(`scene: toolbar`), Required, Triggered by the toolbar. Each time it is opened, the editable interface will be reinitialized,
       and when it is closed, the instance of the editable interface will be destroyed.
 
-- [modules[\*].icon](../../../../../reference/config/plugin.yaml#icon)
+- [modules[\*].icon](../../../../reference/config/plugin.yaml#icon)
 
   If `modules[*].scene === 'toolbar'`, This is used to render the icon of the `toolbar`.
 
-- [modules[\*].manual](../../../../../reference/config/plugin.yaml#manual)
+- [modules[\*].manual](../../../../reference/config/plugin.yaml#manual)
 
   This option must be set to `true` if `modules[*].scene === 'toolbar'`.
 
-- [modules[\*].preload](../../../../../reference/config/plugin.yaml#manual)
+- [modules[\*].preload](../../../../reference/config/plugin.yaml#manual)
 
   This option is recommended to be set to `true` if `modules[*].scene === 'toolbar'`.
 
 ### Available Hook API
 
-- [useDocumentInfo](../../../../../reference/packages/store/store.md#useDocumentInfo)
+- [useDocumentInfo](../../../../reference/packages/store/store.md#useDocumentInfo)
 
 ```ts
 import { useDocumentInfo } from '@ones-op/store'

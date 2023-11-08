@@ -8,7 +8,7 @@ We provide a set of plugin front-end library that can help you manipulate editor
 
 | ONES       | **@ones-op/editor** |
 | ---------- | ------------------- |
-| `v3.6.25+` | `v0.1.0+`           |
+| `v3.16.8+` | `v0.0.1-rc.1+`      |
 
 ## Installation
 
