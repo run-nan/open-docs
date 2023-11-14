@@ -31,8 +31,8 @@
   },
   "license": "GPL-3.0-or-later",
   "devDependencies": {
-    "@commitlint/cli": "~17.1.2",
-    "@commitlint/config-conventional": "~17.1.0",
+    "@commitlint/cli": "~17.4.4",
+    "@commitlint/config-conventional": "~17.4.4",
     "@docusaurus/core": "~2.4.3",
     "@docusaurus/eslint-plugin": "~2.4.3",
     "@docusaurus/module-type-aliases": "~2.4.3",

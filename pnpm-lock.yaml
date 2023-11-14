@@ -6,11 +6,11 @@ settings:
 
 devDependencies:
   '@commitlint/cli':
-    specifier: ~17.1.2
-    version: 17.1.2
+    specifier: ~17.4.4
+    version: 17.4.4
   '@commitlint/config-conventional':
-    specifier: ~17.1.0
-    version: 17.1.0
+    specifier: ~17.4.4
+    version: 17.4.4
   '@docusaurus/core':
     specifier: ~2.4.3
     version: 2.4.3(@docusaurus/types@2.4.3)(eslint@8.23.1)(react-dom@18.2.0)(react@18.2.0)(typescript@4.9.5)
@@ -1678,8 +1678,8 @@ packages:
     dev: true
     optional: true
 
-  /@commitlint/cli@17.1.2:
-    resolution: {integrity: sha512-h/4Hlka3bvCLbnxf0Er2ri5A44VMlbMSkdTRp8Adv2tRiklSTRIoPGs7OEXDv3EoDs2AAzILiPookgM4Gi7LOw==}
+  /@commitlint/cli@17.4.4:
+    resolution: {integrity: sha512-HwKlD7CPVMVGTAeFZylVNy14Vm5POVY0WxPkZr7EXLC/os0LH/obs6z4HRvJtH/nHCMYBvUBQhGwnufKfTjd5g==}
     engines: {node: '>=v14'}
     hasBin: true
     dependencies:
@@ -1689,7 +1689,7 @@ packages:
       '@commitlint/read': 17.5.1
       '@commitlint/types': 17.4.4
       execa: 5.1.1
-      lodash: 4.17.21
+      lodash.isfunction: 3.0.9
       resolve-from: 5.0.0
       resolve-global: 1.0.0
       yargs: 17.7.2
@@ -1698,8 +1698,8 @@ packages:
       - '@swc/wasm'
     dev: true
 
-  /@commitlint/config-conventional@17.1.0:
-    resolution: {integrity: sha512-WU2p0c9/jLi8k2q2YrDV96Y8XVswQOceIQ/wyJvQxawJSCasLdRB3kUIYdNjOCJsxkpoUlV/b90ZPxp1MYZDiA==}
+  /@commitlint/config-conventional@17.4.4:
+    resolution: {integrity: sha512-u6ztvxqzi6NuhrcEDR7a+z0yrh11elY66nRrQIpqsqW6sZmpxYkDLtpRH8jRML+mmxYQ8s4qqF06Q/IQx5aJeQ==}
     engines: {node: '>=v14'}
     dependencies:
       conventional-changelog-conventionalcommits: 5.0.0
@@ -8946,6 +8946,10 @@ packages:
     resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
     dev: true
 
+  /lodash.isfunction@3.0.9:
+    resolution: {integrity: sha512-AirXNj15uRIMMPihnkInB4i3NHeb4iBtNg9WRWuK2o31S+ePwwNmDPaTL3o7dTJ+VXNZim7rFs4rxN4YU1oUJw==}
+    dev: true
+
   /lodash.isplainobject@4.0.6:
     resolution: {integrity: sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA==}
     dev: true
@@ -13959,8 +13963,8 @@ packages:
     dev: true
 
 time:
-  /@commitlint/cli@17.1.2: '2022-08-29T07:53:15.915Z'
-  /@commitlint/config-conventional@17.1.0: '2022-08-27T06:25:42.193Z'
+  /@commitlint/cli@17.4.4: '2023-02-17T15:34:43.117Z'
+  /@commitlint/config-conventional@17.4.4: '2023-02-17T15:34:43.196Z'
   /@docusaurus/core@2.4.3: '2023-09-20T15:42:34.498Z'
   /@docusaurus/eslint-plugin@2.4.3: '2023-09-20T15:41:33.329Z'
   /@docusaurus/module-type-aliases@2.4.3: '2023-09-20T15:41:41.493Z'
