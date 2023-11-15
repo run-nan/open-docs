@@ -36,10 +36,14 @@ jobs:
           tar -czf artifacts.tar.gz -C dist .
           
       - name: Semantic release
-        uses: cycjimmy/semantic-release-action@v3.4.2
+        uses: cycjimmy/semantic-release-action@v3
         id: semantic   # Need an `id` for output variables
         with:
-          branch: main
+          extra_plugins: |
+            @semantic-release/commit-analyzer
+            @semantic-release/release-notes-generator
+            @semantic-release/git
+            @semantic-release/github
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
