@@ -442,5 +442,74 @@
   },
   "theme.SearchBar.seeAllOutsideContext": {
     "message": "See results outside {context}"
+  },
+  "Getting started": {
+    "message": "使用指南"
+  },
+  "Before you start working with ONES Open  Platform, learn our guide for more details.": {
+    "message": "在开始使用 ONES 平台之前，请阅读我们的指南以了解详细信息。"
+  },
+  "Learn details": {
+    "message": "了解详情"
+  },
+  "API documents": {
+    "message": "API 文档"
+  },
+  "Find out what is possible with ONES  API and how to realize data connection.": {
+    "message": "了解 ONES API 的可能性以及如何实现数据连接。"
+  },
+  "Get to know the abilities": {
+    "message": "开放能力"
+  },
+  "ONES Open Platform provides advanced customization capabilities.": {
+    "message": "通过确保灵活性的 ONES 开放平台功能创建您的理想集成。"
+  },
+  "Core": {
+    "message": "平台开放能力"
+  },
+  "ONES Open Platform provides standard infrastructure for applications.": {
+    "message": "平台能力为应用提供标准的基础设施。"
+  },
+  "See more": {
+    "message": "查看更多"
+  },
+  "Database": {
+    "message": "读写数据库"
+  },
+  "Notifications": {
+    "message": "发送通知"
+  },
+  "Audit log": {
+    "message": "更新系统日志"
+  },
+  "Slots": {
+    "message": "插槽"
+  },
+  "Slots enable developers to add, hide, or replace custom content in navigation bars or page elements.": {
+    "message": "插槽支持开发者在导航系统或页面元素里添加、隐藏或替换自定义内容。"
+  },
+  "System sider bar slot": {
+    "message": "自定义系统边栏"
+  },
+  "My work top bar slot": {
+    "message": "自定义“我的工作台”顶栏"
+  },
+  "System configuration slot": {
+    "message": "自定义系统配置中心"
+  },
+  "App Modules": {
+    "message": "应用开放能力"
+  },
+  "App modules empower developers to carry out extended development of specific features of ONES products and applications.": {
+    "message": "业务能力支持开发者在 ONES 平台应用里进行具体功能的二次开发。"
+  },
+  "Account: Simple Auth": {
+    "message": "Account：对接第三方账号目录"
+  },
+  "Project: Custom Script Field": {
+    "message": "Project: 自定义计算属性"
+  },
+  "Project: Custom Permission": {
+    "message": "Project: 自定义权限点"
   }
 }

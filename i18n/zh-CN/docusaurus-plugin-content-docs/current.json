@@ -335,10 +335,6 @@
     "message": "Wiki",
     "description": "The label for category Wiki in sidebar abilities"
   },
-  "sidebar.abilities.category.Macro": {
-    "message": "Macro",
-    "description": "The label for category Macro in sidebar abilities"
-  },
   "sidebar.abilities.category.DevOps": {
     "message": "DevOps",
     "description": "The label for category DevOps in sidebar abilities"
