@@ -10,18 +10,18 @@ jobs:
     steps:
       - name: Install Prince
         run: |
-          curl https://www.princexml.com/download/prince-14.2-linux-generic-x86_64.tar.gz -O
-          tar zxf prince-14.2-linux-generic-x86_64.tar.gz
-          cd prince-14.2-linux-generic-x86_64
+          curl https://www.princexml.com/download/prince-20231116-ubuntu22.04-amd64.tar.gz -O
+          tar zxf prince-20231116-ubuntu22.04-amd64.tar.gz
+          cd prince-20231116-ubuntu22.04-amd64
           yes "" | sudo ./install.sh
           
       - name: Generate PDF
-        run: npx docusaurus-prince-pdf -u https://developer.ones.com/docs/openapi/ --output open-api.pdf
+        run: npx docusaurus-prince-pdf -u https://developer.ones.com/zh-CN/docs/openapi/ --output open-api.pdf
 
       - name: Upload results
         uses: actions/upload-artifact@v3
         with:
-          name: open-api
+          name: open-api.zip
           path: open-api.pdf
           if-no-files-found: error
 
