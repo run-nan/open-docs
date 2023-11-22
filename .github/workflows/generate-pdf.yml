@@ -22,5 +22,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: result
-          path: pdf/open-api.pdf
+          path: open-api.pdf
           if-no-files-found: error
