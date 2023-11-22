@@ -16,7 +16,7 @@ jobs:
           yes "" | sudo ./install.sh
           
       - name: Generate PDF
-        run: npx docusaurus-prince-pdf -u https://developer.ones.com/zh-CN/docs/openapi/ --output open-api.pdf
+        run: npx docusaurus-prince-pdf -u https://developer.ones.com/docs/openapi/ --output open-api.pdf
 
       - name: Upload results
         uses: actions/upload-artifact@v3
