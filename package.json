@@ -46,6 +46,7 @@
     "@typescript-eslint/parser": "~5.36.2",
     "clsx": "~1.1.1",
     "docusaurus-plugin-openapi-docs": "~2.0.0",
+    "docusaurus-prince-pdf": "~1.2.1",
     "docusaurus-theme-openapi-docs": "~2.0.0",
     "eslint": "~8.23.1",
     "eslint-config-prettier": "~9.0.0",
