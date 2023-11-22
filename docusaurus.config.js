@@ -16,16 +16,7 @@ const envDocsConfig = isPublic
   : {}
 
 const envThemeConfig = isPublic
-  ? {
-      // 正式环境使用 algolia 搜索，algolia 对象有值，则会使用 `DocSearch` 组件
-      algolia: {
-        // Application ID
-        appId: 'N2DTG7C9DS',
-        //  Search-Only API Key
-        apiKey: '7c5554ff7ee867923280a77cb0c11fe3',
-        indexName: 'open_docs_prod',
-      },
-    }
+  ? {}
   : {
       announcementBar: {
         content:
@@ -35,19 +26,6 @@ const envThemeConfig = isPublic
         isCloseable: false,
       },
     }
-
-// 内部文档使用本地搜索
-const extraSearchPluginConfig = isPublic
-  ? []
-  : [
-      [
-        require.resolve('@easyops-cn/docusaurus-search-local'),
-        {
-          hashed: true,
-          language: ['en', 'zh'],
-        },
-      ],
-    ]
 
 // 内外部文档导航栏区分配置
 const envNavbarItems = isPublic
@@ -368,9 +346,16 @@ const config = {
         darkTheme: darkCodeTheme,
         defaultLanguage: 'bash',
       },
+      algolia: {
+        // Application ID
+        appId: 'N2DTG7C9DS',
+        // Search-Only API Key
+        apiKey: '7c5554ff7ee867923280a77cb0c11fe3',
+        indexName: 'open_docs_prod',
+      },
     }),
 
-  themes: [['@docusaurus/theme-mermaid', {}], ...openAPIConfig.themes, ...extraSearchPluginConfig],
+  themes: [['@docusaurus/theme-mermaid', {}], ...openAPIConfig.themes],
 
   markdown: {
     mermaid: true,
