@@ -10,9 +10,9 @@ jobs:
     steps:
       - name: Install Prince
         run: |
-          curl https://www.princexml.com/download/prince-20231116-ubuntu22.04-amd64.tar.gz -O
-          tar zxf prince-20231116-ubuntu22.04-amd64.tar.gz
-          cd prince-20231116-ubuntu22.04-amd64
+          curl https://www.princexml.com/download/prince-20231116-linux-generic-x86_64.tar.gz -O
+          tar zxf prince-20231116-linux-generic-x86_64.tar.gz
+          cd prince-20231116-linux-generic-x86_64
           yes "" | sudo ./install.sh
           
       - name: Generate PDF
