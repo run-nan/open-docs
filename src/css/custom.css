@@ -18,7 +18,6 @@
   --ifm-color-primary-lightest: #d6e9fa;
 
   --ifm-footer-link-hover-color: #ffffff;
-  --ifm-footer-link-color: #a8a8aa;
   --ifm-color-emphasis-600: #606060;
   --ifm-menu-color: var(--gray--1);
   --ifm-hover-overlay: var(--gray--7);
@@ -35,7 +34,6 @@
 
   --gray--1: #16171a;
   --gray--3: #696a6d;
-  --gray--4: #a8a8aa;
   --gray--7: #fbfbfd;
 
   /* icon */
@@ -229,6 +227,36 @@
 }
 
 /* 底栏 */
+.footer--dark {
+  --ifm-footer-background-color: #2b2c2f;
+  --ifm-footer-link-color: #a8a8aa;
+}
+.footer__links {
+  margin: 0;
+}
+.footer__col {
+  width: 25%;
+  padding: 0;
+}
+.footer__title {
+  margin-bottom: 20px;
+  line-height: 24px;
+  font-weight: 600;
+}
+.footer__item {
+  list-style: none;
+  padding: 0;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+.footer__item:last-of-type {
+  padding-bottom: 30px;
+}
+.footer__item:not(:first-of-type) {
+  padding-top: 10px;
+}
 .footer__link-item {
   line-height: inherit;
 }
@@ -260,9 +288,47 @@
   background-color: var(--ifm-footer-link-hover-color);
 }
 
+/* 1024 <= width */
+@media screen and (min-width: 1024px) {
+  .footer__links {
+    width: 792px;
+  }
+  .footer__col:not(:last-child) {
+    margin-right: 24px;
+  }
+  .footer__col:last-child {
+    padding-bottom: 30px;
+  }
+  .footer__col {
+    width: 100%;
+  }
+  .footer__item:not(:first-child) {
+    padding-top: 10px;
+  }
+}
+
 @media screen and (max-width: 1024px) {
   .navbar__link > .lang_label {
     display: none;
+  }
+}
+
+/* 768 <= width <= 1023 */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .footer__links {
+    width: 100%;
+  }
+  .footer__col:not(:last-child) {
+    margin-right: 20px;
+  }
+  .footer__col {
+    width: 100%;
+  }
+  .footer__col:last-child {
+    padding-bottom: 10px;
+  }
+  .footer__item:not(:first-child) {
+    padding-top: 10px;
   }
 }
 
@@ -302,16 +368,21 @@
   .clean-btn.navbar-sidebar__back {
     padding: 10px 20px;
   }
-}
 
-/* 兼容本地搜索 */
-@media screen and (min-width: 577px) {
-  .navbar__search-input {
-    border-radius: 3px;
+  .footer__links {
+    width: 100%;
+    flex-wrap: wrap;
   }
-}
-@media screen and (max-width: 576px) {
-  .navbar__search-input {
-    background: #fff var(--ifm-navbar-search-input-icon) no-repeat 0.75rem center / 1rem 1rem;
+  .footer__col:nth-child(odd) {
+    margin-right: 20px;
+  }
+  .footer__col {
+    width: calc(50% - 10px);
+  }
+  .footer__col:last-child {
+    padding-bottom: 10px;
+  }
+  .footer__item:not(:first-child) {
+    padding-top: 10px;
   }
 }
