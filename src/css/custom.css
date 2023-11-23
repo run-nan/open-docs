@@ -332,6 +332,13 @@
   }
 }
 
+@media (max-width: 996px) {
+  .footer__col {
+    flex: 1 0;
+    margin-bottom: 0;
+  }
+}
+
 /* 768 < width */
 @media screen and (min-width: 768px) {
   .navbar--fixed-top {
@@ -371,13 +378,13 @@
 
   .footer__links {
     width: 100%;
-    flex-wrap: wrap;
+  }
+  .footer__col {
+    flex: auto;
+    width: calc(50% - 10px);
   }
   .footer__col:nth-child(odd) {
     margin-right: 20px;
-  }
-  .footer__col {
-    width: calc(50% - 10px);
   }
   .footer__col:last-child {
     padding-bottom: 10px;
