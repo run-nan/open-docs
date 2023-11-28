@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Issue watchers
-  version: '1.0'
+  version: '2.0'
   description: |
     此资源代表工作项关注者。使用它来新增和删除工作项关注者成员。
 servers:

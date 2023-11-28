@@ -14,10 +14,12 @@ const ZH_BASE_PATH = 'i18n/zh-CN/docusaurus-plugin-content-docs'
  * - npx docusaurus clean-api-docs all
  */
 const openAPIPathConfig = {
-  '1.x': 'docs/openapi',
+  // 'v1': 'docs/openapi-v1',
+  Latest: 'docs/openapi',
 }
 const zhOpenAPIPathConfig = {
-  '1.x': `${ZH_BASE_PATH}/current/openapi`,
+  // 'v1': `${ZH_BASE_PATH}/current/openapi-v1`,
+  Latest: `${ZH_BASE_PATH}/current/openapi`,
 }
 
 // const markdownGenerators = {

@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Issue types
-  version: '1.0'
+  version: '2.0'
   description: |
     This resource represents issue types. Use it to get issue types.
 servers:

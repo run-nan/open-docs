@@ -393,3 +393,9 @@
     padding-top: 10px;
   }
 }
+
+/* Open API */
+.openapi-version-button .dropdown__menu {
+  min-width: 160px;
+  right: initial;
+}

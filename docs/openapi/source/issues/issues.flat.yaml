@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Issues
-  version: '1.0'
+  version: '2.0'
   description: |
     This resource represents issues. Use it to get, create, update, and delete issues.
 servers:

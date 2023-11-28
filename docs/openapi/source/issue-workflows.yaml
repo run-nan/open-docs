@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Issue Workflows
-  version: '1.0'
+  version: '2.0'
   description: |
     This resource represents issue workflows. Use it to get, execute issue workflows.
 servers:

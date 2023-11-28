@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Issue comments
-  version: '1.0'
+  version: '2.0'
   description: |
     此资源代表工作项评论。使用它来获取、创建和删除工作项评论。
 servers:

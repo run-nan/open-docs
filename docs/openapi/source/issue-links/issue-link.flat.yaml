@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Issue links
-  version: '1.0'
+  version: '2.0'
   description: |
     This resource represents issue association relationships. Use it to create and delete issue associations.
 servers:

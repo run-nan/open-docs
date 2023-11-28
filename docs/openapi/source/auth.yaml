@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Auth
-  version: '1.0'
+  version: '2.0'
   description: |
     The ONES REST API utilizes the standard OAuth 2.0 authorization mechanism to provide secure user authorization and access tokens for third-party applications to access protected resources. OAuth 2.0 enables third-party applications to obtain limited and revocable access privileges in a secure and controlled manner, without directly using user credentials. This authorization mechanism offers a flexible and reliable way for third-party applications to securely interact with the ONES system and obtain the necessary resource access permissions.
 servers:

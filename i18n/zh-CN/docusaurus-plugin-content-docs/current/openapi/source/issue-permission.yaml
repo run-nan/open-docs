@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Issue permission
-  version: '1.0'
+  version: '2.0'
   description: |
     此资源代表工作权限相关内容。目前支持检查是否拥有工作项某些权限点的权限。
 servers:
