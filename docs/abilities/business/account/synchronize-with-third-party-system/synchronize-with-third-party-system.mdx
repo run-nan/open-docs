@@ -3,6 +3,8 @@ sidebar_position: 2
 ---
 
 import Image from '@theme/IdealImage'
+import Tabs from '@theme/Tabs'
+
 import account1 from './images/account1.png'
 import account2 from './images/account2.png'
 import account3 from './images/account3.png'
@@ -59,13 +61,25 @@ Use the Command Line to enter the OP command in the plugin root directory to add
 npx op add ability
 ```
 
+<Tabs>
+<TabItem value="1" label="3.6.0+">
+
 Select and add `account@1.0.0`
 
-<Image img={account4} />
+</TabItem>
+<TabItem value="2" label="3.16.18+">
+
+Select and add `account@1.1.0`
+
+</TabItem>
+</Tabs>
 
 The OP tool add the following to the plugin
 
 - Add related paragraphs to the abilities field in `{{plugin root directory}}/config/plugin.yaml`.
+
+<Tabs>
+<TabItem value="1" label="3.6.0+">
 
 ```yaml title="config/plugin.yaml"
     service:
@@ -115,6 +129,71 @@ The OP tool add the following to the plugin
             value: configTip
             show: false
 ```
+
+</TabItem>
+<TabItem value="2" label="3.16.18+">
+
+```yaml title="config/plugin.yaml"
+    service:
+    ...
+    ...
+    abilities:
+    - id: ...
+        name: account
+        version: 1.1.0
+        abilityType: account
+        function:
+         sendMessage: SendMessage
+         createLoginUrl: CreateLoginUrl # create redirect login URL
+         doExchangeUser: DoExchangeUser # obtain login user information
+         doPullData: DoPullData # synchronize third-party system user data
+        config:
+        # whether the login function is realized
+        - key: canLogin
+            value: true
+            show: false
+        # whether the synchronization function is realized
+        - key: canSync
+            value: true
+            show: false
+        # whether the function of sending messages is realized
+        - key: canMessage
+            value: true
+            show: false
+        # the logo address of the third party login, which is the name of the file, which is required to be placed in the root directory of the front-end resource, web/dist/
+        - key: logo
+            value: logo.svg
+            show: false
+        # third party login name
+        - key: title
+            value: title
+            show: false
+        # third party description
+        - key: desc
+            value: desc
+            show: false
+        # third party description
+        - key: detailTip
+            value: detailTip
+            show: false
+        # third party configuration reminder
+        - key: configTip
+            value: configTip
+            show: false
+        # Define the relationship between the recipient and the third-party user ID
+        - key: receiverType
+            value: thirdPartID
+            show: false
+```
+
+Description of `receiverType` in capability configuration:
+
+1. `receiverType` is an enumeration type, only `userUUID`, `thirdPartID`.
+2. When the `receiverType` is `userUUID`, it means that when the plug-in implements the message notification capability, the receiver of the message can have no binding relationship with the third-party system. In the SendMessage function, `to_users` is the userUUID list of the ONES system.
+3. When the `receiverType` is `thirdPartID`, it means that when the plug-in implements the message notification capability, the receiver of the message needs to have a binding relationship with the third-party system. In the SendMessage function, `to_users` is the third-party user ID list defined by the plug-in. .
+
+</TabItem>
+</Tabs>
 
 - The OP tool adds files to the plugin in `backend/src/account.ts`
 

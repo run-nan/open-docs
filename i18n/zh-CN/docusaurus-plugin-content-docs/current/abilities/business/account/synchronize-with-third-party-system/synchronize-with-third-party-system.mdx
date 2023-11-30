@@ -3,6 +3,8 @@ sidebar_position: 2
 ---
 
 import Image from '@theme/IdealImage'
+import Tabs from '@theme/Tabs'
+
 import account1 from './images/account1.png'
 import account2 from './images/account2.png'
 import account3 from './images/account3.png'
@@ -58,13 +60,25 @@ import account6 from './images/account6.png'
 npx op add ability
 ```
 
+<Tabs>
+<TabItem value="1" label="3.6.0+">
+
 选中并添加`account@1.0.0`
 
-<Image img={account4} />
+</TabItem>
+<TabItem value="2" label="3.16.18+">
+
+选中并添加`account@1.1.0`
+
+</TabItem>
+</Tabs>
 
 OP 工具会为插件添加如下内容
 
 - 插件配置文件`config/plugin.yaml`中 abilities 字段新增相关段落。
+
+<Tabs>
+<TabItem value="1" label="3.6.0+">
 
 ```yaml title="config/plugin.yaml"
     service:
@@ -114,6 +128,71 @@ OP 工具会为插件添加如下内容
             value: configTip
             show: false
 ```
+
+</TabItem>
+<TabItem value="2" label="3.16.18+">
+
+```yaml title="config/plugin.yaml"
+    service:
+    ...
+    ...
+    abilities:
+    - id: ...
+        name: account
+        version: 1.1.0
+        abilityType: account
+        function:
+        sendMessage: SendMessage # 发送消息
+        createLoginUrl: CreateLoginUrl # 创建重定向登录URL
+        doExchangeUser: DoExchangeUser # 确认登录用户信息
+        doPullData: DoPullData # 同步第三方系统用户数据
+        config:
+        # 是否实现了登录功能
+        - key: canLogin
+            value: true
+            show: false
+        # 是否实现了同步功能
+        - key: canSync
+            value: true
+            show: false
+        # 是否实现了发送消息的功能
+        - key: canMessage
+            value: true
+            show: false
+        # 第三方登录的logo地址，写的是文件名，要求该文件放在前端资源根目录下，web/dist/
+        - key: logo
+            value: logo.svg
+            show: false
+        # 第三方登录名称文案
+        - key: title
+            value: title
+            show: false
+        # 第三方描述文案
+        - key: desc
+            value: desc
+            show: false
+        # 第三方描述文案
+        - key: detailTip
+            value: detailTip
+            show: false
+        # 第三方配置提醒文案
+        - key: configTip
+            value: configTip
+            show: false
+        # 定义接收者跟三方用户ID的关系
+        - key: receiverType
+            value: thirdPartID
+            show: false
+```
+
+能力配置中的`receiverType`说明：
+
+1.  `receiverType`是一个枚举类型，只有`userUUID`，`thirdPartID`。
+2.  当`receiverType`为`userUUID`时，代表着当插件实现了消息通知能力时，消息的接收者可以跟该三方系统没有绑定关系，在`SendMessage`函数中，`to_users`为ONES系统的userUUID列表。
+3.  当`receiverType`为`thirdPartID`时，代表着当插件实现了消息通知能力时，消息的接收者需要跟三方系统有绑定关系，在`SendMessage`函数中，`to_users`为插件定义的三方用户ID列表。
+
+</TabItem>
+</Tabs>
 
 - OP 工具在插件中新增文件`backend/src/account.ts`
 
