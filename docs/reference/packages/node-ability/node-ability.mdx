@@ -648,6 +648,187 @@ const AddGroupFieldRes = await Field.AddGroupField({
 
 ---
 
+### Field.UpdateFieldGroup {#UpdateFieldGroup}
+
+- Added in: `v0.8.0+`
+- ONES Requirement: `v3.16.18+`
+
+Update attribute group
+
+#### Params
+
+**Field.Relation parameter introduction**
+
+| Parameters      | Type   | Description                              |
+| :-------------- | :----- | :--------------------------------------- |
+| FieldUUID       | string | Script property `fieldUUID`              |
+| FieldParentUUID | string | Script attribute parent node `fieldUUID` |
+| Position        | int    | Order in property configuration          |
+
+**Field.UpdateFieldGroupRequest parameter introduction**
+
+| Parameters | Type       | Description                                  |
+| :--------- | :--------- | :------------------------------------------- |
+| TeamUUID   | string     | Team`uuid`                                   |
+| Relations  | []Relation | New association                              |
+| ObjectType | PoolEnum   | The type to which the property group belongs |
+| GroupUUID  | string     | Modified attribute group UUID                |
+| Name       | string     | Attribute group name                         |
+
+#### Returns
+
+| Parameters | Type   | Description                                                                                                                                                                                                                                 |
+| :--------- | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| jobUUID    | string | When the attribute group needs to complete the attribute configuration operation, an asynchronous task will be generated to complete the event, which can be queried by jobID                                                               |
+| status     | string | Update result. When it is "success", it means the update has been successful. When it is "waiting", it means that a task with complete attribute configuration is generated. You can query the result by querying the asynchronous task sdk |
+
+#### Error
+
+| errcode                          | reason                           | level | statusCode |
+| -------------------------------- | -------------------------------- | ----- | ---------- |
+| FieldGroupNotFound               | FieldGroupNotFound               | error | 404        |
+| FieldNotFound                    | FieldNotFound                    | error | 404        |
+| UpdateFieldGroupJobAlreadyExists | UpdateFieldGroupJobAlreadyExists | error | 400        |
+
+#### Example
+
+```typescript
+import type {
+  Relation,
+  UpdateFieldGroupRequest,
+  UpdateScriptFieldRequest,
+} from '@ones-op/node-ability'
+import { Field, FieldTypeEnum, PoolEnum, AbilityError } from '@ones-op/node-ability'
+import { Logger } from '@ones-op/node-logger'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+export async function checkJobStatus(request: PluginRequest): Promise<PluginResponse> {
+  const status = await Field.CheckUpdateFieldGroupJobStatus('jobUUID', 'teamUUID')
+  return {
+    body: {
+      res: 'hello world',
+      requestBody: resp,
+    },
+  }
+}
+```
+
+---
+
+### Field.UpdateScriptField {#UpdateScriptField}
+
+- Added in: `v0.8.0+`
+- ONES Requirement: `v3.16.18+`
+
+Update script properties
+
+#### Params
+
+**Field.UpdateScriptFieldRequest parameter introduction**
+
+| Parameters | Type   | Description                                                                                     |
+| :--------- | :----- | :---------------------------------------------------------------------------------------------- |
+| Pool       | string | The context to which the script attribute belongs, including products, projects, and work items |
+| FieldUUID  | string | Script attribute UUID                                                                           |
+| TeamUUID   | string | UUID of the team to which the attribute belongs                                                 |
+| Name       | string | The new name of the script property                                                             |
+
+#### Error
+
+| errcode           | reason            | level | statusCode |
+| ----------------- | ----------------- | ----- | ---------- |
+| FieldNotFound     | FieldNotFound     | error | 404        |
+| FieldNameConflict | FieldNameConflict | error | 400        |
+
+#### Example
+
+```typescript
+import type {
+  Relation,
+  UpdateFieldGroupRequest,
+  UpdateScriptFieldRequest,
+} from '@ones-op/node-ability'
+import { Field, FieldTypeEnum, PoolEnum, AbilityError } from '@ones-op/node-ability'
+import { Logger } from '@ones-op/node-logger'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+export async function updateFieldName(request: PluginRequest): Promise<PluginResponse> {
+  const u: UpdateScriptFieldRequest = {
+    Pool: PoolEnum.Product,
+    FieldUUID: 'fieldUUID',
+    TeamUUID: 'teamUUID',
+    Name: 'newFieldName',
+  }
+  try {
+    const resp = await Field.UpdateScriptField(u)
+  } catch (e) {
+    if (e instanceof AbilityError) {
+      Logger.error('err', e)
+    }
+  }
+  return {
+    body: {
+      res: 'hello world',
+    },
+  }
+}
+```
+
+---
+
+### Job.CheckJobStatus {#CheckJobStatus}
+
+- Added in: `v0.8.0+`
+- ONES Requirement: `v3.16.18+`
+
+Query asynchronous task status
+
+**Request result parameter introduction**
+
+| Parameters | Type   | Description                                                                                                                                                                                                  |
+| :--------- | :----- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| jobUUID    | string | When the attribute group needs to complete the attribute configuration operation, an asynchronous task will be generated to complete the event. At this time, a jobID will be returned to represent the task |
+| teamUUID   | string | UUID of the team to which the job belongs                                                                                                                                                                    |
+
+**Return**
+
+| Parameters | Type   | Description                                                                                                                          |
+| :--------- | :----- | :----------------------------------------------------------------------------------------------------------------------------------- |
+| status     | string | Task status, there are three states: "success", "waiting", and "fail", which represent success, incomplete, and failure respectively |
+
+#### Error
+
+| errcode     | reason      | level | statusCode |
+| ----------- | ----------- | ----- | ---------- |
+| JobNotFound | JobNotFound | error | 404        |
+
+#### Example
+
+```typescript
+import type {
+  Relation,
+  UpdateFieldGroupRequest,
+  UpdateScriptFieldRequest,
+} from '@ones-op/node-ability'
+import { Field, FieldTypeEnum, PoolEnum, AbilityError } from '@ones-op/node-ability'
+import { Logger } from '@ones-op/node-logger'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+export async function checkJobStatus(request: PluginRequest): Promise<PluginResponse> {
+  const status = await Field.CheckJobStatus('jobUUID', 'teamUUID')
+  return {
+    body: {
+      res: 'hello world',
+      requestBody: resp,
+    },
+  }
+}
+```
+
+---
+
+---
+
 ### PluginFile.uploadFile {#PluginFile_uploadFile}
 
 Upload files to issue attachments
@@ -716,15 +897,15 @@ Create a progress manager.
 
 #### Example
 
-import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
+import Tabs from '@theme/Tabs'
 
 <Tabs>
 <TabItem value="1" label="0.4.0+">
 
 ```typescript
-import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 import { Process, LanguagePkg, ProcessType, ProcessResult } from '@ones-op/node-ability'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 
 export async function createProcess(request: PluginRequest): Promise<PluginResponse> {
   //Get parameters from request
@@ -749,7 +930,6 @@ export async function createProcess(request: PluginRequest): Promise<PluginRespo
 <TabItem value="2" label="0.6.0+">
 
 ```typescript
-import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 import {
   Process,
   LanguagePkg,
@@ -757,6 +937,7 @@ import {
   ProcessResult,
   AbilityError,
 } from '@ones-op/node-ability'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 
 export async function createProcess(request: PluginRequest): Promise<PluginResponse> {
   //Get parameters from request
@@ -805,8 +986,8 @@ Update the progress of the progress manager.
 #### Example
 
 ```typescript
-import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 import { Process, LanguagePkg, ProcessType, ProcessResult } from '@ones-op/node-ability'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 
 export async function updateProgress(request: PluginRequest): Promise<PluginResponse> {
   //Get parameters from request
@@ -819,7 +1000,7 @@ export async function updateProgress(request: PluginRequest): Promise<PluginResp
     processUUID,
     currentSuccessfulCount,
     currentFailedCount,
-    currentRemainingCount
+    currentRemainingCount,
   )
   return {
     body: {
@@ -854,8 +1035,8 @@ Set progress manager status to completed.
 #### Example
 
 ```typescript
-import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 import { Process, LanguagePkg, ProcessType, ProcessResult } from '@ones-op/node-ability'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 
 export async function doneProcess(request: PluginRequest): Promise<PluginResponse> {
   //Get parameters from request

@@ -648,6 +648,185 @@ const AddGroupFieldRes = await Field.AddGroupField({
 
 ---
 
+### Field.UpdateFieldGroup {#UpdateFieldGroup}
+
+- 可用：`v0.8.0+`
+- ONES 要求：`v3.16.18+`
+
+更新属性组
+
+#### Params
+
+**Field.Relation 参数介绍**
+
+| 参数            | 类型   | 说明                      |
+| :-------------- | :----- | :------------------------ |
+| FieldUUID       | string | 脚本属性`fieldUUID`       |
+| FieldParentUUID | string | 脚本属性父节点`fieldUUID` |
+| Position        | int    | 在属性配置中的顺序        |
+
+**Field.UpdateFieldGroupRequest 参数介绍**
+
+| 参数       | 类型       | 说明             |
+| :--------- | :--------- | :--------------- |
+| TeamUUID   | string     | 团队`uuid`       |
+| Relations  | []Relation | 新的关联关系     |
+| ObjectType | PoolEnum   | 属性组所属类型   |
+| GroupUUID  | string     | 修改的属性组UUID |
+| Name       | string     | 属性组名称       |
+
+#### Returns
+
+| 参数    | 类型   | 说明                                                                                                                      |
+| :------ | :----- | :------------------------------------------------------------------------------------------------------------------------ |
+| jobUUID | string | 当属性组需要做补全属性配置操作时，会产生一个异步任务来完成这件事件，可通过jobID来查询                                     |
+| status  | string | 更新结果，当为"success"时，即已经更新成功，当为"waiting"时，说明有补全属性配置的任务生成，可通过查询异步任务sdk来查询结果 |
+
+#### Error
+
+| errcode                          | reason                           | level | statusCode |
+| -------------------------------- | -------------------------------- | ----- | ---------- |
+| FieldGroupNotFound               | FieldGroupNotFound               | error | 404        |
+| FieldNotFound                    | FieldNotFound                    | error | 404        |
+| UpdateFieldGroupJobAlreadyExists | UpdateFieldGroupJobAlreadyExists | error | 400        |
+
+#### Example
+
+```typescript
+import type {
+  Relation,
+  UpdateFieldGroupRequest,
+  UpdateScriptFieldRequest,
+} from '@ones-op/node-ability'
+import { Field, FieldTypeEnum, PoolEnum, AbilityError } from '@ones-op/node-ability'
+import { Logger } from '@ones-op/node-logger'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+export async function checkJobStatus(request: PluginRequest): Promise<PluginResponse> {
+  const status = await Field.CheckUpdateFieldGroupJobStatus('jobUUID', 'teamUUID')
+  return {
+    body: {
+      res: 'hello world',
+      requestBody: resp,
+    },
+  }
+}
+```
+
+---
+
+### Field.UpdateScriptField {#UpdateScriptField}
+
+- 可用：`v0.8.0+`
+- ONES 要求：`v3.16.18+`
+
+更新脚本属性
+
+#### Params
+
+**Field.UpdateScriptFieldRequest 参数介绍**
+
+| 参数      | 类型   | 说明                                       |
+| :-------- | :----- | :----------------------------------------- |
+| Pool      | string | 脚本属性所属上下文，包括产品，项目，工作项 |
+| FieldUUID | string | 脚本属性UUID                               |
+| TeamUUID  | string | 属性所属团队UUID                           |
+| Name      | string | 脚本属性新的名字                           |
+
+#### Error
+
+| errcode           | reason            | level | statusCode |
+| ----------------- | ----------------- | ----- | ---------- |
+| FieldNotFound     | FieldNotFound     | error | 404        |
+| FieldNameConflict | FieldNameConflict | error | 400        |
+
+#### Example
+
+```typescript
+import type {
+  Relation,
+  UpdateFieldGroupRequest,
+  UpdateScriptFieldRequest,
+} from '@ones-op/node-ability'
+import { Field, FieldTypeEnum, PoolEnum, AbilityError } from '@ones-op/node-ability'
+import { Logger } from '@ones-op/node-logger'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+export async function updateFieldName(request: PluginRequest): Promise<PluginResponse> {
+  const u: UpdateScriptFieldRequest = {
+    Pool: PoolEnum.Product,
+    FieldUUID: 'fieldUUID',
+    TeamUUID: 'teamUUID',
+    Name: 'newFieldName',
+  }
+  try {
+    const resp = await Field.UpdateScriptField(u)
+  } catch (e) {
+    if (e instanceof AbilityError) {
+      Logger.error('err', e)
+    }
+  }
+  return {
+    body: {
+      res: 'hello world',
+    },
+  }
+}
+```
+
+---
+
+### Job.CheckJobStatus {#CheckJobStatus}
+
+- 可用：`v0.8.0+`
+- ONES 要求：`v3.16.18+`
+
+查询异步任务状态
+
+**请求结果 参数介绍**
+
+| 参数     | 类型   | 说明                                                                                                  |
+| :------- | :----- | :---------------------------------------------------------------------------------------------------- |
+| jobUUID  | string | 当属性组需要做补全属性配置操作时，会产生一个异步任务来完成这件事件，这时候会返回一个jobID代表这个任务 |
+| teamUUID | string | job所属团队的UUID                                                                                     |
+
+**Return**
+
+| 参数   | 类型   | 说明                                                                           |
+| :----- | :----- | :----------------------------------------------------------------------------- |
+| status | string | 任务状态，有"success"，"waiting"，"fail"三种状态，分别代表着成功，未完成，失败 |
+
+#### Error
+
+| errcode     | reason      | level | statusCode |
+| ----------- | ----------- | ----- | ---------- |
+| JobNotFound | JobNotFound | error | 404        |
+
+#### Example
+
+```typescript
+import type {
+  Relation,
+  UpdateFieldGroupRequest,
+  UpdateScriptFieldRequest,
+} from '@ones-op/node-ability'
+import { Field, FieldTypeEnum, PoolEnum, AbilityError } from '@ones-op/node-ability'
+import { Logger } from '@ones-op/node-logger'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+export async function checkJobStatus(request: PluginRequest): Promise<PluginResponse> {
+  const status = await Field.CheckJobStatus('jobUUID', 'teamUUID')
+  return {
+    body: {
+      res: 'hello world',
+      requestBody: resp,
+    },
+  }
+}
+```
+
+---
+
 ### PluginFile.uploadFile {#PluginFile_uploadFile}
 
 上传文件至工作项附件
@@ -716,15 +895,15 @@ const file = await PluginFile.uploadFile('files/test.txt', 'taskuuid', 'desc')
 
 #### Example
 
-import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
+import Tabs from '@theme/Tabs'
 
 <Tabs>
 <TabItem value="1" label="0.4.0+">
 
 ```typescript
-import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 import { Process, LanguagePkg, ProcessType, ProcessResult } from '@ones-op/node-ability'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 
 export async function createProcess(request: PluginRequest): Promise<PluginResponse> {
   //从请求中获取参数
@@ -749,7 +928,6 @@ export async function createProcess(request: PluginRequest): Promise<PluginRespo
 <TabItem value="2" label="0.6.0+">
 
 ```typescript
-import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 import {
   Process,
   LanguagePkg,
@@ -757,6 +935,7 @@ import {
   ProcessResult,
   AbilityError,
 } from '@ones-op/node-ability'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 
 export async function createProcess(request: PluginRequest): Promise<PluginResponse> {
   //从请求中获取参数
@@ -805,8 +984,8 @@ export async function createProcess(request: PluginRequest): Promise<PluginRespo
 #### Example
 
 ```typescript
-import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 import { Process, LanguagePkg, ProcessType, ProcessResult } from '@ones-op/node-ability'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 
 export async function updateProgress(request: PluginRequest): Promise<PluginResponse> {
   //从请求中获取参数
@@ -819,7 +998,7 @@ export async function updateProgress(request: PluginRequest): Promise<PluginResp
     processUUID,
     currentSuccessfulCount,
     currentFailedCount,
-    currentRemainingCount
+    currentRemainingCount,
   )
   return {
     body: {
@@ -854,8 +1033,8 @@ export async function updateProgress(request: PluginRequest): Promise<PluginResp
 #### Example
 
 ```typescript
-import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 import { Process, LanguagePkg, ProcessType, ProcessResult } from '@ones-op/node-ability'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
 
 export async function doneProcess(request: PluginRequest): Promise<PluginResponse> {
   //从请求中获取参数

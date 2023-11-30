@@ -80,6 +80,12 @@ import taskSelectionFieldConfig from './images/task-selection-field-config.png'
 
 使用`@ones-op/node-ability`中的`Field`模块，在合适的时机（比如插件的 Install 钩子函数中）创建脚本属性。
 
+:::caution
+
+目前该能力只支持在团队级别插件使用
+
+:::
+
 #### 工作项
 
 使用`Field.FieldsAdd`方法可以创建脚本**工作项**属性
@@ -223,13 +229,13 @@ export async function GetOptions(request: PluginRequest<Body>): Promise<Response
 const relations = fieldUUIDS.map((fieldUUID, index) => ({
   FieldUUID: fieldUUID,
   FieldParentUUID: '',
-  Position: index
+  Position: index,
 }))
 
 const AddGroupFieldRes = await Field.AddGroupField({
   Name: '属性组',
-  ObjectType: PoolEnum.Task
-  Relations: relations
+  ObjectType: PoolEnum.Task,
+  Relations: relations,
 })
 ```
 
@@ -551,6 +557,151 @@ sequenceDiagram
     o-->>-u: 返回校验结果
     end
 ```
+
+| ONES      |
+| :-------- |
+| v3.16.18+ |
+
+#### 修改属性组
+
+在创建属性组后，可对属性组做二次修改，包括属性组的名称，属性组内的属性级联关系。
+当修改属性组内的名称时，在系统侧会有以下几种变化：
+
+1. 若一个属性组是属于工作项的属性组，并且被配置到对应的工作项视图时，包括配置中心下的工作项的本地视图，配置中心下的工作项视图，项目下的工作项的本地视图，若修改视图后有新增属性，会把新增的属性添加到这些视图的属性配置中，但删除属性不会从这些视图移除属性，有可能会存在某些视图添加成功，某些视图添加失败的情况，这个时候并不会对成功的视图属性配置进行回滚操作，只会把属性组回滚到原有的配置。
+2. 若一个属性组是属于项目的属性组，并且被配置到对应的项目属性配置时，若修改视图后有新增属性，会把新增的属性添加到这些项目的属性配置中，但删除属性不会从这些视图移除属性，有可能会存在某些项目配置添加成功，某些项目配置添加失败的情况，这个时候并不会对成功的项目属性配置进行回滚操作，只会把属性组回滚到原有的配置。
+3. 因为产品属性配置是全局的，所以并不会有补全属性配置的操作。
+4. 在同一时刻，对同一个属性组只能有一个修改该属性组的任务。
+
+##### 通过op工具添加该能力
+
+在`插件根目录`使用命令行输入 OP 命令添加能力（该指令需要 OP 工具版本 1.0 及以上）
+
+```shell
+npx op add ability
+```
+
+选中并添加`update-field-group@1.0.0`
+
+```typescript
+import type {
+  Relation,
+  UpdateFieldGroupRequest,
+  UpdateScriptFieldRequest,
+} from '@ones-op/node-ability'
+import { Field, PoolEnum, AbilityError } from '@ones-op/node-ability'
+import { Logger } from '@ones-op/node-logger'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+export async function UpdateTaskFieldGroup(request: PluginRequest): Promise<PluginResponse> {
+  const { uuid1, uuid2, groupUUID } = request.body as any
+  const relations: Relation[] = [
+    {
+      FieldUUID: uuid1,
+      FieldParentUUID: '',
+      Position: 0,
+    },
+    {
+      FieldUUID: uuid2,
+      FieldParentUUID: '',
+      Position: 1,
+    },
+  ]
+  // 修改属性组
+  try {
+    const req: UpdateFieldGroupRequest = {
+      Name: 'newFieldGroupName',
+      Relations: relations,
+      ObjectType: PoolEnum.Task,
+      GroupUUID: groupUUID,
+    }
+    const res = await Field.UpdateFieldGroup(req)
+    const { jobUUID, status } = res
+  } catch (e) {
+    if (e instanceof AbilityError) {
+      Logger.error('err', e)
+    }
+  }
+  return {
+    body: {
+      res: 'hello world',
+      requestBody: {},
+    },
+  }
+}
+```
+
+**Field.Relation 参数介绍**
+
+| 参数            | 类型   | 说明                      |
+| :-------------- | :----- | :------------------------ |
+| FieldUUID       | string | 脚本属性`fieldUUID`       |
+| FieldParentUUID | string | 脚本属性父节点`fieldUUID` |
+| Position        | int    | 在属性配置中的顺序        |
+
+**Field.UpdateFieldGroupRequest 参数介绍**
+
+| 参数       | 类型       | 说明                                     |
+| :--------- | :--------- | :--------------------------------------- |
+| TeamUUID   | string     | 团队`uuid`，只有当插件为组织级别时才生效 |
+| Relations  | []Relation | 新的关联关系                             |
+| ObjectType | PoolEnum   | 属性组所属类型                           |
+| GroupUUID  | string     | 修改的属性组UUID                         |
+| Name       | string     | 属性组名称                               |
+
+**更新结果 参数介绍**
+
+| 参数    | 类型   | 说明                                                                                                                      |
+| :------ | :----- | :------------------------------------------------------------------------------------------------------------------------ |
+| jobUUID | string | 当属性组需要做补全属性配置操作时，会产生一个异步任务来完成这件事件，可通过jobID来查询                                     |
+| status  | string | 更新结果，当为"success"时，即已经更新成功，当为"waiting"时，说明有补全属性配置的任务生成，可通过查询异步任务sdk来查询结果 |
+
+#### 查询更新属性组结果
+
+在更新属性组后，若会返回对应的jobID，可通过调用查询sdk来查询该job是否已经完成。
+
+##### 通过op工具添加该能力
+
+在`插件根目录`使用命令行输入 OP 命令添加能力（该指令需要 OP 工具版本 1.0 及以上）
+
+```shell
+npx op add ability
+```
+
+选中并添加`check-job-status@1.0.0`
+
+```typescript
+import type {
+  Relation,
+  UpdateFieldGroupRequest,
+  UpdateScriptFieldRequest,
+} from '@ones-op/node-ability'
+import { Job, FieldTypeEnum, PoolEnum, AbilityError } from '@ones-op/node-ability'
+import { Logger } from '@ones-op/node-logger'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+export async function checkJobStatus(request: PluginRequest): Promise<PluginResponse> {
+  const status = await Job.CheckJobStatus('jobUUID', 'teamUUID')
+  return {
+    body: {
+      res: 'hello world',
+      requestBody: resp,
+    },
+  }
+}
+```
+
+**请求结果 参数介绍**
+
+| 参数     | 类型   | 说明                                                                                                  |
+| :------- | :----- | :---------------------------------------------------------------------------------------------------- |
+| jobUUID  | string | 当属性组需要做补全属性配置操作时，会产生一个异步任务来完成这件事件，这时候会返回一个jobID代表这个任务 |
+| teamUUID | string | job所属团队的UUID，只有当插件为组织级别时才生效                                                       |
+
+**查询结果 参数介绍**
+
+| 参数   | 类型   | 说明                                                                           |
+| :----- | :----- | :----------------------------------------------------------------------------- |
+| status | string | 任务状态，有"success"，"waiting"，"fail"三种状态，分别代表着成功，未完成，失败 |
 
 :::tip
 

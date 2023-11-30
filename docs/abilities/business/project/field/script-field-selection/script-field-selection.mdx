@@ -80,6 +80,12 @@ In most scenarios, script product fields behave similarly to the system product 
 
 Using the `Field` module from `@ones-op/node-ability`, you can create script fields at the appropriate timing, such as in the Install hook function of the plugin.
 
+:::caution
+
+Currently, this capability only supports team-level plug-ins.
+
+:::
+
 #### Issue
 
 You can use the `Field.FieldsAdd` method to create issue script field.
@@ -223,13 +229,13 @@ You can use the `Field.AddGroupField` method to add a field group.
 const relations = fieldUUIDS.map((fieldUUID, index) => ({
   FieldUUID: fieldUUID,
   FieldParentUUID: '',
-  Position: index
+  Position: index,
 }))
 
 const AddGroupFieldRes = await Field.AddGroupField({
   Name: 'Field Group Name',
-  ObjectType: PoolEnum.Task
-  Relations: relations
+  ObjectType: PoolEnum.Task,
+  Relations: relations,
 })
 ```
 
@@ -564,6 +570,166 @@ sequenceDiagram
     o-->>-u: Return validation result
     end
 ```
+
+| ONES      |
+| :-------- |
+| v3.16.18+ |
+
+#### Modify attribute group
+
+After creating an attribute group, you can make secondary modifications to the attribute group, including the name of the attribute group and the attribute cascade relationship within the attribute group.
+When modifying the name in the attribute group, there will be the following changes on the system side:
+
+1. If an attribute group belongs to a work item and is configured to the corresponding work item view, it includes the local view of the work item under the configuration center, the work item view under the configuration center, and the work item view under the project. For local views, if there are new attributes after modifying the view, the new attributes will be added to the attribute configurations of these views, but deleting attributes will not remove the attributes from these views. It is possible that some views may be added successfully, but some views may not be added successfully. If some views fail to be added, the successful view attribute configuration will not be rolled back at this time, but the attribute group will only be rolled back to the original configuration.
+2. If an attribute group belongs to a project and is configured to the corresponding project attribute configuration, if there are new attributes after modifying the view, the new attributes will be added to the attribute configuration of these projects, but deleted. Properties will not remove properties from these views. There may be situations where some project configurations are added successfully and some project configurations fail to be added. At this time, the successful project property configurations will not be rolled back, only the properties will be added. The group is rolled back to the original configuration.
+3. Because the product attribute configuration is global, there is no operation to complete the attribute configuration.
+4. At the same time, there can only be one task for modifying the same attribute group.
+
+##### Add this capability through the op tool
+
+Use the command line to enter the OP command in the `plug-in root directory` to add capabilities (this command requires OP tool version 1.0 and above)
+
+```shell
+npx op add ability
+```
+
+Check and add `update-field-group@1.0.0`
+
+```typescript
+import type {
+  Relation,
+  UpdateFieldGroupRequest,
+  UpdateScriptFieldRequest,
+} from '@ones-op/node-ability'
+import { Field, PoolEnum, AbilityError } from '@ones-op/node-ability'
+import { Logger } from '@ones-op/node-logger'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+export async function UpdateTaskFieldGroup(request: PluginRequest): Promise<PluginResponse> {
+  const { uuid1, uuid2, groupUUID } = request.body as any
+  const relations: Relation[] = [
+    {
+      FieldUUID: uuid1,
+      FieldParentUUID: '',
+      Position: 0,
+    },
+    {
+      FieldUUID: uuid2,
+      FieldParentUUID: '',
+      Position: 1,
+    },
+  ]
+  //Modify attribute group
+  try {
+    const req: UpdateFieldGroupRequest = {
+      Name: 'newFieldGroupName',
+      Relations: relations,
+      ObjectType: PoolEnum.Task,
+      GroupUUID: groupUUID,
+    }
+    const res = await Field.UpdateFieldGroup(req)
+    const { jobUUID, status } = res
+  } catch (e) {
+    if (e instanceof AbilityError) {
+      Logger.error('err', e)
+    }
+  }
+  return {
+    body: {
+      res: 'hello world',
+      requestBody: {},
+    },
+  }
+}
+```
+
+**Field.Relation parameter introduction**
+
+| Parameters      | Type   | Description                              |
+| :-------------- | :----- | :--------------------------------------- |
+| FieldUUID       | string | Script property `fieldUUID`              |
+| FieldParentUUID | string | Script attribute parent node `fieldUUID` |
+| Position        | int    | Order in property configuration          |
+
+**Field.UpdateFieldGroupRequest parameter introduction**
+
+| Parameters | Type       | Description                                                                |
+| :--------- | :--------- | :------------------------------------------------------------------------- |
+| TeamUUID   | string     | Team`uuid`,only takes effect when the plug-in is at the organization level |
+| Relations  | []Relation | New association                                                            |
+| ObjectType | PoolEnum   | The type to which the property group belongs                               |
+| GroupUUID  | string     | Modified attribute group UUID                                              |
+| Name       | string     | Attribute group name                                                       |
+
+**Updated results parameter introduction**
+
+| Parameters | Type   | Description                                                                                                                                                                                                                                 |
+| :--------- | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| jobUUID    | string | When the attribute group needs to complete the attribute configuration operation, an asynchronous task will be generated to complete the event, which can be queried by jobID                                                               |
+| status     | string | Update result. When it is "success", it means the update has been successful. When it is "waiting", it means that a task with complete attribute configuration is generated. You can query the result by querying the asynchronous task sdk |
+
+#### Query and update attribute group results
+
+After updating the attribute group, if the corresponding jobID is returned, you can query whether the job has been completed by calling the query sdk.
+
+##### Add this capability through the op tool
+
+Use the command line to enter the OP command in the `plug-in root directory` to add capabilities (this command requires OP tool version 1.0 and above)
+
+```shell
+npx op add ability
+```
+
+Check and add `check-job-status@1.0.0`
+
+```typescript
+import type {
+  Relation,
+  UpdateFieldGroupRequest,
+  UpdateScriptFieldRequest,
+} from '@ones-op/node-ability'
+import { Job, FieldTypeEnum, PoolEnum, AbilityError } from '@ones-op/node-ability'
+import { Logger } from '@ones-op/node-logger'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+export async function checkJobStatus(request: PluginRequest): Promise<PluginResponse> {
+  const status = await Job.CheckJobStatus('jobUUID', 'teamUUID')
+  return {
+    body: {
+      res: 'hello world',
+      requestBody: resp,
+    },
+  }
+}
+```
+
+**Request result parameter introduction**
+
+| Parameters | Type   | Description                                                                                                                                                                                                  |
+| :--------- | :----- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| jobUUID    | string | When the attribute group needs to complete the attribute configuration operation, an asynchronous task will be generated to complete the event. At this time, a jobID will be returned to represent the task |
+| teamUUID   | string | UUID of the team to which the job belongs,only takes effect when the plug-in is at the organization level                                                                                                    |
+
+**Query results parameter introduction**
+
+| Parameters | Type   | Description                                                                                                                          |
+| :--------- | :----- | :----------------------------------------------------------------------------------------------------------------------------------- |
+| status     | string | Task status, there are three states: "success", "waiting", and "fail", which represent success, incomplete, and failure respectively |
+
+:::tip
+
+In the ONES system, the interaction between modifying attributes in an attribute group is slightly different from modifying ordinary attributes. Since attributes in an attribute group are related, modifying attributes in an attribute group must modify the entire group:
+
+- When modifying the attributes in the attribute group, the attribute group editing pop-up window will pop up:
+
+  {' '}
+
+  <Image img={editFieldGroup1} />
+
+- When modifying work item attributes in batches, if an attribute in the attribute group is selected, other attributes in the attribute group will also be automatically selected:
+  {' '}
+  <Image img={editFieldGroup2} />
+  <Image img={editFieldGroup3} />
 
 :::tip
 
