@@ -1,10 +1,16 @@
-# 发现服务
+# Discovery service
 
-## 获取独立服务的信息（外部）
+## Requirements
 
-根据插件的app_id获取独立服务地址信息。
+| ONES      |
+| :-------- |
+| v3.16.18+ |
 
-该外部接口，用于前端web调用。
+## Get URL address for independent services（outer）
+
+According to the app_id of the plugin, We can obtain independent service address information.
+
+This api is used for front-end web calls.
 
 ### URL
 
@@ -14,66 +20,66 @@ https://{your-host-name}/project/api/project/plugin/web_service/info
 
 POST
 
-### 是否需要登录
+### Need Login
 
-是
+yes
 
-### 传值方式
+### Value passing
 
 JSON
 
-### 参数列表
+### parameters
 
 Header
 
-| 参数名           | 是否必须 | 值类型 | 取值例子         | 说明                |
-| :--------------- | :------- | :----- | :--------------- | :------------------ |
-| Content-Type     | T        | string | application/json | JSON 格式的数据     |
-| Ones-Check-Point | T        | string | team             | 固定值              |
-| Ones-Plugin-Id   | T        | string | built_in_apis    | 固定值              |
-| Ones-Check-Id    | T        | string | ATVswGgy         | team_uuid，用于校验 |
-| Ones-User-Id     | T        | string | 4qumKXgM         | user_uuid，用于校验 |
-| Origin           | F        | string | https://xxxx.com | ONES的Base地址      |
+| name             | require | value type | example          | illustrate                       |
+| :--------------- | :------ | :--------- | :--------------- | :------------------------------- |
+| Content-Type     | T       | string     | application/json | Data in JSON format              |
+| Ones-Check-Point | T       | string     | team             | Fixed value                      |
+| Ones-Plugin-Id   | T       | string     | built_in_apis    | Fixed value                      |
+| Ones-Check-Id    | T       | string     | ATVswGgy         | team_uuid, used for verification |
+| Ones-User-Id     | T       | string     | 4qumKXgM         | user_uuid, used for verification |
+| Origin           | F       | string     | https://xxxx.com | Base address of ONES             |
 
 Body
 
-| 参数名   | 是否必须 | 值类型 | 取值例子         | 说明                                                           |
-| :------- | :------- | :----- | :--------------- | :------------------------------------------------------------- |
-| app_id   | T        | string | "Xy4-EYjw"       | 插件的app_id信息                                               |
-| base_url | F        | string | https://xxxx.com | ONES的Base地址。优先使用该字段，为空则会使用Header中Origin字段 |
+| name     | require | value type | example          | illustrate                                                                                                   |
+| :------- | :------ | :--------- | :--------------- | :----------------------------------------------------------------------------------------------------------- |
+| app_id   | T       | string     | "Xy4-EYjw"       | The app_id information of the plugin.                                                                        |
+| base_url | F       | string     | https://xxxx.com | Base address of ONES. This field is used first. If it is empty, the Origin field in the Header will be used. |
 
-### 返回参数列表
+### Return parameter
 
-| 参数名 | 值类型   | 取值例子     | 说明             |
-| :----- | :------- | :----------- | :--------------- |
-| data   | []object | 参见data对象 | 返回data数组数据 |
+| name | value type | example         | illustrate             |
+| :--- | :--------- | :-------------- | :--------------------- |
+| data | []object   | See data object | Return data array data |
 
-data对象
+data object
 
-| 参数名     | 值类型 | 取值例子                  | 说明                      |
-| :--------- | :----- | :------------------------ | :------------------------ |
-| app_id     | string | Xy4-EYjw                  | 插件的app_id信息          |
-| root_route | string | /node_demo                | 托管独立服务跟路由信息    |
-| http_url   | string | https://xxx.com/node_demo | 托管独立服务http地址      |
-| ws_url     | string | ws://xxx.com/node_demo    | 托管独立服务websocket地址 |
+| name       | value type | example                   | illustrate                                   |
+| :--------- | :--------- | :------------------------ | :------------------------------------------- |
+| app_id     | string     | Xy4-EYjw                  | app_id of the plugin                         |
+| root_route | string     | /node_demo                | independent services and routing information |
+| http_url   | string     | https://xxx.com/node_demo | independent service http address             |
+| ws_url     | string     | wss://xxx.com/node_demo   | independent service websocket address        |
 
-### 请求体示例
+### Request Example
 
 ```curl
-curl --location --request POST 'https://p8144-20231010.dev.myones.net/project/api/project/plugin/web_service/info' \
+curl --location --request POST 'https://xxx.com/project/api/project/plugin/web_service/info' \
 --header 'Ones-Check-Id: ATVswGgy' \
 --header 'Ones-Check-Point: team' \
 --header 'Ones-Plugin-Id: built_in_apis' \
 --header 'Ones-User-Id: 4qumKXgM' \
 --header 'Content-Type: application/json' \
+--header 'Origin: https://xxx.com/' \
 --data-raw '{
-    "base_url": "https://p8144-20231010.dev.myones.net/",
     "app_id":"Xy4-EYjw"
 }'
 
 ```
 
-### 返回示例
+### Return Example
 
 ```json
 {
@@ -81,18 +87,18 @@ curl --location --request POST 'https://p8144-20231010.dev.myones.net/project/ap
     {
       "app_id": "Xy4-EYjw",
       "root_route": "/node_demo",
-      "http_url": "https://p8144-20231010.dev.myones.net/plugin_service/node_demo",
-      "ws_url": "ws://p8144-20231010.dev.myones.net/api/plugin_service_ws/node_demo"
+      "http_url": "https://xxx.com/plugin_service/node_demo",
+      "ws_url": "wss://xxx.com/api/plugin_service_ws/node_demo"
     }
   ]
 }
 ```
 
-## 获取独立服务的信息（内部）
+## Get URL address for independent services（inner）
 
-根据插件的app_id获取独立服务地址信息。
+According to the app_id of the plugin, We can obtain independent service address information.
 
-该内部接口，用于后端服务之间调用。
+This apiis used for calling between backend services
 
 ### URL
 
@@ -102,40 +108,40 @@ curl --location --request POST 'https://p8144-20231010.dev.myones.net/project/ap
 
 POST
 
-### 传值方式
+### Value passing
 
 JSON
 
-### 参数列表
+### parameters
 
 Header
 
-| 参数名       | 是否必须 | 值类型 | 取值例子         | 说明            |
-| :----------- | :------- | :----- | :--------------- | :-------------- |
-| Content-Type | T        | string | application/json | JSON 格式的数据 |
+| name         | require | value type | example          | illustrate          |
+| :----------- | :------ | :--------- | :--------------- | :------------------ |
+| Content-Type | T       | string     | application/json | Data in JSON format |
 
 Body
 
-| 参数名 | 是否必须 | 值类型 | 取值例子     | 说明               |
-| :----- | :------- | :----- | :----------- | :----------------- |
-| app_id | T        | string | ["Xy4-EYjw"] | 插件的app_id信息， |
+| name   | require | value type | example    | illustrate                            |
+| :----- | :------ | :--------- | :--------- | :------------------------------------ |
+| app_id | T       | string     | "Xy4-EYjw" | The app_id information of the plugin. |
 
-### 返回参数列表
+### Return parameter
 
-| 参数名 | 值类型   | 取值例子     | 说明             |
-| :----- | :------- | :----------- | :--------------- |
-| data   | []object | 参见data对象 | 返回data数组数据 |
+| name | value type | example         | illustrate             |
+| :--- | :--------- | :-------------- | :--------------------- |
+| data | []object   | See data object | Return data array data |
 
-data对象
+data object
 
-| 参数名     | 值类型 | 取值例子                        | 说明                      |
-| :--------- | :----- | :------------------------------ | :------------------------ |
-| app_id     | string | Xy4-EYjw                        | 插件的app_id信息          |
-| root_route | string | /node_demo                      | 托管独立服务跟路由信息    |
-| http_url   | string | http://127.0.0.1:9008/node_demo | 托管独立服务http地址      |
-| ws_url     | string | ws://127.0.0.1:9008/node_demo   | 托管独立服务websocket地址 |
+| name       | value type | example                   | illustrate                                   |
+| :--------- | :--------- | :------------------------ | :------------------------------------------- |
+| app_id     | string     | Xy4-EYjw                  | app_id of the plugin                         |
+| root_route | string     | /node_demo                | independent services and routing information |
+| http_url   | string     | https://xxx.com/node_demo | independent service http address             |
+| ws_url     | string     | ws://xxx.com/node_demo    | independent service websocket address        |
 
-### 请求体示例
+### Request Example
 
 ```curl
 curl --location --request POST 'http://127.0.0.1:9005/plugin/web_service/info/internal' \
@@ -147,7 +153,7 @@ curl --location --request POST 'http://127.0.0.1:9005/plugin/web_service/info/in
 
 ```
 
-### 返回示例
+### Return Example
 
 ```json
 {

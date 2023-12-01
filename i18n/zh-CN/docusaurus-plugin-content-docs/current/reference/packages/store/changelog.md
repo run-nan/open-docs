@@ -2,6 +2,18 @@
 
 这个包所有值得注意的变化都将记录在这个文件中。
 
+# 0.12.0 (2023-12-01)
+
+### 新特性
+
+- **Store:** 🌟 提供 `useWikiShareInfo` hook 获取当前访问的分享页面组信息
+- **Store:** 🌟 提供 `useWikiTemplatePageInfo` hook 获取当前访问的页面模版的信息
+- **Store:** 🌟 提供 `useCustomEditorInfo` hook 获取自定义编辑器所需上下文信息
+
+### Bug 修复
+
+- **Store:** 🐞 修复 `Suspense` 用法下可能存在的死循环问题
+
 # 0.10.0 (2023-04-25)
 
 ### 新特性

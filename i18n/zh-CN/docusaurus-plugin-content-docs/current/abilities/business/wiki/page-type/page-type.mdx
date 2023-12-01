@@ -1,0 +1,30 @@
+import DocCardList from '@theme/DocCardList'
+import Image from '@theme/IdealImage'
+
+import wikiNewPage01 from './images/page-type-service-01.png'
+
+# 页面节点类型
+
+## 要求
+
+|   ONES    |
+| :-------: |
+| v3.16.18+ |
+
+## 概要
+
+支持通过插件向 WIKI 接入新页面类型，如接入葡萄城的表格编辑器。
+
+### 实现思路
+
+标品侧 wiki-api 已抽象出 `editor`，从而支持动态的添加和使用不同 `editor`。
+
+使用独立应用实现用户自定义的 `editor` 的接口规范，通过开放平台借助于插件支持向 WIKI 接入新页面类型。
+
+### 实现原理
+
+<Image img={wikiNewPage01}></Image>
+
+<br />
+
+<DocCardList />

@@ -1,5 +1,11 @@
 # 发现服务
 
+## 要求
+
+| ONES      |
+| --------- |
+| v3.16.18+ |
+
 ## 获取独立服务的信息（外部）
 
 根据插件的app_id获取独立服务地址信息。
@@ -60,14 +66,14 @@ data对象
 ### 请求体示例
 
 ```curl
-curl --location --request POST 'https://p8144-20231010.dev.myones.net/project/api/project/plugin/web_service/info' \
+curl --location --request POST 'https://xxx.com/project/api/project/plugin/web_service/info' \
 --header 'Ones-Check-Id: ATVswGgy' \
 --header 'Ones-Check-Point: team' \
 --header 'Ones-Plugin-Id: built_in_apis' \
 --header 'Ones-User-Id: 4qumKXgM' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "base_url": "https://p8144-20231010.dev.myones.net/",
+    "base_url": "https://xxx.com/",
     "app_id":"Xy4-EYjw"
 }'
 
@@ -81,8 +87,8 @@ curl --location --request POST 'https://p8144-20231010.dev.myones.net/project/ap
     {
       "app_id": "Xy4-EYjw",
       "root_route": "/node_demo",
-      "http_url": "https://p8144-20231010.dev.myones.net/plugin_service/node_demo",
-      "ws_url": "ws://p8144-20231010.dev.myones.net/api/plugin_service_ws/node_demo"
+      "http_url": "https://xxx.com/plugin_service/node_demo",
+      "ws_url": "ws://xxx.com/api/plugin_service_ws/node_demo"
     }
   ]
 }

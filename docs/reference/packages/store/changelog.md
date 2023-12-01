@@ -2,6 +2,18 @@
 
 All notable changes to this package will be documented in this file.
 
+# 0.12.0 (2023-12-01)
+
+### Features
+
+- **Store:** 🌟 Provides the `useWikiShareInfo` hook to get information about the currently visited share page group.
+- **Store:** 🌟 Provides the `useWikiTemplatePageInfo` hook to get information about the currently visited page template.
+- **Store:** 🌟 Provides the `useCustomEditorInfo` hook to get information about the context required for the custom editor.
+
+### Bug Fixes
+
+- **Store:** 🐞 Fix possible dead loop with `Suspense` method.
+
 # 0.10.0 (2023-04-25)
 
 ### Features

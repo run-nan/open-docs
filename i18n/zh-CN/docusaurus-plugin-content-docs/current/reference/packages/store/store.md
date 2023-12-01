@@ -36,27 +36,37 @@ function App() {
 
 ## 索引
 
-| API                                               | 描述                                                   |
-| ------------------------------------------------- | ------------------------------------------------------ |
-| [useTeamInfo](#useTeamInfo)                       | 获取当前团队信息                                       |
-| [useOrganizationInfo](#useOrganizationInfo)       | 获取当前组织信息                                       |
-| [useProductInfo](#useProductInfo)                 | 获取当前产品信息                                       |
-| [useDashboardInfo](#useDashboardInfo)             | 获取当前访问的仪表盘信息                               |
-| [useFilterInfo](#useFilterInfo)                   | 获取当前访问的筛选器视图信息                           |
-| [usePipelineInfo](#usePipelineInfo)               | 获取当前流水线信息                                     |
-| [usePluginInfo](#usePluginInfo)                   | 获取当前的插件信息                                     |
-| [useProgramInfo](#useProgramInfo)                 | 获取当前项目集信息                                     |
-| [useProjectInfo](#useProjectInfo)                 | 获取当前项目信息                                       |
-| [useProjectRoleInfo](#useProjectRoleInfo)         | 获取当前项目成员组件中，所选项目角色的信息             |
-| [useTestCaseLibraryInfo](#useTestCaseLibraryInfo) | 获取当前访问的用例库的信息                             |
-| [useTestCaseListInfo](#useTestCaseListInfo)       | 获取当前访问的用例库的用例列表信息                     |
-| [useTestPlanInfo](#useTestPlanInfo)               | 获取当前测试计划信息                                   |
-| [useUserInfo](#useUserInfo)                       | 获取当前用户信息                                       |
-| [useAction](#useAction)                           | 系统内操作（Action）拦截方法                           |
-| [useProgressJobInfo](#useProgressJobInfo)         | 在进度管理器任务详情弹窗中，获取当前任务的信息         |
-| [useDocumentInfo](#useDocumentInfo)               | 在 wiki 编辑器的自定义宏中，获取当前宏的数据和操作方法 |
-| [useTaskInfo](#useTaskInfo)                       | 获取当前工作项信息                                     |
-| [useWikiSpaceInfo](#useWikiSpaceInfo)             | 获取当前访问的页面组信息                               |
+| API                                                       | 描述                                                                   |
+| --------------------------------------------------------- | ---------------------------------------------------------------------- |
+| [useTeamInfo](#useTeamInfo)                               | 获取当前团队信息                                                       |
+| [useOrganizationInfo](#useOrganizationInfo)               | 获取当前组织信息                                                       |
+| [useProductInfo](#useProductInfo)                         | 获取当前产品信息                                                       |
+| [useDashboardInfo](#useDashboardInfo)                     | 获取当前访问的仪表盘信息                                               |
+| [useFilterInfo](#useFilterInfo)                           | 获取当前访问的筛选器视图信息                                           |
+| [usePipelineInfo](#usePipelineInfo)                       | 获取当前流水线信息                                                     |
+| [usePluginInfo](#usePluginInfo)                           | 获取当前的插件信息                                                     |
+| [useProgramInfo](#useProgramInfo)                         | 获取当前项目集信息                                                     |
+| [useProjectInfo](#useProjectInfo)                         | 获取当前项目信息                                                       |
+| [useProjectRoleInfo](#useProjectRoleInfo)                 | 获取当前项目成员组件中，所选项目角色的信息                             |
+| [useTestCaseLibraryInfo](#useTestCaseLibraryInfo)         | 获取当前访问的用例库的信息                                             |
+| [useTestCaseListInfo](#useTestCaseListInfo)               | 获取当前访问的用例库的用例列表信息                                     |
+| [useTestPlanInfo](#useTestPlanInfo)                       | 获取当前测试计划信息                                                   |
+| [useUserInfo](#useUserInfo)                               | 获取当前用户信息                                                       |
+| [useAction](#useAction)                                   | 系统内操作（Action）拦截方法                                           |
+| [useProgressJobInfo](#useProgressJobInfo)                 | 在进度管理器任务详情弹窗中，获取当前任务的信息                         |
+| [useDocumentInfo](#useDocumentInfo)                       | 在 wiki 编辑器的自定义宏中，获取当前宏的数据和操作方法                 |
+| [useTaskInfo](#useTaskInfo)                               | 获取当前工作项信息                                                     |
+| [useCodeRepository](#useCodeRepository)                   | 获取用户当前选择的代码仓信息                                           |
+| [useTestReportComponentInfo](#useTestReportComponentInfo) | 在插件自定义测试报告组件中，获取当前组件的数据以及对数据进行操作的方法 |
+| [useWikiSpaceInfo](#useWikiSpaceInfo)                     | 获取当前访问的页面组信息                                               |
+| [useWikiPageInfo](#useWikiPageInfo)                       | 获取当前访问的页面的信息                                               |
+| [useVariablesInfo](#useVariablesInfo)                     | 获取当前插槽传递过来的非标准临时数据                                   |
+| [useModuleInstanceInfo](#useModuleInstanceInfo)           | 获取当前插件模块实例信息                                               |
+| [useDashboardCardInfo](#useDashboardCardInfo)             | 自定义仪表盘卡片中，获取当前卡片的上下文数据                           |
+| [useDashboardCardConfigInfo](#useDashboardCardConfigInfo) | 自定义仪表盘卡片的配置弹窗中，获取当前卡片的上下文数据                 |
+| [useWikiShareInfo](#useWikiShareInfo)                     | 获取当前访问的分享页面组信息                                           |
+| [useWikiTemplateInfo](#useWikiTemplateInfo)               | 获取当前访问的页面模版的信息                                           |
+| [useCustomEditorInfo](#useCustomEditorInfo)               | 获取自定义编辑器所需上下文信息                                         |
 
 ## Hooks
 
@@ -486,7 +496,7 @@ interface PluginState<DocumentCustomData, Toolbar> {
     data: DocumentCustomData,
     config: {
       exportSpec: ExportSpec[]
-    }
+    },
   ) => void
   // 跳转到 toolbar，获取关闭 toolbar
   goToState: (state: ToolbarState<Toolbar>) => void
@@ -500,7 +510,7 @@ interface PluginState<DocumentCustomData, Toolbar> {
   uploadResource:
     | ((
         file: File,
-        onProgress: (error: Error | null, percentage: number) => void
+        onProgress: (error: Error | null, percentage: number) => void,
       ) => Promise<string>)
     | undefined
   // 获取 wiz 服务器资源的地址，用来获取服务器上的资源。
@@ -791,7 +801,7 @@ interface ModuleInstanceInfo {
 
 ### useDashboardCardInfo {#useDashboardCardInfo}
 
-自定义仪表盘卡片中，获取当前卡片的上下文数据
+自定义仪表盘卡片中，获取当前卡片的上下文数据。
 
 #### 要求
 
@@ -846,4 +856,114 @@ interface DashboardCardConfigInfo<T extends any> {
 }
 
 function useDashboardCardConfigInfo<T extends any>(): DashboardCardConfigInfo<T>
+```
+
+### useWikiShareInfo {#useWikiShareInfo}
+
+获取当前访问的分享页面组信息。
+
+#### 要求
+
+- 可用：`v0.12.0+`
+- ONES 要求：`v3.16.18+`
+
+#### 返回
+
+| 说明                     | 类型            |
+| ------------------------ | --------------- |
+| 当前访问的分享页面组信息 | `WikiShareInfo` |
+
+#### 类型
+
+```tsx
+interface WikiShareInfo {
+  uuid: string
+}
+```
+
+### useWikiTemplateInfo {#useWikiTemplateInfo}
+
+获取当前访问的页面模版的信息。
+
+#### 要求
+
+- 可用：`v0.12.0+`
+- ONES 要求：`v3.16.18+`
+
+#### 返回
+
+| 说明               | 类型               |
+| ------------------ | ------------------ |
+| 当前页面模版的信息 | `WikiTemplateInfo` |
+
+#### 类型
+
+```tsx
+interface WikiTemplateInfo {
+  uuid: string // 当前页面模版的 UUID
+}
+```
+
+### useCustomEditorInfo {#useCustomEditorInfo}
+
+获取自定义编辑器所需上下文信息。
+
+#### 要求
+
+- 可用：`v0.12.0+`
+- ONES 要求：`v3.16.18+`
+
+#### 返回
+
+| 说明                       | 类型               |
+| -------------------------- | ------------------ |
+| 自定义编辑器所需上下文信息 | `CustomEditorInfo` |
+
+#### 类型
+
+```tsx
+interface CustomEditorInfo {
+  /** 当前页面来源 */
+  source?: PageSourceEnum
+
+  /** 当前页面所在的类型 */
+  category?: PageCategoryEnum
+
+  /**
+   * scene: view 专属
+   *
+   * 演示模式
+   */
+  presentation?: boolean
+
+  /**
+   * scene: edit 专属
+   *
+   * 发布页面，根据当前场景调用相应的发布接口，并在成功后自动跳转页面
+   */
+  publish?: () => Promise<void>
+  /**
+   * scene: edit 专属
+   *
+   * 发布页面，取消发布操作
+   */
+  cancel?: () => void
+}
+
+enum PageSourceEnum {
+  Space = 'space',
+  Share = 'share',
+  Page = 'page',
+  Draft = 'draft',
+}
+
+enum PageCategoryEnum {
+  Draft = 'draft',
+  Page = 'page',
+  Template = 'template',
+  Recycle = 'recycle',
+  GlobalTemplate = 'global_template',
+  Settings = 'settings',
+  Archive = 'archive',
+}
 ```

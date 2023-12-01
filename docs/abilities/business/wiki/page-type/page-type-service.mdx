@@ -1,0 +1,260 @@
+---
+sidebar_position: 1
+description: Introduction to the Implementation of Editing Service for Custom Page。
+---
+
+# Editor service
+
+The development of the editor service for the WIKI access new page node type plug-in is divided into tree steps
+
+- Independent application development
+- Add Editor Module
+- Add independent application abilities
+
+## Independent application development
+
+### Step 1: Write independent application management scripts
+
+For example, name of the standalone application executable program is:`GrapeCityServer`
+
+```shell title="workspace/start.sh"
+#!/bin/bash
+usage() {
+    echo -e "Usage: $(basename $0) [options]"
+    echo -e " start "
+
+    exit 1
+}
+# Processing startup services
+start() {
+    echo "/usr/bin/nohup ./GrapeCityServer --port=$PARAMS_PORT --args=$ARGS >/dev/null 2>&1 &"
+    /usr/bin/nohup ./GrapeCityServer --port=$PARAMS_PORT --args=$ARGS > nohup.out 2>&1 &
+}
+# Process Stop Service
+stop() {
+  # The pid.txt here must be consistent with the internal service
+  echo "kill -9 $(cat pid.txt)"
+  kill -9 "$(cat pid.txt)"
+}
+parse_config() {
+    for arg in ${ARGS}
+    do
+        case ${arg} in
+            --port=*)
+                PARAMS_PORT=${arg#*=}
+                ;;
+            --path=*)
+                PATH=${arg#*=}
+                ;;
+            --args=*)
+                ARGS=${arg#*=}
+                ;;
+        esac
+    done
+}
+ARGS="$@"
+# This is the entrance
+parse_config
+case $1 in
+help) usage;;
+start) start;;
+stop) stop;;
+*) usage;;
+esac
+```
+
+### Step 2: Develop the independent program
+
+```go
+//Goland
+package main
+
+var (
+	port int
+	args string
+)
+
+func initFlags() {
+	flag.IntVar(&port, "port", 18000, "service port")
+	flag.StringVar(&args, "args", "", "service other parameters")
+	flag.Parse()
+	parse_other_args()
+}
+
+func parse_other_args() {
+    //Parse the args string according to the specifications
+}
+
+//Save independent application's process PID
+func savePid() {
+	pid := os.Getpid()
+	log.Infof("process PID: %d \n", pid)
+
+	err := os.WriteFile("./pid.txt", []byte(strconv.Itoa(pid)), 0644)
+	if err != nil {
+		log.Fatalf("Logging PID failed: %+v", err)
+	}
+}
+
+func main() {
+    //Parsing parameters
+	initFlags()
+        savePid()
+
+    //...
+    //start web service
+	addr := fmt.Sprintf("%s:%d", "localhost", port)
+
+	//The function can be seen in step 3
+    // router.Run
+
+	err := router.Run(addr)
+	if err != nil {
+		log.Fatal("start service fail")
+	}
+}
+```
+
+### Step 3: Implement independent service related interfaces according to the Editor Server specification
+
+Custom Editor Server services need to support http and websocket methods, mainly including:
+
+```go
+//Goland
+package router
+
+func Run(addr string) error {
+	gin.SetMode(gin.ReleaseMode)
+	app := gin.New()
+
+	//http request
+	app.POST("/tokens", controllers.GetToken)
+
+	//websocket request
+	app.GET("/edit", controllers.Edit)
+
+	return app.Run(addr)
+}
+```
+
+### Step 4: Compile into an executable file and verify the compatibility of the executable file
+
+## Add Editor Module
+
+To develop a slot, it may be necessary to obtain a standalone application (Editor Server) URL address. The following provides a detailed interface for obtaining independent service address information
+
+### Get URL address for independent services
+
+According to the app_id of the plugin, We can obtain independent service address information.
+
+#### URL
+
+https://{your-host-name}/project/api/project/plugin/web_service/info
+
+#### HTTP Method
+
+POST
+
+#### Need Login
+
+yes
+
+#### Value passing
+
+JSON
+
+#### parameters
+
+Header
+
+| name             | require | value type | example          | illustrate                       |
+| :--------------- | :------ | :--------- | :--------------- | :------------------------------- |
+| Content-Type     | T       | string     | application/json | Data in JSON format              |
+| Ones-Check-Point | T       | string     | team             | Fixed value                      |
+| Ones-Plugin-Id   | T       | string     | built_in_apis    | Fixed value                      |
+| Ones-Check-Id    | T       | string     | ATVswGgy         | team_uuid, used for verification |
+| Ones-User-Id     | T       | string     | 4qumKXgM         | user_uuid, used for verification |
+| Origin           | F       | string     | https://xxxx.com | Base address of ONES             |
+
+Body
+
+| name     | require | value type | example          | illustrate                                                                                                   |
+| :------- | :------ | :--------- | :--------------- | :----------------------------------------------------------------------------------------------------------- |
+| app_id   | T       | string     | "Xy4-EYjw"       | The app_id information of the plugin.                                                                        |
+| base_url | F       | string     | https://xxxx.com | Base address of ONES. This field is used first. If it is empty, the Origin field in the Header will be used. |
+
+#### Return parameter
+
+| name | value type | example         | illustrate             |
+| :--- | :--------- | :-------------- | :--------------------- |
+| data | []object   | See data object | Return data array data |
+
+data object
+
+| name       | value type | example                   | illustrate                                   |
+| :--------- | :--------- | :------------------------ | :------------------------------------------- |
+| app_id     | string     | Xy4-EYjw                  | app_id of the plugin                         |
+| root_route | string     | /node_demo                | independent services and routing information |
+| http_url   | string     | https://xxx.com/node_demo | independent service http address             |
+| ws_url     | string     | wss://xxx.com/node_demo   | independent service websocket address        |
+
+#### Request Example
+
+```curl
+curl --location --request POST 'https://xxx.com/project/api/project/plugin/web_service/info' \
+--header 'Ones-Check-Id: ATVswGgy' \
+--header 'Ones-Check-Point: team' \
+--header 'Ones-Plugin-Id: built_in_apis' \
+--header 'Ones-User-Id: 4qumKXgM' \
+--header 'Content-Type: application/json' \
+--header 'Origin: https://xxx.com/' \
+--data-raw '{
+    "base_url": "https://xxx.com/",
+    "app_id": "VGh6Y6N"
+}'
+
+```
+
+#### Return Example
+
+```json
+{
+  "data": [
+    {
+      "app_id": "VGh6Y6N",
+      "root_route": "/hello",
+      "http_url": "https://xxx.com/plugin_service/hello",
+      "ws_url": "wss://xxx.com/api/plugin_service_ws/hello"
+    }
+  ]
+}
+```
+
+## Add independent application abilities
+
+The configuration is as follows: it can be modified as needed.
+
+```yaml title="config/plugin.yaml"
+abilities:
+  - id: xxxxxxxx
+    name: xxxxxxx_GrapeCityServer
+    abilityType: web_service
+    version: 1.0.0
+    config:
+      - fieldType: Input
+        key: root_route
+        show: false
+        value: /GrapeCityServer
+      - fieldType: Input
+        key: args
+        show: true
+        value: ''
+      - fieldType: Input
+        key: start_file
+        show: false
+        value: start.sh
+      - fieldType: Switch
+        key: is_open
+        show: false
+        value: true
+```

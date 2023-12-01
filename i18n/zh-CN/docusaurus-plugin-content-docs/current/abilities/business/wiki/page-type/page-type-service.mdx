@@ -1,39 +1,30 @@
+---
+sidebar_position: 1
+description: 自定义页面节点类型能力后端编辑服务实现介绍。
+---
+
 import Image from '@theme/IdealImage'
-import wikiNewPage01 from './images/wiki-new-page-01.png'
 
-# 场景：wiki接入新页面类型
+import wikiNewPage01 from './images/page-type-service-01.png'
 
-## 场景描述
+# 编辑器服务
 
-用户希望通过插件向wiki接入新页面类型，如接入葡萄城的表格编辑器。
+WIKI 接入新页面节点类型插件的编辑器服务开发分为三步：
+- 独立应用开发
+- 添加 WIKI 新页面类型插槽
+- 添加托管独立应用能力
 
-## 解决方案
+## 独立应用开发
 
-### 实现思路：
+### 第一步：编写独立应用管理脚本
 
-标品侧wiki-api已抽象出`editor`，从而支持动态的添加和使用不同`editor`。
-
-使用独立应用实现用户自定义的 `editor` 的接口规范，通过开放平台借助于插件支持向wiki接入新页面类型。
-
-### 实现原理：
-
-<Image img={wikiNewPage01}></Image>
-
-## 插件开发
-
-wiki接入新页面类型插件的开发分为两步，分别是独立应用的开发及插件托管独立应用能力添加。
-
-### wiki接入新页面类型独立应用开发
-
-#### 第一步：编写独立应用管理脚本
-
-独立应用可执行程序名字为：`GrapeCityServer`
+例如，独立应用可执行程序名字为：`GrapeCityServer`
 
 ```shell title="workspace/start.sh"
 #!/bin/bash
 usage() {
     echo -e "Usage: $(basename $0) [options]"
-    echo -e " start 启动"
+    echo -e " 启动"
 
     exit 1
 }
@@ -75,7 +66,7 @@ stop) stop;;
 esac
 ```
 
-#### 第二步：按照独立应用规范编写程序启动入口
+### 第二步：按照独立应用程序编写
 
 ```go
 //Goland
@@ -109,14 +100,14 @@ func savePid() {
 }
 
 func main() {
-        //解析参数
+    //解析参数
 	initFlags()
         savePid()
 
-        //... 其他初始化内容
-        //启动web service
+    //...
+    //启动web service
 	addr := fmt.Sprintf("%s:%d", "localhost", port)
-        // router.Run 函数可参见步骤3
+    // router.Run 函数可参见步骤3
 	err := router.Run(addr)
 	if err != nil {
 		log.Fatal("start service fail")
@@ -124,7 +115,7 @@ func main() {
 }
 ```
 
-#### 第三步：按照Editor Server规范实现独立服务相关的接口
+### 第三步：按照Editor Server规范实现独立服务相关的接口
 
 自定义Editor Server服务需要支持http、websocket方法，主要包括：
 
@@ -146,33 +137,33 @@ func Run(addr string) error {
 }
 ```
 
-#### 第四步：编译成可执行文件，并验证可执行文件的兼容性
+### 第四步：编译成可执行文件，并验证可执行文件的兼容性
 
-### 添加wiki新页面类型插槽
+## 添加 WIKI 新页面类型插槽
 
-开发插槽，可能需要获取独立应用（Editor Server）url地址。下面详细给出，获取获取独立服务地址信息的接口：
+开发插槽，可能需要获取独立应用（Editor Server）url 地址。下面详细给出，获取获取独立服务地址信息的接口：
 
-#### 获取独立服务的地址信
+### 获取独立服务的地址信
 
-根据插件的app_id获取独立服务地址信息。
+根据插件的 app_id 获取独立服务地址信息。
 
-##### URL
+#### URL
 
 https://{your-host-name}/project/api/project/plugin/web_service/info
 
-##### HTTP Method
+#### HTTP Method
 
 POST
 
-##### 是否需要登录
+#### 是否需要登录
 
 是
 
-##### 传值方式
+#### 传值方式
 
 JSON
 
-##### 参数列表
+#### 参数列表
 
 Header
 
@@ -189,10 +180,10 @@ Body
 
 | 参数名   | 是否必须 | 值类型   | 取值例子         | 说明                                                           |
 | :------- | :------- | :------- | :--------------- | :------------------------------------------------------------- |
-| app_ids  | T        | []string | ["Xy4-EYjw"]     | 插件的app_id信息，若不设置则表示查询全量托管服务信息           |
+| app_id  | T        | string | "Xy4-EYjw"     | 插件的app_id信息         |
 | base_url | F        | string   | https://xxxx.com | ONES的Base地址。优先使用该字段，为空则会使用Header中Origin字段 |
 
-##### 返回参数列表
+#### 返回参数列表
 
 | 参数名 | 值类型   | 取值例子     | 说明             |
 | :----- | :------- | :----------- | :--------------- |
@@ -205,46 +196,40 @@ data对象
 | app_id     | string | Xy4-EYjw                  | 插件的app_id信息          |
 | root_route | string | /node_demo                | 托管独立服务跟路由信息    |
 | http_url   | string | https://xxx.com/node_demo | 托管独立服务http地址      |
-| ws_url     | string | ws://xxx.com/node_demo    | 托管独立服务websocket地址 |
+| ws_url     | string | wss://xxx.com/node_demo    | 托管独立服务websocket地址 |
 
-##### 请求体示例
+#### 请求体示例
 
 ```curl
-curl --location --request POST 'https://p8144-20231010.dev.myones.net/project/api/project/plugin/web_service/info' \
+curl --location --request POST 'https://xxx.com/project/api/project/plugin/web_service/info' \
 --header 'Ones-Check-Id: ATVswGgy' \
 --header 'Ones-Check-Point: team' \
 --header 'Ones-Plugin-Id: built_in_apis' \
 --header 'Ones-User-Id: 4qumKXgM' \
 --header 'Content-Type: application/json' \
+--header 'Origin: https://xxx.com/' \
 --data-raw '{
-    "base_url": "https://p8144-20231010.dev.myones.net/",
-    "app_ids":[]
+    "app_id":"VGh6Y6N"
 }'
 
 ```
 
-##### 返回示例
+#### 返回示例
 
 ```json
 {
   "data": [
     {
-      "app_id": "-VGh6Y6N",
+      "app_id": "VGh6Y6N",
       "root_route": "/hello",
-      "http_url": "https://p8144-20231010.dev.myones.net/plugin_service/hello",
-      "ws_url": "ws://p8144-20231010.dev.myones.net/api/plugin_service_ws/hello"
-    },
-    {
-      "app_id": "Xy4-EYjw",
-      "root_route": "/node_demo",
-      "http_url": "https://p8144-20231010.dev.myones.net/plugin_service/node_demo",
-      "ws_url": "ws://p8144-20231010.dev.myones.net/api/plugin_service_ws/node_demo"
+      "http_url": "https://xxx.com/plugin_service/hello",
+      "ws_url": "wss://xxx.com/api/plugin_service_ws/hello"
     }
   ]
 }
 ```
 
-### 添加托管独立应用能力
+## 添加托管独立应用能力
 
 配置如下所示：可按需修改配置
 
