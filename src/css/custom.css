@@ -67,9 +67,17 @@
 }
 
 /* 顶部导航栏 pc端 */
-.container.padding-top--md.padding-bottom--lg {
+/* 
+文档内容的索引是 sticky 定位。如果父元素添加了 overflow: hidden，那么 sticky 元素以该父元素来定位。否则继续往上查找。
+当前文档内容的索引是以视窗来定位的。添加了该样式后，导致定位失效
+
+#469986 【文档样式优化】希望文档系统的右侧导航栏可以固定，不要随着滚动页面滚上去以后就找不到了，无法承载导航跳转的作用。
+https://our.ones.pro/project/#/team/RDjYMhKq/task/XEFtPqnfD7kBLpUE
+
+*/
+/* .container.padding-top--md.padding-bottom--lg {
   overflow: hidden;
-}
+} */
 .dropdown > .navbar__link::after {
   content: '';
   width: 5px;
