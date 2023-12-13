@@ -1,10 +1,22 @@
 ---
-sidebar_position: 3
+sidebar_position: 4
 ---
 
 # Changelog
 
 All notable changes to this package will be documented in this file.
+
+## 1.3.0 (2023-12-13)
+
+### Features
+
+- **cli-plugin**:
+
+  - 🌟 Added `op.config.mjs` configuration file for custom configuration of code scanning and compatibility validation.
+  - 🌟 Added support for scanning ONES API during plugin packaging.
+
+- **cli-tools**:
+  - 🌟 Added `opt check` command for validating the compatibility of plugin OPK packages.
 
 ## 1.2.29 (2023-10-13)
 

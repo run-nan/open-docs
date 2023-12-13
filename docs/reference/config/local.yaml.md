@@ -1,3 +1,7 @@
+---
+sidebar_position: 3
+---
+
 # local.yaml
 
 The plugin local debugging configuration file, the built-in `op` cli of the plugin project will consume the content of the file when performing the relevant instructions of the local debugging.

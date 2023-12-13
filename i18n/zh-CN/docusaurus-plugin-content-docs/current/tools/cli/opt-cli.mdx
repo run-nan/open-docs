@@ -1,0 +1,94 @@
+---
+sidebar_position: 3
+---
+
+import Image from '@theme/IdealImage'
+
+# OPT CLI 指令
+
+OPT CLI用于在非插件开发环境中执行对插件OPK包的检查等操作
+
+## 安装
+
+```bash
+npm install -g @ones/cli-tools
+```
+
+安装完毕后可以使用`opt [command] [arguments] [options]`调用指令
+
+```bash
+opt help # 查看帮助
+opt help check # 查看opt check指令的帮助
+```
+
+## 配置文件
+
+执行opt指令时，OPT-CLI会读取命令执行目录下的`op.config.mjs`作为配置文件
+
+## 概览
+
+| 指令名称 | 指令描述                                        |
+| -------- | ----------------------------------------------- |
+| check    | 检查OPK包是否有使用不兼容的ONES API，插槽和能力 |
+
+## check
+
+检查OPK包是否有使用不兼容的ONES API，插槽和能力
+
+### 参数
+
+| 参数名称 | 参数描述                                                     |
+| -------- | ------------------------------------------------------------ |
+| opks     | OPK包所在的路径，可以是文件或文件夹，支持用`,`将多个路径隔开 |
+
+```bash
+opt check demo-plugin.opk # 检查demo-plugin.opk
+opt check plugins # 检查plugins目录下的opk包（不会递归搜索子目录，即：会检查plugins/demo.opk，不会检查plugins/sub-dir/demo.opk）
+opt check plugins,demo-plugin.opk # 检查plugins目录下的opk包和demo-plugin.opk
+```
+
+### 配置
+
+opt指令会根据`op.config.mjs`导出配置中的以下字段执行检查
+
+| 配置项名称           | 字段类型                                             | 配置项描述                                                                                            |
+| -------------------- | ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| onesVersion          | `string`                                             | opk包要安装到的ONES系统的版本，`opt check`指令会检查opk包中是否包含与该版本ONES系统不兼容的插槽或能力 |
+| scan.apis            | `string[]`                                           | 不兼容的API集合，`opt check`指令会检查opk包中是否使用到该API集合中声明的ONES API                      |
+| scan.patternFragment | `{ pre: string; placeholder: string; post: string }` | 执行API正则匹配时的正则片段，具体使用方式参考[op scan](./op-cli.mdx#scan)，一般无需配置               |
+
+### 选项
+
+| 选项名称       | 参数描述                                                                          |
+| -------------- | --------------------------------------------------------------------------------- |
+| --ones-version | 指定opk包要安装到的ONES系统的版本，相当于`op.config.mjs`配置中的`onesVersion`字段 |
+| --scan-apis    | 指定不兼容的API集合，相当于`op.config.mjs`配置中的`scan.apis`字段                 |
+
+### 示例
+
+当我们要将在ONES v3.6.0环境上可以正常运行的插件包demo.opk安装到ONES v3.15.0环境上前，可以按如下步骤操作：
+
+- 配置`op.config.mjs`
+
+```
+export default {
+  onesVersion: '3.15.0', // 声明目标ONES系统版本
+  scan: {
+    // 声明从ONES v3.6.0升级到ONES v3.13.0时，不兼容的ONES API集合
+    apis: [
+      '/project/api/modify/issue-type/:issueTypeID',
+      '/project/api/users',
+      '/project/api/plugins/list',
+      '/project/api/dashboard/list'
+    ]
+  }
+}
+```
+
+- 执行`opt check demo.opk`执行检查
+
+检查结果将打印在控制台<Image img={require('./images/opt-check-result.png')} />
+
+:::info
+如果要检查的opk文件是版本低于1.21.0的OP-CLI工具的打包产物，那么`opt check`将跳过执行ONES API检查
+:::

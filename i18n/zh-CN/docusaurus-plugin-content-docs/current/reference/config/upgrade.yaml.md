@@ -1,3 +1,7 @@
+---
+sidebar_position: 4
+---
+
 # upgrade.yaml
 
 插件升级的迁移配置文件，声明插件升级时的资源文件处理。

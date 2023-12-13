@@ -1,0 +1,101 @@
+---
+sidebar_position: 5
+---
+
+# op.config.mjs
+
+cli工具配置文件，可以通过各种配置项自定义op cli和opt cli部分指令的行为。
+
+你需要在`op.config.mjs`中导出配置对象：
+
+```js title="op.config.mjs"
+/** @type { import("@ones/cli-utils").OpConfigSchema } */
+export default {
+  onesVersion: '3.15.0',
+  scan: {
+    apis: ['project/api/version'],
+  },
+}
+```
+
+配置对象的类型定义如下：
+
+```ts
+interface OpConfigSchema {
+  onesVersion?: string
+  scan?: {
+    roots?: string[]
+    exclude?: Array<string | RegExp>
+    output?: {
+      level?: 'all' | 'matched'
+    }
+    patternFragment?: {
+      pre?: string
+      placeholder?: string
+      post?: string
+    }
+    checkIsPathLikeString?: (value: string) => boolean
+    apis?: string[]
+  }
+}
+```
+
+## onesVersion
+
+目标ONES系统版本，用于在打包和扫描时检查是否用到目标ONES系统不支持的插槽和能力
+
+:::info
+该字段与plugin.yaml中的[service.min_system_version](./plugin.yaml.mdx#min_system_version)字段的区别：
+
+- op.config.mjs中的`onesVersion`需要由开发者手动赋值，而plugin.yaml中的`service.min_system_version`字段是由插件中使用到的能力自动推导出来的，不需要开发者修改该字段的值。
+- 指定了op.config.mjs中的`onesVersion`后，在打包OPK时，op-cli会校验插件是否用到了目标版本前就被废弃，以及在目标版本之后才上线的能力。在安装插件时，开放平台会校验当前ONES系统版本是否大于插件plugin.yaml中的`service.min_system_version`字段。
+  :::
+
+## scan
+
+代码扫描配置，用于自定义[op scan](../../tools/cli/op-cli.mdx#scan)和[opt check](../../tools/cli/opt-cli.mdx#check)指令的行为
+
+### scan.roots
+
+要扫描的代码根目录，默认值`["web","backend"]`，仅针对[op scan](../../tools/cli/op-cli.mdx#scan)命令有效
+
+### scan.exclude
+
+不扫描的路径，默认值`[/node_modules/, /dist/]`，仅针对[op scan](../../tools/cli/op-cli.mdx#scan)命令有效
+
+### scan.checkIsPathLikeString
+
+判断一个字符串字面量是否是url的函数, 默认值`(value) => value.includes('/') && value !== '/'`, 仅针对[op scan](../../tools/cli/op-cli.mdx#scan)命令有效
+
+### scan.output
+
+扫描结果输出配置，仅针对[op scan](../../tools/cli/op-cli.mdx#scan)命令有效
+
+#### scan.output.level
+
+输出级别，可选值:
+
+- `all`: 仅输出匹配到API的扫描结果
+- `matched`: 输出所有扫描结果
+
+默认值`all`
+
+### scan.apis
+
+要匹配的API集合, 默认值`[]`
+
+### scan.patternFragment
+
+url正则表达式的片段配置，用于自定义url正则表达式的匹配规则
+
+#### scan.patternFragment.pre
+
+url正则表达式的前置正则片段, 默认值`"(?:[^\n]*)"`
+
+#### scan.patternFragment.placeholder
+
+url正则表达式的占位正则片段, 默认值`"(?:[^\n/]*)"`
+
+#### scan.patternFragment.post
+
+url正则表达式的后置正则片段, 默认值`"(?:[^\n]*)"`

@@ -1,0 +1,101 @@
+---
+sidebar_position: 5
+---
+
+# op.config.mjs
+
+The CLI tool configuration file allows you to customize the behavior of certain commands in the [OP-CLI](../../tools/cli/op-cli.mdx) and [OPT-CLI](../../tools/cli/opt-cli.mdx) by using various configuration options.
+
+You need to export a configuration object in `op.config.mjs`:
+
+```js title="op.config.mjs"
+/** @type { import("@ones/cli-utils").OpConfigSchema } */
+export default {
+  onesVersion: '3.15.0',
+  scan: {
+    apis: ['project/api/version'],
+  },
+}
+```
+
+The type definition for the configuration object is as follows:
+
+```ts
+interface OpConfigSchema {
+  onesVersion?: string
+  scan?: {
+    roots?: string[]
+    exclude?: Array<string | RegExp>
+    output?: {
+      level?: 'all' | 'matched'
+    }
+    patternFragment?: {
+      pre?: string
+      placeholder?: string
+      post?: string
+    }
+    checkIsPathLikeString?: (value: string) => boolean
+    apis?: string[]
+  }
+}
+```
+
+## onesVersion
+
+The target ONES system version used for checking unsupported slots and abilities during packaging and scanning.
+
+:::info
+The difference between this field and the [service.min_system_version](./plugin.yaml.mdx#min_system_version) field in plugin.yaml is as follows:
+
+- The `onesVersion` field in op.config.mjs needs to be manually assigned by the developer, whereas the `service.min_system_version` field in plugin.yaml is automatically deduced based on the capabilities used within the plugin. Developers do not need to modify the value of this field.
+- After specifying the `onesVersion` in op.config.mjs, during the packaging of the OPK file, op-cli will validate whether the plugin uses deprecated capabilities before the target version and whether it uses capabilities that are only available after the target version. During plugin installation, the Open Platform will verify if the current ONES system version is greater than the `service.min_system_version` specified in the plugin's plugin.yaml file.
+  :::
+
+## scan
+
+Code scanning configuration used to customize the behavior of the [op scan](../../tools/cli/op-cli.mdx#scan) and [opt check](../../tools/cli/opt-cli.mdx#check) commands.
+
+### scan.roots
+
+The root directories to be scanned. The default value is `["web","backend"]` and is only applicable to the [op scan](../../tools/cli/op-cli.mdx#scan) command.
+
+### scan.exclude
+
+Paths to be excluded from scanning. The default value is `[/node_modules/, /dist/]` and is only applicable to the [op scan](../../tools/cli/op-cli.mdx#scan) command.
+
+### scan.checkIsPathLikeString
+
+A function that determines whether a string literal is a URL. The default value is `(value) => value.includes('/') && value !== '/'` and is only applicable to the [op scan](../../tools/cli/op-cli.mdx#scan) command.
+
+### scan.output
+
+Configuration for scan result output. Only applicable to the [op scan](../../tools/cli/op-cli.mdx#scan) command.
+
+#### scan.output.level
+
+Output level with the following options:
+
+- `all`: Only output scan results that match APIs.
+- `matched`: Output all scan results.
+
+The default value is `all`.
+
+### scan.apis
+
+The collection of APIs to match. The default value is `[]`.
+
+### scan.patternFragment
+
+Configuration for URL regular expression fragments used to customize the matching rules.
+
+#### scan.patternFragment.pre
+
+The prefix regular expression fragment of the URL regular expression. The default value is `"(?:[^\n]*)"`.
+
+#### scan.patternFragment.placeholder
+
+The placeholder regular expression fragment of the URL regular expression. The default value is `"(?:[^\n/]*)"`.
+
+#### scan.patternFragment.post
+
+The postfix regular expression fragment of the URL regular expression. The default value is `"(?:[^\n]*)"`.

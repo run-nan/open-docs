@@ -397,9 +397,9 @@ npx op scan [target]
 
 ### 选项
 
-| 选项名称 | 选项别名 | 选项描述                                                                                |
-| -------- | -------- | --------------------------------------------------------------------------------------- |
-| --config | -c       | 扫描配置文件的路径, 默认为`op-san.config.mjs`，如果配置文件不存在，则使用默认的扫描配置 |
+| 选项名称 | 选项别名 | 选项描述                                                                               |
+| -------- | -------- | -------------------------------------------------------------------------------------- |
+| --output | -o       | 扫描结果的输出文件路径，如果不指定，则仅在控制台打印扫描结果。扫描结果文件是yaml格式的 |
 
 ### 扫描与匹配规则
 
@@ -462,7 +462,7 @@ op工具会扫描[plugin.yaml](../../reference/config/plugin.yaml.mdx)中的[Tri
 
 ### 扫描配置
 
-你可以通过配置文件来定制扫描的行为，配置文件的路径可以通过`--config`选项指定，默认为`op-san.config.mjs`，如果配置文件不存在，则使用默认的扫描配置。
+你可以通过配置文件[op.config.mjs](../../reference/config/op.config.mjs.mdx#scan)中的scan配置项来定制扫描的行为。
 
 扫描配置结构如下：
 
@@ -473,7 +473,6 @@ interface ScanConfigSchema {
   apis?: string[]
   output?: {
     level?: 'matched' | 'all'
-    file?: string | undefined
   }
   patternFragment?: {
     pre?: string
@@ -490,39 +489,7 @@ interface ScanConfigSchema {
 | `exclude`                     | `(string｜RegExp)[]`         | `[/node_modules/]`               | 不扫描的路径                                                                                           |
 | `apis`                        | `string[]`                   | `[]`                             | 要匹配的API集合                                                                                        |
 | `output.level`                | `"matched"｜"all"`           | `"all"`                          | 扫描结果的输出级别：<ul><li>matched: 仅输出匹配到API的扫描结果</li><li>all: 输出所有扫描结果</li></ul> |
-| `output.file`                 | `string`                     | `undefined`                      | 扫描结果的导出文件（yaml格式）路径，如果不指定，则仅输出到控制台                                       |
 | `patternFragment.pre`         | `string`                     | `"(?:[^\n]*)"`                   | url正则表达式的前置正则片段                                                                            |
 | `patternFragment.placeholder` | `string`                     | `"(?:[^\n/]*)"`                  | url正则表达式的占位正则片段                                                                            |
 | `patternFragment.post`        | `string`                     | `"(?:[^\n]*)"`                   | url正则表达式的后置正则片段                                                                            |
-| `checkIsPathLikeString`       | `(value: string) => boolean` | `(value) => value.includes("/")` | 判断一个字符串子面量是否是url的函数                                                                    |
-
-你需要在配置文件中导出扫描配置
-
-```js
-/** @type { import("@ones/cli-plugin").ScanConfigSchema } */
-export default {
-  apis: ['/api/project/users/me'],
-  output: {
-    level: 'matched',
-    file: 'api.yaml',
-  },
-}
-```
-
-也可以导出一个返回扫描配置的函数
-
-```js
-export default async () => {
-  /** @type { import("@ones/cli-plugin").ScanConfigSchema } */
-  const config = {
-    output: {
-      level: 'all',
-      file: 'api.yaml',
-    },
-  }
-  if (process.env.NODE_ENV === 'production') {
-    config.apis = await getONESApis()
-  }
-  return config
-}
-```
+| `checkIsPathLikeString`       | `(value: string) => boolean` | `(value) => value.includes("/")` | 判断一个字符串字面量是否是url的函数                                                                    |

@@ -1,3 +1,7 @@
+---
+sidebar_position: 4
+---
+
 # upgrade.yaml
 
 The migration configuration file for the plugin upgrade, which declares the resource file processing for the plugin upgrade.

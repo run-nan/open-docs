@@ -394,9 +394,9 @@ When `target` parameter is not provided, it will scan both `api` and `trigger` b
 
 ### Options
 
-| Option   | Alias | Description                                                                                                                                               |
-| -------- | ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| --config | -c    | Path to the scan configuration file, default is `op-san.config.mjs`, if the configuration file doesn't exist, the default scan configuration will be used |
+| Option   | Alias | Description                                                                                                                                             |
+| -------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| --output | -o    | The output file path for scan results. If not specified, the scan results will only be printed to the console. The scan results file is in YAML format. |
 
 ### Scanning and Matching Rules
 
@@ -459,7 +459,7 @@ After the scan is complete, the op tool performs regex matching between the coll
 
 ### Scan Configuration
 
-You can customize the scanning behavior using a configuration file. The path to the configuration file can be specified using the `--config` option, default is `op-san.config.mjs`, if the configuration file doesn't exist, the default scan configuration will be used.
+You can customize the behavior of the scan by using the `scan` configuration option in the [op.config.mjs](../../reference/config/op.config.mjs.mdx#scan) configuration file.
 
 The scan configuration structure is as follows:
 
@@ -487,43 +487,7 @@ interface ScanConfigSchema {
 | `exclude`                     | `(string｜RegExp)[]`         | `[/node_modules/]`               | Paths to exclude from scanning                                                                                                    |
 | `apis`                        | `string[]`                   | `[]`                             | The set of APIs to match                                                                                                          |
 | `output.level`                | `"matched"｜"all"`           | `"all"`                          | Output level of scan results:<ul><li>matched: Output only the matched scan results</li><li>all: Output all scan results</li></ul> |
-| `output.file`                 | `string`                     | `undefined`                      | Path to export scan results (in YAML format), if not specified, output to console only                                            |
 | `patternFragment.pre`         | `string`                     | `"(?:[^\n]*)"`                   | Pre-regex fragment of URL regular expression                                                                                      |
 | `patternFragment.placeholder` | `string`                     | `"(?:[^\n/]*)"`                  | Placeholder regex fragment of URL regular expression                                                                              |
 | `patternFragment.post`        | `string`                     | `"(?:[^\n]*)"`                   | Post-regex fragment of URL regular expression                                                                                     |
 | `checkIsPathLikeString`       | `(value: string) => boolean` | `(value) => value.includes("/")` | Custom function to determine whether a string is a URL                                                                            |
-
-To export the scan configuration in the configuration file, you can use the following code:
-
-```js
-/** @type {import("@ones/cli-plugin").ScanConfigSchema} */
-const config = {
-  apis: ['/api/project/users/me'],
-  output: {
-    level: 'matched',
-    file: 'api.yaml',
-  },
-}
-
-export default config
-```
-
-Alternatively, you can export a function that returns the scan configuration:
-
-```js
-export default async () => {
-  /** @type {import("@ones/cli-plugin").ScanConfigSchema} */
-  const config = {
-    output: {
-      level: 'all',
-      file: 'api.yaml',
-    },
-  }
-
-  if (process.env.NODE_ENV === 'production') {
-    config.apis = await getONESApis()
-  }
-
-  return config
-}
-```
