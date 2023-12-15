@@ -26,7 +26,7 @@ This ability allows plugin to integrate a third-party system (including Google, 
 
 1. Third party login：Users can login to ONES by logging in to a third-party system.
 2. Message push：Message notifications for ONES can be sent to third-party systems.
-3. Organizational personnel synchronization：Synchronize the department information and personnel information of the third-party system to ONES.
+3. Organizational directories synchronization：Synchronize the department information and personnel information of the third-party system to ONES.
 
 - **Third party login**
 
@@ -62,76 +62,34 @@ npx op add ability
 ```
 
 <Tabs>
-<TabItem value="1" label="3.6.0+">
 
-Select and add `account@1.0.0`
-
-</TabItem>
-<TabItem value="2" label="3.16.18+">
+<TabItem value="1" label="3.16.18+">
 
 Select and add `account@1.1.0`
 
 </TabItem>
+
+<TabItem value="2" label="3.6.0+">
+
+Select and add `account@1.0.0`
+
+</TabItem>
+
 </Tabs>
+
+**What are the differences between different versions of Account capabilities?**
+
+The 1.1.0 version of the Account ability supports the independent use of message push functionality. Developers can customize the destination of message notifications by configuring the `receiverType` (instead of sending them to the mapped users in the synchronized third-party organizatiion directory of this plugin).
+
+Developers can decide which version of Account capabilities to use based on their own needs and the ONES system version that the plug-in works with.
 
 The OP tool add the following to the plugin
 
 - Add related paragraphs to the abilities field in `{{plugin root directory}}/config/plugin.yaml`.
 
 <Tabs>
-<TabItem value="1" label="3.6.0+">
 
-```yaml title="config/plugin.yaml"
-    service:
-    ...
-    ...
-    abilities:
-    - id: ...
-        name: account
-        version: 1.0.0
-        abilityType: account
-        function:
-         sendMessage: SendMessage
-         createLoginUrl: CreateLoginUrl # create redirect login URL
-         doExchangeUser: DoExchangeUser # obtain login user information
-         doPullData: DoPullData # synchronize third-party system user data
-        config:
-        # whether the login function is realized
-        - key: canLogin
-            value: true
-            show: false
-        # whether the synchronization function is realized
-        - key: canSync
-            value: true
-            show: false
-        # whether the function of sending messages is realized
-        - key: canMessage
-            value: true
-            show: false
-        # the logo address of the third party login, which is the name of the file, which is required to be placed in the root directory of the front-end resource, web/dist/
-        - key: logo
-            value: logo.svg
-            show: false
-        # third party login name
-        - key: title
-            value: title
-            show: false
-        # third party description
-        - key: desc
-            value: desc
-            show: false
-        # third party description
-        - key: detailTip
-            value: detailTip
-            show: false
-        # third party configuration reminder
-        - key: configTip
-            value: configTip
-            show: false
-```
-
-</TabItem>
-<TabItem value="2" label="3.16.18+">
+<TabItem value="1" label="3.16.18+">
 
 ```yaml title="config/plugin.yaml"
     service:
@@ -193,6 +151,60 @@ Description of `receiverType` in capability configuration:
 3. When the `receiverType` is `thirdPartID`, it means that when the plug-in implements the message notification capability, the receiver of the message needs to have a binding relationship with the third-party system. In the SendMessage function, `to_users` is the third-party user ID list defined by the plug-in. .
 
 </TabItem>
+
+<TabItem value="2" label="3.6.0+">
+
+```yaml title="config/plugin.yaml"
+    service:
+    ...
+    ...
+    abilities:
+    - id: ...
+        name: account
+        version: 1.0.0
+        abilityType: account
+        function:
+         sendMessage: SendMessage
+         createLoginUrl: CreateLoginUrl # create redirect login URL
+         doExchangeUser: DoExchangeUser # obtain login user information
+         doPullData: DoPullData # synchronize third-party system user data
+        config:
+        # whether the login function is realized
+        - key: canLogin
+            value: true
+            show: false
+        # whether the synchronization function is realized
+        - key: canSync
+            value: true
+            show: false
+        # whether the function of sending messages is realized
+        - key: canMessage
+            value: true
+            show: false
+        # the logo address of the third party login, which is the name of the file, which is required to be placed in the root directory of the front-end resource, web/dist/
+        - key: logo
+            value: logo.svg
+            show: false
+        # third party login name
+        - key: title
+            value: title
+            show: false
+        # third party description
+        - key: desc
+            value: desc
+            show: false
+        # third party description
+        - key: detailTip
+            value: detailTip
+            show: false
+        # third party configuration reminder
+        - key: configTip
+            value: configTip
+            show: false
+```
+
+</TabItem>
+
 </Tabs>
 
 - The OP tool adds files to the plugin in `backend/src/account.ts`
