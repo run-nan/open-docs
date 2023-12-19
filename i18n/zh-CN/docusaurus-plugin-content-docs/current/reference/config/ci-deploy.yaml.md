@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 # ci-deploy.yaml
 
 插件持续集成配置文件，包含了持续集成测试安装插件所需的配置信息，由脚手架工具生成，具体用法详见 [持续集成](../../guide/deploy.mdx)。

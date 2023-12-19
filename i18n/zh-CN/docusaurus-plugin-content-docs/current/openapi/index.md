@@ -10,4 +10,6 @@ ONES REST API 使您能够以编程方式与 ONES 交互。使用此 API 构建�
 
 # 版本
 
-本文档适用于 ONES REST API 的版本 1。
+本文档适用于 ONES REST API 的 2.0 版本。
+
+ONES v3.15.26+ 版本可用。

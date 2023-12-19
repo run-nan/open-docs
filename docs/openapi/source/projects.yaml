@@ -1,0 +1,500 @@
+openapi: 3.0.1
+info:
+  title: Project
+  version: '2.0'
+  description: |
+    This resource represents projects. Use it to get, create, update, and delete projects.
+servers:
+  - url: https://your-domain/openapi/v2
+  - url: http://your-domain/openapi/v2
+paths:
+  /project/projects:
+    get:
+      summary: Get team project list
+      operationId: 01-get-team-project-list
+      description: Get team project list
+      security:
+        - oauth2:
+            - read:project:project
+      parameters:
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
+        - $ref: ../../../openapi-common/latest/en/paging-query-request-limit.yaml
+        - $ref: ../../../openapi-common/latest/en/paging-query-request-cursor.yaml
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListProjectSuccessResponse'
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
+    post:
+      summary: Create a new project
+      operationId: 02-create-a-new-project
+      description: Create a new project
+      security:
+        - oauth2:
+            - write:project:project
+      parameters:
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
+      requestBody:
+        description: Create project request param
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddProjectRequest'
+        required: true
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddProjectResponse'
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
+      x-codegen-request-body-name: body
+  /project/projects/{projectID}:
+    get:
+      summary: Get project detail by project ID
+      operationId: 03-get-project-detail-by-project-id
+      description: Get project detail by project ID
+      security:
+        - oauth2:
+            - read:project:project
+      parameters:
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
+        - name: projectID
+          in: path
+          description: The project ID
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProjectDetailResponse'
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
+    put:
+      summary: Update project by project ID
+      operationId: 04-update-project-by-project-id
+      description: Update project by project ID
+      security:
+        - oauth2:
+            - write:project:project
+      parameters:
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
+        - name: projectID
+          in: path
+          description: The project ID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update project request param.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProjectRequest'
+        required: true
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateProjectResponse'
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
+      x-codegen-request-body-name: body
+    delete:
+      summary: Delete a project
+      operationId: 05-delete-a-project
+      description: Delete a project
+      security:
+        - oauth2:
+            - write:project:project
+      parameters:
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
+        - name: projectID
+          in: path
+          description: The project ID
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteSuccessResponse'
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
+components:
+  schemas:
+    AddProjectRequest:
+      description: Create project request param
+      required:
+        - membersID
+        - name
+      type: object
+      properties:
+        name:
+          maxLength: 128
+          minLength: 1
+          type: string
+          description: The name of project
+        templateID:
+          type: string
+          enum:
+            - project-t1
+            - project-t2
+            - project-t4
+            - project-t5
+            - project-t6
+            - comagile
+            - comwater
+          description: |
+            - Project template ID
+            - project-t1: Agile project management.
+            - project-t2: General task management.
+            - project-t4: Waterfall project planning.
+            - project-t5: Agile project management_v2.
+            - project-t6: Kanban task management.
+            - comagile: Agile project management.
+            - comwater: Waterfall project planning.
+        members:
+          type: array
+          description: Project member IDs
+          items:
+            type: string
+      example:
+        name: Project name
+        templateID: project-t1
+        members:
+          - b9b0b056
+          - 5f1b876g
+    AddProjectResponse:
+      description: Create project response
+      type: object
+      properties:
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The project ID
+            name:
+              type: string
+              description: The project name
+            owner:
+              type: string
+              description: The project owner ID
+            status:
+              type: string
+              description: The ID of project status
+            statusCategory:
+              type: string
+              description: The category of project status
+            stickToTop:
+              type: boolean
+              description: Whether the project is at the top
+            isArchive:
+              type: boolean
+              description: Archived project or not
+            archiveTime:
+              type: integer
+              description: Time when the project was archived
+            archiveUser:
+              type: string
+              description: The ID of people who archived project
+      example:
+        - result: SUCCESS
+          data:
+            id: 5f1b0b5b
+            name: project1
+            owner: 1b2b2b29
+            status: 'to_do'
+            statusCategory: 'to_do'
+            stickToTop: false
+            isArchive: false
+            archiveTime: 1691726809
+            archiveUser: '5h2b2b29'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'invalid project members'
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied add_project'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter Project'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter Project UUID Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter Project Member InvalidFormat'
+    ProjectDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The project ID
+        name:
+          type: string
+          description: The project Name
+        createTime:
+          type: integer
+          description: The createTime of project
+        owner:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The project owner ID
+            name:
+              type: string
+              description: The project owner name
+        creator:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The project creator ID
+            name:
+              type: string
+              description: The project creator name
+        status:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The ID of project status
+            name:
+              type: string
+              description: The name of project status
+            category:
+              type: string
+              description: The category of project status
+        statusCategory:
+          type: string
+          description: The category of project status
+        stickToTop:
+          type: boolean
+          description: Whether the project is at the top
+        isArchive:
+          type: boolean
+          description: Archived project or not
+        archiveUser:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The ID of people who archived project
+            name:
+              type: string
+              description: The name of people who archived project
+        archiveTime:
+          type: integer
+          description: Time when the project was archived
+        plannedStartDate:
+          type: string
+          description: The date of project planned to start,sample as 2023-05-06
+        plannedEndDate:
+          type: string
+          description: The date of project planned to end,sample as 2023-05-06
+    GetProjectDetailResponse:
+      type: object
+      properties:
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
+        data:
+          $ref: '#/components/schemas/ProjectDetail'
+      example:
+        - result: SUCCESS
+          data:
+            id: 5f1b0b5b
+            name: project1
+            createTime: 1691726809
+            owner:
+              id: 1b2b2b29
+              name: owner
+            creator:
+              id: 1b2b2b29
+              name: creator
+            status:
+              id: 'to_do'
+              name: To Do
+              category: 'to_do'
+            statusCategory: 'to_do'
+            stickToTop: false
+            isArchive: false
+            archiveUser:
+              id: 5h2b2b29
+              name: archiveUser
+            archiveTime: 1691726809
+            plannedStartDate: '2023-01-01'
+            plannedEndDate: '2023-01-31'
+    ListProjectSuccessResponse:
+      type: object
+      properties:
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
+        data:
+          type: object
+          properties:
+            list:
+              type: array
+              items:
+                $ref: '#/components/schemas/ProjectDetail'
+            $ref: ../../../openapi-common/latest/en/paging-query-response-pageInfo-schemas.yaml
+      example:
+        - result: SUCCESS
+          data:
+            list:
+              - id: 5f1b0b5b
+                name: project1
+                createTime: 1691726809
+                owner:
+                  id: 1b2b2b29
+                  name: owner
+                creator:
+                  id: 1b2b2b29
+                  name: creator
+                status:
+                  id: 'to_do'
+                  name: To Do
+                  category: 'to_do'
+                statusCategory: 'to_do'
+                stickToTop: false
+                isArchive: false
+                archiveUser:
+                  id: 5h2b2b29
+                  name: archiveUser
+                archiveTime: 1691726809
+                plannedStartDate: '2023-01-01'
+                plannedEndDate: '2023-01-31'
+            pageInfo:
+              count: 1
+              endCursor: 'sample_end_cursor'
+              hasNextPage: false
+              startCursor: 'sample_start_cursor'
+              totalCount: 1
+    UpdateProjectRequest:
+      type: object
+      properties:
+        owner:
+          type: string
+          description: The project owner ID.
+        name:
+          maxLength: 128
+          minLength: 1
+          type: string
+          description: The name of project.
+        isArchive:
+          type: boolean
+          description: Archived project or not
+        status:
+          type: string
+          description: The ID of project status.
+        plannedStartDate:
+          type: string
+          description: The date of project planned to start,sample as 2023-05-06
+        plannedEndDate:
+          type: string
+          description: The date of project planned to end,sample as 2023-05-06
+        customField:
+          type: object
+          description: Project customed field id
+      example:
+        owner: 1b2b2b29
+        name: project1
+        isArchive: false
+        status: 'to_do'
+        plannedStartDate: '2023-01-01'
+        plannedEndDate: '2023-01-31'
+        customField:
+          “V8FZJ24R”: “customFieldValue”
+    UpdateProjectResponse:
+      type: object
+      properties:
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The project ID.
+            name:
+              type: string
+              description: The name of project.
+            owner:
+              type: string
+              description: The project owner ID.
+            createTime:
+              type: integer
+              description: The createTime of project
+            isArchive:
+              type: boolean
+              description: Archived project or not
+            archiveUser:
+              type: string
+              description: The ID of people who archived project
+            archiveTime:
+              type: integer
+              description: Time when the project was archived
+            status:
+              type: string
+              description: The ID of project status.
+            plannedStartDate:
+              type: string
+              description: The date of project planned to start,sample as 2023-05-06
+            plannedEndDate:
+              type: string
+              description: The date of project planned to end,sample as 2023-05-06
+            customField:
+              type: object
+              description: Project customed field
+      example:
+        - result: SUCCESS
+          data:
+            id: 5f1b0b5b
+            name: project1
+            owner:
+              id: 1b2b2b29
+              name: owner
+            createTime: 1691726809
+            isArchive: false
+            archiveUser:
+              id: 5h2b2b29
+              name: archiveUser
+            archiveTime: 1691726809
+            status:
+              id: 'to_do'
+              name: To Do
+              category: 'to_do'
+            plannedStartDate: '2023-01-01'
+            plannedEndDate: '2023-01-31'
+            customField:
+              “V8FZJ24R”: “customFieldValue”
+    DeleteSuccessResponse:
+      type: object
+      properties:
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
+      example:
+        - result: SUCCESS
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied administer_do'
+    $ref: ../../../openapi-common/latest/en/no-200-response-schemas.yaml
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://your-domain/oauth2/authorize
+          tokenUrl: https://your-domain/oauth2/token
+          scopes:
+            write:project:project: Add, edit, delete project
+            read:project:project: Access project information

@@ -2,6 +2,18 @@
 
 All notable changes to this package will be documented in this file.
 
+# 0.12.0 (2023-12-01)
+
+### Features
+
+- **Store:** 🌟 Provides the `useWikiShareInfo` hook to get information about the currently visited share page group.
+- **Store:** 🌟 Provides the `useWikiTemplatePageInfo` hook to get information about the currently visited page template.
+- **Store:** 🌟 Provides the `useCustomEditorInfo` hook to get information about the context required for the custom editor.
+
+### Bug Fixes
+
+- **Store:** 🐞 Fix possible dead loop with `Suspense` method.
+
 # 0.10.0 (2023-04-25)
 
 ### Features
@@ -9,14 +21,14 @@ All notable changes to this package will be documented in this file.
 - **Store:** 🌟 Provide `useDashboardCardInfo` hook to get the context data of custom card
 - **Store:** 🌟 Provide `useDashboardCardConfigInfo` hook to get the context data of custom card config dialog
 
-# 0.x.0 (2023-x-x)
+# 0.9.0 (2023-03-31)
 
 ### Features
 
 - **Store:** 🌟 Provide `useVariablesInfo` hook to get the non-standard data passed by the slot
 - **Store:** 🌟 Provide `useModuleInstanceInfo` hook to get information about manually activated plugin instance
 
-# 0.x.0 (2023-x-x)
+# 0.8.0 (2023-02-21)
 
 ### Features
 

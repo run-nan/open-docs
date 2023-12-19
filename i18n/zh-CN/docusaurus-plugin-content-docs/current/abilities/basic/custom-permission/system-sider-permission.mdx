@@ -1,0 +1,87 @@
+---
+sidebar_position: 1
+description: system sider permission
+---
+
+# 场景：系统顶栏右侧组件
+
+## 场景描述
+
+在系统顶栏右侧添加功能组件，并且希望可以控制访问权限，对于没有访问权限的人员隐藏该组件。
+
+## 解决方案
+
+### 实现思路
+
+使用系统顶栏右侧插槽新增一个新的组件，使用自定义权限点能力添加一个插件权限点，将新增的组件关联该自定义权限点。
+
+### 实现效果
+
+拥有权限的人能够见到系统顶栏右侧新增了一个组件。
+
+<Image img={require('./images/sider-permission-01.png')} />
+
+没有权限的人系统顶栏右侧无变化。
+
+<Image img={require('./images/sider-permission-02.png')} />
+
+## 插件开发
+
+### 第一步：添加插槽
+
+使用`npx op add module`添加`ones:layout:header:action:new`类型的插槽。
+
+### 第二步：添加组件
+
+这里只以图标的形式简单展示，无新增具体逻辑。
+
+进入插件工程的 `/web` 目录，执行以下命令进行依赖安装：
+
+```shell
+npm i '@ones-design/icons'
+```
+
+添加图标
+
+```typescript title="web/src/modules/ones-layout-header-action-new-mYbE/index.tsx"
+import { Book } from '@ones-design/icons'
+
+ReactDOM.render(
+  <ConfigProvider>
+    <Book />
+  </ConfigProvider>,
+  document.getElementById('ones-mf-root')
+)
+```
+
+### 第三步：配置自定义权限点
+
+在插件的配置文件中添加权限点配置
+
+```yaml title="config/plugin.yaml"
+service:
+	...
+  permission:
+    - name: Component permissions
+      field: component_permissions
+      desc: System sider permissions
+```
+
+### 第四步：插槽关联权限点
+
+`module`配置新增`permission`字段
+
+```yaml titile="config/plugin.yaml"
+modules:
+  - id: ones-layout-header-action-new-mYbE
+    title: test
+    moduleType: ones:layout:header:action:new
+    entry: modules/ones-layout-header-action-new-mYbE/index.html
+    permission: component_permissions
+```
+
+### 第五步：配置权限
+
+在插件详情页面配置权限
+
+<Image img={require('./images/sider-permission-03.png')} />

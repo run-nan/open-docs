@@ -1,5 +1,5 @@
 ---
-sidebar_position: 12
+sidebar_position: 13
 description: 插件本身的文件存储。
 ---
 
@@ -216,7 +216,7 @@ export async function TestFile() {
 </TabItem>
 <TabItem value="1" label="3.6.0+ ">
 
-具体参数释义请参考：[@ones-op/node-file](../../reference/packages/node-file/node-file.mdx)
+具体参数释义请参考：[@ones-op/node-file](../../reference/legacy-packages/node-file/node-file.mdx)
 
 </TabItem>
 </Tabs>

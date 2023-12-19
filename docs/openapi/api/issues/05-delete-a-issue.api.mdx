@@ -1,0 +1,55 @@
+---
+id: 05-delete-a-issue
+title: "Delete a issue"
+description: "Delete a issue."
+sidebar_label: "Delete a issue"
+hide_title: true
+hide_table_of_contents: true
+api: eJztV01T2zAQ/SsandqZEKd8XHKjEGYyQ3sgcGpzEPaGCBxJSDKQevzfuyvZ+SAOpM01pzjyevftvidpt+TagBVeajXMeJ/3zo4yyMHDkTiSzhXAOzwDl1ppyAYtLsNrJlh43cX3DtLCSj/n/V8l16Lw02N85K+4Bn1j9SOkvh+djatxhxthxQx9WBe+UPgH/XoQs+ElupMU5bkAO9+IfTsFRnYsGFp4LqQFhO1tAYgjncJM8H7J/dyQS+etVA+8qjqLKAHGMowRftoaRWZMT5inpybN3cONydgZrRw4en/c69HPepQbdAfOo3/mijQF5yZFTnFSrTwoT18IY3KZBnaSR0eflZth9T0VGD/EUiOXXsagiKDI/Sa8tmyjbcwY8dgIrcurDgdrtb3QGezmKZizFO23e/vhHj53NgiOZlgW8QBsgs/vnJG3NzEzOQQVNeny0d3FxWA04kT6YvHqfHjN15LhP7W/0oXK+CqqxWqknROVXnqKUQt/FLm6qflFHITktPetjWFfWAXoKyqJdgYSWxPKUtQS/RW5Y8Ki0FSqrUUqGSWO8bEs/6SH9ejnASfz+gkUiUyqF5FLSvegm0Y3HyvkThFj2so/8E4l22pbLdXyXWSNRkgcjUxOtsnENSpxKbLBkNT0iU2EzN0eGhgFXwfy/4P8K23vZYYbdJ35jYpuo/xkQfnp5ycDAtGFTTH9QAt7FY4p7TEDPIr24B9PM9YccgfidyN+671QV3Ib4ac14Wdtl/0Q6bNK5GwE9gUsC3j3ILbV34HknUneVr8VxttN2tknzqtIPza2U02ddGyjiQPqMfs8qTvhJHQWLinrVrQKHTSFiO1wYXO0nnpvXD9J5nguHGV6JqRKkEoljExejkNzszT8wG68bM9HpKUohKZJX/aQcaHDJ7l+DSbN1Rf02JC9tni3HWjwlixuTxImXZWffhGsqB50ygYYbUME3r9Z1mGQSd9hscysmVUsiGzTPF7X4S8e3KicWcig4YyWQjFqZoeBIfRGpETtHXd7LeIO6quPbgsGn3Ev14Fcl905DOexTWAPgFCx4RMeOqwwWfgV2Gauwnfd34oEZrTzMxH2fz21rM9c74GUy1OkZTqrGfbw5hOTY7EpRNBOWUvzF68LRlNRk3q/mZRQQVMERGZleS8cIItVRctxRiPNZtKJ+5xGowl2s/ABvi839RT1la0Pc60wn2C+OhnijRv4DLJ+EVZS0P0AtMx5rUjqRaHmqzgahE2tqjGaTlGCYAOs+JbkZ/zKdxsnPeWzODguB9eD2wGa055o26OLEXuM6v0LE2d2Rw==
+sidebar_class_name: "delete api-method"
+info_path: docs/openapi/api/issues/issues
+custom_edit_url: null
+---
+
+import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
+import MimeTabs from "@theme/MimeTabs";
+import ParamsItem from "@theme/ParamsItem";
+import ResponseSamples from "@theme/ResponseSamples";
+import SchemaItem from "@theme/SchemaItem";
+import SchemaTabs from "@theme/SchemaTabs";
+import TabItem from "@theme/TabItem";
+
+<h1 className={"openapi__heading"}>Delete a issue</h1>
+
+<MethodEndpoint method={"delete"} path={"/project/issues/{issueID}"}></MethodEndpoint>
+
+
+
+Delete a issue.
+
+## Request
+
+<details style={{"marginBottom":"1rem"}} className={"openapi-markdown__details"} data-collapsed={false} open={true}><summary style={{}}><h3 className={"openapi-markdown__details-summary-header-params"}>Path Parameters</h3></summary><div><ul><ParamsItem className={"paramsItem"} param={{"name":"issueID","in":"path","description":"The id of the issue.","required":true,"schema":{"type":"string"}}}></ParamsItem></ul></div></details><details style={{"marginBottom":"1rem"}} className={"openapi-markdown__details"} data-collapsed={false} open={true}><summary style={{}}><h3 className={"openapi-markdown__details-summary-header-params"}>Query Parameters</h3></summary><div><ul><ParamsItem className={"paramsItem"} param={{"name":"teamID","in":"query","description":"The team ID","required":true,"schema":{"type":"string"}}}></ParamsItem></ul></div></details><div><div><ApiTabs><TabItem label={"200"} value={"200"}><div>
+
+Request is successful.
+
+</div><div><MimeTabs className={"openapi-tabs__mime"} schemaType={"response"}><TabItem label={"application/json"} value={"application/json"}><SchemaTabs className={"openapi-tabs__schema"}><TabItem label={"Schema"} value={"Schema"}><details style={{}} className={"openapi-markdown__details response"} data-collapsed={false} open={true}><summary style={{}} className={"openapi-markdown__details-summary-response"}><strong>Schema</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"result"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"The result of this request."}}></SchemaItem><SchemaItem collapsible={false} name={"errorCode"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"The error code of this request."}}></SchemaItem><SchemaItem collapsible={false} name={"errorMsg"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Error message for this request."}}></SchemaItem></ul></details></TabItem><TabItem label={"Example (from schema)"} value={"Example (from schema)"}><ResponseSamples responseExample={"[\n  {\n    \"result\": \"SUCCESS\"\n  },\n  {\n    \"result\": \"FAIL\",\n    \"errorCode\": \"NotFound\",\n    \"errorMsg\": \"NotFound issue\"\n  }\n]"} language={"json"}></ResponseSamples></TabItem></SchemaTabs></TabItem></MimeTabs></div></TabItem><TabItem label={"401"} value={"401"}><div>
+
+Returned if the authentication credentials are incorrect or missing.
+
+</div><div><MimeTabs className={"openapi-tabs__mime"} schemaType={"response"}><TabItem label={"application/json"} value={"application/json"}><SchemaTabs className={"openapi-tabs__schema"}><TabItem label={"Schema"} value={"Schema"}><details style={{}} className={"openapi-markdown__details response"} data-collapsed={false} open={true}><summary style={{}} className={"openapi-markdown__details-summary-response"}><strong>Schema</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"result"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"The result of this request."}}></SchemaItem><SchemaItem collapsible={false} name={"errorCode"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"The error code of this request."}}></SchemaItem><SchemaItem collapsible={false} name={"errorMsg"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Error message for this request."}}></SchemaItem></ul></details></TabItem><TabItem label={"Example (from schema)"} value={"Example (from schema)"}><ResponseSamples responseExample={"{\n  \"result\": \"FAIL\",\n  \"errorCode\": \"Unauthorized\",\n  \"errorMsg\": \"Access token is invalid\"\n}"} language={"json"}></ResponseSamples></TabItem></SchemaTabs></TabItem></MimeTabs></div></TabItem><TabItem label={"403"} value={"403"}><div>
+
+Returns if the scope check fails.
+
+</div><div><MimeTabs className={"openapi-tabs__mime"} schemaType={"response"}><TabItem label={"application/json"} value={"application/json"}><SchemaTabs className={"openapi-tabs__schema"}><TabItem label={"Schema"} value={"Schema"}><details style={{}} className={"openapi-markdown__details response"} data-collapsed={false} open={true}><summary style={{}} className={"openapi-markdown__details-summary-response"}><strong>Schema</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"result"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"The result of this request."}}></SchemaItem><SchemaItem collapsible={false} name={"errorCode"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"The error code of this request."}}></SchemaItem><SchemaItem collapsible={false} name={"errorMsg"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Error message for this request."}}></SchemaItem></ul></details></TabItem><TabItem label={"Example (from schema)"} value={"Example (from schema)"}><ResponseSamples responseExample={"{\n  \"result\": \"FAIL\",\n  \"errorCode\": \"Forbidden\",\n  \"errorMsg\": \"Scope is invalid\"\n}"} language={"json"}></ResponseSamples></TabItem></SchemaTabs></TabItem></MimeTabs></div></TabItem><TabItem label={"404"} value={"404"}><div>
+
+Returned if the resource object was not found.
+
+</div><div><MimeTabs className={"openapi-tabs__mime"} schemaType={"response"}><TabItem label={"application/json"} value={"application/json"}><SchemaTabs className={"openapi-tabs__schema"}><TabItem label={"Schema"} value={"Schema"}><details style={{}} className={"openapi-markdown__details response"} data-collapsed={false} open={true}><summary style={{}} className={"openapi-markdown__details-summary-response"}><strong>Schema</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"result"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"The result of this request."}}></SchemaItem><SchemaItem collapsible={false} name={"errorCode"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"The error code of this request."}}></SchemaItem><SchemaItem collapsible={false} name={"errorMsg"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Error message for this request."}}></SchemaItem></ul></details></TabItem><TabItem label={"Example (from schema)"} value={"Example (from schema)"}><ResponseSamples responseExample={"{\n  \"result\": \"FAIL\",\n  \"errorCode\": \"NotFound\",\n  \"errorMsg\": \"Not Found\"\n}"} language={"json"}></ResponseSamples></TabItem></SchemaTabs></TabItem></MimeTabs></div></TabItem><TabItem label={"500"} value={"500"}><div>
+
+Internal Server Error.
+
+</div><div><MimeTabs className={"openapi-tabs__mime"} schemaType={"response"}><TabItem label={"application/json"} value={"application/json"}><SchemaTabs className={"openapi-tabs__schema"}><TabItem label={"Schema"} value={"Schema"}><details style={{}} className={"openapi-markdown__details response"} data-collapsed={false} open={true}><summary style={{}} className={"openapi-markdown__details-summary-response"}><strong>Schema</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"result"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"The result of this request."}}></SchemaItem><SchemaItem collapsible={false} name={"errorCode"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"The error code of this request."}}></SchemaItem><SchemaItem collapsible={false} name={"errorMsg"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"Error message for this request."}}></SchemaItem></ul></details></TabItem><TabItem label={"Example (from schema)"} value={"Example (from schema)"}><ResponseSamples responseExample={"{\n  \"result\": \"FAIL\",\n  \"errorCode\": \"Internal Server Error\",\n  \"errorMsg\": \"Internal Server Error\"\n}"} language={"json"}></ResponseSamples></TabItem></SchemaTabs></TabItem></MimeTabs></div></TabItem></ApiTabs></div></div>

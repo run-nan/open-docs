@@ -33,13 +33,13 @@
 
 **ONES 要求：** v3.11.40+
 
-**描述：** 全局弹窗模块，用于全局弹窗交互或不需要界面的 [逻辑层载体](../../business/layout-custom-quick-action#2%E6%97%A0%E7%95%8C%E9%9D%A2%E7%BA%AF%E9%80%BB%E8%BE%91%E7%B1%BB%E5%9E%8B)
+**描述：** 全局弹窗模块，用于全局弹窗交互或不需要界面的 [逻辑层载体](../../business/project/layout-custom-quick-action#2%E6%97%A0%E7%95%8C%E9%9D%A2%E7%BA%AF%E9%80%BB%E8%BE%91%E7%B1%BB%E5%9E%8B)
 
 **个数限制：** 一个插件中最多可声明 **10** 个该插槽，系统中最多同时存在 **100** 个该插槽
 
 :::caution 注意
 
-目前暂只支持 [自定义视图快捷操作](../../business/layout-custom-quick-action) 场景。
+目前暂只支持 [自定义视图快捷操作](../../business/project/layout-custom-quick-action) 场景。
 
 :::
 

@@ -1,6 +1,8 @@
-import Image from '@theme/IdealImage'
-
 # Trigger action list
+
+:::warning
+Currently Trigger intercepts requests based on the front-end interface, so when upgrading the ONES version you need to check that the interface used by the plugin hasn't changed destructively to avoid making the plugin unavailable after the upgrade.
+:::
 
 ## ones:task:fields:update
 
@@ -407,7 +409,7 @@ Deleting target deliverable.
 
 ## ones:space:add
 
-**ONES Requirement:** P8133
+**ONES Requirement:** v3.14.0+
 
 **Action Type:**
 
@@ -420,7 +422,7 @@ Deleting target deliverable.
 
 ## ones:space:copy
 
-**ONES Requirement:** P8133
+**ONES Requirement:** v3.14.0+
 
 **Action Type:**
 
@@ -433,7 +435,7 @@ Deleting target deliverable.
 
 ## ones:space:update
 
-**ONES Requirement:** P8133
+**ONES Requirement:** v3.14.0+
 
 **Action Type:**
 
@@ -446,7 +448,7 @@ Updating the space's info.
 
 ## ones:space:delete
 
-**ONES Requirement:** P8133
+**ONES Requirement:** v3.14.0+
 
 **Action Type:**
 

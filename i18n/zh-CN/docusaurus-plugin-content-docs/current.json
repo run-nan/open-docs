@@ -1,23 +1,7 @@
 {
   "version.label": {
-    "message": "🚧 Canary",
+    "message": "1.x",
     "description": "The label for version current"
-  },
-  "sidebar.guide.category.Overview": {
-    "message": "概览",
-    "description": "The label for category Overview in sidebar guide"
-  },
-  "sidebar.guide.category.Installation": {
-    "message": "安装",
-    "description": "The label for category Installation in sidebar guide"
-  },
-  "sidebar.guide.category.Create an plugin": {
-    "message": "创建插件",
-    "description": "The label for category Create an plugin in sidebar guide"
-  },
-  "sidebar.learning.link.Learning": {
-    "message": "Learning",
-    "description": "The label for link Learning in sidebar learning, linking to /docs/learning"
   },
   "sidebar.api.category.Permission": {
     "message": "Permission",
@@ -38,10 +22,6 @@
   "sidebar.api.category.Resource": {
     "message": "Resource",
     "description": "The label for category Resource in sidebar api"
-  },
-  "sidebar.api.category.Webhook": {
-    "message": "Webhook",
-    "description": "The label for category Webhook in sidebar api"
   },
   "sidebar.api.category.Item": {
     "message": "Item",
@@ -95,22 +75,6 @@
     "message": "项目组件",
     "description": "The label for category 项目组件 in sidebar abilities"
   },
-  "sidebar.abilities.category.Basic Abilities": {
-    "message": "平台开放能力",
-    "description": "The label for category Basic Abilities in sidebar abilities"
-  },
-  "sidebar.abilities.category.插件自定义权限点": {
-    "message": "插件自定义权限点",
-    "description": "The label for category 插件自定义权限点 in sidebar abilities"
-  },
-  "sidebar.abilities.category.Business Abilities": {
-    "message": "应用开放能力",
-    "description": "The label for category Business Abilities in sidebar abilities"
-  },
-  "sidebar.abilities.category.ONES 接口操作": {
-    "message": "ONES 接口操作",
-    "description": "The label for category ONES 接口操作 in sidebar abilities"
-  },
   "sidebar.abilities.category.Account": {
     "message": "Account",
     "description": "The label for category Account in sidebar abilities"
@@ -127,45 +91,17 @@
     "message": "托管独立应用",
     "description": "The label for category 托管独立应用 in sidebar abilities"
   },
-  "sidebar.abilities.category.工作项": {
-    "message": "工作项",
-    "description": "The label for category 工作项 in sidebar abilities"
-  },
-  "sidebar.abilities.category.属性": {
-    "message": "属性",
-    "description": "The label for category 属性 in sidebar abilities"
-  },
-  "sidebar.abilities.category.插件承载属性组": {
-    "message": "插件承载属性组",
-    "description": "The label for category 插件承载属性组 in sidebar abilities"
-  },
-  "sidebar.abilities.category.插件承载脚本属性 - 浮点数": {
-    "message": "插件承载脚本属性 - 浮点数",
-    "description": "The label for category 插件承载脚本属性 - 浮点数 in sidebar abilities"
-  },
-  "sidebar.abilities.category.插件承载脚本属性 - 单选/多选": {
-    "message": "插件承载脚本属性 - 单选/多选",
-    "description": "The label for category 插件承载脚本属性 - 单选/多选 in sidebar abilities"
-  },
-  "sidebar.abilities.category.frontend": {
-    "message": "前端能力",
-    "description": "The label for category frontend in sidebar abilities"
-  },
-  "sidebar.abilities.category.事件通信": {
-    "message": "事件通信",
-    "description": "The label for category 事件通信 in sidebar abilities"
-  },
-  "sidebar.abilities.category.wiki 自定义宏": {
-    "message": "wiki 自定义宏",
-    "description": "The label for category wiki 自定义宏 in sidebar abilities"
-  },
   "sidebar.reference.category.Plugin Config": {
     "message": "插件配置",
-    "description": "The label for category Plugin Config in sidebar reference"
+    "description": "The label for category 插件配置 in sidebar reference"
   },
   "sidebar.reference.category.Packages": {
     "message": "能力包",
-    "description": "The label for category Packages in sidebar reference"
+    "description": "The label for category 能力包 in sidebar reference"
+  },
+  "sidebar.reference.category.Legacy Packages": {
+    "message": "过时的包",
+    "description": "The label for category 过时的包 in sidebar reference"
   },
   "sidebar.tools.category.CLI": {
     "message": "CLI",
@@ -173,7 +109,7 @@
   },
   "sidebar.faq.category.Environment": {
     "message": "环境相关",
-    "description": "The label for category Environment in sidebar faq"
+    "description": "The label for category 环境相关 in sidebar faq"
   },
   "sidebar.abilities.category.个人中心": {
     "message": "个人中心",
@@ -213,33 +149,234 @@
   },
   "sidebar.guide.category.Advanced Guide": {
     "message": "进阶指南",
-    "description": "The label for category Advanced Guide in sidebar guide"
+    "description": "The label for category 进阶指南 in sidebar guide"
   },
   "sidebar.openapi.category.Auth": {
-    "message": "授权"
+    "message": "授权",
+    "description": "The label for category 授权 in sidebar openapi"
   },
-  "sidebar.openapi.category.Issue": {
-    "message": "工作项"
+  "sidebar.openapi.category.Issues": {
+    "message": "工作项",
+    "description": "The label for category 工作项 in sidebar openapi"
   },
   "sidebar.openapi.category.Issue Attachments": {
-    "message": "工作项附件"
+    "message": "工作项附件",
+    "description": "The label for category 工作项附件 in sidebar openapi"
   },
   "sidebar.openapi.category.Issue Fields": {
-    "message": "工作项属性"
+    "message": "工作项属性",
+    "description": "The label for category 工作项属性 in sidebar openapi"
   },
   "sidebar.openapi.category.Issue Status": {
-    "message": "工作项状态"
+    "message": "工作项状态",
+    "description": "The label for category 工作项状态 in sidebar openapi"
   },
   "sidebar.openapi.category.Issue Types": {
-    "message": "工作项类型"
+    "message": "工作项类型",
+    "description": "The label for category 工作项类型 in sidebar openapi"
   },
   "sidebar.openapi.category.Issue Workflows": {
-    "message": "工作流"
+    "message": "工作流",
+    "description": "The label for category 工作流 in sidebar openapi"
   },
-  "sidebar.openapi.category.Project": {
-    "message": "项目"
+  "sidebar.openapi.category.Simple Mode Issue Worklogs": {
+    "message": "简单模式 工作项工时",
+    "description": "The label for category 简单模式 工作项工时 in sidebar openapi"
   },
-  "sidebar.openapi.category.Testcase Library": {
-    "message": "用例库"
+  "sidebar.openapi.category.Issue Worklogs": {
+    "message": "工作项工时",
+    "description": "The label for category 工作项工时 in sidebar openapi"
+  },
+  "sidebar.openapi.category.Issue Comments": {
+    "message": "工作项评论",
+    "description": "The label for category 工作项评论 in sidebar openapi"
+  },
+  "sidebar.openapi.category.Issue Links": {
+    "message": "关联工作项",
+    "description": "The label for category 关联工作项 in sidebar openapi"
+  },
+  "sidebar.openapi.category.Projects": {
+    "message": "项目",
+    "description": "The label for category 项目 in sidebar openapi"
+  },
+  "sidebar.openapi.category.Testcase Librarys": {
+    "message": "用例库",
+    "description": "The label for category 用例库 in sidebar openapi"
+  },
+  "sidebar.openapi.category.Issue Watchers": {
+    "message": "工作项关注者",
+    "description": "The label for category 工作项关注者 in sidebar openapi"
+  },
+  "sidebar.openapi.category.Issue Permission": {
+    "message": "工作项权限",
+    "description": "The label for category 工作项权限 in sidebar openapi"
+  },
+  "sidebar.abilities.category.配置中心": {
+    "message": "配置中心",
+    "description": "The label for category 配置中心 in sidebar abilities"
+  },
+  "sidebar.abilities.category.账号与成员": {
+    "message": "账号与成员",
+    "description": "The label for category 账号与成员 in sidebar abilities"
+  },
+  "sidebar.abilities.category.流程自动化配置": {
+    "message": "流程自动化配置",
+    "description": "The label for category 流程自动化配置 in sidebar abilities"
+  },
+  "sidebar.abilities.category.代码集成配置": {
+    "message": "代码集成配置",
+    "description": "The label for category 代码集成配置 in sidebar abilities"
+  },
+  "sidebar.abilities.category.默认分组": {
+    "message": "默认分组",
+    "description": "The label for category 默认分组 in sidebar abilities"
+  },
+  "sidebar.abilities.category.迁移数据": {
+    "message": "迁移数据",
+    "description": "The label for category 迁移数据 in sidebar abilities"
+  },
+  "sidebar.abilities.category.效能管理配置": {
+    "message": "效能管理配置",
+    "description": "The label for category 效能管理配置 in sidebar abilities"
+  },
+  "sidebar.abilities.category.流水线集成配置": {
+    "message": "流水线集成配置",
+    "description": "The label for category 流水线集成配置 in sidebar abilities"
+  },
+  "sidebar.abilities.category.项目集管理配置": {
+    "message": "项目集管理配置",
+    "description": "The label for category 项目集管理配置 in sidebar abilities"
+  },
+  "sidebar.abilities.category.项目管理配置": {
+    "message": "项目管理配置",
+    "description": "The label for category 项目管理配置 in sidebar abilities"
+  },
+  "sidebar.abilities.category.系统偏好设置": {
+    "message": "系统偏好设置",
+    "description": "The label for category 系统偏好设置 in sidebar abilities"
+  },
+  "sidebar.abilities.category.系统安全": {
+    "message": "系统安全",
+    "description": "The label for category 系统安全 in sidebar abilities"
+  },
+  "sidebar.abilities.category.团队配置": {
+    "message": "团队配置",
+    "description": "The label for category 团队配置 in sidebar abilities"
+  },
+  "sidebar.abilities.category.测试管理配置": {
+    "message": "测试管理配置",
+    "description": "The label for category 测试管理配置 in sidebar abilities"
+  },
+  "sidebar.abilities.category.知识库管理配置": {
+    "message": "知识库管理配置",
+    "description": "The label for category 知识库管理配置 in sidebar abilities"
+  },
+  "sidebar.abilities.category.工时设置": {
+    "message": "工时设置",
+    "description": "The label for category 工时设置 in sidebar abilities"
+  },
+  "sidebar.abilities.category.仪表盘": {
+    "message": "仪表盘",
+    "description": "The label for category 仪表盘 in sidebar abilities"
+  },
+  "sidebar.abilities.category.组织管理": {
+    "message": "组织管理",
+    "description": "The label for category 组织管理 in sidebar abilities"
+  },
+  "sidebar.abilities.category.概览": {
+    "message": "概览",
+    "description": "The label for category 概览 in sidebar abilities"
+  },
+  "sidebar.abilities.category.测试计划": {
+    "message": "测试计划",
+    "description": "The label for category 测试计划 in sidebar abilities"
+  },
+  "sidebar.abilities.category.知识库管理": {
+    "message": "知识库管理",
+    "description": "The label for category 知识库管理 in sidebar abilities"
+  },
+  "sidebar.abilities.category.apis": {
+    "message": "apis",
+    "description": "The label for category apis in sidebar abilities"
+  },
+  "sidebar.abilities.category.ONES 接口": {
+    "message": "ONES 接口",
+    "description": "The label for category ONES 接口 in sidebar abilities"
+  },
+  "sidebar.abilities.category.自定义权限点": {
+    "message": "自定义权限点",
+    "description": "The label for category 自定义权限点 in sidebar abilities"
+  },
+  "sidebar.abilities.category.Project": {
+    "message": "Project",
+    "description": "The label for category Project in sidebar abilities"
+  },
+  "sidebar.abilities.category.自定义工作项属性": {
+    "message": "自定义工作项属性",
+    "description": "The label for category 自定义工作项属性 in sidebar abilities"
+  },
+  "sidebar.abilities.category.单选/多选菜单属性": {
+    "message": "单选/多选菜单属性",
+    "description": "The label for category 单选/多选菜单属性 in sidebar abilities"
+  },
+  "sidebar.abilities.category.浮点数属性": {
+    "message": "浮点数属性",
+    "description": "The label for category 浮点数属性 in sidebar abilities"
+  },
+  "sidebar.abilities.category.自定义项目组件": {
+    "message": "自定义项目组件",
+    "description": "The label for category 自定义项目组件 in sidebar abilities"
+  },
+  "sidebar.abilities.category.工作项详情页操作按钮": {
+    "message": "工作项详情页操作按钮",
+    "description": "The label for category 工作项详情页操作按钮 in sidebar abilities"
+  },
+  "sidebar.abilities.category.Wiki": {
+    "message": "Wiki",
+    "description": "The label for category Wiki in sidebar abilities"
+  },
+  "sidebar.abilities.category.DevOps": {
+    "message": "DevOps",
+    "description": "The label for category DevOps in sidebar abilities"
+  },
+  "sidebar.abilities.category.集成代码仓": {
+    "message": "集成代码仓",
+    "description": "The label for category 集成代码仓 in sidebar abilities"
+  },
+  "sidebar.abilities.category.TestCase": {
+    "message": "TestCase",
+    "description": "The label for category TestCase in sidebar abilities"
+  },
+  "sidebar.reference.category.@ones-op/node-error": {
+    "message": "@ones-op/node-error",
+    "description": "The label for category @ones-op/node-error in sidebar reference"
+  },
+  "sidebar.reference.category.@ones-op/fetch": {
+    "message": "@ones-op/fetch",
+    "description": "The label for category @ones-op/fetch in sidebar reference"
+  },
+  "sidebar.reference.category.@ones-op/store": {
+    "message": "@ones-op/store",
+    "description": "The label for category @ones-op/store in sidebar reference"
+  },
+  "sidebar.reference.category.@ones-op/event": {
+    "message": "@ones-op/event",
+    "description": "The label for category @ones-op/event in sidebar reference"
+  },
+  "sidebar.reference.category.@ones-op/bridge": {
+    "message": "@ones-op/bridge",
+    "description": "The label for category @ones-op/bridge in sidebar reference"
+  },
+  "sidebar.reference.category.@ones-op/utils": {
+    "message": "@ones-op/utils",
+    "description": "The label for category @ones-op/utils in sidebar reference"
+  },
+  "sidebar.tools.category.Diagtools": {
+    "message": "Diagtools",
+    "description": "The label for category Diagtools in sidebar tools"
+  },
+  "sidebar.openapi.category.Open API": {
+    "message": "Open API",
+    "description": "The label for category Open API in sidebar openapi"
   }
 }

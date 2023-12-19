@@ -1,6 +1,8 @@
-import Image from '@theme/IdealImage'
-
 # 触发列表
+
+:::warning
+目前 Trigger 是基于前端接口请求进行拦截的，因此，在升级 ONES 版本时，你需要检查插件所使用到的接口是否发生了破坏性变更，避免造成升级后插件不可用。
+:::
 
 ## ones:task:fields:update
 
@@ -406,7 +408,7 @@ import Image from '@theme/IdealImage'
 
 ## ones:space:add
 
-**ONES 要求：**P8133
+**ONES 要求：**v3.14.0+
 
 **Action 类型：**
 
@@ -419,7 +421,7 @@ import Image from '@theme/IdealImage'
 
 ## ones:space:copy
 
-**ONES 要求：**P8133
+**ONES 要求：**v3.14.0+
 
 **Action 类型：**
 
@@ -432,7 +434,7 @@ import Image from '@theme/IdealImage'
 
 ## ones:space:update
 
-**ONES 要求：**P8133
+**ONES 要求：**v3.14.0+
 
 **Action 类型：**
 
@@ -445,7 +447,7 @@ import Image from '@theme/IdealImage'
 
 ## ones:space:delete
 
-**ONES 要求：**P8133
+**ONES 要求：**v3.14.0+
 
 **Action 类型：**
 

@@ -31,6 +31,6 @@ ReactDOM.render(<ConfigProvider>banner</ConfigProvider>, document.getElementById
 
 :::caution 注意
 
-你必须在 `ReactDOM.render` 中保留 `<ConfigProvider>` 组件，否则插件将无法按照你预期的方式运行。详情请见 ONES Design 的 [ConfigProvider 全局化配置](https://bangwork.github.io/ones-design/?path=/docs/core-configprovider--config-provider%E5%85%A8%E5%B1%80%E5%8C%96%E9%85%8D%E7%BD%AE) 组件文档。
+你必须在 `ReactDOM.render` 中保留 `<ConfigProvider>` 组件，否则插件将无法按照你预期的方式运行。详情请见 ONES Design 的 [ConfigProvider 全局化配置](https://bangwork.github.io/ones-design/?path=/docs/core-configprovider--docs) 组件文档。
 
 :::

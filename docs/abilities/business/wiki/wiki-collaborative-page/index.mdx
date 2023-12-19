@@ -1,0 +1,474 @@
+---
+id: wiki-collaborative-page
+sidebar_position: 1
+description: Support inline elements(Box), block elements(Block), and embed elements(Embed).
+---
+
+# Macro
+
+## Requirements
+
+|   ONES   |
+| :------: |
+| v3.16.8+ |
+
+## Overview
+
+<Image img={require('./images/editor.png')} />
+
+We have provided slots for "ONES Wiki" - "Spaces" - "select a space" - "Wiki collaborative page" to customize the page module for the application.
+
+Support inline elements(Box), block elements(Block), and embed elements(Embed).
+
+The slots currently supported are as follows:
+
+- [ones:wiki:editor:decorator](#oneswikieditordecorator)
+
+## Slots
+
+#### ones:wiki:editor:decorator
+
+**Module path：** ONES Wiki / Spaces / select a space / Wiki collaborative page
+
+**Number limit：** Declare a maximum of **10** slots in each plugin, and up to **10** slots in the system.
+
+## Usage
+
+### Step 1: Add the module through the OP tool:
+
+Use the Command Line to enter the OP command in the plugin root directory to add a module:
+
+```shell
+npx op add module
+```
+
+Select the module type `ones:wiki:editor:decorator`, and the OP tool add the module in the `plugin.yaml`:
+
+```yaml
+modules:
+  - id: ones-wiki-editor-decorator-lsE4
+    title: test
+    moduleType: ones:wiki:editor:decorator
+    entry: modules/ones-wiki-editor-decorator-lsE4/index.html
+    icon: logo.svg
+```
+
+This is the available hook API used in the module blow.
+
+- [useDefaultEditor](../../../../reference/packages/editor/editor.md#useDefaultEditor)
+- [useDefaultEditorTools](../../../../reference/packages/editor/editor.md#useDefaultEditorTools)
+
+### Step 2: Register shortcut:
+
+If the user wants to use your plugin in the editor, there are three ways to add plugin into the document: click "+",
+entry "/", or "Insert above"/"Insert below" in the menu.
+
+<Image img={require('./images/insert-by-add-button.png')} />
+<Image img={require('./images/insert-by-shortcut.png')} />
+<Image img={require('./images/insert-by-menu.png')} />
+
+You can register a entry in these ways for you plugin by the hook `useRegisterCommand`:
+
+```tsx
+import { useRegisterCommand } from '@ones-op/editor'
+
+const config: EditorBlockConfig = {
+  'my-tabs': {
+    render: BlockTabs,
+    icon: './logo.svg',
+    name: 'my-tabs',
+  },
+}
+
+const embedConfig: EditorEmbedConfig = {
+  embedType: {
+    render: EmbedBlock,
+    name: 'embed',
+    icon: './logo.svg',
+  },
+}
+
+function App() {
+  const registerCommand = useRegisterCommand()
+  const editor = useDefaultEditor()
+  const tools = useDefaultEditorTools()
+
+  useEffect(() => {
+    registerCommand({
+      commandItems: [
+        {
+          id: 'tabs',
+          name: 'tabs',
+          icon: './logo.svg',
+          subText: '/tabs',
+        },
+        {
+          id: 'embed',
+          name: 'embed',
+          icon: './logo.svg',
+          subText: '/embed',
+        },
+      ],
+      async executeCommand(options) {
+        let containerId: string | undefined
+        let blockIndex = 0
+        if (options.params.from === 'quick-menu') {
+          // When the user clicks the "/" button, this code will run.
+          const block = editor.getBlockById(options.params.blockId)
+          const container = editor.getParentContainer(block)
+          containerId = tools.getContainerId(container)
+          blockIndex = editor.getBlockIndex(block)
+        }
+        if (options.params.from === 'add-block-menu') {
+          // When the user clicks the "+" button, this code will run.
+          // Please implement the logic
+        }
+        if (options.params.from === 'block-menu') {
+          // When the user clicks the "Insert above"/"Insert below" button, this code will run.
+          // Please implement the logic
+        }
+        if (options.item.id === 'tabs') {
+          const childId = tools.createEmptyContainer()
+          const blockData: MFInsertBlockData = {
+            // The value must be the key of `EditorBlockConfig`
+            type: 'my-tabs',
+            children: [childId],
+            data: ['tab1'],
+            exportSpec: [
+              {
+                type: 'text',
+                data: 'tab1',
+              },
+              {
+                type: 'block',
+                data: [childId],
+              },
+            ],
+          }
+          return editor.insertBlock(containerId, blockIndex, blockData)
+        }
+        if (options.item.id === 'embed') {
+          const blockData: MFInsertBaseData = {
+            // The value must be the key of `EditorEmbedConfig`
+            type: 'embedType',
+            data: 'embed',
+            exportSpec: [
+              {
+                type: 'text',
+                data: 'embed',
+              },
+            ],
+          }
+          return editor.insertEmbed(containerId, blockIndex, blockData)
+        }
+      },
+    })
+  }, [editor, registerCommand, tools])
+  return (
+    <>
+      <RenderEditorBlock config={config} />
+      <RenderEditorEmbed config={embedConfig} />
+    </>
+  )
+}
+```
+
+:::caution caution
+
+If you want to insert a block by the `editor.insertBlock` API, you must use the `tools.createEmptyContainer` to create
+the ID for every editable block, and put them in the array of `MFInsertBlockData.children`, because when the user copy
+or cut the block, the editor will update the ID in the `children`. your custom data must be put in the
+`MFInsertBlockData.data`. If you want to get these data in the render component, you can get them by the
+`EditorBlockProps.blockData.children` and `EditorBlockProps.blockData.pluginInfo.data`.
+
+More information about the `Block` is [here](#block).
+
+:::
+
+### Step 3: Render the plugin
+
+After you insert the plugin. The platform will call the `render` function by the type of the plugin data. For example,
+in the code above, if the type of the plugin data is `my-tabs`(This should be the same as the `MFInsertBlockData.type`.
+If the type is `Embed`, this should be the same as the `EditorEmbedConfig.type`), so you must register a component to
+render it.
+
+Every block inserted by the plugin has a border which is rendered by the platform to show the information of the block.
+The `icon` and `name` are used to configure the information.
+
+```ts
+const config: EditorBlockConfig = {
+  'my-tabs': {
+    render: BlockTabs,
+    icon: './logo.svg',
+    name: 'my-tabs',
+  },
+}
+
+function App() {
+  return (
+    <>
+      <RenderEditorBlock config={config} />
+    </>
+  )
+}
+```
+
+:::caution caution
+
+The element used to accept data from the user(e.g. `<input>`) can't be used in the block element(which intercept lots
+of DOM event, so the element can't respond to the input from the user). But the element wrapped by the `Modal` from the
+`@ones-design/core` can accept the data from the user, because the element under the `Modal` is inserted under the `document.body`.
+
+:::
+
+:::caution caution
+
+The function in the `editor` is synchronous, so try your best to put the function that changes the document in the `useLayoutEffect`.
+Otherwise, maybe the editor will throw an error.
+
+:::
+
+Now the plugin supports three types of elements in the document, there are `Block`, `Embed`, and `Box`. The main
+difference is the `Box` can be inserted into the document around the text, and the `Block` and `Embed` are the whole
+block in the document.
+
+#### Block
+
+<Image img={require('./images/block.png')} />
+
+The `Block`(The zone in the blue box) is the whole block in the document. You can insert the `Block` into the document
+by the `editor.insertBlock` function, and register a component to render the `Block` by the component `RenderEditorBlock`.
+In the block, you can insert an editable block(The zone in the red box) that has the core functionality of the editor.
+The editable block is also called the child container below.
+
+For example, the table in the document is a `Block`, the developer can determine the appearance of the table, and the cell
+is the editable block. And you can determine the cursor position in the cell by the lifecycle.
+
+Below is an example to insert an editable block and get it in the code:
+
+```ts
+const editor = useDefaultEditor()
+// This is used to append an editable block under the `div` container and the ID of the child container is the `props.blockData.children[0]`.
+// The ID must get from the `EditorBlockProps.blockData.children`.
+editor.createChildContainer(props.path, containerRef.current, props.blockData.children[0])
+
+// In the `props.registerLifeCycle`, you can get the child container by the API in the `useDefaultEditor`.
+editor.getContainerById(props.blockData.children[0])
+```
+
+This is the lifecycle you can use:
+
+```ts
+function BlockTabs(props: EditorBlockProps) {
+  const editor = useDefaultEditor()
+  const tools = useDefaultEditorTools()
+  const containerRef = useRef<HTMLDivElement>(null)
+  const activeTabKey = props.blockData.children[0]
+
+  const tabsInfo = useMemo(() => {
+    return props.blockData.children.map((item) => {
+      return {
+        key: item,
+        label: props.blockData.pluginInfo.data[0],
+      }
+    })
+  }, [props.blockData.children, props.blockData.pluginInfo.data])
+
+  useEffect(() => {
+    props.registerLifeCycle({
+      // Return the child container of the current block.
+      // If the `options?.visibleOnly` is `true`, you should only return the container element which is visible.
+      // For example, when the user try to move the cursor to the block, the `editor` will call this function and move the
+      // cursor to the right child container.
+      getChildContainers: (_, options) => {
+        // Please implement the logic
+      },
+      // Update the selected status of a child container
+      // When a child container is selected, the `clearSelection` runs first, and then the `updateSelection` runs.
+      // If the lifecycle is not defined, The block is selected by default when needed.
+      updateSelection() {
+        // Please implement the logic
+      },
+      // Clear the selected status of all child container
+      clearSelection() {
+        // Please implement the logic
+      },
+      // Return the selected child container element.
+      getSelectedContainers(complexBlock) {
+        // Please implement the logic
+      },
+      // If the block is visible.
+      // the block has two child containers. The first container has an annotation and is unvisitable. The second
+      // container is visible. When the user clicks the annotation. The editor will ask if the block where the
+      // annotation is located is visible. If the block is not visible, the editor will call the `showChildContainer`
+      // and switch to the first block.
+      isChildContainerVisible(block) {
+        // Please implement the logic
+      },
+      // Refer to `isChildContainerVisible`.
+      // When you try to show the container, you should wrap the component state with `flushSync`, because the editor inside is synchronous.
+      showChildContainer() {
+        // Please implement the logic
+      },
+      // When the user clicks a DOM which is not an editor block that the cursor can move to, this function will be
+      // called. You can return a child container, then the editor will move the cursor to the container.
+      getRangeFromPoint(block) {
+        // Please implement the logic
+      },
+      // Configure how to display the toolbar.
+      // The toolbar shows on the top of the block when the user hovers over it.
+      getBlockProperties() {
+        // Please implement the logic
+
+        // This will show the toolbar called `edit` on the top of the block.
+        // return {
+        //   commands: [
+        //     {
+        //       id: 'edit',
+        //       name: 'edit',
+        //       icon: './logo.svg',
+        //     },
+        //   ],
+        //   executeCommand(block, item) {
+        //     if (item.id === 'edit') {
+        //     }
+        //   },
+        // }
+      }
+    })
+  }, [activeTabKey, editor, props, tools])
+
+  useLayoutEffect(() => {
+    editor.createChildContainer(props.path, containerRef.current, props.blockData.children[0])
+  }, [editor, props.blockData.children, props.path])
+
+  return (
+    <>
+      <Tabs tabs={tabsInfo} activeTabKey={tabsInfo[0].key} />
+      <div ref={containerRef}></div>
+    </>
+  )
+}
+```
+
+#### Embed
+
+<Image img={require('./images/embed.png')} />
+
+You can insert the `Embed` into the document by the `editor.insertEmbed` function, and register a component to render
+the `Embed` by the component `RenderEditorEmbed`.
+
+This is the same as the `Block`, but the `Embed` is a special block. You can't insert an editable block in the `Embed`.
+When the cursor move to the `Embed`, the whole `Embed` block is selected. The `Embed` is not editable.
+
+```ts
+function EmbedBlock(props: EditorEmbedProps) {
+  return <span>test</span>
+}
+
+const embedConfig: EditorEmbedConfig = {
+  embedType: {
+    render: EmbedBlock,
+    name: 'embed',
+    icon: './logo.svg',
+  },
+}
+
+function App() {
+  return (
+    <>
+      <RenderEditorEmbed config={embedConfig} />
+    </>
+  )
+}
+```
+
+#### Box
+
+:::caution caution
+
+Now the `Box` can't be exported to `PDF/Word`.
+
+:::
+
+<Image img={require('./images/box.png')} />
+
+You can insert the `Box`(the zone in the blue zone) into the text block(the zone in the red zone) by the
+`editor.insertBoxToBlock` function, and register a function to render the `Box` by the hook `useRegisterBoxConfig`.
+
+The `Box` is an inline element. You can't use the react component to render the `Box`. When the data of the block that the box
+is located is changed, the `Box` will be re-rendered. Before the editor commits the DOM, the editor first diff the new DOM with
+the old DOM. If the DOM is not changed, the new DOM will be dropped. But in some cases, the new DOM will be accepted by the editor,
+you should not depend on this algorithm, don't register the event listener in the DOM.
+
+```ts
+import { useRegisterBoxConfig } from "@ones-op/editor"
+
+function App() {
+  const getConfig = useCallback(() => {
+    return {
+      boxType: {
+        name: 'box',
+        icon: './logo.svg',
+        // This is used to listen the click event.
+        handleClickBox(box, boxData) {
+          // Please implement the logic
+        },
+        // When an box is need to render, this function will be called.
+        updateBoxContent(boxData) {
+          // Please implement the logic
+        },
+      },
+    }
+  }, [])
+  useRegisterBoxConfig(getConfig)
+
+  return (
+    <>
+      <RenderEditorBlock config={config} />
+      <RenderEditorEmbed config={embedConfig} />
+    </>
+  )
+}
+```
+
+### Step 4: Export to PDF/Word
+
+While inserting and updating the data, the plugin needs to tell the editor how to export this data when the user export it to a word or PDF(for example, the issue plugin will save the ID into the document. When exported to PDF, this data will render as a link). When you need to export an image, make sure the image has been uploaded to the server of the editor by calling the `editor.doc.uploadResource`, the server will return the file name of the resource.
+
+If you want to export the content of the child container in the `Block`, you should add the ID of the child container to the `exportSpec` array. See the code below:
+
+```ts
+editor.doc.uploadResource(file).then((url) => {
+  editor.updateEmbedData(props.blockElement, {
+    type: 'embedType',
+    data: {
+      //
+    },
+    exportSpec: [
+      {
+        type: 'image',
+        data: url.resourceId,
+      },
+      {
+        type: 'block',
+        data: [childContainerID]
+      },
+      {
+        type: 'string',
+        data: 'test'
+      },
+      {
+        type: 'link',
+        data: {
+            url: 'https://www.example.com',
+            title: 'test';
+        }
+      }
+    ],
+    // If you use the `editor.doc.uploadResource` to upload your resource and not export it as an image. You should add
+    // the resource to the `resources` array. Otherwise, the resource is invalid in the new document into which it’s copied.
+    resources: [],
+  })
+})
+```

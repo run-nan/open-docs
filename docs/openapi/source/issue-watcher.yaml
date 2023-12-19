@@ -1,0 +1,115 @@
+openapi: 3.0.1
+info:
+  title: Issue watchers
+  version: '2.0'
+  description: |
+    This resource represents issue watchers. Use it to add and remove issue watchers.
+servers:
+  - url: https://your-domain/openapi/v2
+  - url: http://your-domain/openapi/v2
+paths:
+  /project/issues/{issueID}/watchers:
+    post:
+      summary: Add issue watchers
+      operationId: 01-add-issue-watcher
+      description: Add issue watchers
+      security:
+        - oauth2:
+            - write:project:issue-watcher
+      parameters:
+        - name: issueID
+          in: path
+          description: The ID of the issue
+          required: true
+          schema:
+            type: string
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
+      requestBody:
+        description: The users where need to add issue watchers
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IssueWatcherRequest'
+        required: true
+      responses:
+        200:
+          description: Request successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssueWatcherResponse'
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
+    delete:
+      summary: Remove issue watchers
+      operationId: 02-delete-issue-watcher
+      description: Remove issue watchers
+      security:
+        - oauth2:
+            - write:project:issue-watcher
+      parameters:
+        - name: issueID
+          in: path
+          description: The ID of the issue
+          required: true
+          schema:
+            type: string
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
+      requestBody:
+        description: The user's uuid where need to remove issue watchers
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IssueWatcherRequest'
+        required: true
+      responses:
+        200:
+          description: Request successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssueWatcherResponse'
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
+components:
+  schemas:
+    IssueWatcherRequest:
+      type: object
+      properties:
+        watchers:
+          type: array
+          description: issue watchers
+          items:
+            maxLength: 8
+            minLength: 1
+            type: string
+      example:
+        watchers: ['UoG2xQsS', 'Hw7ex3bq']
+    IssueWatcherResponse:
+      type: object
+      properties:
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
+      required:
+        - result
+      example:
+        - result: SUCCESS
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: NotFound issue
+        - result: FAIL
+          errorCode: Internal server error
+          errorMsg: Internal server error
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: PermissionDenied view_tasks
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: InvalidParameter issueComment text empty
+    $ref: ../../../openapi-common/latest/en/no-200-response-schemas.yaml
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://your-domain/oauth2/authorize
+          tokenUrl: https://your-domain/oauth2/token
+          scopes:
+            write:project:issue-watcher: Add or remove issue watchers

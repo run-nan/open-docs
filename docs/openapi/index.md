@@ -10,4 +10,6 @@ The ONES REST API enables you to interact with ONES programmatically. Use this A
 
 # Version
 
-This documentation is for version 1 of the ONES REST API.
+This documentation is for version 2.0 of the ONES REST API.
+
+ONES v3.15.26+ is available.

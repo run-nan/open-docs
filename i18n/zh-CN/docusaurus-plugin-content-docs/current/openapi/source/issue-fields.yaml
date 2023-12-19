@@ -1,163 +1,490 @@
 openapi: 3.0.1
 info:
   title: Issue fields
-  version: '1.0'
+  version: '2.0'
   description: |
-    此资源代表工作项属性。使用它来获取工作项属性。
+    此资源代表工作项属性。使用它来获取、创建、更新和删除工作项属性。
 servers:
-  - url: https://your-domain/rest/api/v1
-  - url: http://your-domain/rest/api/v1
+  - url: https://your-domain/openapi/v2
+  - url: http://your-domain/openapi/v2
 paths:
-  /project/team/{teamID}/issueFields:
+  /project/issueFields:
     get:
       summary: 获取工作项属性列表
-      operationId: get-a-list-of-issue-fields
+      operationId: 01-get-a-list-of-issue-fields
       description: 获取工作项属性列表
       security:
         - oauth2:
             - read:project:issueField
       parameters:
-        - name: teamID
-          in: path
-          description: 团队ID
-          required: true
-          schema:
-            type: string
+        - $ref: ../../../../../../openapi-common/latest/zh/request-team.yaml
+        - $ref: ../../../../../../openapi-common/latest/zh/paging-query-request-limit.yaml
+        - $ref: ../../../../../../openapi-common/latest/zh/paging-query-request-cursor.yaml
       responses:
         200:
           description: 请求成功
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AllSuccessResponse'
-        401:
-          description: 如果身份验证凭据不正确或丢失，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: 如果scope检验不通过，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: 如果未找到资源对象，则返回
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: 内部服务器错误
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
+                $ref: '#/components/schemas/IssueFieldsListResponse'
+        $ref: ../../../../../../openapi-common/latest/zh/no-200-response.yaml
 components:
   schemas:
-    ListItem:
+    GetIssueFieldsResponse:
+      description: 获取工作项属性
+      type: object
+      properties:
+        $ref: ../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
+        data:
+          type: object
+          description: 本次请求返回的数据
+      required:
+        - result
+      example:
+        - result: SUCCESS
+          data:
+            id: 'oqj6QDc1'
+            name: '2511'
+            type: 1
+            renderer: 1
+            filterOption: 0
+            searchOption: 1
+            createTime: 1689162602
+            builtIn: false
+            fixed: false
+            options:
+              - id: 'PjfLYi6c'
+                value: '215412'
+                background_color: '#307fe2'
+                color: '#fff'
+            intervalTime:
+              earliestEntryTime:
+                fieldType: 17
+                fieldID: 'ilkj987j'
+                fieldOptionID: 'to_do'
+                timepoint: 'first_at'
+              latestEntryTime:
+                fieldType: 17
+                fieldID: 'yfcg57yy'
+                fieldOptionID: 'to_do'
+                timepoint: 'first_at'
+            frequencySettings:
+              fieldtype: 1
+              fieldID: 'Uqi36QDc'
+              fieldOptionID: 'M7voizYP'
+            timeAppearanceSettings:
+              fieldID: 'field017'
+              timepoint: 'last_at'
+              fieldOptionID: 'to_do'
+    DeleteIssueFieldsResponse:
+      description: 删除工作项属性
+      type: object
+      properties:
+        $ref: ../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
+      required:
+        - result
+      example:
+        - result: SUCCESS
+    UpdateIssueFieldRequest:
+      description: 更新工作项属性的请求参数
       type: object
       properties:
         name:
           type: string
           description: 工作项属性名称
-        id:
-          type: string
-          description: 工作项属性ID
-        buildIn:
-          type: boolean
-          description: 是否是系统内置的工作项属性
-        createTime:
-          type: integer
-          description: 工作项属性创建时间
-        defaultValue:
-          type: object
-          description: 工作项属性默认值
-        aliases:
-          type: array
-          description: 工作项属性别名
-          items:
-            type: string
-        typeLabel:
-          type: string
-          description: 工作项属性类型名称
-        typeEnum:
-          type: integer
-          description: 工作项属性类型枚举值
         options:
           type: array
-          description: 工作项属性选项值集合
-          items:
-            $ref: '#/components/schemas/Option'
-    Option:
-      type: object
-      properties:
-        id:
-          type: string
-          description: 选项值ID
-        value:
+          description: 工作项属性选项
+          properties:
+            value:
+              type: string
+              description: 工作项属性选项值
+            backgroundColor:
+              type: string
+              description: 工作项属性选项背景色
+            color:
+              type: string
+              description: 工作项属性选项字体颜色
+        intervalTimeSetting:
           type: object
-          description: 选项值
-    PageInfo:
+          description: 工作项属性时间间隔设置
+          properties:
+            earliestEntryTime:
+              type: object
+              description: 工作项属性最早入口时间
+              properties:
+                fieldType:
+                  type: integer
+                  description: 工作项属性类型
+                fieldID:
+                  type: string
+                  description: 工作项属性ID
+                fieldOptionID:
+                  type: string
+                  description: 工作项属性选项ID
+                timepoint:
+                  type: string
+                  description: 工作项属性时间点
+            latestEntryTime:
+              type: object
+              description: 工作项属性最晚入口时间
+              properties:
+                fieldType:
+                  type: integer
+                  description: 工作项属性类型
+                fieldID:
+                  type: string
+                  description: 工作项属性ID
+                fieldOptionID:
+                  type: string
+                  description: 工作项属性选项ID
+                timepoint:
+                  type: string
+                  description: 工作项属性时间点
+        frequencySetting:
+          type: object
+          description: 工作项属性频率设置
+          properties:
+            fieldType:
+              type: integer
+              description: 工作项属性类型
+            fieldID:
+              type: string
+              description: 工作项属性ID
+            fieldOptionID:
+              type: string
+              description: 工作项属性选项ID
+        timeAppearanceSetting:
+          type: object
+          description: 工作项属性时间出现设置
+          properties:
+            fieldID:
+              type: string
+              description: 工作项属性ID
+            timepoint:
+              type: string
+              description: 工作项属性时间点
+            fieldOptionID:
+              type: string
+              description: 工作项属性选项ID
+            type: object
+            description: 工作项属性时间出现设置
+      example:
+        name: 'Sample Name'
+        options:
+          - value: 'Sample Value'
+            backgroundColor: '#000000'
+            color: '#ffffff'
+        intervalTimeSetting:
+          earliestEntryTime:
+            fieldType: 1
+            fieldID: 'Sample ID'
+            fieldOptionID: 'Sample Option ID'
+            timepoint: 'Sample Timepoint'
+          latestEntryTime:
+            fieldType: 1
+            fieldID: 'Sample ID'
+            fieldOptionID: 'Sample Option ID'
+            timepoint: 'Sample Timepoint'
+        frequencySetting:
+          fieldType: 1
+          fieldID: 'Sample ID'
+          fieldOptionID: 'Sample Option ID'
+        timeAppearanceSetting:
+          fieldID: 'Sample ID'
+          timepoint: 'Sample Timepoint'
+          fieldOptionID: 'Sample Option ID'
+    UpdateIssueFieldsResponse:
+      description: 'The result of update issue field'
       type: object
       properties:
-        count:
-          type: integer
-          description: 本次返回的数量
-        endCursor:
-          type: string
-          description: 本页最后一个光标，用于翻页
-            backwards.
-        endPos:
-          type: integer
-          description: 本页最后一个位置
-        hasNextPage:
-          type: boolean
-          description: 是否有下一页
-        startCursor:
-          type: string
-          description: 本页第一个光标，用于翻页
-            backwards.
-        startPos:
-          type: integer
-          description: 本页第一个位置
-        totalCount:
-          type: integer
-          description: 整个集合总数，包括本次响应中返回的
-    AllSuccessResponse:
-      type: object
-      properties:
-        result:
-          type: string
-          description: 本次请求结果,SUCCESS|FAIL
+        $ref: ../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
         data:
           type: object
+          description: 更新工作项属性返回的数据
+      required:
+        - result
+      example:
+        - result: SUCCESS
+          data:
+            id: 'oqj6QDc1'
+            name: '2511'
+            type: 1
+            renderer: 1
+            filterOption: 0
+            searchOption: 1
+            createTime: 1689162602
+            builtIn: false
+            fixed: false
+            options:
+              - id: 'PjfLYi6c'
+                value: '215412'
+                background_color: '#307fe2'
+                color: '#fff'
+            intervalTime:
+              earliestEntryTime:
+                fieldType: 17
+                fieldID: 'ilkj987j'
+                fieldOptionID: 'to_do'
+                timepoint: 'first_at'
+              latestEntryTime:
+                fieldType: 17
+                fieldID: 'yfcg57yy'
+                fieldOptionID: 'to_do'
+                timepoint: 'first_at'
+            frequencySettings:
+              fieldtype: 1
+              fieldID: 'Uqi36QDc'
+              fieldOptionID: 'M7voizYP'
+            timeAppearanceSettings:
+              fieldID: 'field017'
+              timepoint: 'last_at'
+              fieldOptionID: 'to_do'
+    AddIssueFieldRequest:
+      description: 添加工作项属性的请求参数
+      type: object
+      properties:
+        name:
+          type: string
+          description: 工作项属性名称
+        type:
+          type: integer
+          description: 工作项属性类型
+        options:
+          type: array
+          description: 工作项属性选项
+          properties:
+            value:
+              type: string
+              description: 工作项属性选项值
+            backgroundColor:
+              type: string
+              description: 工作项属性选项背景色
+            color:
+              type: string
+              description: 工作项属性选项字体颜色
+        intervalTimeSetting:
+          type: object
+          description: 工作项属性时间间隔设置
+          properties:
+            earliestEntryTime:
+              type: object
+              description: 工作项属性最早入口时间
+              properties:
+                fieldType:
+                  type: integer
+                  description: 工作项属性类型
+                fieldID:
+                  type: string
+                  description: 工作项属性ID
+                fieldOptionID:
+                  type: string
+                  description: 工作项属性选项ID
+                timepoint:
+                  type: string
+                  description: 工作项属性时间点
+            latestEntryTime:
+              type: object
+              description: 工作项属性最晚入口时间
+              properties:
+                fieldType:
+                  type: integer
+                  description: 工作项属性类型
+                fieldID:
+                  type: string
+                  description: 工作项属性ID
+                fieldOptionID:
+                  type: string
+                  description: 工作项属性选项ID
+                timepoint:
+                  type: string
+                  description: 工作项属性时间点
+        frequencySetting:
+          type: object
+          description: 工作项属性频率设置
+          properties:
+            fieldType:
+              type: integer
+              description: 工作项属性类型
+            fieldID:
+              type: string
+              description: 工作项属性ID
+            fieldOptionID:
+              type: string
+              description: 工作项属性选项ID
+        timeAppearanceSetting:
+          type: object
+          description: 工作项属性时间出现设置
+          properties:
+            fieldID:
+              type: string
+              description: 工作项属性ID
+            timepoint:
+              type: string
+              description: 工作项属性时间点
+            fieldOptionID:
+              type: string
+              description: 工作项属性选项ID
+            type: object
+            description: 工作项属性时间出现设置
+      required:
+        - name
+        - type
+      example:
+        name: 'Sample Name'
+        type: 1
+        options:
+          - value: 'Sample Value'
+            backgroundColor: '#000000'
+            color: '#ffffff'
+        intervalTimeSetting:
+          earliestEntryTime:
+            fieldType: 1
+            fieldID: 'Sample ID'
+            fieldOptionID: 'Sample Option ID'
+            timepoint: 'Sample Timepoint'
+          latestEntryTime:
+            fieldType: 1
+            fieldID: 'Sample ID'
+            fieldOptionID: 'Sample Option ID'
+            timepoint: 'Sample Timepoint'
+        frequencySetting:
+          fieldType: 1
+          fieldID: 'Sample ID'
+          fieldOptionID: 'Sample Option ID'
+        timeAppearanceSetting:
+          fieldID: 'Sample ID'
+          timepoint: 'Sample Timepoint'
+          fieldOptionID: 'Sample Option ID'
+    AddIssueFieldsResponse:
+      description: 添加工作项属性返回的数据
+      type: object
+      properties:
+        $ref: ../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
+        data:
+          type: object
+          description: 添加工作项属性返回的数据
+      required:
+        - result
+      example:
+        - result: SUCCESS
+          data:
+            id: 'oqj6QDc1'
+            name: '2511'
+            type: 1
+            renderer: 1
+            filterOption: 0
+            searchOption: 1
+            createTime: 1689162602
+            builtIn: false
+            fixed: false
+            options:
+              - id: 'PjfLYi6c'
+                value: '215412'
+                background_color: '#307fe2'
+                color: '#fff'
+            intervalTime:
+              earliestEntryTime:
+                fieldType: 17
+                fieldID: 'ilkj987j'
+                fieldOptionID: 'to_do'
+                timepoint: 'first_at'
+              latestEntryTime:
+                fieldType: 17
+                fieldID: 'yfcg57yy'
+                fieldOptionID: 'to_do'
+                timepoint: 'first_at'
+            frequencySettings:
+              fieldtype: 1
+              fieldID: 'Uqi36QDc'
+              fieldOptionID: 'M7voizYP'
+            timeAppearanceSettings:
+              fieldID: 'field017'
+              timepoint: 'last_at'
+              fieldOptionID: 'to_do'
+    IssueFieldsListResponse:
+      description: 工作项属性列表返回的数据
+      type: object
+      properties:
+        $ref: ../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
+        data:
+          type: object
+          description: 'Data object containing a list of items and page information.'
           properties:
             list:
               type: array
               items:
-                $ref: '#/components/schemas/ListItem'
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: 工作项属性名称
+                  id:
+                    type: string
+                    description: 工作项属性ID
+                  buildIn:
+                    type: boolean
+                    description: 工作项属性是否内置
+                  createTime:
+                    type: integer
+                    description: 工作项属性创建时间
+                  defaultValue:
+                    type: object
+                    description: 工作项属性默认值
+                  aliases:
+                    type: array
+                    description: 工作项属性别名
+                    items:
+                      type: string
+                  typeLabel:
+                    type: string
+                    description: 工作项属性类型标签
+                  typeEnum:
+                    type: integer
+                    description: 工作项属性类型枚举
+                  options:
+                    type: array
+                    description: 工作项属性选项
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: 工作项属性选项ID
+                        value:
+                          type: object
+                          description: 工作项属性选项值
+            $ref: ../../../../../../openapi-common/latest/zh/paging-query-response-pageInfo-schemas.yaml
+      required:
+        - result
+      example:
+        - result: SUCCESS
+          data:
+            list:
+              - name: 'string'
+                id: 'string'
+                buildIn: true
+                createTime: 0
+                defaultValue: {}
+                aliases: ['string']
+                typeLabel: 'string'
+                typeEnum: 0
+                options:
+                  - id: 'string'
+                    value: {}
             pageInfo:
-              $ref: '#/components/schemas/PageInfo'
-    BadResponse:
-      type: object
-      properties:
-        result:
-          type: string
-          description: 本次请求结果,SUCCESS|FAIL
-        errorCode:
-          type: string
-          description: 本次请求错误码
-        errorMsg:
-          type: string
-          description: 本次请求错误信息
+              count: 2
+              endCursor: 'sample_end_cursor'
+              hasNextPage: false
+              startCursor: 'sample_start_cursor'
+              totalCount: 2
+    $ref: ../../../../../../openapi-common/latest/zh/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://ones.com/oauth2/authorize
-          tokenUrl: https://ones.com/oauth2/token
+          authorizationUrl: https://your-domain/oauth2/authorize
+          tokenUrl: https://your-domain/oauth2/token
           scopes:
-            read:project:issueField: 获取工作项属性
+            read:project:issueField: Access issue field

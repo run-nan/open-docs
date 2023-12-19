@@ -1,0 +1,97 @@
+openapi: 3.0.1
+info:
+  title: Issue links
+  version: '2.0'
+  description: |
+    This resource represents issue association relationships. Use it to create and delete issue associations.
+servers:
+  - url: https://your-domain/openapi/v2
+  - url: http://your-domain/openapi/v2
+paths:
+  /project/issues/{issueID}:
+    post:
+      summary: Linking issues
+      operationId: 01-link-issue
+      description: Linking issues
+      security:
+        - oauth2:
+            - write:project:issue
+      parameters:
+        - name: action
+          in: query
+          required: true
+          schema:
+            type: string
+          description: |
+            - action: Actions on issue,support `link`.
+        - name: issueID
+          in: path
+          description: ID of the issue
+          required: true
+          schema:
+            type: string
+        - $ref: ../../../../openapi-common/latest/en/request-team.yaml
+      requestBody:
+        description: List of issues to be linked.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkIssueRequest'
+        required: true
+      responses:
+        200:
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkIssuesResponse'
+        $ref: ../../../../openapi-common/latest/en/no-200-response.yaml
+components:
+  schemas:
+    LinkIssueRequest:
+      type: object
+      properties:
+        links:
+          type: array
+          items:
+            type: object
+            properties:
+              issueIDs:
+                type: array
+                description: Issue ID list.
+                items:
+                  type: string
+              linkType:
+                type: string
+                description: Issue link type.
+              linkDescType:
+                type: string
+                description: Issue link desc type.
+      required:
+        - issueIDs
+        - linkType
+        - linkDescType
+    LinkIssuesResponse:
+      type: object
+      properties:
+        $ref: ../../../../openapi-common/latest/en/200-response-schemas.yaml
+      required:
+        - result
+      example:
+        - result: SUCCESS
+          errorLinkTasks:
+            - issueID: TWoRwdmh7T6yFpc3
+              reason: 'Duplicate link'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
+    $ref: ../../../../openapi-common/latest/en/no-200-response-schemas.yaml
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://your-domain/oauth2/authorize
+          tokenUrl: https://your-domain/oauth2/token
+          scopes:
+            write:project:issue: Add, edit, delete issue

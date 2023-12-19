@@ -3,6 +3,7 @@
   "extends": "@tsconfig/docusaurus/tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "jsx": "react"
+    "jsx": "react-jsx" /* Specify JSX code generation: 'preserve', 'react-native', 'react', 'react-jsx' or 'react-jsxdev'. */,
+    "declaration": true /* Generates corresponding '.d.ts' file. */
   }
 }

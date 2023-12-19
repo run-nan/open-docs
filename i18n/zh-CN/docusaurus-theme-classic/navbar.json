@@ -1,47 +1,27 @@
 {
   "item.label.Learning map": {
     "message": "学习地图",
-    "description": "Navbar item with label Learning"
+    "description": "Navbar item with label 学习地图"
   },
   "item.label.Guide": {
     "message": "指南",
-    "description": "Navbar item with label Guide"
+    "description": "Navbar item with label 指南"
   },
   "item.label.Abilities": {
     "message": "开放能力",
-    "description": "Navbar item with label Abilities"
-  },
-  "item.label.API": {
-    "message": "API",
-    "description": "Navbar item with label API"
+    "description": "Navbar item with label 开放能力"
   },
   "item.label.Tools": {
     "message": "工具",
-    "description": "Navbar item with label Tools"
+    "description": "Navbar item with label 工具"
   },
   "item.label.FAQ": {
     "message": "常见问题",
-    "description": "Navbar item with label FAQ"
+    "description": "Navbar item with label 常见问题"
   },
   "item.label.Changelog": {
     "message": "更新日志",
-    "description": "Navbar item with label Changelog"
-  },
-  "item.label.Plugin Development": {
-    "message": "插件开发",
-    "description": "Navbar item with label Plugin Development"
-  },
-  "item.label.ONES Development": {
-    "message": "ONES 开发",
-    "description": "Navbar item with label ONES Development"
-  },
-  "item.label.Development": {
-    "message": "开发",
-    "description": "Navbar item with label Development"
-  },
-  "item.label.Deploy": {
-    "message": "部署",
-    "description": "Navbar item with label Deploy"
+    "description": "Navbar item with label 更新日志"
   },
   "item.label.Reference": {
     "message": "Reference",
@@ -49,26 +29,34 @@
   },
   "item.label.Documentation": {
     "message": "文档",
-    "description": "Navbar item with label Documentation"
+    "description": "Navbar item with label 文档"
   },
   "item.label.API Docs": {
     "message": "API 文档",
-    "description": "Navbar item with label API Docs"
+    "description": "Navbar item with label API 文档"
   },
   "item.label.ONES Open Platform": {
     "message": "开放平台",
-    "description": "Navbar item with label ONES Open Platform"
+    "description": "Navbar item with label 开放平台"
   },
   "item.label.Resources": {
     "message": "资源",
-    "description": "Navbar item with label Resources"
+    "description": "Navbar item with label 资源"
   },
   "item.label.ONES Design": {
     "message": "ONES Design",
     "description": "Navbar item with label ONES Design"
   },
-  "item.label.Open source of web code": {
-    "message": "前端开源",
-    "description": "Navbar item with label Documentation"
+  "item.label.Open API": {
+    "message": "Open API",
+    "description": "Navbar item with label Open API"
+  },
+  "item.label.eng": {
+    "message": "eng",
+    "description": "Navbar item with label eng"
+  },
+  "logo.alt": {
+    "message": "ONES 开放平台",
+    "description": "The alt text of navbar logo"
   }
 }

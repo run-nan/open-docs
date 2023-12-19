@@ -1,0 +1,98 @@
+openapi: 3.0.1
+info:
+  title: Issue links
+  version: '2.0'
+  description: |
+    此资源代表工作项的关联关系。使用它来创建和删除工作项关联关系。
+servers:
+  - url: https://your-domain/openapi/v2
+  - url: http://your-domain/openapi/v2
+paths:
+  /project/issues/{issueID}:
+    post:
+      summary: 取消关联工作项
+      operationId: 02-unlink-issue
+      description: 取消关联工作项
+      security:
+        - oauth2:
+            - write:project:issue
+      parameters:
+        - name: action
+          in: query
+          required: true
+          schema:
+            type: string
+          description: |
+            - action: 操作工作项,支持 `unlink`.
+        - name: issueID
+          in: path
+          description: 工作项ID
+          required: true
+          schema:
+            type: string
+        - $ref: ../../../../../../../openapi-common/latest/zh/request-team.yaml
+      requestBody:
+        description: 要取消关联的工作项列表
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UnLinkIssueRequest'
+        required: true
+      responses:
+        200:
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnLinkIssuesResponse'
+        $ref: ../../../../../../../openapi-common/latest/zh/no-200-response.yaml
+components:
+  schemas:
+    UnLinkIssueRequest:
+      type: object
+      properties:
+        issueIDs:
+          type: array
+          items:
+            type: string
+          description: 工作项ID列表
+        linkType:
+          type: string
+          description: 工作项关联类型
+        linkDescType:
+          type: string
+          description: 工作项关联描述类型
+      required:
+        - issueIDs
+        - linkType
+        - linkDescType
+      example:
+        issueIDs:
+          - 'kikjhu18hubjin90'
+          - 'kikjhu18hubjin91'
+        linkType: 'UUID0001'
+        linkDescType: 'link_out_desc'
+    UnLinkIssuesResponse:
+      type: object
+      properties:
+        $ref: ../../../../../../../openapi-common/latest/zh/200-response-schemas.yaml
+      required:
+        - result
+      example:
+        - result: SUCCESS
+          errorLinkTasks:
+            - issueID: TWoRwdmh7T6yFpc3
+              reason: 'PermissionDenied ViewIssues'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
+    $ref: ../../../../../../../openapi-common/latest/zh/no-200-response-schemas.yaml
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://your-domain/oauth2/authorize
+          tokenUrl: https://your-domain/oauth2/token
+          scopes:
+            write:project:issue: 批量关联、取消关联工作项

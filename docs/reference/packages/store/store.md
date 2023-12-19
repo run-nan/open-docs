@@ -36,27 +36,37 @@ function App() {
 
 ## Index
 
-| API                                               | Description                                                                              |
-| ------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| [useTeamInfo](#useTeamInfo)                       | Get current team information                                                             |
-| [useOrganizationInfo](#useOrganizationInfo)       | Get the current organization information                                                 |
-| [useProductInfo](#useProductInfo)                 | Get current product information                                                          |
-| [useDashboardInfo](#useDashboardInfo)             | Get current dashboard information                                                        |
-| [useFilterInfo](#useFilterInfo)                   | Get information about the currently accessed filter view                                 |
-| [usePipelineInfo](#usePipelineInfo)               | Get current pipeline information                                                         |
-| [usePluginInfo](#usePluginInfo)                   | Get current plugin information                                                           |
-| [useProgramInfo](#useProgramInfo)                 | Get the current program information                                                      |
-| [useProjectInfo](#useProjectInfo)                 | Get current project information                                                          |
-| [useProjectRoleInfo](#useProjectRoleInfo)         | Get the information of the selected project role in the current project member component |
-| [useTestCaseLibraryInfo](#useTestCaseLibraryInfo) | Get the information of the currently access testcase library                             |
-| [useTestCaseListInfo](#useTestCaseListInfo)       | Get the information of the currently access testcase library list                        |
-| [useTestPlanInfo](#useTestPlanInfo)               | Get the current test plan information                                                    |
-| [useUserInfo](#useUserInfo)                       | Get the current user information                                                         |
-| [useAction](#useAction)                           | Action interception method in the system                                                 |
-| [useProgressJobInfo](#useProgressJobInfo)         | Get the information of the current task in details of the progress manager task          |
-| [useDocumentInfo](#useDocumentInfo)               | Get the data of the custom macro in the wiki editor                                      |
-| [useTaskInfo](#useTaskInfo)                       | Get current task information                                                             |
-| [useWikiSpaceInfo](#useWikiSpaceInfo)             | Get the current space information                                                        |
+| API                                                       | Description                                                                                                            |
+| --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| [useTeamInfo](#useTeamInfo)                               | Get current team information                                                                                           |
+| [useOrganizationInfo](#useOrganizationInfo)               | Get the current organization information                                                                               |
+| [useProductInfo](#useProductInfo)                         | Get current product information                                                                                        |
+| [useDashboardInfo](#useDashboardInfo)                     | Get current dashboard information                                                                                      |
+| [useFilterInfo](#useFilterInfo)                           | Get information about the currently accessed filter view                                                               |
+| [usePipelineInfo](#usePipelineInfo)                       | Get current pipeline information                                                                                       |
+| [usePluginInfo](#usePluginInfo)                           | Get current plugin information                                                                                         |
+| [useProgramInfo](#useProgramInfo)                         | Get the current program information                                                                                    |
+| [useProjectInfo](#useProjectInfo)                         | Get current project information                                                                                        |
+| [useProjectRoleInfo](#useProjectRoleInfo)                 | Get the information of the selected project role in the current project member component                               |
+| [useTestCaseLibraryInfo](#useTestCaseLibraryInfo)         | Get the information of the currently access testcase library                                                           |
+| [useTestCaseListInfo](#useTestCaseListInfo)               | Get the information of the currently access testcase library list                                                      |
+| [useTestPlanInfo](#useTestPlanInfo)                       | Get the current test plan information                                                                                  |
+| [useUserInfo](#useUserInfo)                               | Get the current user information                                                                                       |
+| [useAction](#useAction)                                   | Action interception method in the system                                                                               |
+| [useProgressJobInfo](#useProgressJobInfo)                 | Get the information of the current task in details of the progress manager task                                        |
+| [useDocumentInfo](#useDocumentInfo)                       | Get the data of the custom macro in the wiki editor                                                                    |
+| [useTaskInfo](#useTaskInfo)                               | Get current task information                                                                                           |
+| [useCodeRepository](#useCodeRepository)                   | Get the code repository info that the current user selected                                                            |
+| [useTestReportComponentInfo](#useTestReportComponentInfo) | In the plugin custom test report component, get the data of the current component and the method of operating the data |
+| [useWikiSpaceInfo](#useWikiSpaceInfo)                     | Get the current space information                                                                                      |
+| [useWikiPageInfo](#useWikiPageInfo)                       | Get the current page information息                                                                                     |
+| [useVariablesInfo](#useVariablesInfo)                     | Get the non-standard temporary data passed by the current slot据                                                       |
+| [useModuleInstanceInfo](#useModuleInstanceInfo)           | Get information about the current plugin module instance息                                                             |
+| [useDashboardCardInfo](#useDashboardCardInfo)             | In the custom dashboard card, get the context data of the current card                                                 |
+| [useDashboardCardConfigInfo](#useDashboardCardConfigInfo) | In the setting pop-up window of the custom dashboard card, get the context data of the current card's config           |
+| [useWikiShareInfo](#useWikiShareInfo)                     | Get information about the currently visited share page group                                                           |
+| [useWikiTemplateInfo](#useWikiTemplateInfo)               | Get information about the template of the currently visited page                                                       |
+| [useCustomEditorInfo](#useCustomEditorInfo)               | Get the required context information for the custom editor                                                             |
 
 ## Hooks
 
@@ -487,7 +497,7 @@ interface PluginState<DocumentCustomData, Toolbar> {
     data: DocumentCustomData,
     config: {
       exportSpec: ExportSpec[]
-    }
+    },
   ) => void
   // Open or close the toolbar slot
   goToState: (state: ToolbarState<Toolbar>) => void
@@ -500,7 +510,7 @@ interface PluginState<DocumentCustomData, Toolbar> {
   uploadResource:
     | ((
         file: File,
-        onProgress: (error: Error | null, percentage: number) => void
+        onProgress: (error: Error | null, percentage: number) => void,
       ) => Promise<string>)
     | undefined
   // Get the URL of the wiki resource which is used to get the resource from the wiki server.
@@ -781,7 +791,7 @@ interface ModuleInstanceInfo {
 
 ### useDashboardCardInfo {#useDashboardCardInfo}
 
-In the custom dashboard card, get the context data of the current card
+In the custom dashboard card, get the context data of the current card.
 
 #### Requirements
 
@@ -811,7 +821,7 @@ function useDashboardCardInfo<T extends any>(): DashboardCardInfo<T>
 
 ### useDashboardCardConfigInfo {#useDashboardCardConfigInfo}
 
-In the setting pop-up window of the custom dashboard card, get the context data of the current card's config
+In the setting pop-up window of the custom dashboard card, get the context data of the current card's config.
 
 #### Requirements
 
@@ -836,4 +846,114 @@ interface DashboardCardConfigInfo<T extends any> {
 }
 
 function useDashboardCardConfigInfo<T extends any>(): DashboardCardConfigInfo<T>
+```
+
+### useWikiShareInfo {#useWikiShareInfo}
+
+Get information about the currently visited share page group.
+
+#### Requirements
+
+- Added in: `v0.12.0+`
+- ONES Required: `v3.16.18+`
+
+#### Returns
+
+| Description                                                | Type            |
+| ---------------------------------------------------------- | --------------- |
+| Information about the currently visited sharing page group | `WikiShareInfo` |
+
+#### Types
+
+```tsx
+interface WikiShareInfo {
+  uuid: string
+}
+```
+
+### useWikiTemplateInfo {#useWikiTemplateInfo}
+
+Get information about the template of the currently visited page.
+
+#### Requirements
+
+- Added in: `v0.12.0+`
+- ONES Required: `v3.16.18+`
+
+#### Returns
+
+| Description                                 | Type               |
+| ------------------------------------------- | ------------------ |
+| Information about the current page template | `WikiTemplateInfo` |
+
+#### Types
+
+```tsx
+interface WikiTemplateInfo {
+  uuid: string // The UUID of the current page template.
+}
+```
+
+### useCustomEditorInfo {#useCustomEditorInfo}
+
+Get the required context information for the custom editor.
+
+#### Requirements
+
+- Added in: `v0.12.0+`
+- ONES Required: `v3.16.18+`
+
+#### Returns
+
+| Description                                | Type               |
+| ------------------------------------------ | ------------------ |
+| Custom Editor Required Context Information | `CustomEditorInfo` |
+
+#### Types
+
+```tsx
+interface CustomEditorInfo {
+  /** Current page source */
+  source?: PageSourceEnum
+
+  /** Type of the current page */
+  category?: PageCategoryEnum
+
+  /**
+   * scene: view only
+   *
+   * Presentation mode
+   */
+  presentation?: boolean
+
+  /**
+   * scene: edit only
+   *
+   * Publish page, according to the current scene to call the corresponding publishing interface, and automatically jump to the page after the success of the
+   */
+  publish?: () => Promise<void>
+  /**
+   * scene: edit only
+   *
+   * Publish the page and cancel the publish operation.
+   */
+  cancel?: () => void
+}
+
+enum PageSourceEnum {
+  Space = 'space',
+  Share = 'share',
+  Page = 'page',
+  Draft = 'draft',
+}
+
+enum PageCategoryEnum {
+  Draft = 'draft',
+  Page = 'page',
+  Template = 'template',
+  Recycle = 'recycle',
+  GlobalTemplate = 'global_template',
+  Settings = 'settings',
+  Archive = 'archive',
+}
 ```

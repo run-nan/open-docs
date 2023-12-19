@@ -1,3 +1,7 @@
+---
+sidebar_position: 3
+---
+
 # local.yaml
 
 The plugin local debugging configuration file, the built-in `op` cli of the plugin project will consume the content of the file when performing the relevant instructions of the local debugging.
@@ -226,3 +230,9 @@ Local debugging return value: {"instance_uuid":"********"}
 ```
 
 You can return the plugin instance of the debugging plugin instance from the return value of the local debug command or the `config/local.yaml` file.
+
+### dangerously_accept_unauthorized_https
+
+- **Type:** `boolean`
+
+Whether to allow the use of unauthorized HTTPS certificates. DO NOT modify this option unless you know what you are doing.

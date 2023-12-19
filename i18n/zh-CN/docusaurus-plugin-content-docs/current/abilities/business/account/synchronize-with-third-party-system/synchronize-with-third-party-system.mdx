@@ -2,7 +2,8 @@
 sidebar_position: 2
 ---
 
-import Image from '@theme/IdealImage'
+import Tabs from '@theme/Tabs'
+
 import account1 from './images/account1.png'
 import account2 from './images/account2.png'
 import account3 from './images/account3.png'
@@ -11,6 +12,8 @@ import account5 from './images/account5.png'
 import account6 from './images/account6.png'
 
 # 对接三方系统
+
+<ServeMode value={['standalone']} />
 
 ## 要求
 
@@ -58,13 +61,96 @@ import account6 from './images/account6.png'
 npx op add ability
 ```
 
+<Tabs>
+<TabItem value="1" label="3.16.18+">
+
+选中并添加`account@1.1.0`
+
+</TabItem>
+
+<TabItem value="2" label="3.6.0+">
+
 选中并添加`account@1.0.0`
 
-<Image img={account4} />
+</TabItem>
+</Tabs>
+
+** 不同版本的 Account 能力有什么区别？**
+
+1.1.0 版本的 Account 能力支独立使用消息通知功能。开发者可以通过配置 `receiverType` 来自定义消息通知的发送目标（而非发送给此插件的同步的第三方用户目录所映射的用户）。
+
+开发者可以根据自己的需求和插件工作的 ONES 系统版本，决定使用哪个版本的 Account 能力。
 
 OP 工具会为插件添加如下内容
 
 - 插件配置文件`config/plugin.yaml`中 abilities 字段新增相关段落。
+
+<Tabs>
+
+<TabItem value="1" label="3.16.18+">
+
+```yaml title="config/plugin.yaml"
+    service:
+    ...
+    ...
+    abilities:
+    - id: ...
+        name: account
+        version: 1.1.0
+        abilityType: account
+        function:
+        sendMessage: SendMessage # 发送消息
+        createLoginUrl: CreateLoginUrl # 创建重定向登录URL
+        doExchangeUser: DoExchangeUser # 确认登录用户信息
+        doPullData: DoPullData # 同步第三方系统用户数据
+        config:
+        # 是否实现了登录功能
+        - key: canLogin
+            value: true
+            show: false
+        # 是否实现了同步功能
+        - key: canSync
+            value: true
+            show: false
+        # 是否实现了发送消息的功能
+        - key: canMessage
+            value: true
+            show: false
+        # 第三方登录的logo地址，写的是文件名，要求该文件放在前端资源根目录下，web/dist/
+        - key: logo
+            value: logo.svg
+            show: false
+        # 第三方登录名称文案
+        - key: title
+            value: title
+            show: false
+        # 第三方描述文案
+        - key: desc
+            value: desc
+            show: false
+        # 第三方描述文案
+        - key: detailTip
+            value: detailTip
+            show: false
+        # 第三方配置提醒文案
+        - key: configTip
+            value: configTip
+            show: false
+        # 定义接收者跟三方用户ID的关系
+        - key: receiverType
+            value: thirdPartID
+            show: false
+```
+
+能力配置中的`receiverType`说明：
+
+1.  `receiverType`是一个枚举类型，只有`userUUID`，`thirdPartID`。
+2.  当`receiverType`为`userUUID`时，代表着当插件实现了消息通知能力时，消息的接收者可以跟该三方系统没有绑定关系，在`SendMessage`函数中，`to_users`为ONES系统的userUUID列表。
+3.  当`receiverType`为`thirdPartID`时，代表着当插件实现了消息通知能力时，消息的接收者需要跟三方系统有绑定关系，在`SendMessage`函数中，`to_users`为插件定义的三方用户ID列表。
+
+</TabItem>
+
+<TabItem value="2" label="3.6.0+">
 
 ```yaml title="config/plugin.yaml"
     service:
@@ -114,6 +200,10 @@ OP 工具会为插件添加如下内容
             value: configTip
             show: false
 ```
+
+</TabItem>
+
+</Tabs>
 
 - OP 工具在插件中新增文件`backend/src/account.ts`
 
@@ -234,3 +324,12 @@ export async function SendMessage(request: PluginRequest): Promise<PluginRespons
 ## 示例
 
 - [ ONES 对接钉钉系统](sample-synchronize-with-third-party-system1.mdx)
+
+## Q&A
+
+** 如果我想用 Account 能力的消息发送能力，但是又不想实现插件的登录能力，跟同步部门信息，怎么做？ **
+
+1. 把三方添加到"帐号集成"后，编辑基础信息，把选择帐号绑定方式选定为，自动绑定「邮箱」相同的系统帐号。
+2. 插件需要实现用户同步的能力，user 中的 email 参数一定要返回，系统会根据 email 进行对系统用户跟三方用户的一个绑定。
+3. 完成上面动作后，系统会每隔 10 分钟，进行一次用户信息的同步，进行用户信息绑定。
+4. 当系统内的某个事件触发了消息通知，且通知者有做用户信息绑定时，消息就会推送到插件的发送消息函数，插件再进行消息的转发即可。

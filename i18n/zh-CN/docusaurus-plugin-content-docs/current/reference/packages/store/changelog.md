@@ -2,6 +2,18 @@
 
 这个包所有值得注意的变化都将记录在这个文件中。
 
+# 0.12.0 (2023-12-01)
+
+### 新特性
+
+- **Store:** 🌟 提供 `useWikiShareInfo` hook 获取当前访问的分享页面组信息
+- **Store:** 🌟 提供 `useWikiTemplatePageInfo` hook 获取当前访问的页面模版的信息
+- **Store:** 🌟 提供 `useCustomEditorInfo` hook 获取自定义编辑器所需上下文信息
+
+### Bug 修复
+
+- **Store:** 🐞 修复 `Suspense` 用法下可能存在的死循环问题
+
 # 0.10.0 (2023-04-25)
 
 ### 新特性
@@ -9,14 +21,14 @@
 - **Store:** 🌟 提供 `useDashboardCardInfo` hook 获取自定义卡片的上下文数据
 - **Store:** 🌟 提供 `useDashboardCardConfigInfo` hook 获取自定义卡片配置弹窗的上下文数据
 
-# 0.x.0 (2023-x-x)
+# 0.9.0 (2023-03-31)
 
 ### 新特性
 
 - **Store:** 🌟 提供 `useVariablesInfo` hook 获取插槽传递的非标准数据
 - **Store:** 🌟 提供 `useModuleInstanceInfo` hook 获取手动激活的插件实例信息
 
-# 0.x.0 (2023-x-x)
+# 0.8.0 (2023-02-21)
 
 ### 新特性
 

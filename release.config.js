@@ -2,6 +2,7 @@
  * semantic-release  配置文件文档链接 https://github.com/cycjimmy/semantic-release-action
  */
 module.exports = {
+  branches: ['main'],
   plugins: [
     [
       '@semantic-release/commit-analyzer',
@@ -50,5 +51,4 @@ module.exports = {
       },
     ],
   ],
-  branch: ['main'],
 }

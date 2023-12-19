@@ -1,14 +1,13 @@
-import Image from '@theme/IdealImage'
+import ONESLoginInterface from './images/ONES-login-interface.png'
+import QRCodeLogin from './images/QR-code-login.png'
+import QRcode from './images/QR-code.png'
+import account5 from './images/account5.png'
+import account6 from './images/account6.png'
 import addDepartment from './images/add-department.png'
 import applicationInfo from './images/application-info.png'
 import createApp from './images/create-application.png'
 import nailingLoin from './images/nailing-login-sequence-diagram.png'
-import ONESLoginInterface from './images/ONES-login-interface.png'
-import QRCodeLogin from './images/QR-code-login.png'
-import QRcode from './images/QR-code.png'
 import redirectUrl from './images/redirect-url.png'
-import account5 from './images/account5.png'
-import account6 from './images/account6.png'
 
 # Scene：ONES integrate with Ding Talk system
 
@@ -165,7 +164,7 @@ function CreateLoginUrlRespData(
   model,
   reason,
   type: Object,
-  body: CreateLoginUrlResponse
+  body: CreateLoginUrlResponse,
 ): PluginResponse {
   return {
     body: {
@@ -286,7 +285,7 @@ function DoExchangeUserRespData(
   model,
   reason,
   type: Object,
-  body: DoExchangeUserResponse
+  body: DoExchangeUserResponse,
 ): PluginResponse {
   return {
     body: {
@@ -431,7 +430,7 @@ function DoPullDataRespData(
   model,
   reason,
   type: Object,
-  body: DoPullDataResponse
+  body: DoPullDataResponse,
 ): PluginResponse {
   return {
     body: {

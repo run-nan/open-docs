@@ -3,8 +3,6 @@ id: lifecycle
 sidebar_position: 8
 ---
 
-import Image from '@theme/IdealImage'
-
 # Lifecycle
 
 ## Overview
@@ -54,7 +52,7 @@ export function Upgrade(oldPluginInfo) {
 export async function OrgInstall(
   request: PluginRequest,
   teamUUIDList: string[],
-  firstInstall: boolean
+  firstInstall: boolean,
 ) {
   Logger.info('[Plugin] OrgInstall')
 }
@@ -62,7 +60,7 @@ export async function OrgInstall(
 // Method called when the organization level plugin is being launched.
 export function OrgEnable(
   request: PluginRequest,
-  teamUUIDList: string[]
+  teamUUIDList: string[],
 ): void | string[] | Promise<string[]> {
   Logger.info('[Plugin] OrgEnable')
   return []
@@ -71,7 +69,7 @@ export function OrgEnable(
 // Method called when the organization level plugin is being suspended.
 export function OrgDisable(
   request: PluginRequest,
-  teamUUIDList: string[]
+  teamUUIDList: string[],
 ): void | string[] | Promise<string[]> {
   Logger.info('[Plugin] OrgDisable')
   return []

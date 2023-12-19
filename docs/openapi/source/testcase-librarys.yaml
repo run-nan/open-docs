@@ -1,0 +1,379 @@
+openapi: 3.0.1
+info:
+  title: Testcase Library
+  version: '2.0'
+  description: |
+    This resource represents testcase libraries. Use it to get, create, update, and delete testcase libraries.
+servers:
+  - url: https://your-domain/openapi/v2
+  - url: http://your-domain/openapi/v2
+paths:
+  /testcase/libraries:
+    get:
+      summary: Get a list of test case libraries
+      operationId: 01-get-a-list-of-test-case-libraries
+      description: Get a list of test case libraries.
+      security:
+        - oauth2:
+            - read:testcase:library
+      parameters:
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
+        - $ref: ../../../openapi-common/latest/en/paging-query-request-limit.yaml
+        - $ref: ../../../openapi-common/latest/en/paging-query-request-cursor.yaml
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse'
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
+    post:
+      summary: Create a new test case library
+      operationId: 02-create-a-new-test-case-library
+      description: Create a new test case library.
+      security:
+        - oauth2:
+            - write:testcase:library
+      parameters:
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
+      requestBody:
+        description: The test case library information to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestLibrary'
+        required: true
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddResponse'
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
+      x-codegen-request-body-name: body
+  /testcase/libraries/{libraryID}:
+    get:
+      summary: Get a test case library details
+      operationId: 03-get-a-test-case-library-details
+      description: Get a test case library details.
+      security:
+        - oauth2:
+            - read:testcase:library
+      parameters:
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
+        - name: libraryID
+          in: path
+          description: The id of the test case library.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetResponse'
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
+    put:
+      summary: Update a test case library
+      operationId: 04-update-a-test-case-library
+      description: Update a test case library.
+      security:
+        - oauth2:
+            - write:testcase:library
+      parameters:
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
+        - name: libraryID
+          in: path
+          description: The id of the test case library.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Test case repository information to update.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestLibrary'
+        required: true
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateResponse'
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
+      x-codegen-request-body-name: body
+    delete:
+      summary: Delete a test case library
+      operationId: 05-delete-a-test-case-library
+      description: Delete a test case library.
+      security:
+        - oauth2:
+            - write:testcase:library
+      parameters:
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
+        - name: libraryID
+          in: path
+          description: The id of the test case library.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Request is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
+components:
+  schemas:
+    RequestLibrary:
+      description: The test case library information to be created.
+      type: object
+      properties:
+        caseFieldConfigurationID:
+          maxLength: 8
+          minLength: 1
+          type: string
+          description: The id of the test case library field configuration.
+        name:
+          maxLength: 32
+          minLength: 1
+          type: string
+          description: The name of the test case library.
+      example:
+        name: Testcase Library
+        caseFieldConfigurationID: safia765
+    DeleteResponse:
+      description: The response of the delete request.
+      type: object
+      properties:
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
+      example:
+        - result: SUCCESS
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied delete_library'
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied testcase_view_library'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound TestCaseLibrary'
+    GetResponse:
+      description: The response of the add or update request.
+      type: object
+      properties:
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
+        data:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the test case library.
+            id:
+              type: string
+              description: The id of the test case library.
+            createTime:
+              type: integer
+              description: The create time of the test case library.
+            updateTime:
+              type: integer
+              description: The update time of the test case library.
+            stickToTop:
+              type: boolean
+              description: Whether the test case library is at the top.
+            caseFieldConfigurationID:
+              type: string
+              description: Test case library configuration ID.
+      example:
+        - result: SUCCESS
+          data:
+            name: Testcase Library
+            id: safia765
+            createTime: 1616592000
+            updateTime: 1616592000
+            stickToTop: false
+            caseFieldConfigurationID: safia765
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound TestCaseLibrary'
+    AddResponse:
+      description: The response of the add or update request.
+      type: object
+      properties:
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
+        data:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the test case library.
+            id:
+              type: string
+              description: The id of the test case library.
+            createTime:
+              type: integer
+              description: The create time of the test case library.
+            updateTime:
+              type: integer
+              description: The update time of the test case library.
+            stickToTop:
+              type: boolean
+              description: Whether the test case library is at the top.
+            caseFieldConfigurationID:
+              type: string
+              description: Test case library configuration ID.
+      example:
+        - result: SUCCESS
+          data:
+            name: Testcase Library
+            id: safia765
+            createTime: 1616592000
+            updateTime: 1616592000
+            stickToTop: false
+            caseFieldConfigurationID: safia765
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied manage_library'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound caseFieldConfigurationID'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter TestCaseLibrary Library Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter TestCaseLibrary Name TooLong'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter TestCaseLibrary caseFieldConfigurationID InvalidFormat'
+    UpdateResponse:
+      description: The response of the add or update request.
+      type: object
+      properties:
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
+        data:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the test case library.
+            id:
+              type: string
+              description: The id of the test case library.
+            createTime:
+              type: integer
+              description: The create time of the test case library.
+            updateTime:
+              type: integer
+              description: The update time of the test case library.
+            stickToTop:
+              type: boolean
+              description: Whether the test case library is at the top.
+            caseFieldConfigurationID:
+              type: string
+              description: Test case library configuration ID.
+      example:
+        - result: SUCCESS
+          data:
+            name: Testcase Library
+            id: safia765
+            createTime: 1616592000
+            updateTime: 1616592000
+            stickToTop: false
+            caseFieldConfigurationID: safia765
+        - result: FAIL
+          errorCode: PermissionDenied
+          errorMsg: 'PermissionDenied manage_library'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound caseFieldConfigurationID'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound TestCaseLibrary'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter TestCaseLibrary Library Empty'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter TestCaseLibrary Name TooLong'
+        - result: FAIL
+          errorCode: InvalidParameter
+          errorMsg: 'InvalidParameter TestCaseLibrary caseFieldConfigurationID InvalidFormat'
+    ListItem:
+      description: Test case library list item information.
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the test case library.
+        id:
+          type: string
+          description: The id of the test case library.
+        createTime:
+          type: integer
+          description: The create time of the test case library.
+        updateTime:
+          type: integer
+          description: The update time of the test case library.
+        stickToTop:
+          type: boolean
+          description: Whether the test case library is at the top.
+        testcaseFieldConfig:
+          type: object
+          properties:
+            name:
+              description: Test case library field configuration name.
+              type: string
+            id:
+              type: string
+              description: Test case library configuration ID.
+          description: Test case library field configuration information.
+    ListResponse:
+      type: object
+      properties:
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
+        data:
+          type: object
+          properties:
+            list:
+              type: array
+              items:
+                $ref: '#/components/schemas/ListItem'
+            $ref: ../../../openapi-common/latest/en/paging-query-response-pageInfo-schemas.yaml
+      example:
+        - result: SUCCESS
+          data:
+            list:
+              - name: Testcase Library
+                id: safia765
+                createTime: 1616592000
+                updateTime: 1616592000
+                stickToTop: false
+                testcaseFieldConfig:
+                  name: Testcase Library
+                  id: safia765
+            pageInfo:
+              count: 2
+              endCursor: 'sample_end_cursor'
+              hasNextPage: false
+              startCursor: 'sample_start_cursor'
+              totalCount: 2
+    $ref: ../../../openapi-common/latest/en/no-200-response-schemas.yaml
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://your-domain/oauth2/authorize
+          tokenUrl: https://your-domain/oauth2/token
+          scopes:
+            write:testcase:library: Add, edit, delete test case library
+            read:testcase:library: Access test case library information

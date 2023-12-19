@@ -37,6 +37,8 @@ ones create [options] [project-name]
 | `--use-default-preset`   | `-d`        | Skip prompts and use default preset                                                                           |
 | `--specific-path <path>` | `-s <path>` | Create at a specific path, it will automatically detect relative or absolute path                             |
 | `--plugin-type [type]`   |             | Specify the plugin type, support type: <ul><li>`team`</li><li>`organization`</li></ul> Default type is `team` |
+| `--policy <policy>`      |             | Specify the [Plugin Policy](../../guide/policy.mdx), default policy is `simple`                               |
+| `--ones-version <ver>`   |             | Specify the target ONES system version                                                                        |
 
 ## envinfo
 

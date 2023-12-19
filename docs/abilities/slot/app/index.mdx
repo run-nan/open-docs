@@ -1,5 +1,3 @@
-import Image from '@theme/IdealImage'
-
 # App slot
 
 ## Requirements
@@ -119,7 +117,18 @@ ${location.protocol}://${location.host}/project/#/desk_home
 :::tip
 
 - The name of the slot can be configured through the **title** attribute of modules in `plugin.yaml`
-- The slot needs to be used with capabilities. For details, see: [Sidebar Menu](../../business/sidebar-menu.mdx)
+- The slot needs to be used with capabilities. For details, see: [Sidebar Menu](../../basic/app-menu.mdx)
+- If you want to replace the whole right zone including the topbar zone, the `plugin.yaml` should be configured as follows:
+
+  ```yaml
+  modules:
+    - id: ones-workspace-9rMc
+      title: My work
+      moduleType: ones:app:new
+      entry: modules/ones-workspace-9rMc/index.html
+  ```
+
+  This has been supported since `ONES v3.16.8+`.
 
 :::
 

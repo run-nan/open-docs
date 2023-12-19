@@ -617,7 +617,7 @@ const input = (
 ### 14. getCustomPermissions
 
 - Get the permission point configuration of the plugin
-- [permission](../../abilities/business/permission)
+- [Custom permission](../../abilities/basic/custom-permission/custom-permission.mdx)
 
 #### URL
 

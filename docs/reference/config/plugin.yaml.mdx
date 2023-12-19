@@ -2,8 +2,6 @@
 sidebar_position: 1
 ---
 
-import Image from '@theme/IdealImage'
-
 # plugin.yaml
 
 The plugin configuration file describes the abilities, modules and other related information used in the plugin. The Open Platform will consume the content of the file when the plugin installation and enablement will be installed and enabled.
@@ -25,6 +23,9 @@ service:
   config:
     - key: MyCustomConfigKey
       type: Input
+  policy:
+    policy: simple
+    target: ''
 abilities:
   - id: Simple-login-SXgh
     name: SimpleLoginVerification
@@ -171,7 +172,7 @@ service:
 
 - **Type:** `Permission[]`
 
-Plugin custom standard permission point configuration item array, you can use this configuration quickly build your own plugin permission system, For more information, please see the [Plugin Custom Permission](../../abilities/business/permission/custom-permission/custom-permission.mdx) document.
+Plugin custom standard permission point configuration item array, you can use this configuration quickly build your own plugin permission system, For more information, please see the [Plugin Custom Permission](../../abilities/basic/custom-permission/custom-permission.mdx) document.
 
 **`Permission` Params:**
 
@@ -240,6 +241,28 @@ If you need to modify the plugin LOGO, modify the `web/public/logo.svg` file und
 - **Deprecated**
 
 Plugin authorization statement.
+
+### policy
+
+- **Type:**`Policy`
+
+the [policy](../../guide/policy.mdx) of the plugin
+
+** `Policy` Params:**
+
+| Key    | Description                                          | Type                       | Required | Default |
+| ------ | ---------------------------------------------------- | -------------------------- | -------- | ------- |
+| policy | the plugin policy                                    | `'simple'` \| `'standard'` | Y        |         |
+| target | temporarily useless field, just keep the empty value | `string`                   | Y        |         |
+
+**Example:**
+
+```yaml title="/config/plugin.yaml"
+service:
+  policy:
+    policy: standard
+    target: ''
+```
 
 ## abilities
 
@@ -341,15 +364,12 @@ The interface configuration item of the plugin **array**, the configuration para
 
 ### type
 
-- **Type:** `'external' ｜ 'addition' | 'replace' | 'prefix' | 'suffix'`
+- **Type:** `'external' | 'addition'`
 
-Tnterface type, For more information, please see the [Interface Registration](../../abilities/business/ONES-API/ONES-API-registration.md) document.
+Tnterface type, For more information, please see the [Interface Registration](../../abilities/basic/ones-api/registration.md) document.
 
 - `'external'`：The team level new interface (will check the login, and the URL needs to bring the `team/{teamUUID}` prefix)
 - `'addition'`：The plugin level new interface
-- `'replace'`：Replace the ONES standard interface (to be abandoned)
-- `'prefix'`：ONES standard interface prefix interception (to be abandoned)
-- `'suffix'`：ONES standard interface suffix interception (to be abandoned)
 
 ### methods
 
@@ -454,7 +474,7 @@ Module Type, For optional values, see [Slot Module List](../../abilities/slot/sl
 
 - **Type:** `string`
 
-Permission identity, which works with the plugin [custom standard permission point configuration](#permission) or the plugin custom permission point ability, For more information, please see [here](../../abilities/business/permission/custom-permission/custom-permission.mdx).
+Permission identity, which works with the plugin [custom standard permission point configuration](#permission) or the plugin custom permission point ability, For more information, please see [here](../../abilities/basic/custom-permission/custom-permission.mdx).
 
 **Example:**
 
@@ -479,7 +499,7 @@ modules:
 - **Type:** `boolean`
 - **ONES requirements:**: v3.13.59+
 
-Whether permission validation depends on page context. When set to `true`, module permissions will be revalidated when the page context changes. Otherwise, module permissions will only be validated once upon the initial page entry. This feature needs to be used in conjunction with the custom permission ability of the plugin. For more details, refer to [Custom Permission](../../abilities/business/permission/custom-permission/custom-permission.mdx).
+Whether permission validation depends on page context. When set to `true`, module permissions will be revalidated when the page context changes. Otherwise, module permissions will only be validated once upon the initial page entry. This feature needs to be used in conjunction with the custom permission ability of the plugin. For more details, refer to [Custom Permission](../../abilities/basic/custom-permission/custom-permission.mdx).
 
 ### enableDelayDestroy
 
@@ -517,13 +537,14 @@ For example:
 
 ```tsx
 import { BrowserRouter } from 'react-router-dom'
+
 ReactDOM.render(
   <ConfigProvider>
     <BrowserRouter basename={window.__op_router_basename__}>
       <App />
     </BrowserRouter>
   </ConfigProvider>,
-  document.getElementById('ones-mf-root')
+  document.getElementById('ones-mf-root'),
 )
 ```
 
@@ -531,13 +552,14 @@ Or you can use the `HashRouter` directly.
 
 ```tsx
 import { HashRouter } from 'react-router-dom'
+
 ReactDOM.render(
   <ConfigProvider>
     <HashRouter>
       <App />
     </HashRouter>
   </ConfigProvider>,
-  document.getElementById('ones-mf-root')
+  document.getElementById('ones-mf-root'),
 )
 ```
 

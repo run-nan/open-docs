@@ -1,28 +1,30 @@
 openapi: 3.0.1
 info:
-  title: Issue workflows
-  version: '1.0'
+  title: Issue Workflows
+  version: '2.0'
   description: |
     This resource represents issue workflows. Use it to get, execute issue workflows.
 servers:
-  - url: https://your-domain/rest/api/v1
-  - url: http://your-domain/rest/api/v1
+  - url: https://your-domain/openapi/v2
+  - url: http://your-domain/openapi/v2
 paths:
-  /project/team/{teamID}/issues/{issueID}/executable-workflow:
+  /project/issues/{issueID}:
     get:
       summary: Get a list of issue workflows
-      operationId: get-a-list-of-issue-workflows
+      operationId: 01-get-a-list-of-issue-workflows
       description: Get a list of issue workflows.
       security:
         - oauth2:
             - read:project:issue-workflow
       parameters:
-        - name: teamID
-          in: path
-          description: The team ID
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
+        - name: action
+          in: query
           required: true
           schema:
             type: string
+          description: |
+            - action: Actions on issue,support `executableWorkflow`.
         - name: issueID
           in: path
           description: The issue ID
@@ -36,45 +38,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AllSuccessResponse'
-        401:
-          description: Returned if the authentication credentials are incorrect or missing.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: Returns if the scope check fails.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: Returned if the resource object was not found.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: Internal Server Error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-  /project/team/{teamID}/issues/{issueID}/execute-workflow:
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
     post:
       summary: Execute workflow for issue
-      operationId: execute-workflow-for-issue
+      operationId: 02-execute-workflow-for-issue
       description: Execute workflow for issue.
       security:
         - oauth2:
             - write:project:issue-workflow
       parameters:
-        - name: teamID
-          in: path
-          description: The team ID
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
+        - name: action
+          in: query
           required: true
           schema:
             type: string
+          description: |
+            - action: Actions on issue,support `executeWorkflow`.
         - name: issueID
           in: path
           description: The issue ID
@@ -95,30 +75,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ExecuteWorkflowResponse'
-        401:
-          description: Returned if the authentication credentials are incorrect or missing.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        403:
-          description: Returns if the scope check fails.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        404:
-          description: Returns if the scope check fails.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
-        500:
-          description: Internal Server Error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadResponse'
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
       x-codegen-request-body-name: body
 components:
   schemas:
@@ -212,55 +169,76 @@ components:
           type: object
           description: The value of fieldValue.
     ExecuteWorkflowResponse:
+      description: The response of execute workflow.
       type: object
       properties:
-        result:
-          type: string
-          description: The result of this request.
-    ListItem:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the issue workflow.
-        id:
-          type: string
-          description: The id of the issue workflow.
-        start:
-          type: string
-          description: The start state of the issue workflow.
-        end:
-          type: string
-          description: The end state of the issue workflow.
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
+      example:
+        - result: SUCCESS
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound parentissue'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter workflow manhour'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter workflow attachment'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter workflow comment'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter workflow relatedwikiPage'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter workflow assign'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter workflow fieldvalue'
+        - result: FAIL
+          errorCode: MissingParameter
+          errorMsg: 'MissingParameter workflow fieldValue'
     AllSuccessResponse:
+      description: The response of get a list of issue workflows.
       type: object
       properties:
-        result:
-          type: string
-          description: The result of this request.
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
         data:
           type: array
           items:
-            $ref: '#/components/schemas/ListItem'
-    BadResponse:
-      type: object
-      properties:
-        result:
-          type: string
-          description: The result of this request.
-        errorCode:
-          type: string
-          description: The error code of this request.
-        errorMsg:
-          type: string
-          description: Error message for this request.
+            type: object
+            properties:
+              name:
+                type: string
+                description: The name of the issue workflow.
+              id:
+                type: string
+                description: The id of the issue workflow.
+              start:
+                type: string
+                description: The start state of the issue workflow.
+              end:
+                type: string
+                description: The end state of the issue workflow.
+      example:
+        - result: SUCCESS
+          data:
+            - id: '2gUfHXsV'
+              name: '关闭'
+              start: 'LS1jaMvi'
+              end: 'QXSKmnQQ'
+    $ref: ../../../openapi-common/latest/en/no-200-response-schemas.yaml
   securitySchemes:
     oauth2:
       type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://ones.com/oauth2/authorize
-          tokenUrl: https://ones.com/oauth2/token
+          authorizationUrl: https://your-domain/oauth2/authorize
+          tokenUrl: https://your-domain/oauth2/token
           scopes:
             read:project:issue-workflow: Access issue workflow
             write:project:issue-workflow: Add, edit, delete issue workflow

@@ -1,0 +1,19 @@
+---
+sidebar_position: 2
+description: Field related abilities.
+---
+
+import customField from './images/custom-field.png'
+
+# Customize issue fields
+
+In the ONES system, issues, projects, and products come with a set of built-in system fields. However, when these system fields do not fully meet the requirements, ONES also allows users to directly create various custom system fields such as single-select menus, multi-select menus, single-line text, multi-line text, and floating-point numbers.
+
+<Image img={customField} />
+
+However, in some scenarios we may have higher customization needs for custom fields, such as:
+
+- for single-select/multi-select menu fields, we want the menu options to synchronize with an external data source.
+- for floating-point number fields, we want the property values to be calculated solely by the code and not editable by the user.
+
+To fulfill these requirements, the Open Platform provides the "Script Fields Capability" which allows developers to achieve more flexible custom fields by writing plugins.

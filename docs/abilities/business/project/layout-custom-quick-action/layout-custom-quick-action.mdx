@@ -1,0 +1,289 @@
+---
+sidebar_position: 7
+description: Create a new action button in the upper right corner of the issue detail.
+---
+
+import actionAdd from './images/plugin-quick-action-add-en.jpg'
+import actionModify from './images/plugin-quick-action-modify-en.jpg'
+import actionShow from './images/plugin-quick-action-show-en.jpg'
+
+# Issue detail action buttons
+
+## Requirements
+
+| ONES      | @ones-op/bridge | @ones-op/store |
+| :-------- | :-------------- | :------------- |
+| v3.11.40+ | v0.9.0+         | v0.5.0+        |
+
+## Overview
+
+The open platform provides the "custom layout shortcut" ability for task items. After use, you can add custom shortcut buttons in the "global layout" and "local layout" configuration, which supports custom button functions and sequence adjustments. After applying to any type of task item, you can Use custom shortcuts in the corresponding task items. By using this ability, you can achieve more personalized functions, such as exporting comments, associating with related code repos and pushing official accounts.
+
+### Performance of ability
+
+#### 1. Add plugin shortcut
+
+After enabling the plugin which using this ability, you can add a custom "plugin shortcut" on the layout configuration page of the issue type.
+
+<Image img={actionAdd} />
+
+#### 2. Adjust the plugin shortcut position
+
+After adding you can check the "plugin shortcut" in the "Overview widget configuration", which can adjust the position and whether it is displayed on the outside like other shortcuts.
+
+<Image img={actionModify} />
+
+#### 3. Release layout
+
+After releasing the layout, you can check the added "plugin shortcut" in the upper right corner of the task item details form, and the corresponding function is defined by the plugin.
+
+<Image img={actionShow} />
+
+## Usage
+
+### Step 1: Ability configuration to add ability and module to the plugin
+
+#### 1. Add abilities
+
+Use the `OP` command to add abilities in the plugin project, select `layout-custom-quick-action` type:
+
+```shell
+$ npx op add ability
+  ✔ Validating the input params
+  ✔ Validating project files exists
+  ✔ Generating initial answers by input params
+  ✔ Parsing plugin config content
+
+? Please select the ability you want to add: … layout-custom-quick-action
+layout-custom-quick-action@1.0.0
+```
+
+Add relevant paragraphs in the `abilities` field of `config/plugin.yaml` in the plugin project:
+
+```yaml
+service:
+  app_id: ...
+  name: layout-custom-quick-action
+  ...
+apis:
+  ...
+abilities:
+  - id: VBJN_y9T
+    name: 'custom layout shortcut'
+    version: 1.0.0
+    abilityType: LayoutCustomQuickAction
+    relateModule:
+      quickActionMenu: ''
+```
+
+#### 2. Add modules
+
+Use the `OP` command to add modules in the plugin project, select [ones:global:modal](../../../slot/global/global-modal-upload#onesglobalmodal) type:
+
+```shell
+$ npx op add module
+  ✔ Validating the input params
+  ✔ Validating project files exists
+  ✔ Generating initial answers by input params
+  ✔ Parsing plugin config content
+
+Pre-require tasks run successfully
+? Please select the module type you want to add: … ones:global:modal
+ones:global:modal
+```
+
+The OP tool will ask to enter the title of the slot, we enter "pluginShortcut" as the title, and the OP tool will add the following content for the plugin:
+
+```yaml
+modules:
+  - id: ones-global-modal-Ne7E
+    title: 'Plugin shortcut'
+    moduleType: ones:global:modal
+    entry: modules/ones-global-modal-Ne7E/index.html
+```
+
+At the same time, a module directory of `ones-global-modal-Ne7E` has been added under the `web/src/modules` directory of the plugin root directory.
+
+add `preload`、`manual` and `icon` configs to module:
+
+```yaml
+modules:
+  - id: ones-global-modal-Ne7E
+    title: 'Plugin shortcut'
+    moduleType: ones:global:modal
+    entry: modules/ones-global-modal-Ne7E/index.html
+    icon: logo.svg
+    preload: true
+    manual: true
+```
+
+:::caution notice
+
+- `title` is displayed as the title of the layout shortcut, supports multi-language configuration, please refer to [Plugin configuration file modules.title](../../../../reference/config/plugin.yaml#title) and [Use of multiple languages in plugin configuration](../../../../guide/abilities/multilingual#use-of-multiple-languages-in-plugin-configuration);
+- `icon` is displayed as the icon of the shortcut operation of the layout. By default, the plugin icon of @ones-design/icon is used. It is recommended to use a solid color svg icon to be consistent with the original shortcut operation icon. For configuration rules, refer to [ones:global:modal](../../../slot/global/global-modal-upload#onesglobalmodal-1);
+- `preload` and `manual` are required parameters, refer to [ones:global:modal](../../../slot/global/global-modal-upload#onesglobalmodal-1).
+
+:::
+
+#### 3. Abilities Link Modules
+
+In the `plugin.yaml` file, associate the ability with the module, that is, configure the `id` of the module to the `quickActionMenu` value of the ability configuration, and the final effect is as follows:
+
+```yaml
+service:
+  app_id: ...
+  name: layout-custom-quick-action
+  ...
+apis:
+  ...
+abilities:
+  - id: VBJN_y9T
+    name: 'custom layout shortcut'
+    version: 1.0.0
+    abilityType: LayoutCustomQuickAction
+    relateModule:
+      quickActionMenu: ones-global-modal-Ne7E
+modules:
+  - id: ones-global-modal-Ne7E
+    title: 'Plugin shortcut'
+    moduleType: ones:global:modal
+    entry: modules/ones-global-modal-Ne7E/index.html
+    icon: logo.svg
+    preload: true
+    manual: true
+```
+
+### Step 2: Dependence requirements
+
+Enter the `web` directory and install the `@ones-op/store` dependency with the following command:
+
+```bash npm2yarn
+npm install @ones-op/store @ones-op/bridge
+```
+
+### Step 3: Customize shortcut button behavior
+
+Define the behavior of the shortcut button in the module, the following is an example of the plugin front end.
+
+:::caution notice
+
+After executing the custom shortcut button logic, the slot must be destroyed by calling the `lifecycle.destroy()` method.
+
+:::
+
+#### 1. Popup type
+
+```tsx
+import { ConfigProvider, Modal } from '@ones-design/core'
+import { lifecycle } from '@ones-op/bridge'
+import { useTaskInfo } from '@ones-op/store'
+import React, { useEffect } from 'react'
+import ReactDOM from 'react-dom'
+
+import './index.css'
+
+function App() {
+  // current issue uuid
+  const { uuid } = useTaskInfo()
+
+  return (
+    <>
+      <Modal
+        onCancel={function noRefCheck() {
+          // When canceling, destroy the popup window
+          lifecycle.destroy()
+        }}
+        onOk={function noRefCheck() {
+          // Click OK to destroy the popup
+          lifecycle.destroy()
+        }}
+        title="customize_shortcuts"
+        closable
+        visible
+        width={520}
+      >
+        Customize shortcuts
+      </Modal>
+    </>
+  )
+}
+
+ReactDOM.render(
+  <ConfigProvider>
+    <App />
+  </ConfigProvider>,
+  document.getElementById('ones-mf-root'),
+)
+```
+
+#### 2. Interfaceless pure logic type
+
+:::tip
+If you expect the plugin to still respond to another click by the user to activate while it is activated, you should consider combining [`useModuleInstanceInfo`](../../../../reference/packages/store/store.md#useModuleInstanceInfo) to achieve this.
+:::
+
+```tsx
+  import React, { useEffect } from 'react'
+  import ReactDOM from 'react-dom'
+  import { ConfigProvider } from '@ones-design/core'
+  import { lifecycle } from '@ones-op/bridge'
+  import { useTaskInfo } from '@ones-op/store'
+  import './index.css'
+
+  function App() {
+    // current issue uuid
+    const { uuid } = useTaskInfo()
+
+    useEffect(() => {
+      // execute related operation logic
+      ...
+      // destroy the slot last, otherwise it cannot be triggered again
+      lifecycle.destroy()
+    })
+
+    return <></>
+  }
+
+  ReactDOM.render(<ConfigProvider><App/></ConfigProvider>, document.getElementById('ones-mf-root'))
+```
+
+## Abilities in Different Life Cycle Stages
+
+1. Plugin enable:
+
+- You can add "plugin shortcut" to all issue type layout;
+- If the "plugin shortcut" has been configured to the layout, and will be displayed again after it is enabled again.
+
+2. Plugin disable:
+
+- You can not add "plugin shortcut" to all issue type layout;
+- The "plugin shortcut" that has been configured to the layout, will not be displayed;
+- The draft of the layout of the configured "plugin shortcut". At this time, the data is illegal and cannot be edited. You can cancel the release and exit and reenter.
+
+3. Plugin uninstall:
+
+- You can not add "plugin shortcut" to all issue type layout;
+- The previously configured "plugin quick action" will be deleted, and if you want restore previously configured records, you need to be reconfigured;
+- The draft of the layout of the configured "plugin shortcut". At this time, the data is illegal and cannot be edited. You can cancel the release and exit and reenter.
+
+## Examples
+
+- [Scene: Push information to WeChat official account](./layout-custom-quick-action-example1)
+
+## FAQ
+
+**Does the custom layout shortcut ability support both the global layout and the local layout? **
+
+Yes, after using the ability, both the global layout and the local layout support adding custom layout shortcuts.
+
+**How to set the title and icon of the custom layout shortcut? **
+
+The title and icon of the custom layout shortcut are configured in the slot, and the title supports multiple languages. For how to configure it, please refer to the [Plugin add modules](#2-add-modules) chapter.
+
+**How to bind the custom layout shortcut ability and module?**
+
+The configuration parameters `quickActionMenu` of the file `plugin.yaml`, used to bind the relationship with the correlation between the custom layout shortcut ability and the frontend module.
+
+**What should I do if I need to add multiple plugin shortcut?**
+
+There is a one-to-one relationship between custom layout shortcut abilities and modules. Multiple abilities are not allowed to be associated with the same module, nor is it allowed for one ability to be associated with multiple modules. At the same time, based on the principle of functional independence, it is recommended that developers define only one custom layout shortcut operation ability per plugin.

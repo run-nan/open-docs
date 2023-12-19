@@ -1,7 +1,7 @@
 ---
 id: super-admin
-sidebar_position: 7
-description: 插件在 ONES 中的虚拟用户。
+sidebar_position: 8
+description: 每个插件在 ONES 中都有一个专属的超级用户，该用户拥有 ONES 所有数据的访问权限。当插件在使用某些能力时，需要使用较高权限的 ONES 用户，可以直接使用插件超级用户而不需要预先配置特定的用户。
 ---
 
 # 超级用户

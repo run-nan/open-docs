@@ -615,7 +615,7 @@ const input = (
 ### 14. getCustomPermissions
 
 - 获取插件的权限点配置
-- [详见文档 permission 部分](https://docs.partner.ones.ai/docs/ones/permission/)
+- [自定义权限点](../../abilities/basic/custom-permission/custom-permission.mdx)
 
 #### URL
 

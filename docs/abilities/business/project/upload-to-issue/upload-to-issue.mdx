@@ -1,0 +1,61 @@
+---
+sidebar_position: 5
+---
+
+# Upload issue attachment
+
+## Requirements
+
+| ONES    | @ones-op/node-ability |
+| :------ | :-------------------- |
+| v3.6.0+ | v0.6.1+               |
+
+## Overview
+
+Using this ability, plugins can upload files as attachments to issue.
+
+### Performance
+
+After the file is uploaded through the ability, a new file attachment is added to the issue:
+
+<Image img={require('./images/upload0.png')} />
+
+## Usage
+
+### Step 1: Installation dependency
+
+Enter the `/backend` directory of the plugin project, and execute the following command for dependent installation:
+
+```shell
+npm i @ones-op/node-ability
+```
+
+### Step 2: Upload Attachments
+
+Call the [uploadFile](../../../../reference/packages/node-ability/node-ability.mdx#PluginFile_uploadFile) method to upload a file to an attachment of a issue
+
+```typescript
+const file = await PluginFile.uploadFile('files/test.txt', 'taskuuid', 'desc')
+```
+
+- Params
+
+  | **Param**   | **Type** | **Description**                                                                                                         | **Required** | **Default** |
+  | :---------- | :------- | :---------------------------------------------------------------------------------------------------------------------- | :----------- | :---------- |
+  | filePath    | string   | file address, the path under the `workspace` directory                                                                  | Y            | -           |
+  | referenceID | string   | `uuid` of the issue                                                                                                     | Y            | -           |
+  | desc        | string   | file description                                                                                                        | Y            | -           |
+  | teamUUID    | string   | `uuid` of the team, organization-level plugins must have this parameter, team-level plugins may not have this parameter | N            | -           |
+
+- Return
+
+  The structure returned by the method contains information about the uploaded file.
+
+  | Param   | Type   | Description              |
+  | :------ | :----- | :----------------------- |
+  | hash    | string | `hash` value of the file |
+  | url     | string | file download `url`      |
+  | name    | string | file name                |
+  | size    | int    | file size                |
+  | mime    | string | file type                |
+  | version | int    | file version             |

@@ -2,8 +2,6 @@
 sidebar_position: 1
 ---
 
-import Image from '@theme/IdealImage'
-
 # plugin.yaml
 
 插件配置文件，描述了插件所使用到的能力、模块以及其他相关信息，开放平台将会插件安装与启用时消费该文件内容。
@@ -25,6 +23,9 @@ service:
   config:
     - key: MyCustomConfigKey
       type: Input
+  policy:
+    policy: simple
+    target: ''
 abilities:
   - id: Simple-login-SXgh
     name: SimpleLoginVerification
@@ -171,7 +172,7 @@ service:
 
 - **类型：**`Permission[]`
 
-插件自定义的标准权限点配置项数组，你可以通过此配置快速搭建自己的插件权限体系，具体使用文档请查阅 [插件自定义权限点](../../abilities/business/permission/custom-permission/custom-permission.mdx)。
+插件自定义的标准权限点配置项数组，你可以通过此配置快速搭建自己的插件权限体系，具体使用文档请查阅 [插件自定义权限点](../../abilities/basic/custom-permission/custom-permission.mdx)。
 
 **`Permission` 参数：**
 
@@ -240,6 +241,28 @@ service:
 - **已废弃**
 
 插件授权声明。
+
+### policy
+
+- **类型：**`Policy`
+
+插件的[售卖策略](../../guide/policy.mdx)
+
+** `Policy`参数：**
+
+| 属性   | 说明                   | 类型                       | 必填 | 默认值 |
+| ------ | ---------------------- | -------------------------- | ---- | ------ |
+| policy | 售卖策略               | `'simple'` \| `'standard'` | 是   |        |
+| target | 保留字段，保持空值即可 | `string`                   | 是   |        |
+
+**示例：**
+
+```yaml title="/config/plugin.yaml"
+service:
+  policy:
+    policy: standard
+    target: ''
+```
 
 ## abilities
 
@@ -341,15 +364,12 @@ service:
 
 ### type
 
-- **类型：**`'external' ｜ 'addition' | 'replace' | 'prefix' | 'suffix'`
+- **类型：**`'external' | 'addition'`
 
-接口的类型，具体使用详见 [接口注册](../../abilities/business/ONES-API/ONES-API-registration.md)。
+接口的类型，具体使用详见 [接口注册](../../abilities/basic/ones-api/registration.md)。
 
 - `'external'`：团队级别新增接口（会对登录进行校验，并且 URL 需要带上 `team/{teamUUID}` 前缀）
 - `'addition'`：插件级别新增接口
-- `'replace'`：替换 ONES 标品接口（待废弃）
-- `'prefix'`：ONES 标品接口前置拦截（待废弃）
-- `'suffix'`：ONES 标品接口后置拦截（待废弃）
 
 ### methods
 
@@ -375,7 +395,7 @@ service:
 - **类型：**`'project' | 'wiki'`
 - **默认值（含未定义）：**`'project'`
 
-当前接口是对 ONES 标品接口修改时（即 [`type`](#type) 是 `'replace' | 'prefix' | 'suffix'`），需要声明你当前修改的时 `project` 接口还是 `wiki` 接口。
+当前接口是对 ONES 标品接口修改时（即 [`type`](#type) 是 `'replace' | 'prefix' | 'suffix'`），需要声明你当前修改的是 `project` 接口还是 `wiki` 接口。
 
 :::note
 如果是插件新增的接口，此字段无意义。
@@ -454,7 +474,7 @@ service:
 
 - **类型：**`string`
 
-权限标识，与插件 [自定义的标准权限点配置](#permission) 或插件自定义权限点能力配合使用，详情见 [插件自定义权限点](../../abilities/business/permission/custom-permission/custom-permission.mdx)。
+权限标识，与插件 [自定义的标准权限点配置](#permission) 或插件自定义权限点能力配合使用，详情见 [插件自定义权限点](../../abilities/basic/custom-permission/custom-permission.mdx)。
 
 **示例：**
 
@@ -479,7 +499,7 @@ modules:
 - **类型：**`boolean`
 - **ONES 要求**: v3.13.59+
 
-权限校验是否依赖页面上下文，为`true`时，会在页面上下文变动时重新校验一次模块权限，否则，只在首次进入页面时校验一次模块权限，需要与插件自定义权限点能力配合使用，详情见 [插件自定义权限点](../../abilities/business/permission/custom-permission/custom-permission.mdx)。
+权限校验是否依赖页面上下文，为`true`时，会在页面上下文变动时重新校验一次模块权限，否则，只在首次进入页面时校验一次模块权限，需要与插件自定义权限点能力配合使用，详情见 [插件自定义权限点](../../abilities/basic/custom-permission/custom-permission.mdx)。
 
 ### enableDelayDestroy
 
@@ -517,13 +537,14 @@ modules:
 
 ```tsx
 import { BrowserRouter } from 'react-router-dom'
+
 ReactDOM.render(
   <ConfigProvider>
     <BrowserRouter basename={window.__op_router_basename__}>
       <App />
     </BrowserRouter>
   </ConfigProvider>,
-  document.getElementById('ones-mf-root')
+  document.getElementById('ones-mf-root'),
 )
 ```
 
@@ -531,13 +552,14 @@ ReactDOM.render(
 
 ```tsx
 import { HashRouter } from 'react-router-dom'
+
 ReactDOM.render(
   <ConfigProvider>
     <HashRouter>
       <App />
     </HashRouter>
   </ConfigProvider>,
-  document.getElementById('ones-mf-root')
+  document.getElementById('ones-mf-root'),
 )
 ```
 

@@ -1,0 +1,711 @@
+---
+sidebar_position: 17
+toc_max_heading_level: 4
+description: 使用该能力可以对插件自定义内容进行访问限制。例如：当插件的前端需要实现分"级别"的页面，不同的用户（群组）具备不同的访问范围时，可以使用该能力进行权限控制。
+---
+
+# 自定义权限点
+
+## 要求
+
+| ONES      |
+| :-------- |
+| v3.10.14+ |
+
+## 概述
+
+有时候插件自定义的内容也需要控制访问权限，只依赖 ONES 已有的权限校验无法满足插件自定义内容的权限控制。因此我们提供自定义权限点能力，使用该能力可以对插件自定义内容进行访问限制。例如：当插件的前端需要实现分"级别"的页面，不同的用户（群组）具备不同的访问范围时，可以使用该能力进行权限控制。
+
+:::note
+
+使用该能力添加的权限点只在插件内生效，即只能控制插件添加内容的访问权限。
+
+:::
+
+### 能力表现
+
+使用能力添加了权限之后，在插件详情的权限配置页有相关权限配置。
+
+<Image img={require('./images/custom-permission01.png')} />
+
+## 使用
+
+自定义权限能力支持通过 **自定义的标准权限配置**、**自定义权限点 API** 和 **自定义权限点能力** 三种方式使用自定义权限点。自定义的权限点目前只能配合前端插槽使用，具体使用方法请参照：[permission](../../../reference/config/plugin.yaml#modulePermission)
+
+:::caution 注意
+
+只有通过能力添加的权限点才能由插件自定义权限校验逻辑，其他都是使用 ONES 原有权限校验逻辑。
+
+:::
+
+### 自定义的标准权限配置
+
+在插件的配置文件中添加自定义的标准权限点配置项数组
+
+**参数：**
+
+| 参数  | 说明         | 类型   | 必填 | 默认值 |
+| :---- | :----------- | :----- | :--- | :----- |
+| name  | 权限名称     | string | 是   | -      |
+| field | 权限唯一标识 | string | 是   | -      |
+| desc  | 权限描述     | string | 否   | -      |
+
+**示例：**
+
+```yaml title="config/plugin.yaml"
+service:
+  permission:
+    - name: My custom read permission
+      field: my-custom-read-permission-key
+      desc: This is an example of custom read permission
+```
+
+### 自定义权限点 API - 后端
+
+提供非声明式的权限点定义和配置方法，在插件后端中可以使用这些 API 来管理自定义权限。
+
+:::note
+
+示例中均通过 [ONES 接口注册](../ones-api/registration.md) 能力添加 `addition` 接口进行调试
+
+:::
+
+#### 添加权限点
+
+**入参：**
+
+| 参数    | 说明                                                                   | 类型   | 必填 |
+| :------ | :--------------------------------------------------------------------- | :----- | :--- |
+| path    | 路由，固定值: `AddPermissionInfo`                                      | string | 是   |
+| headers | 请求头，固定值:<br />{<br/> "AbilityName":["AddPermissionInfo"]<br/> } | any    | 是   |
+| method  | 请求方法，固定值:`POST`                                                | string | 是   |
+| body    | 请求体，包含权限点信息。                                               | any    | 是   |
+
+**body**
+
+| 参数             | 说明       | 类型   | 必填 |
+| :--------------- | :--------- | :----- | :--- |
+| permission_name  | 权限点名称 | string | 是   |
+| permission_field | 权限点标识 | string | 是   |
+| permission_desc  | 权限点描述 | string | 是   |
+
+**返回内容：**`response.body['data']`中的内容
+
+- 正常
+
+  | 参数              | 说明           | 类型   |
+  | :---------------- | :------------- | :----- |
+  | organization_uuid | 组织 uuid      | string |
+  | team_uuid         | 团队 uuid      | string |
+  | instance_uuid     | 插件示例 id    | string |
+  | permission_name   | 权限点名称     | string |
+  | permission_desc   | 权限点描述     | string |
+  | permission_field  | 权限点唯一标识 | string |
+  | permission_id     | 权限点 id      | string |
+  | check_mode        | 校验类型       | string |
+  | ability_id        | 能力 id        | string |
+
+- 错误
+
+  当添加的权限点已经存在时返回：permission_field of plugin already exists
+
+**示例：**
+
+```typescript
+export async function addPermission(request: PluginRequest): Promise<PluginResponse> {
+  const response = await fetchONES({
+    path: `AddPermissionInfo`,
+    headers: {
+      AbilityName: ['AddPermissionInfo'],
+    },
+    method: 'POST',
+    body: {
+      permission_name: 'api_add_permission', // 权限点名称
+      permission_field: 'api_add_permission123', // 权限点唯一标识
+      permission_desc: 'test', // 插件点描述
+    },
+  })
+  const body = response?.body as any
+  const data = JSON.parse(body.toString())['data']
+  Logger.info(data)
+  return {
+    body: {
+      data: data,
+    },
+  }
+}
+```
+
+#### 获取权限点
+
+**入参：**
+
+| 参数    | 说明                                                                    | 类型   | 必填 |
+| :------ | :---------------------------------------------------------------------- | :----- | :--- |
+| path    | 路由，固定值: `PermissionInfoList`                                      | string | 是   |
+| headers | 请求头，固定值:<br />{<br/> "AbilityName":["PermissionInfoList"]<br/> } | any    | 是   |
+| method  | 请求方法，固定值:`POST`                                                 | string | 是   |
+
+**返回内容:** `response.body['data']`中的内容，包含权限点信息数组，每个权限点包含以下内容
+
+##### permission
+
+| 参数             | 说明             | 类型            |
+| :--------------- | :--------------- | :-------------- |
+| instance_uuid    | 插件示例 id      | string          |
+| permission_name  | 权限点名称       | string          |
+| permission_desc  | 权限点描述       | string          |
+| permission_field | 权限点唯一标识   | string          |
+| permission_id    | 权限点 id        | string          |
+| check_mode       | 校验类型         | string          |
+| rule_info        | 已配置规则的信息 | [rule](#rule)[] |
+
+##### rule
+
+| 参数              | 说明        | 类型   |
+| :---------------- | :---------- | :----- |
+| id                | 权限规则 id | string |
+| permission_id     | 权限点 id   | string |
+| context_type      | 上下文类型  | string |
+| context_param_1   | 上下文参数  | string |
+| context_param_2   | 上下文参数  | string |
+| user_domain_type  | 用户域类型  | string |
+| user_domain_param | 用户域参数  | string |
+| position          | 位置        | string |
+
+**示例：**
+
+```typescript
+export async function listPermission(request: PluginRequest): Promise<PluginResponse> {
+  const response = await fetchONES({
+    path: `PermissionInfoList`,
+    headers: {
+      AbilityName: ['PermissionInfoList'],
+    },
+    method: 'POST',
+    body: {},
+  })
+  const body = response?.body as any
+  const data = JSON.parse(body.toString())['data']
+  Logger.info(data)
+  return {
+    body: {
+      data: data,
+    },
+  }
+}
+```
+
+#### 删除权限点
+
+**入参：**
+
+| 参数    | 说明                                                                      | 类型   | 必填 |
+| :------ | :------------------------------------------------------------------------ | :----- | :--- |
+| path    | 路由，固定值: `DeletePermissionInfo`                                      | string | 是   |
+| headers | 请求头，固定值:<br />{<br/> "AbilityName":["DeletePermissionInfo"]<br/> } | any    | 是   |
+| method  | 请求方法，固定值:`POST`                                                   | string | 是   |
+| body    | 请求体，包含权限点唯一标识                                                | any    | 是   |
+
+**body**
+
+| 参数             | 说明       | 类型   | 必填 |
+| :--------------- | :--------- | :----- | :--- |
+| permission_field | 权限点标识 | string | 是   |
+
+**示例：**
+
+```typescript
+export async function deletePermission(request: PluginRequest): Promise<PluginResponse> {
+  const response = await fetchONES({
+    path: `DeletePermissionInfo`,
+    headers: {
+      AbilityName: ['DeletePermissionInfo'],
+    },
+    method: 'POST',
+    body: {
+      permission_field: 'api_add_permission123',
+    },
+  })
+  const body = response?.body as any
+  const data = JSON.parse(body.toString())['data']
+  Logger.info(data)
+  return {
+    body: {
+      data: data,
+    },
+  }
+}
+```
+
+#### 添加权限规则
+
+**入参：**
+
+| 参数    | 说明                                                                   | 类型   | 必填 |
+| :------ | :--------------------------------------------------------------------- | :----- | :--- |
+| path    | 路由，固定值: `AddPermissionRule`                                      | string | 是   |
+| headers | 请求头，固定值:<br />{<br/> "AbilityName":["AddPermissionRule"]<br/> } | any    | 是   |
+| method  | 请求方法，固定值:`POST`                                                | string | 是   |
+| body    | 请求体，包含权限点规则信息                                             | any    | 是   |
+
+**body**
+
+| 参数              | 说明                                                                                                                                        | 类型   | 必填 |
+| :---------------- | :------------------------------------------------------------------------------------------------------------------------------------------ | :----- | :--- |
+| permission_id     | 权限点 id                                                                                                                                   | string | 是   |
+| user_domain_type  | 用户域种类，可选值：<br />所有人-`everyone`<br />用户-`single_user`<br />部门-`department`<br />用户组-`group`<br />团队负责人-`team_owner` | string | 是   |
+| user_domain_param | 用户领域的唯一标示，例如当用户域是`single_user`时，该参数的值表示`user_uuid`                                                                | string | 是   |
+
+**返回内容：**`response.body['data']`中的内容
+
+- 正常
+
+  包含本次添加权限规则的信息
+
+  | 参数              | 说明        | 类型   |
+  | :---------------- | :---------- | :----- |
+  | org_uuid          | 组织 uuid   | string |
+  | team_uuid         | 团队 uuid   | string |
+  | id                | 权限规则 id | string |
+  | deleted           | 是否删除    | Bool   |
+  | permission_id     | 权限点 id   | string |
+  | context_type      | 上下文类型  | string |
+  | context_param_1   | 上下文参数  | string |
+  | context_param_2   | 上下文参数  | string |
+  | user_domain_type  | 用户域类型  | string |
+  | user_domain_param | 用户域参数  | string |
+  | position          | 位置        | string |
+
+- 错误
+
+  当添加的权限点规则用户域类型不对时返回：`<UserDomainNotExist> UserDomainNotExist`
+
+**示例：**
+
+```typescript
+export async function addRule(request: PluginRequest): Promise<PluginResponse> {
+  const { user_uuid, permission_id } = request.body as any
+  const response = await fetchONES({
+    path: `AddPermissionRule`,
+    headers: {
+      AbilityName: ['AddPermissionRule'],
+    },
+    method: 'POST',
+    body: {
+      permission_id: permission_id, // permission唯一id，在add_permission_info时返回
+      user_domain_type: 'single_user', // 用户域种类，现有：everyone,single_user,department,group,team_owner
+      user_domain_param: user_uuid, // 用户领域的唯一标示，例如当user_domain_type是single_user时，user_domain_param就是标示user_uuid
+    },
+  })
+  const body = response?.body as any
+  const data = JSON.parse(body.toString())['data']
+  Logger.info(data)
+  return {
+    body: {
+      data: data,
+    },
+  }
+}
+```
+
+#### 删除权限规则
+
+**入参：**
+
+| 参数    | 说明                                                                      | 类型   | 必填 |
+| :------ | :------------------------------------------------------------------------ | :----- | :--- |
+| path    | 路由，固定值: `DeletePermissionRule`                                      | string | 是   |
+| headers | 请求头，固定值:<br />{<br/> "AbilityName":["DeletePermissionRule"]<br/> } | any    | 是   |
+| method  | 请求方法，固定值:`POST`                                                   | string | 是   |
+| body    | 请求体，包含权限规则唯一标识                                              | any    | 是   |
+
+**body**
+
+| 参数 | 说明           | 类型   | 必填 |
+| :--- | :------------- | :----- | :--- |
+| id   | 权限点规则标识 | string | 是   |
+
+**示例：**
+
+```typescript
+export async function deleteR(request: PluginRequest): Promise<PluginResponse> {
+  const { rule_id, user_uuid } = request.body as any
+  const response = await fetchONES({
+    path: `DeletePermissionRule`,
+    headers: {
+      AbilityName: ['DeletePermissionRule'],
+    },
+    method: 'POST',
+    body: {
+      id: rule_id, // permission_rule唯一id，在add_permission_rule时会返回
+    },
+  })
+  const body = response?.body as any
+  const data = JSON.parse(body.toString())['data']
+  Logger.info(data)
+  return {
+    body: {
+      data: data,
+    },
+  }
+}
+```
+
+#### 权限点校验
+
+**入参：**
+
+| 参数    | 说明                                                                     | 类型   | 必填 |
+| :------ | :----------------------------------------------------------------------- | :----- | :--- |
+| path    | 路由，固定值: `CheckPermissionRule`                                      | string | 是   |
+| headers | 请求头，固定值:<br />{<br/> "AbilityName":["CheckPermissionRule"]<br/> } | any    | 是   |
+| method  | 请求方法，固定值:`POST`                                                  | string | 是   |
+| body    | 请求体，包含检验相关信息                                                 | any    | 是   |
+
+**body**
+
+| 参数             | 说明         | 类型   | 必填 |
+| :--------------- | :----------- | :----- | :--- |
+| permission_field | 权限点标识   | string | 是   |
+| user_uuid        | 用户的`uuid` | string | 是   |
+
+**返回内容：**`response.body['data']`中的内容
+
+| 参数          | 说明       | 类型 |
+| :------------ | :--------- | :--- |
+| is_permission | 是否有权限 | bool |
+
+**示例：**
+
+```typescript
+export async function checkPermission(request: PluginRequest): Promise<PluginResponse> {
+  const { user_uuid, permission_field } = request.body as any
+  const response = await fetchONES({
+    path: `CheckPermissionRule`,
+    headers: {
+      AbilityName: ['CheckPermissionRule'],
+    },
+    method: 'POST',
+    body: {
+      permission_field: permission_field,
+      user_uuid: user_uuid,
+    },
+  })
+  const body = response?.body as any
+  const data = JSON.parse(body.toString())['data']
+  Logger.info(data)
+  return {
+    body: {
+      data: data,
+    },
+  }
+}
+```
+
+#### 批量权限点校验
+
+**入参：**
+
+| 参数    | 说明                                                                      | 类型   | 必填 |
+| :------ | :------------------------------------------------------------------------ | :----- | :--- |
+| path    | 路由，固定值: `BatchCheckPermission`                                      | string | 是   |
+| headers | 请求头，固定值:<br />{<br/> "AbilityName":["BatchCheckPermission"]<br/> } | any    | 是   |
+| method  | 请求方法，固定值:`POST`                                                   | string | 是   |
+| body    | 请求体，包含所有的校验信息                                                | any    | 是   |
+
+**body**
+
+| 参数              | 说明           | 类型   | 必填 |
+| :---------------- | :------------- | :----- | :--- |
+| organization_uuid | 组织的`uuid`   | string | 是   |
+| permission_field  | 权限的唯一标识 | string | 是   |
+| team_uuid         | 团队的`uuid`   | string | 是   |
+| instance_id       | 插件实例 id    | string | 是   |
+| user_uuid         | 用户的`uuid`   | string | 是   |
+
+**返回内容：**`response.body['data']`中的内容
+
+| 参数          | 说明               | 类型   |
+| :------------ | :----------------- | :----- |
+| is_permission | 每个权限检查的结果 | bool[] |
+
+**示例：**
+
+```typescript
+export async function checkBatch(request: PluginRequest): Promise<PluginResponse> {
+  const { user_uuid, permission_field, user_uuid2 } = request.body as any
+  const response = await fetchONES({
+    path: `BatchCheckPermission`,
+    headers: {
+      AbilityName: ['BatchCheckPermission'],
+    },
+    method: 'POST',
+    body: {
+      permission_rules: [
+        {
+          organization_uuid: global.onesEnv.organizationUUID,
+          permission_field: permission_field,
+          team_uuid: global.onesEnv.teamUUID,
+          instance_id: global.onesEnv.instanceId,
+          user_uuid: user_uuid,
+        },
+        {
+          organization_uuid: global.onesEnv.organizationUUID,
+          permission_field: permission_field,
+          team_uuid: global.onesEnv.teamUUID,
+          instance_id: global.onesEnv.instanceId,
+          user_uuid: user_uuid2,
+        },
+      ],
+    },
+  })
+  const body = response?.body as any
+  const data = JSON.parse(body.toString())['data']
+  Logger.info(data)
+  return {
+    body: {
+      data: data,
+    },
+  }
+}
+```
+
+### 自定义权限点 API - 前端
+
+#### 获取权限点列表
+
+获取自定义权限点列表及其规则
+
+##### URL
+
+https://your-host-name/project/api/project/team/:team_uuid/plugin/permissioninfo/list
+
+##### HTTP Method
+
+POST
+
+##### 传值方式
+
+json
+
+##### 请求参数列表
+
+| 参数名            | 是否必须 | 值类型 | 说明        |
+| :---------------- | :------- | :----- | :---------- |
+| instance_uuid     | 是       | string | 插件实例 ID |
+| team_uuid         | 是       | string | 团队`uuid`  |
+| organization_uuid | 是       | string | 组织`uuid`  |
+
+##### 返回参数列表
+
+| 参数名 | 值类型                      | 说明             |
+| :----- | :-------------------------- | :--------------- |
+| data   | [permission](#permission)[] | 自定义权限点数组 |
+
+##### 请求示例
+
+```curl
+curl --location 'https://your-host-name/project/api/project/team/:team_uuid/plugin/permissioninfo/list' \
+--header 'Ones-User-Id: N5tnQP1D' \
+--header 'Content-Type: application/json;charset=utf-8' \
+--header 'Ones-Auth-Token: 9iiqA0As7UldZ61aOSpzaMAQclSRWXCAGOwNK2D3yolDYodoJGr764bpOVm2QVLp' \
+--header 'Ones-Plugin-Id: built_in_apis' \
+--data '{
+    "instance_uuid": "994af1e3",
+    "team_uuid": "E1r1oDP1",
+    "organization_uuid": "9qcEhFjy"
+}'
+```
+
+##### 返回示例
+
+```json
+{
+  "data": [
+    {
+      "instance_uuid": "994af1e3",
+      "permission_name": "Permission",
+      "permission_field": "my_permission",
+      "permission_id": "1646758032098463744",
+      "permission_desc": "Custom permission",
+      "check_mode": "standard",
+      "rule_info": [
+        {
+          "id": "1646758267080151040",
+          "permission": "1646758032098463744",
+          "context_type": "plugin",
+          "context_param_1": "994af1e3",
+          "context_param_2": "",
+          "user_domain_type": "single_user",
+          "user_domain_param": "N5tnQP1D",
+          "position": 1
+        }
+      ]
+    }
+  ]
+}
+```
+
+#### 权限点校验
+
+检验用户是否有某个自定义权限点的权限
+
+##### URL
+
+https://your-host-name/project/api/project/team/:team_uuid/plugin/permissionrule/check
+
+##### HTTP Method
+
+POST
+
+##### 传值方式
+
+json
+
+##### 请求参数列表
+
+| 参数名            | 是否必须 | 值类型 | 说明                      |
+| :---------------- | :------- | :----- | :------------------------ |
+| instance_id       | 是       | string | 插件实例 ID               |
+| team_uuid         | 是       | string | 团队`uuid`                |
+| organization_uuid | 是       | string | 组织`uuid`                |
+| permission_field  | 是       | string | 自定义权限点配置的`field` |
+
+##### 返回参数列表
+
+| 参数名        | 值类型 | 说明       |
+| :------------ | :----- | :--------- |
+| is_permission | bool   | 是否有权限 |
+
+##### 请求示例
+
+请求头中的`Ones-User-Id` 参数的值为本次校验的用户
+
+```curl
+curl --location 'http://your-host-name/project/api/project/team/E1r1oDP1/plugin/permissionrule/check' \
+--header 'Ones-User-Id: 6wFTfuTt' \
+--header 'Content-Type: application/json;charset=utf-8' \
+--header 'Ones-Plugin-Id: built_in_apis' \
+--data '{
+    "instance_id": "994af1e3",
+    "team_uuid": "E1r1oDP1",
+    "organization_uuid": "9qcEhFjy",
+    "permission_field": "table_view_permission"
+}'
+```
+
+##### 返回示例
+
+```json
+{
+  "data": {
+    "is_permission": true
+  }
+}
+```
+
+### 自定义权限点能力
+
+#### 第一步：添加配置
+
+使用`npx op add ability` 添加 `custom-permission@1.0.0`类型的能力，生成`backend/src/custom-permission.ts`文件并在插件的配置文件中生成能力配置。
+
+**能力配置中的参数的作用：**
+
+| 参数                   | 作用                       | 类型   |
+| :--------------------- | :------------------------- | :----- |
+| name                   | 权限点名称                 | string |
+| field                  | 权限点标识                 | string |
+| desc                   | 权限点描述                 | string |
+| is_plugin_custom_check | 是否采用插件自定义权限校验 | bool   |
+
+**示例：**
+
+```yaml
+abilities:
+  - id: WIXJvPcd
+    name: CustomPermission
+    version: 1.0.0
+    abilityType: CustomPermission
+    function:
+      customPermissionCheckFunc: customPermissionCheck
+    config:
+      - key: name
+        value: Permission
+        label: Permission name
+        show: false
+      - key: field
+        value: my_permission
+        label: Permission field
+        show: false
+      - key: desc
+        value: Custom permission
+        label: Permission description
+        show: false
+      - key: is_plugin_custom_check
+        value: false
+        label: Plugin custom permission verification
+        show: false
+```
+
+#### 第二步：编写权限校验函数
+
+根据能力配置中`function.customPermissionCheckFunc`配置的函数名称，在`backend/src/custom-permission.ts`添加对应的权限校验函数，当使用的是插件自定义权限校验时，会调用该函数进行权限校验。
+
+**入参:**
+
+| 参数             | 说明           | 类型              |
+| :--------------- | :------------- | :---------------- |
+| user_uuid        | 用户的`uuid`   | string            |
+| permission_field | 权限点标识     | string            |
+| context          | 权限上下文参数 | PermissionContext |
+
+```typescript
+interface PermissionContext {
+  project_uuid?: string // 项目管理 -> 项目ID
+  filter_view_uuid?: string // 我的工作台 -> 筛选器 -> 筛选器视图ID
+  program_uuid?: string // 项目集管理 -> 项目集ID
+  product_uuid?: string // 产品管理 -> 产品ID
+  testcase_library_uuid?: string // 测试管理 -> 测试用例库ID
+  test_plan_uuid?: string // 测试管理 -> 测试计划ID
+  wiki_space_uuid?: string // 知识管理 -> 页面组ID
+  workspace_dashboard_uuid?: string // 我的工作台 -> 仪表盘 -> 仪表盘ID
+  performance_dashboard_uuid?: string // 效能管理 -> 仪表盘 -> 仪表盘ID
+}
+```
+
+:::caution
+如果权限校验逻辑依赖权限上下文参数，还需要在使用权限点的模块下配置 [needPermissionContext](../../../reference/config/plugin.yaml#needPermissionContext) 为`true`，只有这样才会在权限上下文变动时重新校验权限。
+:::
+
+**返回内容: **通过返回体中的`is_permission`字段的值来决定权限校验是否通过
+
+**示例: **只限制`user_uuid`为`SFBs7BHh`的用户
+
+```typescript
+import { Logger } from '@ones-op/node-logger'
+import { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+export async function customPermissionCheck(request: PluginRequest): Promise<PluginResponse> {
+  const body = request?.body as any
+  Logger.info(JSON.stringify(body, undefined, 2))
+  let permission = true
+  if (body.uuid == 'SFBs7BHh') {
+    permission = false
+  }
+  return {
+    statusCode: 200,
+    body: {
+      code: 200,
+      body: {
+        is_permission: permission,
+      },
+    },
+  }
+}
+```
+
+## 示例
+
+[系统顶栏右侧组件](./system-sider-permission.mdx)

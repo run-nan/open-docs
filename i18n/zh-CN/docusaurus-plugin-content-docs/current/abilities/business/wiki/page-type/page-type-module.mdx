@@ -1,0 +1,262 @@
+---
+sidebar_position: 2
+description: 自定义页面节点类型能力对应前端插槽介绍。
+---
+
+# 编辑器模块
+
+编辑器模块提供了添加前端自定义 WIKI 页面节点类型的能力，在添加[编辑器服务](./page-type-service.mdx)后，插件可以通过此模块实现对应的前端编辑器组件。
+
+编辑器模块按场景（scene），提供多个子模块，具体如下：
+
+- edit(必填)：编辑
+- view(必填)：预览
+- history：页面历史
+- import([手动](../../../../reference/config/plugin.yaml#manual))：导入操作
+- export([手动](../../../../reference/config/plugin.yaml#manual))：导出操作
+- operation([手动](../../../../reference/config/plugin.yaml#manual))：自定义操作
+
+## 插槽
+
+**ones:wiki:editor:new**
+
+**模块路径：**知识库管理 / 页面组 / 页面
+
+**个数限制：**一个插件中最多可声明 10 个该插槽，系统中最多同时存在 10 个该插槽
+
+## 可访问的上下文数据
+
+- [useWikiSpaceInfo](../../../../reference/packages/store/store.md#useWikiSpaceInfo)
+- [useWikiShareInfo](../../../../reference/packages/store/store.md#useWikiShareInfo)
+- [useWikiPageInfo](../../../../reference/packages/store/store.md#useWikiPageInfo)
+- [useWikiTemplateInfo](../../../../reference/packages/store/store.md#useWikiTemplateInfo)
+- [useCustomEditorInfo](../../../../reference/packages/store/store.md#useCustomEditorInfo)
+- [useVariablesInfo<"ones:wiki:editor:new--import">](../../../../reference/packages/store/store.md#useVariablesInfo) (scene: `import` 专属)
+  ```typescript
+  'ones:wiki:editor:new--import': {
+    /** 导入的目标页面组 UUID */
+    importedSpaceUUID: string
+    /** 导入的父页面 UUID */
+    importedParentPageUUID: string
+  }
+  ```
+
+## 配置说明
+
+### 支持的配置项
+
+- [title](../../../../reference/config/plugin.yaml#title)（必填）
+
+  页面节点类型名称。
+
+- [icon](../../../../reference/config/plugin.yaml#icon)（必填）
+
+  页面节点类型图标。
+
+- templateThumbnail
+
+  模版管理页面中的模版缩略图，默认使用 ONES 提供的缩略图。
+
+- [modules（必填）](../../../../reference/config/plugin.yaml#subModule)
+
+- modules[*].scene（必填）
+
+  - type: `"edit"|"view"|"history"|"import"|"export"|"operation"`
+
+    当前插槽的类型（其中 `"edit"|"view"` 子模块为**必要项**，`"import"|"export"|"operation"` 支持添加多项）。
+
+- [modules\[\*\].title](../../../../reference/config/plugin.yaml#title)
+
+  当 type 为 `"export"|"operation"` 时，此选项为必填项，用于展示操作按钮名称。
+
+  当 type 为 `"import"` 且存在两个或以上时，此选项为必填项，用于展示导入按钮名称。
+
+- [modules\[\*\].description](../../../../reference/config/plugin.yaml#description)
+
+  当 type 为 `"import"` 时，此选项建议填写，用于在工作项关联 Wiki 页面展示导入按钮的描述。
+
+- [modules[\*].icon](../../../../reference/config/plugin.yaml#icon)
+
+  操作类型模块（scene: `"import"|"export"|"operation"`），支持设置按钮图标。
+
+- [modules[\*].manual](../../../../reference/config/plugin.yaml#manual)
+
+  操作类型模块（scene: `"import"|"export"|"operation"`），此选项**必须**设置为 `true`。
+
+- [modules[\*].preload](../../../../reference/config/plugin.yaml#manual)
+
+  操作类型模块（scene: `"import"|"export"|"operation"`），此选项建议设置为 `true`。
+
+### 示例
+
+```yaml
+modules:
+  - id: ones-wiki-editor-new-f2OA
+    title: ONES Table
+    icon: logo.svg
+    templateThumbnail: template-thumbnail.png
+    moduleType: ones:wiki:editor:new
+    modules:
+      - id: ones-wiki-editor-new-XVKJ
+        title: edit
+        scene: edit
+        enableMemoryRouter: true
+        entry: modules/ones-wiki-editor-new-f2OA/ones-wiki-editor-new-XVKJ/index.html
+      - id: ones-wiki-editor-new-l8bc
+        title: view
+        scene: view
+        enableMemoryRouter: true
+        entry: modules/ones-wiki-editor-new-f2OA/ones-wiki-editor-new-l8bc/index.html
+      - id: ones-wiki-editor-new-qb2c
+        title: history
+        scene: history
+        enableMemoryRouter: true
+        entry: modules/ones-wiki-editor-new-f2OA/ones-wiki-editor-new-qb2c/index.html
+      - id: ones-wiki-editor-new-GnId
+        title: Import
+        scene: import
+        icon: logo.svg
+        enableMemoryRouter: true
+        preload: true
+        manual: true
+        entry: modules/ones-wiki-editor-new-f2OA/ones-wiki-editor-new-GnId/index.html
+      - id: ones-wiki-editor-new-DRUh
+        title: Export
+        scene: export
+        icon: logo.svg
+        enableMemoryRouter: true
+        preload: true
+        manual: true
+        entry: modules/ones-wiki-editor-new-f2OA/ones-wiki-editor-new-DRUh/index.html
+      - id: ones-wiki-editor-new-4FW8
+        title: Custom A
+        scene: operation
+        enableMemoryRouter: true
+        preload: true
+        manual: true
+        entry: modules/ones-wiki-editor-new-f2OA/ones-wiki-editor-new-4FW8/index.html
+      - id: ones-wiki-editor-new-gZ_W
+        title: Custom B
+        scene: operation
+        enableMemoryRouter: true
+        preload: true
+        manual: true
+        entry: modules/ones-wiki-editor-new-f2OA/ones-wiki-editor-new-gZ_W/index.html
+```
+
+## 使用
+
+### 第一步：添加模块
+
+在插件根目录下，执行 `npx op add module`，搜索并添加模块（`ones:wiki:editor:new`）。
+
+#### 添加子模块
+
+在插件根目录下，执行 `npx op add sub-module`，搜索并选择上一步生成的父模块 ID，添加相应场景子模块，下面将以较复杂的 scene: edit 为例继续说明。
+
+:::caution
+
+- `edit`，`view` 为必填子模块
+
+- `import`，`export`，`operation` 为手动触发模块，配置时需要添加 `manual: true`
+
+:::
+
+### 第二步：通过 Hook 获取数据
+
+在 `/web` 目录安装 `@ones-op/store` 包，从此包可以获取 ONES 传递的上下文信息。
+
+可以通过 `useCustomEditorInfo` 获取编辑器当前的上下文信息（当前页面所在位置，是否处于演示模式，发布方法，取消方法），再结合 `useWikiSpaceInfo`，`useWikiPageInfo`，`useTemplateInfo` 等 hooks，获取当前页面信息。
+
+### 第三步：发现服务
+
+平台提供了发现服务接口，插件可以根据此接口查询编辑器服务的访问地址。
+
+在 `/web` 目录安装 `@ones-op/fetch` 包后，可使用 `OPFetch` 方法请求发现服务接口。
+
+```typescript
+interface WebServiceInfo {
+  data: {
+    app_id: string
+    root_route: string
+    http_url: string
+    ws_url: string
+  }[]
+}
+
+function fetchServiceInfo(appID: string) {
+  return OPFetch<WebServiceInfo>('api/project/plugin/web_service/info', {
+    // 覆盖 OPFetch 的 Ones-Plugin-Id 插件预设，使其请求到开放平台服务
+    headers: { 'Ones-Plugin-Id': 'built_in_apis' },
+    method: 'post',
+    data: { app_id: appID },
+  })
+}
+
+function Editor() {
+  const { appID } = usePluginInfo()
+  const [wsBaseUrl, setWsBaseUrl] = useState()
+  useEffect(() => {
+    if (appID) {
+      fetchServiceInfo(appID).then((response) => {
+        setWsBaseUrl(response.data.data[0].ws_url)
+      })
+    }
+  }, [appID])
+
+  // ...
+}
+```
+
+### 第四步：使用 WebSocket 实现在线编辑
+
+在获取 WebSocket base URL 之后，插件可以根据编辑器服务业务逻辑进行连接，实现在线协同编辑。
+
+```typescript
+// ...
+
+function Editor() {
+  const { appID } = usePluginInfo()
+  const [wsBaseUrl, setWsBaseUrl] = useState()
+  const [ws, setWs] = useState()
+
+  useEffect(() => {
+    if (appID) {
+      fetchServiceInfo(appID).then((response) => {
+        setWsBaseUrl(response.data.data[0].ws_url)
+      })
+    }
+  }, [appID])
+
+  useEffect(() => {
+    if (wsBaseUrl) {
+      const ws = new WebSocket(`${wsBaseUrl}/my-path`)
+      ws.addEventListener('open', handleOpen)
+      ws.addEventListener('message', handleMessage)
+      ws.addEventListener('error', handleError)
+      ws.addEventListener('close', handleClose)
+      setWs(ws)
+    }
+  }, [wsBaseUrl])
+
+  // ...
+}
+```
+
+### 第五步：发布文档
+
+通过 `useCustomEditorInfo` 获取发布跟取消操作方法，这两个方法会根据当前场景，自动调用相应接口，完成发布（如：模版场景下，发布的是模版而非页面）。
+
+```typescript
+function Editor() {
+  // ...
+  const { cancel, publish } = useCustomEditorInfo()
+
+  return (
+    // ...
+    <Button onClick={cancel}>Cancel</Button>
+    <Button onClick={publish}>Publish</Button>
+    // ...
+  )
+}
+```

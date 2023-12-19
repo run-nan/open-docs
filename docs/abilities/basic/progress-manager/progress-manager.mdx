@@ -1,0 +1,308 @@
+---
+sidebar_position: 1
+description: Support using a progress manager to handle queue tasks or asynchronous tasks.
+toc_max_heading_level: 4
+---
+
+import TabItem from '@theme/TabItem'
+import Tabs from '@theme/Tabs'
+
+import progressManager1 from './images/progress-manager1.png'
+import progressManager2 from './images/progress-manager2.png'
+import progressManager3 from './images/progress-manager3.png'
+import progressManager4 from './images/progress-manager4.png'
+
+# Progress manager
+
+## Requirements
+
+| ONES     | @ones-op/node-ability |
+| :------- | :-------------------- |
+| v3.11.0+ | v0.4.1+               |
+
+## Overview
+
+This ability implements a Progress Manager for the plugin, which can be used to visualize the progress of the task when the plugin is performing download tasks or batch operations, and can define copywriting displays in different languages.
+
+Currently, there are two types of Progress Managers: **Download Progress Manager** and **Datasync Progress Manager**.
+
+### Download Progress Manager
+
+**Download Progress Manager** can download any specified file under the plugin storage space `workspace` directory
+
+Can view the progress of file download through the **Download Progress Manager**. Each progress is divided into `generating files`, `operation failed`, `file generation has been completed, and export has started`.When the progress is `operation failed`,can view the details of the failure.
+
+:::info
+
+**Download Progress Manager** start downloading files when the progress is complete.
+
+:::
+
+<Image img={progressManager1} />
+
+### Datasync Progress Manager
+
+**Datasync Progress Manager** can display the progress of batch operations.For each progress, you can see the `currentSuccessfulCount`, `currentSuccessfulCount`, and `currentSuccessfulCount`.After the progress is completed (regardless of success or failure), you can view the details.
+
+<Image img={progressManager2} />
+
+<br />
+
+:::tip
+
+**Datasync Progress Manager** supports refactoring the progress details page using **[Process Manager module](../../slot/global/progress-detail/index.mdx)**
+
+:::
+
+<br />
+
+<Image img={progressManager3} />
+
+## Usage
+
+### Plugin backend method
+
+#### create Progress Manager
+
+Create different types of Progress Managers through the `create` method provided in SDK, specify the time limit and title of the Progress Manager, and return the Progress Manager ID `processUUID` after successful creation.
+
+```typescript title="backend/src/index.ts"
+import { Process, LanguagePkg, ProcessType, ProcessResult } from '@ones-op/node-ability'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+export async function createProcess(request: PluginRequest): Promise<PluginResponse> {
+  //Get parameters from request
+  const { user_uuid, title, timeout } = request?.body as any
+  //Progress Manager Multilingual Titles
+  const titlePkg: LanguagePkg = {
+    en: 'file',
+    zh: title,
+  }
+  //Create a progress manager and get the return value processUUID
+  const processUUID = await Process.create(ProcessType.DownloadFile, user_uuid, titlePkg, timeout)
+
+  return {
+    body: {
+      process_uuid: processUUID,
+    },
+  }
+}
+```
+
+- `create` Param
+
+**Params**
+
+| Param          | Description                                                                                                                                                       | Type                        | Required | Default |
+| :------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------- | :------- | :------ |
+| processType    | type of Progress Manager,Optional values: <br /> **Download Progress Manager**:ProcessType.DownloadFile <br /> **Datasync Progress Manager**:ProcessType.DataSync | string                      | Y        | -       |
+| userUUID       | uuid of user                                                                                                                                                      | string                      | Y        | -       |
+| title          | title of progress                                                                                                                                                 | [LanguagePkg](#LanguagePkg) | Y        | -       |
+| timeoutSeconds | Timeout limit, if the Progress Manager is not completed within the time limit, it fails.                                                                          | number                      | N        | 60(s)   |
+| moduleID       | moduleID of Progress Manager（only applicable to **Datasync Progress Manager**）                                                                                  | string                      | N        | -       |
+| teamUUID       | uuid of the team which the Progress Manager belongs，only if the plugin is used at the organizational level                                                       | string                      | N        | -       |
+
+##### LanguagePkg {#LanguagePkg}
+
+| Param | Description   | Type   | Required | Default |
+| :---- | :------------ | :----- | :------- | :------ |
+| zh    | Chinese title | string | Y        | -       |
+| en    | English title | string | Y        | -       |
+
+**Returns**
+
+| Param       | Description                  | Type   |
+| :---------- | :--------------------------- | :----- |
+| processUUID | the uuid of Progress Manager | string |
+
+#### update progress
+
+Select a Progress Manager to update the progress through the `update` method provided in SDK
+
+```typescript title="backend/src/index.ts"
+import { Process, LanguagePkg, ProcessType, ProcessResult } from '@ones-op/node-ability'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+export async function updateProgress(request: PluginRequest): Promise<PluginResponse> {
+  //Get parameters from request
+  const { process_uuid: processUUID } = request?.body as any
+  const currentSuccessfulCount = 10
+  const currentFailedCount = 5
+  const currentRemainingCount = 30
+  //Progress Manager Update
+  await Process.update(
+    processUUID,
+    currentSuccessfulCount,
+    currentFailedCount,
+    currentRemainingCount,
+  )
+  return {
+    body: {
+      status: 'ok',
+    },
+  }
+}
+```
+
+- `update`Param
+
+| Param                  | Description                   | Type   | Required | Default |
+| :--------------------- | :---------------------------- | :----- | :------- | :------ |
+| processUUID            | uuid of Process Manager       | string | Y        | -       |
+| currentSuccessfulCount | current number of completions | number | Y        | -       |
+| currentFailedCount     | current number of failures    | number | Y        | -       |
+| currentRemainingCount  | current remaining number      | number | Y        | -       |
+
+#### Complete the Progress Manager
+
+Complete the Progress Manager through the `done` method provided in SDK. **Download progress manager** starts downloading files when the progress is completed.**Datasync Progress Manager** can view the details when it is completed.
+
+```typescript title="backend/src/index.ts"
+import { Process, LanguagePkg, ProcessType, ProcessResult } from '@ones-op/node-ability'
+import type { PluginRequest, PluginResponse } from '@ones-op/node-types'
+
+export async function doneProcess(request: PluginRequest): Promise<PluginResponse> {
+  //Get parameters from request
+  const { process_uuid: processUUID } = request?.body as any
+  //Multilingual details
+  const resultText: LanguagePkg = {
+    en: 'content',
+    zh: '详情内容',
+  }
+  //The action when the progress manager is completed, the download progress manager downloads the specified file, and the data synchronization progress manager can display additional content
+  const payload: ProcessResult = {
+    filePath: './plugin.sql',
+  }
+
+  const isSuccess = true
+  //Complete schedule
+  await Process.done(processUUID, isSuccess, resultText, payload)
+
+  return {
+    body: {
+      status: 'ok',
+      process_uuid: processUUID,
+    },
+  }
+}
+```
+
+- `done` Param
+
+| Param       | Description              | Type                            | Required | Default |
+| :---------- | :----------------------- | :------------------------------ | :------- | :------ |
+| processUUID | uuid of Process Manager  | string                          | Y        | -       |
+| isSuccess   | Success or failure       | bool                            | Y        | -       |
+| resultText  | Details                  | [LanguagePkg](#LanguagePkg)     | Y        | -       |
+| payload     | The action at completion | [ProcessResult](#ProcessResult) | Y        | -       |
+
+##### ProcessResult {#ProcessResult}
+
+| Param    | Description                                                | Type   | Required | Default |
+| :------- | :--------------------------------------------------------- | :----- | :------- | :------ |
+| filePath | File path,available when **Download Progress Manager**     | string | N        | -       |
+| data     | Extra content,available when **Datasync Progress Manager** | string | N        | -       |
+
+<Tabs>
+  <TabItem value="DonwloadProgress" label="Download Progress Manager" default>
+
+```tsx
+const payload: ProcessResult = {
+  //The root directory is the plugin directory
+  filePath: './plugin.sql',
+}
+```
+
+  </TabItem>
+  <TabItem value="DataSyncProgress" label="Datasync Progress Manager">
+
+```tsx
+const payload: ProcessResult = {
+  //Extra content other than resultText
+  data: 'anything u want',
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### The plugin frontend calls up the Progress Manager
+
+#### Step 1：Installation dependency
+
+Enter the `web` directory of the plugin project, and execute the following command for dependent installation:
+
+```shell
+npm i @ones-op/event
+```
+
+#### Step 2：Call up the Progress Manager
+
+The progress manager only needs to call it up once
+
+```tsx
+//call the global progress manager
+MFDispatch('invoke:ones:global:progressManager')
+```
+
+### Progress Manager slot replacement
+
+**Datasync Progress Manager** supports refactoring the progress details page using **[Process Manager module](../../slot/global/progress-detail/index.mdx)**
+
+#### Step 1: Add and complete the function of [Process Manager module](../../slot/global/progress-detail/index.mdx)
+
+#### Step 2：Passed moduleid of [Process Manager module](../../slot/global/progress-detail/index.mdx) when create **Download Progress Manager**
+
+:::info
+
+Moduleid is obtained from the plugin configuration file `config/plugin.yaml` after adding slots.
+
+:::
+
+```typescript
+export async funtion createDataProgress (request: PluginRequest): Promise<PluginResponse> {
+  const { user_uuid, title, timeout } = request?.body as any
+
+  const titlePkg: LanguagePkg = {
+    en: 'process title',
+    zh: title,
+  }
+
+  const processUUID = await Process.create(ProcessType.DataSync, user_uuid, titlePkg, timeout,"ones-global-progress-detail-BUTc")
+
+  return {
+    body: {
+      process_uuid: processUUID,
+      result_text: titlePkg
+    },
+  }
+}
+```
+
+#### Step 3：Complete `done` method and build parameter payload
+
+```typescript
+export async function doneDataProgress(request: PluginRequest): Promise<PluginResponse> {
+  const { process_uuid: processUUID, is_success: isSuccess } = request?.body as any
+
+  const resultText: LanguagePkg = {
+    en: 'end',
+    zh: '进度管理器结束',
+  }
+  const payload: ProcessResult = {
+    data: JSON.stringify(request?.body),
+  }
+  await Process.done(processUUID, isSuccess, resultText, payload)
+
+  return {
+    body: {
+      status: 'ok',
+      process_uuid: processUUID,
+    },
+  }
+}
+```
+
+By completing the above steps, you can complete the refactoring of the Progress Manager details page
+
+<Image img={progressManager4} />

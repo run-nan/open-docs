@@ -13,7 +13,7 @@ sidebar_position: 6
 
 ### 名词解释
 
-- **op :** 插件开发脚手架工具，内置了贯穿插件开发生命周期中所需要的所有指令，指令释义可以参见：[ONES OP](../tools/cli/op-cli.md)
+- **op :** 插件开发脚手架工具，内置了贯穿插件开发生命周期中所需要的所有指令，指令释义可以参见：[ONES OP](../tools/cli/op-cli.mdx)
 - **baseURL :** 远端调试环境 URL (实例端口)
 - **hostURL :** 插件运行时 URL （平台 host 端口）
 - **instance_uuid：** 插件实例的唯一标识，当插件安装到具体环境上时会生成此实例 uuid。并非固定值。
@@ -102,8 +102,6 @@ op 工具的 invoke 指令会为后端启动一个开发服务，第一次启动
 本地调试返回值: {"instance_uuid":"1d99926e"}
 ```
 
-插件接口我们大致分为了两种：[**接口注册**](#)和[**接口劫持**](../abilities/business/ONES-API/ONES-API-interception.mdx)。你在使用 [Postman](https://learning.postman.com/docs/getting-started/introduction/) 对这些接口进行调试的时候，需要按照这两种类型加入不同的请求头。
-
 当你的接口调试出现意料之外的结果，你可以参考我们提供的[**断点调试**](./advanced/debugger.mdx)方法进行单步调试，进一步定位问题所在。
 
 ##### 接口注册
@@ -122,23 +120,6 @@ op 工具的 invoke 指令会为后端启动一个开发服务，第一次启动
    团队插件：team  
    组织插件：organization
 
-:::
-
-##### 接口劫持
-
-```json title="Headers"
-{
-  "Ones-User-Id": "SFBs7BHh",
-  "Ones-Auth-Token": "Z46E1Xe6mm91Q4lrFt7AJvKh4idcNNy54Cls2qwQDrFz6EGVD7XBd9GmgrVXu18A"
-}
-```
-
-:::tip
-
-- **Ones-User-Id：** 当前登录用户 uuid
-- **Ones-Auth-Token：** 对应环境的 token
-
-这两个请求头的值你都可以在 [ONES API](../api/auth/auth.md#获取登录信息) 中找到。
 :::
 
 ### 第三步：清除调试状态

@@ -1,0 +1,55 @@
+---
+id: 04-delete-a-issue-attachment
+title: "删除工作性附件"
+description: "删除工作性附件"
+sidebar_label: "删除工作性附件"
+hide_title: true
+hide_table_of_contents: true
+api: eJztWM9T20YU/lc8e2pnTEUJvfiW8mOGmbSHuJxSHxZriZXIkrJakbiuZ4DQ4mYgybSUhuASzI+WSQMOM20JUMofE0vYp/wLeW8l21JsQ6C5lZPk1dv3vX3ft7vvOU9Mi3EqNNMYUUmC9Pb3qExngvXQHs22HXgKQdOZLDMEiROV2WmuWWgOxm5xtb604e5tVo9K3uTv9aWZ6uHfYGWztMM1kSOJG3liUkdk+uCV3IUxlrC4eYulRaLNe6qQihOLcpoFeG7LyQb8ACDBaHZkEDxrCHvHYTzXHszyWv3JM2nF2R1H4wzWI7jDIJ50hmUpSeSJyFnozxZcM26SQiHehJDhtDAsKjLtEHKl9fL+hVFayz0DyluchVyeEyeFxrZlGjaz8Xtfby8+op5rlT1vd9orPnYfPAPvadMQmH2wo5ala2mpBeWWjcb5djBzDNmDicAjKEdoPhTgOrpoD6ptXaUX3ouyH8PJ4U/eSimeHB0YGEomvx2+OnKNFOKEcW7yAVNl5/NWX1iqVSonq1NNH1/YNy/ionpc9qYqSBth92jW0pmUYmOFJIiXYLqFJvAzGZR7Jumk08y2rwccgAt00t/7aTsL7m/TsPbawR/Vw6P687laZcqd3fbmd6qv5r3t9ZPyjldcrL5aczd23/wz5xaXascL7vLKefiK4l2VkcWEeZsZMe+XVe/nIjj7X3MaolSGGYmSjBp4bplc+wZ2Xhg8mkrNjmnGBNU1FUNsyOFzqjZEgOw3dHClmw7sNOTdW58EJYAA6pNPa8ezH4Z36fmS8PcgfNjkY5qqMiPKdlIm8D1ovtKkub8bzV7puffDv27xZe2vGe/gsVvZr+2WPwzPTdfg1D1YOHk642O8gZv54ab7aB105W4/cUtblyo4TQVfmmLYdIx3tjyMxvzhbuz3B+x/1unKdb//rn5/yyvNuw/K7tKWH9vFuQ67a/q65LQrpyOQZW5QPZZkfILx2BB+ixLc2aQz2UhxwWcbKtWMiWWzXzNj2rGYSxAlqHIVWVbaSj4oLwtKqwKE0XA5WJCFM6L7pa/DdXCUEcKyE4qSMx3eo5pZqhkKEGtQS1Mm+giWli3DU+xSrao8ibLyZdGozVvVnT8QJ+O6eVeaNG5BKc0G7ZHB0e6BSm9K8yJFmeKteeYMaYX5wMM3EDBVu7cOUNU+3HMfLTYLdL8VCaQSP6vzwHL7pbu28npyqnq84y3sw0u4t2k6bPCuGeOmzFqgjhH0GAtRC5hIpK/hvk9623W9veEf0NXD9Vp56x2c15PT1aPjk4Utd+e+9+umvzgZ1LJ7eAAv3vKfGPKPcx3DhOlfG6hey7RFlsrDJGhAurVskejyrZOp64RAMILdE4qlA3eIJ6WYDzbBDRIkHBsduQ3gJdHqs6LpSkRaI5BrBmJHJ/n8GLUZSKZQwGG/+cMNomo2HdOxLxqnus1OWcNH14MW6uNYqEvsuILbLBfuN+HKd9BIbqAJyjVE/A/okQayYwDBIDVyYfhGYI3s4b6/UAShvvIC8BGOCimwz8C+ZFxmxDfB6tgSocltNxumsnlwDg5dG/pqCNXgoGbaD6Lm3wcp2HlvAZrq4v0=
+sidebar_class_name: "delete api-method"
+info_path: docs/current/openapi/api/issue-attachments/issue-attachments
+custom_edit_url: null
+---
+
+import ApiTabs from "@theme/ApiTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import SecuritySchemes from "@theme/ApiExplorer/SecuritySchemes";
+import MimeTabs from "@theme/MimeTabs";
+import ParamsItem from "@theme/ParamsItem";
+import ResponseSamples from "@theme/ResponseSamples";
+import SchemaItem from "@theme/SchemaItem";
+import SchemaTabs from "@theme/SchemaTabs";
+import TabItem from "@theme/TabItem";
+
+<h1 className={"openapi__heading"}>删除工作性附件</h1>
+
+<MethodEndpoint method={"delete"} path={"/project/issues/{issueID}/attachments/{attachmentID}"}></MethodEndpoint>
+
+
+
+删除工作性附件
+
+## Request
+
+<details style={{"marginBottom":"1rem"}} className={"openapi-markdown__details"} data-collapsed={false} open={true}><summary style={{}}><h3 className={"openapi-markdown__details-summary-header-params"}>Path Parameters</h3></summary><div><ul><ParamsItem className={"paramsItem"} param={{"name":"issueID","in":"path","description":"工作项ID","required":true,"schema":{"type":"string"}}}></ParamsItem><ParamsItem className={"paramsItem"} param={{"name":"attachmentID","in":"path","description":"文件ID","required":true,"schema":{"type":"string"}}}></ParamsItem></ul></div></details><details style={{"marginBottom":"1rem"}} className={"openapi-markdown__details"} data-collapsed={false} open={true}><summary style={{}}><h3 className={"openapi-markdown__details-summary-header-params"}>Query Parameters</h3></summary><div><ul><ParamsItem className={"paramsItem"} param={{"name":"teamID","in":"query","description":"团队ID","required":true,"schema":{"type":"string"}}}></ParamsItem></ul></div></details><div><div><ApiTabs><TabItem label={"200"} value={"200"}><div>
+
+请求成功
+
+</div><div><MimeTabs className={"openapi-tabs__mime"} schemaType={"response"}><TabItem label={"application/json"} value={"application/json"}><SchemaTabs className={"openapi-tabs__schema"}><TabItem label={"Schema"} value={"Schema"}><details style={{}} className={"openapi-markdown__details response"} data-collapsed={false} open={true}><summary style={{}} className={"openapi-markdown__details-summary-response"}><strong>Schema</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"result"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"本次请求结果,SUCCESS|FAIL"}}></SchemaItem><SchemaItem collapsible={false} name={"errorCode"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"本次请求错误码"}}></SchemaItem><SchemaItem collapsible={false} name={"errorMsg"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"本次请求错误信息"}}></SchemaItem></ul></details></TabItem><TabItem label={"Example (from schema)"} value={"Example (from schema)"}><ResponseSamples responseExample={"[\n  {\n    \"result\": \"SUCCESS\"\n  }\n]"} language={"json"}></ResponseSamples></TabItem></SchemaTabs></TabItem></MimeTabs></div></TabItem><TabItem label={"401"} value={"401"}><div>
+
+如果身份验证凭据不正确或丢失，则返回
+
+</div><div><MimeTabs className={"openapi-tabs__mime"} schemaType={"response"}><TabItem label={"application/json"} value={"application/json"}><SchemaTabs className={"openapi-tabs__schema"}><TabItem label={"Schema"} value={"Schema"}><details style={{}} className={"openapi-markdown__details response"} data-collapsed={false} open={true}><summary style={{}} className={"openapi-markdown__details-summary-response"}><strong>Schema</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"result"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"本次请求结果,SUCCESS|FAIL"}}></SchemaItem><SchemaItem collapsible={false} name={"errorCode"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"本次请求错误码"}}></SchemaItem><SchemaItem collapsible={false} name={"errorMsg"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"本次请求错误信息"}}></SchemaItem></ul></details></TabItem><TabItem label={"Example (from schema)"} value={"Example (from schema)"}><ResponseSamples responseExample={"{\n  \"result\": \"FAIL\",\n  \"errorCode\": \"Unauthorized\",\n  \"errorMsg\": \"Access token is invalid\"\n}"} language={"json"}></ResponseSamples></TabItem></SchemaTabs></TabItem></MimeTabs></div></TabItem><TabItem label={"403"} value={"403"}><div>
+
+如果scope检验不通过，则返回
+
+</div><div><MimeTabs className={"openapi-tabs__mime"} schemaType={"response"}><TabItem label={"application/json"} value={"application/json"}><SchemaTabs className={"openapi-tabs__schema"}><TabItem label={"Schema"} value={"Schema"}><details style={{}} className={"openapi-markdown__details response"} data-collapsed={false} open={true}><summary style={{}} className={"openapi-markdown__details-summary-response"}><strong>Schema</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"result"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"本次请求结果,SUCCESS|FAIL"}}></SchemaItem><SchemaItem collapsible={false} name={"errorCode"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"本次请求错误码"}}></SchemaItem><SchemaItem collapsible={false} name={"errorMsg"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"本次请求错误信息"}}></SchemaItem></ul></details></TabItem><TabItem label={"Example (from schema)"} value={"Example (from schema)"}><ResponseSamples responseExample={"{\n  \"result\": \"FAIL\",\n  \"errorCode\": \"Forbidden\",\n  \"errorMsg\": \"Scope is invalid\"\n}"} language={"json"}></ResponseSamples></TabItem></SchemaTabs></TabItem></MimeTabs></div></TabItem><TabItem label={"404"} value={"404"}><div>
+
+如果未找到资源对象，则返回
+
+</div><div><MimeTabs className={"openapi-tabs__mime"} schemaType={"response"}><TabItem label={"application/json"} value={"application/json"}><SchemaTabs className={"openapi-tabs__schema"}><TabItem label={"Schema"} value={"Schema"}><details style={{}} className={"openapi-markdown__details response"} data-collapsed={false} open={true}><summary style={{}} className={"openapi-markdown__details-summary-response"}><strong>Schema</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"result"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"本次请求结果,SUCCESS|FAIL"}}></SchemaItem><SchemaItem collapsible={false} name={"errorCode"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"本次请求错误码"}}></SchemaItem><SchemaItem collapsible={false} name={"errorMsg"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"本次请求错误信息"}}></SchemaItem></ul></details></TabItem><TabItem label={"Example (from schema)"} value={"Example (from schema)"}><ResponseSamples responseExample={"{\n  \"result\": \"FAIL\",\n  \"errorCode\": \"NotFound\",\n  \"errorMsg\": \"Not Found\"\n}"} language={"json"}></ResponseSamples></TabItem></SchemaTabs></TabItem></MimeTabs></div></TabItem><TabItem label={"500"} value={"500"}><div>
+
+内部服务器错误
+
+</div><div><MimeTabs className={"openapi-tabs__mime"} schemaType={"response"}><TabItem label={"application/json"} value={"application/json"}><SchemaTabs className={"openapi-tabs__schema"}><TabItem label={"Schema"} value={"Schema"}><details style={{}} className={"openapi-markdown__details response"} data-collapsed={false} open={true}><summary style={{}} className={"openapi-markdown__details-summary-response"}><strong>Schema</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"result"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"本次请求结果,SUCCESS|FAIL"}}></SchemaItem><SchemaItem collapsible={false} name={"errorCode"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"本次请求错误码"}}></SchemaItem><SchemaItem collapsible={false} name={"errorMsg"} required={false} schemaName={"string"} qualifierMessage={undefined} schema={{"type":"string","description":"本次请求错误信息"}}></SchemaItem></ul></details></TabItem><TabItem label={"Example (from schema)"} value={"Example (from schema)"}><ResponseSamples responseExample={"{\n  \"result\": \"FAIL\",\n  \"errorCode\": \"Internal Server Error\",\n  \"errorMsg\": \"Internal Server Error\"\n}"} language={"json"}></ResponseSamples></TabItem></SchemaTabs></TabItem></MimeTabs></div></TabItem></ApiTabs></div></div>

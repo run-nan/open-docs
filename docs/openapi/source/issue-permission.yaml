@@ -1,0 +1,82 @@
+openapi: 3.0.1
+info:
+  title: Issue permission
+  version: '2.0'
+  description: |
+    This resource represents work permissions related content. Currently, it supports checking whether you have permission to issue
+servers:
+  - url: https://your-domain/openapi/v2
+  - url: http://your-domain/openapi/v2
+paths:
+  /project/issues/{issueID}:
+    post:
+      summary: check issue permissions
+      operationId: 01-check-permission
+      description: Check whether you have permissions for the issue
+      security:
+        - oauth2:
+            - read:project:issue
+      parameters:
+        - name: action
+          in: query
+          required: true
+          schema:
+            type: string
+          description: |
+            - action: Actions on issue,support `checkPermission`.
+        - name: issueID
+          in: path
+          description: The ID of the issue
+          required: true
+          schema:
+            type: string
+        - $ref: ../../../openapi-common/latest/en/request-team.yaml
+      requestBody:
+        description: Check whether you have permissions for the issue
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckIssuePermissionRequest'
+        required: true
+      responses:
+        200:
+          description: Request successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckIssuePermissionResponse'
+        $ref: ../../../openapi-common/latest/en/no-200-response.yaml
+components:
+  schemas:
+    CheckIssuePermissionRequest:
+      type: object
+      properties:
+        codes:
+          type: array
+          description: List of permissions
+          items:
+            type: integer
+      example:
+        codes: [1201, 1101]
+    CheckIssuePermissionResponse:
+      type: object
+      properties:
+        $ref: ../../../openapi-common/latest/en/200-response-schemas.yaml
+      required:
+        - result
+      example:
+        - result: SUCCESS
+          data: true
+        - result: FAIL
+          errorCode: NotFound
+          errorMsg: 'NotFound issue'
+    $ref: ../../../openapi-common/latest/en/no-200-response-schemas.yaml
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://your-domain/oauth2/authorize
+          tokenUrl: https://your-domain/oauth2/token
+          scopes:
+            read:project:issue: Add, edit, delete issue

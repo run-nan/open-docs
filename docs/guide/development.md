@@ -13,7 +13,7 @@ When installing ONES CLI, we have built in the plugin development scaffolding to
 
 ### Noun interpretation
 
-- **op :** the plugin development scaffolding tool has built-in all the instructions needed throughout the plugin development lifecycle. For instructions, please see: [ONES OP](../tools/cli/op-cli.md)
+- **op :** the plugin development scaffolding tool has built-in all the instructions needed throughout the plugin development lifecycle. For instructions, please see: [ONES OP](../tools/cli/op-cli.mdx)
 - **baseURL :** remote debugging environment URL
 - **hostURL :** plugin runtime URL
 - **instance_uuid：** unique identification of the plugin instance, which is generated when the plugin is installed on a specific environment. Not a fixed value.
@@ -104,11 +104,9 @@ Local debug return value: {
 }
 ```
 
-Plugin api are roughly divided into two types: [**api registration**](#) and [**api interception**](../abilities/business/ONES-API/ONES-API-interception.mdx). When you use [Postman](https://learning.postman.com/docs/getting-started/introduction/) to debug these api, you need to add different request headers according to these two types.
-
 When your interface debugging shows unexpected results, you can refer to our provided [**Debugging**](./advanced/debugger.mdx) method for single-step debugging to further locate the problem.
 
-##### Api registration
+##### Register interface
 
 ```json title="Headers"
 {
@@ -124,23 +122,6 @@ When your interface debugging shows unexpected results, you can refer to our pro
    team level plugin：team  
    organization level plugin：organization
 
-:::
-
-##### Api interception
-
-```json title="Headers"
-{
-  "Ones-User-Id": "SFBs7BHh",
-  "Ones-Auth-Token": "Z46E1Xe6mm91Q4lrFt7AJvKh4idcNNy54Cls2qwQDrFz6EGVD7XBd9GmgrVXu18A"
-}
-```
-
-:::tip
-
-- **Ones-User-Id：** currently logged in user uuid
-- **Ones-Auth-Token：** the token of the corresponding environment
-
-You can find the values of both request headers in [ONES API](../api/auth/auth.md#获取登录信息).
 :::
 
 ### Step 3: Clear debugging status

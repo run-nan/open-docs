@@ -1,0 +1,365 @@
+---
+sidebar_position: 4
+toc_max_heading_level: 4
+description: 在系统生成变更事件时，对事件进行前置处理和后置通知，例如修改项目属性或登记工时。
+---
+
+# 拦截 item 行为
+
+## 要求
+
+| ONES      |
+| :-------- |
+| v3.11.17+ |
+
+## 概述
+
+当你希望在各个模块发生变更时做一些自定义的处理和校验，可以使用 Item 处理器 来实现需求。该能力能够在系统产生变更事件时，对事件做前置处理和后置通知。当安装了使用该能力的插件后，变更事件会在实际生效之前先由插件进行前置处理，插件可根据需求对本次事件采取忽略、拒绝和修改等操作；而在事件处理完成之后，插件会收到一个通知，此时可进行一些后置的处理。
+
+### 能力范围
+
+在我们通过 GraphQL mutation 或者普通接口进行变更时，各模块中支持触发拦截的事件如下表所示:
+
+| 模块                    | 模块名称         | GraphQL mutation    | 普通接口                                                                        |
+| :---------------------- | :--------------- | :------------------ | :------------------------------------------------------------------------------ |
+| Project                 | 项目             | -                   | 新建项目                                                                        |
+| Manhour(普通模式)       | 登记工时         | -                   | 修改预估工时                                                                    |
+| Manhour(汇总模式)       | 登记工时         | add、update、delete | -                                                                               |
+| RemainingHour(普通模式) | 剩余工时         | -                   | 修改剩余工时                                                                    |
+| RemainingHour(汇总模式) | 剩余工时         | add、update、delete | -                                                                               |
+| Activity                | 项目计划、里程碑 | add、update、delete | -                                                                               |
+| ActivityRelease         | 快照             | add、update、delete | -                                                                               |
+| ActivityRelationLink    | 前后置依赖关系   | add、update、delete | -                                                                               |
+| Deliverable             | 交付物           | add、update、delete | -                                                                               |
+| Task                    | 工作项           |                     | 具体参照 [TaskEventHandler](../task-event-handler/task-event-handler.mdx#scope) |
+
+<br />
+
+#### Project（项目）
+
+**触发方式：** 新增项目
+
+**url：** https://your-host/project/api/project/team/:teamUUID/projects/add
+
+##### 参数： add_project {#add_project}
+
+| 参数         | 类型     | 说明             |
+| ------------ | -------- | ---------------- |
+| uuid         | string   | 项目的`uuid`     |
+| name         | string   | 项目名称         |
+| members      | []string | 成员的`uuid`列表 |
+| template_id  | string   | 模版 `id`        |
+| program_uuid | string   | 项目集的`uuid`   |
+
+<br />
+
+#### Manhour（登记工时）
+
+- **工时模式 - 普通模式**
+
+  **触发方式：** 修改预估工时
+
+  **url：** https://your-host/project/api/project/team/:teamUUID/task/:taskUUID/assess_manhour/update
+
+  ##### 参数：estimated_manhour {#estimated_manhour}
+
+  | 参数  | 类型   | 说明               |
+  | ----- | ------ | ------------------ |
+  | task  | string | 所属工作项的`uuid` |
+  | hours | int64  | 预估工时数量       |
+  | type  | string | `estimated`        |
+
+- **工时模式 - 汇总模式**
+
+  **触发方式：** GraphQL mutation
+
+  **支持的操作：** add、update、delete
+
+<br />
+
+#### RemainingHour（剩余工时）
+
+- **工时模式 - 普通模式**
+
+  **触发方式：**修改剩余工时
+
+  **url：** https://your-host/project/api/project/team/:teamUUID/task/:taskUUID/remaining_hour/update
+
+  ##### 参数：remain_manhour {#remain_manhour}
+
+  | 参数  | 类型   | 说明                              |
+  | ----- | ------ | --------------------------------- |
+  | key   | string | `manhour-{task_uuid}-{user_uuid}` |
+  | hours | int64  | 剩余工时数量                      |
+
+- **工时模式 - 汇总模式**
+
+  **触发方式：** GraphQL mutation
+
+  **支持的操作：** add、update、delete
+
+<br />
+
+#### Activity（项目计划、里程碑）
+
+**触发方式：** GraphQL mutation
+
+**支持的操作：** add、update、delete
+
+<br />
+
+#### ActivityRelease（快照）
+
+**触发方式：** GraphQL mutation
+
+**支持的操作：** add、update、delete
+
+<br />
+
+#### ActivityRelationLink（前后置依赖关系）
+
+**触发方式：** GraphQL mutation
+
+**支持的操作：** add、update、delete
+
+<br />
+
+#### Deliverable（交付物）
+
+**触发方式：** GraphQL mutation
+
+**支持的操作：** add、update、delete
+
+<br />
+
+#### Task（工作项）
+
+触发方式：具体参照 [TaskEventHandler](../task-event-handler/task-event-handler.mdx#scope)
+
+##### 参数：TaskEvent {#TaskEvent}
+
+| 参数                      | 类型                                | 必填 | 说明                                                                                                                                    |
+| ------------------------- | ----------------------------------- | ---- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| task_fields               | [[]TaskEventField](#TaskEventField) | 是   | 变更属性列表                                                                                                                            |
+| task_uuid                 | string                              | 是   | 工作项的`uuid`                                                                                                                          |
+| action                    | string                              | 是   | `update`:普通属性 `transit`：状态变更（带有步骤属性） `change_issue_type`：工作项类型变更 `publish_version`：版本发布 `add`: 新建工作项 |
+| issue_type_scope_uuid     | string                              | 是   | 在所属项目下工作项类型 UUID                                                                                                             |
+| issue_type_scope_name     | string                              | 是   | 工作项类型在项目下的名字                                                                                                                |
+| issue_type_scope_name_map | map[string]string                   | 是   | `issue_type_scope`在各个语言版本的名称                                                                                                  |
+
+##### TaskEventField {#TaskEventField}
+
+| 参数             | 类型              | 必填 | 说明                                                                                      |
+| ---------------- | ----------------- | ---- | ----------------------------------------------------------------------------------------- |
+| field_uuid       | string            | 否   | 属性`uuid`                                                                                |
+| field_type       | string            | 否   | 属性类型                                                                                  |
+| field_name       | string            | 否   | 属性名称的 `key`                                                                          |
+| field_name_map   | map[string]string | 否   | 属性各个语言版本的名称比如： en: 'Assignee/Owner' origin: '{{field.assign}}' zh: '负责人' |
+| field_value_type | string            | 否   | 字段值类型: 0 - any 1 - int 2 - string 3 - []string                                       |
+| value            | interface         | 否   | 属性值                                                                                    |
+
+### 能力表现
+
+使用 item 处理器能力对预估工时做校验，修改预估工时不合法时报错
+
+<Image img={require('./images/item01.png')} />
+
+## 使用
+
+当 ONES 启用了使用 item 处理器能力的插件后，模块变更事件的执行流程如下图所示：
+
+<Image img={require('./images/item02.png')} />
+
+### 第一步：添加能力
+
+使用`npx op add ability` 添加`item-handler`类型的能力，新增`backend/src/itemHandler.ts`文件并在插件配置文件中生成能力配置。
+
+### 第二步：修改配置
+
+在生成的能力配置中，我们只需关注`itemType`和`action`字段的值。
+
+- itemType
+
+  该能力关注的模块类型，使用小驼峰书写规范。例如：`project,remainingHour,activityRelease`
+
+- action
+
+  该能力关注的变更事件类型，可选值为`add`、`update`和`delete`
+
+**示例**：关注`manhour`,`remainingHour`和`task`模块的`update`和`add`类型的变更事件。
+
+```yaml title="config/plugin.yaml"
+abilities:
+  - id: g0chW1Oh
+    name: Item处理器
+    version: 1.0.0
+    abilityType: ItemHandler
+    function:
+      itemPreActionFunc: itemPreAction
+      itemActionDoneFunc: itemActionDone
+    config:
+      - key: itemType
+        value: remainingHour,task,manhour #小驼峰规范
+        fieldType: Input
+        label: Item类型
+        show: true
+      - key: action
+        value: add,update
+        fieldType: Input
+        label: 操作
+        show: true
+```
+
+### 第三步：添加前置处理
+
+`backend/src/item-handler.ts`文件中会自动生成`itemPreAction`函数，该函数是前置处理函数，在事件生效前会先调用该函数，支持修改本次变更内容，并根据返回内容采取不同的策略。
+
+- **入参介绍**
+
+  在`request`的`body`中包含以下内容
+
+  | 参数          | 类型                                                                                                                                                                                                                                                                                                                       | 必填 | 说明                           |
+  | :------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--- | :----------------------------- |
+  | user_uuid     | string                                                                                                                                                                                                                                                                                                                     | 是   | 用户 `uuid`                    |
+  | item_type     | string                                                                                                                                                                                                                                                                                                                     | 是   | 模块类型                       |
+  | action        | string                                                                                                                                                                                                                                                                                                                     | 是   | 操作类型: `add/update/delete ` |
+  | lang          | string                                                                                                                                                                                                                                                                                                                     | 是   | 系统语言                       |
+  | graphql_query | GraphQL.Query                                                                                                                                                                                                                                                                                                              | 否   | 本次变更事件的 GraphQL 数据    |
+  | args          | 根据事件触发方式的不同，会有以下几种类型: <br />新增项目：[add_project](#add_project) <br />预估工时：[estimated_manhour](#estimated_manhour) <br />剩余工时：[remain_manhour](#remain_manhour) <br />工作项：[TaskEvent](../task-event-handler/task-event-handler.mdx#TaskEvent) <br />GraphQL 方式：map[string]interface | 是   | 变更事件的参数                 |
+
+- **返回内容**
+
+  `itemPreAction`函数返回内容的结构体如下所示，根据`is_follow`、`is_reject`字段的值采取不同策略：
+
+  - 忽略：设置返回的`is_follow = false`，表示插件不做额外处理，更新事件按正常流程执行。
+  - 拒绝：设置返回的`is_follow = true && is_reject = true`，表示不执行此次更新事件，直接结束。
+  - 接受：设置返回的`is_follow = true && is_reject = false`，表示接受此次事件，但不修改此次更新内容，只在事件完成之后通知插件。
+  - 修改：设置返回的`is_follow = true && is_reject = false` ，修改入参`args`中的参数值。表示接受此次事件并对此次的更新内容进行修改，事件完成之后通知插件。
+
+  :::caution 注意
+
+  即使插件逻辑没有修改本次变更事件的内容也需要将原来入参中`args`对象返回，否则可能导致本次变更事件失败。
+
+  :::
+
+  返回结构体：
+
+  ```typescript
+  type itemPreResponse = {
+    statusCode: number
+    body: {
+      code: number
+      body: {
+        is_follow: boolean
+        is_reject: boolean
+        reject_reason: string
+        args: any
+        other_data: string
+      }
+    }
+  }
+  ```
+
+  | 参数          | 类型                                                                                                                                                                                                                                                                                                                       | 必填 | 说明                                        |
+  | :------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--- | :------------------------------------------ |
+  | is_follow     | string                                                                                                                                                                                                                                                                                                                     | 是   | 是否关注                                    |
+  | is_reject     | string                                                                                                                                                                                                                                                                                                                     | 是   | 是否拒绝                                    |
+  | reject_reason | string                                                                                                                                                                                                                                                                                                                     | 否   | 拒绝原因                                    |
+  | args          | 根据事件触发方式的不同，会有以下几种类型: <br />新增项目：[add_project](#add_project) <br />预估工时：[estimated_manhour](#estimated_manhour) <br />剩余工时：[remain_manhour](#remain_manhour) <br />工作项：[TaskEvent](../task-event-handler/task-event-handler.mdx#TaskEvent) <br />GraphQL 方式：map[string]interface | 是   | 变更事件的参数                              |
+  | other_data    | any                                                                                                                                                                                                                                                                                                                        | 否   | 其他数据（该数据会传递到 `itemActionDone`） |
+
+- **示例**：预估工时必须是 8 的倍数，剩余工时修改上限为 72，超过上限只保留 72 个小时。
+
+  ```typescript title="backend/src/item-handler.ts"
+  export async function itemPreAction(request: PluginRequest): Promise<PluginResponse> {
+    //The default multiple of the value, for example, 10 defaults to 1000000
+    const multiple = 100000
+    const body = request?.body as any
+    const args = body.args
+    const itemType = body.item_type
+    const action = body.action
+    const isFollow = true
+    let isReject = false
+    let reject_reason = ''
+    if (itemType == 'remainingHour' && action == 'update') {
+      const hours = args.hours
+      if (hours > 72 * multiple) {
+        args.hours = 72 * multiple
+      }
+    } else if (itemType == 'manhour' && action == 'update') {
+      // 工时item 更新
+      const type = args.type
+      if (type == 'estimated') {
+        // 预估工时
+        const hours = args.hours
+        if (hours % (8 * multiple) != 0) {
+          isReject = true
+          reject_reason = 'Estimated hours must be a multiple of 8'
+        }
+      }
+    }
+    return {
+      statusCode: 200,
+      body: {
+        code: 200,
+        body: {
+          is_follow: isFollow,
+          is_reject: isReject,
+          reject_reason: reject_reason,
+          args: args,
+          other_data: '',
+        },
+      },
+    }
+
+  ```
+
+- **特殊说明**：如果想页面弹一个自定义的`warning toast` 可以通过以下方式进行设置
+
+  ```typescript title="backend/src/item-handler.ts"
+  export async function itemPreAction(request: PluginRequest): Promise<PluginResponse> {
+    return {
+      body: {
+        code: 400,
+        reason: 'Test warning error',
+        type: 'warning',
+        model: 'plugin.xxx',
+      },
+    }
+  }
+  ```
+
+  <Image img={require('./images/item03.png')} />
+
+### 第四步：添加后置处理
+
+`backend/src/item-handler.ts`文件中会自动生成`itemActionDone`函数，该函数是后置处理，在事件生效之后会先调用该函数。
+
+- **入参介绍**
+
+  | 参数          | 类型                                                                                                                                                                                                                                                                                                                       | 必填 | 说明                             |
+  | :------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--- | :------------------------------- |
+  | user_uuid     | string                                                                                                                                                                                                                                                                                                                     | 是   | 用户的`uuid`                     |
+  | item_type     | string                                                                                                                                                                                                                                                                                                                     | 是   | 模块类型                         |
+  | action        | string                                                                                                                                                                                                                                                                                                                     | 是   | 操作类型: `add/update/delete `   |
+  | lang          | string                                                                                                                                                                                                                                                                                                                     | 是   | 系统语言                         |
+  | graphql_query | GraphQL.Query                                                                                                                                                                                                                                                                                                              | 否   | 本次变更事件的 GraphQL 数据      |
+  | args          | 根据事件触发方式的不同，会有以下几种类型: <br />新增项目：[add_project](#add_project) <br />预估工时：[estimated_manhour](#estimated_manhour) <br />剩余工时：[remain_manhour](#remain_manhour) <br />工作项：[TaskEvent](../task-event-handler/task-event-handler.mdx#TaskEvent) <br />GraphQL 方式：map[string]interface | 是   | 变更事件的参数                   |
+  | other_data    | any                                                                                                                                                                                                                                                                                                                        | 否   | 其他数据（来自 `itemPreAction`） |
+
+- **示例**
+
+  ```typescript title="backend/src/item-handler.ts"
+  export async function itemActionDone(request: PluginRequest): Promise<PluginResponse> {
+    const body = request?.body as any
+    Logger.info('itemActionDone', JSON.stringify(body, undefined, 2))
+
+    return {
+      statusCode: 200,
+      body: {
+        code: 200,
+        body: {},
+      },
+    }
+  }
+  ```

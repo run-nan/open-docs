@@ -37,6 +37,8 @@ ones create [options] [project-name]
 | `--use-default-preset`   | `-d`        | 跳过交互式问答并使用默认预设创建插件工程。                                                                        |
 | `--specific-path <path>` | `-s <path>` | 在特定的路径中初始化插件工程，CLI 会检测传入路径是相对路径或绝对路径。                                            |
 | `--plugin-type [type]`   |             | 指定创建的插件工程类型, 支持的类型有: <ul><li>`team`</li><li>`organization`</li></ul> 默认的插件工程类型为 `team` |
+| `--policy <policy>`      |             | 指定插件的[售卖策略](../../guide/policy.mdx)，默认的售卖策略为 `simple`                                           |
+| `--ones-version <ver>`   |             | 指定插件要安装到的目标ONES系统版本                                                                                |
 
 ## envinfo
 

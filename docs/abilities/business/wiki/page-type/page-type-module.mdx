@@ -1,0 +1,261 @@
+---
+sidebar_position: 2
+description: Customizing page node type capabilities corresponds to front-end slot introduction.
+---
+
+# Editor module
+
+The editor module provides the ability to add front-end custom WIKI page node types, after adding [editor-service](./page-type-service.mdx), the plugin can implement the corresponding front-end editor component through this module.
+
+The editor module provides several sub-modules by **scene**, as follows:
+
+- edit(required): edit
+- view(required): preview
+- history: page history
+- import([manual](../../../../reference/config/plugin.yaml#manual)): import operation
+- export([manual](../../../../reference/config/plugin.yaml#manual)): export operation
+- operation([manual](../../../../reference/config/plugin.yaml#manual)): customized operation
+
+## Slots
+
+**ones:wiki:editor:new**
+
+**Module path: **ONES Wiki / Spaces / page
+
+**Number limit: **Declare a maximum of **10** slots in each plugin, and up to **10** slots in the system
+
+## Available Hook API
+
+- [useWikiSpaceInfo](../../../../reference/packages/store/store.md#useWikiSpaceInfo)
+- [useWikiShareInfo](../../../../reference/packages/store/store.md#useWikiShareInfo)
+- [useWikiPageInfo](../../../../reference/packages/store/store.md#useWikiPageInfo)
+- [useWikiTemplateInfo](../../../../reference/packages/store/store.md#useWikiTemplateInfo)
+- [useCustomEditorInfo](../../../../reference/packages/store/store.md#useCustomEditorInfo)
+- [useVariablesInfo<"ones:wiki:editor:new--import">](../../../../reference/packages/store/store.md#useVariablesInfo) (scene: `import` only)
+  ```typescript
+  'ones:wiki:editor:new--import': {
+    /** Imported target page group UUID */
+    importedSpaceUUID: string
+    /** Imported parent page UUID */
+    importedParentPageUUID: string
+  }
+  ```
+
+## Configuration
+
+### Supported config options
+
+- [title](../../../../reference/config/plugin.yaml#title)(required)
+
+  The page node type name.
+
+- [icon](../../../../reference/config/plugin.yaml#icon)(required)
+
+  The page node type icon.
+
+- templateThumbnail
+
+  The template thumbnails in the template management page use ONES-supplied thumbnails by default.
+
+- [modules](../../../../reference/config/plugin.yaml#subModule)(required)
+- [modules\[\*\].title](../../../../reference/config/plugin.yaml#title)
+
+  When type is `"export"|"operation"`, this option is **required** to display the name of the operation button.
+
+  This option is **required** to display the name of the import button when the type is `"import"` and there are two or more.
+
+- modules[*].scene(required)
+
+  - type: `"edit"|"view"|"history"|"import"|"export"|"operation"`
+
+    The type of the current slot (where `"edit"|"view"` submodules are **required**, and `"import"|"export"|"operation"` supports adding more than one).
+
+- [modules\[\*\].description](../../../../reference/config/plugin.yaml#description)
+
+  When type is `"import"`, this option is recommended for displaying the description of the import button on the work item association Wiki page.
+
+- [modules[\*].icon](../../../../reference/config/plugin.yaml#icon)
+
+  Operation type module (scene: `"import"|"export"|"operation"`), with support for setting button icons.
+
+- [modules[\*].manual](../../../../reference/config/plugin.yaml#manual)
+
+  Operation type module (scene: `"import"|"export"|"operation"`), this option **must be set** to `true`.
+
+- [modules[\*].preload](../../../../reference/config/plugin.yaml#manual)
+
+  Operation type module (scene: `"import"|"export"|"operation"`), this option is recommended to be set to `true`.
+
+### Example
+
+```yaml
+modules:
+  - id: ones-wiki-editor-new-f2OA
+    title: ONES Table
+    icon: logo.svg
+    templateThumbnail: template-thumbnail.png
+    moduleType: ones:wiki:editor:new
+    modules:
+      - id: ones-wiki-editor-new-XVKJ
+        title: edit
+        scene: edit
+        enableMemoryRouter: true
+        entry: modules/ones-wiki-editor-new-f2OA/ones-wiki-editor-new-XVKJ/index.html
+      - id: ones-wiki-editor-new-l8bc
+        title: view
+        scene: view
+        enableMemoryRouter: true
+        entry: modules/ones-wiki-editor-new-f2OA/ones-wiki-editor-new-l8bc/index.html
+      - id: ones-wiki-editor-new-qb2c
+        title: history
+        scene: history
+        enableMemoryRouter: true
+        entry: modules/ones-wiki-editor-new-f2OA/ones-wiki-editor-new-qb2c/index.html
+      - id: ones-wiki-editor-new-GnId
+        title: Import
+        scene: import
+        icon: logo.svg
+        enableMemoryRouter: true
+        preload: true
+        manual: true
+        entry: modules/ones-wiki-editor-new-f2OA/ones-wiki-editor-new-GnId/index.html
+      - id: ones-wiki-editor-new-DRUh
+        title: Export
+        scene: export
+        icon: logo.svg
+        enableMemoryRouter: true
+        preload: true
+        manual: true
+        entry: modules/ones-wiki-editor-new-f2OA/ones-wiki-editor-new-DRUh/index.html
+      - id: ones-wiki-editor-new-4FW8
+        title: Custom A
+        scene: operation
+        enableMemoryRouter: true
+        preload: true
+        manual: true
+        entry: modules/ones-wiki-editor-new-f2OA/ones-wiki-editor-new-4FW8/index.html
+      - id: ones-wiki-editor-new-gZ_W
+        title: Custom B
+        scene: operation
+        enableMemoryRouter: true
+        preload: true
+        manual: true
+        entry: modules/ones-wiki-editor-new-f2OA/ones-wiki-editor-new-gZ_W/index.html
+```
+
+## Usage
+
+### Step 1: Add module
+
+In the plugin root directory, execute `npx op add module` to search and add a module (`ones:wiki:editor:new`).
+
+#### Adding submodules
+
+In the plugin root directory, execute `npx op add sub-module`, search and select the parent module ID generated in the previous step, and add the corresponding scene sub-module, which will be continued in the following example with the more complex scene: edit.
+
+:::caution
+
+- `edit`, `view` are required submodules.
+
+- `import`, `export`, `operation` are manual trigger modules, you need to add `manual: true` when configuring them.
+
+:::
+
+### Step 2: Getting data via Hooks
+
+Install the `@ones-op/store` package in the `/web` directory, from which you can get the context information delivered by ONES.
+
+You can use `useCustomEditorInfo` to get the current context of the editor (current page location, demo mode or not, publish method, cancel method), and then combine it with `useWikiSpaceInfo`, `useWikiPageInfo`, `useTemplateInfo`, etc. to get the current page information. hooks to get information about the current page.
+
+### Step 3: Discover Services
+
+The platform provides a discovery service interface, according to which the plugin can query the access address of the editor service.
+
+After installing the `@ones-op/fetch` package in the `/web` directory, you can use the `OPFetch` method to request the discovery service interface.
+
+```typescript
+interface WebServiceInfo {
+  data: {
+    app_id: string
+    root_route: string
+    http_url: string
+    ws_url: string
+  }[]
+}
+
+function fetchServiceInfo(appID: string) {
+  return OPFetch<WebServiceInfo>('api/project/plugin/web_service/info', {
+    // Override OPFetch's Ones-Plugin-Id plugin preset to make it request the Open Platform service
+    headers: { 'Ones-Plugin-Id': 'built_in_apis' },
+    method: 'post',
+    data: { app_id: appID },
+  })
+}
+
+function Editor() {
+  const { appID } = usePluginInfo()
+  const [wsBaseUrl, setWsBaseUrl] = useState()
+  useEffect(() => {
+    if (appID) {
+      fetchServiceInfo(appID).then((response) => {
+        setWsBaseUrl(response.data.data[0].ws_url)
+      })
+    }
+  }, [appID])
+
+  // ...
+}
+```
+
+### Step 4: Use WebSocket to realize online editing
+
+After getting the WebSocket base URL, the plugin can connect according to the editor service business logic to realize online collaborative editing.
+
+```typescript
+// ...
+
+function Editor() {
+  const { appID } = usePluginInfo()
+  const [wsBaseUrl, setWsBaseUrl] = useState()
+  const [ws, setWs] = useState()
+
+  useEffect(() => {
+    if (appID) {
+      fetchServiceInfo(appID).then((response) => {
+        setWsBaseUrl(response.data.data[0].ws_url)
+      })
+    }
+  }, [appID])
+
+  useEffect(() => {
+    if (wsBaseUrl) {
+      const ws = new WebSocket(`${wsBaseUrl}/my-path`)
+      ws.addEventListener('open', handleOpen)
+      ws.addEventListener('message', handleMessage)
+      ws.addEventListener('error', handleError)
+      ws.addEventListener('close', handleClose)
+      setWs(ws)
+    }
+  }, [wsBaseUrl])
+
+  // ...
+}
+```
+
+### Step 5: Publish the document
+
+Use `useCustomEditorInfo` to get the publish and cancel methods, which will automatically call the corresponding interfaces according to the current scenario to complete the publishing (e.g., in the case of a template scenario, the template will be published instead of the page).
+
+```typescript
+function Editor() {
+  // ...
+  const { cancel, publish } = useCustomEditorInfo()
+
+  return (
+    // ...
+    <Button onClick={cancel}>Cancel</Button>
+    <Button onClick={publish}>Publish</Button>
+    // ...
+  )
+}
+```

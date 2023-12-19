@@ -1,0 +1,6 @@
+name: teamID
+in: query
+description: 团队ID
+required: true
+schema:
+  type: string

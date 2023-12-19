@@ -1,3 +1,7 @@
+---
+sidebar_position: 3
+---
+
 # local.yaml
 
 插件本地调试配置文件，插件工程内置脚手架 `op` 会在执行本地调试相关指令时消费该文件内容。
@@ -226,3 +230,9 @@ ONES 实例接口访问地址。
 ```
 
 你可以从本地调试命令的返回值或着 `config/local.yaml` 文件内得到调试的插件实例 `instance_uuid`。
+
+### dangerously_accept_unauthorized_https
+
+- **类型: ** `boolean`
+
+是否允许不安全的 HTTPS 请求，除非你清楚自己在做什么，否则不要开启此选项。
