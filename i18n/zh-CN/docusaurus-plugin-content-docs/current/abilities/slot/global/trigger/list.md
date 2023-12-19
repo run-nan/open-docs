@@ -1,5 +1,3 @@
-import Image from '@theme/IdealImage'
-
 # 触发列表
 
 :::warning

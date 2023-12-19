@@ -3,8 +3,6 @@ sidebar_position: 7
 description: Flexible communication mechanism to facilitate communication between plugin and ONES.
 ---
 
-import Image from '@theme/IdealImage'
-
 # Event communication
 
 ## Requirements
@@ -78,10 +76,11 @@ npx op add module
 #### Step 2: Dispatch event
 
 ```tsx title="index.tsx"
-import React from 'react'
-import ReactDOM from 'react-dom'
 import { ConfigProvider, Button } from '@ones-design/core'
 import { OPDispatch } from '@ones-op/event'
+import React from 'react'
+import ReactDOM from 'react-dom'
+
 import './index.css'
 
 function App() {
@@ -96,7 +95,7 @@ ReactDOM.render(
   <ConfigProvider>
     <App />
   </ConfigProvider>,
-  document.getElementById('ones-mf-root')
+  document.getElementById('ones-mf-root'),
 )
 ```
 
@@ -127,10 +126,11 @@ npx op add module
 #### Step 2: Dispatch event
 
 ```tsx title="index.tsx"
-import React from 'react'
-import ReactDOM from 'react-dom'
 import { ConfigProvider, Button } from '@ones-design/core'
 import { OPDispatch } from '@ones-op/event'
+import React from 'react'
+import ReactDOM from 'react-dom'
+
 import './index.css'
 
 function App() {
@@ -145,7 +145,7 @@ ReactDOM.render(
   <ConfigProvider>
     <App />
   </ConfigProvider>,
-  document.getElementById('ones-mf-root')
+  document.getElementById('ones-mf-root'),
 )
 ```
 

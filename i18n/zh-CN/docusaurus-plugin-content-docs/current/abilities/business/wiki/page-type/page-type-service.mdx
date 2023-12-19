@@ -3,13 +3,12 @@ sidebar_position: 1
 description: 自定义页面节点类型能力后端编辑服务实现介绍。
 ---
 
-import Image from '@theme/IdealImage'
-
 import wikiNewPage01 from './images/page-type-service-01.png'
 
 # 编辑器服务
 
 WIKI 接入新页面节点类型插件的编辑器服务开发分为三步：
+
 - 独立应用开发
 - 添加 WIKI 新页面类型插槽
 - 添加托管独立应用能力
@@ -178,10 +177,10 @@ Header
 
 Body
 
-| 参数名   | 是否必须 | 值类型   | 取值例子         | 说明                                                           |
-| :------- | :------- | :------- | :--------------- | :------------------------------------------------------------- |
-| app_id  | T        | string | "Xy4-EYjw"     | 插件的app_id信息         |
-| base_url | F        | string   | https://xxxx.com | ONES的Base地址。优先使用该字段，为空则会使用Header中Origin字段 |
+| 参数名   | 是否必须 | 值类型 | 取值例子         | 说明                                                           |
+| :------- | :------- | :----- | :--------------- | :------------------------------------------------------------- |
+| app_id   | T        | string | "Xy4-EYjw"       | 插件的app_id信息                                               |
+| base_url | F        | string | https://xxxx.com | ONES的Base地址。优先使用该字段，为空则会使用Header中Origin字段 |
 
 #### 返回参数列表
 
@@ -196,7 +195,7 @@ data对象
 | app_id     | string | Xy4-EYjw                  | 插件的app_id信息          |
 | root_route | string | /node_demo                | 托管独立服务跟路由信息    |
 | http_url   | string | https://xxx.com/node_demo | 托管独立服务http地址      |
-| ws_url     | string | wss://xxx.com/node_demo    | 托管独立服务websocket地址 |
+| ws_url     | string | wss://xxx.com/node_demo   | 托管独立服务websocket地址 |
 
 #### 请求体示例
 

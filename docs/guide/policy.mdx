@@ -3,21 +3,18 @@ id: policy
 sidebar_position: 3
 ---
 
-import Image from '@theme/IdealImage'
-
 # Plugin Policy
 
 ## Overview
 
 ONES currently supports four policies, which include "simple"、"standard"、"full_binding" and "org_scale".
 
-| Name             | Description         |
-| ----------------| ------------ |
-|simple         |All users are authorized, no manual authorization is required.     |
-|standard         |It is sold by seat and can be authorized independently.    |
-|full_binding      |Follow other product authorizations.     |
-|org_scale         |Bind organization Scale authorization (the organization has activated users).     |
-
+| Name         | Description                                                                   |
+| ------------ | ----------------------------------------------------------------------------- |
+| simple       | All users are authorized, no manual authorization is required.                |
+| standard     | It is sold by seat and can be authorized independently.                       |
+| full_binding | Follow other product authorizations.                                          |
+| org_scale    | Bind organization Scale authorization (the organization has activated users). |
 
 The plugin supports "simple" and "standard".
 
@@ -32,5 +29,3 @@ If the plug-in uses this sales policy, all users can use the plug-in function.
 If the plug-in uses this sales policy, only users whose authorization is added in the authorization management can use the plug-in function.
 
 <Image img={require('./images/organization.png')} />
-
-
