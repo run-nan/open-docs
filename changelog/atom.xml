@@ -9,11 +9,11 @@
     <icon>https://run-nan.github.io/open-docs/images/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[2023.04.18]]></title>
-        <id>/2023/04/18/</id>
+        <id>https://run-nan.github.io/open-docs/changelog/2023/04/18/</id>
         <link href="https://run-nan.github.io/open-docs/changelog/2023/04/18/"/>
         <updated>2023-04-18T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[ONES v3.13.35]]></summary>
-        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-v31335">ONES v3.13.35<a class="hash-link" href="#ones-v31335" title="Direct link to heading">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="features">Features<a class="hash-link" href="#features" title="Direct link to heading">​</a></h3><ul><li>🌟 Provide Custom User Filter Rules ability</li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-v31335">ONES v3.13.35<a href="#ones-v31335" class="hash-link" aria-label="Direct link to ONES v3.13.35" title="Direct link to ONES v3.13.35">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="features">Features<a href="#features" class="hash-link" aria-label="Direct link to Features" title="Direct link to Features">​</a></h3><ul><li>🌟 Provide Custom User Filter Rules ability</li></ul>]]></content>
         <author>
             <name>zhangsenjun</name>
             <email>zhangsenjun@ones.cn</email>
@@ -28,11 +28,11 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[2023.02.28]]></title>
-        <id>/2023/02/28/</id>
+        <id>https://run-nan.github.io/open-docs/changelog/2023/02/28/</id>
         <link href="https://run-nan.github.io/open-docs/changelog/2023/02/28/"/>
         <updated>2023-02-28T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[ONES v3.13.31]]></summary>
-        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-v31331">ONES v3.13.31<a class="hash-link" href="#ones-v31331" title="Direct link to heading">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="features">Features<a class="hash-link" href="#features" title="Direct link to heading">​</a></h3><ul><li>🌟 Provide open capacity error-code standard</li></ul><h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-opnode-error-v010">@ones-op/node-error v0.1.0<a class="hash-link" href="#ones-opnode-error-v010" title="Direct link to heading">​</a></h2><ul><li>Fetch: 🌟 Added an error mechanism for handling platform capabilities, and added an error handling mechanism for plug-in interface standards.</li></ul><h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-opfetch-v053">@ones-op/fetch v0.5.3<a class="hash-link" href="#ones-opfetch-v053" title="Direct link to heading">​</a></h2><ul><li>OPFetch: 🌟 Support autoErrorToast to control and unify the plug-in's error behavior.</li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-v31331">ONES v3.13.31<a href="#ones-v31331" class="hash-link" aria-label="Direct link to ONES v3.13.31" title="Direct link to ONES v3.13.31">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="features">Features<a href="#features" class="hash-link" aria-label="Direct link to Features" title="Direct link to Features">​</a></h3><ul><li>🌟 Provide open capacity error-code standard</li></ul><h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-opnode-error-v010">@ones-op/node-error v0.1.0<a href="#ones-opnode-error-v010" class="hash-link" aria-label="Direct link to @ones-op/node-error v0.1.0" title="Direct link to @ones-op/node-error v0.1.0">​</a></h2><ul><li>Fetch: 🌟 Added an error mechanism for handling platform capabilities, and added an error handling mechanism for plug-in interface standards.</li></ul><h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-opfetch-v053">@ones-op/fetch v0.5.3<a href="#ones-opfetch-v053" class="hash-link" aria-label="Direct link to @ones-op/fetch v0.5.3" title="Direct link to @ones-op/fetch v0.5.3">​</a></h2><ul><li>OPFetch: 🌟 Support autoErrorToast to control and unify the plug-in's error behavior.</li></ul>]]></content>
         <author>
             <name>pengzhencong</name>
             <email>pengzhencong@ones.cn</email>
@@ -49,11 +49,11 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[2022.11.28]]></title>
-        <id>/2022/11/28/</id>
+        <id>https://run-nan.github.io/open-docs/changelog/2022/11/28/</id>
         <link href="https://run-nan.github.io/open-docs/changelog/2022/11/28/"/>
         <updated>2022-11-28T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[ONES v3.11.40]]></summary>
-        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-v31140">ONES v3.11.40<a class="hash-link" href="#ones-v31140" title="Direct link to heading">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="features">Features<a class="hash-link" href="#features" title="Direct link to heading">​</a></h3><ul><li>🌟 Provide custom layout shortcut ability</li><li>🌟 Provide <code>ones:global:modal</code> module</li></ul><h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-opstore-v050">@ones-op/store v0.5.0<a class="hash-link" href="#ones-opstore-v050" title="Direct link to heading">​</a></h2><ul><li>🌟 Provide <code>useTaskInfo</code> hook</li><li>🌟 Provide <code>destroyCurrentModule</code> to destory current module which invoke manually</li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-v31140">ONES v3.11.40<a href="#ones-v31140" class="hash-link" aria-label="Direct link to ONES v3.11.40" title="Direct link to ONES v3.11.40">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="features">Features<a href="#features" class="hash-link" aria-label="Direct link to Features" title="Direct link to Features">​</a></h3><ul><li>🌟 Provide custom layout shortcut ability</li><li>🌟 Provide <code>ones:global:modal</code> module</li></ul><h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-opstore-v050">@ones-op/store v0.5.0<a href="#ones-opstore-v050" class="hash-link" aria-label="Direct link to @ones-op/store v0.5.0" title="Direct link to @ones-op/store v0.5.0">​</a></h2><ul><li>🌟 Provide <code>useTaskInfo</code> hook</li><li>🌟 Provide <code>destroyCurrentModule</code> to destory current module which invoke manually</li></ul>]]></content>
         <author>
             <name>yangbo-qc</name>
             <email>yangbo@ones.cn</email>
@@ -69,11 +69,11 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[2022.11.14]]></title>
-        <id>/2022/11/14/</id>
+        <id>https://run-nan.github.io/open-docs/changelog/2022/11/14/</id>
         <link href="https://run-nan.github.io/open-docs/changelog/2022/11/14/"/>
         <updated>2022-11-14T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[ONES v3.11.30]]></summary>
-        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-v31130">ONES v3.11.30<a class="hash-link" href="#ones-v31130" title="Direct link to heading">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="features">Features<a class="hash-link" href="#features" title="Direct link to heading">​</a></h3><ul><li>🌟 Support wiki custom macro</li></ul><h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-opstore-v040">@ones-op/store v0.4.0<a class="hash-link" href="#ones-opstore-v040" title="Direct link to heading">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="features-1">Features<a class="hash-link" href="#features-1" title="Direct link to heading">​</a></h3><ul><li>🌟 Provide <code>useDocumentInfo</code> hook</li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-v31130">ONES v3.11.30<a href="#ones-v31130" class="hash-link" aria-label="Direct link to ONES v3.11.30" title="Direct link to ONES v3.11.30">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="features">Features<a href="#features" class="hash-link" aria-label="Direct link to Features" title="Direct link to Features">​</a></h3><ul><li>🌟 Support wiki custom macro</li></ul><h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-opstore-v040">@ones-op/store v0.4.0<a href="#ones-opstore-v040" class="hash-link" aria-label="Direct link to @ones-op/store v0.4.0" title="Direct link to @ones-op/store v0.4.0">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="features-1">Features<a href="#features-1" class="hash-link" aria-label="Direct link to Features" title="Direct link to Features">​</a></h3><ul><li>🌟 Provide <code>useDocumentInfo</code> hook</li></ul>]]></content>
         <author>
             <name>wanxin</name>
             <email>wanxin@ones.cn</email>
@@ -84,11 +84,11 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[2022.10.27]]></title>
-        <id>/2022/10/27/</id>
+        <id>https://run-nan.github.io/open-docs/changelog/2022/10/27/</id>
         <link href="https://run-nan.github.io/open-docs/changelog/2022/10/27/"/>
         <updated>2022-10-27T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[ONES v3.11.25]]></summary>
-        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-v31125">ONES v3.11.25<a class="hash-link" href="#ones-v31125" title="Direct link to heading">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="features">Features<a class="hash-link" href="#features" title="Direct link to heading">​</a></h3><ul><li>🌟 Provide ItemHandler ability</li><li>🌟 Provide Sidebar Menu</li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-v31125">ONES v3.11.25<a href="#ones-v31125" class="hash-link" aria-label="Direct link to ONES v3.11.25" title="Direct link to ONES v3.11.25">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="features">Features<a href="#features" class="hash-link" aria-label="Direct link to Features" title="Direct link to Features">​</a></h3><ul><li>🌟 Provide ItemHandler ability</li><li>🌟 Provide Sidebar Menu</li></ul>]]></content>
         <author>
             <name>afengliz</name>
             <email>liyanfeng@ones.cn</email>
@@ -98,11 +98,11 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[2022.10.25]]></title>
-        <id>/2022/10/25/</id>
+        <id>https://run-nan.github.io/open-docs/changelog/2022/10/25/</id>
         <link href="https://run-nan.github.io/open-docs/changelog/2022/10/25/"/>
         <updated>2022-10-25T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[ONES v3.11.16]]></summary>
-        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-v31116">ONES v3.11.16<a class="hash-link" href="#ones-v31116" title="Direct link to heading">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="features">Features<a class="hash-link" href="#features" title="Direct link to heading">​</a></h3><ul><li>🌟 The ability which realize project custom components</li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-v31116">ONES v3.11.16<a href="#ones-v31116" class="hash-link" aria-label="Direct link to ONES v3.11.16" title="Direct link to ONES v3.11.16">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="features">Features<a href="#features" class="hash-link" aria-label="Direct link to Features" title="Direct link to Features">​</a></h3><ul><li>🌟 The ability which realize project custom components</li></ul>]]></content>
         <author>
             <name>yuan666</name>
             <email>zhangyuan@ones.cn</email>
@@ -112,11 +112,11 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[2022.09.27]]></title>
-        <id>/2022/09/27/</id>
+        <id>https://run-nan.github.io/open-docs/changelog/2022/09/27/</id>
         <link href="https://run-nan.github.io/open-docs/changelog/2022/09/27/"/>
         <updated>2022-09-27T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[ONES v3.10.52]]></summary>
-        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-v31052">ONES v3.10.52<a class="hash-link" href="#ones-v31052" title="Direct link to heading">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="features">Features<a class="hash-link" href="#features" title="Direct link to heading">​</a></h3><ul><li>🌟 Provide timer ability</li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-v31052">ONES v3.10.52<a href="#ones-v31052" class="hash-link" aria-label="Direct link to ONES v3.10.52" title="Direct link to ONES v3.10.52">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="features">Features<a href="#features" class="hash-link" aria-label="Direct link to Features" title="Direct link to Features">​</a></h3><ul><li>🌟 Provide timer ability</li></ul>]]></content>
         <author>
             <name>yangbo-qc</name>
             <email>yangbo@ones.cn</email>
@@ -126,11 +126,11 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[2022.09.13]]></title>
-        <id>/2022/09/13/</id>
+        <id>https://run-nan.github.io/open-docs/changelog/2022/09/13/</id>
         <link href="https://run-nan.github.io/open-docs/changelog/2022/09/13/"/>
         <updated>2022-09-13T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[ONES v3.10.14]]></summary>
-        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-v31014">ONES v3.10.14<a class="hash-link" href="#ones-v31014" title="Direct link to heading">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="features">Features<a class="hash-link" href="#features" title="Direct link to heading">​</a></h3><ul><li>🌟 Instructions for project-web open source operation and maintenance tools</li><li>🌟 Instructions for wiki-web open source operation and maintenance tools</li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-v31014">ONES v3.10.14<a href="#ones-v31014" class="hash-link" aria-label="Direct link to ONES v3.10.14" title="Direct link to ONES v3.10.14">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="features">Features<a href="#features" class="hash-link" aria-label="Direct link to Features" title="Direct link to Features">​</a></h3><ul><li>🌟 Instructions for project-web open source operation and maintenance tools</li><li>🌟 Instructions for wiki-web open source operation and maintenance tools</li></ul>]]></content>
         <author>
             <name>yuan666</name>
             <email>zhangyuan@ones.cn</email>
@@ -140,11 +140,11 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[2022.07.11]]></title>
-        <id>/2022/07/11/</id>
+        <id>https://run-nan.github.io/open-docs/changelog/2022/07/11/</id>
         <link href="https://run-nan.github.io/open-docs/changelog/2022/07/11/"/>
         <updated>2022-07-11T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[ONES v3.7.54]]></summary>
-        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-v3754">ONES v3.7.54<a class="hash-link" href="#ones-v3754" title="Direct link to heading">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="features">Features<a class="hash-link" href="#features" title="Direct link to heading">​</a></h3><ul><li>🌟 Provide the Trigger event method</li><li>🌟 Provide TaskEventHandler ability</li></ul><h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-opstore-v022">@ones-op/store v0.2.2<a class="hash-link" href="#ones-opstore-v022" title="Direct link to heading">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="features-1">Features<a class="hash-link" href="#features-1" title="Direct link to heading">​</a></h3><ul><li>🌟 Provide <code>useAction</code> hook</li></ul><h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-opevent-v061">@ones-op/event v0.6.1<a class="hash-link" href="#ones-opevent-v061" title="Direct link to heading">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="features-2">Features<a class="hash-link" href="#features-2" title="Direct link to heading">​</a></h3><ul><li>🌟 Support <code>OPPluginDispatch</code> to return <code>OPPluginListener</code> processing results</li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-v3754">ONES v3.7.54<a href="#ones-v3754" class="hash-link" aria-label="Direct link to ONES v3.7.54" title="Direct link to ONES v3.7.54">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="features">Features<a href="#features" class="hash-link" aria-label="Direct link to Features" title="Direct link to Features">​</a></h3><ul><li>🌟 Provide the Trigger event method</li><li>🌟 Provide TaskEventHandler ability</li></ul><h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-opstore-v022">@ones-op/store v0.2.2<a href="#ones-opstore-v022" class="hash-link" aria-label="Direct link to @ones-op/store v0.2.2" title="Direct link to @ones-op/store v0.2.2">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="features-1">Features<a href="#features-1" class="hash-link" aria-label="Direct link to Features" title="Direct link to Features">​</a></h3><ul><li>🌟 Provide <code>useAction</code> hook</li></ul><h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-opevent-v061">@ones-op/event v0.6.1<a href="#ones-opevent-v061" class="hash-link" aria-label="Direct link to @ones-op/event v0.6.1" title="Direct link to @ones-op/event v0.6.1">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="features-2">Features<a href="#features-2" class="hash-link" aria-label="Direct link to Features" title="Direct link to Features">​</a></h3><ul><li>🌟 Support <code>OPPluginDispatch</code> to return <code>OPPluginListener</code> processing results</li></ul>]]></content>
         <author>
             <name>Y-qwq</name>
             <email>yezijun@ones.cn</email>
@@ -161,11 +161,11 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[2022.07.07]]></title>
-        <id>/2022/07/07/</id>
+        <id>https://run-nan.github.io/open-docs/changelog/2022/07/07/</id>
         <link href="https://run-nan.github.io/open-docs/changelog/2022/07/07/"/>
         <updated>2022-07-07T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[ONES v3.7.51]]></summary>
-        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-v3751">ONES v3.7.51<a class="hash-link" href="#ones-v3751" title="Direct link to heading">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="features">Features<a class="hash-link" href="#features" title="Direct link to heading">​</a></h3><ul><li>🌟 Plugin log support preview and export</li><li>🌟 Plugin configuration add contact field</li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-v3751">ONES v3.7.51<a href="#ones-v3751" class="hash-link" aria-label="Direct link to ONES v3.7.51" title="Direct link to ONES v3.7.51">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="features">Features<a href="#features" class="hash-link" aria-label="Direct link to Features" title="Direct link to Features">​</a></h3><ul><li>🌟 Plugin log support preview and export</li><li>🌟 Plugin configuration add contact field</li></ul>]]></content>
         <author>
             <name>yangbo-qc</name>
             <email>yangbo@ones.cn</email>
@@ -175,11 +175,11 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[2022.06.06]]></title>
-        <id>/2022/06/06/</id>
+        <id>https://run-nan.github.io/open-docs/changelog/2022/06/06/</id>
         <link href="https://run-nan.github.io/open-docs/changelog/2022/06/06/"/>
         <updated>2022-06-06T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[ONES v3.7.1]]></summary>
-        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-v371">ONES v3.7.1<a class="hash-link" href="#ones-v371" title="Direct link to heading">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="features">Features<a class="hash-link" href="#features" title="Direct link to heading">​</a></h3><ul><li>🌟 Plugin support event communication</li><li>🌟 Support the activate Global Progress Manager event</li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-v371">ONES v3.7.1<a href="#ones-v371" class="hash-link" aria-label="Direct link to ONES v3.7.1" title="Direct link to ONES v3.7.1">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="features">Features<a href="#features" class="hash-link" aria-label="Direct link to Features" title="Direct link to Features">​</a></h3><ul><li>🌟 Plugin support event communication</li><li>🌟 Support the activate Global Progress Manager event</li></ul>]]></content>
         <author>
             <name>Y-qwq</name>
             <email>yezijun@ones.cn</email>

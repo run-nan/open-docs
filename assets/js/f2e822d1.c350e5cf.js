@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkopen_docs=self.webpackChunkopen_docs||[]).push([[12516],{85956:e=>{e.exports=JSON.parse('{"permalink":"/open-docs/changelog/tags/ones/page/2","page":2,"postsPerPage":10,"totalPages":2,"totalCount":11,"previousPage":"/open-docs/changelog/tags/ones","blogDescription":"Changelog","blogTitle":"Changelog"}')}}]);

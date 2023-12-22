@@ -11,10 +11,10 @@
         <item>
             <title><![CDATA[2023.04.18]]></title>
             <link>https://run-nan.github.io/open-docs/zh-CN/changelog/2023/04/18/</link>
-            <guid>/2023/04/18/</guid>
+            <guid>https://run-nan.github.io/open-docs/zh-CN/changelog/2023/04/18/</guid>
             <pubDate>Tue, 18 Apr 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[ONES v3.13.35]]></description>
-            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-v31335">ONES v3.13.35<a class="hash-link" href="#ones-v31335" title="标题的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="features">Features<a class="hash-link" href="#features" title="标题的直接链接">​</a></h3><ul><li>🌟 提供自定义用户列表能力</li></ul>]]></content:encoded>
+            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-v31335">ONES v3.13.35<a href="#ones-v31335" class="hash-link" aria-label="ONES v3.13.35的直接链接" title="ONES v3.13.35的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="features">Features<a href="#features" class="hash-link" aria-label="Features的直接链接" title="Features的直接链接">​</a></h3><ul><li>🌟 提供自定义用户列表能力</li></ul>]]></content:encoded>
             <author>zhangsenjun@ones.cn (zhangsenjun)</author>
             <author>zhangyuan@ones.cn (yuan666)</author>
             <category>ONES</category>
@@ -22,10 +22,10 @@
         <item>
             <title><![CDATA[2023.02.28]]></title>
             <link>https://run-nan.github.io/open-docs/zh-CN/changelog/2023/02/28/</link>
-            <guid>/2023/02/28/</guid>
+            <guid>https://run-nan.github.io/open-docs/zh-CN/changelog/2023/02/28/</guid>
             <pubDate>Tue, 28 Feb 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[ONES v3.13.31]]></description>
-            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-v31331">ONES v3.13.31<a class="hash-link" href="#ones-v31331" title="标题的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="功能">功能<a class="hash-link" href="#功能" title="标题的直接链接">​</a></h3><ul><li>🌟 提供开放能力错误码规范</li></ul><h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-opnode-error-v010">@ones-op/node-error v0.1.0<a class="hash-link" href="#ones-opnode-error-v010" title="标题的直接链接">​</a></h2><ul><li>Event: 🌟 添加了处理平台能力的错误机制，添加了插件接口标准的错误处理机制</li></ul><h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-opfetch-v053">@ones-op/fetch v0.5.3<a class="hash-link" href="#ones-opfetch-v053" title="标题的直接链接">​</a></h2><ul><li>OPFetch: 🌟 支持 autoErrorToast 控制和统一插件接口的报错行为</li></ul>]]></content:encoded>
+            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-v31331">ONES v3.13.31<a href="#ones-v31331" class="hash-link" aria-label="ONES v3.13.31的直接链接" title="ONES v3.13.31的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="功能">功能<a href="#功能" class="hash-link" aria-label="功能的直接链接" title="功能的直接链接">​</a></h3><ul><li>🌟 提供开放能力错误码规范</li></ul><h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-opnode-error-v010">@ones-op/node-error v0.1.0<a href="#ones-opnode-error-v010" class="hash-link" aria-label="@ones-op/node-error v0.1.0的直接链接" title="@ones-op/node-error v0.1.0的直接链接">​</a></h2><ul><li>Event: 🌟 添加了处理平台能力的错误机制，添加了插件接口标准的错误处理机制</li></ul><h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-opfetch-v053">@ones-op/fetch v0.5.3<a href="#ones-opfetch-v053" class="hash-link" aria-label="@ones-op/fetch v0.5.3的直接链接" title="@ones-op/fetch v0.5.3的直接链接">​</a></h2><ul><li>OPFetch: 🌟 支持 autoErrorToast 控制和统一插件接口的报错行为</li></ul>]]></content:encoded>
             <author>pengzhencong@ones.cn (pengzhencong)</author>
             <author>caoxing@ones.cn (MikeCxx)</author>
             <category>ONES</category>
@@ -35,10 +35,10 @@
         <item>
             <title><![CDATA[2022.11.28]]></title>
             <link>https://run-nan.github.io/open-docs/zh-CN/changelog/2022/11/28/</link>
-            <guid>/2022/11/28/</guid>
+            <guid>https://run-nan.github.io/open-docs/zh-CN/changelog/2022/11/28/</guid>
             <pubDate>Mon, 28 Nov 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[ONES v3.11.40]]></description>
-            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-v31140">ONES v3.11.40<a class="hash-link" href="#ones-v31140" title="标题的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="features">Features<a class="hash-link" href="#features" title="标题的直接链接">​</a></h3><ul><li>🌟 提供自定义视图快捷操作能力</li><li>🌟 提供 <code>ones:global:modal</code> 全局插槽</li></ul><h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-opstore-v050">@ones-op/store v0.5.0<a class="hash-link" href="#ones-opstore-v050" title="标题的直接链接">​</a></h2><ul><li>🌟 提供 <code>useTaskInfo</code> hook</li><li>🌟 提供 <code>destroyCurrentModule</code> 销毁当前激活模块函数</li></ul>]]></content:encoded>
+            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-v31140">ONES v3.11.40<a href="#ones-v31140" class="hash-link" aria-label="ONES v3.11.40的直接链接" title="ONES v3.11.40的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="features">Features<a href="#features" class="hash-link" aria-label="Features的直接链接" title="Features的直接链接">​</a></h3><ul><li>🌟 提供自定义视图快捷操作能力</li><li>🌟 提供 <code>ones:global:modal</code> 全局插槽</li></ul><h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-opstore-v050">@ones-op/store v0.5.0<a href="#ones-opstore-v050" class="hash-link" aria-label="@ones-op/store v0.5.0的直接链接" title="@ones-op/store v0.5.0的直接链接">​</a></h2><ul><li>🌟 提供 <code>useTaskInfo</code> hook</li><li>🌟 提供 <code>destroyCurrentModule</code> 销毁当前激活模块函数</li></ul>]]></content:encoded>
             <author>yangbo@ones.cn (yangbo-qc)</author>
             <author>caoxing@ones.cn (MikeCxx)</author>
             <category>ONES</category>
@@ -47,10 +47,10 @@
         <item>
             <title><![CDATA[2022.11.14]]></title>
             <link>https://run-nan.github.io/open-docs/zh-CN/changelog/2022/11/14/</link>
-            <guid>/2022/11/14/</guid>
+            <guid>https://run-nan.github.io/open-docs/zh-CN/changelog/2022/11/14/</guid>
             <pubDate>Mon, 14 Nov 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[ONES v3.11.30]]></description>
-            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-v31130">ONES v3.11.30<a class="hash-link" href="#ones-v31130" title="标题的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="features">Features<a class="hash-link" href="#features" title="标题的直接链接">​</a></h3><ul><li>🌟 支持 wiki 自定义宏</li></ul><h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-opstore-v040">@ones-op/store v0.4.0<a class="hash-link" href="#ones-opstore-v040" title="标题的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="features-1">Features<a class="hash-link" href="#features-1" title="标题的直接链接">​</a></h3><ul><li>🌟 提供 <code>useDocumentInfo</code> hook</li></ul>]]></content:encoded>
+            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-v31130">ONES v3.11.30<a href="#ones-v31130" class="hash-link" aria-label="ONES v3.11.30的直接链接" title="ONES v3.11.30的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="features">Features<a href="#features" class="hash-link" aria-label="Features的直接链接" title="Features的直接链接">​</a></h3><ul><li>🌟 支持 wiki 自定义宏</li></ul><h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-opstore-v040">@ones-op/store v0.4.0<a href="#ones-opstore-v040" class="hash-link" aria-label="@ones-op/store v0.4.0的直接链接" title="@ones-op/store v0.4.0的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="features-1">Features<a href="#features-1" class="hash-link" aria-label="Features的直接链接" title="Features的直接链接">​</a></h3><ul><li>🌟 提供 <code>useDocumentInfo</code> hook</li></ul>]]></content:encoded>
             <author>wanxin@ones.cn (wanxin)</author>
             <category>ONES</category>
             <category>@ones-op/store</category>
@@ -58,50 +58,50 @@
         <item>
             <title><![CDATA[2022.10.27]]></title>
             <link>https://run-nan.github.io/open-docs/zh-CN/changelog/2022/10/27/</link>
-            <guid>/2022/10/27/</guid>
+            <guid>https://run-nan.github.io/open-docs/zh-CN/changelog/2022/10/27/</guid>
             <pubDate>Thu, 27 Oct 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[ONES v3.11.25]]></description>
-            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-v31125">ONES v3.11.25<a class="hash-link" href="#ones-v31125" title="标题的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="features">Features<a class="hash-link" href="#features" title="标题的直接链接">​</a></h3><ul><li>🌟 提供 ItemHandler 能力</li><li>🌟 提供 侧边栏选项 能力</li></ul>]]></content:encoded>
+            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-v31125">ONES v3.11.25<a href="#ones-v31125" class="hash-link" aria-label="ONES v3.11.25的直接链接" title="ONES v3.11.25的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="features">Features<a href="#features" class="hash-link" aria-label="Features的直接链接" title="Features的直接链接">​</a></h3><ul><li>🌟 提供 ItemHandler 能力</li><li>🌟 提供 侧边栏选项 能力</li></ul>]]></content:encoded>
             <author>liyanfeng@ones.cn (afengliz)</author>
             <category>ONES</category>
         </item>
         <item>
             <title><![CDATA[2022.10.25]]></title>
             <link>https://run-nan.github.io/open-docs/zh-CN/changelog/2022/10/25/</link>
-            <guid>/2022/10/25/</guid>
+            <guid>https://run-nan.github.io/open-docs/zh-CN/changelog/2022/10/25/</guid>
             <pubDate>Tue, 25 Oct 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[ONES v3.11.16]]></description>
-            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-v31116">ONES v3.11.16<a class="hash-link" href="#ones-v31116" title="标题的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="features">Features<a class="hash-link" href="#features" title="标题的直接链接">​</a></h3><ul><li>🌟 插件承载 project 自定义组件能力</li></ul>]]></content:encoded>
+            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-v31116">ONES v3.11.16<a href="#ones-v31116" class="hash-link" aria-label="ONES v3.11.16的直接链接" title="ONES v3.11.16的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="features">Features<a href="#features" class="hash-link" aria-label="Features的直接链接" title="Features的直接链接">​</a></h3><ul><li>🌟 插件承载 project 自定义组件能力</li></ul>]]></content:encoded>
             <author>zhangyuan@ones.cn (yuan666)</author>
             <category>ONES</category>
         </item>
         <item>
             <title><![CDATA[2022.09.27]]></title>
             <link>https://run-nan.github.io/open-docs/zh-CN/changelog/2022/09/27/</link>
-            <guid>/2022/09/27/</guid>
+            <guid>https://run-nan.github.io/open-docs/zh-CN/changelog/2022/09/27/</guid>
             <pubDate>Tue, 27 Sep 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[ONES v3.10.52]]></description>
-            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-v31052">ONES v3.10.52<a class="hash-link" href="#ones-v31052" title="标题的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="features">Features<a class="hash-link" href="#features" title="标题的直接链接">​</a></h3><ul><li>🌟 提供定时器能力</li></ul>]]></content:encoded>
+            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-v31052">ONES v3.10.52<a href="#ones-v31052" class="hash-link" aria-label="ONES v3.10.52的直接链接" title="ONES v3.10.52的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="features">Features<a href="#features" class="hash-link" aria-label="Features的直接链接" title="Features的直接链接">​</a></h3><ul><li>🌟 提供定时器能力</li></ul>]]></content:encoded>
             <author>yangbo@ones.cn (yangbo-qc)</author>
             <category>ONES</category>
         </item>
         <item>
             <title><![CDATA[2022.09.13]]></title>
             <link>https://run-nan.github.io/open-docs/zh-CN/changelog/2022/09/13/</link>
-            <guid>/2022/09/13/</guid>
+            <guid>https://run-nan.github.io/open-docs/zh-CN/changelog/2022/09/13/</guid>
             <pubDate>Tue, 13 Sep 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[ONES v3.10.14]]></description>
-            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-v31014">ONES v3.10.14<a class="hash-link" href="#ones-v31014" title="标题的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="features">Features<a class="hash-link" href="#features" title="标题的直接链接">​</a></h3><ul><li>🌟 Project-web 开源运维工具使用说明</li><li>🌟 Wiki-web 开源运维工具使用说明</li></ul>]]></content:encoded>
+            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-v31014">ONES v3.10.14<a href="#ones-v31014" class="hash-link" aria-label="ONES v3.10.14的直接链接" title="ONES v3.10.14的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="features">Features<a href="#features" class="hash-link" aria-label="Features的直接链接" title="Features的直接链接">​</a></h3><ul><li>🌟 Project-web 开源运维工具使用说明</li><li>🌟 Wiki-web 开源运维工具使用说明</li></ul>]]></content:encoded>
             <author>zhangyuan@ones.cn (yuan666)</author>
             <category>ONES</category>
         </item>
         <item>
             <title><![CDATA[2022.07.11]]></title>
             <link>https://run-nan.github.io/open-docs/zh-CN/changelog/2022/07/11/</link>
-            <guid>/2022/07/11/</guid>
+            <guid>https://run-nan.github.io/open-docs/zh-CN/changelog/2022/07/11/</guid>
             <pubDate>Mon, 11 Jul 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[ONES v3.7.54]]></description>
-            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-v3754">ONES v3.7.54<a class="hash-link" href="#ones-v3754" title="标题的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="功能">功能<a class="hash-link" href="#功能" title="标题的直接链接">​</a></h3><ul><li>🌟 提供 Trigger 事件方法</li><li>🌟 提供 TaskEventHandler 能力</li></ul><h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-opstore-v022">@ones-op/store v0.2.2<a class="hash-link" href="#ones-opstore-v022" title="标题的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="功能-1">功能<a class="hash-link" href="#功能-1" title="标题的直接链接">​</a></h3><ul><li>🌟 提供 <code>useAction</code> hook</li></ul><h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-opevent-v061">@ones-op/event v0.6.1<a class="hash-link" href="#ones-opevent-v061" title="标题的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="功能-2">功能<a class="hash-link" href="#功能-2" title="标题的直接链接">​</a></h3><ul><li>🌟 支持 <code>OPPluginDispatch</code> 返回 <code>OPPluginListener</code> 的处理结果</li></ul>]]></content:encoded>
+            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-v3754">ONES v3.7.54<a href="#ones-v3754" class="hash-link" aria-label="ONES v3.7.54的直接链接" title="ONES v3.7.54的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="功能">功能<a href="#功能" class="hash-link" aria-label="功能的直接链接" title="功能的直接链接">​</a></h3><ul><li>🌟 提供 Trigger 事件方法</li><li>🌟 提供 TaskEventHandler 能力</li></ul><h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-opstore-v022">@ones-op/store v0.2.2<a href="#ones-opstore-v022" class="hash-link" aria-label="@ones-op/store v0.2.2的直接链接" title="@ones-op/store v0.2.2的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="功能-1">功能<a href="#功能-1" class="hash-link" aria-label="功能的直接链接" title="功能的直接链接">​</a></h3><ul><li>🌟 提供 <code>useAction</code> hook</li></ul><h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-opevent-v061">@ones-op/event v0.6.1<a href="#ones-opevent-v061" class="hash-link" aria-label="@ones-op/event v0.6.1的直接链接" title="@ones-op/event v0.6.1的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="功能-2">功能<a href="#功能-2" class="hash-link" aria-label="功能的直接链接" title="功能的直接链接">​</a></h3><ul><li>🌟 支持 <code>OPPluginDispatch</code> 返回 <code>OPPluginListener</code> 的处理结果</li></ul>]]></content:encoded>
             <author>yezijun@ones.cn (Y-qwq)</author>
             <author>liyanfeng@ones.cn (afengliz)</author>
             <category>ONES</category>
@@ -111,20 +111,20 @@
         <item>
             <title><![CDATA[2022.07.07]]></title>
             <link>https://run-nan.github.io/open-docs/zh-CN/changelog/2022/07/07/</link>
-            <guid>/2022/07/07/</guid>
+            <guid>https://run-nan.github.io/open-docs/zh-CN/changelog/2022/07/07/</guid>
             <pubDate>Thu, 07 Jul 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[ONES v3.7.51]]></description>
-            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-v3751">ONES v3.7.51<a class="hash-link" href="#ones-v3751" title="标题的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="features">Features<a class="hash-link" href="#features" title="标题的直接链接">​</a></h3><ul><li>🌟 插件日志支持预览与导出</li><li>🌟 插件配置新增联系方式</li></ul>]]></content:encoded>
+            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-v3751">ONES v3.7.51<a href="#ones-v3751" class="hash-link" aria-label="ONES v3.7.51的直接链接" title="ONES v3.7.51的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="features">Features<a href="#features" class="hash-link" aria-label="Features的直接链接" title="Features的直接链接">​</a></h3><ul><li>🌟 插件日志支持预览与导出</li><li>🌟 插件配置新增联系方式</li></ul>]]></content:encoded>
             <author>yangbo@ones.cn (yangbo-qc)</author>
             <category>ONES</category>
         </item>
         <item>
             <title><![CDATA[2022.06.06]]></title>
             <link>https://run-nan.github.io/open-docs/zh-CN/changelog/2022/06/06/</link>
-            <guid>/2022/06/06/</guid>
+            <guid>https://run-nan.github.io/open-docs/zh-CN/changelog/2022/06/06/</guid>
             <pubDate>Mon, 06 Jun 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[ONES v3.7.1]]></description>
-            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="ones-v371">ONES v3.7.1<a class="hash-link" href="#ones-v371" title="标题的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="功能">功能<a class="hash-link" href="#功能" title="标题的直接链接">​</a></h3><ul><li>🌟 提供插件事件通信能力</li><li>🌟 提供「激活全局进度管理器」事件</li></ul>]]></content:encoded>
+            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_mYr4" id="ones-v371">ONES v3.7.1<a href="#ones-v371" class="hash-link" aria-label="ONES v3.7.1的直接链接" title="ONES v3.7.1的直接链接">​</a></h2><h3 class="anchor anchorWithStickyNavbar_mYr4" id="功能">功能<a href="#功能" class="hash-link" aria-label="功能的直接链接" title="功能的直接链接">​</a></h3><ul><li>🌟 提供插件事件通信能力</li><li>🌟 提供「激活全局进度管理器」事件</li></ul>]]></content:encoded>
             <author>yezijun@ones.cn (Y-qwq)</author>
             <category>ONES</category>
         </item>

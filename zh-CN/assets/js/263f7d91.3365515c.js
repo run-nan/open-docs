@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkopen_docs=self.webpackChunkopen_docs||[]).push([[8015],{15472:e=>{e.exports=JSON.parse('{"permalink":"/open-docs/zh-CN/changelog/tags/ones-op-store","page":1,"postsPerPage":10,"totalPages":1,"totalCount":3,"blogDescription":"Changelog","blogTitle":"Changelog"}')}}]);
