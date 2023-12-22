@@ -7,7 +7,6 @@ const openAPIConfig = require('./docusaurus.openapi.config')
 
 // 是否是正式版
 const isPublic = process.env.PRODUCTION_ENV === 'production'
-
 // 区分内外部文档
 const envDocsConfig = isPublic
   ? {
@@ -202,6 +201,13 @@ const config = {
         min: 1024,
         steps: 3,
         disableInDev: false,
+      },
+    ],
+    [
+      '@docusaurus/plugin-pwa',
+      {
+        debug: true,
+        offlineModeActivationStrategies: ['always'],
       },
     ],
     ...openAPIConfig.plugins,
