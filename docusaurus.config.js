@@ -2,6 +2,7 @@
 // Note: type annotations allow type checking and IDEs autocompletion
 const lightCodeTheme = require('prism-react-renderer/themes/github')
 const darkCodeTheme = require('prism-react-renderer/themes/dracula')
+const path = require('path')
 
 const openAPIConfig = require('./docusaurus.openapi.config')
 
@@ -207,7 +208,15 @@ const config = {
       '@docusaurus/plugin-pwa',
       {
         debug: true,
-        offlineModeActivationStrategies: ['always'],
+        // offlineModeActivationStrategies: ["always"],
+        swCustom: path.resolve('./sw-runtime-cache/index.js'),
+        pwaHead: [
+          {
+            tagName: 'link',
+            rel: 'manifest',
+            href: '/manifest.json',
+          },
+        ],
       },
     ],
     ...openAPIConfig.plugins,

@@ -8,6 +8,18 @@ dependencies:
   '@docusaurus/plugin-pwa':
     specifier: ~2.4.3
     version: 2.4.3(eslint@8.23.1)(react-dom@18.2.0)(react@18.2.0)(typescript@4.9.5)
+  workbox-cacheable-response:
+    specifier: ^7.0.0
+    version: 7.0.0
+  workbox-expiration:
+    specifier: ^7.0.0
+    version: 7.0.0
+  workbox-routing:
+    specifier: ^7.0.0
+    version: 7.0.0
+  workbox-strategies:
+    specifier: ^7.0.0
+    version: 7.0.0
 
 devDependencies:
   '@commitlint/cli':
@@ -13191,8 +13203,18 @@ packages:
       workbox-core: 6.6.0
     dev: false
 
+  /workbox-cacheable-response@7.0.0:
+    resolution: {integrity: sha512-0lrtyGHn/LH8kKAJVOQfSu3/80WDc9Ma8ng0p2i/5HuUndGttH+mGMSvOskjOdFImLs2XZIimErp7tSOPmu/6g==}
+    dependencies:
+      workbox-core: 7.0.0
+    dev: false
+
   /workbox-core@6.6.0:
     resolution: {integrity: sha512-GDtFRF7Yg3DD859PMbPAYPeJyg5gJYXuBQAC+wyrWuuXgpfoOrIQIvFRZnQ7+czTIQjIr1DhLEGFzZanAT/3bQ==}
+    dev: false
+
+  /workbox-core@7.0.0:
+    resolution: {integrity: sha512-81JkAAZtfVP8darBpfRTovHg8DGAVrKFgHpOArZbdFd78VqHr5Iw65f2guwjE2NlCFbPFDoez3D3/6ZvhI/rwQ==}
     dev: false
 
   /workbox-expiration@6.6.0:
@@ -13200,6 +13222,13 @@ packages:
     dependencies:
       idb: 7.1.1
       workbox-core: 6.6.0
+    dev: false
+
+  /workbox-expiration@7.0.0:
+    resolution: {integrity: sha512-MLK+fogW+pC3IWU9SFE+FRStvDVutwJMR5if1g7oBJx3qwmO69BNoJQVaMXq41R0gg3MzxVfwOGKx3i9P6sOLQ==}
+    dependencies:
+      idb: 7.1.1
+      workbox-core: 7.0.0
     dev: false
 
   /workbox-google-analytics@6.6.0:
@@ -13248,10 +13277,22 @@ packages:
       workbox-core: 6.6.0
     dev: false
 
+  /workbox-routing@7.0.0:
+    resolution: {integrity: sha512-8YxLr3xvqidnbVeGyRGkaV4YdlKkn5qZ1LfEePW3dq+ydE73hUUJJuLmGEykW3fMX8x8mNdL0XrWgotcuZjIvA==}
+    dependencies:
+      workbox-core: 7.0.0
+    dev: false
+
   /workbox-strategies@6.6.0:
     resolution: {integrity: sha512-eC07XGuINAKUWDnZeIPdRdVja4JQtTuc35TZ8SwMb1ztjp7Ddq2CJ4yqLvWzFWGlYI7CG/YGqaETntTxBGdKgQ==}
     dependencies:
       workbox-core: 6.6.0
+    dev: false
+
+  /workbox-strategies@7.0.0:
+    resolution: {integrity: sha512-dg3qJU7tR/Gcd/XXOOo7x9QoCI9nk74JopaJaYAQ+ugLi57gPsXycVdBnYbayVj34m6Y8ppPwIuecrzkpBVwbA==}
+    dependencies:
+      workbox-core: 7.0.0
     dev: false
 
   /workbox-streams@6.6.0:
@@ -13480,3 +13521,7 @@ time:
   /react-dom@18.2.0: '2022-06-14T19:46:48.370Z'
   /react@18.2.0: '2022-06-14T19:46:38.369Z'
   /typescript@4.9.5: '2023-01-30T21:05:37.231Z'
+  /workbox-cacheable-response@7.0.0: '2023-05-31T17:19:52.172Z'
+  /workbox-expiration@7.0.0: '2023-05-31T17:19:52.251Z'
+  /workbox-routing@7.0.0: '2023-05-31T17:19:52.296Z'
+  /workbox-strategies@7.0.0: '2023-05-31T17:19:52.614Z'
